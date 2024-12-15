@@ -12,10 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod user_credential;
+use user_credential::UserCredential;
+
 use http::header::{HeaderName, HeaderValue};
 use std::future::Future;
 
-type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
+pub(crate) type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
 
 /// Represents a [Credential] used to obtain auth [Token][crate::token::Token]s
 /// and the corresponding request headers.
@@ -48,24 +51,70 @@ type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
 /// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 /// [Google Compute Engine]: https://cloud.google.com/products/compute
 /// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
-pub trait Credential: Send + Sync {
-    /// Asynchronously retrieves a token.
-    ///
-    /// Returns a [Token][crate::token::Token] for the current credentials.
-    /// The underlying implementation refreshes the token as needed.
-    fn get_token(&mut self) -> impl Future<Output = Result<crate::token::Token>> + Send;
+pub struct Credential {
+    inner: Box<dyn traits::dynamic::Credential>,
+}
 
-    /// Asynchronously constructs the auth headers.
-    ///
-    /// Different auth tokens are sent via different headers. The
-    /// [Credential] constructs the headers (and header values) that should be
-    /// sent with a request.
-    ///
-    /// The underlying implementation refreshes the token as needed.
+impl traits::Credential for Credential {
     fn get_headers(
         &mut self,
-    ) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;
+    ) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send {
+        self.inner.get_headers()
+    }
 
-    /// Retrieves the universe domain associated with the credential, if any.
-    fn get_universe_domain(&self) -> impl Future<Output = Result<String>> + Send;
+    fn get_universe_domain(&mut self) -> impl Future<Output = Option<String>> + Send {
+        self.inner.get_universe_domain()
+    }
+}
+
+pub mod traits {
+    use super::Future;
+    use super::Result;
+    use super::{HeaderName, HeaderValue};
+
+    pub trait Credential {
+        /// Asynchronously constructs the auth headers.
+        ///
+        /// Different auth tokens are sent via different headers. The
+        /// [Credential] constructs the headers (and header values) that should be
+        /// sent with a request.
+        ///
+        /// The underlying implementation refreshes the token as needed.
+        fn get_headers(
+            &mut self,
+        ) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;
+
+        /// Retrieves the universe domain associated with the credential, if any.
+        fn get_universe_domain(&mut self) -> impl Future<Output = Option<String>> + Send;
+    }
+
+    pub mod dynamic {
+        use super::Result;
+        use super::{HeaderName, HeaderValue};
+
+        #[async_trait::async_trait]
+        pub trait Credential: Send + Sync {
+            /// Asynchronously constructs the auth headers.
+            ///
+            /// Different auth tokens are sent via different headers. The
+            /// [Credential] constructs the headers (and header values) that should be
+            /// sent with a request.
+            ///
+            /// The underlying implementation refreshes the token as needed.
+            async fn get_headers(&mut self) -> Result<Vec<(HeaderName, HeaderValue)>>;
+            
+            /// Retrieves the universe domain associated with the credential, if any.
+            async fn get_universe_domain(&mut self) -> Option<String>;
+        }
+    }
+}
+
+/// Create AccessToken based credentials
+/// 
+/// TODO : Document
+pub async fn create_access_token_credential() -> Result<Credential>
+{
+    Ok(Credential {
+        inner: Box::new(UserCredential{})
+    })
 }

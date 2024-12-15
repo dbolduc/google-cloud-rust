@@ -36,3 +36,12 @@ pub struct Token {
     /// This might include information like granted scopes or other claims.
     pub metadata: Option<std::collections::HashMap<String, String>>,
 }
+
+/*
+use crate::credentials::Result;
+
+#[async_trait::async_trait]
+pub(crate) trait TokenProvider: Send + Sync {
+    async fn get_token(&mut self) -> Result<Token>;
+}
+*/

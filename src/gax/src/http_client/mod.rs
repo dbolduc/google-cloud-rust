@@ -15,6 +15,8 @@
 use crate::error::Error;
 use crate::error::HttpError;
 use auth::Credential;
+use auth_new::credentials::create_access_token_credential;
+use auth_new::credentials::traits::Credential as NewCredential;
 type Result<T> = std::result::Result<T, crate::error::Error>;
 
 #[derive(Clone)]
@@ -52,7 +54,14 @@ impl ReqwestClient {
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
     ) -> Result<O> {
-        builder = builder.bearer_auth(Self::fetch_token(&self.cred).await?);
+        // TODO : DARREN (Begin)
+        // Just create the credentials in the request. All it is doing is reading an env var.
+        let mut creds = create_access_token_credential().await.unwrap();
+        let headers = creds.get_headers().await.unwrap();
+        for header in headers.into_iter() {
+            builder = builder.header(header.0, header.1);
+        }
+        // TODO : DARREN (End)
         if let Some(body) = body {
             builder = builder.json(&body);
         }
