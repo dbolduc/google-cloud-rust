@@ -21,12 +21,30 @@ use reqwest::{Client, Method};
 use std::time::Duration;
 use time::OffsetDateTime;
 
-#[allow(dead_code)] // TODO(#442) - implementation in progress
-struct UserTokenProvider {
+#[derive(serde::Deserialize, serde::Serialize)]
+pub(crate) struct AuthorizedUser {
+    #[serde(rename = "type")]
+    cred_type: String,
+    client_id: String,
+    client_secret: String,
+    refresh_token: String,
+}
+
+pub(crate) struct UserTokenProvider {
     client_id: String,
     client_secret: String,
     refresh_token: String,
     endpoint: String,
+}
+
+// TODO : just making stuff work.
+pub(crate) fn to_utp(au: AuthorizedUser) -> UserTokenProvider {
+    UserTokenProvider {
+        client_id: au.client_id,
+        client_secret: au.client_secret,
+        refresh_token: au.refresh_token,
+        endpoint: "https://oauth2.googleapis.com/token".to_string(),
+    }
 }
 
 #[async_trait::async_trait]
@@ -85,7 +103,8 @@ pub(crate) struct UserCredential<T>
 where
     T: TokenProvider,
 {
-    token_provider: T,
+    // TODO : visibility on this field.
+    pub token_provider: T,
 }
 
 #[async_trait::async_trait]
