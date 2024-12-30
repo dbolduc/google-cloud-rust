@@ -17,7 +17,6 @@ pub(crate) mod user_credential;
 
 use crate::Result;
 use http::header::{HeaderName, HeaderValue};
-use user_credential::{AuthorizedUser, UserCredential};
 use std::future::Future;
 
 /// An implementation of [crate::credentials::traits::Credential].
@@ -167,7 +166,6 @@ pub mod traits {
     }
 }
 
-
 #[derive(serde::Deserialize, serde::Serialize)]
 pub(crate) struct ApplicationDefaultCredentials {
     #[serde(rename = "type")]
@@ -175,13 +173,13 @@ pub(crate) struct ApplicationDefaultCredentials {
 }
 
 /// Create access token credentials.
-/// 
+///
 /// Returns [Application Default Credentials (ADC)][ADC-link].
-/// 
+///
 /// These are the most commonly used credentials, and are expected to meet the
 /// needs of most applications. The Google Default Credentials conform to
 /// [aip/4110]. Consider using these credentials when:
-/// 
+///
 /// - Your application is deployed to a GCP environment such as GCE, GKE, or
 ///   Cloud Run. Each of these deployment environments provides a default service
 ///   account to the application, and offers mechanisms to change the default
@@ -195,10 +193,10 @@ pub(crate) struct ApplicationDefaultCredentials {
 ///   defaults. This environment variable should point to a file containing a
 ///   service account key file, or a JSON object describing your user
 ///   credentials.
-/// 
+///
 /// @see https://cloud.google.com/docs/authentication for more information on
 ///     authentication in GCP.
-/// 
+///
 /// [ADC-link]: https://cloud.google.com/docs/authentication/application-default-credentials
 /// [aip/4110]: https://google.aip.dev/auth/4110
 /// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
@@ -207,8 +205,6 @@ pub(crate) struct ApplicationDefaultCredentials {
 // TODO : do a pass on the documentation.
 pub async fn create_access_token_credential() -> Result<Credential> {
     use crate::errors::CredentialError;
-    use crate::credentials::UserCredential;
-    use crate::credentials::user_credential::to_utp;
 
     let adc_path = adc_path();
 
@@ -217,15 +213,11 @@ pub async fn create_access_token_credential() -> Result<Credential> {
     let js: serde_json::Value = serde_json::from_str(&contents).unwrap();
     let cred_type = js.get("type").unwrap().as_str().unwrap();
     match cred_type {
-        "authorized_user" => {
-            let au: AuthorizedUser = serde_json::from_value(js).unwrap();
-            let tp = to_utp(au);
-
-            return Ok(Credential {
-                inner: Box::new(UserCredential{ token_provider: tp }),
-            })
-        },
-        _ => Err(CredentialError::new(false, Box::from(format!{"Unimplemented credential type: {cred_type}"}))),
+        "authorized_user" => user_credential::creds_from(js),
+        _ => Err(CredentialError::new(
+            false,
+            Box::from(format! {"Unimplemented credential type: {cred_type}"}),
+        )),
     }
 }
 
@@ -236,13 +228,13 @@ fn adc_path() -> String {
     adc_well_known_path()
 }
 
-#[cfg(target_os="windows")]
+#[cfg(target_os = "windows")]
 fn adc_well_known_path() -> String {
     let root = std::env::var("APPDATA").unwrap();
     root + "/gcloud/application_default_credentials.json"
 }
 
-#[cfg(not(target_os="windows"))]
+#[cfg(not(target_os = "windows"))]
 fn adc_well_known_path() -> String {
     let root = std::env::var("HOME").unwrap();
     root + "/.config/gcloud/application_default_credentials.json"
@@ -253,31 +245,46 @@ mod test {
     use super::*;
     use scoped_env::ScopedEnv;
 
-    #[cfg(target_os="windows")]
+    #[cfg(target_os = "windows")]
     #[test]
     #[serial_test::serial]
     fn adc_well_known_path_windows() {
         let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _appdata = ScopedEnv::set("APPDATA", "C:/Users/foo");
-        assert_eq!(adc_well_known_path(), "C:/Users/foo/gcloud/application_default_credentials.json");
-        assert_eq!(adc_path(), "C:/Users/foo/gcloud/application_default_credentials.json");
+        assert_eq!(
+            adc_well_known_path(),
+            "C:/Users/foo/gcloud/application_default_credentials.json"
+        );
+        assert_eq!(
+            adc_path(),
+            "C:/Users/foo/gcloud/application_default_credentials.json"
+        );
     }
 
-    #[cfg(not(target_os="windows"))]
+    #[cfg(not(target_os = "windows"))]
     #[test]
     #[serial_test::serial]
     fn adc_well_known_path_posix() {
         let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _home = ScopedEnv::set("HOME", "/home/foo");
-        assert_eq!(adc_well_known_path(), "/home/foo/.config/gcloud/application_default_credentials.json");
-        
-        assert_eq!(adc_path(), "/home/foo/.config/gcloud/application_default_credentials.json");
+        assert_eq!(
+            adc_well_known_path(),
+            "/home/foo/.config/gcloud/application_default_credentials.json"
+        );
+
+        assert_eq!(
+            adc_path(),
+            "/home/foo/.config/gcloud/application_default_credentials.json"
+        );
     }
-    
+
     #[test]
     #[serial_test::serial]
     fn adc_path_from_env() {
-        let _creds = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "/usr/bar/application_default_credentials.json");
+        let _creds = ScopedEnv::set(
+            "GOOGLE_APPLICATION_CREDENTIALS",
+            "/usr/bar/application_default_credentials.json",
+        );
         assert_eq!(adc_path(), "/usr/bar/application_default_credentials.json");
     }
 

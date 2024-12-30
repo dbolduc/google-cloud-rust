@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::traits::dynamic::Credential;
+use crate::credentials::Credential;
+use crate::credentials::traits::dynamic::Credential as CredentialTrait;
 use crate::credentials::Result;
 use crate::errors::{is_retryable, CredentialError};
 use crate::token::{Token, TokenProvider};
@@ -21,7 +22,17 @@ use reqwest::{Client, Method};
 use std::time::Duration;
 use time::OffsetDateTime;
 
-#[derive(serde::Deserialize, serde::Serialize)]
+const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
+
+pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
+    let tp = UserTokenProvider::from_json(js)?;
+
+    Ok(Credential {
+        inner: Box::new(UserCredential { token_provider: tp }),
+    })
+}
+
+#[derive(Debug, PartialEq, serde::Deserialize)]
 pub(crate) struct AuthorizedUser {
     #[serde(rename = "type")]
     cred_type: String,
@@ -30,6 +41,7 @@ pub(crate) struct AuthorizedUser {
     refresh_token: String,
 }
 
+#[derive(Debug, PartialEq)]
 pub(crate) struct UserTokenProvider {
     client_id: String,
     client_secret: String,
@@ -37,13 +49,15 @@ pub(crate) struct UserTokenProvider {
     endpoint: String,
 }
 
-// TODO : just making stuff work.
-pub(crate) fn to_utp(au: AuthorizedUser) -> UserTokenProvider {
-    UserTokenProvider {
-        client_id: au.client_id,
-        client_secret: au.client_secret,
-        refresh_token: au.refresh_token,
-        endpoint: "https://oauth2.googleapis.com/token".to_string(),
+impl UserTokenProvider {
+    fn from_json(js: serde_json::Value) -> Result<Self> {
+        let au: AuthorizedUser = serde_json::from_value(js).map_err(|e| CredentialError::new(false, e.into()))?;
+        Ok(UserTokenProvider {
+            client_id: au.client_id,
+            client_secret: au.client_secret,
+            refresh_token: au.refresh_token,
+            endpoint: OAUTH2_ENDPOINT.to_string(),
+        })
     }
 }
 
@@ -98,17 +112,18 @@ impl TokenProvider for UserTokenProvider {
 }
 
 /// Data model for a UserCredential
+///
+/// See: https://cloud.google.com/docs/authentication#user-accounts
 #[allow(dead_code)] // TODO(#442) - implementation in progress
 pub(crate) struct UserCredential<T>
 where
     T: TokenProvider,
 {
-    // TODO : visibility on this field.
-    pub token_provider: T,
+    token_provider: T,
 }
 
 #[async_trait::async_trait]
-impl<T> Credential for UserCredential<T>
+impl<T> CredentialTrait for UserCredential<T>
 where
     T: TokenProvider,
 {
@@ -165,6 +180,48 @@ mod test {
     use tokio::task::JoinHandle;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[test]
+    fn user_token_provider_from_json_success() {
+        let json = serde_json::json!({
+            "account": "",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "universe_domain": "googleapis.com",
+            "quota_project_id": "test-project"
+        });
+
+        let expected = UserTokenProvider {
+            client_id: "test-client-id".to_string(),
+            client_secret: "test-client-secret".to_string(),
+            refresh_token: "test-refresh-token".to_string(),
+            endpoint: OAUTH2_ENDPOINT.to_string(),
+        };
+        let actual = UserTokenProvider::from_json(json).unwrap();
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn user_token_provider_from_json_parse_fail() {
+        let json_full = serde_json::json!({
+            "account": "",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "universe_domain": "googleapis.com",
+            "quota_project_id": "test-project"
+        });
+
+        for required_field in ["client_id", "client_secret", "refresh_token"] {
+            let mut json = json_full.clone();
+            // Remove a required field from the JSON
+            json[required_field].take();
+            let _e = UserTokenProvider::from_json(json).err().unwrap();
+        }
+    }
 
     #[tokio::test]
     async fn get_token_success() {
