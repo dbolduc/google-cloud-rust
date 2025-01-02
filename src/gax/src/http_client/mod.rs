@@ -15,29 +15,26 @@
 use crate::error::Error;
 use crate::error::HttpError;
 use crate::Result;
-use auth::Credential;
+use auth::credentials::create_access_token_credential;
+use auth::credentials::traits::Credential as CredentialTrait;
 
 #[derive(Clone)]
 pub struct ReqwestClient {
     inner: reqwest::Client,
-    cred: Credential,
+    //cred: Credential,
     endpoint: String,
 }
 
 impl ReqwestClient {
     pub async fn new(config: ClientConfig, default_endpoint: &str) -> Result<Self> {
         let inner = reqwest::Client::new();
-        let cred = if let Some(c) = config.cred {
-            c
-        } else {
-            ClientConfig::default_credential().await?
-        };
+        //let cred = config.cred.or_else(create_access_token_credential().await.map_err(Error::authentication));
         let endpoint = config
             .endpoint
             .unwrap_or_else(|| default_endpoint.to_string());
         Ok(Self {
             inner,
-            cred,
+            //cred,
             endpoint,
         })
     }
@@ -53,7 +50,13 @@ impl ReqwestClient {
         body: Option<I>,
         options: crate::options::RequestOptions,
     ) -> Result<O> {
-        builder = builder.bearer_auth(Self::fetch_token(&self.cred).await?);
+        // TODO : Darren
+        let mut creds = create_access_token_credential().await.map_err(Error::authentication)?;
+        let headers = creds.get_headers().await.map_err(Error::authentication)?;
+        for header in headers.into_iter() {
+            builder = builder.header(header.0, header.1);
+        }
+        // TODO : Darren
         if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
                 reqwest::header::USER_AGENT,
@@ -75,11 +78,6 @@ impl ReqwestClient {
         }
         let response = response.json::<O>().await.map_err(Error::serde)?;
         Ok(response)
-    }
-
-    async fn fetch_token(cred: &Credential) -> Result<String> {
-        let tok = cred.access_token().await.map_err(Error::authentication)?;
-        Ok(tok.value)
     }
 }
 

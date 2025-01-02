@@ -25,9 +25,9 @@
 //! `*Builder` returned by each client method implements the
 //! [RequestOptionsBuilder] trait where applications can override some defaults.
 
-use crate::error::Error;
-use crate::Result;
-use auth::Credential;
+//use crate::error::Error;
+//use crate::Result;
+//use auth::Credential;
 
 /// A set of options configuring a single request.
 ///
@@ -113,7 +113,7 @@ where
 #[derive(Default)]
 pub struct ClientConfig {
     pub(crate) endpoint: Option<String>,
-    pub(crate) cred: Option<Credential>,
+    //pub(crate) cred: Option<Credential>,
     pub(crate) tracing: bool,
 }
 
@@ -152,6 +152,7 @@ impl ClientConfig {
         self
     }
 
+    /*
     pub fn set_credential<T: Into<Option<Credential>>>(mut self, v: T) -> Self {
         self.cred = v.into();
         self
@@ -168,6 +169,7 @@ impl ClientConfig {
             .await
             .map_err(Error::authentication)
     }
+    */
 }
 
 #[cfg(test)]
@@ -272,6 +274,7 @@ mod test {
         );
     }
 
+    /*
     #[tokio::test]
     async fn config_credentials() -> Result {
         let config = ClientConfig::new().set_credential(auth::Credential::test_credentials());
@@ -298,4 +301,5 @@ mod test {
         assert!(cred.is_err());
         Ok(())
     }
+    */
 }
