@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::traits::dynamic::Credential;
+use crate::credentials::Credential;
+use crate::credentials::traits::dynamic::Credential as CredentialTrait;
 use crate::credentials::Result;
 use crate::errors::{is_retryable, CredentialError};
 use crate::token::{Token, TokenProvider};
@@ -26,11 +27,17 @@ use time::OffsetDateTime;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
-#[allow(dead_code)] // TODO(#442) - implementation in progress
 const METADATA_ROOT: &str = "http://metadata.google.internal/computeMetadata/v1";
 
-#[allow(dead_code)] // TODO(#442) - implementation in progress
-pub(crate) struct MDSCredential<T>
+pub(crate) fn new() -> Result<Credential> {
+    let tp = MDSAccessTokenProvider{ endpoint: METADATA_ROOT.to_string() };
+
+    Ok(Credential {
+        inner: Box::new(MDSCredential { token_provider: tp }),
+    })
+}
+
+struct MDSCredential<T>
 where
     T: TokenProvider,
 {
@@ -38,7 +45,7 @@ where
 }
 
 #[async_trait::async_trait]
-impl<T> Credential for MDSCredential<T>
+impl<T> CredentialTrait for MDSCredential<T>
 where
     T: TokenProvider,
 {
@@ -59,8 +66,7 @@ where
     }
 }
 
-#[allow(dead_code)] // TODO(#442) - implementation in progress
-#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 struct ServiceAccountInfo {
     email: String,
     scopes: Option<Vec<String>>,
@@ -75,13 +81,12 @@ struct MDSTokenResponse {
     token_type: String,
 }
 
-#[allow(dead_code)] // TODO(#442) - implementation in progress
 struct MDSAccessTokenProvider {
     endpoint: String,
 }
 
-#[allow(dead_code)]
 impl MDSAccessTokenProvider {
+    #[allow(dead_code)]
     async fn get_service_account_info(
         request: &Client,
         metadata_service_endpoint: String,
@@ -118,7 +123,6 @@ impl MDSAccessTokenProvider {
 }
 
 #[async_trait]
-#[allow(dead_code)]
 impl TokenProvider for MDSAccessTokenProvider {
     async fn get_token(&mut self) -> Result<Token> {
         let client = Client::new();

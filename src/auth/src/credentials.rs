@@ -210,20 +210,15 @@ pub mod traits {
 /// [AIP-4110]: https://google.aip.dev/auth/4110
 /// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
 pub async fn create_access_token_credential() -> Result<Credential> {
-    let adc_path = adc_path().ok_or(
-        // TODO(#442) - This should (successfully) fall back to MDS Credentials. We will temporarily return an error.
-        CredentialError::new(false, Box::from("Unable to find ADC.")),
-    )?;
-
-    let contents = std::fs::read_to_string(adc_path).map_err(|e| {
-        match e.kind() {
-            std::io::ErrorKind::NotFound => {
-                // TODO(#442) - This should (successfully) fall back to MDS Credentials. We will temporarily return an error.
-                CredentialError::new(false, Box::from("Unable to find ADC."))
-            }
-            _ => CredentialError::new(false, e.into()),
-        }
-    })?;
+    let adc_path = match adc_path() {
+        Some(path) => path,
+        None => { return mds_credential::new(); },
+    };
+    let contents = match std::fs::read_to_string(adc_path) {
+        Ok(contents) => contents,
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => return mds_credential::new(),
+        Err(e) => return Err(CredentialError::new(false, e.into())),
+    };
     let js: serde_json::Value =
         serde_json::from_str(&contents).map_err(|e| CredentialError::new(false, e.into()))?;
     let cred_type = js
