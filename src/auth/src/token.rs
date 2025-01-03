@@ -42,7 +42,7 @@ pub struct Token {
 #[async_trait::async_trait]
 #[allow(dead_code)] // TODO(#442) - implementation in progress
 pub(crate) trait TokenProvider: Send + Sync {
-    async fn get_token(&mut self) -> Result<Token>;
+    async fn get_token(&self) -> Result<Token>;
 }
 
 #[cfg(test)]
@@ -54,7 +54,7 @@ pub(crate) mod test {
 
         #[async_trait::async_trait]
         impl TokenProvider for TokenProvider {
-            async fn get_token(&mut self) -> Result<Token>;
+            async fn get_token(&self) -> Result<Token>;
         }
     }
 }

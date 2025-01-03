@@ -19,16 +19,17 @@ use crate::errors::{is_retryable, CredentialError};
 use crate::token::{Token, TokenProvider};
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION, CONTENT_TYPE};
 use reqwest::{Client, Method};
+use std::sync::Arc;
 use std::time::Duration;
 use time::OffsetDateTime;
 
 const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
 pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
-    let tp = UserTokenProvider::from_json(js)?;
+    let token_provider = UserTokenProvider::from_json(js)?;
 
     Ok(Credential {
-        inner: Box::new(UserCredential { token_provider: tp }),
+        inner: Arc::new(UserCredential { token_provider }),
     })
 }
 
@@ -55,7 +56,7 @@ impl UserTokenProvider {
 
 #[async_trait::async_trait]
 impl TokenProvider for UserTokenProvider {
-    async fn get_token(&mut self) -> Result<Token> {
+    async fn get_token(&self) -> Result<Token> {
         let client = Client::new();
 
         // Make the request
@@ -118,11 +119,11 @@ impl<T> CredentialTrait for UserCredential<T>
 where
     T: TokenProvider,
 {
-    async fn get_token(&mut self) -> Result<Token> {
+    async fn get_token(&self) -> Result<Token> {
         self.token_provider.get_token().await
     }
 
-    async fn get_headers(&mut self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+    async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(|e| CredentialError::new(false, e.into()))?;
@@ -130,7 +131,7 @@ where
         Ok(vec![(AUTHORIZATION, value)])
     }
 
-    async fn get_universe_domain(&mut self) -> Option<String> {
+    async fn get_universe_domain(&self) -> Option<String> {
         Some("googleapis.com".to_string())
     }
 }
@@ -238,7 +239,7 @@ mod test {
             .times(1)
             .return_once(|| Ok(expected_clone));
 
-        let mut uc = UserCredential {
+        let uc = UserCredential {
             token_provider: mock,
         };
         let actual = uc.get_token().await.unwrap();
@@ -252,7 +253,7 @@ mod test {
             .times(1)
             .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
 
-        let mut uc = UserCredential {
+        let uc = UserCredential {
             token_provider: mock,
         };
         assert!(uc.get_token().await.is_err());
@@ -277,7 +278,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let mut uc = UserCredential {
+        let uc = UserCredential {
             token_provider: mock,
         };
         let headers: Vec<HV> = uc
@@ -309,7 +310,7 @@ mod test {
             .times(1)
             .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
 
-        let mut uc = UserCredential {
+        let uc = UserCredential {
             token_provider: mock,
         };
         assert!(uc.get_headers().await.is_err());
@@ -433,7 +434,7 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let mut uc = UserCredential { token_provider: tp };
+        let uc = UserCredential { token_provider: tp };
         let now = OffsetDateTime::now_utc();
         let token = uc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -464,7 +465,7 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let mut uc = UserCredential { token_provider: tp };
+        let uc = UserCredential { token_provider: tp };
         let token = uc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
@@ -485,7 +486,7 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let mut uc = UserCredential { token_provider: tp };
+        let uc = UserCredential { token_provider: tp };
         let e = uc.get_token().await.err().unwrap();
         assert!(e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("try again"));
@@ -504,7 +505,7 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let mut uc = UserCredential { token_provider: tp };
+        let uc = UserCredential { token_provider: tp };
         let e = uc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("epic fail"));
