@@ -272,6 +272,53 @@ fn adc_well_known_path() -> Option<String> {
         .map(|root| root + "/.config/gcloud/application_default_credentials.json")
 }
 
+// TODO : Do we want this? Or some testing library?
+// Note: I can't just tag this thing with `#[cfg(test)]`. It does not propogate to dependents.
+pub mod testing {
+    use crate::credentials::traits::dynamic::Credential as CredentialTrait;
+    use crate::credentials::Credential;
+    use crate::errors::CredentialError;
+    use crate::token::Token;
+    use crate::Result;
+    use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
+    use std::sync::Arc;
+
+    pub fn test_credentials() -> Credential {
+        Credential {
+            inner: Arc::from(TestCredential {}),
+        }
+    }
+
+    /// A simple credentials implementation to use in tests where authentication do not matter.
+    ///
+    /// Always returns a Bearer token, with "test-token" as the value.
+    struct TestCredential {}
+
+    #[async_trait::async_trait]
+    impl CredentialTrait for TestCredential {
+        async fn get_token(&self) -> Result<Token> {
+            Ok(Token {
+                token: "test-token".to_string(),
+                token_type: "Bearer".to_string(),
+                expires_at: None,
+                metadata: None,
+            })
+        }
+
+        async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+            let token = self.get_token().await?;
+            let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
+                .map_err(|e| CredentialError::new(false, e.into()))?;
+            value.set_sensitive(true);
+            Ok(vec![(AUTHORIZATION, value)])
+        }
+
+        async fn get_universe_domain(&self) -> Option<String> {
+            Some("googleapis.com".to_string())
+        }
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
