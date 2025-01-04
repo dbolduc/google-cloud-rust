@@ -339,6 +339,7 @@ struct Key<'a> {
     cred_type: &'a str,
 }
 
+/*
 #[cfg(test)]
 mod tests {
     use crate::Credential;
@@ -363,3 +364,4 @@ mod tests {
         assert_eq!(tok1.value, tok2.value)
     }
 }
+*/

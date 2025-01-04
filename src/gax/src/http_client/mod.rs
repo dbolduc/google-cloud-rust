@@ -28,9 +28,13 @@ pub struct ReqwestClient {
 impl ReqwestClient {
     pub async fn new(config: ClientConfig, default_endpoint: &str) -> Result<Self> {
         let inner = reqwest::Client::new();
-        let cred = create_access_token_credential()
-            .await
-            .map_err(Error::authentication)?;
+        let cred = if let Some(c) = config.cred {
+            c
+        } else {
+            create_access_token_credential()
+                .await
+                .map_err(Error::authentication)?
+        };
         let endpoint = config
             .endpoint
             .unwrap_or_else(|| default_endpoint.to_string());
