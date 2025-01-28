@@ -71,6 +71,14 @@ resource "google_secret_manager_secret_version" "test-sa-creds-json-secret-versi
   secret_data = base64decode(google_service_account_key.test-sa-creds-principal-key.private_key)
 }
 
+# The integration test runner needs access to the service account key secret
+resource "google_secret_manager_secret_iam_member" "test-creds-sa-secret-member" {
+  project = "${var.project}"
+  secret_id = google_secret_manager_secret.test-sa-creds-json-secret.id
+  role = "roles/secretmanager.secretAccessor"
+  member = "serviceAccount:${resource.google_service_account.integration-test-runner.email}"
+}
+
 # The "secret" that will be accessed by the principal testing service account
 # credentials.
 #
