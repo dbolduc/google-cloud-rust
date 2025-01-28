@@ -32,6 +32,8 @@ pub(crate) const DEFAULT_TOKEN_TIMEOUT: Duration = Duration::from_secs(3600);
 pub struct JwsClaims {
     pub iss: String,
     #[serde(skip_serializing_if = "Option::is_none")]
+    // TODO(dbolduc) : bug, this should be serialized as a space-separated string, not an array.
+    // This is blocking integration testing.
     pub scope: Option<Vec<String>>,
     pub aud: Option<String>,
     #[serde(with = "time::serde::timestamp")]

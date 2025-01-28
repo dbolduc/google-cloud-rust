@@ -25,5 +25,10 @@ run-integration-tests = []
 [dependencies]
 
 [dev-dependencies]
+auth = { path = "../../../src/auth", package = "gcp-sdk-auth" }
+gax = { path = "../../../src/gax", package = "gcp-sdk-gax" }
+scoped-env  = "2.1.0"
 secretmanager = { path = "../../../src/generated/cloud/secretmanager/v1", package = "gcp-sdk-secretmanager-v1" }
+serial_test = "3.2.0"
+tempfile    = "3.14.0"
 tokio         = { version = "1.42", features = ["full", "macros"] }

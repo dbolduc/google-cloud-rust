@@ -16,7 +16,7 @@ use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::util::jws::{
     JwsClaims, JwsHeader, CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT,
 };
-use crate::credentials::Result;
+use crate::credentials::{Credential, Result};
 use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
@@ -26,6 +26,7 @@ use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
 use rustls_pemfile::Item;
 use time::OffsetDateTime;
+use std::sync::Arc;
 
 const DEFAULT_HEADER: JwsHeader = JwsHeader {
     alg: "RS256",
@@ -35,6 +36,31 @@ const DEFAULT_HEADER: JwsHeader = JwsHeader {
 
 const DEFAULT_SCOPES: [&str; 1] = ["https://www.googleapis.com/auth/cloud-platform"];
 
+pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
+    // Install a crypto provider
+    //
+    // TODO(dbolduc) :
+    // - this is the application's job.
+    // - but also, application's should not all have to do this.
+    // - seems like the library should supply a default if nothing is installed?
+    if CryptoProvider::get_default().is_none() {
+        CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider()).unwrap();
+    }
+
+    let service_account_info =
+        serde_json::from_value::<ServiceAccountInfo>(js).map_err(CredentialError::non_retryable)?;
+    let token_provider = ServiceAccountTokenProvider {
+        service_account_info,
+    };
+
+    Ok(Credential {
+        inner: Arc::new(ServiceAccountCredential {
+            token_provider,
+            //quota_project_id: au.quota_project_id,
+        }),
+    })
+}
+
 /// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
 /// for more details.
 #[allow(dead_code)]
@@ -42,7 +68,9 @@ const DEFAULT_SCOPES: [&str; 1] = ["https://www.googleapis.com/auth/cloud-platfo
 #[builder(setter(into))]
 pub(crate) struct ServiceAccountInfo {
     client_email: String,
+    // TODO(dbolduc): need debug fmt to suppress these.
     private_key_id: String,
+    // TODO(dbolduc): need debug fmt to suppress these.
     private_key: String,
     project_id: String,
     universe_domain: String,
