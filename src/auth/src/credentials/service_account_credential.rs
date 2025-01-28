@@ -16,7 +16,7 @@ use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::util::jws::{
     JwsClaims, JwsHeader, CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT,
 };
-use crate::credentials::{Credential, Result};
+use crate::credentials::Result;
 use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
@@ -25,14 +25,7 @@ use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
 use rustls_pemfile::Item;
-use std::sync::Arc;
 use time::OffsetDateTime;
-
-const DEFAULT_HEADER: JwsHeader = JwsHeader {
-    alg: "RS256",
-    typ: "JWT",
-    kid: None,
-};
 
 const DEFAULT_SCOPES: &str = "https://www.googleapis.com/auth/cloud-platform";
 
@@ -64,16 +57,26 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
 /// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
 /// for more details.
 #[allow(dead_code)]
-#[derive(serde::Deserialize, Debug, Builder)]
+#[derive(serde::Deserialize, Builder)]
 #[builder(setter(into))]
 pub(crate) struct ServiceAccountInfo {
     client_email: String,
-    // TODO(dbolduc): need debug fmt to suppress these.
     private_key_id: String,
-    // TODO(dbolduc): need debug fmt to suppress these.
     private_key: String,
     project_id: String,
     universe_domain: String,
+}
+
+impl std::fmt::Debug for ServiceAccountInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("ServiceAccountInfo")
+            .field("client_email", &self.client_email)
+            .field("private_key_id", &self.private_key_id)
+            .field("private_key", &"[censored]")
+            .field("project_id", &self.project_id)
+            .field("universe_domain", &self.universe_domain)
+            .finish()
+    }
 }
 
 #[allow(dead_code)] // TODO(#679) - implementation in progress
@@ -108,10 +111,11 @@ impl TokenProvider for ServiceAccountTokenProvider {
             sub: Some(self.service_account_info.client_email.clone()),
         };
 
-        let mut header = DEFAULT_HEADER;
-        if !self.service_account_info.private_key_id.is_empty() {
-            header.kid = Some(self.service_account_info.private_key_id.as_str())
-        }
+        let header = JwsHeader {
+            alg: "RS256",
+            typ: "JWT",
+            kid: &self.service_account_info.private_key_id,
+        };
         let encoded_header_claims = format!("{}.{}", header.encode()?, claims.encode()?);
         let sig = signer
             .sign(encoded_header_claims.as_bytes())
@@ -188,6 +192,7 @@ where
 mod test {
     use super::*;
     use crate::token::test::MockTokenProvider;
+    use base64::Engine;
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::EncodePrivateKey;
     use rsa::pkcs8::LineEnding;
@@ -195,6 +200,23 @@ mod test {
     use rustls_pemfile::Item;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[test]
+    fn debug_token_provider() {
+        let expected = ServiceAccountInfo {
+            client_email: "test-client-email".to_string(),
+            private_key_id: "test-private-key-id".to_string(),
+            private_key: "super-duper-secret-private-key".to_string(),
+            project_id: "test-project-id".to_string(),
+            universe_domain: "test-universe-domain".to_string(),
+        };
+        let fmt = format!("{expected:?}");
+        assert!(fmt.contains("test-client-email"), "{fmt}");
+        assert!(fmt.contains("test-private-key-id"), "{fmt}");
+        assert!(!fmt.contains("super-duper-secret-private-key"), "{fmt}");
+        assert!(fmt.contains("test-project-id"), "{fmt}");
+        assert!(fmt.contains("test-universe-domain"), "{fmt}");
+    }
 
     #[tokio::test]
     async fn get_token_success() {
@@ -290,11 +312,11 @@ mod test {
 
     fn get_mock_service_account() -> ServiceAccountInfo {
         ServiceAccountInfoBuilder::default()
-            .client_email("")
-            .private_key_id("")
+            .client_email("test-client-email")
+            .private_key_id("test-private-key-id")
             .private_key("")
-            .project_id("")
-            .universe_domain("")
+            .project_id("test-project-id")
+            .universe_domain("test-universe-domain")
             .build()
             .unwrap()
     }
@@ -335,6 +357,16 @@ mod test {
             .to_string()
     }
 
+    fn b64_decode_to_json(s: String) -> serde_json::Value {
+        let decoded = String::from_utf8(
+            base64::engine::general_purpose::URL_SAFE_NO_PAD
+                .decode(s)
+                .unwrap(),
+        )
+        .unwrap();
+        serde_json::from_str(&decoded).unwrap()
+    }
+
     #[tokio::test]
     async fn get_service_account_token_pkcs8_key_success() -> TestResult {
         let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
@@ -343,7 +375,28 @@ mod test {
         let token_provider = ServiceAccountTokenProvider {
             service_account_info,
         };
-        assert!(token_provider.get_token().await.is_ok());
+        let token = token_provider.get_token().await?;
+        println!("DEBUG TOKEN: {}", token.token);
+        let re =
+            regex::Regex::new(r"(?<header>[^\.]+)\.(?<claims>[^\.]+)\.(?<sig>[^\.]+)").unwrap();
+        let captures = re.captures(&token.token).ok_or_else(|| {
+            format!(
+                r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
+                token.token
+            )
+        })?;
+        let header = b64_decode_to_json(captures["header"].to_string());
+        assert_eq!(header["alg"], "RS256");
+        assert_eq!(header["typ"], "JWT");
+        assert_eq!(header["kid"], "test-private-key-id");
+
+        let claims = b64_decode_to_json(captures["claims"].to_string());
+        assert_eq!(claims["iss"], "test-client-email");
+        assert_eq!(claims["scope"], DEFAULT_SCOPES);
+        assert!(claims["iat"].is_number());
+        assert!(claims["exp"].is_number());
+        assert_eq!(claims["sub"], "test-client-email");
+
         Ok(())
     }
 
