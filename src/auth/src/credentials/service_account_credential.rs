@@ -25,8 +25,8 @@ use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
 use rustls_pemfile::Item;
-use time::OffsetDateTime;
 use std::sync::Arc;
+use time::OffsetDateTime;
 
 const DEFAULT_HEADER: JwsHeader = JwsHeader {
     alg: "RS256",
@@ -34,7 +34,7 @@ const DEFAULT_HEADER: JwsHeader = JwsHeader {
     kid: None,
 };
 
-const DEFAULT_SCOPES: [&str; 1] = ["https://www.googleapis.com/auth/cloud-platform"];
+const DEFAULT_SCOPES: &str = "https://www.googleapis.com/auth/cloud-platform";
 
 pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
     // Install a crypto provider
@@ -100,15 +100,19 @@ impl TokenProvider for ServiceAccountTokenProvider {
         let exp = now + DEFAULT_TOKEN_TIMEOUT;
         let claims = JwsClaims {
             iss: self.service_account_info.client_email.clone(),
-            scope: Some(DEFAULT_SCOPES.map(|s| s.to_string()).to_vec()),
+            scope: Some(DEFAULT_SCOPES.to_string()),
             aud: None,
             exp,
             iat: now,
             typ: None,
-            sub: None,
+            sub: Some(self.service_account_info.client_email.clone()),
         };
 
-        let encoded_header_claims = format!("{}.{}", DEFAULT_HEADER.encode()?, claims.encode()?);
+        let mut header = DEFAULT_HEADER;
+        if !self.service_account_info.private_key_id.is_empty() {
+            header.kid = Some(self.service_account_info.private_key_id.as_str())
+        }
+        let encoded_header_claims = format!("{}.{}", header.encode()?, claims.encode()?);
         let sig = signer
             .sign(encoded_header_claims.as_bytes())
             .map_err(CredentialError::non_retryable)?;
