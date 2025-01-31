@@ -1,0 +1,38 @@
+# Auth Integration Tests
+
+## Running Integration Tests
+
+### In `rust-auth-testing`
+
+The resources needed
+
+```sh
+env GOOGLE_CLOUD_PROJECT=rust-auth-testing \
+  cargo test --features run-integration-tests -p auth-integration-tests
+```
+
+### In your own test project
+
+TODO : try this with dbolduc-test.
+
+## Test Design
+
+For access token credentials, there are integration tests for each type of
+principal (service account, authorized user, etc.).
+
+For each principal we have:
+- a secret in [SecretManager] containing the [ADC] JSON for this principal
+  - the test runner service account can access this
+  - so can any owners in the GCP project
+- a secret in [SecretManager] containing test data
+  - the test runner service account **cannot** access this
+  - only the principal can access this secret
+
+The steps in the test are:
+1. The principal running the build pulls the ADC JSON from SecretManager.
+1. We create a credential object from the ADC JSON.
+1. We create a SecretManager client using these credentials.
+1. We use this client to access the principal-specific secret.
+
+[ADC]: https://cloud.google.com/docs/authentication/application-default-credentials
+[SecretManager]: https://cloud.google.com/security/products/secret-manager
