@@ -14,7 +14,7 @@
 
 use crate::token::{Token, TokenProvider};
 use crate::Result;
-use std::sync::Arc;
+use std::sync::{Arc, RwLock};
 use std::time::Duration;
 use tokio::sync::{Mutex, Notify};
 // Using tokio's wrapper makes the cache testable without relying on clock times.
@@ -31,7 +31,7 @@ where
     T: TokenProvider,
 {
     // The cached token, or the last seen error.
-    token: Arc<Mutex<Result<Token>>>,
+    token: Arc<RwLock<Result<Token>>>,
 
     // Tracks if a refresh is ongoing. If the lock is held, there is a refresh.
     refresh_in_progress: Arc<Mutex<()>>,
@@ -40,23 +40,6 @@ where
 
     // The token provider. This thing does the refreshing.
     inner: Arc<T>,
-}
-
-// Returns true if we are holding an error, or a token that has expired.
-fn invalid(token: &Result<Token>) -> bool {
-    match token {
-        Ok(t) => t.expires_at.is_some_and(|e| e <= Instant::now().into_std()),
-        Err(_) => true,
-    }
-}
-
-fn valid_but_expiring_soon(token: &Result<Token>) -> bool {
-    match token {
-        Ok(t) => t
-            .expires_at
-            .is_some_and(|e| e <= Instant::now().into_std() + TOKEN_REFRESH_WINDOW),
-        Err(_) => true,
-    }
 }
 
 // We manually implement the `Clone` trait because the Rust compiler will
@@ -77,80 +60,119 @@ impl<T: TokenProvider> TokenCache<T> {
     #[allow(dead_code)]
     pub fn new(inner: T) -> TokenCache<T> {
         TokenCache {
-            token: Arc::new(Mutex::new(Err(crate::errors::CredentialError::retryable_from_str("No token in the cache. This should never happen. Something has gone wrong. Open an issue at https://github.com/googleapis/google-cloud-rust/issues/new?template=bug_report.md.")))),
+            token: Arc::new(RwLock::new(Err(crate::errors::CredentialError::retryable_from_str("No token in the cache. This should never happen. Something has gone wrong. Open an issue at https://github.com/googleapis/google-cloud-rust/issues/new?template=bug_report.md.")))),
             refresh_in_progress: Arc::new(Mutex::new(())),
             refresh_notify: Arc::new(Notify::new()),
             inner: Arc::new(inner),
         }
     }
 
-    // Clones the current token, in a thread-safe manner. Releases the lock on return.
-    async fn current_token(&self) -> Result<Token> {
-        self.token.lock().await.clone()
+    fn state(&self) -> TokenState {
+        let token = self.token.read().unwrap();
+        match &*token {
+            Ok(t) => {
+                match t.expires_at {
+                    None => TokenState::Valid(t.clone()),
+                    Some(e) => {
+                        let now = Instant::now().into_std();
+                        if e <= now {
+                            TokenState::Expired(self.try_refresh_lock())
+                        } else if e <= now + TOKEN_REFRESH_WINDOW {
+                            // TODO : TOKEN_REFRESH_WINDOW needs to be a member variable (that is configurable).
+                            TokenState::Stale((t.clone(), self.try_refresh_lock()))
+                        } else {
+                            TokenState::Valid(t.clone())
+                        }
+                    }
+                }
+            }
+            Err(_) => TokenState::Expired(self.try_refresh_lock()),
+        }
     }
+
+    fn try_refresh_lock(&self) -> RefreshLock {
+        self.refresh_in_progress.clone().try_lock_owned()
+    }
+}
+
+type RefreshLock = std::result::Result<tokio::sync::OwnedMutexGuard<()>, tokio::sync::TryLockError>;
+
+enum TokenState {
+    Expired(RefreshLock),
+    Stale((Token, RefreshLock)),
+    Valid(Token),
 }
 
 #[async_trait::async_trait]
 impl<T: TokenProvider + 'static> TokenProvider for TokenCache<T> {
     async fn get_token(&self) -> Result<Token> {
-        let token = self.current_token().await;
-
-        if invalid(&token) {
-            match self.refresh_in_progress.try_lock() {
-                // Check if there are any outstanding refreshes...
-                Ok(guard) => {
-                    // No refreshes. We should start one.
-                    let token = self.inner.get_token().await;
-
-                    // Store the token, or an updated error.
-                    *self.token.lock().await = token.clone();
-
-                    // The refresh is complete. Release the refresh guard.
-                    drop(guard);
-
-                    // Notify any and all waiters.
-                    self.refresh_notify.notify_waiters();
-
-                    // Return here without asking for the token lock again.
-                    return token;
-                }
-                Err(_) => {
-                    // There is already a refresh. We will await its result.
-                    self.refresh_notify.notified().await;
-                }
+        match self.state() {
+            TokenState::Valid(token) => {
+                // We have a valid token, and it is not expiring any time soon.
+                // Return it immediately.
+                Ok(token)
             }
-    
-            // The refresh operation has completed. We should have a new
-            // error/token. Return it.
-            return self.current_token().await;
-        } else if valid_but_expiring_soon(&token) {
-            // Check if there are any outstanding refreshes...
-            if let Ok(guard) = self.refresh_in_progress.try_lock() {
-                // No refreshes. We should start one, in the background.
-                let inner = self.inner.clone();
-                let token_data = self.token.clone();
-                let refresh_notify = self.refresh_notify.clone();
-                tokio::spawn(async move {
-                    // Note that `guard` has been moved into this closure.
-                    let token = inner.get_token().await;
-                    match token {
-                        Ok(token) => {
-                            // We got a new token, store it.
-                            *token_data.lock().await = Ok(token);
-                            
-                            // The refresh is complete. Release the refresh guard.
-                            drop(guard);
 
-                            // Notify any and all waiters
-                            refresh_notify.notify_waiters();
+            TokenState::Stale((token, refresh_guard)) => {
+                // Check if there are any outstanding refreshes...
+                if let Ok(guard) = refresh_guard {
+                    // No refreshes. We should start one, in the background.
+                    let inner = self.inner.clone();
+                    let token_data = self.token.clone();
+                    let refresh_notify = self.refresh_notify.clone();
+                    tokio::spawn(async move {
+                        // Note that `guard` has been moved into this closure.
+                        let token = inner.get_token().await;
+                        match token {
+                            Ok(token) => {
+                                // We got a new token, store it.
+                                *token_data.write().unwrap() = Ok(token);
+
+                                // The refresh is complete. Release the refresh guard.
+                                drop(guard);
+
+                                // Notify any and all waiters
+                                refresh_notify.notify_waiters();
+                            }
+                            Err(_) => { /* do nothing */ }
                         }
-                        Err(_) => { /* do nothing */ }
+                    });
+                }
+
+                // Return the current token, which is still valid.
+                Ok(token)
+            }
+
+            TokenState::Expired(refresh_guard) => {
+                match refresh_guard {
+                    // Check if there are any outstanding refreshes...
+                    Ok(guard) => {
+                        // No refreshes. We should start one.
+                        let token = self.inner.get_token().await;
+
+                        // Store the token, or an updated error.
+                        *self.token.write().unwrap() = token.clone();
+
+                        // The refresh is complete. Release the refresh guard.
+                        drop(guard);
+
+                        // Notify any and all waiters.
+                        self.refresh_notify.notify_waiters();
+
+                        // Return here without asking for the token lock again.
+                        token
                     }
-                });
+                    Err(_) => {
+                        // There is already a refresh. We will await its result.
+                        self.refresh_notify.notified().await;
+
+                        // The refresh operation has completed. We should have a new
+                        // error/token. Return it.
+                        self.token.read().unwrap().clone()
+                    }
+                }
             }
         }
-
-        token
     }
 }
 
@@ -408,6 +430,11 @@ mod test {
     }
 
     #[tokio::test]
+    async fn stale_token_becomes_expired_while_refreshing() {
+        // TODO : might also want a case for an immediate returning refresh. That is what happens if
+    }
+
+    #[tokio::test]
     async fn background_refresh_thundering_herd_sends_one_request() {
         // I am pretty sure we only want 1 outgoing request at a time here.
         // Maaaaaybe we want N outgoing requests?
@@ -424,5 +451,4 @@ mod test {
         // Return a new token that has a worse expiry.
         // Confirm that we still use the first token
     }
-
 }
