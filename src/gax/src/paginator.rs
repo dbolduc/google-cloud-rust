@@ -12,8 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// TODO : Darren : colocate this stuff, or just don't `use`.
+
+/// `futures` crate is not yet stable, so neither is this feature.
+#[cfg(feature = "unstable-stream")]
 use futures::stream::unfold;
+/// Async streams are not yet stable, so neither is the use of this feature.
+#[cfg(feature = "unstable-stream")]
 use futures::{Stream, StreamExt};
+
+
 use pin_project::pin_project;
 use std::future::Future;
 use std::pin::Pin;
@@ -28,6 +36,81 @@ pub trait PageableResponse {
 
     /// Returns the next page token.
     fn next_page_token(&self) -> String;
+}
+
+// https://stackoverflow.com/questions/58173711/how-can-i-store-an-async-function-in-a-struct-and-call-it-from-a-struct-instance
+use futures::future::BoxFuture;
+trait AsyncFn<T, E> {
+    fn execute(&self, page_token: String) -> BoxFuture<'static, Result<T, E>>;
+}
+
+impl<T, E, F, C> AsyncFn<T, E> for C
+where
+    C: Fn(String) -> F,
+    F: Future<Output = Result<T, E>> + Send + 'static,
+{
+    fn execute(&self, page_token: String) -> BoxFuture<'static, Result<T, E>> {
+        Box::pin(self(page_token))
+    }
+}
+
+struct Darren<T, E> {
+    // The async call
+    execute: Box<dyn AsyncFn<T, E>>,
+
+    // The current page token
+    // TODO : Do I need to think about thread safety?
+    page_token: String,
+}
+
+impl<T, E> Darren<T, E>
+where T: PageableResponse
+{
+    pub fn new<F>(
+        seed_token: String,
+        execute: impl Fn(String) -> F + Clone + Send + Sync + 'static,
+    ) -> Self
+    where
+        F: Future<Output = Result<T, E>> + Send + 'static,
+    {
+        Self {
+            execute: Box::new(execute),
+            page_token: seed_token,
+        }
+    }
+
+    // TODO : This name sucks.
+    pub async fn next_stable(&mut self) -> Option<Result<T, E>> {
+        match self.execute.execute(self.page_token.clone()).await {
+            Ok(page_resp) => {
+                self.page_token = page_resp.next_page_token();
+                if self.page_token.is_empty() {
+                    return None;
+                }
+                Some(Ok(page_resp))
+            },
+            Err(e) => Some(Err(e)),
+        }
+    }
+
+    // `futures` crate is not yet stable, so neither is this feature.
+    #[cfg(feature = "unstable-stream")]
+    /// Returns the next mutation of the wrapped stream.
+    #[allow(clippy::should_implement_trait)]
+    pub fn next(&mut self) -> futures::stream::Next<'_, Self> {
+        StreamExt::next(self)
+    }
+}
+
+impl<T, E> Stream for Darren<T, E> {
+    type Item = Result<T, E>;
+
+    fn poll_next(
+        self: Pin<&mut Self>,
+        cx: &mut std::task::Context<'_>,
+    ) -> std::task::Poll<Option<Self::Item>> {
+        self.project().stream.poll_next(cx)
+    }
 }
 
 /// An adapter that converts list RPCs as defined by [AIP-4233](https://google.aip.dev/client-libraries/4233)
