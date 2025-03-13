@@ -140,7 +140,7 @@ impl ServiceAccountTokenProvider {
             .ok_or_else(no_crypto_provider_error)?;
         #[cfg(feature = "default-crypto-provider")]
         let key_provider = CryptoProvider::get_default().map_or_else(
-            || rustls::crypto::aws_lc_rs::default_provider().key_provider,
+            || rustls::crypto::ring::default_provider().key_provider,
             |p| p.key_provider,
         );
 
