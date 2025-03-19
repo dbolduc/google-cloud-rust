@@ -35,9 +35,9 @@ pub struct JwsClaims {
     pub scope: Option<String>,
     pub aud: Option<String>,
     #[serde(with = "time::serde::timestamp")]
-    pub exp: OffsetDateTime,
+    pub(crate) exp: OffsetDateTime,
     #[serde(with = "time::serde::timestamp")]
-    pub iat: OffsetDateTime,
+    pub(crate) iat: OffsetDateTime,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub typ: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]

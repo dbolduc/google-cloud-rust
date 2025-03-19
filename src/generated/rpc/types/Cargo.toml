@@ -26,7 +26,8 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-bytes      = { version = "1", features = ["serde"] }
-serde      = { version = "1", features = ["serde_derive"] }
-serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
-wkt        = { version = "0.2", path = "../../../../src/wkt", package = "google-cloud-wkt" }
+bytes      = { version = "1", public = true, features = ["serde"] }
+serde      = { version = "1", public = true, features = ["serde_derive"] }
+serde_with = { version = "3", public = true, default-features = false, features = ["base64", "macros", "std"] }
+# Local crates
+wkt        = { version = "0.2", public = true, path = "../../../../src/wkt", package = "google-cloud-wkt" }
