@@ -6291,6 +6291,7 @@ dependencies = [
  "google-cloud-longrunning",
  "google-cloud-secretmanager-v1",
  "google-cloud-speech-v2",
+ "mockall",
  "tokio",
 ]
 

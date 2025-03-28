@@ -214,3 +214,55 @@ pub async fn manually_poll_lro(
     }
 }
 // ANCHOR_END: manual
+
+use google_cloud_gax as gax;
+
+mockall::mock! {
+    #[derive(Debug)]
+    Speech {}
+    impl speech::stub::Speech for Speech {
+        async fn batch_recognize(&self, req: speech::model::BatchRecognizeRequest, _options: gax::options::RequestOptions) -> gax::Result<longrunning::model::Operation>;
+    }
+}
+
+pub async fn mocking(project_id: &str) -> crate::Result<()> {
+        use speech::Poller;
+        let mut mock = MockSpeech::new();
+        mock.expect_batch_recognize()
+            .withf(|r, _| {
+                r.parent == "projects/my-project/locations/us-central1"
+                    && r.secret_id == "my-secret-id"
+                    && r.secret.is_none()
+            })
+            .return_once(|_, _| Err(gax::error::Error::other("simulated failure")));
+
+        let client = speech::client::Speech::from_stub(mock);
+
+    
+        let response = client
+            .batch_recognize(format!(
+                "projects/{project_id}/locations/global/recognizers/_"
+            ))
+            .set_files([speech::model::BatchRecognizeFileMetadata::new()
+                .set_uri("gs://cloud-samples-data/speech/hello.wav")])
+            .set_recognition_output_config(
+                speech::model::RecognitionOutputConfig::new()
+                    .set_inline_response_config(speech::model::InlineOutputConfig::new()),
+            )
+            .set_processing_strategy(
+                speech::model::batch_recognize_request::ProcessingStrategy::DYNAMIC_BATCHING,
+            )
+            .set_config(
+                speech::model::RecognitionConfig::new()
+                    .set_language_codes(["en-US"])
+                    .set_model("short")
+                    .set_auto_decoding_config(speech::model::AutoDetectDecodingConfig::new()),
+            )
+            .poller()
+            .until_done()
+            .await?;
+    
+        println!("LRO completed, response={response:?}");
+    
+        Ok(())
+}
