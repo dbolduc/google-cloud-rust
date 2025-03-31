@@ -15,7 +15,8 @@
 //! This crate contains a number of guides showing how to use the
 //! Google Cloud Client Libraries for Rust.
 
-pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Send + Sync>>;
 
 pub mod lro;
+pub mod mocking;
 pub mod polling_policies;

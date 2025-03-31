@@ -22,3 +22,6 @@ limitations under the License.
 - [How to initialize a client](initialize_a_client.md)
 - [Working with long-running operations](working_with_long_running_operations.md)
 - [Configuring polling policies](configuring_polling_policies.md)
+- [How to mock a client](mock_a_client.md)
+  - [Mocking long-running operations](mocking_lros.md)
+  - [Mocking paginated APIs](mocking_paginated.md)

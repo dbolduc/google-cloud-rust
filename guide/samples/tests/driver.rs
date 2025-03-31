@@ -33,6 +33,16 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread")]
+    async fn mocking_unary() -> user_guide_samples::Result<()> {
+        user_guide_samples::mocking::unary::unary().await
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn mocking_lro() -> user_guide_samples::Result<()> {
+        user_guide_samples::mocking::lro::lro().await
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
     async fn polling_policies_client_backoff() -> user_guide_samples::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         user_guide_samples::polling_policies::client_backoff(&project_id).await
