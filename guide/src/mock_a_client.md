@@ -101,6 +101,15 @@ Finally, we are ready to call our function...
 {{#include ../samples/tests/mocking.rs:validate}}
 ```
 
+### Returning errors
+
+Returning errors is no different than returning successes. We just need to
+change the result returned by our mock.
+
+```rust,ignore
+{{#include ../samples/tests/mocking.rs:error}}
+```
+
 ______________________________________________________________________
 
 ## Full program

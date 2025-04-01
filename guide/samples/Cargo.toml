@@ -42,6 +42,9 @@ google-cloud-speech-v2 = { version = "0.2", path = "../../src/generated/cloud/sp
 # ANCHOR: secretmanager
 google-cloud-secretmanager-v1 = { version = "0.2", path = "../../src/generated/cloud/secretmanager/v1" }
 # ANCHOR_END: secretmanager
+# ANCHOR: wkt
+google-cloud-wkt = { version = "0.3", path = "../../src/wkt" }
+# ANCHOR_END: wkt
 
 # ANCHOR: mockall
 [dev-dependencies]
