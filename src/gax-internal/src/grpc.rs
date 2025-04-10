@@ -61,7 +61,7 @@ impl Client {
         request: Request,
         options: gax::options::RequestOptions,
         api_client_header: &'static str,
-        request_params: &'static str,
+        request_params: String,
     ) -> Result<Response>
     where
         Request: prost::Message + 'static + Clone,
@@ -108,7 +108,7 @@ impl Client {
         request: Request,
         options: gax::options::RequestOptions,
         api_client_header: &'static str,
-        request_params: &'static str,
+        request_params: String,
     ) -> Result<Response>
     where
         Request: prost::Message + 'static + Clone,
@@ -128,7 +128,7 @@ impl Client {
                 &options,
                 remaining_time,
                 api_client_header,
-                request_params,
+                request_params.clone(),
             )
             .await
         };
@@ -155,7 +155,7 @@ impl Client {
         options: &gax::options::RequestOptions,
         remaining_time: Option<std::time::Duration>,
         api_client_header: &'static str,
-        request_params: &'static str,
+        request_params: String,
     ) -> Result<Response>
     where
         Request: prost::Message + 'static,
@@ -171,7 +171,7 @@ impl Client {
         {
             request.set_timeout(timeout);
         }
-        let codec = tonic::codec::ProstCodec::default();
+        let codec: tonic::codec::ProstCodec<Request, Response> = tonic::codec::ProstCodec::default();
         inner.ready().await.map_err(Error::rpc)?;
         let response: tonic::Response<Response> = inner
             .unary(request, path, codec)
@@ -204,7 +204,7 @@ impl Client {
     async fn make_headers(
         credentials: &Credentials,
         api_client_header: &'static str,
-        request_params: &str,
+        request_params: String,
     ) -> Result<http::header::HeaderMap> {
         let mut headers = credentials.headers().await.map_err(Error::authentication)?;
         headers.push((
@@ -213,7 +213,7 @@ impl Client {
         ));
         headers.push((
             http::header::HeaderName::from_static("x-goog-request-params"),
-            http::header::HeaderValue::from_str(request_params).map_err(Error::other)?,
+            http::header::HeaderValue::from_str(request_params.as_str()).map_err(Error::other)?,
         ));
         Ok(http::header::HeaderMap::from_iter(headers))
     }
