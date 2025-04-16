@@ -69,17 +69,15 @@ impl Client {
     {
         match self.get_retry_policy(&options) {
             None => {
-                let mut inner = self.inner.clone();
-                Self::request_attempt::<Request, Response>(
-                    &mut inner,
-                    &self.credentials,
-                    method,
+                self.request_attempt::<Request, Response>(
+                    //&self.credentials,
+                    //method,
                     path,
                     request,
-                    &options,
-                    None,
-                    api_client_header,
-                    request_params,
+                    //options,
+                    //None,
+                    //api_client_header,
+                    //request_params,
                 )
                 .await
             }
@@ -117,20 +115,21 @@ impl Client {
         let idempotent = options.idempotent().unwrap_or(false);
         let retry_throttler = self.get_retry_throttler(&options);
         let backoff_policy = self.get_backoff_policy(&options);
-        let credentials = self.credentials.clone();
+        //let credentials = self.credentials.clone();
+        let this = self.clone();
         let inner = async move |remaining_time: Option<Duration>| {
-            Self::request_attempt::<Request, Response>(
-                &mut self.inner.clone(),
-                &credentials,
-                method.clone(),
-                path.clone(),
-                request.clone(),
-                &options,
-                remaining_time,
-                api_client_header,
-                request_params.clone(),
-            )
-            .await
+            this.clone()
+                .request_attempt::<Request, Response>(
+                    //&credentials,
+                    //method.clone(),
+                    path.clone(),
+                    request.clone(),
+                    //options.clone(),
+                    //remaining_time,
+                    //api_client_header,
+                    //request_params.clone(),
+                )
+                .await
         };
         let sleep = async |d| tokio::time::sleep(d).await;
         gax::retry_loop_internal::retry_loop(
@@ -147,31 +146,37 @@ impl Client {
     /// Makes a single request attempt.
     #[allow(clippy::too_many_arguments)]
     pub async fn request_attempt<Request, Response>(
-        inner: &mut InnerClient,
-        credentials: &Credentials,
-        method: tonic::GrpcMethod<'static>,
+        &self,
+        //credentials: &Credentials,
+        //method: tonic::GrpcMethod<'static>,
         path: http::uri::PathAndQuery,
         request: Request,
-        options: &gax::options::RequestOptions,
-        remaining_time: Option<std::time::Duration>,
-        api_client_header: &'static str,
-        request_params: String,
+        //options: gax::options::RequestOptions,
+        //remaining_time: Option<std::time::Duration>,
+        //api_client_header: &'static str,
+        //request_params: String,
     ) -> Result<Response>
     where
         Request: prost::Message + 'static,
         Response: prost::Message + std::default::Default + 'static,
     {
+        /*
         let headers = Self::make_headers(credentials, api_client_header, request_params).await?;
 
         let mut extensions = tonic::Extensions::new();
         extensions.insert(method);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
-        let mut request = tonic::Request::from_parts(metadata, extensions, request);
-        if let Some(timeout) = gax::retry_loop_internal::effective_timeout(options, remaining_time)
+        */
+        let request = tonic::Request::new(request);
+        /*
+        if let Some(timeout) = gax::retry_loop_internal::effective_timeout(&options, remaining_time)
         {
             request.set_timeout(timeout);
         }
-        let codec: tonic::codec::ProstCodec<Request, Response> = tonic::codec::ProstCodec::default();
+        */
+        let codec: tonic::codec::ProstCodec<Request, Response> =
+            tonic::codec::ProstCodec::default();
+        let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::rpc)?;
         let response: tonic::Response<Response> = inner
             .unary(request, path, codec)
