@@ -27,7 +27,8 @@ use std::sync::Arc;
 use std::time::Duration;
 
 #[doc(hidden)]
-pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
+//pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
+pub type InnerClient = tonic::transport::Channel;
 
 #[doc(hidden)]
 #[derive(Clone, Debug)]
@@ -118,6 +119,7 @@ impl Client {
         let retry_throttler = self.get_retry_throttler(&options);
         let backoff_policy = self.get_backoff_policy(&options);
         let credentials = self.credentials.clone();
+        /*
         let inner = async move |remaining_time: Option<Duration>| {
             Self::request_attempt::<Request, Response>(
                 &mut self.inner.clone(),
@@ -132,6 +134,32 @@ impl Client {
             )
             .await
         };
+        */
+
+        /*
+        let inner = async move | remaining_time:Option<Duration>| {
+            //std::future::ready::<Result<Response>>(
+                Err(gax::error::Error::other("TESTING"))
+            //)
+        };
+        */
+        let inner = async move | remaining_time:Option<Duration>| {
+            Self::darren::<Request, Response>(
+                self.inner.clone()
+            ).await
+        };
+        let inner = async move | remaining_time:Option<Duration>| {
+            Self::darren2::<Request, Response>(
+                remaining_time,
+                request_params.clone(),
+            ).await
+        };
+        let wrapped = Arc::new(tokio::sync::Mutex::new(self.inner.clone()));
+        let inner = async move | remaining_time:Option<Duration>| {
+            Self::darren3::<Request, Response>(
+                wrapped.clone()
+            ).await
+        };
         let sleep = async |d| tokio::time::sleep(d).await;
         gax::retry_loop_internal::retry_loop(
             inner,
@@ -142,6 +170,40 @@ impl Client {
             backoff_policy,
         )
         .await
+    }
+
+    pub async fn darren<Request, Response>(
+        inner: tonic::transport::Channel,
+    ) -> Result<Response>
+    where
+        Request: prost::Message + 'static,
+        Response: prost::Message + std::default::Default + 'static, {
+        let mut client = tonic::client::Grpc::new(inner);
+        client.ready().await.map_err(Error::rpc)?;
+        Err(gax::error::Error::other("TESTING"))
+    }
+
+    pub async fn darren2<Request, Response>(
+        remaining_time: Option<Duration>,
+        request_params: String,
+    ) -> Result<Response>
+    where
+        Request: prost::Message + 'static,
+        Response: prost::Message + std::default::Default + 'static, {
+        println!("{:?} {:?}", request_params, remaining_time);
+        Err(gax::error::Error::other("TESTING"))
+    }
+
+    pub async fn darren3<Request, Response>(
+        wrapped: Arc<tokio::sync::Mutex<tonic::transport::Channel>>,
+    ) -> Result<Response>
+    where
+        Request: prost::Message + 'static,
+        Response: prost::Message + std::default::Default + 'static, {
+        let inner = wrapped.lock().await;
+        let mut client = tonic::client::Grpc::new(inner.clone());
+        client.ready().await.map_err(Error::rpc)?;
+        Err(gax::error::Error::other("TESTING"))
     }
 
     /// Makes a single request attempt.
@@ -172,11 +234,27 @@ impl Client {
             request.set_timeout(timeout);
         }
         let codec: tonic::codec::ProstCodec<Request, Response> = tonic::codec::ProstCodec::default();
+        
+        
+        // TODO : Darren
+        let mut client = tonic::client::Grpc::new(inner);
+        client.ready().await.map_err(Error::rpc)?;
+        let response: tonic::Response<Response> = client
+            .unary(request, path, codec)
+            .await
+            .map_err(to_gax_error)?;
+        
+        /*
         inner.ready().await.map_err(Error::rpc)?;
         let response: tonic::Response<Response> = inner
             .unary(request, path, codec)
             .await
             .map_err(to_gax_error)?;
+        */
+
+
+
+
         let response = response.into_inner();
         Ok(response)
     }
@@ -187,7 +265,8 @@ impl Client {
         )
         .map_err(Error::other)?;
         let conn = endpoint.connect().await.map_err(Error::io)?;
-        Ok(tonic::client::Grpc::new(conn))
+        Ok(conn)
+        //Ok(tonic::client::Grpc::new(conn))
     }
 
     async fn make_credentials(
