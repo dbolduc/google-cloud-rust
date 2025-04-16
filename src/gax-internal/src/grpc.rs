@@ -70,14 +70,13 @@ impl Client {
         match self.get_retry_policy(&options) {
             None => {
                 self.request_attempt::<Request, Response>(
-                    //&self.credentials,
-                    //method,
+                    method,
                     path,
                     request,
-                    //options,
-                    //None,
-                    //api_client_header,
-                    //request_params,
+                    options,
+                    None,
+                    api_client_header,
+                    request_params,
                 )
                 .await
             }
@@ -115,19 +114,21 @@ impl Client {
         let idempotent = options.idempotent().unwrap_or(false);
         let retry_throttler = self.get_retry_throttler(&options);
         let backoff_policy = self.get_backoff_policy(&options);
-        //let credentials = self.credentials.clone();
         let this = self.clone();
         let inner = async move |remaining_time: Option<Duration>| {
             this.clone()
                 .request_attempt::<Request, Response>(
-                    //&credentials,
+                    // TODO : why can't I pass this along.
                     //method.clone(),
+                    tonic::GrpcMethod::new("google.firestore.v1.Firestore", "GetDocument"),
                     path.clone(),
                     request.clone(),
-                    //options.clone(),
-                    //remaining_time,
+                    options.clone(),
+                    remaining_time,
+                    // TODO : why can't I pass this along.
                     //api_client_header,
-                    //request_params.clone(),
+                    "api_client_header",
+                    request_params.clone(),
                 )
                 .await
         };
@@ -147,33 +148,28 @@ impl Client {
     #[allow(clippy::too_many_arguments)]
     pub async fn request_attempt<Request, Response>(
         &self,
-        //credentials: &Credentials,
-        //method: tonic::GrpcMethod<'static>,
+        method: tonic::GrpcMethod<'static>,
         path: http::uri::PathAndQuery,
         request: Request,
-        //options: gax::options::RequestOptions,
-        //remaining_time: Option<std::time::Duration>,
-        //api_client_header: &'static str,
-        //request_params: String,
+        options: gax::options::RequestOptions,
+        remaining_time: Option<std::time::Duration>,
+        api_client_header: &'static str,
+        request_params: String,
     ) -> Result<Response>
     where
         Request: prost::Message + 'static,
         Response: prost::Message + std::default::Default + 'static,
     {
-        /*
-        let headers = Self::make_headers(credentials, api_client_header, request_params).await?;
+        let headers = Self::make_headers(&self.credentials, api_client_header, request_params).await?;
 
         let mut extensions = tonic::Extensions::new();
         extensions.insert(method);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
-        */
-        let request = tonic::Request::new(request);
-        /*
+        let mut request = tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) = gax::retry_loop_internal::effective_timeout(&options, remaining_time)
         {
             request.set_timeout(timeout);
         }
-        */
         let codec: tonic::codec::ProstCodec<Request, Response> =
             tonic::codec::ProstCodec::default();
         let mut inner = self.inner.clone();
