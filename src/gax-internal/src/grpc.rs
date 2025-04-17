@@ -23,6 +23,7 @@ use from_status::to_gax_error;
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::SharedRetryThrottler;
+use http::{HeaderMap, HeaderValue};
 use std::sync::Arc;
 use std::time::Duration;
 
@@ -160,6 +161,29 @@ impl Client {
                 wrapped.clone()
             ).await
         };
+        let inner = async move | remaining_time:Option<Duration>| {
+            Self::darren4::<Request, Response>(
+                api_client_header
+            ).await
+        };
+        let inner = async | remaining_time:Option<Duration>| {
+            darren5::<Request, Response>(
+                api_client_header
+            ).await
+        };
+        let inner = async | remaining_time:Option<Duration>| {
+            Self::darren6::<Request, Response>(
+                HeaderValue::from_static(api_client_header).clone()
+            ).await
+        };
+        let hv = HeaderValue::from_static(api_client_header);
+        let mut m = HeaderMap::new();
+        m.append("x-goog-api-client", hv);
+        let inner = async move | remaining_time:Option<Duration>| {
+            Self::darren7::<Request, Response>(
+                &m
+            ).await
+        };
         let sleep = async |d| tokio::time::sleep(d).await;
         gax::retry_loop_internal::retry_loop(
             inner,
@@ -203,6 +227,39 @@ impl Client {
         let inner = wrapped.lock().await;
         let mut client = tonic::client::Grpc::new(inner.clone());
         client.ready().await.map_err(Error::rpc)?;
+        Err(gax::error::Error::other("TESTING"))
+    }
+
+    pub async fn darren4<Request, Response>(
+        api_client_header: &'static str,
+    ) -> Result<Response>
+    where
+        Request: prost::Message + 'static,
+        Response: prost::Message + std::default::Default + 'static,
+    {
+        println!("{api_client_header}");
+        Err(gax::error::Error::other(format!("TESTING: {}", api_client_header)))
+    }
+
+    pub async fn darren6<Request, Response>(
+        api_client_header: HeaderValue,
+    ) -> Result<Response>
+    where
+        Request: prost::Message + 'static,
+        Response: prost::Message + std::default::Default + 'static,
+    {
+        println!("{:?}", api_client_header);
+        Err(gax::error::Error::other("TESTING"))
+    }
+
+    pub async fn darren7<Request, Response>(
+        m: &HeaderMap,
+    ) -> Result<Response>
+    where
+        Request: prost::Message + 'static,
+        Response: prost::Message + std::default::Default + 'static,
+    {
+        println!("{:?}", m);
         Err(gax::error::Error::other("TESTING"))
     }
 
@@ -327,4 +384,15 @@ impl Client {
             .clone()
             .unwrap_or_else(|| self.retry_throttler.clone())
     }
+}
+
+pub async fn darren5<Request, Response>(
+    api_client_header: &'static str,
+) -> Result<Response>
+where
+    Request: prost::Message + 'static,
+    Response: prost::Message + std::default::Default + 'static,
+{
+    println!("{api_client_header}");
+    Err(gax::error::Error::other(format!("TESTING: {}", api_client_header)))
 }
