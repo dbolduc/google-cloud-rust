@@ -17,7 +17,6 @@
 use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
-use std::sync::Arc;
 
 const DEFAULT_HOST: &str = "https://firestore.googleapis.com";
 
@@ -64,106 +63,83 @@ impl super::stub::Firestore for Firestore {
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::Document> {
         use wkt::prost::Convert;
-        let method = tonic::GrpcMethod::new("google.firestore.v1.Firestore", "GetDocument");
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.firestore.v1.Firestore",
+                "GetDocument",
+            ));
+            e
+        };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/GetDocument");
         let x_goog_request_params = [format!("name={}", req.name)]
             .into_iter()
             .fold(String::new(), |b, p| b + "&" + &p);
-        self
-            .inner
+        self.inner
             .execute(
-                method,
+                extensions,
                 path,
                 req.cnv(),
-                options,
+                &options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 x_goog_request_params,
             )
-            .await.map(|response: crate::google::firestore::v1::Document| response.cnv())
+            .await
+            .map(|response: crate::google::firestore::v1::Document| response.cnv())
     }
 
-    /*
     async fn list_documents(
         &self,
         req: crate::model::ListDocumentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::ListDocumentsRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.firestore.v1.Firestore",
-                    "ListDocuments",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.firestore.v1.Firestore/ListDocuments",
-            );
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::firestore::v1::ListDocumentsResponse> =
-                inner
-                    .unary(request, path, codec)
-                    .await
-                    .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+    ) -> Result<crate::model::ListDocumentsResponse> {
+        use wkt::prost::Convert;
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.firestore.v1.Firestore",
+                "ListDocument",
+            ));
+            e
         };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/ListDocument");
         let x_goog_request_params = [
             format!("parent={}", req.parent),
             format!("collection_id={}", req.collection_id),
         ]
         .into_iter()
         .fold(String::new(), |b, p| b + "&" + &p);
-
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                &options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
             .await
+            .map(|response: crate::google::firestore::v1::ListDocumentsResponse| response.cnv())
     }
 
     async fn update_document(
         &self,
         req: crate::model::UpdateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Document>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::UpdateDocumentRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.firestore.v1.Firestore",
-                    "UpdateDocument",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.firestore.v1.Firestore/UpdateDocument",
-            );
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::firestore::v1::Document> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+    ) -> Result<crate::model::Document> {
+        use wkt::prost::Convert;
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.firestore.v1.Firestore",
+                "UpdateDocument",
+            ));
+            e
         };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/UpdateDocument");
         let x_goog_request_params = [format!(
             "document.name={}",
             req.document
@@ -173,52 +149,50 @@ impl super::stub::Firestore for Firestore {
         )]
         .into_iter()
         .fold(String::new(), |b, p| b + "&" + &p);
-
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                &options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
             .await
+            .map(|response: crate::google::firestore::v1::Document| response.cnv())
     }
 
     async fn delete_document(
         &self,
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::DeleteDocumentRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.firestore.v1.Firestore",
-                    "DeleteDocument",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.firestore.v1.Firestore/DeleteDocument",
-            );
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<()> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, _body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                (),
-            ))
+    ) -> Result<()> {
+        use wkt::prost::Convert;
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.firestore.v1.Firestore",
+                "DeleteDocument",
+            ));
+            e
         };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/DeleteDocument");
         let x_goog_request_params = [format!("name={}", req.name)]
             .into_iter()
             .fold(String::new(), |b, p| b + "&" + &p);
-
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                &options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
             .await
     }
+    /*
 
     async fn begin_transaction(
         &self,
@@ -471,50 +445,40 @@ impl super::stub::Firestore for Firestore {
         self.execute(call, req, &options, x_goog_request_params)
             .await
     }
+    */
 
     async fn create_document(
         &self,
         req: crate::model::CreateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Document>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::CreateDocumentRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.firestore.v1.Firestore",
-                    "CreateDocument",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.firestore.v1.Firestore/CreateDocument",
-            );
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::firestore::v1::Document> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+    ) -> Result<crate::model::Document> {
+        use wkt::prost::Convert;
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.firestore.v1.Firestore",
+                "CreateDocument",
+            ));
+            e
         };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/CreateDocument");
         let x_goog_request_params = [
             format!("parent={}", req.parent),
             format!("collection_id={}", req.collection_id),
         ]
         .into_iter()
         .fold(String::new(), |b, p| b + "&" + &p);
-
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                &options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
             .await
+            .map(|response: crate::google::firestore::v1::Document| response.cnv())
     }
-    */
 }
