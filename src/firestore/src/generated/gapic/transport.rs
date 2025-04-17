@@ -99,12 +99,12 @@ impl super::stub::Firestore for Firestore {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
                 "google.firestore.v1.Firestore",
-                "ListDocument",
+                "ListDocuments",
             ));
             e
         };
         let path =
-            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/ListDocument");
+            http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/ListDocuments");
         let x_goog_request_params = [
             format!("parent={}", req.parent),
             format!("collection_id={}", req.collection_id),

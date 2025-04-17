@@ -163,11 +163,11 @@ impl Client {
     }
 
     async fn make_inner(endpoint: Option<String>, default_endpoint: &str) -> Result<InnerClient> {
-        let endpoint = tonic::transport::Endpoint::from_shared(
+        let endpoint = tonic::transport::Endpoint::new(
             endpoint.unwrap_or_else(|| default_endpoint.to_string()),
         )
         .map_err(Error::other)?;
-        let conn = endpoint.connect().await.map_err(Error::io)?;
+        let conn = endpoint.connect().await.map_err(Error::other)?;
         Ok(tonic::client::Grpc::new(conn))
     }
 
