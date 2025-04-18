@@ -30,6 +30,7 @@ macro_rules! impl_primitive {
     };
 }
 
+impl_primitive!(());
 impl_primitive!(bool);
 impl_primitive!(f32);
 impl_primitive!(i32);

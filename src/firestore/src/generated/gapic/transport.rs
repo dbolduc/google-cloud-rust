@@ -17,6 +17,8 @@
 use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
+use gax::response::Response;
+use gaxi::prost::Convert;
 
 const DEFAULT_HOST: &str = "https://firestore.googleapis.com";
 
@@ -61,8 +63,7 @@ impl super::stub::Firestore for Firestore {
         &self,
         req: crate::model::GetDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Document> {
-        use wkt::prost::Convert;
+    ) -> Result<Response<crate::model::Document>> {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -86,15 +87,22 @@ impl super::stub::Firestore for Firestore {
                 x_goog_request_params,
             )
             .await
-            .map(|response: crate::google::firestore::v1::Document| response.cnv())
+            .map(
+                |response: tonic::Response<crate::google::firestore::v1::Document>| {
+                    let (metadata, body, _extensions) = response.into_parts();
+                    gax::response::Response::from_parts(
+                        gax::response::Parts::new().set_headers(metadata.into_headers()),
+                        body.cnv(),
+                    )
+                },
+            )
     }
 
     async fn list_documents(
         &self,
         req: crate::model::ListDocumentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDocumentsResponse> {
-        use wkt::prost::Convert;
+    ) -> Result<Response<crate::model::ListDocumentsResponse>> {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -121,15 +129,22 @@ impl super::stub::Firestore for Firestore {
                 x_goog_request_params,
             )
             .await
-            .map(|response: crate::google::firestore::v1::ListDocumentsResponse| response.cnv())
+            .map(
+                |response: tonic::Response<crate::google::firestore::v1::ListDocumentsResponse>| {
+                    let (metadata, body, _extensions) = response.into_parts();
+                    gax::response::Response::from_parts(
+                        gax::response::Parts::new().set_headers(metadata.into_headers()),
+                        body.cnv(),
+                    )
+                },
+            )
     }
 
     async fn update_document(
         &self,
         req: crate::model::UpdateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Document> {
-        use wkt::prost::Convert;
+    ) -> Result<Response<crate::model::Document>> {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -159,15 +174,22 @@ impl super::stub::Firestore for Firestore {
                 x_goog_request_params,
             )
             .await
-            .map(|response: crate::google::firestore::v1::Document| response.cnv())
+            .map(
+                |response: tonic::Response<crate::google::firestore::v1::Document>| {
+                    let (metadata, body, _extensions) = response.into_parts();
+                    gax::response::Response::from_parts(
+                        gax::response::Parts::new().set_headers(metadata.into_headers()),
+                        body.cnv(),
+                    )
+                },
+            )
     }
 
     async fn delete_document(
         &self,
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
-        use wkt::prost::Convert;
+    ) -> Result<Response<()>> {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -191,6 +213,13 @@ impl super::stub::Firestore for Firestore {
                 x_goog_request_params,
             )
             .await
+            .map(|response: tonic::Response<()>| {
+                let (metadata, body, _extensions) = response.into_parts();
+                gax::response::Response::from_parts(
+                    gax::response::Parts::new().set_headers(metadata.into_headers()),
+                    body.cnv(),
+                )
+            })
     }
     /*
 
@@ -451,8 +480,7 @@ impl super::stub::Firestore for Firestore {
         &self,
         req: crate::model::CreateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Document> {
-        use wkt::prost::Convert;
+    ) -> Result<Response<crate::model::Document>> {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -479,6 +507,14 @@ impl super::stub::Firestore for Firestore {
                 x_goog_request_params,
             )
             .await
-            .map(|response: crate::google::firestore::v1::Document| response.cnv())
+            .map(
+                |response: tonic::Response<crate::google::firestore::v1::Document>| {
+                    let (metadata, body, _extensions) = response.into_parts();
+                    gax::response::Response::from_parts(
+                        gax::response::Parts::new().set_headers(metadata.into_headers()),
+                        body.cnv(),
+                    )
+                },
+            )
     }
 }

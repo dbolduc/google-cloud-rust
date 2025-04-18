@@ -63,13 +63,14 @@ impl Client {
         options: &gax::options::RequestOptions,
         api_client_header: &'static str,
         request_params: String,
-    ) -> Result<Response>
+        // TODO : Response template is a bit confusing now.
+    ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static + Clone,
         Response: prost::Message + Default + 'static,
     {
         let headers =
-            Self::make_headers(&self.credentials, api_client_header, request_params).await?;
+            Self::make_headers(&self.credentials, api_client_header, &request_params).await?;
         match self.get_retry_policy(&options) {
             None => {
                 self.request_attempt::<Request, Response>(
@@ -96,7 +97,7 @@ impl Client {
         request: Request,
         options: &gax::options::RequestOptions,
         headers: HeaderMap,
-    ) -> Result<Response>
+    ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static + Clone,
         Response: prost::Message + Default + 'static,
@@ -140,7 +141,7 @@ impl Client {
         options: &gax::options::RequestOptions,
         remaining_time: Option<std::time::Duration>,
         headers: HeaderMap,
-    ) -> Result<Response>
+    ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static,
         Response: prost::Message + std::default::Default + 'static,
@@ -154,12 +155,10 @@ impl Client {
         let codec = tonic::codec::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::rpc)?;
-        let response: tonic::Response<Response> = inner
+        inner
             .unary(request, path, codec)
             .await
-            .map_err(to_gax_error)?;
-        let response = response.into_inner();
-        Ok(response)
+            .map_err(to_gax_error)
     }
 
     async fn make_inner(endpoint: Option<String>, default_endpoint: &str) -> Result<InnerClient> {
@@ -185,7 +184,7 @@ impl Client {
     async fn make_headers(
         credentials: &Credentials,
         api_client_header: &'static str,
-        request_params: String,
+        request_params: &str,
     ) -> Result<http::header::HeaderMap> {
         let mut headers = credentials.headers().await.map_err(Error::authentication)?;
         headers.push((
@@ -194,7 +193,7 @@ impl Client {
         ));
         headers.push((
             http::header::HeaderName::from_static("x-goog-request-params"),
-            http::header::HeaderValue::from_str(request_params.as_str()).map_err(Error::other)?,
+            http::header::HeaderValue::from_str(request_params).map_err(Error::other)?,
         ));
         Ok(http::header::HeaderMap::from_iter(headers))
     }
