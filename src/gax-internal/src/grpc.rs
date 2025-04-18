@@ -60,7 +60,7 @@ impl Client {
         extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
         request: Request,
-        options: &gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
         api_client_header: &'static str,
         request_params: String,
         // TODO : Response template is a bit confusing now.
@@ -74,7 +74,7 @@ impl Client {
         match self.get_retry_policy(&options) {
             None => {
                 self.request_attempt::<Request, Response>(
-                    extensions, path, request, options, None, headers,
+                    extensions, path, request, &options, None, headers,
                 )
                 .await
             }
@@ -95,7 +95,7 @@ impl Client {
         extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
         request: Request,
-        options: &gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
         headers: HeaderMap,
     ) -> Result<tonic::Response<Response>>
     where
@@ -106,7 +106,6 @@ impl Client {
         let retry_throttler = self.get_retry_throttler(&options);
         let backoff_policy = self.get_backoff_policy(&options);
         let this = self.clone();
-        let options = options.clone();
         let inner = async move |remaining_time: Option<Duration>| {
             this.clone()
                 .request_attempt::<Request, Response>(

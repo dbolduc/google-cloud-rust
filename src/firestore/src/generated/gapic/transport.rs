@@ -82,7 +82,7 @@ impl super::stub::Firestore for Firestore {
                 extensions,
                 path,
                 req.cnv(),
-                &options,
+                options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 x_goog_request_params,
             )
@@ -124,7 +124,7 @@ impl super::stub::Firestore for Firestore {
                 extensions,
                 path,
                 req.cnv(),
-                &options,
+                options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 x_goog_request_params,
             )
@@ -169,7 +169,7 @@ impl super::stub::Firestore for Firestore {
                 extensions,
                 path,
                 req.cnv(),
-                &options,
+                options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 x_goog_request_params,
             )
@@ -208,7 +208,7 @@ impl super::stub::Firestore for Firestore {
                 extensions,
                 path,
                 req.cnv(),
-                &options,
+                options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 x_goog_request_params,
             )
@@ -502,7 +502,7 @@ impl super::stub::Firestore for Firestore {
                 extensions,
                 path,
                 req.cnv(),
-                &options,
+                options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 x_goog_request_params,
             )
