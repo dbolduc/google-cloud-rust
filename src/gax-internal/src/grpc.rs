@@ -70,7 +70,7 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         let headers =
-            Self::make_headers(&self.credentials, api_client_header, &request_params).await?;
+            Self::make_headers(api_client_header, &request_params).await?;
         match self.get_retry_policy(&options) {
             None => {
                 self.request_attempt::<Request, Response>(
@@ -145,6 +145,12 @@ impl Client {
         Request: prost::Message + 'static,
         Response: prost::Message + std::default::Default + 'static,
     {
+        let mut headers = headers;
+        let auth_headers = self.credentials.headers().await.map_err(Error::authentication)?;
+        for (key, value) in auth_headers.into_iter() {
+            headers.append(key, value);
+        }
+
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
         let mut request = tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) = gax::retry_loop_internal::effective_timeout(options, remaining_time)
@@ -181,20 +187,19 @@ impl Client {
     }
 
     async fn make_headers(
-        credentials: &Credentials,
         api_client_header: &'static str,
         request_params: &str,
     ) -> Result<http::header::HeaderMap> {
-        let mut headers = credentials.headers().await.map_err(Error::authentication)?;
-        headers.push((
+        let mut headers = HeaderMap::new();
+        headers.append(
             http::header::HeaderName::from_static("x-goog-api-client"),
             http::header::HeaderValue::from_static(api_client_header),
-        ));
-        headers.push((
+        );
+        headers.append(
             http::header::HeaderName::from_static("x-goog-request-params"),
             http::header::HeaderValue::from_str(request_params).map_err(Error::other)?,
-        ));
-        Ok(http::header::HeaderMap::from_iter(headers))
+        );
+        Ok(headers)
     }
 
     fn get_retry_policy(
