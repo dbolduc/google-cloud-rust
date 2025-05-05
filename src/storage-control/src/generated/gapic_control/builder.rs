@@ -398,11 +398,6 @@ pub mod storage_control {
         }
 
         /// Sends the request.
-        ///
-        /// # Long running operations
-        ///
-        /// This starts, but does not poll, a longrunning operation. More information
-        /// on [rename_folder][super::super::client::StorageControl::rename_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .rename_folder(self.0.request, self.0.options)

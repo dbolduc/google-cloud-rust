@@ -102,6 +102,7 @@ pub mod {{Codec.ModuleName}} {
         }
 
         /// Sends the request.
+        {{^Codec.SkipBuilderDocs}}
         {{#OperationInfo}}
         ///
         /// # Long running operations
@@ -109,6 +110,7 @@ pub mod {{Codec.ModuleName}} {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [{{Method.Codec.Name}}][super::super::client::{{Method.Codec.ServiceNameToPascal}}::{{Method.Codec.Name}}].
         {{/OperationInfo}}
+        {{/Codec.SkipBuilderDocs}}
         pub async fn send(self) -> Result<{{Codec.ReturnType}}> {
             {{!
                 In rare cases `self.0.stub.foo` is ambiguous: we are calling
