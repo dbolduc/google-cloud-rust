@@ -95,7 +95,6 @@ impl gaxi::prost::ToProto<precondition::ConditionType> for crate::generated::gap
         match self {
             Self::Exists(v) => Ok(Self::Output::Exists(v.to_proto()?)),
             Self::UpdateTime(v) => Ok(Self::Output::UpdateTime((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -104,8 +103,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::precondition::Condit
     fn cnv(self) -> crate::generated::gapic::model::precondition::ConditionType {
         use crate::generated::gapic::model::precondition::ConditionType as T;
         match self {
-            Self::Exists(v) => T::Exists(v.cnv()),
-            Self::UpdateTime(v) => T::UpdateTime(v.cnv().into()),
+            Self::Exists(v) => T::from_exists(v.cnv()),
+            Self::UpdateTime(v) => T::from_update_time(v.cnv()),
         }
     }
 }
@@ -147,7 +146,6 @@ impl gaxi::prost::ToProto<transaction_options::read_only::ConsistencySelector> f
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -156,7 +154,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::transaction_options:
     fn cnv(self) -> crate::generated::gapic::model::transaction_options::read_only::ConsistencySelector {
         use crate::generated::gapic::model::transaction_options::read_only::ConsistencySelector as T;
         match self {
-            Self::ReadTime(v) => T::ReadTime(v.cnv().into()),
+            Self::ReadTime(v) => T::from_read_time(v.cnv()),
         }
     }
 }
@@ -183,7 +181,6 @@ impl gaxi::prost::ToProto<transaction_options::Mode> for crate::generated::gapic
         match self {
             Self::ReadOnly(v) => Ok(Self::Output::ReadOnly((*v).to_proto()?)),
             Self::ReadWrite(v) => Ok(Self::Output::ReadWrite((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -192,8 +189,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::transaction_options:
     fn cnv(self) -> crate::generated::gapic::model::transaction_options::Mode {
         use crate::generated::gapic::model::transaction_options::Mode as T;
         match self {
-            Self::ReadOnly(v) => T::ReadOnly(v.cnv().into()),
-            Self::ReadWrite(v) => T::ReadWrite(v.cnv().into()),
+            Self::ReadOnly(v) => T::from_read_only(v.cnv()),
+            Self::ReadWrite(v) => T::from_read_write(v.cnv()),
         }
     }
 }
@@ -255,7 +252,6 @@ impl gaxi::prost::ToProto<value::ValueType> for crate::generated::gapic::model::
             Self::GeoPointValue(v) => Ok(Self::Output::GeoPointValue((*v).to_proto()?)),
             Self::ArrayValue(v) => Ok(Self::Output::ArrayValue((*v).to_proto()?)),
             Self::MapValue(v) => Ok(Self::Output::MapValue((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -264,17 +260,17 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::value::ValueType> fo
     fn cnv(self) -> crate::generated::gapic::model::value::ValueType {
         use crate::generated::gapic::model::value::ValueType as T;
         match self {
-            Self::NullValue(v) => T::NullValue(v.cnv()),
-            Self::BooleanValue(v) => T::BooleanValue(v.cnv()),
-            Self::IntegerValue(v) => T::IntegerValue(v.cnv()),
-            Self::DoubleValue(v) => T::DoubleValue(v.cnv()),
-            Self::TimestampValue(v) => T::TimestampValue(v.cnv().into()),
-            Self::StringValue(v) => T::StringValue(v.cnv()),
-            Self::BytesValue(v) => T::BytesValue(v.cnv()),
-            Self::ReferenceValue(v) => T::ReferenceValue(v.cnv()),
-            Self::GeoPointValue(v) => T::GeoPointValue(v.cnv().into()),
-            Self::ArrayValue(v) => T::ArrayValue(v.cnv().into()),
-            Self::MapValue(v) => T::MapValue(v.cnv().into()),
+            Self::NullValue(v) => T::from_null_value(v.cnv()),
+            Self::BooleanValue(v) => T::from_boolean_value(v.cnv()),
+            Self::IntegerValue(v) => T::from_integer_value(v.cnv()),
+            Self::DoubleValue(v) => T::from_double_value(v.cnv()),
+            Self::TimestampValue(v) => T::from_timestamp_value(v.cnv()),
+            Self::StringValue(v) => T::from_string_value(v.cnv()),
+            Self::BytesValue(v) => T::from_bytes_value(v.cnv()),
+            Self::ReferenceValue(v) => T::from_reference_value(v.cnv()),
+            Self::GeoPointValue(v) => T::from_geo_point_value(v.cnv()),
+            Self::ArrayValue(v) => T::from_array_value(v.cnv()),
+            Self::MapValue(v) => T::from_map_value(v.cnv()),
         }
     }
 }
@@ -340,7 +336,6 @@ impl gaxi::prost::ToProto<get_document_request::ConsistencySelector> for crate::
         match self {
             Self::Transaction(v) => Ok(Self::Output::Transaction(v.to_proto()?)),
             Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -349,8 +344,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::get_document_request
     fn cnv(self) -> crate::generated::gapic::model::get_document_request::ConsistencySelector {
         use crate::generated::gapic::model::get_document_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => T::Transaction(v.cnv()),
-            Self::ReadTime(v) => T::ReadTime(v.cnv().into()),
+            Self::Transaction(v) => T::from_transaction(v.cnv()),
+            Self::ReadTime(v) => T::from_read_time(v.cnv()),
         }
     }
 }
@@ -381,7 +376,6 @@ impl gaxi::prost::ToProto<list_documents_request::ConsistencySelector> for crate
         match self {
             Self::Transaction(v) => Ok(Self::Output::Transaction(v.to_proto()?)),
             Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -390,8 +384,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::list_documents_reque
     fn cnv(self) -> crate::generated::gapic::model::list_documents_request::ConsistencySelector {
         use crate::generated::gapic::model::list_documents_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => T::Transaction(v.cnv()),
-            Self::ReadTime(v) => T::ReadTime(v.cnv().into()),
+            Self::Transaction(v) => T::from_transaction(v.cnv()),
+            Self::ReadTime(v) => T::from_read_time(v.cnv()),
         }
     }
 }
@@ -518,7 +512,6 @@ impl gaxi::prost::ToProto<batch_get_documents_request::ConsistencySelector> for 
             Self::Transaction(v) => Ok(Self::Output::Transaction(v.to_proto()?)),
             Self::NewTransaction(v) => Ok(Self::Output::NewTransaction((*v).to_proto()?)),
             Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -527,9 +520,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::batch_get_documents_
     fn cnv(self) -> crate::generated::gapic::model::batch_get_documents_request::ConsistencySelector {
         use crate::generated::gapic::model::batch_get_documents_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => T::Transaction(v.cnv()),
-            Self::NewTransaction(v) => T::NewTransaction(v.cnv().into()),
-            Self::ReadTime(v) => T::ReadTime(v.cnv().into()),
+            Self::Transaction(v) => T::from_transaction(v.cnv()),
+            Self::NewTransaction(v) => T::from_new_transaction(v.cnv()),
+            Self::ReadTime(v) => T::from_read_time(v.cnv()),
         }
     }
 }
@@ -565,7 +558,6 @@ impl gaxi::prost::ToProto<batch_get_documents_response::Result> for crate::gener
         match self {
             Self::Found(v) => Ok(Self::Output::Found((*v).to_proto()?)),
             Self::Missing(v) => Ok(Self::Output::Missing(v.to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -574,8 +566,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::batch_get_documents_
     fn cnv(self) -> crate::generated::gapic::model::batch_get_documents_response::Result {
         use crate::generated::gapic::model::batch_get_documents_response::Result as T;
         match self {
-            Self::Found(v) => T::Found(v.cnv().into()),
-            Self::Missing(v) => T::Missing(v.cnv()),
+            Self::Found(v) => T::from_found(v.cnv()),
+            Self::Missing(v) => T::from_missing(v.cnv()),
         }
     }
 }
@@ -701,7 +693,6 @@ impl gaxi::prost::ToProto<run_query_request::QueryType> for crate::generated::ga
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             Self::StructuredQuery(v) => Ok(Self::Output::StructuredQuery((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -710,7 +701,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_query_request::Q
     fn cnv(self) -> crate::generated::gapic::model::run_query_request::QueryType {
         use crate::generated::gapic::model::run_query_request::QueryType as T;
         match self {
-            Self::StructuredQuery(v) => T::StructuredQuery(v.cnv().into()),
+            Self::StructuredQuery(v) => T::from_structured_query(v.cnv()),
         }
     }
 }
@@ -722,7 +713,6 @@ impl gaxi::prost::ToProto<run_query_request::ConsistencySelector> for crate::gen
             Self::Transaction(v) => Ok(Self::Output::Transaction(v.to_proto()?)),
             Self::NewTransaction(v) => Ok(Self::Output::NewTransaction((*v).to_proto()?)),
             Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -731,9 +721,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_query_request::C
     fn cnv(self) -> crate::generated::gapic::model::run_query_request::ConsistencySelector {
         use crate::generated::gapic::model::run_query_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => T::Transaction(v.cnv()),
-            Self::NewTransaction(v) => T::NewTransaction(v.cnv().into()),
-            Self::ReadTime(v) => T::ReadTime(v.cnv().into()),
+            Self::Transaction(v) => T::from_transaction(v.cnv()),
+            Self::NewTransaction(v) => T::from_new_transaction(v.cnv()),
+            Self::ReadTime(v) => T::from_read_time(v.cnv()),
         }
     }
 }
@@ -765,7 +755,6 @@ impl gaxi::prost::ToProto<run_query_response::ContinuationSelector> for crate::g
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             Self::Done(v) => Ok(Self::Output::Done(v.to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -774,7 +763,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_query_response::
     fn cnv(self) -> crate::generated::gapic::model::run_query_response::ContinuationSelector {
         use crate::generated::gapic::model::run_query_response::ContinuationSelector as T;
         match self {
-            Self::Done(v) => T::Done(v.cnv()),
+            Self::Done(v) => T::from_done(v.cnv()),
         }
     }
 }
@@ -810,7 +799,6 @@ impl gaxi::prost::ToProto<run_aggregation_query_request::QueryType> for crate::g
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             Self::StructuredAggregationQuery(v) => Ok(Self::Output::StructuredAggregationQuery((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -819,7 +807,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_aggregation_quer
     fn cnv(self) -> crate::generated::gapic::model::run_aggregation_query_request::QueryType {
         use crate::generated::gapic::model::run_aggregation_query_request::QueryType as T;
         match self {
-            Self::StructuredAggregationQuery(v) => T::StructuredAggregationQuery(v.cnv().into()),
+            Self::StructuredAggregationQuery(v) => T::from_structured_aggregation_query(v.cnv()),
         }
     }
 }
@@ -831,7 +819,6 @@ impl gaxi::prost::ToProto<run_aggregation_query_request::ConsistencySelector> fo
             Self::Transaction(v) => Ok(Self::Output::Transaction(v.to_proto()?)),
             Self::NewTransaction(v) => Ok(Self::Output::NewTransaction((*v).to_proto()?)),
             Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -840,9 +827,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_aggregation_quer
     fn cnv(self) -> crate::generated::gapic::model::run_aggregation_query_request::ConsistencySelector {
         use crate::generated::gapic::model::run_aggregation_query_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => T::Transaction(v.cnv()),
-            Self::NewTransaction(v) => T::NewTransaction(v.cnv().into()),
-            Self::ReadTime(v) => T::ReadTime(v.cnv().into()),
+            Self::Transaction(v) => T::from_transaction(v.cnv()),
+            Self::NewTransaction(v) => T::from_new_transaction(v.cnv()),
+            Self::ReadTime(v) => T::from_read_time(v.cnv()),
         }
     }
 }
@@ -896,7 +883,6 @@ impl gaxi::prost::ToProto<partition_query_request::QueryType> for crate::generat
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             Self::StructuredQuery(v) => Ok(Self::Output::StructuredQuery((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -905,7 +891,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::partition_query_requ
     fn cnv(self) -> crate::generated::gapic::model::partition_query_request::QueryType {
         use crate::generated::gapic::model::partition_query_request::QueryType as T;
         match self {
-            Self::StructuredQuery(v) => T::StructuredQuery(v.cnv().into()),
+            Self::StructuredQuery(v) => T::from_structured_query(v.cnv()),
         }
     }
 }
@@ -915,7 +901,6 @@ impl gaxi::prost::ToProto<partition_query_request::ConsistencySelector> for crat
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -924,7 +909,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::partition_query_requ
     fn cnv(self) -> crate::generated::gapic::model::partition_query_request::ConsistencySelector {
         use crate::generated::gapic::model::partition_query_request::ConsistencySelector as T;
         match self {
-            Self::ReadTime(v) => T::ReadTime(v.cnv().into()),
+            Self::ReadTime(v) => T::from_read_time(v.cnv()),
         }
     }
 }
@@ -1038,7 +1023,6 @@ impl gaxi::prost::ToProto<listen_request::TargetChange> for crate::generated::ga
         match self {
             Self::AddTarget(v) => Ok(Self::Output::AddTarget((*v).to_proto()?)),
             Self::RemoveTarget(v) => Ok(Self::Output::RemoveTarget(v.to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -1047,8 +1031,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::listen_request::Targ
     fn cnv(self) -> crate::generated::gapic::model::listen_request::TargetChange {
         use crate::generated::gapic::model::listen_request::TargetChange as T;
         match self {
-            Self::AddTarget(v) => T::AddTarget(v.cnv().into()),
-            Self::RemoveTarget(v) => T::RemoveTarget(v.cnv()),
+            Self::AddTarget(v) => T::from_add_target(v.cnv()),
+            Self::RemoveTarget(v) => T::from_remove_target(v.cnv()),
         }
     }
 }
@@ -1086,7 +1070,6 @@ impl gaxi::prost::ToProto<listen_response::ResponseType> for crate::generated::g
             Self::DocumentDelete(v) => Ok(Self::Output::DocumentDelete((*v).to_proto()?)),
             Self::DocumentRemove(v) => Ok(Self::Output::DocumentRemove((*v).to_proto()?)),
             Self::Filter(v) => Ok(Self::Output::Filter((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -1095,11 +1078,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::listen_response::Res
     fn cnv(self) -> crate::generated::gapic::model::listen_response::ResponseType {
         use crate::generated::gapic::model::listen_response::ResponseType as T;
         match self {
-            Self::TargetChange(v) => T::TargetChange(v.cnv().into()),
-            Self::DocumentChange(v) => T::DocumentChange(v.cnv().into()),
-            Self::DocumentDelete(v) => T::DocumentDelete(v.cnv().into()),
-            Self::DocumentRemove(v) => T::DocumentRemove(v.cnv().into()),
-            Self::Filter(v) => T::Filter(v.cnv().into()),
+            Self::TargetChange(v) => T::from_target_change(v.cnv()),
+            Self::DocumentChange(v) => T::from_document_change(v.cnv()),
+            Self::DocumentDelete(v) => T::from_document_delete(v.cnv()),
+            Self::DocumentRemove(v) => T::from_document_remove(v.cnv()),
+            Self::Filter(v) => T::from_filter(v.cnv()),
         }
     }
 }
@@ -1144,7 +1127,6 @@ impl gaxi::prost::ToProto<target::query_target::QueryType> for crate::generated:
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             Self::StructuredQuery(v) => Ok(Self::Output::StructuredQuery((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -1153,7 +1135,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::target::query_target
     fn cnv(self) -> crate::generated::gapic::model::target::query_target::QueryType {
         use crate::generated::gapic::model::target::query_target::QueryType as T;
         match self {
-            Self::StructuredQuery(v) => T::StructuredQuery(v.cnv().into()),
+            Self::StructuredQuery(v) => T::from_structured_query(v.cnv()),
         }
     }
 }
@@ -1182,7 +1164,6 @@ impl gaxi::prost::ToProto<target::TargetType> for crate::generated::gapic::model
         match self {
             Self::Query(v) => Ok(Self::Output::Query((*v).to_proto()?)),
             Self::Documents(v) => Ok(Self::Output::Documents((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -1191,8 +1172,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::target::TargetType> 
     fn cnv(self) -> crate::generated::gapic::model::target::TargetType {
         use crate::generated::gapic::model::target::TargetType as T;
         match self {
-            Self::Query(v) => T::Query(v.cnv().into()),
-            Self::Documents(v) => T::Documents(v.cnv().into()),
+            Self::Query(v) => T::from_query(v.cnv()),
+            Self::Documents(v) => T::from_documents(v.cnv()),
         }
     }
 }
@@ -1203,7 +1184,6 @@ impl gaxi::prost::ToProto<target::ResumeType> for crate::generated::gapic::model
         match self {
             Self::ResumeToken(v) => Ok(Self::Output::ResumeToken(v.to_proto()?)),
             Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -1212,8 +1192,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::target::ResumeType> 
     fn cnv(self) -> crate::generated::gapic::model::target::ResumeType {
         use crate::generated::gapic::model::target::ResumeType as T;
         match self {
-            Self::ResumeToken(v) => T::ResumeToken(v.cnv()),
-            Self::ReadTime(v) => T::ReadTime(v.cnv().into()),
+            Self::ResumeToken(v) => T::from_resume_token(v.cnv()),
+            Self::ReadTime(v) => T::from_read_time(v.cnv()),
         }
     }
 }
@@ -1281,7 +1261,6 @@ impl gaxi::prost::ToProto<list_collection_ids_request::ConsistencySelector> for 
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -1290,7 +1269,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::list_collection_ids_
     fn cnv(self) -> crate::generated::gapic::model::list_collection_ids_request::ConsistencySelector {
         use crate::generated::gapic::model::list_collection_ids_request::ConsistencySelector as T;
         match self {
-            Self::ReadTime(v) => T::ReadTime(v.cnv().into()),
+            Self::ReadTime(v) => T::from_read_time(v.cnv()),
         }
     }
 }
@@ -1414,7 +1393,6 @@ impl gaxi::prost::ToProto<structured_query::filter::FilterType> for crate::gener
             Self::CompositeFilter(v) => Ok(Self::Output::CompositeFilter((*v).to_proto()?)),
             Self::FieldFilter(v) => Ok(Self::Output::FieldFilter((*v).to_proto()?)),
             Self::UnaryFilter(v) => Ok(Self::Output::UnaryFilter((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -1423,9 +1401,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::fi
     fn cnv(self) -> crate::generated::gapic::model::structured_query::filter::FilterType {
         use crate::generated::gapic::model::structured_query::filter::FilterType as T;
         match self {
-            Self::CompositeFilter(v) => T::CompositeFilter(v.cnv().into()),
-            Self::FieldFilter(v) => T::FieldFilter(v.cnv().into()),
-            Self::UnaryFilter(v) => T::UnaryFilter(v.cnv().into()),
+            Self::CompositeFilter(v) => T::from_composite_filter(v.cnv()),
+            Self::FieldFilter(v) => T::from_field_filter(v.cnv()),
+            Self::UnaryFilter(v) => T::from_unary_filter(v.cnv()),
         }
     }
 }
@@ -1513,7 +1491,6 @@ impl gaxi::prost::ToProto<structured_query::unary_filter::OperandType> for crate
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             Self::Field(v) => Ok(Self::Output::Field((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -1522,7 +1499,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::un
     fn cnv(self) -> crate::generated::gapic::model::structured_query::unary_filter::OperandType {
         use crate::generated::gapic::model::structured_query::unary_filter::OperandType as T;
         match self {
-            Self::Field(v) => T::Field(v.cnv().into()),
+            Self::Field(v) => T::from_field(v.cnv()),
         }
     }
 }
@@ -1731,7 +1708,6 @@ impl gaxi::prost::ToProto<structured_aggregation_query::aggregation::Operator> f
             Self::Count(v) => Ok(Self::Output::Count((*v).to_proto()?)),
             Self::Sum(v) => Ok(Self::Output::Sum((*v).to_proto()?)),
             Self::Avg(v) => Ok(Self::Output::Avg((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -1740,9 +1716,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_aggregati
     fn cnv(self) -> crate::generated::gapic::model::structured_aggregation_query::aggregation::Operator {
         use crate::generated::gapic::model::structured_aggregation_query::aggregation::Operator as T;
         match self {
-            Self::Count(v) => T::Count(v.cnv().into()),
-            Self::Sum(v) => T::Sum(v.cnv().into()),
-            Self::Avg(v) => T::Avg(v.cnv().into()),
+            Self::Count(v) => T::from_count(v.cnv()),
+            Self::Sum(v) => T::from_sum(v.cnv()),
+            Self::Avg(v) => T::from_avg(v.cnv()),
         }
     }
 }
@@ -1770,7 +1746,6 @@ impl gaxi::prost::ToProto<structured_aggregation_query::QueryType> for crate::ge
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             Self::StructuredQuery(v) => Ok(Self::Output::StructuredQuery((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -1779,7 +1754,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_aggregati
     fn cnv(self) -> crate::generated::gapic::model::structured_aggregation_query::QueryType {
         use crate::generated::gapic::model::structured_aggregation_query::QueryType as T;
         match self {
-            Self::StructuredQuery(v) => T::StructuredQuery(v.cnv().into()),
+            Self::StructuredQuery(v) => T::from_structured_query(v.cnv()),
         }
     }
 }
@@ -1908,7 +1883,6 @@ impl gaxi::prost::ToProto<write::Operation> for crate::generated::gapic::model::
             Self::Update(v) => Ok(Self::Output::Update((*v).to_proto()?)),
             Self::Delete(v) => Ok(Self::Output::Delete(v.to_proto()?)),
             Self::Transform(v) => Ok(Self::Output::Transform((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -1917,9 +1891,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::write::Operation> fo
     fn cnv(self) -> crate::generated::gapic::model::write::Operation {
         use crate::generated::gapic::model::write::Operation as T;
         match self {
-            Self::Update(v) => T::Update(v.cnv().into()),
-            Self::Delete(v) => T::Delete(v.cnv()),
-            Self::Transform(v) => T::Transform(v.cnv().into()),
+            Self::Update(v) => T::from_update(v.cnv()),
+            Self::Delete(v) => T::from_delete(v.cnv()),
+            Self::Transform(v) => T::from_transform(v.cnv()),
         }
     }
 }
@@ -1966,7 +1940,6 @@ impl gaxi::prost::ToProto<document_transform::field_transform::TransformType> fo
             Self::Minimum(v) => Ok(Self::Output::Minimum((*v).to_proto()?)),
             Self::AppendMissingElements(v) => Ok(Self::Output::AppendMissingElements((*v).to_proto()?)),
             Self::RemoveAllFromArray(v) => Ok(Self::Output::RemoveAllFromArray((*v).to_proto()?)),
-            _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
 }
@@ -1975,12 +1948,12 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::document_transform::
     fn cnv(self) -> crate::generated::gapic::model::document_transform::field_transform::TransformType {
         use crate::generated::gapic::model::document_transform::field_transform::TransformType as T;
         match self {
-            Self::SetToServerValue(v) => T::SetToServerValue(v.cnv()),
-            Self::Increment(v) => T::Increment(v.cnv().into()),
-            Self::Maximum(v) => T::Maximum(v.cnv().into()),
-            Self::Minimum(v) => T::Minimum(v.cnv().into()),
-            Self::AppendMissingElements(v) => T::AppendMissingElements(v.cnv().into()),
-            Self::RemoveAllFromArray(v) => T::RemoveAllFromArray(v.cnv().into()),
+            Self::SetToServerValue(v) => T::from_set_to_server_value(v.cnv()),
+            Self::Increment(v) => T::from_increment(v.cnv()),
+            Self::Maximum(v) => T::from_maximum(v.cnv()),
+            Self::Minimum(v) => T::from_minimum(v.cnv()),
+            Self::AppendMissingElements(v) => T::from_append_missing_elements(v.cnv()),
+            Self::RemoveAllFromArray(v) => T::from_remove_all_from_array(v.cnv()),
         }
     }
 }

@@ -26,6 +26,10 @@ impl gaxi::prost::ToProto<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
             Self::{{Codec.BranchName}}(v) => Ok(Self::Output::{{Codec.BranchName}}((*v).to_proto()?)),
             {{/Codec.IsBoxed}}
             {{/Fields}}
+            {{!
+                TODO : Worked for storage, but not firestore. Probably want to
+                revert the changes here. Ignoring for now though.
+            }}
             _ => unreachable!("prost types should be marked as non_exhaustive, but aren't.")
         }
     }
@@ -34,7 +38,10 @@ impl gaxi::prost::ToProto<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
 impl gaxi::prost::FromProto<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} {
     fn cnv(self) -> {{Codec.QualifiedName}} {
         use {{Codec.QualifiedName}} as T;
-        {{! TODO : Doesn't work AFAICT.}}
+        {{!
+            TODO : Worked for storage, but not firestore. Probably want to
+            revert the changes here. Ignoring for now though.
+        }}
         match self {
             {{#Fields}}
             {{^Codec.IsBoxed}}
