@@ -99,11 +99,11 @@ impl gaxi::prost::ToProto<ListOperationsResponse> for longrunning::model::ListOp
     type Output = ListOperationsResponse;
     fn to_proto(self) -> std::result::Result<ListOperationsResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            next_page_token: self.next_page_token.to_proto()?,
             operations: self.operations
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            next_page_token: self.next_page_token.to_proto()?,
         })
     }
 }
@@ -111,8 +111,8 @@ impl gaxi::prost::ToProto<ListOperationsResponse> for longrunning::model::ListOp
 impl gaxi::prost::FromProto<longrunning::model::ListOperationsResponse> for ListOperationsResponse {
     fn cnv(self) -> longrunning::model::ListOperationsResponse {
         longrunning::model::ListOperationsResponse::new()
-            .set_next_page_token(self.next_page_token)
             .set_operations(self.operations.into_iter().map(|v| v.cnv()))
+            .set_next_page_token(self.next_page_token)
     }
 }
 

@@ -156,11 +156,11 @@ impl gaxi::prost::ToProto<ListFoldersResponse> for crate::generated::gapic_contr
     type Output = ListFoldersResponse;
     fn to_proto(self) -> std::result::Result<ListFoldersResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            next_page_token: self.next_page_token.to_proto()?,
             folders: self.folders
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            next_page_token: self.next_page_token.to_proto()?,
         })
     }
 }
@@ -168,8 +168,8 @@ impl gaxi::prost::ToProto<ListFoldersResponse> for crate::generated::gapic_contr
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListFoldersResponse> for ListFoldersResponse {
     fn cnv(self) -> crate::generated::gapic_control::model::ListFoldersResponse {
         crate::generated::gapic_control::model::ListFoldersResponse::new()
-            .set_next_page_token(self.next_page_token)
             .set_folders(self.folders.into_iter().map(|v| v.cnv()))
+            .set_next_page_token(self.next_page_token)
     }
 }
 
@@ -440,11 +440,11 @@ impl gaxi::prost::ToProto<ListManagedFoldersResponse> for crate::generated::gapi
     type Output = ListManagedFoldersResponse;
     fn to_proto(self) -> std::result::Result<ListManagedFoldersResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            next_page_token: self.next_page_token.to_proto()?,
             managed_folders: self.managed_folders
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            next_page_token: self.next_page_token.to_proto()?,
         })
     }
 }
@@ -452,7 +452,7 @@ impl gaxi::prost::ToProto<ListManagedFoldersResponse> for crate::generated::gapi
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListManagedFoldersResponse> for ListManagedFoldersResponse {
     fn cnv(self) -> crate::generated::gapic_control::model::ListManagedFoldersResponse {
         crate::generated::gapic_control::model::ListManagedFoldersResponse::new()
-            .set_next_page_token(self.next_page_token)
             .set_managed_folders(self.managed_folders.into_iter().map(|v| v.cnv()))
+            .set_next_page_token(self.next_page_token)
     }
 }
