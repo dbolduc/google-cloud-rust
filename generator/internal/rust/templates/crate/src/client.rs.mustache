@@ -31,8 +31,8 @@ use crate::Result;
 {{#Codec.Services}}
 
 /// Implements a client for the {{Codec.APITitle}}.
-///
 {{^Codec.SkipBuilderDocs}}
+///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
@@ -42,7 +42,6 @@ use crate::Result;
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
-{{/Codec.SkipBuilderDocs}}
 /// # Service Description
 ///
 {{#Codec.DocLines}}
@@ -75,6 +74,7 @@ use crate::Result;
 /// create one and the reuse it.  You do not need to wrap `{{Codec.Name}}` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+{{/Codec.SkipBuilderDocs}}
 {{#Codec.PerServiceFeatures}}
 #[cfg(feature = "{{Codec.ModuleName}}")]
 #[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.ModuleName}}")))]
@@ -91,8 +91,13 @@ pub struct {{Codec.Name}} {
 #[cfg(feature = "{{Codec.ModuleName}}")]
 {{/Codec.PerServiceFeatures}}
 impl {{Codec.Name}} {
+    {{! TODO(#1813) - This should probably be called IsVeneer, or something. }}
+    {{! Veneers can call `new()` directly from within the crate. They do not
+        expose the `ClientBuilder`, and if they did, it could clash with other
+        `ClientBuilder`s.
+    }}
+    {{^Codec.SkipBuilderDocs}}
     /// Returns a builder for [{{Codec.Name}}].
-{{^Codec.SkipBuilderDocs}}
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -100,11 +105,11 @@ impl {{Codec.Name}} {
     /// let client = {{Codec.Name}}::builder().build().await?;
     /// # gax::Result::<()>::Ok(()) });
     /// ```
-{{/Codec.SkipBuilderDocs}}
     pub fn builder() -> super::builder::{{Codec.ModuleName}}::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::{{Codec.ModuleName}}::client::Factory)
     }
 
+    {{/Codec.SkipBuilderDocs}}
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the

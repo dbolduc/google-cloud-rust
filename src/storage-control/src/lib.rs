@@ -32,8 +32,11 @@ pub use gax::error::Error;
 pub(crate) mod generated;
 
 pub mod builder {
-    pub use crate::generated::gapic::builder::storage;
-    pub use crate::generated::gapic_control::builder::storage_control;
+    // NOTE : Typically we have modules per service. But we are treating this as
+    // one client to rule them all. Having a single module is extra typing, for
+    // no gain, so we omit it.
+    pub use crate::generated::gapic::builder::storage::*;
+    pub use crate::generated::gapic_control::builder::storage_control::*;
 }
 pub mod model {
     pub use crate::generated::gapic::model::*;

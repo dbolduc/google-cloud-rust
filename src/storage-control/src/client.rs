@@ -75,8 +75,8 @@
 ///   Note that object names can contain `/` characters, which are treated as
 ///   any other character (no special directory semantics).
 ///
-/// [with_endpoint()]: super::builder::storage::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::storage::ClientBuilder::with_credentials
+/// [with_endpoint()]: ClientBuilder::with_endpoint
+/// [with_credentials()]: ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
@@ -115,7 +115,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_bucket<T: Into<String>>(&self, name: T) -> super::builder::storage::DeleteBucket {
+    pub fn delete_bucket<T: Into<String>>(&self, name: T) -> super::builder::DeleteBucket {
         self.storage.delete_bucket().set_name(name)
     }
 
@@ -134,7 +134,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_bucket<T: Into<String>>(&self, name: T) -> super::builder::storage::GetBucket {
+    pub fn get_bucket<T: Into<String>>(&self, name: T) -> super::builder::GetBucket {
         self.storage.get_bucket().set_name(name)
     }
 
@@ -157,7 +157,7 @@ impl Storage {
         &self,
         parent: V,
         bucket_id: U,
-    ) -> super::builder::storage::CreateBucket
+    ) -> super::builder::CreateBucket
     where
         V: Into<String>,
         U: Into<String>,
@@ -190,7 +190,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_buckets<T: Into<String>>(&self, parent: T) -> super::builder::storage::ListBuckets {
+    pub fn list_buckets<T: Into<String>>(&self, parent: T) -> super::builder::ListBuckets {
         self.storage.list_buckets().set_parent(parent)
     }
 
@@ -225,7 +225,7 @@ impl Storage {
     /// until the soft delete retention period has passed.
     ///
     /// [soft delete]: https://cloud.google.com/storage/docs/soft-delete
-    pub fn delete_object<T, U>(&self, bucket: T, object: U) -> super::builder::storage::DeleteObject
+    pub fn delete_object<T, U>(&self, bucket: T, object: U) -> super::builder::DeleteObject
     where
         T: Into<String>,
         U: Into<String>,
@@ -258,7 +258,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_objects<T: Into<String>>(&self, parent: T) -> super::builder::storage::ListObjects {
+    pub fn list_objects<T: Into<String>>(&self, parent: T) -> super::builder::ListObjects {
         self.storage.list_objects().set_parent(parent)
     }
 
@@ -286,7 +286,7 @@ impl Storage {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<String>,
-    ) -> super::builder::storage::GetIamPolicy {
+    ) -> super::builder::GetIamPolicy {
         self.storage.get_iam_policy().set_resource(resource.into())
     }
 
@@ -323,7 +323,7 @@ impl Storage {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<String>,
-    ) -> super::builder::storage::SetIamPolicy {
+    ) -> super::builder::SetIamPolicy {
         self.storage.set_iam_policy().set_resource(resource.into())
     }
 
@@ -353,10 +353,24 @@ impl Storage {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<String>,
-    ) -> super::builder::storage::TestIamPermissions {
+    ) -> super::builder::TestIamPermissions {
         self.storage
             .test_iam_permissions()
             .set_resource(resource.into())
+    }
+
+    // TODO(#1813) - documentation
+    /// Creates a new folder. This operation is only applicable to a hierarchical
+    /// namespace enabled bucket.
+    pub fn create_folder(&self) -> super::builder::CreateFolder {
+        self.control.create_folder()
+    }
+
+    // TODO(#1813) - documentation
+    /// Permanently deletes an empty folder. This operation is only applicable to a
+    /// hierarchical namespace enabled bucket.
+    pub fn delete_folder(&self) -> super::builder::DeleteFolder {
+        self.control.delete_folder()
     }
 
     /// Retrieves a list of folders.
@@ -386,8 +400,26 @@ impl Storage {
     pub fn list_folders(
         &self,
         parent: impl Into<String>,
-    ) -> super::builder::storage_control::ListFolders {
+    ) -> super::builder::ListFolders {
         self.control.list_folders().set_parent(parent.into())
+    }
+
+    /// Renames a source folder to a destination folder. This operation is only
+    /// applicable to a hierarchical namespace enabled bucket. During a rename, the
+    /// source and destination folders are locked until the long running operation
+    /// completes.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn rename_folder(&self) -> super::builder::RenameFolder {
+        self.control.rename_folder()
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {

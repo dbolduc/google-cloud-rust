@@ -19,48 +19,12 @@
 use crate::Result;
 
 /// Implements a client for the Storage Control API.
-///
-/// # Service Description
-///
-/// StorageControl service includes selected control plane operations.
-///
-/// # Configuration
-///
-/// To configure `StorageControl` use the `with_*` methods in the type returned
-/// by [builder()][StorageControl::builder]. The default configuration should
-/// work for most applications. Common configuration changes include
-///
-/// * [with_endpoint()]: by default this client uses the global default endpoint
-///   (`https://storage.googleapis.com`). Applications using regional
-///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
-///   override this default.
-/// * [with_credentials()]: by default this client uses
-///   [Application Default Credentials]. Applications using custom
-///   authentication may need to override this default.
-///
-/// [with_endpoint()]: super::builder::storage_control::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::storage_control::ClientBuilder::credentials
-/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
-/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
-///
-/// # Pooling and Cloning
-///
-/// `StorageControl` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `StorageControl` in
-/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
-/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct StorageControl {
     inner: std::sync::Arc<dyn super::stub::dynamic::StorageControl>,
 }
 
 impl StorageControl {
-    /// Returns a builder for [StorageControl].
-    pub fn builder() -> super::builder::storage_control::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::storage_control::client::Factory)
-    }
-
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the

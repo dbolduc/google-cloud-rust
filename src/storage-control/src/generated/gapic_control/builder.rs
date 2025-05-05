@@ -17,9 +17,6 @@
 pub mod storage_control {
     use crate::Result;
 
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
-
     pub(crate) mod client {
         use super::super::super::client::StorageControl;
         pub struct Factory;
