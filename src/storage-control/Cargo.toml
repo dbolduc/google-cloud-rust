@@ -50,4 +50,5 @@ rpc.workspace         = true
 wkt.workspace         = true
 
 [dev-dependencies]
+mockall              = "0.13"
 tokio-test.workspace = true

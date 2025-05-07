@@ -153,11 +153,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_bucket<V, U>(
-        &self,
-        parent: V,
-        bucket_id: U,
-    ) -> super::builder::CreateBucket
+    pub fn create_bucket<V, U>(&self, parent: V, bucket_id: U) -> super::builder::CreateBucket
     where
         V: Into<String>,
         U: Into<String>,
@@ -283,10 +279,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<String>,
-    ) -> super::builder::GetIamPolicy {
+    pub fn get_iam_policy(&self, resource: impl Into<String>) -> super::builder::GetIamPolicy {
         self.storage.get_iam_policy().set_resource(resource.into())
     }
 
@@ -320,10 +313,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<String>,
-    ) -> super::builder::SetIamPolicy {
+    pub fn set_iam_policy(&self, resource: impl Into<String>) -> super::builder::SetIamPolicy {
         self.storage.set_iam_policy().set_resource(resource.into())
     }
 
@@ -359,14 +349,21 @@ impl Storage {
             .set_resource(resource.into())
     }
 
-    // TODO(#1813) - documentation
+    // TODO(#1813) - documentation, required parameters
     /// Creates a new folder. This operation is only applicable to a hierarchical
     /// namespace enabled bucket.
     pub fn create_folder(&self) -> super::builder::CreateFolder {
         self.control.create_folder()
     }
 
-    // TODO(#1813) - documentation
+    // TODO(#1813) - documentation, required parameters
+    /// Returns metadata for the specified folder. This operation is only
+    /// applicable to a hierarchical namespace enabled bucket.
+    pub fn get_folder(&self) -> super::builder::GetFolder {
+        self.control.get_folder()
+    }
+
+    // TODO(#1813) - documentation, required parameters
     /// Permanently deletes an empty folder. This operation is only applicable to a
     /// hierarchical namespace enabled bucket.
     pub fn delete_folder(&self) -> super::builder::DeleteFolder {
@@ -397,13 +394,11 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_folders(
-        &self,
-        parent: impl Into<String>,
-    ) -> super::builder::ListFolders {
+    pub fn list_folders(&self, parent: impl Into<String>) -> super::builder::ListFolders {
         self.control.list_folders().set_parent(parent.into())
     }
 
+    // TODO(#1813) - documentation, required parameters
     /// Renames a source folder to a destination folder. This operation is only
     /// applicable to a hierarchical namespace enabled bucket. During a rename, the
     /// source and destination folders are locked until the long running operation
@@ -420,6 +415,21 @@ impl Storage {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn rename_folder(&self) -> super::builder::RenameFolder {
         self.control.rename_folder()
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Storage + 'static,
+    {
+        let stub = std::sync::Arc::new(stub);
+        Self {
+            storage: super::generated::gapic::client::Storage::from_arc_stub(stub.clone()),
+            control: super::generated::gapic_control::client::StorageControl::from_arc_stub(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
