@@ -73,6 +73,9 @@ impl_primitive!(u64);
 impl_primitive!(String);
 impl_primitive!(bytes::Bytes);
 
+// I actually don't think this is possible, in general. prost serializes based on the field numbers, whereas our `Any`s serialize based on the field name.
+// If we know the type contained, it would be possible, but that is not really the point.
+/*
 impl FromProto<wkt::Any> for prost_types::Any {
     fn cnv(self) -> wkt::Any {
         // TODO : implement correctly
@@ -91,6 +94,7 @@ impl ToProto<prost_types::Any> for wkt::Any {
         })
     }
 }
+*/
 
 impl FromProto<wkt::Duration> for prost_types::Duration {
     fn cnv(self) -> wkt::Duration {
@@ -314,6 +318,28 @@ mod test {
         let input = bytes::Bytes::from_static(b"abc");
         let got = input.clone().to_proto();
         assert_eq!(got, Ok(input));
+    }
+
+    #[test]
+    fn from_proto_any() -> anyhow::Result<()> {
+        let well_known = prost_types::Duration {
+            seconds: 123,
+            nanos: 456,
+        };
+        let input = prost_types::Any::from_msg(&well_known)?;
+        println!("{input:?}");
+        use prost::Message;
+        let encoded = input.encode_to_vec();
+        println!("{encoded:?}");
+        //let human = String::from_utf8(encoded.clone())?;
+        let human = String::from_utf8_lossy(&encoded);
+        println!("{human}");
+
+        let got = serde_json::from_slice::<wkt::Any>(&encoded)?;
+        println!("{got:?}");
+        assert!(false);
+
+        Ok(())
     }
 
     #[test]

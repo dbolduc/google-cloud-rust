@@ -293,7 +293,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
-        self.inner
+        let response: tonic::Response<crate::google::longrunning::Operation> = self.inner
             .execute(
                 extensions,
                 path,
@@ -302,13 +302,20 @@ impl super::stub::StorageControl for StorageControl {
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
-            .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::longrunning::Operation,
-                    longrunning::model::Operation,
-                >,
-            )
+            .await?;
+
+        let (metadata, _grpc_op, _extensions) = response.into_parts();
+        
+        // TODO : convert from grpc_op -> our op
+        // This will not help us with `GetOperation`, where we don't know the MD / Result types.
+        // Can `GetOperation` use REST? Maybe not?
+        
+
+        let our_op = longrunning::model::Operation::new();
+        Ok(gax::response::Response::from_parts(
+            gax::response::Parts::new().set_headers(metadata.into_headers()),
+            our_op,
+        ))  
     }
 
     async fn get_storage_layout(
