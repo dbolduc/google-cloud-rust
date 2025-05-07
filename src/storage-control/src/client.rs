@@ -359,14 +359,21 @@ impl Storage {
             .set_resource(resource.into())
     }
 
-    // TODO(#1813) - documentation
+    // TODO(#1813) - documentation, required parameters
     /// Creates a new folder. This operation is only applicable to a hierarchical
     /// namespace enabled bucket.
     pub fn create_folder(&self) -> super::builder::CreateFolder {
         self.control.create_folder()
     }
 
-    // TODO(#1813) - documentation
+    // TODO(#1813) - documentation, required parameters
+    /// Returns metadata for the specified folder. This operation is only
+    /// applicable to a hierarchical namespace enabled bucket.
+    pub fn get_folder(&self) -> super::builder::GetFolder {
+        self.control.get_folder()
+    }
+
+    // TODO(#1813) - documentation, required parameters
     /// Permanently deletes an empty folder. This operation is only applicable to a
     /// hierarchical namespace enabled bucket.
     pub fn delete_folder(&self) -> super::builder::DeleteFolder {
@@ -404,6 +411,7 @@ impl Storage {
         self.control.list_folders().set_parent(parent.into())
     }
 
+    // TODO(#1813) - documentation, required parameters
     /// Renames a source folder to a destination folder. This operation is only
     /// applicable to a hierarchical namespace enabled bucket. During a rename, the
     /// source and destination folders are locked until the long running operation
@@ -421,6 +429,9 @@ impl Storage {
     pub fn rename_folder(&self) -> super::builder::RenameFolder {
         self.control.rename_folder()
     }
+
+    // TODO : mocking for veneers
+    // pub fn from_stub() -> Self { }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
         let storage = super::generated::gapic::client::Storage::new(config.clone()).await?;

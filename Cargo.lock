@@ -4981,6 +4981,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
+ "google-cloud-lro",
  "google-cloud-secretmanager-v1",
  "google-cloud-storage-control",
  "google-cloud-telcoautomation-v1",

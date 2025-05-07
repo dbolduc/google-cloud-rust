@@ -43,6 +43,7 @@ pub mod model {
     pub use crate::generated::gapic_control::model::*;
 }
 pub mod client;
+pub mod stub;
 
 pub(crate) mod google {
     pub mod iam {
