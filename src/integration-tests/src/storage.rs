@@ -19,7 +19,7 @@ use gax::paginator::{ItemPaginator, Paginator};
 use std::time::Duration;
 use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
-use storage::model::bucket::{HierarchicalNamespace, IamConfig};
+use storage::model::bucket::{Billing, HierarchicalNamespace, IamConfig};
 
 pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
@@ -54,8 +54,9 @@ pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
                 // TODO(#1813) - needed for storagecontrol folder tests.
                 .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
                 .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
-                    UniformBucketLevelAccess::new().set_enabled(true),
-                )),
+                    UniformBucketLevelAccess::new().set_enabled(true)
+                )
+            ).set_billing(Billing::new().set_requester_pays(true))
         )
         .with_backoff_policy(test_backoff())
         .send()
@@ -85,19 +86,67 @@ pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
     );
 
     buckets_iam(&client, &bucket_name).await?;
+    // folders(&client, &bucket_name).await?;
+    let f = folders(&client, &bucket_name).await;
+    
+    println!("\nTesting delete_bucket()");
+    client.delete_bucket(bucket_name).send().await?;
+    println!("SUCCESS on delete_bucket");
 
-    // TODO : this should be its own thing
+    // TODO : cleanup. (nbd, I just don't want to leak buckets.)
+    f
+    //Ok(())
+}
+
+async fn folders(client: &storage::client::Storage, bucket_name: &str) -> Result<()> {
+    println!("\nTesting create_folder()");
+    let create = client.create_folder()
+        .set_parent(bucket_name)
+        .set_folder_id("darren/")
+        .send()
+        .await?;
+    println!("SUCCESS on create_folder: {create:?}");
+
     println!("\nTesting list_folders()");
-    let mut folders = client.list_folders(&bucket_name).paginator().await.items();
+    let mut folders = client.list_folders(bucket_name).paginator().await.items();
     while let Some(folder) = folders.next().await {
         println!("{:?}", folder?);
     }
     println!("SUCCESS on list_folders");
 
-    println!("\nTesting delete_bucket()");
-    client.delete_bucket(bucket_name).send().await?;
-    println!("SUCCESS on delete_bucket");
+    println!("\nTesting rename_folder()");
+    // NOTE : The service errors if a quota project is set. It says "We
+    // don't support quota projects yet". I think that is a service bug. It
+    // should just ignore the quota project header, and handle the request.
+    //
+    // And there is no way to clear a quota project ID in auth or gax. Not by
+    // using the new auth builders, or auth env vars. You can only overwrite a
+    // project, not remove one.
+    //
+    // I am working around this by deleting the `quota-project-id` field from
+    // my ADC. That sucks, but what else can I do.
+    use lro::Poller;
+    let rename = client.rename_folder()
+        .set_name(format!("{bucket_name}/folders/darren/"))
+        .set_destination_folder_id("carlos/")
+        .poller()
+        .until_done()
+        .await?;
+    println!("SUCCESS on rename_folder: {rename:?}");
 
+    println!("\nRe-Testing list_folders()");
+    let mut folders = client.list_folders(bucket_name).paginator().await.items();
+    while let Some(folder) = folders.next().await {
+        println!("{:?}", folder?);
+    }
+    println!("Re-SUCCESS on list_folders");
+
+    println!("\nTesting delete_folder()");
+    client.delete_folder()
+        .set_name(format!("{bucket_name}/folders/carlos/"))
+        .send()
+        .await?;
+    println!("SUCCESS on delete_folder");
     Ok(())
 }
 
