@@ -293,7 +293,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
-        self.inner
+        let response: tonic::Response<crate::google::longrunning::Operation> = self.inner
             .execute(
                 extensions,
                 path,
@@ -302,12 +302,12 @@ impl super::stub::StorageControl for StorageControl {
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
-            .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::longrunning::Operation,
-                    longrunning::model::Operation,
-                >,
+            .await?;
+
+            let (metadata, grpc_op, _extensions) = response.into_parts();
+            gax::response::Response::from_parts(
+                gax::response::Parts::new().set_headers(metadata.into_headers()),
+                body.cnv(),
             )
     }
 
@@ -603,5 +603,17 @@ impl super::stub::StorageControl for StorageControl {
                     longrunning::model::Operation,
                 >,
             )
+    }
+}
+
+fn convert_from_proto<M, R, MP, RP>(op: crate::google::longrunning::Operation) -> Result<longrunning::model::Operation>
+where
+M: gaxi::prost::FromProto<MP>,
+R: gaxi::prost::FromProto<RP>,
+MP: prost::Name + Default,
+RP: prost::Name + Default,
+{
+    if let Some(md) = op.metadata {
+        let mp = md.to_msg::<MP>()?
     }
 }
