@@ -460,6 +460,24 @@ impl Storage {
         self.control.list_folders().set_parent(parent.into())
     }
 
+    /// Renames a source folder to a destination folder. This operation is only
+    /// applicable to a hierarchical namespace enabled bucket. During a rename, the
+    /// source and destination folders are locked until the long running operation
+    /// completes.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn rename_folder(&self) -> super::builder::storage::RenameFolder {
+        self.control.rename_folder()
+    }
+
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the

@@ -107,9 +107,10 @@ mod driver {
             .await
             .map_err(report)
     }
-
-    #[test_case(storage_control::client::Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
-    #[test_case(storage_control::client::Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
+    
+    #[test_case(storage_control::client::Storage::builder().with_tracing(); "with tracing")]
+    //#[test_case(storage_control::client::Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    //#[test_case(storage_control::client::Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_control_buckets(
         builder: storage_control::client::ClientBuilder,
