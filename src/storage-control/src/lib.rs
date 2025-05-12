@@ -53,6 +53,9 @@ pub(crate) mod google {
             include!("generated/convert/iam/convert.rs");
         }
     }
+    pub mod longrunning {
+        include!("generated/protos/control/google.longrunning.rs");
+    }
     pub mod r#type {
         include!("generated/protos/storage/google.r#type.rs");
         include!("generated/convert/type/convert.rs");
