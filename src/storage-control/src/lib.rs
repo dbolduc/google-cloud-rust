@@ -260,7 +260,7 @@ pub(crate) fn any_to_prost_result(
         }
         "type.googleapis.com/google.storage.control.v2.AnywhereCache" => {
             let prost_msg = value
-                .try_into_message::<crate::model::CreateAnywhereCacheMetadata>()
+                .try_into_message::<crate::model::AnywhereCache>()
                 .map_err(|_| ConvertError::Unimplemented)?
                 .to_proto()?;
             prost_types::Any::from_msg(&prost_msg).map_err(|_| ConvertError::Unimplemented)
