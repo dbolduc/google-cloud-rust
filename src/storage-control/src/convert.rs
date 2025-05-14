@@ -27,6 +27,7 @@
 
 #[cfg(test)]
 mod test {
+    use gaxi::prost::ConvertError;
     use crate::lro_any_to_prost;
 
     #[test]
@@ -50,16 +51,35 @@ mod test {
 
     #[test]
     fn lro_any_to_prost_known() -> anyhow::Result<()> {
-        let input = crate::model::Folder::new().set_name("name").set_metageneration(42);
-        let expected = crate::google::storage::control::v2::Folder {
-            name: "name".to_string(),
-            metageneration: 42,
-            ..Default::default()
+        let expected = {
+            let folder = crate::google::storage::control::v2::Folder {
+                name: "test-name".to_string(),
+                metageneration: 42,
+                ..Default::default()
+            };
+            prost_types::Any::from_msg(&folder)?
         };
-
-        let wkt = wkt::Any::try_from(&input)?;
+        let wkt = {
+            let folder = crate::model::Folder::new().set_name("test-name").set_metageneration(42);
+            wkt::Any::try_from(&folder)?
+        };
         let prost = lro_any_to_prost(wkt)?;
-        assert_eq!(prost, prost_types::Any::from_msg(&expected)?);
+        assert_eq!(prost, expected);
+
+        let expected = {
+            let md = crate::google::storage::control::v2::CreateAnywhereCacheMetadata {
+                zone: Some("test-zone".to_string()),
+                ..Default::default()
+            };
+            prost_types::Any::from_msg(&md)?
+        };
+        let wkt = {
+            let md = crate::model::CreateAnywhereCacheMetadata::new().set_zone("test-zone".to_string());
+            wkt::Any::try_from(&md)?
+        };
+        let prost = lro_any_to_prost(wkt)?;
+        assert_eq!(prost, expected);
+
         Ok(())
     }
 
@@ -72,7 +92,19 @@ mod test {
     }
 
     #[test]
-    fn lro_any_to_prost_unknown() {
+    fn lro_any_to_prost_unknown() -> anyhow::Result<()>  {
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        struct TestMessage {}
+        impl wkt::message::Message for TestMessage {
+            fn typename() -> &'static str {
+                "type.googleapis.com/my.custom.TestMessage"
+            }
+        }
 
+        let wkt = wkt::Any::try_from(&TestMessage {})?;
+        let prost = lro_any_to_prost(wkt);
+        assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
+
+        Ok(())
     }
 }
