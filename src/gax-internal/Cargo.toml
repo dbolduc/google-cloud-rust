@@ -48,6 +48,7 @@ _internal-http-client = [
 _internal-grpc-client = [
   "_internal-common",
   "dep:auth",
+  "dep:anyhow",
   "dep:bytes",
   "dep:gax",
   "dep:http",
@@ -62,6 +63,7 @@ _internal-grpc-client = [
 _internal-common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserror"]
 
 [dependencies]
+anyhow           = { workspace = true, optional = true }
 bytes            = { workspace = true, optional = true, features = ["serde"] }
 http             = { workspace = true, optional = true, features = ["std"] }
 http-body-util   = { workspace = true, optional = true }

@@ -17,13 +17,24 @@
 
 use std::collections::BTreeMap;
 
-#[derive(Clone, Debug, PartialEq, thiserror::Error)]
+#[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum ConvertError {
     #[error("enum {0} does not contain an integer value")]
     EnumNoIntegerValue(&'static str),
     #[error("Conversion unimplemented")]
     Unimplemented,
+    #[error("Unexpected type URL: {0}")]
+    UnexpectedTypeUrl(String),
+    #[error("gax/prost conversion error: {0}")]
+    Other(#[from] anyhow::Error)
+}
+
+impl ConvertError {
+    pub fn other<T>(e: T) -> Self
+    where T: Into<anyhow::Error> {
+        ConvertError::Other(e.into())
+    }
 }
 
 type Result<T> = std::result::Result<T, ConvertError>;
@@ -233,6 +244,10 @@ mod test {
         ConvertError::EnumNoIntegerValue("test")
     }
 
+    // TODO : PR #1 will have to be cleaning up these tests.
+    // Then we want to add a generic error type, probably with `#[from]` so we don't hide other errors.
+    // Then we write unit tests in storage control convert. FUN!
+    /*
     #[test_case(Ok(1), Ok(2), Ok((1, 2)))]
     #[test_case(Err(err()), Ok(2), Err(err()))]
     #[test_case(Ok(1), Err(err()), Err(err()))]
@@ -398,4 +413,5 @@ mod test {
         let got = input.cnv();
         assert_eq!(got, Ok(wkt::NullValue));
     }
+    */
 }

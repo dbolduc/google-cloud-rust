@@ -109,7 +109,7 @@ pub enum ErrorKind {
     Io,
     /// An error related to making a RPC.
     Rpc,
-    /// A uncategorized error.
+    /// An uncategorized error.
     #[default]
     Other,
 }

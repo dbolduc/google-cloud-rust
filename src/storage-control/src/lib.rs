@@ -80,6 +80,8 @@ pub(crate) mod google {
     }
 }
 
+mod convert;
+
 impl ToProto<google::rpc::Status> for rpc::model::Status {
     type Output = google::rpc::Status;
     fn to_proto(self) -> std::result::Result<google::rpc::Status, ConvertError> {
@@ -107,8 +109,73 @@ impl FromProto<rpc::model::Status> for google::rpc::Status {
 // TODO(#2037) - The generator should control this, in `transport.rs`
 impl ToProto<google::longrunning::Operation> for longrunning::model::Operation {
     type Output = google::longrunning::Operation;
-    fn to_proto(self) -> std::result::Result<google::longrunning::Operation, ConvertError> {
-        Err(ConvertError::Unimplemented)
+    fn to_proto(
+        self,
+    ) -> std::result::Result<google::longrunning::Operation, gaxi::prost::ConvertError> {
+        use crate::google::longrunning::operation::Result as U;
+        use longrunning::model::operation::Result as T;
+        let metadata = self.metadata.map(lro_any_to_prost).transpose()?;
+        #[warn(clippy::wildcard_enum_match_arm)]
+        let result = self
+            .result
+            .map(|result| match result {
+                T::Error(status) => status.to_proto().map(U::Error),
+                T::Response(any) => lro_any_to_prost(*any).map(U::Response),
+                _ => unreachable!(),
+            })
+            .transpose()?;
+
+        Ok(google::longrunning::Operation {
+            name: self.name,
+            metadata,
+            done: self.done,
+            result,
+        })
+    }
+}
+
+pub(crate) fn lro_any_to_prost(
+    value: wkt::Any,
+) -> std::result::Result<prost_types::Any, gaxi::prost::ConvertError> {
+    use gaxi::prost::ToProto;
+    match value.type_url().unwrap_or_default() {
+        "" => Ok(prost_types::Any::default()),
+        "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => value
+            .try_into_message::<crate::model::RenameFolderMetadata>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+        "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
+            .try_into_message::<crate::model::CreateAnywhereCacheMetadata>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+        "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
+            .try_into_message::<crate::model::UpdateAnywhereCacheMetadata>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+        "type.googleapis.com/google.storage.control.v2.Folder" => value
+            .try_into_message::<crate::model::Folder>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+        "type.googleapis.com/google.storage.control.v2.AnywhereCache" => value
+            .try_into_message::<crate::model::AnywhereCache>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+        type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
     }
 }
 
