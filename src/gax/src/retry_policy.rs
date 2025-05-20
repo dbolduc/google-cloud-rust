@@ -57,6 +57,11 @@ use crate::error::{CredentialsError, Error};
 use crate::loop_state::LoopState;
 use std::sync::Arc;
 
+pub trait RetryPolicy: Send + Sync + std::fmt::Debug + internal::RetryPolicy {}
+
+pub mod internal {
+use super::*;
+impl<T> super::RetryPolicy for T where T: RetryPolicy {}
 /// Determines how errors are handled in the retry loop.
 ///
 /// Implementations of this trait determine if errors are retryable, and for how
@@ -111,6 +116,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     ) -> Option<std::time::Duration> {
         None
     }
+}
 }
 
 /// A helper type to use [RetryPolicy] in client and request options.
@@ -216,7 +222,7 @@ impl<T: RetryPolicy> RetryPolicyExt for T {}
 #[derive(Clone, Debug)]
 pub struct Aip194Strict;
 
-impl RetryPolicy for Aip194Strict {
+impl internal::RetryPolicy for Aip194Strict {
     fn on_error(
         &self,
         _loop_start: std::time::Instant,
@@ -294,7 +300,7 @@ impl RetryPolicy for Aip194Strict {
 #[derive(Clone, Debug)]
 pub struct AlwaysRetry;
 
-impl RetryPolicy for AlwaysRetry {
+impl internal::RetryPolicy for AlwaysRetry {
     fn on_error(
         &self,
         _loop_start: std::time::Instant,
@@ -326,7 +332,7 @@ impl RetryPolicy for AlwaysRetry {
 #[derive(Clone, Debug)]
 pub struct NeverRetry;
 
-impl RetryPolicy for NeverRetry {
+impl internal::RetryPolicy for NeverRetry {
     fn on_error(
         &self,
         _loop_start: std::time::Instant,
@@ -356,7 +362,7 @@ impl RetryPolicy for NeverRetry {
 #[derive(Debug)]
 pub struct LimitedElapsedTime<P = Aip194Strict>
 where
-    P: RetryPolicy,
+    P: internal::RetryPolicy,
 {
     inner: P,
     maximum_duration: std::time::Duration,
@@ -382,7 +388,7 @@ impl LimitedElapsedTime {
 
 impl<P> LimitedElapsedTime<P>
 where
-    P: RetryPolicy,
+    P: internal::RetryPolicy,
 {
     /// Creates a new instance with a custom inner policy.
     ///
@@ -421,9 +427,9 @@ where
     }
 }
 
-impl<P> RetryPolicy for LimitedElapsedTime<P>
+impl<P> internal::RetryPolicy for LimitedElapsedTime<P>
 where
-    P: RetryPolicy + 'static,
+    P: internal::RetryPolicy + 'static,
 {
     fn on_error(
         &self,
@@ -482,7 +488,7 @@ where
 #[derive(Debug)]
 pub struct LimitedAttemptCount<P = Aip194Strict>
 where
-    P: RetryPolicy,
+    P: internal::RetryPolicy,
 {
     inner: P,
     maximum_attempts: u32,
@@ -506,7 +512,7 @@ impl LimitedAttemptCount {
 
 impl<P> LimitedAttemptCount<P>
 where
-    P: RetryPolicy,
+    P: internal::RetryPolicy,
 {
     /// Creates a new instance with a custom inner policy.
     ///
@@ -529,9 +535,9 @@ where
     }
 }
 
-impl<P> RetryPolicy for LimitedAttemptCount<P>
+impl<P> internal::RetryPolicy for LimitedAttemptCount<P>
 where
-    P: RetryPolicy,
+    P: internal::RetryPolicy,
 {
     fn on_error(
         &self,
@@ -587,7 +593,7 @@ mod tests {
         let policy = LimitedAttemptCount::new(3);
         let _ = RetryPolicyArg::from(policy);
 
-        let policy: Arc<dyn RetryPolicy> = Arc::new(LimitedAttemptCount::new(3));
+        let policy: Arc<dyn internal::RetryPolicy> = Arc::new(LimitedAttemptCount::new(3));
         let _ = RetryPolicyArg::from(policy);
     }
 
@@ -759,7 +765,7 @@ mod tests {
     mockall::mock! {
         #[derive(Debug)]
         Policy {}
-        impl RetryPolicy for Policy {
+        impl internal::RetryPolicy for Policy {
             fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> LoopState;
             fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error>;
             fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<std::time::Duration>;

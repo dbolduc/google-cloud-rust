@@ -30,7 +30,7 @@ mod test {
     use gax::exponential_backoff::ExponentialBackoffBuilder;
     use gax::loop_state::LoopState;
     use gax::options::*;
-    use gax::retry_policy::{LimitedAttemptCount, RetryPolicy};
+    use gax::retry_policy::{LimitedAttemptCount, internal::RetryPolicy};
     use gax::retry_throttler::{CircuitBreaker, RetryThrottler};
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::options::ClientConfig;
