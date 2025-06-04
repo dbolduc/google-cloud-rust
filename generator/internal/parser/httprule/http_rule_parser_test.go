@@ -15,9 +15,10 @@
 package httprule
 
 import (
+	"testing"
+
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"testing"
 )
 
 func TestProtobuf_Parse(t *testing.T) {
@@ -43,6 +44,8 @@ func TestProtobuf_Parse(t *testing.T) {
 		{"/foo/{bar=**}/baz:qux", expectTemplate().withLiteral("foo").withVariable(
 			variable("bar").withMatchRecursive()).
 			withLiteral("baz").withVerb("qux"), ""},
+		{"/foo/{bar=*}/baz/{qux}", expectTemplate().withLiteral("foo").withVariable(
+			variable("bar").withMatch()).withLiteral("baz").withVariableNamed("qux"), ""},
 		{"foo", nil, "path must start with slash"},
 		{"/", nil, "path cannot end with slash"},
 		{"/foo/", nil, "path cannot end with slash"},

@@ -36,6 +36,7 @@ type GeneratedFile struct {
 // then return the full contents of the template (or an error).
 type TemplateProvider func(templateName string) (string, error)
 
+// TODO : Darren : path params are per binding, not per method.
 func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 	msg, ok := state.MessageByID[m.InputTypeID]
 	if !ok {

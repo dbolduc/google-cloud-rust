@@ -30,12 +30,12 @@ import (
 //
 // These path templates follow a specific grammar. The grammar is defined by:
 //
-//	Template = "/" Segments [ Verb ] ;
-//	Segments = Segment { "/" Segment } ;
-//	Segment  = "*" | "**" | LITERAL | Variable ;
-//	Variable = "{" FieldPath [ "=" Segments ] "}" ;
+//	Template  = "/" Segments [ Verb ] ;
+//	Segments  = Segment { "/" Segment } ;
+//	Segment   = "*" | "**" | LITERAL | Variable ;
+//	Variable  = "{" FieldPath [ "=" Segments ] "}" ;
 //	FieldPath = IDENT { "." IDENT } ;
-//	Verb     = ":" LITERAL ;
+//	Verb      = ":" LITERAL ;
 //
 // The specific notation is not defined, but it seems inspired by
 // [Backus-Naur Form]. In this notation, `{ ... }` allows repetition.

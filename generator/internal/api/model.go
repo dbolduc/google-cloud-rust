@@ -266,6 +266,7 @@ type PathBinding struct {
 	Verb string
 	// The path broken by components.
 	PathTemplate []PathSegment
+	Darren       []PathTemplate
 	// Query parameter fields.
 	QueryParameters map[string]bool
 }
