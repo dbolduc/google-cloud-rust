@@ -33,7 +33,7 @@ pub fn missing(name: &str) -> gax::error::Error {
 #[cfg(test)]
 mod tests {
     use super::Error;
-    use std::{error::Error as _, ops::Sub};
+    use std::error::Error as _;
 
     #[test]
     fn missing() {
@@ -46,19 +46,15 @@ mod tests {
             "{e:?}"
         );
     }
-    
+
     use crate::routing_parameter::*;
     #[test]
     fn empty_is_not_a_match() {
-        let path = value(
-                    Some(""),
-                    &[],
-                    &[Segment::SingleWildcard],
-                    &[],
-        );
+        let path = value(Some(""), &[], &[Segment::SingleWildcard], &[]);
         assert!(path.is_none());
     }
 
+    use axum::extract::Path;
     // consider: "/v1/{parent=projects/*/locations/*}/clusters"
     use test_case::test_case;
     #[test_case("projects/p/locations/l", Some("/v1/projects/p/locations/l/clusters"))]
@@ -70,20 +66,21 @@ mod tests {
     #[test_case("projects/p1/locations/l1/l2", None)]
     fn matching_variable(parent: &str, expected_path: Option<&str>) {
         let path = value(
-                    Some(parent),
-                    &[],
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                    ],
-                    &[],
-        // The problem with map is that I can't compose it when we have multiple variables
-        ).map(|parent| format!("/v1/{parent}/clusters"));
+            Some(parent),
+            &[],
+            &[
+                Segment::Literal("projects/"),
+                Segment::SingleWildcard,
+                Segment::Literal("/locations/"),
+                Segment::SingleWildcard,
+            ],
+            &[],
+            // The problem with map is that I can't compose it when we have multiple variables
+        )
+        .map(|parent| format!("/v1/{parent}/clusters"));
         assert_eq!(path.as_deref(), expected_path);
     }
-    
+
     // consider: "/v1/projects/{project_id}/zones/{zone}/clusters"
     #[test_case("p", "z", Some("/v1/projects/p/zones/z/clusters"))]
     #[test_case("p", "", None)]
@@ -93,18 +90,8 @@ mod tests {
     #[test_case("p/", "z", None)]
     #[test_case("p", "z/", None; "deconflict name")]
     fn matching_multiple(project_id: &str, zone: &str, expected_path: Option<&str>) {
-        let m1 = value(
-                    Some(project_id),
-                    &[],
-                    &[Segment::SingleWildcard],
-                    &[],
-        );
-        let m2 = value(
-                    Some(zone),
-                    &[],
-                    &[Segment::SingleWildcard],
-                    &[],
-        );
+        let m1 = value(Some(project_id), &[], &[Segment::SingleWildcard], &[]);
+        let m2 = value(Some(zone), &[], &[Segment::SingleWildcard], &[]);
         let mut path = None;
         if let Some(m1) = m1 {
             if let Some(m2) = m2 {
@@ -120,11 +107,10 @@ mod tests {
         let some = Some("path");
         let ignored = Some("ignored");
 
-        let path =
-                none
-                .or_else(|| none)
-                .or_else(|| some)
-                .or_else(|| ignored)
+        let path = none
+            .or_else(|| none)
+            .or_else(|| some)
+            .or_else(|| ignored)
             .ok_or_else(|| super::missing("temp"))?;
         assert_eq!(path, "path");
         Ok(())
@@ -132,34 +118,58 @@ mod tests {
 
     // Thoughts, we can modify `value` to return true or false for us. We only ever paste in the thing.
     // meh, that doesn't save us any trouble tbh.
-    // 
+    //
     // We could build the path in-line, and if we ever hit something we can't sub, we move on to the next path
     // Pro: most APIs do not have additional bindings. This is optimal for them.
     //
     // I don't think it helps us much to cache the substitutions. e.g. we could avoid validating a field multiple times "projects/*/locations/*/clusters/*"
 
     // compute substitutions, if any error, try next path. If no next path, binding error.
-    enum PathSegment<'a> {
+    enum PathSegment<'a, T>
+    where
+        T: std::fmt::Display,
+    {
         Literal(&'static str),
-        Variable(&'a str, &'static[Segment]),
+        NumericVariable(Option<T>),
+        Variable(Option<&'a str>, &'static [Segment]),
     }
 
-    impl<'a> PathSegment<'a> {
-        fn as_str(&self) -> &'a str {
+    impl<'a, T> std::fmt::Display for PathSegment<'a, T>
+    where
+        T: std::fmt::Display,
+    {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             match self {
-                PathSegment::Literal(s) => s,
-                PathSegment::Variable(s, _) => s,
+                PathSegment::Literal(s) | PathSegment::Variable(Some(s), _) => write!(f, "{}", s),
+                PathSegment::NumericVariable(Some(s)) => write!(f, "{}", s),
+                _ => unreachable!("we already determined that the path was valid."),
             }
         }
     }
 
+    /*
+    impl<'a, T> PathSegment<'a, T> where T: ToString {
+        fn as_str(&self) -> &'a str {
+            match self {
+                PathSegment::Literal(s) => s,
+                PathSegment::NumericVariable(Some(s)) => s.to_string().as_str(),
+                PathSegment::Variable(Some(s), _) => s,
+                // TODO : there should be a better way to express this.
+                _ => unreachable!("we already determined that the path was valid.")
+            }
+        }
+    }
+    */
+
     fn check_path<'a>(template: &[PathSegment]) -> bool {
         for segment in template {
-            if let PathSegment::Variable(v, matcher) = segment {
-                if value(Some(v), &[], matcher, &[]).is_none() {
+            match segment {
+                PathSegment::Variable(v, matcher) if value(*v, &[], matcher, &[]).is_none() => {
                     return false;
                 }
-            }
+                PathSegment::NumericVariable(None) => return false,
+                _ => {}
+            };
         }
         true
     }
@@ -187,12 +197,14 @@ mod tests {
     fn matching_variable_try2(parent: &str, expected_path: Option<&str>) {
         let template = &[
             PathSegment::Literal("/v1/"),
-            PathSegment::Variable(parent, &[
+            PathSegment::Variable(
+                Some(parent),
+                &[
                     Segment::Literal("projects/"),
                     Segment::SingleWildcard,
                     Segment::Literal("/locations/"),
                     Segment::SingleWildcard,
-                ]
+                ],
             ),
             PathSegment::Literal("/clusters"),
         ];
@@ -201,7 +213,7 @@ mod tests {
         assert_eq!(path.as_deref(), expected_path);
     }
 
-// consider: "/v1/projects/{project_id}/zones/{zone}/clusters"
+    // consider: "/v1/projects/{project_id}/zones/{zone}/clusters"
     #[test_case("p", "z", Some("/v1/projects/p/zones/z/clusters"))]
     #[test_case("p", "", None)]
     #[test_case("", "z", None)]
@@ -212,15 +224,9 @@ mod tests {
     fn matching_multiple_try2(project_id: &str, zone: &str, expected_path: Option<&str>) {
         let template = &[
             PathSegment::Literal("/v1/projects/"),
-            PathSegment::Variable(project_id, &[
-                    Segment::SingleWildcard,
-                ]
-            ),
+            PathSegment::Variable(Some(project_id), &[Segment::SingleWildcard]),
             PathSegment::Literal("/zones/"),
-            PathSegment::Variable(zone, &[
-                    Segment::SingleWildcard,
-                ]
-            ),
+            PathSegment::Variable(Some(zone), &[Segment::SingleWildcard]),
             PathSegment::Literal("/clusters"),
         ];
 
@@ -232,37 +238,65 @@ mod tests {
     #[test_case("projects/p/locations/l", "", "", Some("/v1/projects/p/locations/l/clusters"); "first only")]
     #[test_case("", "p", "z", Some("/v1/projects/p/zones/z/clusters"); "second only")]
     #[test_case("", "", "", None; "neither")]
-    fn match_chaining_general(parent: &str, project_id: &str, zone: &str, expected_path: Option<&str>) -> anyhow::Result<()> {
-        let path =
-        make_path(&[
+    fn match_chaining_general(
+        parent: &str,
+        project_id: &str,
+        zone: &str,
+        expected_path: Option<&str>,
+    ) -> anyhow::Result<()> {
+        let path = make_path(&[
             PathSegment::Literal("/v1/"),
-            PathSegment::Variable(parent, &[
+            PathSegment::Variable(
+                Some(parent),
+                &[
                     Segment::Literal("projects/"),
                     Segment::SingleWildcard,
                     Segment::Literal("/locations/"),
                     Segment::SingleWildcard,
-                ]
+                ],
             ),
             PathSegment::Literal("/clusters"),
         ])
-        .or_else(||
-        make_path(&[
-            PathSegment::Literal("/v1/projects/"),
-            PathSegment::Variable(project_id, &[
-                    Segment::SingleWildcard,
-                ]
-            ),
-            PathSegment::Literal("/zones/"),
-            PathSegment::Variable(zone, &[
-                    Segment::SingleWildcard,
-                ]
-            ),
-            PathSegment::Literal("/clusters"),
-        ])
-        )
-        ;//.ok_or_else(|| super::missing("temp"))?;
+        .or_else(|| {
+            make_path(&[
+                PathSegment::Literal("/v1/projects/"),
+                PathSegment::Variable(Some(project_id), &[Segment::SingleWildcard]),
+                PathSegment::Literal("/zones/"),
+                PathSegment::Variable(Some(zone), &[Segment::SingleWildcard]),
+                PathSegment::Literal("/clusters"),
+            ])
+        }); //.ok_or_else(|| super::missing("temp"))?;
         assert_eq!(path.as_deref(), expected_path);
         Ok(())
+    }
+
+    // consider: "/v1/{foo=projects/*}"
+    #[test_case(Some("projects/p"), Some("/v1/projects/p/zones/z/clusters"))]
+    #[test_case(None, None)]
+    fn matching_optional(project_id: Option<&str>, expected_path: Option<&str>) {
+        let template = &[
+            PathSegment::Literal("/v1/"),
+            PathSegment::Variable(
+                project_id,
+                &[Segment::Literal("projects/"), Segment::SingleWildcard],
+            ),
+        ];
+
+        let path = make_path(template);
+        assert_eq!(path.as_deref(), expected_path);
+    }
+
+    // consider: "/v1/projects/{project_id}"
+    #[test_case(Some(12345), Some("/v1/projects/12345"))]
+    #[test_case(None, None)]
+    fn matching_int(project_id: Option<i32>, expected_path: Option<&str>) {
+        let template = &[
+            PathSegment::Literal("/v1/projects"),
+            PathSegment::NumericVariable(project_id.map(|p| p.to_string())),
+        ];
+
+        let path = make_path(template);
+        assert_eq!(path.as_deref(), expected_path);
     }
 
     // TODO : what is the ideal form of a binding error?
@@ -283,9 +317,9 @@ mod tests {
     // This could use a quick one-pager.
 
     // On errors....
-    // 
+    //
     // Cases: in general it is just that the parameter is in the wrong format. That can arise from it being empty or in the wrong format.
-    
+
     #[derive(thiserror::Error, Debug)]
     struct BindingError {
         paths: Vec<Vec<SubstitutionMismatch>>,
@@ -300,7 +334,11 @@ mod tests {
 
     impl std::fmt::Display for SubstitutionMismatch {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "field `{}` does not match: '{}'; found:'{}'", self.field, self.expected, self.actual)
+            write!(
+                f,
+                "field `{}` does not match: '{}'; found:'{}'",
+                self.field, self.expected, self.actual
+            )
         }
     }
 
@@ -316,6 +354,7 @@ mod tests {
         }
     }
 
+    /*
     fn check_path_full<'a>(template: &[PathSegment]) -> Result<(), BindingError> {
         let paths = Vec::new();
         for segment in template {
@@ -324,7 +363,8 @@ mod tests {
                 if value(Some(v), &[], matcher, &[]).is_none() {
                     path.push(SubstitutionMismatch {
                         field: "TODO".to_string(),
-                        expected: matcher.to_string()
+                        expected: matcher.to_string(),
+                        actual:
 
                     });
                 }
@@ -332,4 +372,5 @@ mod tests {
         }
         true
     }
+    */
 }
