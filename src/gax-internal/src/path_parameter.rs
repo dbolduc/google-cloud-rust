@@ -33,7 +33,7 @@ pub fn missing(name: &str) -> gax::error::Error {
 #[cfg(test)]
 mod tests {
     use super::Error;
-    use std::error::Error as _;
+    use std::{error::Error as _, ops::Sub};
 
     #[test]
     fn missing() {
@@ -163,6 +163,7 @@ mod tests {
         }
         true
     }
+
     fn make_path(template: &[PathSegment]) -> Option<String> {
         use std::fmt::Write;
         if !check_path(template) {
@@ -270,6 +271,9 @@ mod tests {
     // - AND field `bar` did not match: <template>
     // - etc.
     //
+    // Or: "Could not write path = `/v1/{project=projects/*}/locations`; `project` field was not set."
+    // Or: "Could not write path = `/v1/{project=projects/*}/locations`; project did not match."
+    //
     // If so, I think we would want to report exactly what fails in check_path, instead of a true/false??
     //
     // Alternatively we just have a canned error that is not specific to the request. Maybe the path has {foo}, {bar}, {baz} and we just say check foo, bar, and baz.
@@ -277,4 +281,55 @@ mod tests {
     // The far and away most common case is a missing parameter. It would be nice to surface which one that is.
     //
     // This could use a quick one-pager.
+
+    // On errors....
+    // 
+    // Cases: in general it is just that the parameter is in the wrong format. That can arise from it being empty or in the wrong format.
+    
+    #[derive(thiserror::Error, Debug)]
+    struct BindingError {
+        paths: Vec<Vec<SubstitutionMismatch>>,
+    }
+
+    #[derive(Debug)]
+    struct SubstitutionMismatch {
+        field: String,
+        expected: String,
+        actual: String,
+    }
+
+    impl std::fmt::Display for SubstitutionMismatch {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            write!(f, "field `{}` does not match: '{}'; found:'{}'", self.field, self.expected, self.actual)
+        }
+    }
+
+    impl std::fmt::Display for BindingError {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            for path in &self.paths {
+                write!(f, "Could not match path:")?;
+                for sub in path {
+                    write!(f, "{:?}", sub)?;
+                }
+            }
+            Ok(())
+        }
+    }
+
+    fn check_path_full<'a>(template: &[PathSegment]) -> Result<(), BindingError> {
+        let paths = Vec::new();
+        for segment in template {
+            let path = Vec::new();
+            if let PathSegment::Variable(v, matcher) = segment {
+                if value(Some(v), &[], matcher, &[]).is_none() {
+                    path.push(SubstitutionMismatch {
+                        field: "TODO".to_string(),
+                        expected: matcher.to_string()
+
+                    });
+                }
+            }
+        }
+        true
+    }
 }
