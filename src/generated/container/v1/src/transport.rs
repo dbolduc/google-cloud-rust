@@ -46,6 +46,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListClustersResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}/clusters", {
             let arg = &req.parent;
             if arg.is_empty() {
@@ -63,6 +95,7 @@ impl super::stub::ClusterManager for ClusterManager {
             );
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -74,6 +107,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Cluster>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -92,6 +157,7 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
         let builder = builder.query(&[("clusterId", &req.cluster_id)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -103,6 +169,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}/clusters", {
             let arg = &req.parent;
             if arg.is_empty() {
@@ -118,6 +216,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -127,6 +226,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -142,6 +273,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -151,6 +283,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -166,6 +330,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -175,6 +340,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:setAutoscaling", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -190,6 +387,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -199,6 +397,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:setLogging", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -214,6 +444,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -223,6 +454,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:setMonitoring", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -238,6 +501,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -247,6 +511,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:setAddons", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -262,6 +558,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -271,6 +568,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:setLocations", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -286,6 +615,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -295,6 +625,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:updateMaster", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -310,6 +672,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -319,6 +682,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:setMasterAuth", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -334,6 +729,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -343,6 +739,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -361,6 +789,7 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
         let builder = builder.query(&[("clusterId", &req.cluster_id)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -372,6 +801,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}/operations", {
             let arg = &req.parent;
             if arg.is_empty() {
@@ -389,6 +850,7 @@ impl super::stub::ClusterManager for ClusterManager {
             );
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -400,6 +862,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -418,6 +912,7 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
         let builder = builder.query(&[("operationId", &req.operation_id)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -429,6 +924,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:cancel", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -444,6 +971,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -458,6 +986,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServerConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}/serverConfig", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -475,6 +1035,7 @@ impl super::stub::ClusterManager for ClusterManager {
             );
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -486,6 +1047,31 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GetJSONWebKeysResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}/jwks", {
             let arg = &req.parent;
             if arg.is_empty() {
@@ -501,6 +1087,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -512,6 +1099,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListNodePoolsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}/nodePools", {
             let arg = &req.parent;
             if arg.is_empty() {
@@ -530,6 +1149,7 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
         let builder = builder.query(&[("clusterId", &req.cluster_id)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -541,6 +1161,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NodePool>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -560,6 +1212,7 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("zone", &req.zone)]);
         let builder = builder.query(&[("clusterId", &req.cluster_id)]);
         let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -571,6 +1224,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}/nodePools", {
             let arg = &req.parent;
             if arg.is_empty() {
@@ -586,6 +1271,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -595,6 +1281,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -614,6 +1332,7 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("zone", &req.zone)]);
         let builder = builder.query(&[("clusterId", &req.cluster_id)]);
         let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -625,6 +1344,31 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:completeUpgrade", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -640,6 +1384,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -654,6 +1399,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:rollback", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -669,6 +1446,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -678,6 +1456,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:setManagement", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -693,6 +1503,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -702,6 +1513,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:setResourceLabels", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -717,6 +1560,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -726,6 +1570,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:setLegacyAbac", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -741,6 +1617,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -750,6 +1627,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:startIpRotation", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -765,6 +1674,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -774,6 +1684,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:completeIpRotation", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -789,6 +1731,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -798,6 +1741,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:setSize", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -813,6 +1788,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -822,6 +1798,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:setNetworkPolicy", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -837,6 +1845,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -846,6 +1855,38 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:setMaintenancePolicy", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -861,6 +1902,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -870,6 +1912,31 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUsableSubnetworksResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}/aggregated/usableSubnetworks", {
             let arg = &req.parent;
             if arg.is_empty() {
@@ -888,6 +1955,7 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -899,6 +1967,31 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        // NEW:
+        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                //
+
+                // TODO : We should filter out numeric bindings.
+
+                Some(format!("/v1/blah/blah/blah",))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let mut subs = Vec::new();
+                    {
+                        // TODO : recheck in here.
+                    }
+                    paths.push(PathMismatch { subs });
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
+        // OLD:
         let path = format!("/v1/{}:checkAutopilotCompatibility", {
             let arg = &req.name;
             if arg.is_empty() {
@@ -914,6 +2007,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

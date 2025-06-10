@@ -268,6 +268,9 @@ type PathBinding struct {
 	PathTemplate []PathSegment
 	// Query parameter fields.
 	QueryParameters map[string]bool
+        // TODO : DARREN : Need to actually populate this annotation for Rust
+	// Language specific annotations
+	Codec any
 }
 
 // Normalized long running operation info
