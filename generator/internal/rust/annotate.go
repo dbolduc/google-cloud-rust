@@ -153,9 +153,15 @@ type methodAnnotation struct {
 	BuilderName         string
 	DocLines            []string
 	PathInfo            *api.PathInfo
+
+        // TODO(#2316) - these gotta go.
 	PathParams          []*api.Field
 	QueryParams         []*api.Field
+
+        // TODO(#2316) - Hmm.. this can stay. But there is one case where this doesn't match.
+        // While go/aip/127 states that body must match, in practice it does not always match.
 	BodyAccessor        string
+
 	ServiceNameToPascal string
 	ServiceNameToCamel  string
 	ServiceNameToSnake  string
@@ -164,6 +170,107 @@ type methodAnnotation struct {
 	ReturnType          string
 	HasVeneer           bool
 	Attributes          []string
+}
+
+// TODO : DARREN : Rust annotations for path bindings
+type pathBindingAnnotation struct {
+    Bindings []bindingSubstitution   
+    PathFmt  string
+}
+
+type bindingSubstitution struct {
+    // The field in the request being substituted
+    //
+    // We care about its Typez.
+    Field *api.Field
+
+    // Rust code to access the leaf field
+    //
+    // This field can be deeply nested. We need to capture code for the entire
+    // chain.
+    //
+    // TODO : DARREN : This seems cleaner for now. `clippy` might not let me get away with it.
+    // The accessor should return an `Optional<&T>`. While some fields can only
+    // be a `&T`, we can simplify the generated code by wrapping them in a
+    // `Some()`.
+    // 
+    // The accessor should not
+    // - copy any fields
+    // - move any fields
+    // - panic
+    // - assume context i.e. use a `?`
+    Accessor string
+
+    // If true, the result of the accessor is an `Optional<&T>`, else a `&T`
+    // 
+    // TODO : DARREN : I could just always return an Optional<&T>. That
+    //                 simplifies generated code, but adds some more bluster to
+    //                 the production code.
+    //Optional bool
+
+    // Local variables for us to assign to
+    //
+    // These are just "arg0", "arg1", etc. in order to avoid conflicts with
+    // other local variables.
+    LocalVarName string
+
+    // The template.
+    // TODO : For now, we will just treat the wildcards as strings: "*", "**"
+    // TODO : This feels wrong though, because I will translate them back. Meh.
+    // TODO : I probably want a fn that acts on the api.PathBinding, which
+    //        should have the templates in some ready to use form.
+    //Template []string
+}
+
+// TODO : testing to see if I can define functions on model types, if not, that's fine.
+type apiPathBinding api.PathBinding
+
+// TODO : Need this to skip numeric types. Deferring for now.
+//func (b *api.PathBinding) BindingsToCheck() []bindingSubstitution {
+//  //  return s.Field.Typez == api.STRING_TYPE:
+//}
+
+// TODO : maybe unnecessary? Trying it in the mustache.
+// Rust code that yields a boolean for matching
+//
+// The Rust code yields a boolean where `true` means we could not match the path
+// template.
+//
+// e.g.:
+// ```
+// !matches(arg0, &[
+//      Segment::Literal("projects/"),
+//      Segment::SingleWildcard,
+// ])
+// ```
+//func (s *bindingSubstitution) MatchExpression() string {
+//    return "!matches(" + s.LocalVarName + ", " + TemplateAsArray(s.Parent) + ")"
+//}
+
+// Rust code that yields an array of path segments, to be supplied as arguments
+// to `gaxi::path_parameter::matches()`
+//
+// e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard,]`
+func (t *apiPathBinding) TemplateAsArray() string {
+  code := "&["
+  for i, _ := range t.PathTemplate {
+    // TODO : DARREN : translate path templates when they are the correct type.
+    code += fmt.Sprintf(`Segment::Literal("%d/"),`, i)
+  }
+  code += "]"
+  return code
+}
+
+// The raw path template, in GAPIC routing format
+//
+// e.g.: `projects/*`
+func (t *apiPathBinding) TemplateRaw() string {
+  var code string
+  for i, _ := range t.PathTemplate {
+    // TODO : DARREN : translate path templates when they are the correct type.
+    code += fmt.Sprintf("%d/", i)
+  }
+  return code
 }
 
 type pathInfoAnnotation struct {
@@ -561,6 +668,18 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	}
 
 	m.PathInfo.Codec = pathInfoAnnotation
+
+        // TODO : factor this out, it is clutter.
+        // TODO : annotate path bindings
+        for _, b := range m.PathInfo.Bindings {
+		pathBindingAnnotation := &pathBindingAnnotation{
+                        Bindings: []bindingSubstitution{},
+                        PathFmt: "/v1/blah/blah/blah",
+		}
+                b.Codec = pathBindingAnnotation;
+        }
+
+
 	returnType := c.methodInOutTypeName(m.OutputTypeID, state, sourceSpecificationPackageName)
 	if m.ReturnsEmpty {
 		returnType = "()"

@@ -32,7 +32,7 @@ pub fn missing(name: &str) -> gax::error::Error {
 
 use crate::routing_parameter::Segment;
 
-fn matches(value: &str, template: &[Segment]) -> bool {
+pub fn matches(value: &str, template: &[Segment]) -> bool {
     crate::routing_parameter::value(Some(value), &[], template, &[]).is_some()
 }
 
@@ -116,23 +116,20 @@ fn transport() {
     );
 }
 
-enum PathArg<'a> {
-    Matching(&'a [Segment]),
-    AlwaysValid,
-}
+// TODO : error types would need to live in gax, not gaxi
 
 #[derive(thiserror::Error, Debug)]
-struct BindingError {
-    paths: Vec<PathMismatch>,
+pub struct BindingError {
+    pub paths: Vec<PathMismatch>,
 }
 
 #[derive(Debug)]
-struct PathMismatch {
-    subs: Vec<SubstitutionMismatch>,
+pub struct PathMismatch {
+    pub subs: Vec<SubstitutionMismatch>,
 }
 
 #[derive(Debug)]
-enum SubstitutionFail {
+pub enum SubstitutionFail {
     Unset,
     UnsetExpecting(&'static str),
     // (actual, expected)
@@ -140,7 +137,7 @@ enum SubstitutionFail {
 }
 
 #[derive(Debug)]
-struct SubstitutionMismatch {
+pub struct SubstitutionMismatch {
     field_name: String,
     problem: SubstitutionFail,
 }
@@ -187,7 +184,7 @@ impl std::fmt::Display for BindingError {
 }
 
 // To generate, I'd like:
-// - List of { arg_name, accessor, leafTypez == string, optional, matcher template}
+// - List of { Field { optional, Typez == string, arg_name?} , accessor, matcher template}
 // - path format string
 
 // plus whatever we need for the error messages.
@@ -206,7 +203,7 @@ fn transport_more_generaler() -> Result<(), BindingError> {
     let path = None
     .or_else(|| {
         let arg1 = &foo;
-        let arg2 = baz.as_ref()?;
+        let arg2 = baz.as_deref()?;
         let arg3 = &number;
         let arg4 = &maybe_number?;
 
@@ -240,6 +237,7 @@ fn transport_more_generaler() -> Result<(), BindingError> {
         {
             let mut subs = Vec::new();
             {
+                // String
                 let arg = &foo;
                 if !matches(
                     arg,
@@ -250,13 +248,15 @@ fn transport_more_generaler() -> Result<(), BindingError> {
                 ) {
                     subs.push(SubstitutionMismatch {
                         field_name: "foo".to_string(),
-                        problem: SubstitutionFail::MismatchExpecting(foo.clone(), "projects/*"),
+                        problem: SubstitutionFail::MismatchExpecting(arg.to_string(), "projects/*"),
                     })
                 }
             }
             {
-                match baz.as_ref() {
-                    None => {
+                // Optional<String>
+                // could be "bar.as_ref().map(|m| m.baz.as_ref()).map(...)"
+                match baz.as_deref() {
+                    None | Some("") => {
                         subs.push(SubstitutionMismatch {
                             field_name: "bar.baz".to_string(),
                             problem: SubstitutionFail::UnsetExpecting("projects/*")
@@ -265,19 +265,23 @@ fn transport_more_generaler() -> Result<(), BindingError> {
                     Some(arg) if !matches(arg, &[Segment::SingleWildcard]) => {
                         subs.push(SubstitutionMismatch {
                             field_name: "bar.baz".to_string(),
-                            problem: SubstitutionFail::MismatchExpecting(arg.clone(), "projects/*")
+                            problem: SubstitutionFail::MismatchExpecting(arg.to_string(), "projects/*")
                         });
                     },
                     _ => {}
                 }
             }
             {
+                // Optional<numeric>
                 if maybe_number.is_none() {
                     subs.push(SubstitutionMismatch {
                         field_name: "bar.baz".to_string(),
                         problem: SubstitutionFail::Unset
                     });
                 }
+            }
+            {
+                // <numeric>
             }
             paths.push(PathMismatch { subs });
         }

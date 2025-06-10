@@ -72,6 +72,49 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             options,
             {{PathInfo.Codec.IsIdempotent}},
         );
+        // NEW:
+        use gaxi::path_parameter::{matches, BindingError, PathMismatch, SubstitutionMismatch};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+        {{#PathInfo.Bindings}}
+        .or_else(|| {
+            {{#Codec.Bindings}}
+            let {{LocalVarName}} = {{Accessor}}?;
+            {{/Codec.Bindings}}
+    
+            // {{CheckMatches}}
+
+            // TODO : We should filter out numeric bindings.
+            {{#BindingsToCheck}}
+            {{#Codec.Bindings}}
+            if !matches({{LocalVarName}}, {{TemplateAsArray}}) {
+                return None;
+            }
+            {{/Codec.Bindings}}
+            {{/BindingsToCheck}}
+    
+            Some(format!(
+                "{{Codec.PathFmt}}",
+                {{#Codec.Bindings}}
+                {{Accessor}}?,
+                {{/Codec.Bindings}}
+            ))
+        })
+        {{/PathInfo.Bindings}}
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let mut subs = Vec::new();
+                {
+                    // TODO : recheck in here.
+                }
+                paths.push(PathMismatch { subs });
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
+        // OLD:
         let path =
             {{^PathInfo.Codec.HasPathArgs}}
             {{! Sometimes there are no path args and `format!()` produces warnings }}
@@ -105,6 +148,9 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         {{#Codec.QueryParams}}
         {{{Codec.AddQueryParameter}}}
         {{/Codec.QueryParams}}
+
+
+
         self.inner.execute(
             builder,
             {{#PathInfo.Codec.HasBody}}
