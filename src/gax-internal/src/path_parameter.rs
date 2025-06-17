@@ -138,8 +138,8 @@ pub enum SubstitutionFail {
 
 #[derive(Debug)]
 pub struct SubstitutionMismatch {
-    field_name: String,
-    problem: SubstitutionFail,
+    pub field_name: String,
+    pub problem: SubstitutionFail,
 }
 
 impl std::fmt::Display for SubstitutionMismatch {

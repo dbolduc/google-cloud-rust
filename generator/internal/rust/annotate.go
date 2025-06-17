@@ -181,34 +181,18 @@ type pathBindingAnnotation struct {
 }
 
 type bindingSubstitution struct {
-	// The field in the request being substituted
-	//
-	// We care about its Typez.
-	Field *api.Field
-
 	// Rust code to access the leaf field
 	//
 	// This field can be deeply nested. We need to capture code for the entire
-	// chain.
-	//
-	// TODO : DARREN : This seems cleaner for now. `clippy` might not let me get away with it.
-	// The accessor should return an `Optional<&T>`. While some fields can only
-	// be a `&T`, we can simplify the generated code by wrapping them in a
-	// `Some()`.
+	// chain. This accessor always returns an `Option<&T>`, even for fields
+        // which are always present. This simplifies the templates.
 	//
 	// The accessor should not
 	// - copy any fields
 	// - move any fields
 	// - panic
-	// - assume context i.e. use a `?`
+        // - assume context i.e. use the try operator: `?`
 	Accessor string
-
-	// If true, the result of the accessor is an `Optional<&T>`, else a `&T`
-	//
-	// TODO : DARREN : I could just always return an Optional<&T>. That
-	//                 simplifies generated code, but adds some more bluster to
-	//                 the production code.
-	//Optional bool
 
 	// Local variables for us to assign to
 	//
@@ -216,65 +200,22 @@ type bindingSubstitution struct {
 	// other local variables.
 	LocalVarName string
 
-	// The template.
-	// TODO : For now, we will just treat the wildcards as strings: "*", "**"
-	// TODO : This feels wrong though, because I will translate them back. Meh.
-	// TODO : I probably want a fn that acts on the api.PathBinding, which
-	//        should have the templates in some ready to use form.
-	//Template []string
+        // Rust code that yields an array of path segments, to be supplied as arguments
+        // to `gaxi::path_parameter::matches()`
+        //
+        // e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard,]`
 	TemplateAsArray string
 
-	// For convenience
-	Parent *api.PathBinding
-}
+        // TODO : might not be necessary if we have a decent error function (that we could just pass the template to.)
+        // TODO : This should use the Rust field names, e.g. r#type
+        // Recovers the field path as a period-separated string
+        FieldPath string
 
-// TODO : Need this to skip numeric types. Deferring for now.
-//func (b *api.PathBinding) BindingsToCheck() []bindingSubstitution {
-//  //  return s.Field.Typez == api.STRING_TYPE:
-//}
-
-// TODO : maybe unnecessary? Trying it in the mustache.
-// Rust code that yields a boolean for matching
-//
-// The Rust code yields a boolean where `true` means we could not match the path
-// template.
-//
-// e.g.:
-// ```
-// !matches(arg0, &[
-//      Segment::Literal("projects/"),
-//      Segment::SingleWildcard,
-// ])
-// ```
-//func (s *bindingSubstitution) MatchExpression() string {
-//    return "!matches(" + s.LocalVarName + ", " + TemplateAsArray(s.Parent) + ")"
-//}
-
-// Rust code that yields an array of path segments, to be supplied as arguments
-// to `gaxi::path_parameter::matches()`
-//
-// e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard,]`
-//func (s *bindingSubstitution) TemplateAsArray() string {
-//  return "TemplateAsArray"
-//	code := "&["
-//	for i, _ := range s.Parent.PathTemplate {
-//		// TODO : DARREN : translate path templates when they are the correct type.
-//		code += fmt.Sprintf(`Segment::Literal("%d/"),`, i)
-//	}
-//	code += "]"
-//	return code
-//}
-
-// The raw path template, in GAPIC routing format
-//
-// e.g.: `projects/*`
-func (s *bindingSubstitution) TemplateRaw() string {
-	var code string
-	for i, _ := range s.Parent.PathTemplate {
-		// TODO : DARREN : translate path templates when they are the correct type.
-		code += fmt.Sprintf("%d/", i)
-	}
-	return code
+        // TODO : might not be necessary if we have a decent error function (that we could just pass the template to.)
+        // TODO : The template as a human readable string, in weird GAPIC grammar.
+        //
+        // e.g.: "projects/*"
+        TemplateAsString string
 }
 
 type pathInfoAnnotation struct {
@@ -704,11 +645,13 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 			if s.Variable != nil {
 				arg_i += 1
 				pathFmt += "{}"
+				templateAsString := ""
 				templateAsArray := "&["
 				// TODO : does this belong here, or in the parser. I think the parser?
 				// A SingleWildcard matcher is implicitly assumed when the Segments are empty.
 				if len(s.Variable.Segments) == 0 {
 					templateAsArray += "Segment::SingleWildcard,"
+					templateAsString += "*"
 				}
 				for i, vs := range s.Variable.Segments {
 					if i != 0 {
@@ -716,23 +659,36 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 						// The parser drops '/'. They are assumed to be in between the segments.
 						// Ideally, we do not have multiple literal segments.
 						templateAsArray += `Segment::Literal("/"),`
+					        templateAsString += "/"
 					}
 					if vs.Literal != nil {
 						templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, *vs.Literal)
+					        templateAsString += string(*vs.Literal)
 					}
 					if vs.Match != nil {
 						templateAsArray += "Segment::SingleWildcard,"
+					        templateAsString += "*"
 					}
 					if vs.MatchRecursive != nil {
 						templateAsArray += "Segment::MultiWildcard,"
+					        templateAsString += "**"
 					}
 				}
 				templateAsArray += "]"
+                                // TODO : use Strings.Join()
+                                fieldPath := ""
+                                for i, field := range s.Variable.FieldPath {
+                                  if i != 0 {
+                                    fieldPath += "."
+                                  }
+                                  fieldPath += string(*field)
+                                }
 				bindings = append(bindings, bindingSubstitution{
-					Accessor:        darrenFieldPathRef(s.Variable.FieldPath, m.InputType, state),
-					LocalVarName:    fmt.Sprintf("arg%d", arg_i),
-					TemplateAsArray: templateAsArray,
-					Parent:          b,
+					Accessor:         darrenFieldPathRef(s.Variable.FieldPath, m.InputType, state),
+					LocalVarName:     fmt.Sprintf("arg%d", arg_i),
+					TemplateAsArray:  templateAsArray,
+                                        FieldPath:        fieldPath,
+                                        TemplateAsString: templateAsString,
 				})
 			}
 		}

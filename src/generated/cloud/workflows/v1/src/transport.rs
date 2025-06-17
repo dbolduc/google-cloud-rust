@@ -47,7 +47,9 @@ impl super::stub::Workflows for Workflows {
     ) -> Result<gax::response::Response<crate::model::ListWorkflowsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{
+            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
+        };
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -75,9 +77,38 @@ impl super::stub::Workflows for Workflows {
                 let mut paths = Vec::new();
                 {
                     let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
+                    //match Some(&req).map(|m| &m.parent).as_deref() {
+                    match Some(&req).map(|m| &m.parent).map(|s| s.as_str()) {
+                        None | Some("") => {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "parent".to_string(),
+                                problem: SubstitutionFail::UnsetExpecting("projects/*/locations/*"),
+                            });
+                        }
+                        Some(arg)
+                            if !matches(
+                                arg,
+                                &[
+                                    Segment::Literal("projects"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("locations"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                ],
+                            ) =>
+                        {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "parent".to_string(),
+                                problem: SubstitutionFail::MismatchExpecting(
+                                    arg.to_string(),
+                                    "projects/*/locations/*",
+                                ),
+                            });
+                        }
+                        _ => {}
+                    };
                     paths.push(PathMismatch { subs });
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -108,7 +139,9 @@ impl super::stub::Workflows for Workflows {
     ) -> Result<gax::response::Response<crate::model::Workflow>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{
+            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
+        };
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -140,9 +173,44 @@ impl super::stub::Workflows for Workflows {
                 let mut paths = Vec::new();
                 {
                     let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
+                    //match Some(&req).map(|m| &m.name).as_deref() {
+                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
+                        None | Some("") => {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::UnsetExpecting(
+                                    "projects/*/locations/*/workflows/*",
+                                ),
+                            });
+                        }
+                        Some(arg)
+                            if !matches(
+                                arg,
+                                &[
+                                    Segment::Literal("projects"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("locations"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("workflows"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                ],
+                            ) =>
+                        {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::MismatchExpecting(
+                                    arg.to_string(),
+                                    "projects/*/locations/*/workflows/*",
+                                ),
+                            });
+                        }
+                        _ => {}
+                    };
                     paths.push(PathMismatch { subs });
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -170,7 +238,9 @@ impl super::stub::Workflows for Workflows {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{
+            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
+        };
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -198,9 +268,38 @@ impl super::stub::Workflows for Workflows {
                 let mut paths = Vec::new();
                 {
                     let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
+                    //match Some(&req).map(|m| &m.parent).as_deref() {
+                    match Some(&req).map(|m| &m.parent).map(|s| s.as_str()) {
+                        None | Some("") => {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "parent".to_string(),
+                                problem: SubstitutionFail::UnsetExpecting("projects/*/locations/*"),
+                            });
+                        }
+                        Some(arg)
+                            if !matches(
+                                arg,
+                                &[
+                                    Segment::Literal("projects"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("locations"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                ],
+                            ) =>
+                        {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "parent".to_string(),
+                                problem: SubstitutionFail::MismatchExpecting(
+                                    arg.to_string(),
+                                    "projects/*/locations/*",
+                                ),
+                            });
+                        }
+                        _ => {}
+                    };
                     paths.push(PathMismatch { subs });
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -228,7 +327,9 @@ impl super::stub::Workflows for Workflows {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{
+            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
+        };
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -260,9 +361,44 @@ impl super::stub::Workflows for Workflows {
                 let mut paths = Vec::new();
                 {
                     let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
+                    //match Some(&req).map(|m| &m.name).as_deref() {
+                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
+                        None | Some("") => {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::UnsetExpecting(
+                                    "projects/*/locations/*/workflows/*",
+                                ),
+                            });
+                        }
+                        Some(arg)
+                            if !matches(
+                                arg,
+                                &[
+                                    Segment::Literal("projects"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("locations"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("workflows"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                ],
+                            ) =>
+                        {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::MismatchExpecting(
+                                    arg.to_string(),
+                                    "projects/*/locations/*/workflows/*",
+                                ),
+                            });
+                        }
+                        _ => {}
+                    };
                     paths.push(PathMismatch { subs });
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -289,7 +425,9 @@ impl super::stub::Workflows for Workflows {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{
+            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
+        };
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -323,9 +461,48 @@ impl super::stub::Workflows for Workflows {
                 let mut paths = Vec::new();
                 {
                     let mut subs = Vec::new();
+                    //match Some(&req).and_then(|m| m.workflow.as_ref()).map(|m| &m.name).as_deref() {
+                    match Some(&req)
+                        .and_then(|m| m.workflow.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str())
                     {
-                        // TODO : recheck in here.
-                    }
+                        None | Some("") => {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "workflow.name".to_string(),
+                                problem: SubstitutionFail::UnsetExpecting(
+                                    "projects/*/locations/*/workflows/*",
+                                ),
+                            });
+                        }
+                        Some(arg)
+                            if !matches(
+                                arg,
+                                &[
+                                    Segment::Literal("projects"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("locations"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("workflows"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                ],
+                            ) =>
+                        {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "workflow.name".to_string(),
+                                problem: SubstitutionFail::MismatchExpecting(
+                                    arg.to_string(),
+                                    "projects/*/locations/*/workflows/*",
+                                ),
+                            });
+                        }
+                        _ => {}
+                    };
                     paths.push(PathMismatch { subs });
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -362,7 +539,9 @@ impl super::stub::Workflows for Workflows {
     ) -> Result<gax::response::Response<crate::model::ListWorkflowRevisionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{
+            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
+        };
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -394,9 +573,44 @@ impl super::stub::Workflows for Workflows {
                 let mut paths = Vec::new();
                 {
                     let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
+                    //match Some(&req).map(|m| &m.name).as_deref() {
+                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
+                        None | Some("") => {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::UnsetExpecting(
+                                    "projects/*/locations/*/workflows/*",
+                                ),
+                            });
+                        }
+                        Some(arg)
+                            if !matches(
+                                arg,
+                                &[
+                                    Segment::Literal("projects"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("locations"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("workflows"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                ],
+                            ) =>
+                        {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::MismatchExpecting(
+                                    arg.to_string(),
+                                    "projects/*/locations/*/workflows/*",
+                                ),
+                            });
+                        }
+                        _ => {}
+                    };
                     paths.push(PathMismatch { subs });
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -425,7 +639,9 @@ impl super::stub::Workflows for Workflows {
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{
+            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
+        };
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -449,9 +665,34 @@ impl super::stub::Workflows for Workflows {
                 let mut paths = Vec::new();
                 {
                     let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
+                    //match Some(&req).map(|m| &m.name).as_deref() {
+                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
+                        None | Some("") => {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::UnsetExpecting("projects/*"),
+                            });
+                        }
+                        Some(arg)
+                            if !matches(
+                                arg,
+                                &[
+                                    Segment::Literal("projects"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                ],
+                            ) =>
+                        {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::MismatchExpecting(
+                                    arg.to_string(),
+                                    "projects/*",
+                                ),
+                            });
+                        }
+                        _ => {}
+                    };
                     paths.push(PathMismatch { subs });
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -481,7 +722,9 @@ impl super::stub::Workflows for Workflows {
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{
+            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
+        };
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -509,9 +752,38 @@ impl super::stub::Workflows for Workflows {
                 let mut paths = Vec::new();
                 {
                     let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
+                    //match Some(&req).map(|m| &m.name).as_deref() {
+                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
+                        None | Some("") => {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::UnsetExpecting("projects/*/locations/*"),
+                            });
+                        }
+                        Some(arg)
+                            if !matches(
+                                arg,
+                                &[
+                                    Segment::Literal("projects"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("locations"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                ],
+                            ) =>
+                        {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::MismatchExpecting(
+                                    arg.to_string(),
+                                    "projects/*/locations/*",
+                                ),
+                            });
+                        }
+                        _ => {}
+                    };
                     paths.push(PathMismatch { subs });
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -538,7 +810,9 @@ impl super::stub::Workflows for Workflows {
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{
+            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
+        };
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -566,9 +840,38 @@ impl super::stub::Workflows for Workflows {
                 let mut paths = Vec::new();
                 {
                     let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
+                    //match Some(&req).map(|m| &m.name).as_deref() {
+                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
+                        None | Some("") => {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::UnsetExpecting("projects/*/locations/*"),
+                            });
+                        }
+                        Some(arg)
+                            if !matches(
+                                arg,
+                                &[
+                                    Segment::Literal("projects"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("locations"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                ],
+                            ) =>
+                        {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::MismatchExpecting(
+                                    arg.to_string(),
+                                    "projects/*/locations/*",
+                                ),
+                            });
+                        }
+                        _ => {}
+                    };
                     paths.push(PathMismatch { subs });
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -598,7 +901,9 @@ impl super::stub::Workflows for Workflows {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{
+            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
+        };
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -630,9 +935,44 @@ impl super::stub::Workflows for Workflows {
                 let mut paths = Vec::new();
                 {
                     let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
+                    //match Some(&req).map(|m| &m.name).as_deref() {
+                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
+                        None | Some("") => {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::UnsetExpecting(
+                                    "projects/*/locations/*/operations/*",
+                                ),
+                            });
+                        }
+                        Some(arg)
+                            if !matches(
+                                arg,
+                                &[
+                                    Segment::Literal("projects"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("locations"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("operations"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                ],
+                            ) =>
+                        {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::MismatchExpecting(
+                                    arg.to_string(),
+                                    "projects/*/locations/*/operations/*",
+                                ),
+                            });
+                        }
+                        _ => {}
+                    };
                     paths.push(PathMismatch { subs });
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -659,7 +999,9 @@ impl super::stub::Workflows for Workflows {
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{
+            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
+        };
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -691,9 +1033,44 @@ impl super::stub::Workflows for Workflows {
                 let mut paths = Vec::new();
                 {
                     let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
+                    //match Some(&req).map(|m| &m.name).as_deref() {
+                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
+                        None | Some("") => {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::UnsetExpecting(
+                                    "projects/*/locations/*/operations/*",
+                                ),
+                            });
+                        }
+                        Some(arg)
+                            if !matches(
+                                arg,
+                                &[
+                                    Segment::Literal("projects"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("locations"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                    Segment::Literal("/"),
+                                    Segment::Literal("operations"),
+                                    Segment::Literal("/"),
+                                    Segment::SingleWildcard,
+                                ],
+                            ) =>
+                        {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "name".to_string(),
+                                problem: SubstitutionFail::MismatchExpecting(
+                                    arg.to_string(),
+                                    "projects/*/locations/*/operations/*",
+                                ),
+                            });
+                        }
+                        _ => {}
+                    };
                     paths.push(PathMismatch { subs });
                 }
                 gax::error::Error::binding(BindingError { paths })

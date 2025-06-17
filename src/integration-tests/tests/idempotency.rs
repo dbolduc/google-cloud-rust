@@ -97,9 +97,10 @@ mod default_idempotency {
             let _ = client
                 .add_secret_version()
                 .set_parent("invalid")
-                .with_retry_policy(expect_non_idempotent())
+                //.with_retry_policy(expect_non_idempotent())
                 .send()
-                .await;
+                // TESTING : what does the binding error look like?
+                .await?;
 
             Ok(())
         }

@@ -73,7 +73,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             {{PathInfo.Codec.IsIdempotent}},
         );
         // NEW:
-        use gaxi::path_parameter::{matches, BindingError, PathMismatch, SubstitutionMismatch};
+        use gaxi::path_parameter::{matches, BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -102,13 +102,31 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         {{/PathInfo.Bindings}}
         .ok_or_else(|| {
             let mut paths = Vec::new();
+            {{#PathInfo.Bindings}}
             {
                 let mut subs = Vec::new();
-                {
-                    // TODO : recheck in here.
-                }
+                {{#Codec.Bindings}}
+                {{! TODO : Accessor should just give me the Option<&str>, tbh. }}
+                //match {{{Accessor}}}.as_deref() {
+                match {{{Accessor}}}.map(|s| s.as_str()) {
+                    None | Some("") => {
+                        subs.push(SubstitutionMismatch {
+                            field_name: "{{FieldPath}}".to_string(),
+                            problem: SubstitutionFail::UnsetExpecting("{{TemplateAsString}}")
+                        });
+                    },
+                    Some(arg) if !matches(arg, {{{TemplateAsArray}}}) => {
+                        subs.push(SubstitutionMismatch {
+                            field_name: "{{FieldPath}}".to_string(),
+                            problem: SubstitutionFail::MismatchExpecting(arg.to_string(), "{{TemplateAsString}}")
+                        });
+                    },
+                    _ => {}
+                };
+                {{/Codec.Bindings}}
                 paths.push(PathMismatch { subs });
             }
+            {{/PathInfo.Bindings}}
             gax::error::Error::binding(BindingError { paths })
         })?;
 
