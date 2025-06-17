@@ -52,18 +52,37 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.parent)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}/clusters", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/projects/{}/zones/{}/clusters", arg1, arg2,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -77,14 +96,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}/clusters", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -113,18 +124,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -138,14 +179,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -175,18 +208,37 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.parent)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}/clusters", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/projects/{}/zones/{}/clusters", arg1, arg2,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -200,14 +252,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}/clusters", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -232,18 +276,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -257,14 +331,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::PUT, path)
@@ -289,18 +355,56 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("nodePools"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
+                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg4, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/update",
+                    arg1, arg2, arg3, arg4,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -314,14 +418,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::PUT, path)
@@ -346,18 +442,56 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("nodePools"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:setAutoscaling", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
+                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg4, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/autoscaling",
+                    arg1, arg2, arg3, arg4,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -371,14 +505,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:setAutoscaling", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -403,18 +529,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:setLogging", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/logging",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -428,14 +584,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:setLogging", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -460,18 +608,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:setMonitoring", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/monitoring",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -485,14 +663,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:setMonitoring", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -517,18 +687,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:setAddons", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/addons",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -542,14 +742,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:setAddons", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -574,18 +766,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:setLocations", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/locations",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -599,14 +821,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:setLocations", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -631,18 +845,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:updateMaster", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/master",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -656,14 +900,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:updateMaster", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -688,18 +924,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:setMasterAuth", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}:setMasterAuth",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -713,14 +979,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:setMasterAuth", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -745,18 +1003,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -770,14 +1058,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, path)
@@ -807,18 +1087,37 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.parent)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}/operations", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/projects/{}/zones/{}/operations", arg1, arg2,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -832,14 +1131,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}/operations", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -868,18 +1159,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("operations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.operation_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/operations/{}",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -893,14 +1214,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -930,18 +1243,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("operations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:cancel", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.operation_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/operations/{}:cancel",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -955,14 +1298,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:cancel", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -992,18 +1327,37 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}/serverConfig", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/projects/{}/zones/{}/serverconfig", arg1, arg2,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1017,14 +1371,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}/serverConfig", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1053,11 +1399,28 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.parent)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}/jwks", arg1,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1071,14 +1434,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}/jwks", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1105,18 +1460,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.parent)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}/nodePools", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1130,14 +1515,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}/nodePools", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1167,18 +1544,56 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("nodePools"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
+                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg4, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}",
+                    arg1, arg2, arg3, arg4,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1192,14 +1607,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1230,18 +1637,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.parent)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}/nodePools", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1255,14 +1692,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}/nodePools", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1287,18 +1716,56 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("nodePools"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
+                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg4, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}",
+                    arg1, arg2, arg3, arg4,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1312,14 +1779,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, path)
@@ -1350,11 +1809,32 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("nodePools"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:completeUpgrade", arg1,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1368,14 +1848,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:completeUpgrade", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1405,18 +1877,56 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("nodePools"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:rollback", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
+                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg4, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}:rollback",
+                    arg1, arg2, arg3, arg4,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1430,14 +1940,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:rollback", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1462,18 +1964,56 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("nodePools"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:setManagement", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
+                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg4, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/setManagement",
+                    arg1, arg2, arg3, arg4,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1487,14 +2027,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:setManagement", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1519,18 +2051,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:setResourceLabels", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/resourceLabels",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1544,14 +2106,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:setResourceLabels", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1576,18 +2130,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:setLegacyAbac", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/legacyAbac",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1601,14 +2185,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:setLegacyAbac", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1633,18 +2209,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:startIpRotation", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}:startIpRotation",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1658,14 +2264,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:startIpRotation", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1690,18 +2288,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:completeIpRotation", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}:completeIpRotation",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1715,14 +2343,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:completeIpRotation", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1747,18 +2367,56 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("nodePools"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:setSize", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
+                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg4, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/setSize",
+                    arg1, arg2, arg3, arg4,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1772,14 +2430,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:setSize", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1804,18 +2454,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:setNetworkPolicy", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}:setNetworkPolicy",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1829,14 +2509,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:setNetworkPolicy", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1861,18 +2533,48 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:setMaintenancePolicy", arg1,))
             })
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.zone)?;
+                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters/{}:setMaintenancePolicy",
+                    arg1, arg2, arg3,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1886,14 +2588,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:setMaintenancePolicy", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1918,11 +2612,20 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.parent)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}/aggregated/usableSubnetworks", arg1,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1936,14 +2639,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}/aggregated/usableSubnetworks", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1973,11 +2668,28 @@ impl super::stub::ClusterManager for ClusterManager {
 
         let path = None
             .or_else(|| {
-                //
+                let arg1 = Some(&req).map(|m| &m.name)?;
 
-                // TODO : We should filter out numeric bindings.
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
 
-                Some(format!("/v1/blah/blah/blah",))
+                Some(format!("/v1/{}:checkAutopilotCompatibility", arg1,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1991,14 +2703,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 gax::error::Error::binding(BindingError { paths })
             })?;
 
-        // OLD:
-        let path = format!("/v1/{}:checkAutopilotCompatibility", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)

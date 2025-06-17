@@ -151,18 +151,18 @@ type messageAnnotation struct {
 }
 
 type methodAnnotation struct {
-	Name                string
-	BuilderName         string
-	DocLines            []string
-	PathInfo            *api.PathInfo
+	Name        string
+	BuilderName string
+	DocLines    []string
+	PathInfo    *api.PathInfo
 
-        // TODO(#2316) - these gotta go.
-	PathParams          []*api.Field
-	QueryParams         []*api.Field
+	// TODO(#2316) - these gotta go.
+	PathParams  []*api.Field
+	QueryParams []*api.Field
 
-        // TODO(#2316) - Hmm.. this can stay. But there is one case where this doesn't match.
-        // While go/aip/127 states that body must match, in practice it does not always match.
-	BodyAccessor        string
+	// TODO(#2316) - Hmm.. this can stay. But there is one case where this doesn't match.
+	// While go/aip/127 states that body must match, in practice it does not always match.
+	BodyAccessor string
 
 	ServiceNameToPascal string
 	ServiceNameToCamel  string
@@ -176,56 +176,57 @@ type methodAnnotation struct {
 
 // TODO : DARREN : Rust annotations for path bindings
 type pathBindingAnnotation struct {
-    Bindings []bindingSubstitution   
-    PathFmt  string
+	Bindings []bindingSubstitution
+	PathFmt  string
 }
 
 type bindingSubstitution struct {
-    // The field in the request being substituted
-    //
-    // We care about its Typez.
-    Field *api.Field
+	// The field in the request being substituted
+	//
+	// We care about its Typez.
+	Field *api.Field
 
-    // Rust code to access the leaf field
-    //
-    // This field can be deeply nested. We need to capture code for the entire
-    // chain.
-    //
-    // TODO : DARREN : This seems cleaner for now. `clippy` might not let me get away with it.
-    // The accessor should return an `Optional<&T>`. While some fields can only
-    // be a `&T`, we can simplify the generated code by wrapping them in a
-    // `Some()`.
-    // 
-    // The accessor should not
-    // - copy any fields
-    // - move any fields
-    // - panic
-    // - assume context i.e. use a `?`
-    Accessor string
+	// Rust code to access the leaf field
+	//
+	// This field can be deeply nested. We need to capture code for the entire
+	// chain.
+	//
+	// TODO : DARREN : This seems cleaner for now. `clippy` might not let me get away with it.
+	// The accessor should return an `Optional<&T>`. While some fields can only
+	// be a `&T`, we can simplify the generated code by wrapping them in a
+	// `Some()`.
+	//
+	// The accessor should not
+	// - copy any fields
+	// - move any fields
+	// - panic
+	// - assume context i.e. use a `?`
+	Accessor string
 
-    // If true, the result of the accessor is an `Optional<&T>`, else a `&T`
-    // 
-    // TODO : DARREN : I could just always return an Optional<&T>. That
-    //                 simplifies generated code, but adds some more bluster to
-    //                 the production code.
-    //Optional bool
+	// If true, the result of the accessor is an `Optional<&T>`, else a `&T`
+	//
+	// TODO : DARREN : I could just always return an Optional<&T>. That
+	//                 simplifies generated code, but adds some more bluster to
+	//                 the production code.
+	//Optional bool
 
-    // Local variables for us to assign to
-    //
-    // These are just "arg0", "arg1", etc. in order to avoid conflicts with
-    // other local variables.
-    LocalVarName string
+	// Local variables for us to assign to
+	//
+	// These are just "arg0", "arg1", etc. in order to avoid conflicts with
+	// other local variables.
+	LocalVarName string
 
-    // The template.
-    // TODO : For now, we will just treat the wildcards as strings: "*", "**"
-    // TODO : This feels wrong though, because I will translate them back. Meh.
-    // TODO : I probably want a fn that acts on the api.PathBinding, which
-    //        should have the templates in some ready to use form.
-    //Template []string
+	// The template.
+	// TODO : For now, we will just treat the wildcards as strings: "*", "**"
+	// TODO : This feels wrong though, because I will translate them back. Meh.
+	// TODO : I probably want a fn that acts on the api.PathBinding, which
+	//        should have the templates in some ready to use form.
+	//Template []string
+	TemplateAsArray string
+
+	// For convenience
+	Parent *api.PathBinding
 }
-
-// TODO : testing to see if I can define functions on model types, if not, that's fine.
-type apiPathBinding api.PathBinding
 
 // TODO : Need this to skip numeric types. Deferring for now.
 //func (b *api.PathBinding) BindingsToCheck() []bindingSubstitution {
@@ -253,26 +254,27 @@ type apiPathBinding api.PathBinding
 // to `gaxi::path_parameter::matches()`
 //
 // e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard,]`
-func (t *apiPathBinding) TemplateAsArray() string {
-  code := "&["
-  for i, _ := range t.PathTemplate {
-    // TODO : DARREN : translate path templates when they are the correct type.
-    code += fmt.Sprintf(`Segment::Literal("%d/"),`, i)
-  }
-  code += "]"
-  return code
-}
+//func (s *bindingSubstitution) TemplateAsArray() string {
+//  return "TemplateAsArray"
+//	code := "&["
+//	for i, _ := range s.Parent.PathTemplate {
+//		// TODO : DARREN : translate path templates when they are the correct type.
+//		code += fmt.Sprintf(`Segment::Literal("%d/"),`, i)
+//	}
+//	code += "]"
+//	return code
+//}
 
 // The raw path template, in GAPIC routing format
 //
 // e.g.: `projects/*`
-func (t *apiPathBinding) TemplateRaw() string {
-  var code string
-  for i, _ := range t.PathTemplate {
-    // TODO : DARREN : translate path templates when they are the correct type.
-    code += fmt.Sprintf("%d/", i)
-  }
-  return code
+func (s *bindingSubstitution) TemplateRaw() string {
+	var code string
+	for i, _ := range s.Parent.PathTemplate {
+		// TODO : DARREN : translate path templates when they are the correct type.
+		code += fmt.Sprintf("%d/", i)
+	}
+	return code
 }
 
 type pathInfoAnnotation struct {
@@ -687,16 +689,62 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 
 	m.PathInfo.Codec = pathInfoAnnotation
 
-        // TODO : factor this out, it is clutter.
-        // TODO : annotate path bindings
-        for _, b := range m.PathInfo.Bindings {
-		pathBindingAnnotation := &pathBindingAnnotation{
-                        Bindings: []bindingSubstitution{},
-                        PathFmt: "/v1/blah/blah/blah",
-		}
-                b.Codec = pathBindingAnnotation;
-        }
+	// TODO : factor this out, it is clutter.
+	// TODO : annotate path bindings
+	for _, b := range m.PathInfo.Bindings {
+		var bindings []bindingSubstitution
+		arg_i := 0
+		pathFmt := ""
+		for _, s := range b.DarrenPath.Segments {
+			pathFmt += "/"
+			if s.Literal != nil {
+				pathFmt += string(*s.Literal)
+			}
 
+			if s.Variable != nil {
+				arg_i += 1
+				pathFmt += "{}"
+				templateAsArray := "&["
+				// TODO : does this belong here, or in the parser. I think the parser?
+				// A SingleWildcard matcher is implicitly assumed when the Segments are empty.
+				if len(s.Variable.Segments) == 0 {
+					templateAsArray += "Segment::SingleWildcard,"
+				}
+				for i, vs := range s.Variable.Segments {
+					if i != 0 {
+						// TODO : Clean up.
+						// The parser drops '/'. They are assumed to be in between the segments.
+						// Ideally, we do not have multiple literal segments.
+						templateAsArray += `Segment::Literal("/"),`
+					}
+					if vs.Literal != nil {
+						templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, *vs.Literal)
+					}
+					if vs.Match != nil {
+						templateAsArray += "Segment::SingleWildcard,"
+					}
+					if vs.MatchRecursive != nil {
+						templateAsArray += "Segment::MultiWildcard,"
+					}
+				}
+				templateAsArray += "]"
+				bindings = append(bindings, bindingSubstitution{
+					Accessor:        darrenFieldPathRef(s.Variable.FieldPath, m.InputType, state),
+					LocalVarName:    fmt.Sprintf("arg%d", arg_i),
+					TemplateAsArray: templateAsArray,
+					Parent:          b,
+				})
+			}
+		}
+		if b.DarrenPath.Verb != nil {
+			pathFmt += fmt.Sprintf(":%s", *b.DarrenPath.Verb)
+		}
+		pathBindingAnnotation := &pathBindingAnnotation{
+			Bindings: bindings,
+			PathFmt:  pathFmt,
+		}
+		b.Codec = pathBindingAnnotation
+	}
 
 	returnType := c.methodInOutTypeName(m.OutputTypeID, state, sourceSpecificationPackageName)
 	if m.ReturnsEmpty {

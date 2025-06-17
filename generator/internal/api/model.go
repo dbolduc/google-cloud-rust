@@ -264,11 +264,17 @@ type PathBinding struct {
 	// - DELETE
 	// - PATCH
 	Verb string
+
+	// TODO : Deprecate and remove. golang and dart use it though.
 	// The path broken by components.
 	PathTemplate []PathSegment
+
+	// The path broken by components.
+	DarrenPath *PathTemplate
+
 	// Query parameter fields.
 	QueryParameters map[string]bool
-        // TODO : DARREN : Need to actually populate this annotation for Rust
+	// TODO : DARREN : Need to actually populate this annotation for Rust
 	// Language specific annotations
 	Codec any
 }
@@ -387,6 +393,39 @@ func NewFieldPathPathSegment(s string) PathSegment {
 
 func NewVerbPathSegment(s string) PathSegment {
 	return PathSegment{Verb: &s}
+}
+
+// TODO : DARREN : copying in PathTemplate from http_rule_parser.go
+
+// PathTemplate represents the structure in Go.
+type PathTemplate struct {
+	Segments []*Segment
+	Verb     *Literal
+}
+
+// Match represents a single '*' match.
+type Match struct{}
+
+// MatchRecursive represents a '**' match.
+type MatchRecursive struct{}
+
+// TODO: We probably don't want these.
+type Literal string
+type Identifier string
+
+// Variable represents a variable in the path template with its field path and nested segments.
+type Variable struct {
+	// TODO : This should be a list of api.Field, not string.
+	FieldPath []*Identifier
+	Segments  []*Segment
+}
+
+// Segment represents a single segment of the path template, which can hold one of several types of values.
+type Segment struct {
+	Literal        *Literal
+	Match          *Match
+	MatchRecursive *MatchRecursive
+	Variable       *Variable
 }
 
 // Message defines a message used in request/response handling.

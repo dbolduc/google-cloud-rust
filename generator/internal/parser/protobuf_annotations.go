@@ -107,12 +107,17 @@ func processRuleShallow(httpRule *annotations.HttpRule, state *api.APIState, mID
 		// Most often this happens with streaming RPCs. We will handle any
 		/// errors later in the code generation, maybe by ignoring the RPC.
 		return &api.PathBinding{
-			Verb:            "POST",
-			PathTemplate:    []api.PathSegment{},
+			Verb:         "POST",
+			PathTemplate: []api.PathSegment{},
+			//DarrenPath:      &api.PathTemplate{},
 			QueryParameters: map[string]bool{},
 		}, "*", nil
 	}
 	pathTemplate, err := httprule.ParseSegments(rawPath)
+	if err != nil {
+		return nil, "", err
+	}
+	darrenPath, err := httprule.Parse(rawPath)
 	if err != nil {
 		return nil, "", err
 	}
@@ -124,6 +129,7 @@ func processRuleShallow(httpRule *annotations.HttpRule, state *api.APIState, mID
 	return &api.PathBinding{
 		Verb:            verb,
 		PathTemplate:    pathTemplate,
+		DarrenPath:      darrenPath,
 		QueryParameters: queryParameters,
 	}, httpRule.GetBody(), nil
 }

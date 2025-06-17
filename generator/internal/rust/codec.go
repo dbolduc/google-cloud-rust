@@ -966,6 +966,37 @@ func derefFieldPath(fieldPath string, message *api.Message, state *api.APIState)
 	return expression.String()
 }
 
+// TODO : don't use Identifier
+func darrenFieldPathRef(fieldPaths []*api.Identifier, message *api.Message, state *api.APIState) string {
+	accessor := "Some(&req)"
+
+	msg := message
+	for _, id_name := range fieldPaths {
+		if msg == nil {
+			slog.Error("cannot build full expression", "fieldPath", fieldPaths, "message", msg)
+			panic("Bad fieldPath")
+		}
+		name := string(*id_name)
+		for _, field := range msg.Fields {
+			if name != field.Name {
+				continue
+			}
+			if field.Optional {
+				accessor += fmt.Sprintf(".and_then(|m| m.%s.as_ref())", name)
+			} else if field.Typez == api.MESSAGE_TYPE {
+				accessor += fmt.Sprintf(".map(|m| m.%s).as_ref()", name)
+			} else {
+				accessor += fmt.Sprintf(".map(|m| &m.%s)", name)
+			}
+			if field.Typez == api.MESSAGE_TYPE {
+				msg = state.MessageByID[field.TypezID]
+			}
+			break
+		}
+	}
+	return accessor
+}
+
 func leafFieldTypez(fieldPath string, message *api.Message, state *api.APIState) api.Typez {
 	typez := api.UNDEFINED_TYPE
 	components := strings.Split(fieldPath, ".")

@@ -80,13 +80,13 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         {{#PathInfo.Bindings}}
         .or_else(|| {
             {{#Codec.Bindings}}
-            let {{LocalVarName}} = {{Accessor}}?;
+            let {{LocalVarName}} = {{{Accessor}}}?;
             {{/Codec.Bindings}}
     
             {{! TODO : We should filter out numeric bindings. }}
             {{! #BindingsToCheck}}
             {{#Codec.Bindings}}
-            if !matches({{LocalVarName}}, {{TemplateAsArray}}) {
+            if !matches({{LocalVarName}}, {{{TemplateAsArray}}}) {
                 return None;
             }
             {{/Codec.Bindings}}
@@ -95,7 +95,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             Some(format!(
                 "{{Codec.PathFmt}}",
                 {{#Codec.Bindings}}
-                {{Accessor}}?,
+                {{LocalVarName}},
                 {{/Codec.Bindings}}
             ))
         })
@@ -112,6 +112,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             gax::error::Error::binding(BindingError { paths })
         })?;
 
+        {{#CommentOutOldImpl}}
         // OLD:
         let path =
             {{^PathInfo.Codec.HasPathArgs}}
@@ -136,6 +137,8 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
                 {{/PathInfo.Codec.PathArgs}}
             );
             {{/PathInfo.Codec.HasPathArgs}}
+        {{/CommentOutOldImpl}}
+
         let builder = self
             .inner
             .builder(reqwest::Method::{{PathInfo.Codec.Method}}, path)

@@ -77,6 +77,9 @@ mod default_idempotency {
             // be idempotent.
             let _ = client
                 .get_secret()
+                // TODO : this test fails now.
+                // Yay, client-side validation is working!!!!
+                // Damn it, I need to redo the test now!!!!!
                 .set_name("invalid")
                 .with_retry_policy(expect_idempotent())
                 .send()
