@@ -682,11 +682,7 @@ impl super::stub::ServiceManager for ServiceManager {
                     "/v1/{}:setIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("services/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -696,12 +692,9 @@ impl super::stub::ServiceManager for ServiceManager {
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
                         &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("services/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("consumers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/consumers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -714,11 +707,7 @@ impl super::stub::ServiceManager for ServiceManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("services/"), Segment::SingleWildcard],
                         "services/*",
                     );
                     paths.push(builder.build());
@@ -729,12 +718,9 @@ impl super::stub::ServiceManager for ServiceManager {
                         Some(&req).map(|m| &m.resource),
                         "resource",
                         &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("services/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("consumers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/consumers/"),
                             Segment::SingleWildcard,
                         ],
                         "services/*/consumers/*",
@@ -771,11 +757,7 @@ impl super::stub::ServiceManager for ServiceManager {
                     "/v1/{}:getIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("services/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -785,12 +767,9 @@ impl super::stub::ServiceManager for ServiceManager {
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
                         &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("services/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("consumers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/consumers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -803,11 +782,7 @@ impl super::stub::ServiceManager for ServiceManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("services/"), Segment::SingleWildcard],
                         "services/*",
                     );
                     paths.push(builder.build());
@@ -818,12 +793,9 @@ impl super::stub::ServiceManager for ServiceManager {
                         Some(&req).map(|m| &m.resource),
                         "resource",
                         &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("services/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("consumers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/consumers/"),
                             Segment::SingleWildcard,
                         ],
                         "services/*/consumers/*",
@@ -860,11 +832,7 @@ impl super::stub::ServiceManager for ServiceManager {
                     "/v1/{}:testIamPermissions",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("services/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -874,12 +842,9 @@ impl super::stub::ServiceManager for ServiceManager {
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
                         &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("services/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("consumers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/consumers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -892,11 +857,7 @@ impl super::stub::ServiceManager for ServiceManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("services/"), Segment::SingleWildcard],
                         "services/*",
                     );
                     paths.push(builder.build());
@@ -907,12 +868,9 @@ impl super::stub::ServiceManager for ServiceManager {
                         Some(&req).map(|m| &m.resource),
                         "resource",
                         &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("services/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("consumers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/consumers/"),
                             Segment::SingleWildcard,
                         ],
                         "services/*/consumers/*",
@@ -987,11 +945,7 @@ impl super::stub::ServiceManager for ServiceManager {
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -1002,11 +956,7 @@ impl super::stub::ServiceManager for ServiceManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());

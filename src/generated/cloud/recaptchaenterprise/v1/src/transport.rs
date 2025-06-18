@@ -55,11 +55,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     "/v1/{}/assessments",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -70,11 +66,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -112,12 +104,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("assessments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/assessments/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -131,12 +120,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("assessments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/assessments/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/assessments/*",
@@ -173,11 +159,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     "/v1/{}/keys",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -188,11 +170,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -227,11 +205,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     "/v1/{}/keys",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -242,11 +216,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -286,12 +256,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     composable_matches(
                         Some(&req).map(|m| &m.key)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -305,12 +272,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         Some(&req).map(|m| &m.key),
                         "key",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/keys/*",
@@ -350,12 +314,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -369,12 +330,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/keys/*",
@@ -414,12 +372,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     composable_matches(
                         Some(&req).and_then(|m| m.key.as_ref()).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -433,12 +388,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         Some(&req).and_then(|m| m.key.as_ref()).map(|m| &m.name),
                         "key.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/keys/*",
@@ -486,12 +438,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -505,12 +454,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/keys/*",
@@ -554,12 +500,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -573,12 +516,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/keys/*",
@@ -616,12 +556,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -635,12 +572,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/keys/*",
@@ -678,12 +612,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -697,12 +628,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/keys/*",
@@ -740,12 +668,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -759,12 +684,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/keys/*",
@@ -806,15 +728,11 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("metrics"),
+                            Segment::Literal("/metrics"),
                         ]
                     )?,
                 ))
@@ -827,15 +745,11 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keys/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("metrics"),
+                            Segment::Literal("/metrics"),
                         ],
                         "projects/*/keys/*/metrics",
                     );
@@ -873,11 +787,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     "/v1/{}/firewallpolicies",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -888,11 +798,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -929,11 +835,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     "/v1/{}/firewallpolicies",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -944,11 +846,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -988,12 +886,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("firewallpolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/firewallpolicies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1007,12 +902,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("firewallpolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/firewallpolicies/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/firewallpolicies/*",
@@ -1054,12 +946,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                             .and_then(|m| m.firewall_policy.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("firewallpolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/firewallpolicies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1075,12 +964,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                             .map(|m| &m.name),
                         "firewall_policy.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("firewallpolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/firewallpolicies/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/firewallpolicies/*",
@@ -1130,12 +1016,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("firewallpolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/firewallpolicies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1149,12 +1032,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("firewallpolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/firewallpolicies/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/firewallpolicies/*",
@@ -1197,11 +1077,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     "/v1/{}/firewallpolicies:reorder",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1212,11 +1088,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1251,11 +1123,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     "/v1/{}/relatedaccountgroups",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1266,11 +1134,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1311,12 +1175,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("relatedaccountgroups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/relatedaccountgroups/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1330,12 +1191,9 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("relatedaccountgroups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/relatedaccountgroups/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/relatedaccountgroups/*",
@@ -1377,11 +1235,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     "/v1/{}/relatedaccountgroupmemberships:search",
                     composable_matches(
                         Some(&req).map(|m| &m.project)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1392,11 +1246,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project),
                         "project",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());

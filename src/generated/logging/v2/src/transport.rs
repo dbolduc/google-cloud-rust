@@ -56,12 +56,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.log_name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("logs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/logs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -73,29 +70,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.log_name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("logs"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}",
-                    composable_matches(
-                        Some(&req).map(|m| &m.log_name)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("logs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/logs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -107,12 +86,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.log_name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("logs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/logs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -124,12 +100,23 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.log_name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("logs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/logs/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.log_name)?,
+                        &[
+                            Segment::Literal("billingAccounts/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/logs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -143,12 +130,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.log_name),
                         "log_name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("logs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/logs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/logs/*",
@@ -161,12 +145,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.log_name),
                         "log_name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("logs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/logs/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/logs/*",
@@ -179,12 +162,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.log_name),
                         "log_name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("logs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/logs/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/logs/*",
@@ -197,12 +177,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.log_name),
                         "log_name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("logs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/logs/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/logs/*",
@@ -215,12 +192,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.log_name),
                         "log_name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("logs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/logs/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/logs/*",
@@ -365,6 +339,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -377,9 +352,35 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     "/v2/{}/logs",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/logs",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/logs",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/logs",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -391,8 +392,13 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -404,8 +410,13 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -417,8 +428,13 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -430,95 +446,13 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/logs",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/logs",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/logs",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -532,6 +466,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -545,11 +480,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -559,11 +490,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -573,11 +500,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -588,8 +511,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -602,20 +524,13 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*/views/*",
@@ -628,20 +543,13 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*/views/*",
@@ -654,20 +562,13 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*/views/*",
@@ -680,20 +581,13 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*/views/*",
@@ -739,29 +633,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/operations",
-                    composable_matches(
-                        Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -773,12 +649,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -790,12 +663,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -807,12 +677,23 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("billingAccounts/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -826,12 +707,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*",
@@ -844,12 +724,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -862,12 +739,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -880,12 +754,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*",
@@ -898,12 +769,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*",
@@ -946,16 +814,13 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -967,16 +832,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -988,16 +848,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1009,16 +864,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1030,16 +880,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1053,16 +898,13 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/operations/*",
@@ -1075,16 +917,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",
@@ -1097,16 +934,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/operations/*",
@@ -1119,16 +951,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/operations/*",
@@ -1141,16 +968,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/operations/*",
@@ -1190,16 +1012,13 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1211,16 +1030,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1232,16 +1046,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1253,16 +1062,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1274,16 +1078,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1297,16 +1096,13 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/operations/*",
@@ -1319,16 +1115,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",
@@ -1341,16 +1132,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/operations/*",
@@ -1363,16 +1149,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/operations/*",
@@ -1385,16 +1166,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/operations/*",
@@ -1460,29 +1236,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/buckets",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1494,12 +1252,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1511,12 +1266,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1528,12 +1280,23 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/buckets",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("billingAccounts/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1547,12 +1310,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*",
@@ -1565,12 +1327,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1583,12 +1342,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -1601,12 +1357,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*",
@@ -1619,12 +1372,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*",
@@ -1666,16 +1416,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1687,16 +1434,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1708,16 +1450,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1729,16 +1466,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1750,16 +1482,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1773,16 +1500,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*",
@@ -1795,16 +1519,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*",
@@ -1817,16 +1536,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*",
@@ -1839,16 +1553,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*",
@@ -1861,16 +1570,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*",
@@ -1910,29 +1614,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/buckets:createAsync",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1944,12 +1630,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1961,12 +1644,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1978,12 +1658,23 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/buckets:createAsync",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("billingAccounts/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1997,12 +1688,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*",
@@ -2015,12 +1705,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -2033,12 +1720,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -2051,12 +1735,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*",
@@ -2069,12 +1750,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*",
@@ -2113,16 +1791,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2134,16 +1809,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2155,16 +1825,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2176,16 +1841,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2197,16 +1857,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2220,16 +1875,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*",
@@ -2242,16 +1894,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*",
@@ -2264,16 +1911,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*",
@@ -2286,16 +1928,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*",
@@ -2308,16 +1945,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*",
@@ -2365,29 +1997,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/buckets",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2399,12 +2013,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2416,12 +2027,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2433,12 +2041,23 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/buckets",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("billingAccounts/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2452,12 +2071,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*",
@@ -2470,12 +2088,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -2488,12 +2103,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -2506,12 +2118,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*",
@@ -2524,12 +2133,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*",
@@ -2568,16 +2174,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2589,16 +2192,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2610,16 +2208,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2631,16 +2224,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2652,16 +2240,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2675,16 +2258,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*",
@@ -2697,16 +2277,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*",
@@ -2719,16 +2294,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*",
@@ -2741,16 +2311,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*",
@@ -2763,16 +2328,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*",
@@ -2820,16 +2380,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2841,16 +2398,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2862,16 +2414,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2883,16 +2430,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2904,16 +2446,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2927,16 +2464,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*",
@@ -2949,16 +2483,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*",
@@ -2971,16 +2500,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*",
@@ -2993,16 +2517,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*",
@@ -3015,16 +2534,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*",
@@ -3068,16 +2582,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3089,16 +2600,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3110,16 +2616,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3131,16 +2632,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3152,16 +2648,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3175,16 +2666,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*",
@@ -3197,16 +2685,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*",
@@ -3219,16 +2702,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*",
@@ -3241,16 +2719,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*",
@@ -3263,16 +2736,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*",
@@ -3315,16 +2783,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3336,16 +2801,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3357,16 +2817,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3378,16 +2833,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3399,16 +2849,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3422,16 +2867,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*",
@@ -3444,16 +2886,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*",
@@ -3466,16 +2903,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*",
@@ -3488,16 +2920,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*",
@@ -3510,16 +2937,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*",
@@ -3561,20 +2983,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3586,20 +3003,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3611,20 +3021,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3636,20 +3039,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3661,20 +3057,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3688,20 +3077,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*/views/*",
@@ -3714,20 +3098,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*/views/*",
@@ -3740,20 +3117,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*/views/*",
@@ -3766,20 +3136,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*/views/*",
@@ -3792,20 +3155,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*/views/*",
@@ -3845,16 +3201,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3866,16 +3219,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3887,16 +3235,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3908,16 +3251,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3929,16 +3267,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3952,16 +3285,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*",
@@ -3974,16 +3304,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*",
@@ -3996,16 +3321,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*",
@@ -4018,16 +3338,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*",
@@ -4040,16 +3355,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*",
@@ -4088,20 +3398,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4113,20 +3418,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4138,20 +3436,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4163,20 +3454,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4188,20 +3472,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4215,20 +3492,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*/views/*",
@@ -4241,20 +3513,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*/views/*",
@@ -4267,20 +3532,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*/views/*",
@@ -4293,20 +3551,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*/views/*",
@@ -4319,20 +3570,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*/views/*",
@@ -4380,20 +3624,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4405,20 +3644,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4430,20 +3662,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4455,20 +3680,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4480,20 +3698,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4507,20 +3718,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*/views/*",
@@ -4533,20 +3739,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*/views/*",
@@ -4559,20 +3758,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*/views/*",
@@ -4585,20 +3777,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*/views/*",
@@ -4611,20 +3796,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("views"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/views/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*/views/*",
@@ -4668,6 +3846,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -4680,11 +3859,25 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     "/v2/{}/sinks",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/sinks",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/sinks",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -4694,34 +3887,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/sinks",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/sinks",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4735,6 +3901,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -4748,11 +3915,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -4762,11 +3925,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -4776,11 +3935,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -4791,8 +3946,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -4834,29 +3988,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}",
-                    composable_matches(
-                        Some(&req).map(|m| &m.sink_name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4868,12 +4004,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4885,12 +4018,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4902,12 +4032,23 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.sink_name)?,
+                        &[
+                            Segment::Literal("billingAccounts/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4921,12 +4062,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/sinks/*",
@@ -4939,12 +4079,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/sinks/*",
@@ -4957,12 +4094,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/sinks/*",
@@ -4975,12 +4109,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/sinks/*",
@@ -4993,12 +4124,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/sinks/*",
@@ -5038,6 +4166,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -5050,11 +4179,25 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     "/v2/{}/sinks",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/sinks",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/sinks",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -5064,34 +4207,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/sinks",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/sinks",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5105,6 +4221,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -5118,11 +4235,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -5132,11 +4245,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -5146,11 +4255,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -5161,8 +4266,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -5201,29 +4305,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}",
-                    composable_matches(
-                        Some(&req).map(|m| &m.sink_name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5235,12 +4321,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5252,12 +4335,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5269,12 +4349,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5286,12 +4363,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5303,12 +4377,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5320,12 +4391,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5337,12 +4405,23 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.sink_name)?,
+                        &[
+                            Segment::Literal("billingAccounts/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5356,12 +4435,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/sinks/*",
@@ -5374,12 +4452,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/sinks/*",
@@ -5392,12 +4467,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/sinks/*",
@@ -5410,12 +4482,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/sinks/*",
@@ -5428,12 +4497,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/sinks/*",
@@ -5446,12 +4512,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/sinks/*",
@@ -5464,12 +4527,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/sinks/*",
@@ -5482,12 +4542,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/sinks/*",
@@ -5500,12 +4557,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/sinks/*",
@@ -5554,29 +4608,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}",
-                    composable_matches(
-                        Some(&req).map(|m| &m.sink_name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5588,12 +4624,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5605,12 +4638,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5622,12 +4652,23 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.sink_name)?,
+                        &[
+                            Segment::Literal("billingAccounts/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5641,12 +4682,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/sinks/*",
@@ -5659,12 +4699,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/sinks/*",
@@ -5677,12 +4714,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/sinks/*",
@@ -5695,12 +4729,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/sinks/*",
@@ -5713,12 +4744,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sinks"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sinks/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/sinks/*",
@@ -5762,16 +4790,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5783,16 +4808,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5804,16 +4824,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5825,16 +4840,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5846,16 +4856,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5869,16 +4874,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*",
@@ -5891,16 +4893,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*",
@@ -5913,16 +4910,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*",
@@ -5935,16 +4927,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*",
@@ -5957,16 +4944,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*",
@@ -6005,20 +4987,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6030,20 +5007,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6055,20 +5025,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6080,20 +5043,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6105,20 +5061,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6132,20 +5081,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*/links/*",
@@ -6158,20 +5102,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*/links/*",
@@ -6184,20 +5121,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*/links/*",
@@ -6210,20 +5140,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*/links/*",
@@ -6236,20 +5159,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*/links/*",
@@ -6289,16 +5205,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6310,16 +5223,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6331,16 +5239,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6352,16 +5255,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6373,16 +5271,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6396,16 +5289,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*",
@@ -6418,16 +5308,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*",
@@ -6440,16 +5325,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*",
@@ -6462,16 +5342,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*",
@@ -6484,16 +5359,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*",
@@ -6535,20 +5405,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6560,20 +5425,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6585,20 +5443,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6610,20 +5461,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6635,20 +5479,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6662,20 +5499,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/buckets/*/links/*",
@@ -6688,20 +5520,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/buckets/*/links/*",
@@ -6714,20 +5539,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/buckets/*/links/*",
@@ -6740,20 +5558,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/buckets/*/links/*",
@@ -6766,20 +5577,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("buckets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("links"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/links/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/buckets/*/links/*",
@@ -6819,6 +5623,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -6831,11 +5636,25 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     "/v2/{}/exclusions",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/exclusions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/exclusions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -6845,34 +5664,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/exclusions",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/exclusions",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6886,6 +5678,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -6899,11 +5692,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -6913,11 +5702,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -6927,11 +5712,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -6942,8 +5723,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -6985,29 +5765,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}",
-                    composable_matches(
-                        Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7019,12 +5781,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7036,12 +5795,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7053,12 +5809,23 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("billingAccounts/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7072,12 +5839,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/exclusions/*",
@@ -7090,12 +5856,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/exclusions/*",
@@ -7108,12 +5871,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/exclusions/*",
@@ -7126,12 +5886,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/exclusions/*",
@@ -7144,12 +5901,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/exclusions/*",
@@ -7189,6 +5943,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7201,11 +5956,25 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     "/v2/{}/exclusions",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/exclusions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/exclusions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -7215,34 +5984,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/exclusions",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/exclusions",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7256,6 +5998,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7269,11 +6012,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -7283,11 +6022,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -7297,11 +6032,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -7312,8 +6043,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -7353,29 +6083,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}",
-                    composable_matches(
-                        Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7387,12 +6099,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7404,12 +6113,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7421,12 +6127,23 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("billingAccounts/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7440,12 +6157,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/exclusions/*",
@@ -7458,12 +6174,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/exclusions/*",
@@ -7476,12 +6189,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/exclusions/*",
@@ -7494,12 +6204,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/exclusions/*",
@@ -7512,12 +6219,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/exclusions/*",
@@ -7567,29 +6271,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}",
-                    composable_matches(
-                        Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7601,12 +6287,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7618,12 +6301,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7635,12 +6315,23 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("billingAccounts/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7654,12 +6345,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/exclusions/*",
@@ -7672,12 +6362,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/exclusions/*",
@@ -7690,12 +6377,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/exclusions/*",
@@ -7708,12 +6392,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/exclusions/*",
@@ -7726,12 +6407,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("exclusions"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/exclusions/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/exclusions/*",
@@ -7775,6 +6453,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7787,11 +6466,25 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     "/v2/{}/cmekSettings",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/cmekSettings",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/cmekSettings",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -7801,34 +6494,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/cmekSettings",
-                    composable_matches(
-                        Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/cmekSettings",
-                    composable_matches(
-                        Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -7842,6 +6508,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7855,11 +6522,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -7869,11 +6532,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -7883,11 +6542,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -7898,8 +6553,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -7939,6 +6593,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7951,11 +6606,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     "/v2/{}/cmekSettings",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -7967,6 +6618,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7980,11 +6632,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -8032,6 +6680,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -8044,11 +6693,25 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     "/v2/{}/settings",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/settings",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/settings",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -8058,34 +6721,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/settings",
-                    composable_matches(
-                        Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/settings",
-                    composable_matches(
-                        Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8099,6 +6735,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -8112,11 +6749,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -8126,11 +6759,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -8140,11 +6769,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -8155,8 +6780,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -8196,6 +6820,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -8208,11 +6833,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     "/v2/{}/settings",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -8221,11 +6842,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     "/v2/{}/settings",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -8237,6 +6854,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -8250,11 +6868,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -8264,11 +6878,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -8348,29 +6958,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/operations",
-                    composable_matches(
-                        Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8382,12 +6974,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8399,12 +6988,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8416,12 +7002,23 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("billingAccounts/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8435,12 +7032,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*",
@@ -8453,12 +7049,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -8471,12 +7064,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -8489,12 +7079,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*",
@@ -8507,12 +7094,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*",
@@ -8555,16 +7139,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8576,16 +7157,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8597,16 +7173,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8618,16 +7189,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8639,16 +7205,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8662,16 +7223,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/operations/*",
@@ -8684,16 +7242,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",
@@ -8706,16 +7259,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/operations/*",
@@ -8728,16 +7276,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/operations/*",
@@ -8750,16 +7293,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/operations/*",
@@ -8799,16 +7337,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8820,16 +7355,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8841,16 +7371,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8862,16 +7387,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8883,16 +7403,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -8906,16 +7421,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/operations/*",
@@ -8928,16 +7440,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",
@@ -8950,16 +7457,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/operations/*",
@@ -8972,16 +7474,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/operations/*",
@@ -8994,16 +7491,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/operations/*",
@@ -9082,11 +7574,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     "/v2/{}/metrics",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -9097,11 +7585,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -9141,12 +7625,9 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.metric_name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("metrics"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/metrics/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9160,12 +7641,9 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.metric_name),
                         "metric_name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("metrics"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/metrics/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/metrics/*",
@@ -9204,11 +7682,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     "/v2/{}/metrics",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -9219,11 +7693,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -9259,12 +7729,9 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.metric_name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("metrics"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/metrics/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9278,12 +7745,9 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.metric_name),
                         "metric_name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("metrics"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/metrics/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/metrics/*",
@@ -9321,12 +7785,9 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.metric_name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("metrics"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/metrics/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9340,12 +7801,9 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.metric_name),
                         "metric_name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("metrics"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/metrics/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/metrics/*",
@@ -9389,29 +7847,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/operations",
-                    composable_matches(
-                        Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9423,12 +7863,9 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9440,12 +7877,9 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9457,12 +7891,23 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("billingAccounts/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9476,12 +7921,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*",
@@ -9494,12 +7938,9 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -9512,12 +7953,9 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -9530,12 +7968,9 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*",
@@ -9548,12 +7983,9 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*",
@@ -9596,16 +8028,13 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9617,16 +8046,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9638,16 +8062,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9659,16 +8078,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9680,16 +8094,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9703,16 +8112,13 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/operations/*",
@@ -9725,16 +8131,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",
@@ -9747,16 +8148,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/operations/*",
@@ -9769,16 +8165,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/operations/*",
@@ -9791,16 +8182,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/operations/*",
@@ -9840,16 +8226,13 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9861,16 +8244,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9882,16 +8260,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9903,16 +8276,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9924,16 +8292,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -9947,16 +8310,13 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/locations/*/operations/*",
@@ -9969,16 +8329,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",
@@ -9991,16 +8346,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/operations/*",
@@ -10013,16 +8363,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/locations/*/operations/*",
@@ -10035,16 +8380,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/locations/*/operations/*",

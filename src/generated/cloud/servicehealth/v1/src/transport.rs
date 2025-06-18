@@ -56,12 +56,9 @@ impl super::stub::ServiceHealth for ServiceHealth {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -75,12 +72,9 @@ impl super::stub::ServiceHealth for ServiceHealth {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -124,16 +118,11 @@ impl super::stub::ServiceHealth for ServiceHealth {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("events"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/events/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -147,16 +136,11 @@ impl super::stub::ServiceHealth for ServiceHealth {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("events"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/events/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/events/*",
@@ -196,12 +180,9 @@ impl super::stub::ServiceHealth for ServiceHealth {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -215,12 +196,9 @@ impl super::stub::ServiceHealth for ServiceHealth {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -264,16 +242,11 @@ impl super::stub::ServiceHealth for ServiceHealth {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("organizationEvents"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/organizationEvents/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -287,16 +260,11 @@ impl super::stub::ServiceHealth for ServiceHealth {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("organizationEvents"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/organizationEvents/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/organizationEvents/*",
@@ -336,12 +304,9 @@ impl super::stub::ServiceHealth for ServiceHealth {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -355,12 +320,9 @@ impl super::stub::ServiceHealth for ServiceHealth {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -403,16 +365,11 @@ impl super::stub::ServiceHealth for ServiceHealth {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("organizationImpacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/organizationImpacts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -426,16 +383,11 @@ impl super::stub::ServiceHealth for ServiceHealth {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("organizationImpacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/organizationImpacts/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/organizationImpacts/*",
@@ -474,11 +426,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
                     "/v1/{}/locations",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -489,11 +437,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -534,12 +478,9 @@ impl super::stub::ServiceHealth for ServiceHealth {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -553,12 +494,9 @@ impl super::stub::ServiceHealth for ServiceHealth {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",

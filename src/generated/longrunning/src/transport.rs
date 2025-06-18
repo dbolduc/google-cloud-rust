@@ -106,11 +106,7 @@ impl super::stub::Operations for Operations {
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -121,11 +117,7 @@ impl super::stub::Operations for Operations {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());
@@ -162,11 +154,7 @@ impl super::stub::Operations for Operations {
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -177,11 +165,7 @@ impl super::stub::Operations for Operations {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());
@@ -222,11 +206,7 @@ impl super::stub::Operations for Operations {
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -237,11 +217,7 @@ impl super::stub::Operations for Operations {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());

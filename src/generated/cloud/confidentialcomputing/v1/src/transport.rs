@@ -56,12 +56,9 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -75,12 +72,9 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -120,16 +114,11 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
                     composable_matches(
                         Some(&req).map(|m| &m.challenge)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("challenges"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/challenges/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -143,16 +132,11 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
                         Some(&req).map(|m| &m.challenge),
                         "challenge",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("challenges"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/challenges/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/challenges/*",
@@ -189,11 +173,7 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
                     "/v1/{}/locations",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -204,11 +184,7 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -249,12 +225,9 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -268,12 +241,9 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",

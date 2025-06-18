@@ -55,11 +55,7 @@ impl super::stub::AccessApproval for AccessApproval {
                     "/v1/{}/approvalRequests",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -68,11 +64,7 @@ impl super::stub::AccessApproval for AccessApproval {
                     "/v1/{}/approvalRequests",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -81,11 +73,7 @@ impl super::stub::AccessApproval for AccessApproval {
                     "/v1/{}/approvalRequests",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -96,11 +84,7 @@ impl super::stub::AccessApproval for AccessApproval {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -110,11 +94,7 @@ impl super::stub::AccessApproval for AccessApproval {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -124,11 +104,7 @@ impl super::stub::AccessApproval for AccessApproval {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -169,12 +145,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -186,12 +159,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -203,12 +173,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -222,12 +189,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/approvalRequests/*",
@@ -240,12 +204,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/approvalRequests/*",
@@ -258,12 +219,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/approvalRequests/*",
@@ -303,12 +261,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -320,12 +275,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -337,12 +289,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -356,12 +305,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/approvalRequests/*",
@@ -374,12 +320,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/approvalRequests/*",
@@ -392,12 +335,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/approvalRequests/*",
@@ -435,12 +375,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -452,12 +389,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -469,12 +403,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -488,12 +419,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/approvalRequests/*",
@@ -506,12 +434,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/approvalRequests/*",
@@ -524,12 +449,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/approvalRequests/*",
@@ -567,12 +489,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -584,12 +503,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -601,12 +517,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -620,12 +533,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/approvalRequests/*",
@@ -638,12 +548,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/approvalRequests/*",
@@ -656,12 +563,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("approvalRequests"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/approvalRequests/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/approvalRequests/*",
@@ -699,11 +603,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ]
                     )?,
                 ))
@@ -714,11 +616,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ]
                     )?,
                 ))
@@ -729,11 +629,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ]
                     )?,
                 ))
@@ -746,11 +644,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ],
                         "projects/*/accessApprovalSettings",
                     );
@@ -762,11 +658,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ],
                         "folders/*/accessApprovalSettings",
                     );
@@ -778,11 +672,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ],
                         "organizations/*/accessApprovalSettings",
                     );
@@ -823,11 +715,9 @@ impl super::stub::AccessApproval for AccessApproval {
                             .and_then(|m| m.settings.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ]
                     )?,
                 ))
@@ -840,11 +730,9 @@ impl super::stub::AccessApproval for AccessApproval {
                             .and_then(|m| m.settings.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ]
                     )?,
                 ))
@@ -857,11 +745,9 @@ impl super::stub::AccessApproval for AccessApproval {
                             .and_then(|m| m.settings.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ]
                     )?,
                 ))
@@ -876,11 +762,9 @@ impl super::stub::AccessApproval for AccessApproval {
                             .map(|m| &m.name),
                         "settings.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ],
                         "projects/*/accessApprovalSettings",
                     );
@@ -894,11 +778,9 @@ impl super::stub::AccessApproval for AccessApproval {
                             .map(|m| &m.name),
                         "settings.name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ],
                         "folders/*/accessApprovalSettings",
                     );
@@ -912,11 +794,9 @@ impl super::stub::AccessApproval for AccessApproval {
                             .map(|m| &m.name),
                         "settings.name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ],
                         "organizations/*/accessApprovalSettings",
                     );
@@ -965,11 +845,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ]
                     )?,
                 ))
@@ -980,11 +858,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ]
                     )?,
                 ))
@@ -995,11 +871,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ]
                     )?,
                 ))
@@ -1012,11 +886,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ],
                         "projects/*/accessApprovalSettings",
                     );
@@ -1028,11 +900,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ],
                         "folders/*/accessApprovalSettings",
                     );
@@ -1044,11 +914,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessApprovalSettings"),
+                            Segment::Literal("/accessApprovalSettings"),
                         ],
                         "organizations/*/accessApprovalSettings",
                     );
@@ -1091,11 +959,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccount"),
+                            Segment::Literal("/serviceAccount"),
                         ]
                     )?,
                 ))
@@ -1106,11 +972,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccount"),
+                            Segment::Literal("/serviceAccount"),
                         ]
                     )?,
                 ))
@@ -1121,11 +985,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccount"),
+                            Segment::Literal("/serviceAccount"),
                         ]
                     )?,
                 ))
@@ -1138,11 +1000,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccount"),
+                            Segment::Literal("/serviceAccount"),
                         ],
                         "projects/*/serviceAccount",
                     );
@@ -1154,11 +1014,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccount"),
+                            Segment::Literal("/serviceAccount"),
                         ],
                         "folders/*/serviceAccount",
                     );
@@ -1170,11 +1028,9 @@ impl super::stub::AccessApproval for AccessApproval {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccount"),
+                            Segment::Literal("/serviceAccount"),
                         ],
                         "organizations/*/serviceAccount",
                     );

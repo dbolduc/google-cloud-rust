@@ -56,15 +56,11 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("licensePool"),
+                            Segment::Literal("/licensePool"),
                         ]
                     )?,
                 ))
@@ -77,15 +73,11 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("licensePool"),
+                            Segment::Literal("/licensePool"),
                         ],
                         "billingAccounts/*/orders/*/licensePool",
                     );
@@ -126,15 +118,11 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                             .and_then(|m| m.license_pool.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("licensePool"),
+                            Segment::Literal("/licensePool"),
                         ]
                     )?,
                 ))
@@ -149,15 +137,11 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                             .map(|m| &m.name),
                         "license_pool.name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("licensePool"),
+                            Segment::Literal("/licensePool"),
                         ],
                         "billingAccounts/*/orders/*/licensePool",
                     );
@@ -206,15 +190,11 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("licensePool"),
+                            Segment::Literal("/licensePool"),
                         ]
                     )?,
                 ))
@@ -227,15 +207,11 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("licensePool"),
+                            Segment::Literal("/licensePool"),
                         ],
                         "billingAccounts/*/orders/*/licensePool",
                     );
@@ -272,15 +248,11 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("licensePool"),
+                            Segment::Literal("/licensePool"),
                         ]
                     )?,
                 ))
@@ -293,15 +265,11 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("licensePool"),
+                            Segment::Literal("/licensePool"),
                         ],
                         "billingAccounts/*/orders/*/licensePool",
                     );
@@ -338,15 +306,11 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("licensePool"),
+                            Segment::Literal("/licensePool"),
                         ]
                     )?,
                 ))
@@ -359,15 +323,11 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("licensePool"),
+                            Segment::Literal("/licensePool"),
                         ],
                         "billingAccounts/*/orders/*/licensePool",
                     );
@@ -408,16 +368,11 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -431,16 +386,11 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/orders/*/operations/*",
@@ -503,8 +453,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -518,8 +467,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -557,12 +505,9 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -576,12 +521,9 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/orders/*",
@@ -621,8 +563,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -636,8 +577,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -680,12 +620,9 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -699,12 +636,9 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/orders/*",
@@ -742,12 +676,9 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -761,12 +692,9 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/orders/*",
@@ -804,16 +732,11 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -827,16 +750,11 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("orders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/orders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*/orders/*/operations/*",

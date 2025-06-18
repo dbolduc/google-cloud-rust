@@ -56,12 +56,9 @@ impl super::stub::CloudShellService for CloudShellService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("environments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/environments/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -75,12 +72,9 @@ impl super::stub::CloudShellService for CloudShellService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("environments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/environments/"),
                             Segment::SingleWildcard,
                         ],
                         "users/*/environments/*",
@@ -120,12 +114,9 @@ impl super::stub::CloudShellService for CloudShellService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("environments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/environments/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -139,12 +130,9 @@ impl super::stub::CloudShellService for CloudShellService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("environments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/environments/"),
                             Segment::SingleWildcard,
                         ],
                         "users/*/environments/*",
@@ -182,12 +170,9 @@ impl super::stub::CloudShellService for CloudShellService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("environments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/environments/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -201,12 +186,9 @@ impl super::stub::CloudShellService for CloudShellService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("environments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/environments/"),
                             Segment::SingleWildcard,
                         ],
                         "users/*/environments/*",
@@ -244,12 +226,9 @@ impl super::stub::CloudShellService for CloudShellService {
                     composable_matches(
                         Some(&req).map(|m| &m.environment)?,
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("environments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/environments/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -263,12 +242,9 @@ impl super::stub::CloudShellService for CloudShellService {
                         Some(&req).map(|m| &m.environment),
                         "environment",
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("environments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/environments/"),
                             Segment::SingleWildcard,
                         ],
                         "users/*/environments/*",
@@ -306,12 +282,9 @@ impl super::stub::CloudShellService for CloudShellService {
                     composable_matches(
                         Some(&req).map(|m| &m.environment)?,
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("environments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/environments/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -325,12 +298,9 @@ impl super::stub::CloudShellService for CloudShellService {
                         Some(&req).map(|m| &m.environment),
                         "environment",
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("environments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/environments/"),
                             Segment::SingleWildcard,
                         ],
                         "users/*/environments/*",
@@ -367,11 +337,7 @@ impl super::stub::CloudShellService for CloudShellService {
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -382,11 +348,7 @@ impl super::stub::CloudShellService for CloudShellService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());

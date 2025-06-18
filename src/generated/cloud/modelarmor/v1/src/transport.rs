@@ -56,12 +56,9 @@ impl super::stub::ModelArmor for ModelArmor {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -75,12 +72,9 @@ impl super::stub::ModelArmor for ModelArmor {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -124,16 +118,11 @@ impl super::stub::ModelArmor for ModelArmor {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("templates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/templates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -147,16 +136,11 @@ impl super::stub::ModelArmor for ModelArmor {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("templates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/templates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/templates/*",
@@ -196,12 +180,9 @@ impl super::stub::ModelArmor for ModelArmor {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -215,12 +196,9 @@ impl super::stub::ModelArmor for ModelArmor {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -264,16 +242,11 @@ impl super::stub::ModelArmor for ModelArmor {
                             .and_then(|m| m.template.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("templates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/templates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -289,16 +262,11 @@ impl super::stub::ModelArmor for ModelArmor {
                             .map(|m| &m.name),
                         "template.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("templates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/templates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/templates/*",
@@ -349,16 +317,11 @@ impl super::stub::ModelArmor for ModelArmor {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("templates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/templates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -372,16 +335,11 @@ impl super::stub::ModelArmor for ModelArmor {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("templates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/templates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/templates/*",
@@ -426,15 +384,11 @@ impl super::stub::ModelArmor for ModelArmor {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("floorSetting"),
+                            Segment::Literal("/floorSetting"),
                         ]
                     )?,
                 ))
@@ -445,15 +399,11 @@ impl super::stub::ModelArmor for ModelArmor {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("floorSetting"),
+                            Segment::Literal("/floorSetting"),
                         ]
                     )?,
                 ))
@@ -464,15 +414,11 @@ impl super::stub::ModelArmor for ModelArmor {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("floorSetting"),
+                            Segment::Literal("/floorSetting"),
                         ]
                     )?,
                 ))
@@ -485,15 +431,11 @@ impl super::stub::ModelArmor for ModelArmor {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("floorSetting"),
+                            Segment::Literal("/floorSetting"),
                         ],
                         "projects/*/locations/*/floorSetting",
                     );
@@ -505,15 +447,11 @@ impl super::stub::ModelArmor for ModelArmor {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("floorSetting"),
+                            Segment::Literal("/floorSetting"),
                         ],
                         "folders/*/locations/*/floorSetting",
                     );
@@ -525,15 +463,11 @@ impl super::stub::ModelArmor for ModelArmor {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("floorSetting"),
+                            Segment::Literal("/floorSetting"),
                         ],
                         "organizations/*/locations/*/floorSetting",
                     );
@@ -574,15 +508,11 @@ impl super::stub::ModelArmor for ModelArmor {
                             .and_then(|m| m.floor_setting.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("floorSetting"),
+                            Segment::Literal("/floorSetting"),
                         ]
                     )?,
                 ))
@@ -595,15 +525,11 @@ impl super::stub::ModelArmor for ModelArmor {
                             .and_then(|m| m.floor_setting.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("floorSetting"),
+                            Segment::Literal("/floorSetting"),
                         ]
                     )?,
                 ))
@@ -616,15 +542,11 @@ impl super::stub::ModelArmor for ModelArmor {
                             .and_then(|m| m.floor_setting.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("floorSetting"),
+                            Segment::Literal("/floorSetting"),
                         ]
                     )?,
                 ))
@@ -639,15 +561,11 @@ impl super::stub::ModelArmor for ModelArmor {
                             .map(|m| &m.name),
                         "floor_setting.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("floorSetting"),
+                            Segment::Literal("/floorSetting"),
                         ],
                         "projects/*/locations/*/floorSetting",
                     );
@@ -661,15 +579,11 @@ impl super::stub::ModelArmor for ModelArmor {
                             .map(|m| &m.name),
                         "floor_setting.name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("floorSetting"),
+                            Segment::Literal("/floorSetting"),
                         ],
                         "folders/*/locations/*/floorSetting",
                     );
@@ -683,15 +597,11 @@ impl super::stub::ModelArmor for ModelArmor {
                             .map(|m| &m.name),
                         "floor_setting.name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("floorSetting"),
+                            Segment::Literal("/floorSetting"),
                         ],
                         "organizations/*/locations/*/floorSetting",
                     );
@@ -740,16 +650,11 @@ impl super::stub::ModelArmor for ModelArmor {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("templates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/templates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -763,16 +668,11 @@ impl super::stub::ModelArmor for ModelArmor {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("templates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/templates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/templates/*",
@@ -810,16 +710,11 @@ impl super::stub::ModelArmor for ModelArmor {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("templates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/templates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -833,16 +728,11 @@ impl super::stub::ModelArmor for ModelArmor {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("templates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/templates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/templates/*",
@@ -879,11 +769,7 @@ impl super::stub::ModelArmor for ModelArmor {
                     "/v1/{}/locations",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -894,11 +780,7 @@ impl super::stub::ModelArmor for ModelArmor {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -939,12 +821,9 @@ impl super::stub::ModelArmor for ModelArmor {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -958,12 +837,9 @@ impl super::stub::ModelArmor for ModelArmor {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",

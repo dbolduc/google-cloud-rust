@@ -55,11 +55,7 @@ impl super::stub::TraceService for TraceService {
                     "/v2/{}/traces:batchWrite",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -70,11 +66,7 @@ impl super::stub::TraceService for TraceService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -115,16 +107,11 @@ impl super::stub::TraceService for TraceService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("traces"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/traces/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("spans"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/spans/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -138,16 +125,11 @@ impl super::stub::TraceService for TraceService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("traces"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/traces/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("spans"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/spans/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/traces/*/spans/*",

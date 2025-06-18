@@ -55,11 +55,7 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
                     "/v3/{}/alertPolicies",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -70,11 +66,7 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -116,12 +108,9 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("alertPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/alertPolicies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -135,12 +124,9 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("alertPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/alertPolicies/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/alertPolicies/*",
@@ -179,11 +165,7 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
                     "/v3/{}/alertPolicies",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -194,11 +176,7 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -236,12 +214,9 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("alertPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/alertPolicies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -255,12 +230,9 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("alertPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/alertPolicies/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/alertPolicies/*",
@@ -306,12 +278,9 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
                             .and_then(|m| m.alert_policy.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("alertPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/alertPolicies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -327,12 +296,9 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
                             .map(|m| &m.name),
                         "alert_policy.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("alertPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/alertPolicies/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/alertPolicies/*",
@@ -404,11 +370,7 @@ impl super::stub::GroupService for GroupService {
                     "/v3/{}/groups",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -419,11 +381,7 @@ impl super::stub::GroupService for GroupService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -475,12 +433,9 @@ impl super::stub::GroupService for GroupService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("groups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/groups/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -494,12 +449,9 @@ impl super::stub::GroupService for GroupService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("groups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/groups/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/groups/*",
@@ -538,11 +490,7 @@ impl super::stub::GroupService for GroupService {
                     "/v3/{}/groups",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -553,11 +501,7 @@ impl super::stub::GroupService for GroupService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -594,12 +538,9 @@ impl super::stub::GroupService for GroupService {
                     composable_matches(
                         Some(&req).and_then(|m| m.group.as_ref()).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("groups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/groups/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -613,12 +554,9 @@ impl super::stub::GroupService for GroupService {
                         Some(&req).and_then(|m| m.group.as_ref()).map(|m| &m.name),
                         "group.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("groups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/groups/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/groups/*",
@@ -657,12 +595,9 @@ impl super::stub::GroupService for GroupService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("groups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/groups/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -676,12 +611,9 @@ impl super::stub::GroupService for GroupService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("groups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/groups/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/groups/*",
@@ -726,12 +658,9 @@ impl super::stub::GroupService for GroupService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("groups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/groups/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -745,12 +674,9 @@ impl super::stub::GroupService for GroupService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("groups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/groups/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/groups/*",
@@ -826,11 +752,7 @@ impl super::stub::MetricService for MetricService {
                     "/v3/{}/monitoredResourceDescriptors",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -841,11 +763,7 @@ impl super::stub::MetricService for MetricService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -886,12 +804,9 @@ impl super::stub::MetricService for MetricService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("monitoredResourceDescriptors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/monitoredResourceDescriptors/"),
                             Segment::MultiWildcard,
                         ]
                     )?,
@@ -905,12 +820,9 @@ impl super::stub::MetricService for MetricService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("monitoredResourceDescriptors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/monitoredResourceDescriptors/"),
                             Segment::MultiWildcard,
                         ],
                         "projects/*/monitoredResourceDescriptors/**",
@@ -949,11 +861,7 @@ impl super::stub::MetricService for MetricService {
                     "/v3/{}/metricDescriptors",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -964,11 +872,7 @@ impl super::stub::MetricService for MetricService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1010,12 +914,9 @@ impl super::stub::MetricService for MetricService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("metricDescriptors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/metricDescriptors/"),
                             Segment::MultiWildcard,
                         ]
                     )?,
@@ -1029,12 +930,9 @@ impl super::stub::MetricService for MetricService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("metricDescriptors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/metricDescriptors/"),
                             Segment::MultiWildcard,
                         ],
                         "projects/*/metricDescriptors/**",
@@ -1073,11 +971,7 @@ impl super::stub::MetricService for MetricService {
                     "/v3/{}/metricDescriptors",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1088,11 +982,7 @@ impl super::stub::MetricService for MetricService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1130,12 +1020,9 @@ impl super::stub::MetricService for MetricService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("metricDescriptors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/metricDescriptors/"),
                             Segment::MultiWildcard,
                         ]
                     )?,
@@ -1149,12 +1036,9 @@ impl super::stub::MetricService for MetricService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("metricDescriptors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/metricDescriptors/"),
                             Segment::MultiWildcard,
                         ],
                         "projects/*/metricDescriptors/**",
@@ -1197,11 +1081,7 @@ impl super::stub::MetricService for MetricService {
                     "/v3/{}/timeSeries",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1210,11 +1090,7 @@ impl super::stub::MetricService for MetricService {
                     "/v3/{}/timeSeries",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1223,11 +1099,7 @@ impl super::stub::MetricService for MetricService {
                     "/v3/{}/timeSeries",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1238,11 +1110,7 @@ impl super::stub::MetricService for MetricService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1252,11 +1120,7 @@ impl super::stub::MetricService for MetricService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -1266,11 +1130,7 @@ impl super::stub::MetricService for MetricService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -1342,11 +1202,7 @@ impl super::stub::MetricService for MetricService {
                     "/v3/{}/timeSeries",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1357,11 +1213,7 @@ impl super::stub::MetricService for MetricService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1401,11 +1253,7 @@ impl super::stub::MetricService for MetricService {
                     "/v3/{}/timeSeries:createService",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1416,11 +1264,7 @@ impl super::stub::MetricService for MetricService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1484,11 +1328,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                     "/v3/{}/notificationChannelDescriptors",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1499,11 +1339,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1543,12 +1379,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannelDescriptors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannelDescriptors/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1562,12 +1395,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannelDescriptors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannelDescriptors/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/notificationChannelDescriptors/*",
@@ -1606,11 +1436,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                     "/v3/{}/notificationChannels",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1621,11 +1447,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1667,12 +1489,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannels/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1686,12 +1505,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannels/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/notificationChannels/*",
@@ -1730,11 +1546,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                     "/v3/{}/notificationChannels",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1745,11 +1557,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1789,12 +1597,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                             .and_then(|m| m.notification_channel.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannels/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1810,12 +1615,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                             .map(|m| &m.name),
                         "notification_channel.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannels/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/notificationChannels/*",
@@ -1865,12 +1667,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannels/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1884,12 +1683,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannels/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/notificationChannels/*",
@@ -1934,12 +1730,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannels/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1953,12 +1746,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannels/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/notificationChannels/*",
@@ -2002,12 +1792,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannels/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2021,12 +1808,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannels/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/notificationChannels/*",
@@ -2064,12 +1848,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannels/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2083,12 +1864,9 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notificationChannels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notificationChannels/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/notificationChannels/*",
@@ -2148,11 +1926,7 @@ impl super::stub::QueryService for QueryService {
                     "/v3/{}/timeSeries:query",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2163,11 +1937,7 @@ impl super::stub::QueryService for QueryService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -2226,6 +1996,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2241,6 +2012,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2283,12 +2055,11 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2302,12 +2073,11 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/services/*",
@@ -2347,6 +2117,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2362,6 +2133,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2408,12 +2180,11 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                             .and_then(|m| m.service.as_ref())
                             .map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2427,12 +2198,11 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).and_then(|m| m.service.as_ref()).map(|m| &m.name),
                         "service.name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/services/*",
@@ -2482,12 +2252,11 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2501,12 +2270,11 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/services/*",
@@ -2550,12 +2318,11 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2569,12 +2336,11 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/services/*",
@@ -2616,16 +2382,13 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceLevelObjectives"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceLevelObjectives/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2639,16 +2402,13 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceLevelObjectives"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceLevelObjectives/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/services/*/serviceLevelObjectives/*",
@@ -2689,12 +2449,11 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2708,12 +2467,11 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/services/*",
@@ -2759,16 +2517,13 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                             .and_then(|m| m.service_level_objective.as_ref())
                             .map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceLevelObjectives"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceLevelObjectives/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2784,16 +2539,13 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                             .map(|m| &m.name),
                         "service_level_objective.name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceLevelObjectives"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceLevelObjectives/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/services/*/serviceLevelObjectives/*",
@@ -2843,16 +2595,13 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceLevelObjectives"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceLevelObjectives/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2866,16 +2615,13 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/services/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceLevelObjectives"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceLevelObjectives/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/services/*/serviceLevelObjectives/*",
@@ -2941,11 +2687,7 @@ impl super::stub::SnoozeService for SnoozeService {
                     "/v3/{}/snoozes",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2956,11 +2698,7 @@ impl super::stub::SnoozeService for SnoozeService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -2995,11 +2733,7 @@ impl super::stub::SnoozeService for SnoozeService {
                     "/v3/{}/snoozes",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -3010,11 +2744,7 @@ impl super::stub::SnoozeService for SnoozeService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -3055,12 +2785,9 @@ impl super::stub::SnoozeService for SnoozeService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("snoozes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/snoozes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3074,12 +2801,9 @@ impl super::stub::SnoozeService for SnoozeService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("snoozes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/snoozes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/snoozes/*",
@@ -3121,12 +2845,9 @@ impl super::stub::SnoozeService for SnoozeService {
                             .and_then(|m| m.snooze.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("snoozes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/snoozes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3140,12 +2861,9 @@ impl super::stub::SnoozeService for SnoozeService {
                         Some(&req).and_then(|m| m.snooze.as_ref()).map(|m| &m.name),
                         "snooze.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("snoozes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/snoozes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/snoozes/*",
@@ -3215,11 +2933,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
                     "/v3/{}/uptimeCheckConfigs",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -3230,11 +2944,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -3275,12 +2985,9 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("uptimeCheckConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/uptimeCheckConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3294,12 +3001,9 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("uptimeCheckConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/uptimeCheckConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/uptimeCheckConfigs/*",
@@ -3338,11 +3042,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
                     "/v3/{}/uptimeCheckConfigs",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -3353,11 +3053,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -3397,12 +3093,9 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
                             .and_then(|m| m.uptime_check_config.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("uptimeCheckConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/uptimeCheckConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3418,12 +3111,9 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
                             .map(|m| &m.name),
                         "uptime_check_config.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("uptimeCheckConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/uptimeCheckConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/uptimeCheckConfigs/*",
@@ -3473,12 +3163,9 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("uptimeCheckConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/uptimeCheckConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3492,12 +3179,9 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("uptimeCheckConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/uptimeCheckConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/uptimeCheckConfigs/*",

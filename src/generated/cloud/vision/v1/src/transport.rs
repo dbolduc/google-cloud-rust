@@ -57,12 +57,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -73,11 +70,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     "/v1/{}/images:annotate",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -93,12 +86,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -110,11 +100,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -151,12 +137,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -167,11 +150,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     "/v1/{}/files:annotate",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -187,12 +166,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -204,11 +180,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -245,12 +217,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -261,11 +230,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     "/v1/{}/images:asyncBatchAnnotate",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -281,12 +246,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -298,11 +260,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -339,12 +297,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -355,11 +310,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     "/v1/{}/files:asyncBatchAnnotate",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -375,12 +326,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -392,11 +340,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -432,12 +376,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -449,16 +390,11 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -469,11 +405,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -483,12 +415,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -502,12 +431,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/operations/*",
@@ -520,16 +446,11 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",
@@ -541,11 +462,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::SingleWildcard],
                         "operations/*",
                     );
                     paths.push(builder.build());
@@ -556,12 +473,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "locations/*/operations/*",
@@ -638,12 +552,9 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -657,12 +568,9 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -703,12 +611,9 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -722,12 +627,9 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -769,16 +671,11 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("productSets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/productSets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -792,16 +689,11 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("productSets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/productSets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/productSets/*",
@@ -843,16 +735,11 @@ impl super::stub::ProductSearch for ProductSearch {
                             .and_then(|m| m.product_set.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("productSets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/productSets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -868,16 +755,11 @@ impl super::stub::ProductSearch for ProductSearch {
                             .map(|m| &m.name),
                         "product_set.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("productSets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/productSets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/productSets/*",
@@ -927,16 +809,11 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("productSets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/productSets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -950,16 +827,11 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("productSets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/productSets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/productSets/*",
@@ -1003,12 +875,9 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1022,12 +891,9 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1068,12 +934,9 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1087,12 +950,9 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1134,16 +994,11 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1157,16 +1012,11 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/products/*",
@@ -1208,16 +1058,11 @@ impl super::stub::ProductSearch for ProductSearch {
                             .and_then(|m| m.product.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1231,16 +1076,11 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).and_then(|m| m.product.as_ref()).map(|m| &m.name),
                         "product.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/products/*",
@@ -1290,16 +1130,11 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1313,16 +1148,11 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/products/*",
@@ -1366,16 +1196,11 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1389,16 +1214,11 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/products/*",
@@ -1439,20 +1259,13 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("referenceImages"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/referenceImages/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1466,20 +1279,13 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("referenceImages"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/referenceImages/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/products/*/referenceImages/*",
@@ -1523,16 +1329,11 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1546,16 +1347,11 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/products/*",
@@ -1597,20 +1393,13 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("referenceImages"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/referenceImages/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1624,20 +1413,13 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("products"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/products/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("referenceImages"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/referenceImages/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/products/*/referenceImages/*",
@@ -1677,16 +1459,11 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("productSets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/productSets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1700,16 +1477,11 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("productSets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/productSets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/productSets/*",
@@ -1752,16 +1524,11 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("productSets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/productSets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1775,16 +1542,11 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("productSets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/productSets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/productSets/*",
@@ -1827,16 +1589,11 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("productSets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/productSets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1850,16 +1607,11 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("productSets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/productSets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/productSets/*",
@@ -1901,12 +1653,9 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1920,12 +1669,9 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1963,12 +1709,9 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1982,12 +1725,9 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -2025,12 +1765,9 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2042,16 +1779,11 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2062,11 +1794,7 @@ impl super::stub::ProductSearch for ProductSearch {
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2076,12 +1804,9 @@ impl super::stub::ProductSearch for ProductSearch {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2095,12 +1820,9 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/operations/*",
@@ -2113,16 +1835,11 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",
@@ -2134,11 +1851,7 @@ impl super::stub::ProductSearch for ProductSearch {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::SingleWildcard],
                         "operations/*",
                     );
                     paths.push(builder.build());
@@ -2149,12 +1862,9 @@ impl super::stub::ProductSearch for ProductSearch {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "locations/*/operations/*",

@@ -56,12 +56,9 @@ impl super::stub::ConnectionService for ConnectionService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("endpoints"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/endpoints/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -75,12 +72,9 @@ impl super::stub::ConnectionService for ConnectionService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("endpoints"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/endpoints/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/endpoints/*",

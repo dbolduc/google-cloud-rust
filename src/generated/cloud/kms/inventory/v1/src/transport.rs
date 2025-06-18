@@ -55,11 +55,7 @@ impl super::stub::KeyDashboardService for KeyDashboardService {
                     "/v1/{}/cryptoKeys",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -70,11 +66,7 @@ impl super::stub::KeyDashboardService for KeyDashboardService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -137,20 +129,13 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keyRings"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keyRings/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cryptoKeys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cryptoKeys/"),
                             Segment::MultiWildcard,
                         ]
                     )?,
@@ -164,20 +149,13 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("keyRings"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/keyRings/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cryptoKeys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cryptoKeys/"),
                             Segment::MultiWildcard,
                         ],
                         "projects/*/locations/*/keyRings/*/cryptoKeys/**",
@@ -216,11 +194,7 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                     "/v1/{}/protectedResources:search",
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -231,11 +205,7 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.scope),
                         "scope",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());

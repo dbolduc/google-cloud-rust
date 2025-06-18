@@ -55,7 +55,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     "/v1/{}:setIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[Segment::MultiWildcard,]
+                        &[Segment::Literal(""), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -66,7 +66,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[Segment::MultiWildcard],
+                        &[Segment::Literal(""), Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());
@@ -101,7 +101,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     "/v1/{}:getIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[Segment::MultiWildcard,]
+                        &[Segment::Literal(""), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -112,7 +112,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[Segment::MultiWildcard],
+                        &[Segment::Literal(""), Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());
@@ -147,7 +147,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     "/v1/{}:testIamPermissions",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[Segment::MultiWildcard,]
+                        &[Segment::Literal(""), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -158,7 +158,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[Segment::MultiWildcard],
+                        &[Segment::Literal(""), Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());
@@ -191,7 +191,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
             .or_else(|| {
                 Some(format!(
                     "/v1/{}:iapSettings",
-                    composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::MultiWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[Segment::Literal(""), Segment::MultiWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -201,7 +204,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[Segment::MultiWildcard],
+                        &[Segment::Literal(""), Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());
@@ -240,7 +243,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                         Some(&req)
                             .and_then(|m| m.iap_settings.as_ref())
                             .map(|m| &m.name)?,
-                        &[Segment::MultiWildcard,]
+                        &[Segment::Literal(""), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -253,7 +256,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                             .and_then(|m| m.iap_settings.as_ref())
                             .map(|m| &m.name),
                         "iap_settings.name",
-                        &[Segment::MultiWildcard],
+                        &[Segment::Literal(""), Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());
@@ -298,7 +301,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
             .or_else(|| {
                 Some(format!(
                     "/v1/{}:validateAttributeExpression",
-                    composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::MultiWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[Segment::Literal(""), Segment::MultiWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -308,7 +314,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[Segment::MultiWildcard],
+                        &[Segment::Literal(""), Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());
@@ -347,14 +353,9 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("iap_tunnel"),
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/iap_tunnel/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -368,14 +369,9 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("iap_tunnel"),
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/iap_tunnel/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/iap_tunnel/locations/*",
@@ -417,14 +413,9 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("iap_tunnel"),
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/iap_tunnel/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -438,14 +429,9 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("iap_tunnel"),
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/iap_tunnel/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/iap_tunnel/locations/*",
@@ -486,18 +472,11 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("iap_tunnel"),
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/iap_tunnel/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("destGroups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/destGroups/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -511,18 +490,11 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("iap_tunnel"),
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/iap_tunnel/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("destGroups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/destGroups/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/iap_tunnel/locations/*/destGroups/*",
@@ -562,18 +534,11 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("iap_tunnel"),
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/iap_tunnel/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("destGroups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/destGroups/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -587,18 +552,11 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("iap_tunnel"),
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/iap_tunnel/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("destGroups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/destGroups/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/iap_tunnel/locations/*/destGroups/*",
@@ -644,18 +602,11 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                             .and_then(|m| m.tunnel_dest_group.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("iap_tunnel"),
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/iap_tunnel/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("destGroups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/destGroups/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -671,18 +622,11 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                             .map(|m| &m.name),
                         "tunnel_dest_group.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("iap_tunnel"),
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/iap_tunnel/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("destGroups"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/destGroups/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/iap_tunnel/locations/*/destGroups/*",
@@ -754,11 +698,7 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                     "/v1/{}/brands",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -769,11 +709,7 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -810,11 +746,7 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                     "/v1/{}/brands",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -825,11 +757,7 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -865,12 +793,9 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("brands"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/brands/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -884,12 +809,9 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("brands"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/brands/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/brands/*",
@@ -929,12 +851,9 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("brands"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/brands/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -948,12 +867,9 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("brands"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/brands/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/brands/*",
@@ -993,12 +909,9 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("brands"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/brands/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1012,12 +925,9 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("brands"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/brands/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/brands/*",
@@ -1059,16 +969,11 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("brands"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/brands/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("identityAwareProxyClients"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/identityAwareProxyClients/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1082,16 +987,11 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("brands"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/brands/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("identityAwareProxyClients"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/identityAwareProxyClients/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/brands/*/identityAwareProxyClients/*",
@@ -1131,16 +1031,11 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("brands"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/brands/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("identityAwareProxyClients"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/identityAwareProxyClients/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1154,16 +1049,11 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("brands"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/brands/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("identityAwareProxyClients"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/identityAwareProxyClients/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/brands/*/identityAwareProxyClients/*",
@@ -1201,16 +1091,11 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("brands"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/brands/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("identityAwareProxyClients"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/identityAwareProxyClients/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1224,16 +1109,11 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("brands"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/brands/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("identityAwareProxyClients"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/identityAwareProxyClients/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/brands/*/identityAwareProxyClients/*",

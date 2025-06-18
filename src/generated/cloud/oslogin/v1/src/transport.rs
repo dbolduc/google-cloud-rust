@@ -55,11 +55,7 @@ impl super::stub::OsLoginService for OsLoginService {
                     "/v1/{}/sshPublicKeys",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -70,11 +66,7 @@ impl super::stub::OsLoginService for OsLoginService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("users/"), Segment::SingleWildcard],
                         "users/*",
                     );
                     paths.push(builder.build());
@@ -112,12 +104,9 @@ impl super::stub::OsLoginService for OsLoginService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/projects/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -131,12 +120,9 @@ impl super::stub::OsLoginService for OsLoginService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/projects/"),
                             Segment::SingleWildcard,
                         ],
                         "users/*/projects/*",
@@ -180,12 +166,9 @@ impl super::stub::OsLoginService for OsLoginService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sshPublicKeys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sshPublicKeys/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -199,12 +182,9 @@ impl super::stub::OsLoginService for OsLoginService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sshPublicKeys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sshPublicKeys/"),
                             Segment::SingleWildcard,
                         ],
                         "users/*/sshPublicKeys/*",
@@ -247,11 +227,7 @@ impl super::stub::OsLoginService for OsLoginService {
                     "/v1/{}/loginProfile",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -262,11 +238,7 @@ impl super::stub::OsLoginService for OsLoginService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("users/"), Segment::SingleWildcard],
                         "users/*",
                     );
                     paths.push(builder.build());
@@ -306,12 +278,9 @@ impl super::stub::OsLoginService for OsLoginService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sshPublicKeys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sshPublicKeys/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -325,12 +294,9 @@ impl super::stub::OsLoginService for OsLoginService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sshPublicKeys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sshPublicKeys/"),
                             Segment::SingleWildcard,
                         ],
                         "users/*/sshPublicKeys/*",
@@ -369,11 +335,7 @@ impl super::stub::OsLoginService for OsLoginService {
                     "/v1/{}:importSshPublicKey",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -384,11 +346,7 @@ impl super::stub::OsLoginService for OsLoginService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("users/"), Segment::SingleWildcard],
                         "users/*",
                     );
                     paths.push(builder.build());
@@ -431,12 +389,9 @@ impl super::stub::OsLoginService for OsLoginService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sshPublicKeys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sshPublicKeys/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -450,12 +405,9 @@ impl super::stub::OsLoginService for OsLoginService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("users"),
-                            Segment::Literal("/"),
+                            Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("sshPublicKeys"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/sshPublicKeys/"),
                             Segment::SingleWildcard,
                         ],
                         "users/*/sshPublicKeys/*",

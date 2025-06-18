@@ -56,6 +56,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -71,6 +72,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -110,6 +112,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -125,6 +128,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -186,6 +190,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -201,6 +206,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -260,6 +266,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -275,6 +282,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -314,12 +322,11 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("feeds"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/feeds/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -333,12 +340,11 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("feeds"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/feeds/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/feeds/*",
@@ -378,6 +384,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -393,6 +400,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -434,12 +442,11 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).and_then(|m| m.feed.as_ref()).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("feeds"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/feeds/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -453,12 +460,11 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).and_then(|m| m.feed.as_ref()).map(|m| &m.name),
                         "feed.name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("feeds"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/feeds/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/feeds/*",
@@ -496,12 +502,11 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("feeds"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/feeds/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -515,12 +520,11 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("feeds"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/feeds/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/feeds/*",
@@ -564,6 +568,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -579,6 +584,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.scope),
                         "scope",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -638,6 +644,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -653,6 +660,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.scope),
                         "scope",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -704,6 +712,7 @@ impl super::stub::AssetService for AssetService {
                             .and_then(|m| m.analysis_query.as_ref())
                             .map(|m| &m.scope)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -721,6 +730,7 @@ impl super::stub::AssetService for AssetService {
                             .map(|m| &m.scope),
                         "analysis_query.scope",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -785,6 +795,7 @@ impl super::stub::AssetService for AssetService {
                             .and_then(|m| m.analysis_query.as_ref())
                             .map(|m| &m.scope)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -802,6 +813,7 @@ impl super::stub::AssetService for AssetService {
                             .map(|m| &m.scope),
                         "analysis_query.scope",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -841,6 +853,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -856,6 +869,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.resource),
                         "resource",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -899,6 +913,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -914,6 +929,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -953,6 +969,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -968,6 +985,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1010,12 +1028,11 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("savedQueries"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/savedQueries/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1029,12 +1046,11 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("savedQueries"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/savedQueries/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/savedQueries/*",
@@ -1074,6 +1090,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1089,6 +1106,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1135,12 +1153,11 @@ impl super::stub::AssetService for AssetService {
                             .and_then(|m| m.saved_query.as_ref())
                             .map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("savedQueries"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/savedQueries/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1156,12 +1173,11 @@ impl super::stub::AssetService for AssetService {
                             .map(|m| &m.name),
                         "saved_query.name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("savedQueries"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/savedQueries/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/savedQueries/*",
@@ -1211,12 +1227,11 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("savedQueries"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/savedQueries/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1230,12 +1245,11 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("savedQueries"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/savedQueries/"),
                             Segment::SingleWildcard,
                         ],
                         "*/*/savedQueries/*",
@@ -1279,6 +1293,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1294,6 +1309,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.scope),
                         "scope",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1339,6 +1355,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1354,6 +1371,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.scope),
                         "scope",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1403,6 +1421,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1418,6 +1437,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.scope),
                         "scope",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1466,6 +1486,7 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1481,6 +1502,7 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.scope),
                         "scope",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1529,12 +1551,11 @@ impl super::stub::AssetService for AssetService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::MultiWildcard,
@@ -1550,12 +1571,11 @@ impl super::stub::AssetService for AssetService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
+                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::MultiWildcard,

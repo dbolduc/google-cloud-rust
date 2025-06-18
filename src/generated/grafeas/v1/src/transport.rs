@@ -56,12 +56,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -73,16 +70,11 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -96,12 +88,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/occurrences/*",
@@ -114,16 +103,11 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/occurrences/*",
@@ -162,11 +146,7 @@ impl super::stub::Grafeas for Grafeas {
                     "/v1/{}/occurrences",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -176,12 +156,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -194,11 +171,7 @@ impl super::stub::Grafeas for Grafeas {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -209,12 +182,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -257,12 +227,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -274,16 +241,11 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -297,12 +259,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/occurrences/*",
@@ -315,16 +274,11 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/occurrences/*",
@@ -367,11 +321,7 @@ impl super::stub::Grafeas for Grafeas {
                     "/v1/{}/occurrences",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -381,12 +331,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -399,11 +346,7 @@ impl super::stub::Grafeas for Grafeas {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -414,12 +357,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -458,11 +398,7 @@ impl super::stub::Grafeas for Grafeas {
                     "/v1/{}/occurrences:batchCreate",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -472,12 +408,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -490,11 +423,7 @@ impl super::stub::Grafeas for Grafeas {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -505,12 +434,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -548,12 +474,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -565,16 +488,11 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -588,12 +506,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/occurrences/*",
@@ -606,16 +521,11 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/occurrences/*",
@@ -665,12 +575,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -682,16 +589,11 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -705,12 +607,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/occurrences/*",
@@ -723,16 +622,11 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("occurrences"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/occurrences/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/occurrences/*",
@@ -772,12 +666,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -789,16 +680,11 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -812,12 +698,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/notes/*",
@@ -830,16 +713,11 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/notes/*",
@@ -878,11 +756,7 @@ impl super::stub::Grafeas for Grafeas {
                     "/v1/{}/notes",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -892,12 +766,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -910,11 +781,7 @@ impl super::stub::Grafeas for Grafeas {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -925,12 +792,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -973,12 +837,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -990,16 +851,11 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1013,12 +869,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/notes/*",
@@ -1031,16 +884,11 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/notes/*",
@@ -1083,11 +931,7 @@ impl super::stub::Grafeas for Grafeas {
                     "/v1/{}/notes",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1097,12 +941,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1115,11 +956,7 @@ impl super::stub::Grafeas for Grafeas {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1130,12 +967,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1173,11 +1007,7 @@ impl super::stub::Grafeas for Grafeas {
                     "/v1/{}/notes:batchCreate",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1187,12 +1017,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1205,11 +1032,7 @@ impl super::stub::Grafeas for Grafeas {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1220,12 +1043,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1263,12 +1083,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1280,16 +1097,11 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1303,12 +1115,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/notes/*",
@@ -1321,16 +1130,11 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/notes/*",
@@ -1378,12 +1182,9 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1395,16 +1196,11 @@ impl super::stub::Grafeas for Grafeas {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1418,12 +1214,9 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/notes/*",
@@ -1436,16 +1229,11 @@ impl super::stub::Grafeas for Grafeas {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("notes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/notes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/notes/*",

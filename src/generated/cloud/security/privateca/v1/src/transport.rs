@@ -56,16 +56,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -79,16 +74,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*",
@@ -135,20 +125,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -162,20 +145,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*/certificates/*",
@@ -215,16 +191,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -238,16 +209,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*",
@@ -291,20 +257,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -318,20 +277,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*/certificates/*",
@@ -371,20 +323,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             .and_then(|m| m.certificate.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -400,20 +345,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             .map(|m| &m.name),
                         "certificate.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*/certificates/*",
@@ -464,20 +402,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -491,20 +422,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*/certificateAuthorities/*",
@@ -542,16 +466,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -565,16 +484,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*",
@@ -616,20 +530,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -643,20 +550,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*/certificateAuthorities/*",
@@ -694,20 +594,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -721,20 +614,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*/certificateAuthorities/*",
@@ -772,20 +658,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -799,20 +678,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*/certificateAuthorities/*",
@@ -852,20 +724,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -879,20 +744,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*/certificateAuthorities/*",
@@ -932,16 +790,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -955,16 +808,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*",
@@ -1008,20 +856,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1035,20 +876,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*/certificateAuthorities/*",
@@ -1086,20 +920,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1113,20 +940,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*/certificateAuthorities/*",
@@ -1174,20 +994,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             .and_then(|m| m.certificate_authority.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1203,20 +1016,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             .map(|m| &m.name),
                         "certificate_authority.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*/certificateAuthorities/*",
@@ -1267,12 +1073,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1286,12 +1089,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1335,16 +1135,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             .and_then(|m| m.ca_pool.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1358,16 +1153,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).and_then(|m| m.ca_pool.as_ref()).map(|m| &m.name),
                         "ca_pool.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*",
@@ -1418,16 +1208,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1441,16 +1226,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*",
@@ -1490,12 +1270,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1509,12 +1286,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1558,16 +1332,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1581,16 +1350,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*",
@@ -1633,16 +1397,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.ca_pool)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1656,16 +1415,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.ca_pool),
                         "ca_pool",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*",
@@ -1700,7 +1454,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         .or_else(|| {
             Some(format!(
                 "/v1/{}",
-                composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateAuthorities"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateRevocationLists"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -1710,7 +1464,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.name),
                     "name",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateAuthorities"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateRevocationLists"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/caPools/*/certificateAuthorities/*/certificateRevocationLists/*");
                 paths.push(builder.build());
             }
@@ -1747,20 +1501,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1774,20 +1521,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("caPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/caPools/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateAuthorities"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateAuthorities/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/caPools/*/certificateAuthorities/*",
@@ -1828,7 +1568,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         .or_else(|| {
             Some(format!(
                 "/v1/{}",
-                composable_matches(Some(&req).and_then(|m| m.certificate_revocation_list.as_ref()).map(|m| &m.name)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateAuthorities"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateRevocationLists"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).and_then(|m| m.certificate_revocation_list.as_ref()).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -1838,7 +1578,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).and_then(|m| m.certificate_revocation_list.as_ref()).map(|m| &m.name),
                     "certificate_revocation_list.name",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateAuthorities"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateRevocationLists"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/caPools/*/certificateAuthorities/*/certificateRevocationLists/*");
                 paths.push(builder.build());
             }
@@ -1886,12 +1626,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1905,12 +1642,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1952,16 +1686,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1975,16 +1704,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/certificateTemplates/*",
@@ -2025,16 +1749,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2048,16 +1767,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/certificateTemplates/*",
@@ -2097,12 +1811,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2116,12 +1827,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -2167,16 +1875,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             .and_then(|m| m.certificate_template.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2192,16 +1895,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             .map(|m| &m.name),
                         "certificate_template.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("certificateTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/certificateTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/certificateTemplates/*",
@@ -2251,11 +1949,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     "/v1/{}/locations",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2266,11 +1960,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -2311,12 +2001,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2330,12 +2017,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -2372,19 +2056,19 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         .or_else(|| {
             Some(format!(
                 "/v1/{}:setIamPolicy",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,])?,
             ))
         })
         .or_else(|| {
             Some(format!(
                 "/v1/{}:setIamPolicy",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateTemplates"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/certificateTemplates/"),Segment::SingleWildcard,])?,
             ))
         })
         .or_else(|| {
             Some(format!(
                 "/v1/{}:setIamPolicy",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateAuthorities"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateRevocationLists"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -2394,7 +2078,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/caPools/*");
                 paths.push(builder.build());
             }
@@ -2403,7 +2087,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateTemplates"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/certificateTemplates/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/certificateTemplates/*");
                 paths.push(builder.build());
             }
@@ -2412,7 +2096,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateAuthorities"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateRevocationLists"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/caPools/*/certificateAuthorities/*/certificateRevocationLists/*");
                 paths.push(builder.build());
             }
@@ -2444,19 +2128,19 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         .or_else(|| {
             Some(format!(
                 "/v1/{}:getIamPolicy",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,])?,
             ))
         })
         .or_else(|| {
             Some(format!(
                 "/v1/{}:getIamPolicy",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateTemplates"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/certificateTemplates/"),Segment::SingleWildcard,])?,
             ))
         })
         .or_else(|| {
             Some(format!(
                 "/v1/{}:getIamPolicy",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateAuthorities"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateRevocationLists"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -2466,7 +2150,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/caPools/*");
                 paths.push(builder.build());
             }
@@ -2475,7 +2159,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateTemplates"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/certificateTemplates/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/certificateTemplates/*");
                 paths.push(builder.build());
             }
@@ -2484,7 +2168,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateAuthorities"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateRevocationLists"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/caPools/*/certificateAuthorities/*/certificateRevocationLists/*");
                 paths.push(builder.build());
             }
@@ -2528,19 +2212,19 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         .or_else(|| {
             Some(format!(
                 "/v1/{}:testIamPermissions",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,])?,
             ))
         })
         .or_else(|| {
             Some(format!(
                 "/v1/{}:testIamPermissions",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateTemplates"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/certificateTemplates/"),Segment::SingleWildcard,])?,
             ))
         })
         .or_else(|| {
             Some(format!(
                 "/v1/{}:testIamPermissions",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateAuthorities"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateRevocationLists"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -2550,7 +2234,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/caPools/*");
                 paths.push(builder.build());
             }
@@ -2559,7 +2243,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateTemplates"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/certificateTemplates/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/certificateTemplates/*");
                 paths.push(builder.build());
             }
@@ -2568,7 +2252,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("caPools"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateAuthorities"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("certificateRevocationLists"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/caPools/*/certificateAuthorities/*/certificateRevocationLists/*");
                 paths.push(builder.build());
             }
@@ -2603,12 +2287,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2622,12 +2303,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -2670,16 +2348,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2693,16 +2366,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",
@@ -2742,16 +2410,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2765,16 +2428,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",
@@ -2818,16 +2476,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2841,16 +2494,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",

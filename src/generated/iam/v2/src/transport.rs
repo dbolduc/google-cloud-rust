@@ -56,8 +56,7 @@ impl super::stub::Policies for Policies {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("policies/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -73,8 +72,7 @@ impl super::stub::Policies for Policies {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("policies/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -118,8 +116,7 @@ impl super::stub::Policies for Policies {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("policies/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -137,8 +134,7 @@ impl super::stub::Policies for Policies {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("policies/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -182,8 +178,7 @@ impl super::stub::Policies for Policies {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("policies/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -199,8 +194,7 @@ impl super::stub::Policies for Policies {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("policies/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -243,8 +237,7 @@ impl super::stub::Policies for Policies {
                             .and_then(|m| m.policy.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("policies/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -262,8 +255,7 @@ impl super::stub::Policies for Policies {
                         Some(&req).and_then(|m| m.policy.as_ref()).map(|m| &m.name),
                         "policy.name",
                         &[
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("policies/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -305,8 +297,7 @@ impl super::stub::Policies for Policies {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("policies/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -324,8 +315,7 @@ impl super::stub::Policies for Policies {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("policies/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -370,16 +360,13 @@ impl super::stub::Policies for Policies {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("policies/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -393,16 +380,13 @@ impl super::stub::Policies for Policies {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("policies/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "policies/*/*/*/operations/*",

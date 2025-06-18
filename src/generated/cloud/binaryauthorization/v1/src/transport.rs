@@ -56,11 +56,9 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policy"),
+                            Segment::Literal("/policy"),
                         ]
                     )?,
                 ))
@@ -73,11 +71,9 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policy"),
+                            Segment::Literal("/policy"),
                         ],
                         "projects/*/policy",
                     );
@@ -118,11 +114,9 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                             .and_then(|m| m.policy.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policy"),
+                            Segment::Literal("/policy"),
                         ]
                     )?,
                 ))
@@ -135,11 +129,9 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                         Some(&req).and_then(|m| m.policy.as_ref()).map(|m| &m.name),
                         "policy.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policy"),
+                            Segment::Literal("/policy"),
                         ],
                         "projects/*/policy",
                     );
@@ -175,11 +167,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                     "/v1/{}/attestors",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -190,11 +178,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -233,12 +217,9 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("attestors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/attestors/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -252,12 +233,9 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("attestors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/attestors/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/attestors/*",
@@ -299,12 +277,9 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                             .and_then(|m| m.attestor.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("attestors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/attestors/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -320,12 +295,9 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                             .map(|m| &m.name),
                         "attestor.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("attestors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/attestors/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/attestors/*",
@@ -364,11 +336,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                     "/v1/{}/attestors",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -379,11 +347,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -423,12 +387,9 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("attestors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/attestors/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -442,12 +403,9 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("attestors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/attestors/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/attestors/*",
@@ -514,11 +472,9 @@ impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policy"),
+                            Segment::Literal("/policy"),
                         ]
                     )?,
                 ))
@@ -531,11 +487,9 @@ impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policy"),
+                            Segment::Literal("/policy"),
                         ],
                         "locations/*/policy",
                     );
@@ -597,12 +551,9 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
                     composable_matches(
                         Some(&req).map(|m| &m.attestor)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("attestors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/attestors/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -616,12 +567,9 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
                         Some(&req).map(|m| &m.attestor),
                         "attestor",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("attestors"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/attestors/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/attestors/*",

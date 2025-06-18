@@ -56,12 +56,7 @@ impl super::stub::MetricsScopes for MetricsScopes {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::Literal("global"),
-                            Segment::Literal("/"),
-                            Segment::Literal("metricsScopes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("locations/global/metricsScopes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -75,12 +70,7 @@ impl super::stub::MetricsScopes for MetricsScopes {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::Literal("global"),
-                            Segment::Literal("/"),
-                            Segment::Literal("metricsScopes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("locations/global/metricsScopes/"),
                             Segment::SingleWildcard,
                         ],
                         "locations/global/metricsScopes/*",
@@ -163,12 +153,7 @@ impl super::stub::MetricsScopes for MetricsScopes {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::Literal("global"),
-                            Segment::Literal("/"),
-                            Segment::Literal("metricsScopes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("locations/global/metricsScopes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -182,12 +167,7 @@ impl super::stub::MetricsScopes for MetricsScopes {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::Literal("global"),
-                            Segment::Literal("/"),
-                            Segment::Literal("metricsScopes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("locations/global/metricsScopes/"),
                             Segment::SingleWildcard,
                         ],
                         "locations/global/metricsScopes/*",
@@ -227,16 +207,9 @@ impl super::stub::MetricsScopes for MetricsScopes {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::Literal("global"),
-                            Segment::Literal("/"),
-                            Segment::Literal("metricsScopes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("locations/global/metricsScopes/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/projects/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -250,16 +223,9 @@ impl super::stub::MetricsScopes for MetricsScopes {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::Literal("global"),
-                            Segment::Literal("/"),
-                            Segment::Literal("metricsScopes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("locations/global/metricsScopes/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/projects/"),
                             Segment::SingleWildcard,
                         ],
                         "locations/global/metricsScopes/*/projects/*",
@@ -298,11 +264,7 @@ impl super::stub::MetricsScopes for MetricsScopes {
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -313,11 +275,7 @@ impl super::stub::MetricsScopes for MetricsScopes {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());

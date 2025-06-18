@@ -56,12 +56,9 @@ impl super::stub::IAMCredentials for IAMCredentials {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -75,12 +72,9 @@ impl super::stub::IAMCredentials for IAMCredentials {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/serviceAccounts/*",
@@ -118,12 +112,9 @@ impl super::stub::IAMCredentials for IAMCredentials {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -137,12 +128,9 @@ impl super::stub::IAMCredentials for IAMCredentials {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/serviceAccounts/*",
@@ -180,12 +168,9 @@ impl super::stub::IAMCredentials for IAMCredentials {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -199,12 +184,9 @@ impl super::stub::IAMCredentials for IAMCredentials {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/serviceAccounts/*",
@@ -242,12 +224,9 @@ impl super::stub::IAMCredentials for IAMCredentials {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -261,12 +240,9 @@ impl super::stub::IAMCredentials for IAMCredentials {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("serviceAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/serviceAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/serviceAccounts/*",

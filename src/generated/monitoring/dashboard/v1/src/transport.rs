@@ -55,11 +55,7 @@ impl super::stub::DashboardsService for DashboardsService {
                     "/v1/{}/dashboards",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -70,11 +66,7 @@ impl super::stub::DashboardsService for DashboardsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -112,11 +104,7 @@ impl super::stub::DashboardsService for DashboardsService {
                     "/v1/{}/dashboards",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -127,11 +115,7 @@ impl super::stub::DashboardsService for DashboardsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -171,12 +155,9 @@ impl super::stub::DashboardsService for DashboardsService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dashboards"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dashboards/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -190,12 +171,9 @@ impl super::stub::DashboardsService for DashboardsService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dashboards"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dashboards/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/dashboards/*",
@@ -235,12 +213,9 @@ impl super::stub::DashboardsService for DashboardsService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dashboards"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dashboards/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -254,12 +229,9 @@ impl super::stub::DashboardsService for DashboardsService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dashboards"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dashboards/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/dashboards/*",
@@ -305,12 +277,9 @@ impl super::stub::DashboardsService for DashboardsService {
                             .and_then(|m| m.dashboard.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dashboards"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dashboards/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -326,12 +295,9 @@ impl super::stub::DashboardsService for DashboardsService {
                             .map(|m| &m.name),
                         "dashboard.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dashboards"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dashboards/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/dashboards/*",

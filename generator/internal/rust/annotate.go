@@ -663,18 +663,25 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 					templateAsArray += "Segment::SingleWildcard,"
 					templateAsString += "*"
 				}
+                                literalBuffer := ""
 				for i, vs := range s.Variable.Segments {
 					if i != 0 {
 						// TODO : Clean up.
 						// The parser drops '/'. They are assumed to be in between the segments.
 						// Ideally, we do not have multiple literal segments.
-						templateAsArray += `Segment::Literal("/"),`
+						//templateAsArray += `Segment::Literal("/"),`
+						literalBuffer += "/"
 					        templateAsString += "/"
 					}
 					if vs.Literal != nil {
-						templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, *vs.Literal)
+					        literalBuffer += string(*vs.Literal)
+						//templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, *vs.Literal)
 					        templateAsString += string(*vs.Literal)
-					}
+                                        } else {
+                                          // Flush literalBuffer
+					  templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, literalBuffer)
+                                          literalBuffer = ""
+                                        }
 					if vs.Match != nil {
 						templateAsArray += "Segment::SingleWildcard,"
 					        templateAsString += "*"
@@ -684,6 +691,10 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 					        templateAsString += "**"
 					}
 				}
+                                if literalBuffer != "" {
+                                     // Flush literalBuffer
+				     templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, literalBuffer)
+                                }
 				templateAsArray += "]"
                                 // TODO : use Strings.Join()
                                 fieldPath := ""

@@ -55,11 +55,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     "/v1/{}/scanConfigs",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -70,11 +66,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -112,12 +104,9 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -131,12 +120,9 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/scanConfigs/*",
@@ -180,12 +166,9 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -199,12 +182,9 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/scanConfigs/*",
@@ -243,11 +223,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     "/v1/{}/scanConfigs",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -258,11 +234,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -304,12 +276,9 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                             .and_then(|m| m.scan_config.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -325,12 +294,9 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                             .map(|m| &m.name),
                         "scan_config.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/scanConfigs/*",
@@ -380,12 +346,9 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -399,12 +362,9 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/scanConfigs/*",
@@ -442,16 +402,11 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanRuns"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanRuns/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -465,16 +420,11 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanRuns"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanRuns/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/scanConfigs/*/scanRuns/*",
@@ -514,12 +464,9 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -533,12 +480,9 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/scanConfigs/*",
@@ -580,16 +524,11 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanRuns"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanRuns/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -603,16 +542,11 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanRuns"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanRuns/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/scanConfigs/*/scanRuns/*",
@@ -650,16 +584,11 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanRuns"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanRuns/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -673,16 +602,11 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanRuns"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanRuns/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/scanConfigs/*/scanRuns/*",
@@ -724,20 +648,13 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanRuns"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanRuns/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("findings"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/findings/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -751,20 +668,13 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanRuns"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanRuns/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("findings"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/findings/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/scanConfigs/*/scanRuns/*/findings/*",
@@ -804,16 +714,11 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanRuns"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanRuns/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -827,16 +732,11 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanRuns"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanRuns/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/scanConfigs/*/scanRuns/*",
@@ -879,16 +779,11 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanRuns"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanRuns/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -902,16 +797,11 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("scanRuns"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/scanRuns/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/scanConfigs/*/scanRuns/*",

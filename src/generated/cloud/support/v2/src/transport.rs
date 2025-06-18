@@ -56,12 +56,9 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -73,12 +70,9 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -92,12 +86,9 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/cases/*",
@@ -110,12 +101,9 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/cases/*",
@@ -180,12 +168,9 @@ impl super::stub::CaseService for CaseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -197,12 +182,9 @@ impl super::stub::CaseService for CaseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -216,12 +198,9 @@ impl super::stub::CaseService for CaseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/cases/*",
@@ -234,12 +213,9 @@ impl super::stub::CaseService for CaseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/cases/*",
@@ -278,11 +254,7 @@ impl super::stub::CaseService for CaseService {
                     "/v2/{}/cases",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -291,11 +263,7 @@ impl super::stub::CaseService for CaseService {
                     "/v2/{}/cases",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -306,11 +274,7 @@ impl super::stub::CaseService for CaseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -320,11 +284,7 @@ impl super::stub::CaseService for CaseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -364,11 +324,7 @@ impl super::stub::CaseService for CaseService {
                     "/v2/{}/cases:search",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -377,11 +333,7 @@ impl super::stub::CaseService for CaseService {
                     "/v2/{}/cases:search",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -392,11 +344,7 @@ impl super::stub::CaseService for CaseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -406,11 +354,7 @@ impl super::stub::CaseService for CaseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -450,11 +394,7 @@ impl super::stub::CaseService for CaseService {
                     "/v2/{}/cases",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -463,11 +403,7 @@ impl super::stub::CaseService for CaseService {
                     "/v2/{}/cases",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -478,11 +414,7 @@ impl super::stub::CaseService for CaseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -492,11 +424,7 @@ impl super::stub::CaseService for CaseService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -532,12 +460,9 @@ impl super::stub::CaseService for CaseService {
                     composable_matches(
                         Some(&req).and_then(|m| m.case.as_ref()).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -549,12 +474,9 @@ impl super::stub::CaseService for CaseService {
                     composable_matches(
                         Some(&req).and_then(|m| m.case.as_ref()).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -568,12 +490,9 @@ impl super::stub::CaseService for CaseService {
                         Some(&req).and_then(|m| m.case.as_ref()).map(|m| &m.name),
                         "case.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/cases/*",
@@ -586,12 +505,9 @@ impl super::stub::CaseService for CaseService {
                         Some(&req).and_then(|m| m.case.as_ref()).map(|m| &m.name),
                         "case.name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/cases/*",
@@ -639,12 +555,9 @@ impl super::stub::CaseService for CaseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -656,12 +569,9 @@ impl super::stub::CaseService for CaseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -675,12 +585,9 @@ impl super::stub::CaseService for CaseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/cases/*",
@@ -693,12 +600,9 @@ impl super::stub::CaseService for CaseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/cases/*",
@@ -736,12 +640,9 @@ impl super::stub::CaseService for CaseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -753,12 +654,9 @@ impl super::stub::CaseService for CaseService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -772,12 +670,9 @@ impl super::stub::CaseService for CaseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/cases/*",
@@ -790,12 +685,9 @@ impl super::stub::CaseService for CaseService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/cases/*",
@@ -893,12 +785,9 @@ impl super::stub::CommentService for CommentService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -910,12 +799,9 @@ impl super::stub::CommentService for CommentService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -929,12 +815,9 @@ impl super::stub::CommentService for CommentService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/cases/*",
@@ -947,12 +830,9 @@ impl super::stub::CommentService for CommentService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/cases/*",
@@ -994,12 +874,9 @@ impl super::stub::CommentService for CommentService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1011,12 +888,9 @@ impl super::stub::CommentService for CommentService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1030,12 +904,9 @@ impl super::stub::CommentService for CommentService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/cases/*",
@@ -1048,12 +919,9 @@ impl super::stub::CommentService for CommentService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("cases"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/cases/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/cases/*",

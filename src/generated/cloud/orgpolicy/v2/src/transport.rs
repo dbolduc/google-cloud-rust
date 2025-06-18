@@ -55,11 +55,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     "/v2/{}/constraints",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -68,11 +64,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     "/v2/{}/constraints",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -81,11 +73,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     "/v2/{}/constraints",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -96,11 +84,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -110,11 +94,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -124,11 +104,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -167,11 +143,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     "/v2/{}/policies",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -180,11 +152,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     "/v2/{}/policies",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -193,11 +161,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     "/v2/{}/policies",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -208,11 +172,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -222,11 +182,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -236,11 +192,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -280,12 +232,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -297,12 +246,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -314,12 +260,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -333,12 +276,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/policies/*",
@@ -351,12 +291,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/policies/*",
@@ -369,12 +306,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/policies/*",
@@ -414,12 +348,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -431,12 +362,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -448,12 +376,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -467,12 +392,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/policies/*",
@@ -485,12 +407,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/policies/*",
@@ -503,12 +422,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/policies/*",
@@ -547,11 +463,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     "/v2/{}/policies",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -560,11 +472,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     "/v2/{}/policies",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -573,11 +481,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     "/v2/{}/policies",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -588,11 +492,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -602,11 +502,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -616,11 +512,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -658,12 +550,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                             .and_then(|m| m.policy.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -677,12 +566,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                             .and_then(|m| m.policy.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -696,12 +582,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                             .and_then(|m| m.policy.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -715,12 +598,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).and_then(|m| m.policy.as_ref()).map(|m| &m.name),
                         "policy.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/policies/*",
@@ -733,12 +613,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).and_then(|m| m.policy.as_ref()).map(|m| &m.name),
                         "policy.name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/policies/*",
@@ -751,12 +628,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).and_then(|m| m.policy.as_ref()).map(|m| &m.name),
                         "policy.name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/policies/*",
@@ -804,12 +678,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -821,12 +692,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -838,12 +706,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -857,12 +722,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/policies/*",
@@ -875,12 +737,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/policies/*",
@@ -893,12 +752,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("policies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/policies/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/policies/*",
@@ -942,11 +798,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     "/v2/{}/customConstraints",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -957,11 +809,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -1001,12 +849,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                             .and_then(|m| m.custom_constraint.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("customConstraints"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/customConstraints/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1022,12 +867,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                             .map(|m| &m.name),
                         "custom_constraint.name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("customConstraints"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/customConstraints/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/customConstraints/*",
@@ -1067,12 +909,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("customConstraints"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/customConstraints/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1086,12 +925,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("customConstraints"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/customConstraints/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/customConstraints/*",
@@ -1130,11 +966,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     "/v2/{}/customConstraints",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1145,11 +977,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -1189,12 +1017,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("customConstraints"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/customConstraints/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1208,12 +1033,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("customConstraints"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/customConstraints/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/customConstraints/*",

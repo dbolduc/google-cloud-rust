@@ -137,11 +137,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.job_name)?,
-                        &[
-                            Segment::Literal("transferJobs"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("transferJobs/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -152,11 +148,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.job_name),
                         "job_name",
-                        &[
-                            Segment::Literal("transferJobs"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("transferJobs/"), Segment::MultiWildcard],
                         "transferJobs/**",
                     );
                     paths.push(builder.build());
@@ -191,11 +183,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.job_name)?,
-                        &[
-                            Segment::Literal("transferJobs"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("transferJobs/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -206,11 +194,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.job_name),
                         "job_name",
-                        &[
-                            Segment::Literal("transferJobs"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("transferJobs/"), Segment::MultiWildcard],
                         "transferJobs/**",
                     );
                     paths.push(builder.build());
@@ -286,8 +270,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("transferOperations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("transferOperations/"),
                             Segment::MultiWildcard,
                         ]
                     )?,
@@ -301,8 +284,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("transferOperations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("transferOperations/"),
                             Segment::MultiWildcard,
                         ],
                         "transferOperations/**",
@@ -345,8 +327,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("transferOperations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("transferOperations/"),
                             Segment::MultiWildcard,
                         ]
                     )?,
@@ -360,8 +341,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("transferOperations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("transferOperations/"),
                             Segment::MultiWildcard,
                         ],
                         "transferOperations/**",
@@ -403,11 +383,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     "/v1/{}:run",
                     composable_matches(
                         Some(&req).map(|m| &m.job_name)?,
-                        &[
-                            Segment::Literal("transferJobs"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("transferJobs/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -418,11 +394,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.job_name),
                         "job_name",
-                        &[
-                            Segment::Literal("transferJobs"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("transferJobs/"), Segment::MultiWildcard],
                         "transferJobs/**",
                     );
                     paths.push(builder.build());
@@ -457,11 +429,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.job_name)?,
-                        &[
-                            Segment::Literal("transferJobs"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("transferJobs/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -472,11 +440,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.job_name),
                         "job_name",
-                        &[
-                            Segment::Literal("transferJobs"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("transferJobs/"), Segment::MultiWildcard],
                         "transferJobs/**",
                     );
                     paths.push(builder.build());
@@ -518,7 +482,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     "/v1/projects/{}/agentPools",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -529,7 +493,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -570,12 +534,9 @@ impl super::stub::StorageTransferService for StorageTransferService {
                             .and_then(|m| m.agent_pool.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("agentPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/agentPools/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -591,12 +552,9 @@ impl super::stub::StorageTransferService for StorageTransferService {
                             .map(|m| &m.name),
                         "agent_pool.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("agentPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/agentPools/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/agentPools/*",
@@ -646,12 +604,9 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("agentPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/agentPools/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -665,12 +620,9 @@ impl super::stub::StorageTransferService for StorageTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("agentPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/agentPools/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/agentPools/*",
@@ -709,7 +661,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     "/v1/projects/{}/agentPools",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -720,7 +672,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -761,12 +713,9 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("agentPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/agentPools/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -780,12 +729,9 @@ impl super::stub::StorageTransferService for StorageTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("agentPools"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/agentPools/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/agentPools/*",
@@ -880,8 +826,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("transferOperations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("transferOperations/"),
                             Segment::MultiWildcard,
                         ]
                     )?,
@@ -895,8 +840,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("transferOperations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("transferOperations/"),
                             Segment::MultiWildcard,
                         ],
                         "transferOperations/**",
@@ -936,8 +880,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("transferOperations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("transferOperations/"),
                             Segment::MultiWildcard,
                         ]
                     )?,
@@ -951,8 +894,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("transferOperations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("transferOperations/"),
                             Segment::MultiWildcard,
                         ],
                         "transferOperations/**",

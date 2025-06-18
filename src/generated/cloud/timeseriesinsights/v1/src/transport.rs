@@ -56,12 +56,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -72,11 +69,7 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     "/v1/{}/datasets",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -88,12 +81,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -105,11 +95,7 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -149,12 +135,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -165,11 +148,7 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     "/v1/{}/datasets",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -181,12 +160,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -198,11 +174,7 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -240,16 +212,11 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -261,12 +228,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -280,16 +244,11 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/datasets/*",
@@ -302,12 +261,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/datasets/*",
@@ -351,16 +307,11 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     composable_matches(
                         Some(&req).map(|m| &m.dataset)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -372,12 +323,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     composable_matches(
                         Some(&req).map(|m| &m.dataset)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -391,16 +339,11 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                         Some(&req).map(|m| &m.dataset),
                         "dataset",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/datasets/*",
@@ -413,12 +356,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                         Some(&req).map(|m| &m.dataset),
                         "dataset",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/datasets/*",
@@ -456,16 +396,11 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -477,12 +412,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -496,16 +428,11 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/datasets/*",
@@ -518,12 +445,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/datasets/*",
@@ -561,16 +485,11 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     composable_matches(
                         Some(&req).map(|m| &m.dataset)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -582,12 +501,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     composable_matches(
                         Some(&req).map(|m| &m.dataset)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -601,16 +517,11 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                         Some(&req).map(|m| &m.dataset),
                         "dataset",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/datasets/*",
@@ -623,12 +534,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                         Some(&req).map(|m| &m.dataset),
                         "dataset",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("datasets"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/datasets/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/datasets/*",
@@ -666,12 +574,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -682,11 +587,7 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     "/v1/{}/datasets:evaluateTimeseries",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -698,12 +599,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -715,11 +613,7 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());

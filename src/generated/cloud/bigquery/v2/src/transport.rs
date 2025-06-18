@@ -55,11 +55,11 @@ impl super::stub::DatasetService for DatasetService {
                     "/bigquery/v2/projects/{}/datasets/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -70,13 +70,13 @@ impl super::stub::DatasetService for DatasetService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -115,7 +115,7 @@ impl super::stub::DatasetService for DatasetService {
                     "/bigquery/v2/projects/{}/datasets",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -126,7 +126,7 @@ impl super::stub::DatasetService for DatasetService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -164,11 +164,11 @@ impl super::stub::DatasetService for DatasetService {
                     "/bigquery/v2/projects/{}/datasets/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -179,13 +179,13 @@ impl super::stub::DatasetService for DatasetService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -224,11 +224,11 @@ impl super::stub::DatasetService for DatasetService {
                     "/bigquery/v2/projects/{}/datasets/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -239,13 +239,13 @@ impl super::stub::DatasetService for DatasetService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -284,11 +284,11 @@ impl super::stub::DatasetService for DatasetService {
                     "/bigquery/v2/projects/{}/datasets/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -299,13 +299,13 @@ impl super::stub::DatasetService for DatasetService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -347,7 +347,7 @@ impl super::stub::DatasetService for DatasetService {
                     "/bigquery/v2/projects/{}/datasets",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -358,7 +358,7 @@ impl super::stub::DatasetService for DatasetService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -408,11 +408,11 @@ impl super::stub::DatasetService for DatasetService {
                     "/bigquery/v2/projects/{}/datasets/{}:undelete",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -423,13 +423,13 @@ impl super::stub::DatasetService for DatasetService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -487,15 +487,15 @@ impl super::stub::ModelService for ModelService {
                     "/bigquery/v2/projects/{}/datasets/{}/models/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.model_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -506,19 +506,19 @@ impl super::stub::ModelService for ModelService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.model_id),
                         "model_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -555,11 +555,11 @@ impl super::stub::ModelService for ModelService {
                     "/bigquery/v2/projects/{}/datasets/{}/models",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -570,13 +570,13 @@ impl super::stub::ModelService for ModelService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -624,15 +624,15 @@ impl super::stub::ModelService for ModelService {
                     "/bigquery/v2/projects/{}/datasets/{}/models/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.model_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -643,19 +643,19 @@ impl super::stub::ModelService for ModelService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.model_id),
                         "model_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -690,15 +690,15 @@ impl super::stub::ModelService for ModelService {
                     "/bigquery/v2/projects/{}/datasets/{}/models/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.model_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -709,19 +709,19 @@ impl super::stub::ModelService for ModelService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.model_id),
                         "model_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -785,7 +785,7 @@ impl super::stub::ProjectService for ProjectService {
                     "/bigquery/v2/projects/{}/serviceAccount",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -796,7 +796,7 @@ impl super::stub::ProjectService for ProjectService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -856,15 +856,15 @@ impl super::stub::RoutineService for RoutineService {
                     "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.routine_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -875,19 +875,19 @@ impl super::stub::RoutineService for RoutineService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.routine_id),
                         "routine_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -924,11 +924,11 @@ impl super::stub::RoutineService for RoutineService {
                     "/bigquery/v2/projects/{}/datasets/{}/routines",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -939,13 +939,13 @@ impl super::stub::RoutineService for RoutineService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -982,15 +982,15 @@ impl super::stub::RoutineService for RoutineService {
                     "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.routine_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1001,19 +1001,19 @@ impl super::stub::RoutineService for RoutineService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.routine_id),
                         "routine_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -1050,15 +1050,15 @@ impl super::stub::RoutineService for RoutineService {
                     "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.routine_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1069,19 +1069,19 @@ impl super::stub::RoutineService for RoutineService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.routine_id),
                         "routine_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -1122,11 +1122,11 @@ impl super::stub::RoutineService for RoutineService {
                     "/bigquery/v2/projects/{}/datasets/{}/routines",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1137,13 +1137,13 @@ impl super::stub::RoutineService for RoutineService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -1215,15 +1215,15 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.table_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1234,19 +1234,19 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.table_id),
                         "table_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -1285,19 +1285,19 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.table_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.policy_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1308,25 +1308,25 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.table_id),
                         "table_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.policy_id),
                         "policy_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -1363,15 +1363,15 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.table_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1382,19 +1382,19 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.table_id),
                         "table_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -1431,19 +1431,19 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.table_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.policy_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1454,25 +1454,25 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.table_id),
                         "table_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.policy_id),
                         "policy_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -1509,19 +1509,19 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.table_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.policy_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1532,25 +1532,25 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.table_id),
                         "table_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.policy_id),
                         "policy_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -1595,15 +1595,15 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies:batchDelete",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.table_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1614,19 +1614,19 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.table_id),
                         "table_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -1689,15 +1689,15 @@ impl super::stub::TableService for TableService {
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.table_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1708,19 +1708,19 @@ impl super::stub::TableService for TableService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.table_id),
                         "table_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -1759,11 +1759,11 @@ impl super::stub::TableService for TableService {
                     "/bigquery/v2/projects/{}/datasets/{}/tables",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1774,13 +1774,13 @@ impl super::stub::TableService for TableService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -1815,15 +1815,15 @@ impl super::stub::TableService for TableService {
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.table_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1834,19 +1834,19 @@ impl super::stub::TableService for TableService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.table_id),
                         "table_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -1882,15 +1882,15 @@ impl super::stub::TableService for TableService {
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.table_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1901,19 +1901,19 @@ impl super::stub::TableService for TableService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.table_id),
                         "table_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -1949,15 +1949,15 @@ impl super::stub::TableService for TableService {
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.table_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1968,19 +1968,19 @@ impl super::stub::TableService for TableService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.table_id),
                         "table_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -2021,11 +2021,11 @@ impl super::stub::TableService for TableService {
                     "/bigquery/v2/projects/{}/datasets/{}/tables",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.dataset_id)?,
-                        &[Segment::SingleWildcard,]
+                        &[Segment::Literal(""), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2036,13 +2036,13 @@ impl super::stub::TableService for TableService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.dataset_id),
                         "dataset_id",
-                        &[Segment::SingleWildcard],
+                        &[Segment::Literal(""), Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());

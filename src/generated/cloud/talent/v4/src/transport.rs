@@ -56,12 +56,9 @@ impl super::stub::CompanyService for CompanyService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -75,12 +72,9 @@ impl super::stub::CompanyService for CompanyService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -120,16 +114,11 @@ impl super::stub::CompanyService for CompanyService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("companies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/companies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -143,16 +132,11 @@ impl super::stub::CompanyService for CompanyService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("companies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/companies/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*/companies/*",
@@ -194,16 +178,11 @@ impl super::stub::CompanyService for CompanyService {
                             .and_then(|m| m.company.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("companies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/companies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -217,16 +196,11 @@ impl super::stub::CompanyService for CompanyService {
                         Some(&req).and_then(|m| m.company.as_ref()).map(|m| &m.name),
                         "company.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("companies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/companies/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*/companies/*",
@@ -276,16 +250,11 @@ impl super::stub::CompanyService for CompanyService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("companies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/companies/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -299,16 +268,11 @@ impl super::stub::CompanyService for CompanyService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("companies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/companies/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*/companies/*",
@@ -352,12 +316,9 @@ impl super::stub::CompanyService for CompanyService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -371,12 +332,9 @@ impl super::stub::CompanyService for CompanyService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -419,12 +377,9 @@ impl super::stub::CompanyService for CompanyService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -438,12 +393,9 @@ impl super::stub::CompanyService for CompanyService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/operations/*",
@@ -506,12 +458,9 @@ impl super::stub::Completion for Completion {
                     composable_matches(
                         Some(&req).map(|m| &m.tenant)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -525,12 +474,9 @@ impl super::stub::Completion for Completion {
                         Some(&req).map(|m| &m.tenant),
                         "tenant",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -579,12 +525,9 @@ impl super::stub::Completion for Completion {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -598,12 +541,9 @@ impl super::stub::Completion for Completion {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/operations/*",
@@ -666,12 +606,9 @@ impl super::stub::EventService for EventService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -685,12 +622,9 @@ impl super::stub::EventService for EventService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -730,12 +664,9 @@ impl super::stub::EventService for EventService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -749,12 +680,9 @@ impl super::stub::EventService for EventService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/operations/*",
@@ -817,12 +745,9 @@ impl super::stub::JobService for JobService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -836,12 +761,9 @@ impl super::stub::JobService for JobService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -879,12 +801,9 @@ impl super::stub::JobService for JobService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -898,12 +817,9 @@ impl super::stub::JobService for JobService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -941,16 +857,11 @@ impl super::stub::JobService for JobService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -964,16 +875,11 @@ impl super::stub::JobService for JobService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*/jobs/*",
@@ -1013,16 +919,11 @@ impl super::stub::JobService for JobService {
                     composable_matches(
                         Some(&req).and_then(|m| m.job.as_ref()).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1036,16 +937,11 @@ impl super::stub::JobService for JobService {
                         Some(&req).and_then(|m| m.job.as_ref()).map(|m| &m.name),
                         "job.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*/jobs/*",
@@ -1093,12 +989,9 @@ impl super::stub::JobService for JobService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1112,12 +1005,9 @@ impl super::stub::JobService for JobService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -1155,16 +1045,11 @@ impl super::stub::JobService for JobService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1178,16 +1063,11 @@ impl super::stub::JobService for JobService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*/jobs/*",
@@ -1231,12 +1111,9 @@ impl super::stub::JobService for JobService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1250,12 +1127,9 @@ impl super::stub::JobService for JobService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -1293,12 +1167,9 @@ impl super::stub::JobService for JobService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1312,12 +1183,9 @@ impl super::stub::JobService for JobService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -1361,12 +1229,9 @@ impl super::stub::JobService for JobService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1380,12 +1245,9 @@ impl super::stub::JobService for JobService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -1423,12 +1285,9 @@ impl super::stub::JobService for JobService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1442,12 +1301,9 @@ impl super::stub::JobService for JobService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -1485,12 +1341,9 @@ impl super::stub::JobService for JobService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1504,12 +1357,9 @@ impl super::stub::JobService for JobService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/operations/*",
@@ -1585,11 +1435,7 @@ impl super::stub::TenantService for TenantService {
                     "/v4/{}/tenants",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1600,11 +1446,7 @@ impl super::stub::TenantService for TenantService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1640,12 +1482,9 @@ impl super::stub::TenantService for TenantService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1659,12 +1498,9 @@ impl super::stub::TenantService for TenantService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -1706,12 +1542,9 @@ impl super::stub::TenantService for TenantService {
                             .and_then(|m| m.tenant.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1725,12 +1558,9 @@ impl super::stub::TenantService for TenantService {
                         Some(&req).and_then(|m| m.tenant.as_ref()).map(|m| &m.name),
                         "tenant.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -1778,12 +1608,9 @@ impl super::stub::TenantService for TenantService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1797,12 +1624,9 @@ impl super::stub::TenantService for TenantService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tenants"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tenants/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/tenants/*",
@@ -1845,11 +1669,7 @@ impl super::stub::TenantService for TenantService {
                     "/v4/{}/tenants",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1860,11 +1680,7 @@ impl super::stub::TenantService for TenantService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1904,12 +1720,9 @@ impl super::stub::TenantService for TenantService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1923,12 +1736,9 @@ impl super::stub::TenantService for TenantService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/operations/*",

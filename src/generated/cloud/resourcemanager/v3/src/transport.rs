@@ -55,11 +55,7 @@ impl super::stub::Folders for Folders {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -70,11 +66,7 @@ impl super::stub::Folders for Folders {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -220,11 +212,7 @@ impl super::stub::Folders for Folders {
                         Some(&req)
                             .and_then(|m| m.folder.as_ref())
                             .map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -235,11 +223,7 @@ impl super::stub::Folders for Folders {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).and_then(|m| m.folder.as_ref()).map(|m| &m.name),
                         "folder.name",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -284,11 +268,7 @@ impl super::stub::Folders for Folders {
                     "/v3/{}:move",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -299,11 +279,7 @@ impl super::stub::Folders for Folders {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -338,11 +314,7 @@ impl super::stub::Folders for Folders {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -353,11 +325,7 @@ impl super::stub::Folders for Folders {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -394,11 +362,7 @@ impl super::stub::Folders for Folders {
                     "/v3/{}:undelete",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -409,11 +373,7 @@ impl super::stub::Folders for Folders {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -448,11 +408,7 @@ impl super::stub::Folders for Folders {
                     "/v3/{}:getIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -463,11 +419,7 @@ impl super::stub::Folders for Folders {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -502,11 +454,7 @@ impl super::stub::Folders for Folders {
                     "/v3/{}:setIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -517,11 +465,7 @@ impl super::stub::Folders for Folders {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -556,11 +500,7 @@ impl super::stub::Folders for Folders {
                     "/v3/{}:testIamPermissions",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -571,11 +511,7 @@ impl super::stub::Folders for Folders {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -610,11 +546,7 @@ impl super::stub::Folders for Folders {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -625,11 +557,7 @@ impl super::stub::Folders for Folders {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());
@@ -703,11 +631,7 @@ impl super::stub::Organizations for Organizations {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -718,11 +642,7 @@ impl super::stub::Organizations for Organizations {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -796,11 +716,7 @@ impl super::stub::Organizations for Organizations {
                     "/v3/{}:getIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -811,11 +727,7 @@ impl super::stub::Organizations for Organizations {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -850,11 +762,7 @@ impl super::stub::Organizations for Organizations {
                     "/v3/{}:setIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -865,11 +773,7 @@ impl super::stub::Organizations for Organizations {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -904,11 +808,7 @@ impl super::stub::Organizations for Organizations {
                     "/v3/{}:testIamPermissions",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -919,11 +819,7 @@ impl super::stub::Organizations for Organizations {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -958,11 +854,7 @@ impl super::stub::Organizations for Organizations {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -973,11 +865,7 @@ impl super::stub::Organizations for Organizations {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());
@@ -1037,11 +925,7 @@ impl super::stub::Projects for Projects {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1052,11 +936,7 @@ impl super::stub::Projects for Projects {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1204,11 +1084,7 @@ impl super::stub::Projects for Projects {
                         Some(&req)
                             .and_then(|m| m.project.as_ref())
                             .map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1219,11 +1095,7 @@ impl super::stub::Projects for Projects {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).and_then(|m| m.project.as_ref()).map(|m| &m.name),
                         "project.name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1270,11 +1142,7 @@ impl super::stub::Projects for Projects {
                     "/v3/{}:move",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1285,11 +1153,7 @@ impl super::stub::Projects for Projects {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1324,11 +1188,7 @@ impl super::stub::Projects for Projects {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1339,11 +1199,7 @@ impl super::stub::Projects for Projects {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1380,11 +1236,7 @@ impl super::stub::Projects for Projects {
                     "/v3/{}:undelete",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1395,11 +1247,7 @@ impl super::stub::Projects for Projects {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1434,11 +1282,7 @@ impl super::stub::Projects for Projects {
                     "/v3/{}:getIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1449,11 +1293,7 @@ impl super::stub::Projects for Projects {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1488,11 +1328,7 @@ impl super::stub::Projects for Projects {
                     "/v3/{}:setIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1503,11 +1339,7 @@ impl super::stub::Projects for Projects {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1542,11 +1374,7 @@ impl super::stub::Projects for Projects {
                     "/v3/{}:testIamPermissions",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1557,11 +1385,7 @@ impl super::stub::Projects for Projects {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1596,11 +1420,7 @@ impl super::stub::Projects for Projects {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -1611,11 +1431,7 @@ impl super::stub::Projects for Projects {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());
@@ -1761,11 +1577,7 @@ impl super::stub::TagBindings for TagBindings {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("tagBindings"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("tagBindings/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -1776,11 +1588,7 @@ impl super::stub::TagBindings for TagBindings {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("tagBindings"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("tagBindings/"), Segment::MultiWildcard],
                         "tagBindings/**",
                     );
                     paths.push(builder.build());
@@ -1854,11 +1662,7 @@ impl super::stub::TagBindings for TagBindings {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -1869,11 +1673,7 @@ impl super::stub::TagBindings for TagBindings {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());
@@ -1947,11 +1747,7 @@ impl super::stub::TagHolds for TagHolds {
                     "/v3/{}/tagHolds",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1962,11 +1758,7 @@ impl super::stub::TagHolds for TagHolds {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard],
                         "tagValues/*",
                     );
                     paths.push(builder.build());
@@ -2005,12 +1797,9 @@ impl super::stub::TagHolds for TagHolds {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
+                            Segment::Literal("tagValues/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tagHolds"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tagHolds/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2024,12 +1813,9 @@ impl super::stub::TagHolds for TagHolds {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
+                            Segment::Literal("tagValues/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tagHolds"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tagHolds/"),
                             Segment::SingleWildcard,
                         ],
                         "tagValues/*/tagHolds/*",
@@ -2069,11 +1855,7 @@ impl super::stub::TagHolds for TagHolds {
                     "/v3/{}/tagHolds",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2084,11 +1866,7 @@ impl super::stub::TagHolds for TagHolds {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard],
                         "tagValues/*",
                     );
                     paths.push(builder.build());
@@ -2128,11 +1906,7 @@ impl super::stub::TagHolds for TagHolds {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -2143,11 +1917,7 @@ impl super::stub::TagHolds for TagHolds {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());
@@ -2258,11 +2028,7 @@ impl super::stub::TagKeys for TagKeys {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("tagKeys"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagKeys/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2273,11 +2039,7 @@ impl super::stub::TagKeys for TagKeys {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("tagKeys"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagKeys/"), Segment::SingleWildcard],
                         "tagKeys/*",
                     );
                     paths.push(builder.build());
@@ -2386,11 +2148,7 @@ impl super::stub::TagKeys for TagKeys {
                         Some(&req)
                             .and_then(|m| m.tag_key.as_ref())
                             .map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("tagKeys"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagKeys/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2401,11 +2159,7 @@ impl super::stub::TagKeys for TagKeys {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).and_then(|m| m.tag_key.as_ref()).map(|m| &m.name),
                         "tag_key.name",
-                        &[
-                            Segment::Literal("tagKeys"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagKeys/"), Segment::SingleWildcard],
                         "tagKeys/*",
                     );
                     paths.push(builder.build());
@@ -2453,11 +2207,7 @@ impl super::stub::TagKeys for TagKeys {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("tagKeys"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagKeys/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2468,11 +2218,7 @@ impl super::stub::TagKeys for TagKeys {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("tagKeys"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagKeys/"), Segment::SingleWildcard],
                         "tagKeys/*",
                     );
                     paths.push(builder.build());
@@ -2511,11 +2257,7 @@ impl super::stub::TagKeys for TagKeys {
                     "/v3/{}:getIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("tagKeys"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagKeys/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2526,11 +2268,7 @@ impl super::stub::TagKeys for TagKeys {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("tagKeys"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagKeys/"), Segment::SingleWildcard],
                         "tagKeys/*",
                     );
                     paths.push(builder.build());
@@ -2565,11 +2303,7 @@ impl super::stub::TagKeys for TagKeys {
                     "/v3/{}:setIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("tagKeys"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagKeys/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2580,11 +2314,7 @@ impl super::stub::TagKeys for TagKeys {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("tagKeys"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagKeys/"), Segment::SingleWildcard],
                         "tagKeys/*",
                     );
                     paths.push(builder.build());
@@ -2619,11 +2349,7 @@ impl super::stub::TagKeys for TagKeys {
                     "/v3/{}:testIamPermissions",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("tagKeys"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagKeys/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2634,11 +2360,7 @@ impl super::stub::TagKeys for TagKeys {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("tagKeys"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagKeys/"), Segment::SingleWildcard],
                         "tagKeys/*",
                     );
                     paths.push(builder.build());
@@ -2673,11 +2395,7 @@ impl super::stub::TagKeys for TagKeys {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -2688,11 +2406,7 @@ impl super::stub::TagKeys for TagKeys {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());
@@ -2803,11 +2517,7 @@ impl super::stub::TagValues for TagValues {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2818,11 +2528,7 @@ impl super::stub::TagValues for TagValues {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard],
                         "tagValues/*",
                     );
                     paths.push(builder.build());
@@ -2931,11 +2637,7 @@ impl super::stub::TagValues for TagValues {
                         Some(&req)
                             .and_then(|m| m.tag_value.as_ref())
                             .map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -2948,11 +2650,7 @@ impl super::stub::TagValues for TagValues {
                             .and_then(|m| m.tag_value.as_ref())
                             .map(|m| &m.name),
                         "tag_value.name",
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard],
                         "tagValues/*",
                     );
                     paths.push(builder.build());
@@ -3000,11 +2698,7 @@ impl super::stub::TagValues for TagValues {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -3015,11 +2709,7 @@ impl super::stub::TagValues for TagValues {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard],
                         "tagValues/*",
                     );
                     paths.push(builder.build());
@@ -3058,11 +2748,7 @@ impl super::stub::TagValues for TagValues {
                     "/v3/{}:getIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -3073,11 +2759,7 @@ impl super::stub::TagValues for TagValues {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard],
                         "tagValues/*",
                     );
                     paths.push(builder.build());
@@ -3112,11 +2794,7 @@ impl super::stub::TagValues for TagValues {
                     "/v3/{}:setIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -3127,11 +2805,7 @@ impl super::stub::TagValues for TagValues {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard],
                         "tagValues/*",
                     );
                     paths.push(builder.build());
@@ -3166,11 +2840,7 @@ impl super::stub::TagValues for TagValues {
                     "/v3/{}:testIamPermissions",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -3181,11 +2851,7 @@ impl super::stub::TagValues for TagValues {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("tagValues"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("tagValues/"), Segment::SingleWildcard],
                         "tagValues/*",
                     );
                     paths.push(builder.build());
@@ -3220,11 +2886,7 @@ impl super::stub::TagValues for TagValues {
                     "/v3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -3235,11 +2897,7 @@ impl super::stub::TagValues for TagValues {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());

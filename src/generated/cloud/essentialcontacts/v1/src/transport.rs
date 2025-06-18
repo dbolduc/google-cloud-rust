@@ -55,11 +55,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     "/v1/{}/contacts",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -68,11 +64,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     "/v1/{}/contacts",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -81,11 +73,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     "/v1/{}/contacts",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -96,11 +84,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -110,11 +94,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -124,11 +104,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -168,12 +144,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                             .and_then(|m| m.contact.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -187,12 +160,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                             .and_then(|m| m.contact.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -206,12 +176,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                             .and_then(|m| m.contact.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -225,12 +192,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                         Some(&req).and_then(|m| m.contact.as_ref()).map(|m| &m.name),
                         "contact.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/contacts/*",
@@ -243,12 +207,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                         Some(&req).and_then(|m| m.contact.as_ref()).map(|m| &m.name),
                         "contact.name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/contacts/*",
@@ -261,12 +222,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                         Some(&req).and_then(|m| m.contact.as_ref()).map(|m| &m.name),
                         "contact.name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/contacts/*",
@@ -315,11 +273,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     "/v1/{}/contacts",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -328,11 +282,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     "/v1/{}/contacts",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -341,11 +291,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     "/v1/{}/contacts",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -356,11 +302,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -370,11 +312,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -384,11 +322,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -428,12 +362,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -445,12 +376,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -462,12 +390,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -481,12 +406,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/contacts/*",
@@ -499,12 +421,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/contacts/*",
@@ -517,12 +436,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/contacts/*",
@@ -562,12 +478,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -579,12 +492,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -596,12 +506,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -615,12 +522,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/contacts/*",
@@ -633,12 +537,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
+                            Segment::Literal("folders/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ],
                         "folders/*/contacts/*",
@@ -651,12 +552,9 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("contacts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/contacts/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/contacts/*",
@@ -699,11 +597,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     "/v1/{}/contacts:compute",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -712,11 +606,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     "/v1/{}/contacts:compute",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -725,11 +615,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     "/v1/{}/contacts:compute",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -740,11 +626,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -754,11 +636,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -768,11 +646,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -817,11 +691,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     "/v1/{}/contacts:sendTestMessage",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -830,11 +700,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     "/v1/{}/contacts:sendTestMessage",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -843,11 +709,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     "/v1/{}/contacts:sendTestMessage",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -858,11 +720,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -872,11 +730,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("folders"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("folders/"), Segment::SingleWildcard],
                         "folders/*",
                     );
                     paths.push(builder.build());
@@ -886,11 +740,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());

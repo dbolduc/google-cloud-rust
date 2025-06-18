@@ -56,11 +56,9 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("authorization"),
+                            Segment::Literal("/authorization"),
                         ]
                     )?,
                 ))
@@ -73,11 +71,9 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("authorization"),
+                            Segment::Literal("/authorization"),
                         ],
                         "projects/*/authorization",
                     );
@@ -115,11 +111,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                     "/v1/{}/deployments",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -130,11 +122,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -175,12 +163,9 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                             .and_then(|m| m.deployment.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deployments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deployments/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -196,12 +181,9 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                             .map(|m| &m.name),
                         "deployment.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deployments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deployments/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/deployments/*",
@@ -241,12 +223,9 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deployments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deployments/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -260,12 +239,9 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deployments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deployments/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/deployments/*",
@@ -304,11 +280,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                     "/v1/{}/deployments",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -319,11 +291,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -363,12 +331,9 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deployments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deployments/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -382,12 +347,9 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deployments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deployments/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/deployments/*",
@@ -432,12 +394,9 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deployments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deployments/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -451,12 +410,9 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deployments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deployments/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/deployments/*",
@@ -499,12 +455,9 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deployments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deployments/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -518,12 +471,9 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deployments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deployments/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/deployments/*",
@@ -566,15 +516,11 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deployments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deployments/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("installStatus"),
+                            Segment::Literal("/installStatus"),
                         ]
                     )?,
                 ))
@@ -587,15 +533,11 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deployments"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deployments/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("installStatus"),
+                            Segment::Literal("/installStatus"),
                         ],
                         "projects/*/deployments/*/installStatus",
                     );

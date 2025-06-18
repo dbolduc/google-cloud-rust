@@ -56,16 +56,11 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -79,16 +74,11 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/workstationClusters/*",
@@ -128,12 +118,9 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -147,12 +134,9 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -194,12 +178,9 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -213,12 +194,9 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -262,16 +240,11 @@ impl super::stub::Workstations for Workstations {
                             .and_then(|m| m.workstation_cluster.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -287,16 +260,11 @@ impl super::stub::Workstations for Workstations {
                             .map(|m| &m.name),
                         "workstation_cluster.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/workstationClusters/*",
@@ -348,16 +316,11 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -371,16 +334,11 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/workstationClusters/*",
@@ -423,20 +381,13 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -450,20 +401,13 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/workstationClusters/*/workstationConfigs/*",
@@ -503,16 +447,11 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -526,16 +465,11 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/workstationClusters/*",
@@ -577,16 +511,11 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -600,16 +529,11 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/workstationClusters/*",
@@ -651,16 +575,11 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -674,16 +593,11 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/workstationClusters/*",
@@ -727,20 +641,13 @@ impl super::stub::Workstations for Workstations {
                             .and_then(|m| m.workstation_config.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -756,20 +663,13 @@ impl super::stub::Workstations for Workstations {
                             .map(|m| &m.name),
                         "workstation_config.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/workstationClusters/*/workstationConfigs/*",
@@ -821,20 +721,13 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -848,20 +741,13 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/workstationClusters/*/workstationConfigs/*",
@@ -901,7 +787,7 @@ impl super::stub::Workstations for Workstations {
         .or_else(|| {
             Some(format!(
                 "/v1/{}",
-                composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -911,7 +797,7 @@ impl super::stub::Workstations for Workstations {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.name),
                     "name",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/workstationClusters/*/workstationConfigs/*/workstations/*");
                 paths.push(builder.build());
             }
@@ -948,20 +834,13 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -975,20 +854,13 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/workstationClusters/*/workstationConfigs/*",
@@ -1030,20 +902,13 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1057,20 +922,13 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/workstationClusters/*/workstationConfigs/*",
@@ -1112,20 +970,13 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1139,20 +990,13 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationClusters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationClusters/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("workstationConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/workstationConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/workstationClusters/*/workstationConfigs/*",
@@ -1191,7 +1035,7 @@ impl super::stub::Workstations for Workstations {
         .or_else(|| {
             Some(format!(
                 "/v1/{}",
-                composable_matches(Some(&req).and_then(|m| m.workstation.as_ref()).map(|m| &m.name)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).and_then(|m| m.workstation.as_ref()).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -1201,7 +1045,7 @@ impl super::stub::Workstations for Workstations {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).and_then(|m| m.workstation.as_ref()).map(|m| &m.name),
                     "workstation.name",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/workstationClusters/*/workstationConfigs/*/workstations/*");
                 paths.push(builder.build());
             }
@@ -1247,7 +1091,7 @@ impl super::stub::Workstations for Workstations {
         .or_else(|| {
             Some(format!(
                 "/v1/{}",
-                composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -1257,7 +1101,7 @@ impl super::stub::Workstations for Workstations {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.name),
                     "name",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/workstationClusters/*/workstationConfigs/*/workstations/*");
                 paths.push(builder.build());
             }
@@ -1293,7 +1137,7 @@ impl super::stub::Workstations for Workstations {
         .or_else(|| {
             Some(format!(
                 "/v1/{}:start",
-                composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -1303,7 +1147,7 @@ impl super::stub::Workstations for Workstations {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.name),
                     "name",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/workstationClusters/*/workstationConfigs/*/workstations/*");
                 paths.push(builder.build());
             }
@@ -1335,7 +1179,7 @@ impl super::stub::Workstations for Workstations {
         .or_else(|| {
             Some(format!(
                 "/v1/{}:stop",
-                composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -1345,7 +1189,7 @@ impl super::stub::Workstations for Workstations {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.name),
                     "name",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/workstationClusters/*/workstationConfigs/*/workstations/*");
                 paths.push(builder.build());
             }
@@ -1377,7 +1221,7 @@ impl super::stub::Workstations for Workstations {
         .or_else(|| {
             Some(format!(
                 "/v1/{}:generateAccessToken",
-                composable_matches(Some(&req).map(|m| &m.workstation)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.workstation)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -1387,7 +1231,7 @@ impl super::stub::Workstations for Workstations {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.workstation),
                     "workstation",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/workstationClusters/*/workstationConfigs/*/workstations/*");
                 paths.push(builder.build());
             }
@@ -1419,13 +1263,13 @@ impl super::stub::Workstations for Workstations {
         .or_else(|| {
             Some(format!(
                 "/v1/{}:setIamPolicy",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,])?,
             ))
         })
         .or_else(|| {
             Some(format!(
                 "/v1/{}:setIamPolicy",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -1435,7 +1279,7 @@ impl super::stub::Workstations for Workstations {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/workstationClusters/*/workstationConfigs/*");
                 paths.push(builder.build());
             }
@@ -1444,7 +1288,7 @@ impl super::stub::Workstations for Workstations {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/workstationClusters/*/workstationConfigs/*/workstations/*");
                 paths.push(builder.build());
             }
@@ -1476,13 +1320,13 @@ impl super::stub::Workstations for Workstations {
         .or_else(|| {
             Some(format!(
                 "/v1/{}:getIamPolicy",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,])?,
             ))
         })
         .or_else(|| {
             Some(format!(
                 "/v1/{}:getIamPolicy",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -1492,7 +1336,7 @@ impl super::stub::Workstations for Workstations {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/workstationClusters/*/workstationConfigs/*");
                 paths.push(builder.build());
             }
@@ -1501,7 +1345,7 @@ impl super::stub::Workstations for Workstations {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/workstationClusters/*/workstationConfigs/*/workstations/*");
                 paths.push(builder.build());
             }
@@ -1545,13 +1389,13 @@ impl super::stub::Workstations for Workstations {
         .or_else(|| {
             Some(format!(
                 "/v1/{}:testIamPermissions",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,])?,
             ))
         })
         .or_else(|| {
             Some(format!(
                 "/v1/{}:testIamPermissions",
-                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,])?,
+                composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,])?,
             ))
         })
         .ok_or_else(|| {
@@ -1561,7 +1405,7 @@ impl super::stub::Workstations for Workstations {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/workstationClusters/*/workstationConfigs/*");
                 paths.push(builder.build());
             }
@@ -1570,7 +1414,7 @@ impl super::stub::Workstations for Workstations {
                 let builder = builder.maybe_add_match_error(
                     Some(&req).map(|m| &m.resource),
                     "resource",
-                    &[Segment::Literal("projects"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("locations"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationClusters"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstationConfigs"),Segment::Literal("/"),Segment::SingleWildcard,Segment::Literal("/"),Segment::Literal("workstations"),Segment::Literal("/"),Segment::SingleWildcard,],
+                    &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/workstationClusters/"),Segment::SingleWildcard,Segment::Literal("/workstationConfigs/"),Segment::SingleWildcard,Segment::Literal("/workstations/"),Segment::SingleWildcard,],
                     "projects/*/locations/*/workstationClusters/*/workstationConfigs/*/workstations/*");
                 paths.push(builder.build());
             }
@@ -1605,12 +1449,9 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1624,12 +1465,9 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1672,16 +1510,11 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1695,16 +1528,11 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",
@@ -1744,16 +1572,11 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1767,16 +1590,11 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",
@@ -1820,16 +1638,11 @@ impl super::stub::Workstations for Workstations {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1843,16 +1656,11 @@ impl super::stub::Workstations for Workstations {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/operations/*",

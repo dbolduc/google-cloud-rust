@@ -56,16 +56,11 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dataSources"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dataSources/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -77,12 +72,9 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dataSources"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dataSources/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -96,16 +88,11 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dataSources"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dataSources/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/dataSources/*",
@@ -118,12 +105,9 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dataSources"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dataSources/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/dataSources/*",
@@ -163,12 +147,9 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -179,11 +160,7 @@ impl super::stub::DataTransferService for DataTransferService {
                     "/v1/{}/dataSources",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -195,12 +172,9 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -212,11 +186,7 @@ impl super::stub::DataTransferService for DataTransferService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -256,12 +226,9 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -272,11 +239,7 @@ impl super::stub::DataTransferService for DataTransferService {
                     "/v1/{}/transferConfigs",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -288,12 +251,9 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -305,11 +265,7 @@ impl super::stub::DataTransferService for DataTransferService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -352,16 +308,11 @@ impl super::stub::DataTransferService for DataTransferService {
                             .and_then(|m| m.transfer_config.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -375,12 +326,9 @@ impl super::stub::DataTransferService for DataTransferService {
                             .and_then(|m| m.transfer_config.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -396,16 +344,11 @@ impl super::stub::DataTransferService for DataTransferService {
                             .map(|m| &m.name),
                         "transfer_config.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/transferConfigs/*",
@@ -420,12 +363,9 @@ impl super::stub::DataTransferService for DataTransferService {
                             .map(|m| &m.name),
                         "transfer_config.name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/transferConfigs/*",
@@ -478,16 +418,11 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -499,12 +434,9 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -518,16 +450,11 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/transferConfigs/*",
@@ -540,12 +467,9 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/transferConfigs/*",
@@ -589,16 +513,11 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -610,12 +529,9 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -629,16 +545,11 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/transferConfigs/*",
@@ -651,12 +562,9 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/transferConfigs/*",
@@ -696,12 +604,9 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -712,11 +617,7 @@ impl super::stub::DataTransferService for DataTransferService {
                     "/v1/{}/transferConfigs",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -728,12 +629,9 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -745,11 +643,7 @@ impl super::stub::DataTransferService for DataTransferService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -793,16 +687,11 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -814,12 +703,9 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -833,16 +719,11 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/transferConfigs/*",
@@ -855,12 +736,9 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/transferConfigs/*",
@@ -898,16 +776,11 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -919,12 +792,9 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -938,16 +808,11 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/transferConfigs/*",
@@ -960,12 +825,9 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/transferConfigs/*",
@@ -1003,20 +865,13 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("runs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/runs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1028,16 +883,11 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("runs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/runs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1051,20 +901,13 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("runs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/runs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/transferConfigs/*/runs/*",
@@ -1077,16 +920,11 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("runs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/runs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/transferConfigs/*/runs/*",
@@ -1126,20 +964,13 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("runs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/runs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1151,16 +982,11 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("runs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/runs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1174,20 +1000,13 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("runs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/runs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/transferConfigs/*/runs/*",
@@ -1200,16 +1019,11 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("runs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/runs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/transferConfigs/*/runs/*",
@@ -1253,16 +1067,11 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1274,12 +1083,9 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1293,16 +1099,11 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/transferConfigs/*",
@@ -1315,12 +1116,9 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/transferConfigs/*",
@@ -1367,20 +1165,13 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("runs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/runs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1392,16 +1183,11 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("runs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/runs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1415,20 +1201,13 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("runs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/runs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/transferConfigs/*/runs/*",
@@ -1441,16 +1220,11 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("transferConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/transferConfigs/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("runs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/runs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/transferConfigs/*/runs/*",
@@ -1496,16 +1270,11 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dataSources"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dataSources/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1517,12 +1286,9 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dataSources"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dataSources/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1536,16 +1302,11 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dataSources"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dataSources/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/dataSources/*",
@@ -1558,12 +1319,9 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dataSources"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dataSources/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/dataSources/*",
@@ -1601,12 +1359,9 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1617,11 +1372,7 @@ impl super::stub::DataTransferService for DataTransferService {
                     "/v1/{}:enrollDataSources",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1633,12 +1384,9 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1650,11 +1398,7 @@ impl super::stub::DataTransferService for DataTransferService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1695,12 +1439,9 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1714,12 +1455,9 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1761,11 +1499,7 @@ impl super::stub::DataTransferService for DataTransferService {
                     "/v1/{}/locations",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1776,11 +1510,7 @@ impl super::stub::DataTransferService for DataTransferService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1821,12 +1551,9 @@ impl super::stub::DataTransferService for DataTransferService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1840,12 +1567,9 @@ impl super::stub::DataTransferService for DataTransferService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",

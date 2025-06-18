@@ -55,11 +55,7 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/content:inspect",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -69,12 +65,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -87,11 +80,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -102,12 +91,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -144,11 +130,7 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/image:redact",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -158,12 +140,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -176,11 +155,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -191,12 +166,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -233,11 +205,7 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/content:deidentify",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -247,12 +215,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -265,11 +230,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -280,12 +241,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -322,11 +280,7 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/content:reidentify",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -336,12 +290,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -354,11 +305,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -369,12 +316,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -412,9 +356,19 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/infoTypes",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("locations/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/infoTypes",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -426,29 +380,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/infoTypes",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -465,11 +399,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("locations/"), Segment::SingleWildcard],
                         "locations/*",
                     );
                     paths.push(builder.build());
@@ -480,12 +410,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -498,12 +425,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -547,12 +471,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -564,12 +485,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -580,11 +498,7 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/inspectTemplates",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -593,11 +507,7 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/inspectTemplates",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -609,12 +519,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -627,12 +534,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -644,11 +548,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -658,11 +558,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -698,16 +594,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -719,16 +610,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -740,12 +626,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -757,12 +640,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -776,16 +656,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/inspectTemplates/*",
@@ -798,16 +673,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/inspectTemplates/*",
@@ -820,12 +690,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/inspectTemplates/*",
@@ -838,12 +705,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/inspectTemplates/*",
@@ -881,16 +745,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -902,16 +761,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -923,12 +777,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -940,12 +791,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -959,16 +807,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/inspectTemplates/*",
@@ -981,16 +824,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/inspectTemplates/*",
@@ -1003,12 +841,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/inspectTemplates/*",
@@ -1021,12 +856,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/inspectTemplates/*",
@@ -1066,12 +898,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1083,12 +912,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1099,11 +925,7 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/inspectTemplates",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1112,11 +934,7 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/inspectTemplates",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1128,12 +946,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1146,12 +961,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -1163,11 +975,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1177,11 +985,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -1223,16 +1027,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1244,16 +1043,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1265,12 +1059,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1282,12 +1073,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1301,16 +1089,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/inspectTemplates/*",
@@ -1323,16 +1106,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/inspectTemplates/*",
@@ -1345,12 +1123,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/inspectTemplates/*",
@@ -1363,12 +1138,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("inspectTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/inspectTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/inspectTemplates/*",
@@ -1411,9 +1183,19 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/deidentifyTemplates",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/deidentifyTemplates",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1424,15 +1206,7 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/deidentifyTemplates",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1442,25 +1216,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/deidentifyTemplates",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1473,11 +1231,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -1488,12 +1242,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -1505,11 +1256,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -1520,12 +1267,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -1563,12 +1307,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1580,16 +1321,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1601,12 +1337,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1618,16 +1351,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1641,12 +1369,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/deidentifyTemplates/*",
@@ -1659,16 +1384,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/deidentifyTemplates/*",
@@ -1681,12 +1401,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/deidentifyTemplates/*",
@@ -1699,16 +1416,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/deidentifyTemplates/*",
@@ -1746,12 +1458,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1763,16 +1472,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1784,12 +1488,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1801,16 +1502,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1824,12 +1520,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/deidentifyTemplates/*",
@@ -1842,16 +1535,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/deidentifyTemplates/*",
@@ -1864,12 +1552,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/deidentifyTemplates/*",
@@ -1882,16 +1567,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/deidentifyTemplates/*",
@@ -1930,9 +1610,19 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/deidentifyTemplates",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/deidentifyTemplates",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1943,15 +1633,7 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/deidentifyTemplates",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1961,25 +1643,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/deidentifyTemplates",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1992,11 +1658,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -2007,12 +1669,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -2024,11 +1683,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -2039,12 +1694,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -2088,12 +1740,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2105,16 +1754,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2126,12 +1770,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2143,16 +1784,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2166,12 +1802,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/deidentifyTemplates/*",
@@ -2184,16 +1817,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/deidentifyTemplates/*",
@@ -2206,12 +1834,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/deidentifyTemplates/*",
@@ -2224,16 +1849,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("deidentifyTemplates"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/deidentifyTemplates/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/deidentifyTemplates/*",
@@ -2276,9 +1896,19 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/jobTriggers",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/jobTriggers",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2290,29 +1920,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/jobTriggers",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2325,11 +1935,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -2340,12 +1946,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -2358,12 +1961,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -2401,12 +2001,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2418,16 +2015,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2439,16 +2031,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2462,12 +2049,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/jobTriggers/*",
@@ -2480,16 +2064,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/jobTriggers/*",
@@ -2502,16 +2081,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/jobTriggers/*",
@@ -2549,16 +2123,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2572,16 +2141,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/jobTriggers/*",
@@ -2619,12 +2183,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2636,16 +2197,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2657,16 +2213,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2680,12 +2231,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/jobTriggers/*",
@@ -2698,16 +2246,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/jobTriggers/*",
@@ -2720,16 +2263,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/jobTriggers/*",
@@ -2768,9 +2306,19 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/jobTriggers",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/jobTriggers",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2782,29 +2330,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/jobTriggers",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2817,11 +2345,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -2832,12 +2356,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -2850,12 +2371,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -2901,12 +2419,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2918,16 +2433,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2939,16 +2449,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -2962,12 +2467,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/jobTriggers/*",
@@ -2980,16 +2482,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/jobTriggers/*",
@@ -3002,16 +2499,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/jobTriggers/*",
@@ -3055,12 +2547,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3072,16 +2561,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3095,12 +2579,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/jobTriggers/*",
@@ -3113,16 +2594,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("jobTriggers"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/jobTriggers/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/jobTriggers/*",
@@ -3160,12 +2636,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3177,12 +2650,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3196,12 +2666,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -3214,12 +2681,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -3257,16 +2721,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("discoveryConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/discoveryConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3278,16 +2737,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("discoveryConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/discoveryConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3301,16 +2755,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("discoveryConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/discoveryConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/discoveryConfigs/*",
@@ -3323,16 +2772,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("discoveryConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/discoveryConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/discoveryConfigs/*",
@@ -3370,16 +2814,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("discoveryConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/discoveryConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3391,16 +2830,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("discoveryConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/discoveryConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3414,16 +2848,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("discoveryConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/discoveryConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/discoveryConfigs/*",
@@ -3436,16 +2865,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("discoveryConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/discoveryConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/discoveryConfigs/*",
@@ -3485,12 +2909,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3502,12 +2923,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3521,12 +2939,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -3539,12 +2954,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -3587,16 +2999,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("discoveryConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/discoveryConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3608,16 +3015,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("discoveryConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/discoveryConfigs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3631,16 +3033,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("discoveryConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/discoveryConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/discoveryConfigs/*",
@@ -3653,16 +3050,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("discoveryConfigs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/discoveryConfigs/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/discoveryConfigs/*",
@@ -3705,11 +3097,7 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/dlpJobs",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -3719,12 +3107,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3737,11 +3122,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -3752,12 +3133,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -3794,9 +3172,19 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/dlpJobs",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/dlpJobs",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3808,29 +3196,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/dlpJobs",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3843,11 +3211,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -3858,12 +3222,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -3876,12 +3237,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -3927,12 +3285,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3944,16 +3299,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -3967,12 +3317,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/dlpJobs/*",
@@ -3985,16 +3332,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/dlpJobs/*",
@@ -4034,12 +3376,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4051,16 +3390,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4074,12 +3408,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/dlpJobs/*",
@@ -4092,16 +3423,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/dlpJobs/*",
@@ -4145,12 +3471,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4162,16 +3485,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4185,12 +3503,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/dlpJobs/*",
@@ -4203,16 +3518,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/dlpJobs/*",
@@ -4254,9 +3564,19 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/storedInfoTypes",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/storedInfoTypes",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4267,15 +3587,7 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/storedInfoTypes",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -4285,25 +3597,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/storedInfoTypes",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4316,11 +3612,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -4331,12 +3623,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -4348,11 +3637,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -4363,12 +3648,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -4406,12 +3688,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4423,16 +3702,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4444,12 +3718,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4461,16 +3732,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4484,12 +3750,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/storedInfoTypes/*",
@@ -4502,16 +3765,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/storedInfoTypes/*",
@@ -4524,12 +3782,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/storedInfoTypes/*",
@@ -4542,16 +3797,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/storedInfoTypes/*",
@@ -4589,12 +3839,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4606,16 +3853,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4627,12 +3869,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4644,16 +3883,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4667,12 +3901,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/storedInfoTypes/*",
@@ -4685,16 +3916,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/storedInfoTypes/*",
@@ -4707,12 +3933,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/storedInfoTypes/*",
@@ -4725,16 +3948,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/storedInfoTypes/*",
@@ -4773,9 +3991,19 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/storedInfoTypes",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v2/{}/storedInfoTypes",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4786,15 +4014,7 @@ impl super::stub::DlpService for DlpService {
                     "/v2/{}/storedInfoTypes",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -4804,25 +4024,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v2/{}/storedInfoTypes",
-                    composable_matches(
-                        Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4835,11 +4039,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -4850,12 +4050,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -4867,11 +4064,7 @@ impl super::stub::DlpService for DlpService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -4882,12 +4075,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -4931,12 +4121,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4948,16 +4135,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4969,12 +4151,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -4986,16 +4165,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5009,12 +4183,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/storedInfoTypes/*",
@@ -5027,16 +4198,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/storedInfoTypes/*",
@@ -5049,12 +4215,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/storedInfoTypes/*",
@@ -5067,16 +4230,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("storedInfoTypes"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/storedInfoTypes/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/storedInfoTypes/*",
@@ -5120,12 +4278,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5137,12 +4292,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5156,12 +4308,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -5174,12 +4323,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -5223,12 +4369,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5240,12 +4383,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5259,12 +4399,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -5277,12 +4414,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -5326,12 +4460,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5343,12 +4474,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5362,12 +4490,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -5380,12 +4505,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -5429,16 +4551,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("projectDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/projectDataProfiles/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5450,16 +4567,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("projectDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/projectDataProfiles/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5473,16 +4585,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("projectDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/projectDataProfiles/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/projectDataProfiles/*",
@@ -5495,16 +4602,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("projectDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/projectDataProfiles/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/projectDataProfiles/*",
@@ -5544,12 +4646,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5561,12 +4660,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5580,12 +4676,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -5598,12 +4691,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -5647,16 +4737,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("fileStoreDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/fileStoreDataProfiles/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5668,16 +4753,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("fileStoreDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/fileStoreDataProfiles/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5691,16 +4771,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("fileStoreDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/fileStoreDataProfiles/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/fileStoreDataProfiles/*",
@@ -5713,16 +4788,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("fileStoreDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/fileStoreDataProfiles/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/fileStoreDataProfiles/*",
@@ -5762,16 +4832,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("fileStoreDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/fileStoreDataProfiles/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5783,16 +4848,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("fileStoreDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/fileStoreDataProfiles/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5806,16 +4866,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("fileStoreDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/fileStoreDataProfiles/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/fileStoreDataProfiles/*",
@@ -5828,16 +4883,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("fileStoreDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/fileStoreDataProfiles/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/fileStoreDataProfiles/*",
@@ -5881,16 +4931,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tableDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tableDataProfiles/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5902,16 +4947,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tableDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tableDataProfiles/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -5925,16 +4965,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tableDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tableDataProfiles/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/tableDataProfiles/*",
@@ -5947,16 +4982,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tableDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tableDataProfiles/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/tableDataProfiles/*",
@@ -5996,16 +5026,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("columnDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/columnDataProfiles/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6017,16 +5042,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("columnDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/columnDataProfiles/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6040,16 +5060,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("columnDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/columnDataProfiles/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/columnDataProfiles/*",
@@ -6062,16 +5077,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("columnDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/columnDataProfiles/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/columnDataProfiles/*",
@@ -6111,16 +5121,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tableDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tableDataProfiles/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6132,16 +5137,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tableDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tableDataProfiles/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6155,16 +5155,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tableDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tableDataProfiles/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/tableDataProfiles/*",
@@ -6177,16 +5172,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("tableDataProfiles"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/tableDataProfiles/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/tableDataProfiles/*",
@@ -6230,16 +5220,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6253,16 +5238,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/dlpJobs/*",
@@ -6300,16 +5280,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6323,16 +5298,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("dlpJobs"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/dlpJobs/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/dlpJobs/*",
@@ -6375,12 +5345,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6392,12 +5359,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6411,12 +5375,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -6429,12 +5390,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -6472,16 +5430,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("connections"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/connections/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6493,16 +5446,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("connections"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/connections/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6516,16 +5464,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("connections"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/connections/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/connections/*",
@@ -6538,16 +5481,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("connections"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/connections/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/connections/*",
@@ -6587,12 +5525,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6604,12 +5539,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6623,12 +5555,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -6641,12 +5570,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -6689,12 +5615,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6706,12 +5629,9 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6725,12 +5645,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*",
@@ -6743,12 +5660,9 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*",
@@ -6791,16 +5705,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("connections"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/connections/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6812,16 +5721,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("connections"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/connections/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6835,16 +5739,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("connections"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/connections/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/connections/*",
@@ -6857,16 +5756,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("connections"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/connections/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/connections/*",
@@ -6910,16 +5804,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("connections"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/connections/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6931,16 +5820,11 @@ impl super::stub::DlpService for DlpService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("connections"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/connections/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -6954,16 +5838,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
+                            Segment::Literal("projects/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("connections"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/connections/"),
                             Segment::SingleWildcard,
                         ],
                         "projects/*/locations/*/connections/*",
@@ -6976,16 +5855,11 @@ impl super::stub::DlpService for DlpService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("locations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("connections"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/connections/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/locations/*/connections/*",

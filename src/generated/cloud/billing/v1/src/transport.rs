@@ -56,8 +56,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -71,8 +70,7 @@ impl super::stub::CloudBilling for CloudBilling {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -112,11 +110,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     "/v1/{}/billingAccounts",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -126,8 +120,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -144,11 +137,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -159,8 +148,7 @@ impl super::stub::CloudBilling for CloudBilling {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -204,8 +192,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -219,8 +206,7 @@ impl super::stub::CloudBilling for CloudBilling {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -270,11 +256,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     "/v1/{}/billingAccounts",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -284,8 +266,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -302,11 +283,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -317,8 +294,7 @@ impl super::stub::CloudBilling for CloudBilling {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -359,8 +335,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -374,8 +349,7 @@ impl super::stub::CloudBilling for CloudBilling {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -416,11 +390,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     "/v1/{}/billingInfo",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -431,11 +401,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -472,11 +438,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     "/v1/{}/billingInfo",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -487,11 +449,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("projects"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
                         "projects/*",
                     );
                     paths.push(builder.build());
@@ -529,8 +487,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -544,8 +501,7 @@ impl super::stub::CloudBilling for CloudBilling {
                         Some(&req).map(|m| &m.resource),
                         "resource",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -595,8 +551,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -610,8 +565,7 @@ impl super::stub::CloudBilling for CloudBilling {
                         Some(&req).map(|m| &m.resource),
                         "resource",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -649,8 +603,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -664,8 +617,7 @@ impl super::stub::CloudBilling for CloudBilling {
                         Some(&req).map(|m| &m.resource),
                         "resource",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -703,8 +655,7 @@ impl super::stub::CloudBilling for CloudBilling {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -715,17 +666,12 @@ impl super::stub::CloudBilling for CloudBilling {
                     "/v1/{}/{}:move",
                     composable_matches(
                         Some(&req).map(|m| &m.destination_parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -739,8 +685,7 @@ impl super::stub::CloudBilling for CloudBilling {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -752,19 +697,14 @@ impl super::stub::CloudBilling for CloudBilling {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.destination_parent),
                         "destination_parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("billingAccounts"),
-                            Segment::Literal("/"),
+                            Segment::Literal("billingAccounts/"),
                             Segment::SingleWildcard,
                         ],
                         "billingAccounts/*",
@@ -860,11 +800,7 @@ impl super::stub::CloudCatalog for CloudCatalog {
                     "/v1/{}/skus",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("services/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -875,11 +811,7 @@ impl super::stub::CloudCatalog for CloudCatalog {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("services"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("services/"), Segment::SingleWildcard],
                         "services/*",
                     );
                     paths.push(builder.build());

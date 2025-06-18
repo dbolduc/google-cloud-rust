@@ -92,11 +92,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -107,11 +103,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard],
                         "accessPolicies/*",
                     );
                     paths.push(builder.build());
@@ -182,11 +174,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                         Some(&req)
                             .and_then(|m| m.policy.as_ref())
                             .map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -197,11 +185,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).and_then(|m| m.policy.as_ref()).map(|m| &m.name),
                         "policy.name",
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard],
                         "accessPolicies/*",
                     );
                     paths.push(builder.build());
@@ -246,11 +230,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -261,11 +241,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard],
                         "accessPolicies/*",
                     );
                     paths.push(builder.build());
@@ -302,11 +278,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}/accessLevels",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -317,11 +289,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard],
                         "accessPolicies/*",
                     );
                     paths.push(builder.build());
@@ -362,12 +330,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessLevels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/accessLevels/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -381,12 +346,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessLevels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/accessLevels/"),
                             Segment::SingleWildcard,
                         ],
                         "accessPolicies/*/accessLevels/*",
@@ -426,11 +388,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}/accessLevels",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -441,11 +399,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard],
                         "accessPolicies/*",
                     );
                     paths.push(builder.build());
@@ -485,12 +439,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                             .and_then(|m| m.access_level.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessLevels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/accessLevels/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -506,12 +457,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                             .map(|m| &m.name),
                         "access_level.name",
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessLevels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/accessLevels/"),
                             Segment::SingleWildcard,
                         ],
                         "accessPolicies/*/accessLevels/*",
@@ -561,12 +509,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessLevels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/accessLevels/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -580,12 +525,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessLevels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/accessLevels/"),
                             Segment::SingleWildcard,
                         ],
                         "accessPolicies/*/accessLevels/*",
@@ -624,11 +566,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}/accessLevels:replaceAll",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -639,11 +577,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard],
                         "accessPolicies/*",
                     );
                     paths.push(builder.build());
@@ -678,11 +612,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}/servicePerimeters",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -693,11 +623,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard],
                         "accessPolicies/*",
                     );
                     paths.push(builder.build());
@@ -737,12 +663,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("servicePerimeters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/servicePerimeters/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -756,12 +679,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("servicePerimeters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/servicePerimeters/"),
                             Segment::SingleWildcard,
                         ],
                         "accessPolicies/*/servicePerimeters/*",
@@ -800,11 +720,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}/servicePerimeters",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -815,11 +731,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard],
                         "accessPolicies/*",
                     );
                     paths.push(builder.build());
@@ -859,12 +771,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                             .and_then(|m| m.service_perimeter.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("servicePerimeters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/servicePerimeters/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -880,12 +789,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                             .map(|m| &m.name),
                         "service_perimeter.name",
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("servicePerimeters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/servicePerimeters/"),
                             Segment::SingleWildcard,
                         ],
                         "accessPolicies/*/servicePerimeters/*",
@@ -935,12 +841,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("servicePerimeters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/servicePerimeters/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -954,12 +857,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("servicePerimeters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/servicePerimeters/"),
                             Segment::SingleWildcard,
                         ],
                         "accessPolicies/*/servicePerimeters/*",
@@ -998,11 +898,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}/servicePerimeters:replaceAll",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1013,11 +909,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard],
                         "accessPolicies/*",
                     );
                     paths.push(builder.build());
@@ -1052,11 +944,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}/servicePerimeters:commit",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1067,11 +955,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard],
                         "accessPolicies/*",
                     );
                     paths.push(builder.build());
@@ -1106,11 +990,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}/gcpUserAccessBindings",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1121,11 +1001,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -1165,12 +1041,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("gcpUserAccessBindings"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/gcpUserAccessBindings/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1184,12 +1057,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("gcpUserAccessBindings"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/gcpUserAccessBindings/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/gcpUserAccessBindings/*",
@@ -1228,11 +1098,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}/gcpUserAccessBindings",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1243,11 +1109,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.parent),
                         "parent",
-                        &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "organizations/*",
                     );
                     paths.push(builder.build());
@@ -1287,12 +1149,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                             .and_then(|m| m.gcp_user_access_binding.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("gcpUserAccessBindings"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/gcpUserAccessBindings/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1308,12 +1167,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                             .map(|m| &m.name),
                         "gcp_user_access_binding.name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("gcpUserAccessBindings"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/gcpUserAccessBindings/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/gcpUserAccessBindings/*",
@@ -1363,12 +1219,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("gcpUserAccessBindings"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/gcpUserAccessBindings/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1382,12 +1235,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal("organizations"),
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("gcpUserAccessBindings"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/gcpUserAccessBindings/"),
                             Segment::SingleWildcard,
                         ],
                         "organizations/*/gcpUserAccessBindings/*",
@@ -1426,11 +1276,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}:setIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1441,11 +1287,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard],
                         "accessPolicies/*",
                     );
                     paths.push(builder.build());
@@ -1480,11 +1322,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}:getIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard,]
                     )?,
                 ))
             })
@@ -1495,11 +1333,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard],
                         "accessPolicies/*",
                     );
                     paths.push(builder.build());
@@ -1534,9 +1368,19 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}:testIamPermissions",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard,]
+                    )?,
+                ))
+            })
+            .or_else(|| {
+                Some(format!(
+                    "/v1/{}:testIamPermissions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.resource)?,
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/accessLevels/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1548,29 +1392,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessLevels"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ]
-                    )?,
-                ))
-            })
-            .or_else(|| {
-                Some(format!(
-                    "/v1/{}:testIamPermissions",
-                    composable_matches(
-                        Some(&req).map(|m| &m.resource)?,
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("servicePerimeters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/servicePerimeters/"),
                             Segment::SingleWildcard,
                         ]
                     )?,
@@ -1583,11 +1407,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("accessPolicies/"), Segment::SingleWildcard],
                         "accessPolicies/*",
                     );
                     paths.push(builder.build());
@@ -1598,12 +1418,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                         Some(&req).map(|m| &m.resource),
                         "resource",
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("accessLevels"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/accessLevels/"),
                             Segment::SingleWildcard,
                         ],
                         "accessPolicies/*/accessLevels/*",
@@ -1616,12 +1433,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                         Some(&req).map(|m| &m.resource),
                         "resource",
                         &[
-                            Segment::Literal("accessPolicies"),
-                            Segment::Literal("/"),
+                            Segment::Literal("accessPolicies/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::Literal("servicePerimeters"),
-                            Segment::Literal("/"),
+                            Segment::Literal("/servicePerimeters/"),
                             Segment::SingleWildcard,
                         ],
                         "accessPolicies/*/servicePerimeters/*",
@@ -1658,11 +1472,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ]
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
                 ))
             })
@@ -1673,11 +1483,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::Literal("/"),
-                            Segment::MultiWildcard,
-                        ],
+                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
                         "operations/**",
                     );
                     paths.push(builder.build());
