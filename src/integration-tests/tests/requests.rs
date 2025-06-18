@@ -32,9 +32,11 @@ mod requests {
             .build()
             .await?;
 
+        // TODO : Note that these LRO things have freakin 90 additional bindings. That is obviously
+        // wrong at the model level.
         client
             .cancel_operation()
-            .set_name("operations/test-001")
+            .set_name("projects/test-project/locations/test-locations/operations/test-001")
             .send()
             .await?;
         Ok(())

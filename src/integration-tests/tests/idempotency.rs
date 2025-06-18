@@ -77,10 +77,7 @@ mod default_idempotency {
             // be idempotent.
             let _ = client
                 .get_secret()
-                // TODO : this test fails now.
-                // Yay, client-side validation is working!!!!
-                // Damn it, I need to redo the test now!!!!!
-                .set_name("invalid")
+                .set_name("projects/fake-project/secrets/fake-secret")
                 .with_retry_policy(expect_idempotent())
                 .send()
                 .await;
@@ -96,11 +93,10 @@ mod default_idempotency {
             // request should not be idempotent.
             let _ = client
                 .add_secret_version()
-                .set_parent("invalid")
-                //.with_retry_policy(expect_non_idempotent())
+                .set_parent("projects/fake-project/secrets/fake-secret")
+                .with_retry_policy(expect_non_idempotent())
                 .send()
-                // TESTING : what does the binding error look like?
-                .await?;
+                .await;
 
             Ok(())
         }
