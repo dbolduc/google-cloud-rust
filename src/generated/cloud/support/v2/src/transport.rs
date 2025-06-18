@@ -46,13 +46,87 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAttachmentsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v2/{}/attachments", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}/attachments", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("organizations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}/attachments", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("organizations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "organizations/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -63,6 +137,7 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -97,13 +172,87 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v2/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("organizations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("organizations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "organizations/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -112,6 +261,7 @@ impl super::stub::CaseService for CaseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -123,13 +273,71 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCasesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v2/{}/cases", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}/cases", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("organizations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}/cases", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("organizations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "organizations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -141,6 +349,7 @@ impl super::stub::CaseService for CaseService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -152,13 +361,71 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchCasesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v2/{}/cases:search", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}/cases:search", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("organizations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}/cases:search", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("organizations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "organizations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -170,6 +437,7 @@ impl super::stub::CaseService for CaseService {
         let builder = builder.query(&[("query", &req.query)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -181,13 +449,71 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v2/{}/cases", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}/cases", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("organizations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}/cases", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("organizations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "organizations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -196,6 +522,7 @@ impl super::stub::CaseService for CaseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req.case), options).await
     }
 
@@ -205,17 +532,87 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v2/{}", {
-            let arg = &req
-                .case
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("case"))?
-                .name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("case.name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).and_then(|m| m.case.as_ref()).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).and_then(|m| m.case.as_ref()).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("organizations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).and_then(|m| m.case.as_ref()).map(|m| &m.name),
+                        "case.name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).and_then(|m| m.case.as_ref()).map(|m| &m.name),
+                        "case.name",
+                        &[
+                            Segment::Literal("organizations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "organizations/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -234,6 +631,7 @@ impl super::stub::CaseService for CaseService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
+
         self.inner.execute(builder, Some(req.case), options).await
     }
 
@@ -243,13 +641,87 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v2/{}:escalate", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}:escalate", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("organizations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}:escalate", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("organizations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "organizations/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -258,6 +730,7 @@ impl super::stub::CaseService for CaseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -267,13 +740,87 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v2/{}:close", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}:close", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("organizations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}:close", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("organizations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "organizations/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -282,6 +829,7 @@ impl super::stub::CaseService for CaseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -291,7 +839,20 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchCaseClassificationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = "/v2/caseClassifications:search".to_string();
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| Some(format!("/v2/caseClassifications:search",)))
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -303,6 +864,7 @@ impl super::stub::CaseService for CaseService {
         let builder = builder.query(&[("query", &req.query)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -337,13 +899,87 @@ impl super::stub::CommentService for CommentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCommentsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v2/{}/comments", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}/comments", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("organizations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}/comments", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("organizations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "organizations/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -354,6 +990,7 @@ impl super::stub::CommentService for CommentService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -365,13 +1002,87 @@ impl super::stub::CommentService for CommentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Comment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v2/{}/comments", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}/comments", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("organizations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cases"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v2/{}/comments", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("organizations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "organizations/*/cases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -380,6 +1091,7 @@ impl super::stub::CommentService for CommentService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, Some(req.comment), options)
             .await

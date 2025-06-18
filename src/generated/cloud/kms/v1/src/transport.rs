@@ -46,13 +46,51 @@ impl super::stub::Autokey for Autokey {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/keyHandles", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/keyHandles", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -62,6 +100,7 @@ impl super::stub::Autokey for Autokey {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("keyHandleId", &req.key_handle_id)]);
+
         self.inner
             .execute(builder, Some(req.key_handle), options)
             .await
@@ -73,13 +112,59 @@ impl super::stub::Autokey for Autokey {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::KeyHandle>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyHandles"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyHandles"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyHandles/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -88,6 +173,7 @@ impl super::stub::Autokey for Autokey {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -99,13 +185,51 @@ impl super::stub::Autokey for Autokey {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListKeyHandlesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/keyHandles", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/keyHandles", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -117,6 +241,7 @@ impl super::stub::Autokey for Autokey {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -128,13 +253,43 @@ impl super::stub::Autokey for Autokey {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/locations", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/locations", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -146,6 +301,7 @@ impl super::stub::Autokey for Autokey {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -157,13 +313,51 @@ impl super::stub::Autokey for Autokey {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -172,6 +366,7 @@ impl super::stub::Autokey for Autokey {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -183,13 +378,247 @@ impl super::stub::Autokey for Autokey {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:setIamPolicy", {
-            let arg = &req.resource;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("resource"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("importJobs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("importJobs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/importJobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -198,6 +627,7 @@ impl super::stub::Autokey for Autokey {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -207,13 +637,247 @@ impl super::stub::Autokey for Autokey {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}:getIamPolicy", {
-            let arg = &req.resource;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("resource"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("importJobs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("importJobs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/importJobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -232,6 +896,7 @@ impl super::stub::Autokey for Autokey {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -243,13 +908,247 @@ impl super::stub::Autokey for Autokey {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:testIamPermissions", {
-            let arg = &req.resource;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("resource"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("importJobs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("importJobs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/importJobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -258,6 +1157,7 @@ impl super::stub::Autokey for Autokey {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -267,13 +1167,59 @@ impl super::stub::Autokey for Autokey {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("operations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -282,6 +1228,7 @@ impl super::stub::Autokey for Autokey {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -330,17 +1277,51 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AutokeyConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}", {
-            let arg = &req
-                .autokey_config
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("autokey_config"))?
-                .name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("autokey_config.name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req)
+                    .and_then(|m| m.autokey_config.as_ref())
+                    .map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("folders"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("autokeyConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req)
+                            .and_then(|m| m.autokey_config.as_ref())
+                            .map(|m| &m.name),
+                        "autokey_config.name",
+                        &[
+                            Segment::Literal("folders"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("autokeyConfig"),
+                        ],
+                        "folders/*/autokeyConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -359,6 +1340,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
+
         self.inner
             .execute(builder, Some(req.autokey_config), options)
             .await
@@ -370,13 +1352,47 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AutokeyConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("folders"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("autokeyConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("folders"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("autokeyConfig"),
+                        ],
+                        "folders/*/autokeyConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -385,6 +1401,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -396,13 +1413,43 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ShowEffectiveAutokeyConfigResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}:showEffectiveAutokeyConfig", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:showEffectiveAutokeyConfig", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -411,6 +1458,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -422,13 +1470,43 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/locations", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/locations", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -440,6 +1518,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -451,13 +1530,51 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -466,6 +1583,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -477,13 +1595,247 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:setIamPolicy", {
-            let arg = &req.resource;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("resource"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("importJobs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("importJobs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/importJobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -492,6 +1844,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -501,13 +1854,247 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}:getIamPolicy", {
-            let arg = &req.resource;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("resource"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("importJobs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("importJobs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/importJobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -526,6 +2113,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -537,13 +2125,247 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:testIamPermissions", {
-            let arg = &req.resource;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("resource"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("importJobs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("importJobs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/importJobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -552,6 +2374,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -561,13 +2384,59 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("operations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -576,6 +2445,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -610,13 +2480,51 @@ impl super::stub::EkmService for EkmService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListEkmConnectionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/ekmConnections", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/ekmConnections", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -629,6 +2537,7 @@ impl super::stub::EkmService for EkmService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -640,13 +2549,59 @@ impl super::stub::EkmService for EkmService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EkmConnection>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -655,6 +2610,7 @@ impl super::stub::EkmService for EkmService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -666,13 +2622,51 @@ impl super::stub::EkmService for EkmService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EkmConnection>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/ekmConnections", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/ekmConnections", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -682,6 +2676,7 @@ impl super::stub::EkmService for EkmService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("ekmConnectionId", &req.ekm_connection_id)]);
+
         self.inner
             .execute(builder, Some(req.ekm_connection), options)
             .await
@@ -693,17 +2688,63 @@ impl super::stub::EkmService for EkmService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EkmConnection>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}", {
-            let arg = &req
-                .ekm_connection
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("ekm_connection"))?
-                .name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("ekm_connection.name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req)
+                    .and_then(|m| m.ekm_connection.as_ref())
+                    .map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req)
+                            .and_then(|m| m.ekm_connection.as_ref())
+                            .map(|m| &m.name),
+                        "ekm_connection.name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -722,6 +2763,7 @@ impl super::stub::EkmService for EkmService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
+
         self.inner
             .execute(builder, Some(req.ekm_connection), options)
             .await
@@ -733,13 +2775,55 @@ impl super::stub::EkmService for EkmService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EkmConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -748,6 +2832,7 @@ impl super::stub::EkmService for EkmService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -759,17 +2844,59 @@ impl super::stub::EkmService for EkmService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EkmConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}", {
-            let arg = &req
-                .ekm_config
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("ekm_config"))?
-                .name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("ekm_config.name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req)
+                    .and_then(|m| m.ekm_config.as_ref())
+                    .map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req)
+                            .and_then(|m| m.ekm_config.as_ref())
+                            .map(|m| &m.name),
+                        "ekm_config.name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -788,6 +2915,7 @@ impl super::stub::EkmService for EkmService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
+
         self.inner
             .execute(builder, Some(req.ekm_config), options)
             .await
@@ -799,13 +2927,59 @@ impl super::stub::EkmService for EkmService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::VerifyConnectivityResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}:verifyConnectivity", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:verifyConnectivity", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -814,6 +2988,7 @@ impl super::stub::EkmService for EkmService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -825,13 +3000,43 @@ impl super::stub::EkmService for EkmService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/locations", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/locations", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -843,6 +3048,7 @@ impl super::stub::EkmService for EkmService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -854,13 +3060,51 @@ impl super::stub::EkmService for EkmService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -869,6 +3113,7 @@ impl super::stub::EkmService for EkmService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -880,13 +3125,247 @@ impl super::stub::EkmService for EkmService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:setIamPolicy", {
-            let arg = &req.resource;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("resource"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("importJobs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("importJobs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/importJobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -895,6 +3374,7 @@ impl super::stub::EkmService for EkmService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -904,13 +3384,247 @@ impl super::stub::EkmService for EkmService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}:getIamPolicy", {
-            let arg = &req.resource;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("resource"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("importJobs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("importJobs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/importJobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -929,6 +3643,7 @@ impl super::stub::EkmService for EkmService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -940,13 +3655,247 @@ impl super::stub::EkmService for EkmService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:testIamPermissions", {
-            let arg = &req.resource;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("resource"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("importJobs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("importJobs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/importJobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -955,6 +3904,7 @@ impl super::stub::EkmService for EkmService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -964,13 +3914,59 @@ impl super::stub::EkmService for EkmService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("operations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -979,6 +3975,7 @@ impl super::stub::EkmService for EkmService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1013,13 +4010,51 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListKeyRingsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/keyRings", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/keyRings", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1032,6 +4067,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1043,13 +4079,59 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCryptoKeysResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/cryptoKeys", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/cryptoKeys", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1063,6 +4145,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         let builder = builder.query(&[("versionView", &req.version_view)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1074,13 +4157,67 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCryptoKeyVersionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/cryptoKeyVersions", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/cryptoKeyVersions", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1094,6 +4231,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         let builder = builder.query(&[("view", &req.view)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1105,13 +4243,59 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListImportJobsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/importJobs", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/importJobs", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1124,6 +4308,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1135,13 +4320,59 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::KeyRing>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1150,6 +4381,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1161,13 +4393,67 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CryptoKey>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1176,6 +4462,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1187,13 +4474,75 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeyVersions"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeyVersions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1202,6 +4551,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1213,13 +4563,75 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PublicKey>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/publicKey", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeyVersions"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/publicKey", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeyVersions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1229,6 +4641,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("publicKeyFormat", &req.public_key_format)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1240,13 +4653,67 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ImportJob>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("importJobs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("importJobs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/importJobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1255,6 +4722,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1266,13 +4734,51 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::KeyRing>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/keyRings", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/keyRings", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1282,6 +4788,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("keyRingId", &req.key_ring_id)]);
+
         self.inner
             .execute(builder, Some(req.key_ring), options)
             .await
@@ -1293,13 +4800,59 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CryptoKey>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/cryptoKeys", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/cryptoKeys", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1313,6 +4866,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
             "skipInitialVersionCreation",
             &req.skip_initial_version_creation,
         )]);
+
         self.inner
             .execute(builder, Some(req.crypto_key), options)
             .await
@@ -1324,13 +4878,67 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/cryptoKeyVersions", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/cryptoKeyVersions", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1339,6 +4947,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, Some(req.crypto_key_version), options)
             .await
@@ -1350,13 +4959,67 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/cryptoKeyVersions:import", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/cryptoKeyVersions:import", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1365,6 +5028,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1374,13 +5038,59 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ImportJob>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/importJobs", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/importJobs", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1390,6 +5100,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("importJobId", &req.import_job_id)]);
+
         self.inner
             .execute(builder, Some(req.import_job), options)
             .await
@@ -1401,17 +5112,71 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CryptoKey>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}", {
-            let arg = &req
-                .crypto_key
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("crypto_key"))?
-                .name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("crypto_key.name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req)
+                    .and_then(|m| m.crypto_key.as_ref())
+                    .map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req)
+                            .and_then(|m| m.crypto_key.as_ref())
+                            .map(|m| &m.name),
+                        "crypto_key.name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -1430,6 +5195,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
+
         self.inner
             .execute(builder, Some(req.crypto_key), options)
             .await
@@ -1441,17 +5207,79 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}", {
-            let arg = &req
-                .crypto_key_version
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("crypto_key_version"))?
-                .name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("crypto_key_version.name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req)
+                    .and_then(|m| m.crypto_key_version.as_ref())
+                    .map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeyVersions"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req)
+                            .and_then(|m| m.crypto_key_version.as_ref())
+                            .map(|m| &m.name),
+                        "crypto_key_version.name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeyVersions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -1470,6 +5298,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
+
         self.inner
             .execute(builder, Some(req.crypto_key_version), options)
             .await
@@ -1481,13 +5310,67 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CryptoKey>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:updatePrimaryVersion", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:updatePrimaryVersion", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1496,6 +5379,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1505,13 +5389,75 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:destroy", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeyVersions"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:destroy", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeyVersions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1520,6 +5466,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1529,13 +5476,75 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:restore", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeyVersions"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:restore", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeyVersions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1544,6 +5553,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1553,13 +5563,67 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EncryptResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:encrypt", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::MultiWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:encrypt", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::MultiWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/**",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1568,6 +5632,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1577,13 +5642,67 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DecryptResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:decrypt", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:decrypt", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1592,6 +5711,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1601,13 +5721,75 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RawEncryptResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:rawEncrypt", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeyVersions"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:rawEncrypt", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeyVersions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1616,6 +5798,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1625,13 +5808,75 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RawDecryptResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:rawDecrypt", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeyVersions"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:rawDecrypt", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeyVersions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1640,6 +5885,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1649,13 +5895,75 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AsymmetricSignResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:asymmetricSign", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeyVersions"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:asymmetricSign", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeyVersions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1664,6 +5972,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1673,13 +5982,75 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AsymmetricDecryptResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:asymmetricDecrypt", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeyVersions"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:asymmetricDecrypt", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeyVersions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1688,6 +6059,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1697,13 +6069,75 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::MacSignResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:macSign", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeyVersions"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:macSign", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeyVersions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1712,6 +6146,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1721,13 +6156,75 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::MacVerifyResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:macVerify", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeyVersions"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:macVerify", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeyVersions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1736,6 +6233,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1745,13 +6243,51 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateRandomBytesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:generateRandomBytes", {
-            let arg = &req.location;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("location"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.location)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:generateRandomBytes", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1760,6 +6296,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1769,13 +6306,43 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/locations", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/locations", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1787,6 +6354,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1798,13 +6366,51 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1813,6 +6419,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1824,13 +6431,247 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:setIamPolicy", {
-            let arg = &req.resource;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("resource"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("importJobs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:setIamPolicy", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("importJobs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/importJobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1839,6 +6680,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1848,13 +6690,247 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}:getIamPolicy", {
-            let arg = &req.resource;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("resource"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("importJobs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:getIamPolicy", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("importJobs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/importJobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1873,6 +6949,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1884,13 +6961,247 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:testIamPermissions", {
-            let arg = &req.resource;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("resource"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("cryptoKeys"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("keyRings"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("importJobs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConfig"),
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.resource)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("ekmConnections"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:testIamPermissions", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("cryptoKeys"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/cryptoKeys/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("keyRings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("importJobs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/keyRings/*/importJobs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConfig"),
+                        ],
+                        "projects/*/locations/*/ekmConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("ekmConnections"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/ekmConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1899,6 +7210,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1908,13 +7220,59 @@ impl super::stub::KeyManagementService for KeyManagementService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("operations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1923,6 +7281,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

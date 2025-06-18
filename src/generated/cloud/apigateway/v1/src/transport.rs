@@ -46,13 +46,51 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListGatewaysResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/gateways", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/gateways", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -65,6 +103,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -76,13 +115,59 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Gateway>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("gateways"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("gateways"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/gateways/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -91,6 +176,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -102,13 +188,51 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/gateways", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/gateways", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -118,6 +242,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("gatewayId", &req.gateway_id)]);
+
         self.inner
             .execute(builder, Some(req.gateway), options)
             .await
@@ -129,17 +254,61 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}", {
-            let arg = &req
-                .gateway
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("gateway"))?
-                .name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("gateway.name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req)
+                    .and_then(|m| m.gateway.as_ref())
+                    .map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("gateways"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).and_then(|m| m.gateway.as_ref()).map(|m| &m.name),
+                        "gateway.name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("gateways"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/gateways/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -158,6 +327,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
+
         self.inner
             .execute(builder, Some(req.gateway), options)
             .await
@@ -169,13 +339,59 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("gateways"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("gateways"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/gateways/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, path)
@@ -184,6 +400,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -195,13 +412,51 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListApisResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/apis", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/apis", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -214,6 +469,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -225,13 +481,59 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Api>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("apis"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("apis"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/apis/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -240,6 +542,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -251,13 +554,51 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/apis", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/apis", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -267,6 +608,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("apiId", &req.api_id)]);
+
         self.inner.execute(builder, Some(req.api), options).await
     }
 
@@ -276,17 +618,59 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}", {
-            let arg = &req
-                .api
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("api"))?
-                .name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("api.name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).and_then(|m| m.api.as_ref()).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("apis"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).and_then(|m| m.api.as_ref()).map(|m| &m.name),
+                        "api.name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("apis"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/apis/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -305,6 +689,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
+
         self.inner.execute(builder, Some(req.api), options).await
     }
 
@@ -314,13 +699,59 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("apis"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("apis"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/apis/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, path)
@@ -329,6 +760,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -340,13 +772,59 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListApiConfigsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/configs", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("apis"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/configs", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("apis"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/apis/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -359,6 +837,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -370,13 +849,67 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ApiConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("apis"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("configs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("apis"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("configs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/apis/*/configs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -386,6 +919,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("view", &req.view)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -397,13 +931,59 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/configs", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.parent)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("apis"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/configs", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("apis"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/apis/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -413,6 +993,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("apiConfigId", &req.api_config_id)]);
+
         self.inner
             .execute(builder, Some(req.api_config), options)
             .await
@@ -424,17 +1005,71 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}", {
-            let arg = &req
-                .api_config
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("api_config"))?
-                .name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("api_config.name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req)
+                    .and_then(|m| m.api_config.as_ref())
+                    .map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("apis"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("configs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req)
+                            .and_then(|m| m.api_config.as_ref())
+                            .map(|m| &m.name),
+                        "api_config.name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("apis"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("configs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/apis/*/configs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -453,6 +1088,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
+
         self.inner
             .execute(builder, Some(req.api_config), options)
             .await
@@ -464,13 +1100,67 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("apis"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("configs"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("apis"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("configs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/apis/*/configs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, path)
@@ -479,6 +1169,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -490,13 +1181,51 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/operations", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}/operations", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -508,6 +1237,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -519,13 +1249,59 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("operations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -534,6 +1310,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -545,13 +1322,59 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("operations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, path)
@@ -560,6 +1383,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -575,13 +1399,59 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:cancel", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("operations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:cancel", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -590,6 +1460,7 @@ impl super::stub::ApiGatewayService for ApiGatewayService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();

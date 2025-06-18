@@ -46,7 +46,20 @@ impl super::stub::LanguageService for LanguageService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeSentimentResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = "/v2/documents:analyzeSentiment".to_string();
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| Some(format!("/v2/documents:analyzeSentiment",)))
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -55,6 +68,7 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -64,7 +78,20 @@ impl super::stub::LanguageService for LanguageService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeEntitiesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = "/v2/documents:analyzeEntities".to_string();
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| Some(format!("/v2/documents:analyzeEntities",)))
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -73,6 +100,7 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -82,7 +110,20 @@ impl super::stub::LanguageService for LanguageService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ClassifyTextResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = "/v2/documents:classifyText".to_string();
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| Some(format!("/v2/documents:classifyText",)))
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -91,6 +132,7 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -100,7 +142,20 @@ impl super::stub::LanguageService for LanguageService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ModerateTextResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = "/v2/documents:moderateText".to_string();
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| Some(format!("/v2/documents:moderateText",)))
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -109,6 +164,7 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -118,7 +174,20 @@ impl super::stub::LanguageService for LanguageService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnnotateTextResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = "/v2/documents:annotateText".to_string();
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| Some(format!("/v2/documents:annotateText",)))
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -127,6 +196,7 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 }

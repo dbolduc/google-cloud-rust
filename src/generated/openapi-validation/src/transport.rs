@@ -46,13 +46,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/projects/{}/locations", {
-            let arg = &req.project;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("project"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
             }
-            arg
-        },);
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -73,6 +78,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .page_token
             .iter()
             .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -84,23 +90,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -109,6 +110,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -120,13 +122,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/projects/{}/secrets", {
-            let arg = &req.project;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("project"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
             }
-            arg
-        },);
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -147,6 +154,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .filter
             .iter()
             .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -158,13 +166,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/projects/{}/secrets", {
-            let arg = &req.project;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("project"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
             }
-            arg
-        },);
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -174,6 +187,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("secretId", &req.secret_id)]);
+
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await
@@ -185,23 +199,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -222,6 +231,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .filter
             .iter()
             .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -233,23 +243,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -259,6 +264,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("secretId", &req.secret_id)]);
+
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await
@@ -270,23 +276,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}:addVersion",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -295,6 +296,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -304,30 +306,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}:addVersion",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -336,6 +326,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -345,23 +336,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -370,6 +356,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -381,23 +368,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Empty>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, path)
@@ -410,6 +392,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .etag
             .iter()
             .fold(builder, |builder, p| builder.query(&[("etag", p)]));
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -421,23 +404,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -452,6 +430,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 .map_err(Error::ser)?
                 .add(builder, "updateMask")
         };
+
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await
@@ -463,30 +442,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -495,6 +462,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -506,30 +474,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Empty>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, path)
@@ -542,6 +498,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .etag
             .iter()
             .fold(builder, |builder, p| builder.query(&[("etag", p)]));
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -553,30 +510,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -591,6 +536,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 .map_err(Error::ser)?
                 .add(builder, "updateMask")
         };
+
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await
@@ -602,23 +548,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}/versions",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -639,6 +580,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .filter
             .iter()
             .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -650,30 +592,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}/versions",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -694,6 +624,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .filter
             .iter()
             .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -705,30 +636,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}/versions/{}",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -737,6 +656,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -748,37 +668,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -787,6 +688,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -798,30 +700,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}/versions/{}:access",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -830,6 +720,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -841,37 +732,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:access",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -880,6 +752,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -891,30 +764,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}/versions/{}:disable",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -923,6 +784,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -932,37 +794,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:disable",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -971,6 +814,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -980,30 +824,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}/versions/{}:enable",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1012,6 +844,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1021,37 +854,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:enable",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1060,6 +874,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1069,30 +884,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}/versions/{}:destroy",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1101,6 +904,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1110,37 +914,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:destroy",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1149,6 +934,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1158,23 +944,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}:setIamPolicy",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1183,6 +964,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1192,30 +974,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}:setIamPolicy",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1224,6 +994,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1233,23 +1004,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}:getIamPolicy",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1264,6 +1030,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .fold(builder, |builder, p| {
                 builder.query(&[("options.requestedPolicyVersion", p)])
             });
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1275,30 +1042,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}:getIamPolicy",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1313,6 +1068,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .fold(builder, |builder, p| {
                 builder.query(&[("options.requestedPolicyVersion", p)])
             });
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1324,23 +1080,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}:testIamPermissions",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1349,6 +1100,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1358,30 +1110,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}:testIamPermissions",
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
-                }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-        );
+                let builder = PathMismatchBuilder::default();
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1390,6 +1130,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 }

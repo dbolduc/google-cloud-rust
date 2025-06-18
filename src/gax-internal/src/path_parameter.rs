@@ -133,7 +133,7 @@ pub enum SubstitutionFail {
     Unset,
     UnsetExpecting(&'static str),
     // (actual, expected)
-    MismatchExpecting(String, &'static str)
+    MismatchExpecting(String, &'static str),
 }
 
 #[derive(Debug)]
@@ -147,13 +147,21 @@ impl std::fmt::Display for SubstitutionMismatch {
         match &self.problem {
             SubstitutionFail::Unset => {
                 write!(f, "field `{}` needs to be set.", self.field_name)
-            },
+            }
             SubstitutionFail::UnsetExpecting(expected) => {
-                write!(f, "field `{}` needs to be set and match: '{}'", self.field_name, expected)
-            },
+                write!(
+                    f,
+                    "field `{}` needs to be set and match: '{}'",
+                    self.field_name, expected
+                )
+            }
             SubstitutionFail::MismatchExpecting(actual, expected) => {
-                write!(f, "field `{}` should match: '{}'; found: '{}'", self.field_name, expected, actual)
-            },
+                write!(
+                    f,
+                    "field `{}` should match: '{}'; found: '{}'",
+                    self.field_name, expected, actual
+                )
+            }
         }
     }
 }
@@ -172,7 +180,10 @@ impl std::fmt::Display for PathMismatch {
 
 impl std::fmt::Display for BindingError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "the RPC cannot be sent, at least one of the conditions must be met: ")?;
+        write!(
+            f,
+            "the RPC cannot be sent, at least one of the conditions must be met: "
+        )?;
         for (i, sub) in self.paths.iter().enumerate() {
             if i != 0 {
                 write!(f, " OR ")?;
@@ -188,20 +199,26 @@ impl std::fmt::Display for BindingError {
 pub struct PathMismatchBuilder(PathMismatch);
 
 impl PathMismatchBuilder {
-    pub fn maybe_add_match_error(mut self, value: Option<&String>, field_name: &str, template: &[Segment], expecting: &'static str) -> Self {
+    pub fn maybe_add_match_error(
+        mut self,
+        value: Option<&String>,
+        field_name: &str,
+        template: &[Segment],
+        expecting: &'static str,
+    ) -> Self {
         match value.map(|s| s.as_str()) {
             None | Some("") => {
                 self.0.subs.push(SubstitutionMismatch {
                     field_name: field_name.to_string(),
                     problem: SubstitutionFail::UnsetExpecting(expecting),
                 });
-            },
+            }
             Some(arg) if !matches(arg, template) => {
                 self.0.subs.push(SubstitutionMismatch {
                     field_name: field_name.to_string(),
                     problem: SubstitutionFail::MismatchExpecting(arg.to_string(), expecting),
                 });
-            },
+            }
             _ => {}
         };
         self
@@ -240,92 +257,90 @@ fn transport_more_generaler() -> Result<(), BindingError> {
     //      : I am going to rely on GAPIC showcase for testing. They return the path bindings.
     //let path: Option<String> = None
     let path = None
-    .or_else(|| {
-        let arg1 = &foo;
-        let arg2 = baz.as_deref()?;
-        let arg3 = &number;
-        let arg4 = &maybe_number?;
+        .or_else(|| {
+            let arg1 = &foo;
+            let arg2 = baz.as_deref()?;
+            let arg3 = &number;
+            let arg4 = &maybe_number?;
 
-        // Can skip the `if` if matches returns an Option<> and we ? it.
-        if !matches(
-            arg1,
-            &[
-                Segment::Literal("projects/"),
-                Segment::SingleWildcard,
-            ]
-        ) { return None; }
-        if !matches(arg2, &[
-                Segment::SingleWildcard,
-            ]
-        ) { return None; }
-
-        Some(format!(
-            "v1/{}/locations/{}/id/{}/maybeId/{}:darren",
-            arg1,
-            arg2,
-            arg3,
-            arg4,
-        ))
-    })
-    .or_else(|| {
-        // will look the same as above
-        Some("backup path".to_string())
-    })
-    .ok_or_else(|| {
-        let mut paths = Vec::new();
-        {
-            let mut subs = Vec::new();
-            {
-                // String
-                let arg = &foo;
-                if !matches(
-                    arg,
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                    ]
-                ) {
-                    subs.push(SubstitutionMismatch {
-                        field_name: "foo".to_string(),
-                        problem: SubstitutionFail::MismatchExpecting(arg.to_string(), "projects/*"),
-                    })
-                }
+            // Can skip the `if` if matches returns an Option<> and we ? it.
+            if !matches(
+                arg1,
+                &[Segment::Literal("projects/"), Segment::SingleWildcard],
+            ) {
+                return None;
             }
+            if !matches(arg2, &[Segment::SingleWildcard]) {
+                return None;
+            }
+
+            Some(format!(
+                "v1/{}/locations/{}/id/{}/maybeId/{}:darren",
+                arg1, arg2, arg3, arg4,
+            ))
+        })
+        .or_else(|| {
+            // will look the same as above
+            Some("backup path".to_string())
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
             {
-                // Optional<String>
-                // could be "bar.as_ref().map(|m| m.baz.as_ref()).map(...)"
-                match baz.as_deref() {
-                    None | Some("") => {
+                let mut subs = Vec::new();
+                {
+                    // String
+                    let arg = &foo;
+                    if !matches(
+                        arg,
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                    ) {
+                        subs.push(SubstitutionMismatch {
+                            field_name: "foo".to_string(),
+                            problem: SubstitutionFail::MismatchExpecting(
+                                arg.to_string(),
+                                "projects/*",
+                            ),
+                        })
+                    }
+                }
+                {
+                    // Optional<String>
+                    // could be "bar.as_ref().map(|m| m.baz.as_ref()).map(...)"
+                    match baz.as_deref() {
+                        None | Some("") => {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "bar.baz".to_string(),
+                                problem: SubstitutionFail::UnsetExpecting("projects/*"),
+                            });
+                        }
+                        Some(arg) if !matches(arg, &[Segment::SingleWildcard]) => {
+                            subs.push(SubstitutionMismatch {
+                                field_name: "bar.baz".to_string(),
+                                problem: SubstitutionFail::MismatchExpecting(
+                                    arg.to_string(),
+                                    "projects/*",
+                                ),
+                            });
+                        }
+                        _ => {}
+                    }
+                }
+                {
+                    // Optional<numeric>
+                    if maybe_number.is_none() {
                         subs.push(SubstitutionMismatch {
                             field_name: "bar.baz".to_string(),
-                            problem: SubstitutionFail::UnsetExpecting("projects/*")
+                            problem: SubstitutionFail::Unset,
                         });
-                    },
-                    Some(arg) if !matches(arg, &[Segment::SingleWildcard]) => {
-                        subs.push(SubstitutionMismatch {
-                            field_name: "bar.baz".to_string(),
-                            problem: SubstitutionFail::MismatchExpecting(arg.to_string(), "projects/*")
-                        });
-                    },
-                    _ => {}
+                    }
                 }
-            }
-            {
-                // Optional<numeric>
-                if maybe_number.is_none() {
-                    subs.push(SubstitutionMismatch {
-                        field_name: "bar.baz".to_string(),
-                        problem: SubstitutionFail::Unset
-                    });
+                {
+                    // <numeric>
                 }
+                paths.push(PathMismatch { subs });
             }
-            {
-                // <numeric>
-            }
-            paths.push(PathMismatch { subs });
-        }
-        BindingError { paths }
-    })?;
+            BindingError { paths }
+        })?;
 
     assert_eq!(
         path,

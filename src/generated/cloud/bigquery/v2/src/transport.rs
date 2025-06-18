@@ -46,23 +46,42 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!("/bigquery/v2/projects/{}/datasets/{}", arg1, arg2,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -73,6 +92,7 @@ impl super::stub::DatasetService for DatasetService {
             );
         let builder = builder.query(&[("datasetView", &req.dataset_view)]);
         let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -84,13 +104,32 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/bigquery/v2/projects/{}/datasets", {
-            let arg = &req.project_id;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("project_id"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                Some(format!("/bigquery/v2/projects/{}/datasets", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -100,6 +139,7 @@ impl super::stub::DatasetService for DatasetService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
+
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
@@ -111,23 +151,42 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!("/bigquery/v2/projects/{}/datasets/{}", arg1, arg2,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -138,6 +197,7 @@ impl super::stub::DatasetService for DatasetService {
             );
         let builder = builder.query(&[("updateMode", &req.update_mode)]);
         let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
+
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
@@ -149,23 +209,42 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!("/bigquery/v2/projects/{}/datasets/{}", arg1, arg2,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PUT, path)
@@ -176,6 +255,7 @@ impl super::stub::DatasetService for DatasetService {
             );
         let builder = builder.query(&[("updateMode", &req.update_mode)]);
         let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
+
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
@@ -187,23 +267,42 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!("/bigquery/v2/projects/{}/datasets/{}", arg1, arg2,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, path)
@@ -213,6 +312,7 @@ impl super::stub::DatasetService for DatasetService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("deleteContents", &req.delete_contents)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -228,13 +328,32 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DatasetList>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/bigquery/v2/projects/{}/datasets", {
-            let arg = &req.project_id;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("project_id"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                Some(format!("/bigquery/v2/projects/{}/datasets", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -256,6 +375,7 @@ impl super::stub::DatasetService for DatasetService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("all", &req.all)]);
         let builder = builder.query(&[("filter", &req.filter)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -267,23 +387,45 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}:undelete",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}:undelete",
+                    arg1, arg2,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -292,6 +434,7 @@ impl super::stub::DatasetService for DatasetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 }
@@ -324,30 +467,55 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Model>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/models/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.model_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.model_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("model_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/models/{}",
+                    arg1, arg2, arg3,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.model_id),
+                        "model_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -356,6 +524,7 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -367,23 +536,45 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListModelsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/models",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/models",
+                    arg1, arg2,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -403,6 +594,7 @@ impl super::stub::ModelService for ModelService {
                 v.add(builder, "maxResults")
             });
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -414,30 +606,55 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Model>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/models/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.model_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.model_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("model_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/models/{}",
+                    arg1, arg2, arg3,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.model_id),
+                        "model_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -446,6 +663,7 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req.model), options).await
     }
 
@@ -455,30 +673,55 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/models/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.model_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.model_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("model_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/models/{}",
+                    arg1, arg2, arg3,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.model_id),
+                        "model_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, path)
@@ -487,6 +730,7 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -525,13 +769,32 @@ impl super::stub::ProjectService for ProjectService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GetServiceAccountResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/bigquery/v2/projects/{}/serviceAccount", {
-            let arg = &req.project_id;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("project_id"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                Some(format!("/bigquery/v2/projects/{}/serviceAccount", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -540,6 +803,7 @@ impl super::stub::ProjectService for ProjectService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -574,30 +838,55 @@ impl super::stub::RoutineService for RoutineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Routine>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.routine_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.routine_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("routine_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
+                    arg1, arg2, arg3,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.routine_id),
+                        "routine_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -606,6 +895,7 @@ impl super::stub::RoutineService for RoutineService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -617,23 +907,45 @@ impl super::stub::RoutineService for RoutineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Routine>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/routines",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/routines",
+                    arg1, arg2,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -642,6 +954,7 @@ impl super::stub::RoutineService for RoutineService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, Some(req.routine), options)
             .await
@@ -653,30 +966,55 @@ impl super::stub::RoutineService for RoutineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Routine>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.routine_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.routine_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("routine_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
+                    arg1, arg2, arg3,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.routine_id),
+                        "routine_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PUT, path)
@@ -685,6 +1023,7 @@ impl super::stub::RoutineService for RoutineService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, Some(req.routine), options)
             .await
@@ -696,30 +1035,55 @@ impl super::stub::RoutineService for RoutineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.routine_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.routine_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("routine_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
+                    arg1, arg2, arg3,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.routine_id),
+                        "routine_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, path)
@@ -728,6 +1092,7 @@ impl super::stub::RoutineService for RoutineService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -743,23 +1108,45 @@ impl super::stub::RoutineService for RoutineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRoutinesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/routines",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/routines",
+                    arg1, arg2,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -780,6 +1167,7 @@ impl super::stub::RoutineService for RoutineService {
             });
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -814,30 +1202,55 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRowAccessPoliciesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.table_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.table_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("table_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
+                    arg1, arg2, arg3,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.table_id),
+                        "table_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -848,6 +1261,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
             );
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -859,37 +1273,65 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.table_id)?;
+                let arg4 = Some(&req).map(|m| &m.policy_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.table_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("table_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.policy_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("policy_id"));
+                if !matches(arg4, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
+                    arg1, arg2, arg3, arg4,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.table_id),
+                        "table_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.policy_id),
+                        "policy_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -898,6 +1340,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -909,30 +1352,55 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.table_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.table_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("table_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
+                    arg1, arg2, arg3,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.table_id),
+                        "table_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -941,6 +1409,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, Some(req.row_access_policy), options)
             .await
@@ -952,37 +1421,65 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.table_id)?;
+                let arg4 = Some(&req).map(|m| &m.policy_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.table_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("table_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.policy_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("policy_id"));
+                if !matches(arg4, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
+                    arg1, arg2, arg3, arg4,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.table_id),
+                        "table_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.policy_id),
+                        "policy_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PUT, path)
@@ -991,6 +1488,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, Some(req.row_access_policy), options)
             .await
@@ -1002,37 +1500,65 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.table_id)?;
+                let arg4 = Some(&req).map(|m| &m.policy_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.table_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("table_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.policy_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("policy_id"));
+                if !matches(arg4, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
+                    arg1, arg2, arg3, arg4,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.table_id),
+                        "table_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.policy_id),
+                        "policy_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, path)
@@ -1045,6 +1571,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
             .force
             .iter()
             .fold(builder, |builder, p| builder.query(&[("force", p)]));
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1060,30 +1587,55 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies:batchDelete",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.table_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.table_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("table_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies:batchDelete",
+                    arg1, arg2, arg3,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.table_id),
+                        "table_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1092,6 +1644,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -1129,30 +1682,55 @@ impl super::stub::TableService for TableService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Table>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.table_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.table_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("table_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
+                    arg1, arg2, arg3,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.table_id),
+                        "table_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1163,6 +1741,7 @@ impl super::stub::TableService for TableService {
             );
         let builder = builder.query(&[("selectedFields", &req.selected_fields)]);
         let builder = builder.query(&[("view", &req.view)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1174,23 +1753,45 @@ impl super::stub::TableService for TableService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Table>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/tables",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/tables",
+                    arg1, arg2,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -1199,6 +1800,7 @@ impl super::stub::TableService for TableService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req.table), options).await
     }
 
@@ -1208,30 +1810,55 @@ impl super::stub::TableService for TableService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Table>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.table_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.table_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("table_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
+                    arg1, arg2, arg3,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.table_id),
+                        "table_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, path)
@@ -1241,6 +1868,7 @@ impl super::stub::TableService for TableService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("autodetectSchema", &req.autodetect_schema)]);
+
         self.inner.execute(builder, Some(req.table), options).await
     }
 
@@ -1250,30 +1878,55 @@ impl super::stub::TableService for TableService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Table>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.table_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.table_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("table_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
+                    arg1, arg2, arg3,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.table_id),
+                        "table_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::PUT, path)
@@ -1283,6 +1936,7 @@ impl super::stub::TableService for TableService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("autodetectSchema", &req.autodetect_schema)]);
+
         self.inner.execute(builder, Some(req.table), options).await
     }
 
@@ -1292,30 +1946,55 @@ impl super::stub::TableService for TableService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                let arg3 = Some(&req).map(|m| &m.table_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.table_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("table_id"));
+                if !matches(arg3, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
+                    arg1, arg2, arg3,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.table_id),
+                        "table_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, path)
@@ -1324,6 +2003,7 @@ impl super::stub::TableService for TableService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1339,23 +2019,45 @@ impl super::stub::TableService for TableService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TableList>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/bigquery/v2/projects/{}/datasets/{}/tables",
-            {
-                let arg = &req.project_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project_id"));
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.project_id)?;
+                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-            {
-                let arg = &req.dataset_id;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("dataset_id"));
+                if !matches(arg2, &[Segment::SingleWildcard]) {
+                    return None;
                 }
-                arg
-            },
-        );
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}/tables",
+                    arg1, arg2,
+                ))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.dataset_id),
+                        "dataset_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -1375,6 +2077,7 @@ impl super::stub::TableService for TableService {
                 v.add(builder, "maxResults")
             });
         let builder = builder.query(&[("pageToken", &req.page_token)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

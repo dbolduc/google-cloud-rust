@@ -54,14 +54,12 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
                 let arg3 = Some(&req).map(|m| &m.id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/backupRuns/{}",
                     arg1, arg2, arg3,
@@ -117,14 +115,12 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
                 let arg3 = Some(&req).map(|m| &m.id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/backupRuns/{}",
                     arg1, arg2, arg3,
@@ -179,14 +175,12 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/backupRuns",
                     arg1, arg2,
@@ -238,14 +232,12 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/backupRuns",
                     arg1, arg2,
@@ -324,14 +316,12 @@ impl super::stub::SqlConnectService for SqlConnectService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/connectSettings",
                     arg1, arg2,
@@ -395,14 +385,12 @@ impl super::stub::SqlConnectService for SqlConnectService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}:generateEphemeralCert",
                     arg1, arg2,
@@ -478,7 +466,6 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
                 let arg3 = Some(&req).map(|m| &m.database)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -488,7 +475,6 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
                     arg1, arg2, arg3,
@@ -549,7 +535,6 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
                 let arg3 = Some(&req).map(|m| &m.database)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -559,7 +544,6 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
                     arg1, arg2, arg3,
@@ -619,14 +603,12 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/databases",
                     arg1, arg2,
@@ -678,14 +660,12 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/databases",
                     arg1, arg2,
@@ -740,7 +720,6 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
                 let arg3 = Some(&req).map(|m| &m.database)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -750,7 +729,6 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
                     arg1, arg2, arg3,
@@ -809,7 +787,6 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
                 let arg3 = Some(&req).map(|m| &m.database)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -819,7 +796,6 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
                     arg1, arg2, arg3,
@@ -958,14 +934,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/addServerCa",
                     arg1, arg2,
@@ -1019,14 +993,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}/clone", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -1075,14 +1047,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -1133,14 +1103,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/demoteMaster",
                     arg1, arg2,
@@ -1192,14 +1160,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}/demote", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -1248,14 +1214,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}/export", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -1304,14 +1268,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}/failover", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -1360,14 +1322,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/reencrypt",
                     arg1, arg2,
@@ -1419,14 +1379,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -1477,14 +1435,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}/import", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -1532,11 +1488,9 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances", arg1,))
             })
             .ok_or_else(|| {
@@ -1578,11 +1532,9 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances", arg1,))
             })
             .ok_or_else(|| {
@@ -1630,14 +1582,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/listServerCas",
                     arg1, arg2,
@@ -1691,14 +1641,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -1747,14 +1695,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/promoteReplica",
                     arg1, arg2,
@@ -1809,14 +1755,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/switchover",
                     arg1, arg2,
@@ -1880,14 +1824,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/resetSslConfig",
                     arg1, arg2,
@@ -1941,14 +1883,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}/restart", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -1999,14 +1939,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/restoreBackup",
                     arg1, arg2,
@@ -2058,14 +1996,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/rotateServerCa",
                     arg1, arg2,
@@ -2117,14 +2053,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/startReplica",
                     arg1, arg2,
@@ -2178,14 +2112,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/stopReplica",
                     arg1, arg2,
@@ -2239,14 +2171,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/truncateLog",
                     arg1, arg2,
@@ -2298,14 +2228,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -2354,14 +2282,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/createEphemeral",
                     arg1, arg2,
@@ -2413,14 +2339,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/rescheduleMaintenance",
                     arg1, arg2,
@@ -2473,14 +2397,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/verifyExternalSyncSettings",
                     arg1, arg2,
@@ -2532,14 +2454,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/startExternalSync",
                     arg1, arg2,
@@ -2591,14 +2511,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/performDiskShrink",
                     arg1, arg2,
@@ -2651,14 +2569,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/getDiskShrinkConfig",
                     arg1, arg2,
@@ -2712,14 +2628,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/resetReplicaSize",
                     arg1, arg2,
@@ -2772,14 +2686,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/getLatestRecoveryTime",
                     arg1, arg2,
@@ -2833,14 +2745,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/acquireSsrsLease",
                     arg1, arg2,
@@ -2892,14 +2802,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/releaseSsrsLease",
                     arg1, arg2,
@@ -2976,14 +2884,12 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.operation)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/operations/{}", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -3033,11 +2939,9 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/operations", arg1,))
             })
             .ok_or_else(|| {
@@ -3085,14 +2989,12 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.operation)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/operations/{}/cancel", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -3171,7 +3073,6 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
                 let arg3 = Some(&req).map(|m| &m.sha1_fingerprint)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -3181,7 +3082,6 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/sslCerts/{}",
                     arg1, arg2, arg3,
@@ -3242,7 +3142,6 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
                 let arg3 = Some(&req).map(|m| &m.sha1_fingerprint)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -3252,7 +3151,6 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/sslCerts/{}",
                     arg1, arg2, arg3,
@@ -3312,14 +3210,12 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}/sslCerts", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -3368,14 +3264,12 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}/sslCerts", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -3448,11 +3342,9 @@ impl super::stub::SqlTiersService for SqlTiersService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/tiers", arg1,))
             })
             .ok_or_else(|| {
@@ -3520,14 +3412,12 @@ impl super::stub::SqlUsersService for SqlUsersService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}/users", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -3581,7 +3471,6 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
                 let arg3 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -3591,7 +3480,6 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/instances/{}/users/{}",
                     arg1, arg2, arg3,
@@ -3652,14 +3540,12 @@ impl super::stub::SqlUsersService for SqlUsersService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}/users", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -3708,14 +3594,12 @@ impl super::stub::SqlUsersService for SqlUsersService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}/users", arg1, arg2,))
             })
             .ok_or_else(|| {
@@ -3766,14 +3650,12 @@ impl super::stub::SqlUsersService for SqlUsersService {
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project)?;
                 let arg2 = Some(&req).map(|m| &m.instance)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/instances/{}/users", arg1, arg2,))
             })
             .ok_or_else(|| {

@@ -46,13 +46,32 @@ impl super::stub::ServiceController for ServiceController {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CheckResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v2/services/{}:check", {
-            let arg = &req.service_name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("service_name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.service_name)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                Some(format!("/v2/services/{}:check", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.service_name),
+                        "service_name",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -61,6 +80,7 @@ impl super::stub::ServiceController for ServiceController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -70,13 +90,32 @@ impl super::stub::ServiceController for ServiceController {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ReportResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v2/services/{}:report", {
-            let arg = &req.service_name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("service_name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.service_name)?;
+                if !matches(arg1, &[Segment::SingleWildcard]) {
+                    return None;
+                }
+                Some(format!("/v2/services/{}:report", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.service_name),
+                        "service_name",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::POST, path)
@@ -85,6 +124,7 @@ impl super::stub::ServiceController for ServiceController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+
         self.inner.execute(builder, Some(req), options).await
     }
 }

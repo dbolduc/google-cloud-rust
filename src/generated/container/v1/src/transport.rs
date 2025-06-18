@@ -46,14 +46,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListClustersResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -68,30 +66,54 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/clusters", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/zones/{}/clusters", arg1, arg2,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -118,14 +140,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Cluster>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -144,14 +164,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -161,7 +179,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}",
                     arg1, arg2, arg3,
@@ -170,11 +187,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -202,14 +256,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -224,30 +276,54 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/clusters", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/zones/{}/clusters", arg1, arg2,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -270,14 +346,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -296,14 +370,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -313,7 +385,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}",
                     arg1, arg2, arg3,
@@ -322,11 +393,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -349,14 +457,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -379,7 +485,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
@@ -387,7 +492,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
                 let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -400,7 +504,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg4, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/update",
                     arg1, arg2, arg3, arg4,
@@ -409,11 +512,58 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*/nodePools/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.node_pool_id),
+                        "node_pool_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -436,14 +586,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -466,7 +614,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setAutoscaling", arg1,))
             })
             .or_else(|| {
@@ -474,7 +621,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
                 let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -487,7 +633,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg4, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/autoscaling",
                     arg1, arg2, arg3, arg4,
@@ -496,11 +641,58 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*/nodePools/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.node_pool_id),
+                        "node_pool_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -523,14 +715,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -549,14 +739,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setLogging", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -566,7 +754,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/logging",
                     arg1, arg2, arg3,
@@ -575,11 +762,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -602,14 +826,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -628,14 +850,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setMonitoring", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -645,7 +865,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/monitoring",
                     arg1, arg2, arg3,
@@ -654,11 +873,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -681,14 +937,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -707,14 +961,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setAddons", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -724,7 +976,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/addons",
                     arg1, arg2, arg3,
@@ -733,11 +984,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -760,14 +1048,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -786,14 +1072,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setLocations", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -803,7 +1087,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/locations",
                     arg1, arg2, arg3,
@@ -812,11 +1095,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -839,14 +1159,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -865,14 +1183,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:updateMaster", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -882,7 +1198,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/master",
                     arg1, arg2, arg3,
@@ -891,11 +1206,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -918,14 +1270,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -944,14 +1294,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setMasterAuth", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -961,7 +1309,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:setMasterAuth",
                     arg1, arg2, arg3,
@@ -970,11 +1317,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -997,14 +1381,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1023,14 +1405,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -1040,7 +1420,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}",
                     arg1, arg2, arg3,
@@ -1049,11 +1428,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1081,14 +1497,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1103,30 +1517,54 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/operations", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/zones/{}/operations", arg1, arg2,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1153,14 +1591,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1179,14 +1615,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.operation_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -1196,7 +1630,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/operations/{}",
                     arg1, arg2, arg3,
@@ -1205,11 +1638,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.operation_id),
+                        "operation_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1237,14 +1707,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1263,14 +1731,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:cancel", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.operation_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -1280,7 +1746,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/operations/{}:cancel",
                     arg1, arg2, arg3,
@@ -1289,11 +1754,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.operation_id),
+                        "operation_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1321,14 +1823,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServerConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1343,30 +1843,54 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/serverConfig", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
                 if !matches(arg2, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!("/v1/projects/{}/zones/{}/serverconfig", arg1, arg2,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1393,14 +1917,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GetJSONWebKeysResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1419,17 +1941,31 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/jwks", arg1,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1454,14 +1990,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListNodePoolsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1480,14 +2014,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/nodePools", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -1497,7 +2029,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools",
                     arg1, arg2, arg3,
@@ -1506,11 +2037,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1538,14 +2106,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NodePool>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1568,7 +2134,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
@@ -1576,7 +2141,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
                 let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -1589,7 +2153,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg4, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}",
                     arg1, arg2, arg3, arg4,
@@ -1598,11 +2161,58 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*/nodePools/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.node_pool_id),
+                        "node_pool_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1631,14 +2241,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1657,14 +2265,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/nodePools", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -1674,7 +2280,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools",
                     arg1, arg2, arg3,
@@ -1683,11 +2288,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1710,14 +2352,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1740,7 +2380,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
@@ -1748,7 +2387,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
                 let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -1761,7 +2399,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg4, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}",
                     arg1, arg2, arg3, arg4,
@@ -1770,11 +2407,58 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*/nodePools/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.node_pool_id),
+                        "node_pool_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1803,14 +2487,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1833,17 +2515,35 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:completeUpgrade", arg1,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*/nodePools/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1871,14 +2571,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1901,7 +2599,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:rollback", arg1,))
             })
             .or_else(|| {
@@ -1909,7 +2606,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
                 let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -1922,7 +2618,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg4, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}:rollback",
                     arg1, arg2, arg3, arg4,
@@ -1931,11 +2626,58 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*/nodePools/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.node_pool_id),
+                        "node_pool_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1958,14 +2700,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1988,7 +2728,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setManagement", arg1,))
             })
             .or_else(|| {
@@ -1996,7 +2735,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
                 let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -2009,7 +2747,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg4, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/setManagement",
                     arg1, arg2, arg3, arg4,
@@ -2018,11 +2755,58 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*/nodePools/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.node_pool_id),
+                        "node_pool_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2045,14 +2829,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -2071,14 +2853,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setResourceLabels", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -2088,7 +2868,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/resourceLabels",
                     arg1, arg2, arg3,
@@ -2097,11 +2876,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2124,14 +2940,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -2150,14 +2964,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setLegacyAbac", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -2167,7 +2979,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/legacyAbac",
                     arg1, arg2, arg3,
@@ -2176,11 +2987,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2203,14 +3051,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -2229,14 +3075,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:startIpRotation", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -2246,7 +3090,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:startIpRotation",
                     arg1, arg2, arg3,
@@ -2255,11 +3098,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2282,14 +3162,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -2308,14 +3186,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:completeIpRotation", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -2325,7 +3201,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:completeIpRotation",
                     arg1, arg2, arg3,
@@ -2334,11 +3209,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2361,14 +3273,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -2391,7 +3301,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setSize", arg1,))
             })
             .or_else(|| {
@@ -2399,7 +3308,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
                 let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -2412,7 +3320,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg4, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/setSize",
                     arg1, arg2, arg3, arg4,
@@ -2421,11 +3328,58 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*/nodePools/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.node_pool_id),
+                        "node_pool_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2448,14 +3402,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -2474,14 +3426,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setNetworkPolicy", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -2491,7 +3441,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:setNetworkPolicy",
                     arg1, arg2, arg3,
@@ -2500,11 +3449,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2527,14 +3513,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -2553,14 +3537,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setMaintenancePolicy", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.project_id)?;
                 let arg2 = Some(&req).map(|m| &m.zone)?;
                 let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-
                 if !matches(arg1, &[Segment::SingleWildcard]) {
                     return None;
                 }
@@ -2570,7 +3552,6 @@ impl super::stub::ClusterManager for ClusterManager {
                 if !matches(arg3, &[Segment::SingleWildcard]) {
                     return None;
                 }
-
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:setMaintenancePolicy",
                     arg1, arg2, arg3,
@@ -2579,11 +3560,48 @@ impl super::stub::ClusterManager for ClusterManager {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project_id),
+                        "project_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.zone),
+                        "zone",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.cluster_id),
+                        "cluster_id",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2606,14 +3624,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUsableSubnetworksResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -2624,17 +3640,23 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/aggregated/usableSubnetworks", arg1,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2662,14 +3684,12 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{BindingError, PathMismatch, SubstitutionMismatch, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -2688,17 +3708,31 @@ impl super::stub::ClusterManager for ClusterManager {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:checkAutopilotCompatibility", arg1,))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    {
-                        // TODO : recheck in here.
-                    }
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2723,13 +3757,103 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ClusterUpgradeInfo>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}:fetchClusterUpgradeInfo", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:fetchClusterUpgradeInfo", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("zones"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:fetchClusterUpgradeInfo", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("zones"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/zones/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -2739,6 +3863,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("version", &req.version)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -2750,13 +3875,119 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NodePoolUpgradeInfo>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}:fetchNodePoolUpgradeInfo", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::routing_parameter::Segment;
+
+        let path = None
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("locations"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("nodePools"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:fetchNodePoolUpgradeInfo", arg1,))
+            })
+            .or_else(|| {
+                let arg1 = Some(&req).map(|m| &m.name)?;
+                if !matches(
+                    arg1,
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("zones"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("clusters"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("nodePools"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                ) {
+                    return None;
+                }
+                Some(format!("/v1/{}:fetchNodePoolUpgradeInfo", arg1,))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/clusters/*/nodePools/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("zones"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/zones/*/clusters/*/nodePools/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })?;
+
         let builder = self
             .inner
             .builder(reqwest::Method::GET, path)
@@ -2766,6 +3997,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("version", &req.version)]);
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

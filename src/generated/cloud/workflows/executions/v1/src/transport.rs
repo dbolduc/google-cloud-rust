@@ -52,7 +52,6 @@ impl super::stub::Executions for Executions {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -71,7 +70,6 @@ impl super::stub::Executions for Executions {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/executions", arg1,))
             })
             .ok_or_else(|| {
@@ -132,7 +130,6 @@ impl super::stub::Executions for Executions {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -151,7 +148,6 @@ impl super::stub::Executions for Executions {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/executions", arg1,))
             })
             .ok_or_else(|| {
@@ -207,7 +203,6 @@ impl super::stub::Executions for Executions {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -230,7 +225,6 @@ impl super::stub::Executions for Executions {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .ok_or_else(|| {
@@ -291,7 +285,6 @@ impl super::stub::Executions for Executions {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -314,7 +307,6 @@ impl super::stub::Executions for Executions {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:cancel", arg1,))
             })
             .ok_or_else(|| {

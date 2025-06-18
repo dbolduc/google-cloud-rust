@@ -639,6 +639,13 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		var bindings []bindingSubstitution
 		arg_i := 0
 		pathFmt := ""
+                if b.DarrenPath == nil {
+                    // Some services *cough* StorageControl *cough* do not have HTTP annotations.
+                    // Bindings are irrelevant for them.
+                    // TODO : Why isn't the list of Bindings empty? That is weird right?
+                    // Oh this must be our hack because we use Foo[0] everywhere.
+                    continue
+                }
 		for _, s := range b.DarrenPath.Segments {
 			pathFmt += "/"
 			if s.Literal != nil {

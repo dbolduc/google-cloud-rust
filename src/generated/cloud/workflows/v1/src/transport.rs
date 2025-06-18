@@ -52,7 +52,6 @@ impl super::stub::Workflows for Workflows {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -67,7 +66,6 @@ impl super::stub::Workflows for Workflows {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/workflows", arg1,))
             })
             .ok_or_else(|| {
@@ -123,7 +121,6 @@ impl super::stub::Workflows for Workflows {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -142,7 +139,6 @@ impl super::stub::Workflows for Workflows {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .ok_or_else(|| {
@@ -199,7 +195,6 @@ impl super::stub::Workflows for Workflows {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -214,7 +209,6 @@ impl super::stub::Workflows for Workflows {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/workflows", arg1,))
             })
             .ok_or_else(|| {
@@ -267,7 +261,6 @@ impl super::stub::Workflows for Workflows {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -286,7 +279,6 @@ impl super::stub::Workflows for Workflows {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .ok_or_else(|| {
@@ -344,7 +336,6 @@ impl super::stub::Workflows for Workflows {
                 let arg1 = Some(&req)
                     .and_then(|m| m.workflow.as_ref())
                     .map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -363,7 +354,6 @@ impl super::stub::Workflows for Workflows {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .ok_or_else(|| {
@@ -431,7 +421,6 @@ impl super::stub::Workflows for Workflows {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -450,7 +439,6 @@ impl super::stub::Workflows for Workflows {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:listRevisions", arg1,))
             })
             .ok_or_else(|| {
@@ -508,7 +496,6 @@ impl super::stub::Workflows for Workflows {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -519,7 +506,6 @@ impl super::stub::Workflows for Workflows {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/locations", arg1,))
             })
             .ok_or_else(|| {
@@ -570,7 +556,6 @@ impl super::stub::Workflows for Workflows {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -585,7 +570,6 @@ impl super::stub::Workflows for Workflows {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .ok_or_else(|| {
@@ -637,7 +621,6 @@ impl super::stub::Workflows for Workflows {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -652,7 +635,6 @@ impl super::stub::Workflows for Workflows {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/operations", arg1,))
             })
             .ok_or_else(|| {
@@ -707,7 +689,6 @@ impl super::stub::Workflows for Workflows {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -726,7 +707,6 @@ impl super::stub::Workflows for Workflows {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .ok_or_else(|| {
@@ -782,7 +762,6 @@ impl super::stub::Workflows for Workflows {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -801,7 +780,6 @@ impl super::stub::Workflows for Workflows {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .ok_or_else(|| {

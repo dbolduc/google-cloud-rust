@@ -81,8 +81,6 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             {{#Codec.Bindings}}
             let {{LocalVarName}} = {{{Accessor}}}?;
             {{/Codec.Bindings}}
-    
-            {{! TODO : We should filter out numeric bindings. }}
             {{#Codec.Bindings}}
             {{#IsString}}
             if !matches({{LocalVarName}}, {{{TemplateAsArray}}}) {
@@ -90,7 +88,6 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             }
             {{/IsString}}
             {{/Codec.Bindings}}
-    
             Some(format!(
                 "{{Codec.PathFmt}}",
                 {{#Codec.Bindings}}

@@ -52,7 +52,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -63,12 +62,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/secrets", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -83,7 +80,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/secrets", arg1,))
             })
             .ok_or_else(|| {
@@ -152,7 +148,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -163,12 +158,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/secrets", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -183,7 +176,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/secrets", arg1,))
             })
             .ok_or_else(|| {
@@ -248,7 +240,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -263,12 +254,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:addVersion", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -287,7 +276,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:addVersion", arg1,))
             })
             .ok_or_else(|| {
@@ -359,7 +347,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -374,12 +361,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -398,7 +383,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .ok_or_else(|| {
@@ -474,7 +458,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let arg1 = Some(&req)
                     .and_then(|m| m.secret.as_ref())
                     .map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -489,14 +472,12 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req)
                     .and_then(|m| m.secret.as_ref())
                     .map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -515,7 +496,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .ok_or_else(|| {
@@ -597,7 +577,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -612,12 +591,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -636,7 +613,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .ok_or_else(|| {
@@ -715,7 +691,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -730,12 +705,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/versions", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.parent)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -754,7 +727,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/versions", arg1,))
             })
             .ok_or_else(|| {
@@ -831,7 +803,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -850,12 +821,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -878,7 +847,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .ok_or_else(|| {
@@ -960,7 +928,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -979,12 +946,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:access", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1007,7 +972,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:access", arg1,))
             })
             .ok_or_else(|| {
@@ -1089,7 +1053,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1108,12 +1071,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:disable", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1136,7 +1097,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:disable", arg1,))
             })
             .ok_or_else(|| {
@@ -1216,7 +1176,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1235,12 +1194,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:enable", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1263,7 +1220,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:enable", arg1,))
             })
             .ok_or_else(|| {
@@ -1343,7 +1299,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1362,12 +1317,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:destroy", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1390,7 +1343,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:destroy", arg1,))
             })
             .ok_or_else(|| {
@@ -1470,7 +1422,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.resource)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1485,12 +1436,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setIamPolicy", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.resource)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1509,7 +1458,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:setIamPolicy", arg1,))
             })
             .ok_or_else(|| {
@@ -1581,7 +1529,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.resource)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1596,12 +1543,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:getIamPolicy", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.resource)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1620,7 +1565,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:getIamPolicy", arg1,))
             })
             .ok_or_else(|| {
@@ -1704,7 +1648,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.resource)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1719,12 +1662,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:testIamPermissions", arg1,))
             })
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.resource)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1743,7 +1684,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}:testIamPermissions", arg1,))
             })
             .ok_or_else(|| {
@@ -1815,7 +1755,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1826,7 +1765,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}/locations", arg1,))
             })
             .ok_or_else(|| {
@@ -1877,7 +1815,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let path = None
             .or_else(|| {
                 let arg1 = Some(&req).map(|m| &m.name)?;
-
                 if !matches(
                     arg1,
                     &[
@@ -1892,7 +1829,6 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 ) {
                     return None;
                 }
-
                 Some(format!("/v1/{}", arg1,))
             })
             .ok_or_else(|| {
