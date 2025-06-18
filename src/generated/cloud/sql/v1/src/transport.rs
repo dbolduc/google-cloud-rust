@@ -46,23 +46,22 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                let arg3 = Some(&req).map(|m| &m.id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/backupRuns/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    Some(&req).map(|m| &m.id)?,
                 ))
             })
             .ok_or_else(|| {
@@ -107,23 +106,22 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BackupRun>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                let arg3 = Some(&req).map(|m| &m.id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/backupRuns/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    Some(&req).map(|m| &m.id)?,
                 ))
             })
             .ok_or_else(|| {
@@ -168,22 +166,21 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/backupRuns",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -225,22 +222,21 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BackupRunsListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/backupRuns",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -309,22 +305,21 @@ impl super::stub::SqlConnectService for SqlConnectService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ConnectSettings>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/connectSettings",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -378,22 +373,21 @@ impl super::stub::SqlConnectService for SqlConnectService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}:generateEphemeralCert",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -458,26 +452,25 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                let arg3 = Some(&req).map(|m| &m.database)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.database)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -527,26 +520,25 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Database>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                let arg3 = Some(&req).map(|m| &m.database)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.database)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -596,22 +588,21 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/databases",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -653,22 +644,21 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DatabasesListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/databases",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -712,26 +702,25 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                let arg3 = Some(&req).map(|m| &m.database)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.database)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -779,26 +768,25 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                let arg3 = Some(&req).map(|m| &m.database)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.database)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -869,7 +857,7 @@ impl super::stub::SqlFlagsService for SqlFlagsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FlagsListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -927,22 +915,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/addServerCa",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -986,20 +973,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}/clone", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}/clone",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1040,20 +1029,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1096,22 +1087,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/demoteMaster",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1153,20 +1143,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}/demote", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}/demote",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1207,20 +1199,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}/export", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}/export",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1261,20 +1255,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}/failover", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}/failover",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1315,22 +1311,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/reencrypt",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1372,20 +1367,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DatabaseInstance>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1428,20 +1425,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}/import", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}/import",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1482,16 +1481,18 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances", arg1,))
+                Some(format!(
+                    "/v1/projects/{}/instances",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1526,16 +1527,18 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InstancesListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances", arg1,))
+                Some(format!(
+                    "/v1/projects/{}/instances",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1575,22 +1578,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InstancesListServerCasResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/listServerCas",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1634,20 +1636,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1688,22 +1692,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/promoteReplica",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1748,22 +1751,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/switchover",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1817,22 +1819,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/resetSslConfig",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1876,20 +1877,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}/restart", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}/restart",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1932,22 +1935,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/restoreBackup",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1989,22 +1991,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/rotateServerCa",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2046,22 +2047,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/startReplica",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2105,22 +2105,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/stopReplica",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2164,22 +2163,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/truncateLog",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2221,20 +2219,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2275,22 +2275,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCert>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/createEphemeral",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2332,22 +2331,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/rescheduleMaintenance",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2390,22 +2388,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
     ) -> Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>>
     {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/verifyExternalSyncSettings",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2447,22 +2444,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/startExternalSync",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2504,22 +2500,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/performDiskShrink",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2562,22 +2557,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
     ) -> Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>>
     {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/getDiskShrinkConfig",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2621,22 +2615,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/resetReplicaSize",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2679,22 +2672,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
     ) -> Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>>
     {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/getLatestRecoveryTime",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2738,22 +2730,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/acquireSsrsLease",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2795,22 +2786,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/releaseSsrsLease",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2877,20 +2867,22 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.operation)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/operations/{}", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/operations/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.operation)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2933,16 +2925,18 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::OperationsListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/operations", arg1,))
+                Some(format!(
+                    "/v1/projects/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2982,20 +2976,22 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.operation)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/operations/{}/cancel", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/operations/{}/cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.operation)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3065,26 +3061,25 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                let arg3 = Some(&req).map(|m| &m.sha1_fingerprint)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/sslCerts/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.sha1_fingerprint)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -3134,26 +3129,25 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCert>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                let arg3 = Some(&req).map(|m| &m.sha1_fingerprint)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/sslCerts/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.sha1_fingerprint)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -3203,20 +3197,22 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCertsInsertResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}/sslCerts", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}/sslCerts",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3257,20 +3253,22 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCertsListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}/sslCerts", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}/sslCerts",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3336,16 +3334,18 @@ impl super::stub::SqlTiersService for SqlTiersService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TiersListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/tiers", arg1,))
+                Some(format!(
+                    "/v1/projects/{}/tiers",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3405,20 +3405,22 @@ impl super::stub::SqlUsersService for SqlUsersService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}/users", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}/users",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3463,26 +3465,22 @@ impl super::stub::SqlUsersService for SqlUsersService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::User>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                let arg3 = Some(&req).map(|m| &m.name)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/instances/{}/users/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::SingleWildcard,])?,
                 ))
             })
             .ok_or_else(|| {
@@ -3533,20 +3531,22 @@ impl super::stub::SqlUsersService for SqlUsersService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}/users", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}/users",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3587,20 +3587,22 @@ impl super::stub::SqlUsersService for SqlUsersService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UsersListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}/users", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}/users",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3643,20 +3645,22 @@ impl super::stub::SqlUsersService for SqlUsersService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project)?;
-                let arg2 = Some(&req).map(|m| &m.instance)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/instances/{}/users", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/instances/{}/users",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.instance)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();

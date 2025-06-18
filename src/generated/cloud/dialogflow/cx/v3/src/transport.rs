@@ -46,27 +46,26 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAgentsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/agents", arg1,))
+                Some(format!(
+                    "/v3/{}/agents",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -113,31 +112,30 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Agent>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -186,27 +184,26 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Agent>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/agents", arg1,))
+                Some(format!(
+                    "/v3/{}/agents",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -249,31 +246,30 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Agent>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).and_then(|m| m.agent.as_ref()).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).and_then(|m| m.agent.as_ref()).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -330,31 +326,30 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -407,31 +402,30 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:export", arg1,))
+                Some(format!(
+                    "/v3/{}:export",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -478,31 +472,30 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:restore", arg1,))
+                Some(format!(
+                    "/v3/{}:restore",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -549,31 +542,30 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AgentValidationResult>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:validate", arg1,))
+                Some(format!(
+                    "/v3/{}:validate",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -620,33 +612,32 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AgentValidationResult>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("validationResult"),
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("validationResult"),
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -698,33 +689,32 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerativeSettings>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("generativeSettings"),
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("generativeSettings"),
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -776,35 +766,34 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerativeSettings>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.generative_settings.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("generativeSettings"),
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.generative_settings.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("generativeSettings"),
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -867,23 +856,22 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -927,27 +915,26 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -992,41 +979,39 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1088,49 +1073,47 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1197,49 +1180,47 @@ impl super::stub::Agents for Agents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1347,31 +1328,30 @@ impl super::stub::Changelogs for Changelogs {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListChangelogsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/changelogs", arg1,))
+                Some(format!(
+                    "/v3/{}/changelogs",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1423,35 +1403,34 @@ impl super::stub::Changelogs for Changelogs {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Changelog>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("changelogs"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("changelogs"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1504,23 +1483,22 @@ impl super::stub::Changelogs for Changelogs {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1564,27 +1542,26 @@ impl super::stub::Changelogs for Changelogs {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1629,41 +1606,39 @@ impl super::stub::Changelogs for Changelogs {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1725,49 +1700,47 @@ impl super::stub::Changelogs for Changelogs {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1834,49 +1807,47 @@ impl super::stub::Changelogs for Changelogs {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1970,35 +1941,34 @@ impl super::stub::Deployments for Deployments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDeploymentsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/deployments", arg1,))
+                Some(format!(
+                    "/v3/{}/deployments",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2053,39 +2023,38 @@ impl super::stub::Deployments for Deployments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("deployments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("deployments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2142,23 +2111,22 @@ impl super::stub::Deployments for Deployments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2202,27 +2170,26 @@ impl super::stub::Deployments for Deployments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2267,41 +2234,39 @@ impl super::stub::Deployments for Deployments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2363,49 +2328,47 @@ impl super::stub::Deployments for Deployments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2472,49 +2435,47 @@ impl super::stub::Deployments for Deployments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2608,35 +2569,34 @@ impl super::stub::EntityTypes for EntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EntityType>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("entityTypes"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("entityTypes"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2690,31 +2650,30 @@ impl super::stub::EntityTypes for EntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EntityType>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/entityTypes", arg1,))
+                Some(format!(
+                    "/v3/{}/entityTypes",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2764,37 +2723,36 @@ impl super::stub::EntityTypes for EntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EntityType>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.entity_type.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("entityTypes"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.entity_type.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("entityTypes"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2860,35 +2818,34 @@ impl super::stub::EntityTypes for EntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("entityTypes"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("entityTypes"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2946,31 +2903,30 @@ impl super::stub::EntityTypes for EntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListEntityTypesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/entityTypes", arg1,))
+                Some(format!(
+                    "/v3/{}/entityTypes",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3022,31 +2978,30 @@ impl super::stub::EntityTypes for EntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/entityTypes:export", arg1,))
+                Some(format!(
+                    "/v3/{}/entityTypes:export",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3093,31 +3048,30 @@ impl super::stub::EntityTypes for EntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/entityTypes:import", arg1,))
+                Some(format!(
+                    "/v3/{}/entityTypes:import",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3164,23 +3118,22 @@ impl super::stub::EntityTypes for EntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3224,27 +3177,26 @@ impl super::stub::EntityTypes for EntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3289,41 +3241,39 @@ impl super::stub::EntityTypes for EntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3385,49 +3335,47 @@ impl super::stub::EntityTypes for EntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3494,49 +3442,47 @@ impl super::stub::EntityTypes for EntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3644,31 +3590,30 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListEnvironmentsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/environments", arg1,))
+                Some(format!(
+                    "/v3/{}/environments",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3719,35 +3664,34 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Environment>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3800,31 +3744,30 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/environments", arg1,))
+                Some(format!(
+                    "/v3/{}/environments",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3873,37 +3816,36 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.environment.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.environment.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3968,35 +3910,34 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4053,35 +3994,34 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::LookupEnvironmentHistoryResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:lookupEnvironmentHistory", arg1,))
+                Some(format!(
+                    "/v3/{}:lookupEnvironmentHistory",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4136,35 +4076,34 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.environment)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:runContinuousTest", arg1,))
+                Some(format!(
+                    "/v3/{}:runContinuousTest",
+                    composable_matches(
+                        Some(&req).map(|m| &m.environment)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4215,35 +4154,34 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListContinuousTestResultsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/continuousTestResults", arg1,))
+                Some(format!(
+                    "/v3/{}/continuousTestResults",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4298,35 +4236,34 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.environment)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:deployFlow", arg1,))
+                Some(format!(
+                    "/v3/{}:deployFlow",
+                    composable_matches(
+                        Some(&req).map(|m| &m.environment)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4377,23 +4314,22 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4437,27 +4373,26 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4502,41 +4437,39 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4598,49 +4531,47 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4707,49 +4638,47 @@ impl super::stub::Environments for Environments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4857,35 +4786,34 @@ impl super::stub::Experiments for Experiments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListExperimentsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/experiments", arg1,))
+                Some(format!(
+                    "/v3/{}/experiments",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4940,39 +4868,38 @@ impl super::stub::Experiments for Experiments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Experiment>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("experiments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("experiments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5029,35 +4956,34 @@ impl super::stub::Experiments for Experiments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Experiment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/experiments", arg1,))
+                Some(format!(
+                    "/v3/{}/experiments",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5110,41 +5036,40 @@ impl super::stub::Experiments for Experiments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Experiment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.experiment.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("experiments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.experiment.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("experiments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5213,39 +5138,38 @@ impl super::stub::Experiments for Experiments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("experiments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("experiments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5306,39 +5230,38 @@ impl super::stub::Experiments for Experiments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Experiment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("experiments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:start", arg1,))
+                Some(format!(
+                    "/v3/{}:start",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("experiments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5393,39 +5316,38 @@ impl super::stub::Experiments for Experiments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Experiment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("experiments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:stop", arg1,))
+                Some(format!(
+                    "/v3/{}:stop",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("experiments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5480,23 +5402,22 @@ impl super::stub::Experiments for Experiments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5540,27 +5461,26 @@ impl super::stub::Experiments for Experiments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5605,41 +5525,39 @@ impl super::stub::Experiments for Experiments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5701,49 +5619,47 @@ impl super::stub::Experiments for Experiments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5810,49 +5726,47 @@ impl super::stub::Experiments for Experiments {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5944,31 +5858,30 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Flow>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/flows", arg1,))
+                Some(format!(
+                    "/v3/{}/flows",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6016,35 +5929,34 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6102,31 +6014,30 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListFlowsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/flows", arg1,))
+                Some(format!(
+                    "/v3/{}/flows",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6178,35 +6089,34 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Flow>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6260,35 +6170,34 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Flow>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).and_then(|m| m.flow.as_ref()).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).and_then(|m| m.flow.as_ref()).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6350,35 +6259,34 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:train", arg1,))
+                Some(format!(
+                    "/v3/{}:train",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6429,35 +6337,34 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FlowValidationResult>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:validate", arg1,))
+                Some(format!(
+                    "/v3/{}:validate",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6508,37 +6415,36 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FlowValidationResult>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("validationResult"),
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("validationResult"),
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6594,31 +6500,30 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/flows:import", arg1,))
+                Some(format!(
+                    "/v3/{}/flows:import",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6665,35 +6570,34 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:export", arg1,))
+                Some(format!(
+                    "/v3/{}:export",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6744,23 +6648,22 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6804,27 +6707,26 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6869,41 +6771,39 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6965,49 +6865,47 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7074,49 +6972,47 @@ impl super::stub::Flows for Flows {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7224,31 +7120,30 @@ impl super::stub::Generators for Generators {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListGeneratorsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/generators", arg1,))
+                Some(format!(
+                    "/v3/{}/generators",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7300,35 +7195,34 @@ impl super::stub::Generators for Generators {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Generator>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("generators"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("generators"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7382,31 +7276,30 @@ impl super::stub::Generators for Generators {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Generator>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/generators", arg1,))
+                Some(format!(
+                    "/v3/{}/generators",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7456,37 +7349,36 @@ impl super::stub::Generators for Generators {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Generator>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.generator.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("generators"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.generator.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("generators"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7552,35 +7444,34 @@ impl super::stub::Generators for Generators {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("generators"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("generators"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7638,23 +7529,22 @@ impl super::stub::Generators for Generators {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7698,27 +7588,26 @@ impl super::stub::Generators for Generators {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7763,41 +7652,39 @@ impl super::stub::Generators for Generators {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7859,49 +7746,47 @@ impl super::stub::Generators for Generators {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7968,49 +7853,47 @@ impl super::stub::Generators for Generators {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8104,31 +7987,30 @@ impl super::stub::Intents for Intents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListIntentsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/intents", arg1,))
+                Some(format!(
+                    "/v3/{}/intents",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8181,35 +8063,34 @@ impl super::stub::Intents for Intents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Intent>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("intents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("intents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8263,31 +8144,30 @@ impl super::stub::Intents for Intents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Intent>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/intents", arg1,))
+                Some(format!(
+                    "/v3/{}/intents",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8335,37 +8215,36 @@ impl super::stub::Intents for Intents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Intent>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.intent.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("intents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.intent.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("intents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8427,35 +8306,34 @@ impl super::stub::Intents for Intents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("intents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("intents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8512,31 +8390,30 @@ impl super::stub::Intents for Intents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/intents:import", arg1,))
+                Some(format!(
+                    "/v3/{}/intents:import",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8583,31 +8460,30 @@ impl super::stub::Intents for Intents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/intents:export", arg1,))
+                Some(format!(
+                    "/v3/{}/intents:export",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8654,23 +8530,22 @@ impl super::stub::Intents for Intents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8714,27 +8589,26 @@ impl super::stub::Intents for Intents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8779,41 +8653,39 @@ impl super::stub::Intents for Intents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8875,49 +8747,47 @@ impl super::stub::Intents for Intents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8984,49 +8854,47 @@ impl super::stub::Intents for Intents {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9132,35 +9000,34 @@ impl super::stub::Pages for Pages {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListPagesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/pages", arg1,))
+                Some(format!(
+                    "/v3/{}/pages",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9216,39 +9083,38 @@ impl super::stub::Pages for Pages {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Page>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("pages"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("pages"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9306,35 +9172,34 @@ impl super::stub::Pages for Pages {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Page>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/pages", arg1,))
+                Some(format!(
+                    "/v3/{}/pages",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9386,39 +9251,38 @@ impl super::stub::Pages for Pages {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Page>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).and_then(|m| m.page.as_ref()).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("pages"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).and_then(|m| m.page.as_ref()).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("pages"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9484,39 +9348,38 @@ impl super::stub::Pages for Pages {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("pages"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("pages"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9578,23 +9441,22 @@ impl super::stub::Pages for Pages {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9638,27 +9500,26 @@ impl super::stub::Pages for Pages {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9703,41 +9564,39 @@ impl super::stub::Pages for Pages {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9799,49 +9658,47 @@ impl super::stub::Pages for Pages {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9908,49 +9765,47 @@ impl super::stub::Pages for Pages {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10044,27 +9899,26 @@ impl super::stub::SecuritySettingsService for SecuritySettingsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecuritySettings>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/securitySettings", arg1,))
+                Some(format!(
+                    "/v3/{}/securitySettings",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10109,31 +9963,30 @@ impl super::stub::SecuritySettingsService for SecuritySettingsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecuritySettings>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("securitySettings"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("securitySettings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10182,33 +10035,32 @@ impl super::stub::SecuritySettingsService for SecuritySettingsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecuritySettings>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.security_settings.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("securitySettings"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.security_settings.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("securitySettings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10269,27 +10121,26 @@ impl super::stub::SecuritySettingsService for SecuritySettingsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecuritySettingsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/securitySettings", arg1,))
+                Some(format!(
+                    "/v3/{}/securitySettings",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10336,31 +10187,30 @@ impl super::stub::SecuritySettingsService for SecuritySettingsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("securitySettings"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("securitySettings"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10413,23 +10263,22 @@ impl super::stub::SecuritySettingsService for SecuritySettingsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10473,27 +10322,26 @@ impl super::stub::SecuritySettingsService for SecuritySettingsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10538,41 +10386,39 @@ impl super::stub::SecuritySettingsService for SecuritySettingsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10634,49 +10480,47 @@ impl super::stub::SecuritySettingsService for SecuritySettingsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10743,49 +10587,47 @@ impl super::stub::SecuritySettingsService for SecuritySettingsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10879,65 +10721,63 @@ impl super::stub::Sessions for Sessions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DetectIntentResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.session)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:detectIntent", arg1,))
+                Some(format!(
+                    "/v3/{}:detectIntent",
+                    composable_matches(
+                        Some(&req).map(|m| &m.session)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.session)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:detectIntent", arg1,))
+                Some(format!(
+                    "/v3/{}:detectIntent",
+                    composable_matches(
+                        Some(&req).map(|m| &m.session)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11018,65 +10858,63 @@ impl super::stub::Sessions for Sessions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::MatchIntentResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.session)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:matchIntent", arg1,))
+                Some(format!(
+                    "/v3/{}:matchIntent",
+                    composable_matches(
+                        Some(&req).map(|m| &m.session)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.session)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:matchIntent", arg1,))
+                Some(format!(
+                    "/v3/{}:matchIntent",
+                    composable_matches(
+                        Some(&req).map(|m| &m.session)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11157,69 +10995,67 @@ impl super::stub::Sessions for Sessions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FulfillIntentResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.match_intent_request.as_ref())
-                    .map(|m| &m.session)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:fulfillIntent", arg1,))
+                Some(format!(
+                    "/v3/{}:fulfillIntent",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.match_intent_request.as_ref())
+                            .map(|m| &m.session)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.match_intent_request.as_ref())
-                    .map(|m| &m.session)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:fulfillIntent", arg1,))
+                Some(format!(
+                    "/v3/{}:fulfillIntent",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.match_intent_request.as_ref())
+                            .map(|m| &m.session)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11304,35 +11140,34 @@ impl super::stub::Sessions for Sessions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnswerFeedback>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.session)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:submitAnswerFeedback", arg1,))
+                Some(format!(
+                    "/v3/{}:submitAnswerFeedback",
+                    composable_matches(
+                        Some(&req).map(|m| &m.session)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11383,23 +11218,22 @@ impl super::stub::Sessions for Sessions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11443,27 +11277,26 @@ impl super::stub::Sessions for Sessions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11508,41 +11341,39 @@ impl super::stub::Sessions for Sessions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11604,49 +11435,47 @@ impl super::stub::Sessions for Sessions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11713,49 +11542,47 @@ impl super::stub::Sessions for Sessions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11849,65 +11676,63 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSessionEntityTypesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/entityTypes", arg1,))
+                Some(format!(
+                    "/v3/{}/entityTypes",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/entityTypes", arg1,))
+                Some(format!(
+                    "/v3/{}/entityTypes",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11992,73 +11817,71 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SessionEntityType>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("entityTypes"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("entityTypes"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("entityTypes"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("entityTypes"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12149,65 +11972,63 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SessionEntityType>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/entityTypes", arg1,))
+                Some(format!(
+                    "/v3/{}/entityTypes",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/entityTypes", arg1,))
+                Some(format!(
+                    "/v3/{}/entityTypes",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12290,77 +12111,75 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SessionEntityType>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.session_entity_type.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("entityTypes"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.session_entity_type.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("entityTypes"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.session_entity_type.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("entityTypes"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.session_entity_type.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("entityTypes"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12465,73 +12284,71 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("entityTypes"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("entityTypes"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("environments"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("sessions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("entityTypes"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("environments"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("sessions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("entityTypes"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12626,23 +12443,22 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12686,27 +12502,26 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12751,41 +12566,39 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12847,49 +12660,47 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12956,49 +12767,47 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13092,31 +12901,30 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListTestCasesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/testCases", arg1,))
+                Some(format!(
+                    "/v3/{}/testCases",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13168,31 +12976,30 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/testCases:batchDelete", arg1,))
+                Some(format!(
+                    "/v3/{}/testCases:batchDelete",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13244,35 +13051,34 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestCase>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("testCases"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("testCases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13325,31 +13131,30 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestCase>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/testCases", arg1,))
+                Some(format!(
+                    "/v3/{}/testCases",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13398,37 +13203,36 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestCase>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.test_case.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("testCases"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.test_case.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("testCases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13493,35 +13297,34 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("testCases"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:run", arg1,))
+                Some(format!(
+                    "/v3/{}:run",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("testCases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13572,31 +13375,30 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/testCases:batchRun", arg1,))
+                Some(format!(
+                    "/v3/{}/testCases:batchRun",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13643,31 +13445,30 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CalculateCoverageResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.agent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/testCases:calculateCoverage", arg1,))
+                Some(format!(
+                    "/v3/{}/testCases:calculateCoverage",
+                    composable_matches(
+                        Some(&req).map(|m| &m.agent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13717,31 +13518,30 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/testCases:import", arg1,))
+                Some(format!(
+                    "/v3/{}/testCases:import",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13788,31 +13588,30 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/testCases:export", arg1,))
+                Some(format!(
+                    "/v3/{}/testCases:export",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13859,35 +13658,34 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListTestCaseResultsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("testCases"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/results", arg1,))
+                Some(format!(
+                    "/v3/{}/results",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("testCases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13943,39 +13741,38 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestCaseResult>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("testCases"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("results"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("testCases"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("results"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14032,23 +13829,22 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14092,27 +13888,26 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14157,41 +13952,39 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14253,49 +14046,47 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14362,49 +14153,47 @@ impl super::stub::TestCases for TestCases {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14512,57 +14301,55 @@ impl super::stub::TransitionRouteGroups for TransitionRouteGroups {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListTransitionRouteGroupsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/transitionRouteGroups", arg1,))
+                Some(format!(
+                    "/v3/{}/transitionRouteGroups",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/transitionRouteGroups", arg1,))
+                Some(format!(
+                    "/v3/{}/transitionRouteGroups",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14640,65 +14427,63 @@ impl super::stub::TransitionRouteGroups for TransitionRouteGroups {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TransitionRouteGroup>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("transitionRouteGroups"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("transitionRouteGroups"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("transitionRouteGroups"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("transitionRouteGroups"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14782,57 +14567,55 @@ impl super::stub::TransitionRouteGroups for TransitionRouteGroups {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TransitionRouteGroup>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/transitionRouteGroups", arg1,))
+                Some(format!(
+                    "/v3/{}/transitionRouteGroups",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/transitionRouteGroups", arg1,))
+                Some(format!(
+                    "/v3/{}/transitionRouteGroups",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14908,69 +14691,67 @@ impl super::stub::TransitionRouteGroups for TransitionRouteGroups {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TransitionRouteGroup>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.transition_route_group.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("transitionRouteGroups"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.transition_route_group.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("transitionRouteGroups"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.transition_route_group.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("transitionRouteGroups"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.transition_route_group.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("transitionRouteGroups"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15068,65 +14849,63 @@ impl super::stub::TransitionRouteGroups for TransitionRouteGroups {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("transitionRouteGroups"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("transitionRouteGroups"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("transitionRouteGroups"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("transitionRouteGroups"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15214,23 +14993,22 @@ impl super::stub::TransitionRouteGroups for TransitionRouteGroups {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15274,27 +15052,26 @@ impl super::stub::TransitionRouteGroups for TransitionRouteGroups {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15339,41 +15116,39 @@ impl super::stub::TransitionRouteGroups for TransitionRouteGroups {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15435,49 +15210,47 @@ impl super::stub::TransitionRouteGroups for TransitionRouteGroups {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15544,49 +15317,47 @@ impl super::stub::TransitionRouteGroups for TransitionRouteGroups {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15680,35 +15451,34 @@ impl super::stub::Versions for Versions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListVersionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/versions", arg1,))
+                Some(format!(
+                    "/v3/{}/versions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15763,39 +15533,38 @@ impl super::stub::Versions for Versions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Version>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("versions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15852,35 +15621,34 @@ impl super::stub::Versions for Versions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/versions", arg1,))
+                Some(format!(
+                    "/v3/{}/versions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15933,41 +15701,40 @@ impl super::stub::Versions for Versions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Version>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.version.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("versions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.version.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16034,39 +15801,38 @@ impl super::stub::Versions for Versions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("versions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16127,39 +15893,38 @@ impl super::stub::Versions for Versions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("versions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:load", arg1,))
+                Some(format!(
+                    "/v3/{}:load",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16214,39 +15979,38 @@ impl super::stub::Versions for Versions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CompareVersionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.base_version)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("flows"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("versions"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:compareVersions", arg1,))
+                Some(format!(
+                    "/v3/{}:compareVersions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.base_version)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("flows"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16301,23 +16065,22 @@ impl super::stub::Versions for Versions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16361,27 +16124,26 @@ impl super::stub::Versions for Versions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16426,41 +16188,39 @@ impl super::stub::Versions for Versions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16522,49 +16282,47 @@ impl super::stub::Versions for Versions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16631,49 +16389,47 @@ impl super::stub::Versions for Versions {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16781,31 +16537,30 @@ impl super::stub::Webhooks for Webhooks {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListWebhooksResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/webhooks", arg1,))
+                Some(format!(
+                    "/v3/{}/webhooks",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16856,35 +16611,34 @@ impl super::stub::Webhooks for Webhooks {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Webhook>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("webhooks"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("webhooks"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16937,31 +16691,30 @@ impl super::stub::Webhooks for Webhooks {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Webhook>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/webhooks", arg1,))
+                Some(format!(
+                    "/v3/{}/webhooks",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17010,37 +16763,36 @@ impl super::stub::Webhooks for Webhooks {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Webhook>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.webhook.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("webhooks"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.webhook.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("webhooks"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17103,35 +16855,34 @@ impl super::stub::Webhooks for Webhooks {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agents"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("webhooks"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agents"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("webhooks"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17189,23 +16940,22 @@ impl super::stub::Webhooks for Webhooks {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/locations", arg1,))
+                Some(format!(
+                    "/v3/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17249,27 +16999,26 @@ impl super::stub::Webhooks for Webhooks {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17314,41 +17063,39 @@ impl super::stub::Webhooks for Webhooks {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}/operations", arg1,))
+                Some(format!(
+                    "/v3/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17410,49 +17157,47 @@ impl super::stub::Webhooks for Webhooks {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}", arg1,))
+                Some(format!(
+                    "/v3/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17519,49 +17264,47 @@ impl super::stub::Webhooks for Webhooks {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v3/{}:cancel", arg1,))
+                Some(format!(
+                    "/v3/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();

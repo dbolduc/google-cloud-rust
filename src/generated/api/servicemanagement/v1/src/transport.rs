@@ -46,7 +46,7 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServicesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -84,16 +84,18 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ManagedService>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.service_name)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/services/{}", arg1,))
+                Some(format!(
+                    "/v1/services/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.service_name)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -130,7 +132,7 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -164,16 +166,18 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.service_name)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/services/{}", arg1,))
+                Some(format!(
+                    "/v1/services/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.service_name)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -210,16 +214,18 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.service_name)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/services/{}:undelete", arg1,))
+                Some(format!(
+                    "/v1/services/{}:undelete",
+                    composable_matches(
+                        Some(&req).map(|m| &m.service_name)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -256,16 +262,18 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServiceConfigsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.service_name)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/services/{}/configs", arg1,))
+                Some(format!(
+                    "/v1/services/{}/configs",
+                    composable_matches(
+                        Some(&req).map(|m| &m.service_name)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -304,27 +312,31 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<api::model::Service>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.service_name)?;
-                let arg2 = Some(&req).map(|m| &m.config_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/services/{}/configs/{}", arg1, arg2,))
+                Some(format!(
+                    "/v1/services/{}/configs/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.service_name)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.config_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.service_name)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/services/{}/config", arg1,))
+                Some(format!(
+                    "/v1/services/{}/config",
+                    composable_matches(
+                        Some(&req).map(|m| &m.service_name)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -378,16 +390,18 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<api::model::Service>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.service_name)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/services/{}/configs", arg1,))
+                Some(format!(
+                    "/v1/services/{}/configs",
+                    composable_matches(
+                        Some(&req).map(|m| &m.service_name)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -424,16 +438,18 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.service_name)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/services/{}/configs:submit", arg1,))
+                Some(format!(
+                    "/v1/services/{}/configs:submit",
+                    composable_matches(
+                        Some(&req).map(|m| &m.service_name)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -468,16 +484,18 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServiceRolloutsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.service_name)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/services/{}/rollouts", arg1,))
+                Some(format!(
+                    "/v1/services/{}/rollouts",
+                    composable_matches(
+                        Some(&req).map(|m| &m.service_name)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -517,20 +535,22 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Rollout>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.service_name)?;
-                let arg2 = Some(&req).map(|m| &m.rollout_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/services/{}/rollouts/{}", arg1, arg2,))
+                Some(format!(
+                    "/v1/services/{}/rollouts/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.service_name)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.rollout_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -573,16 +593,18 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.service_name)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/services/{}/rollouts", arg1,))
+                Some(format!(
+                    "/v1/services/{}/rollouts",
+                    composable_matches(
+                        Some(&req).map(|m| &m.service_name)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -619,7 +641,7 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateConfigReportResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -651,41 +673,39 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.resource)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("services"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setIamPolicy", arg1,))
+                Some(format!(
+                    "/v1/{}:setIamPolicy",
+                    composable_matches(
+                        Some(&req).map(|m| &m.resource)?,
+                        &[
+                            Segment::Literal("services"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.resource)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("services"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("consumers"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setIamPolicy", arg1,))
+                Some(format!(
+                    "/v1/{}:setIamPolicy",
+                    composable_matches(
+                        Some(&req).map(|m| &m.resource)?,
+                        &[
+                            Segment::Literal("services"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("consumers"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -742,41 +762,39 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.resource)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("services"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:getIamPolicy", arg1,))
+                Some(format!(
+                    "/v1/{}:getIamPolicy",
+                    composable_matches(
+                        Some(&req).map(|m| &m.resource)?,
+                        &[
+                            Segment::Literal("services"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.resource)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("services"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("consumers"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:getIamPolicy", arg1,))
+                Some(format!(
+                    "/v1/{}:getIamPolicy",
+                    composable_matches(
+                        Some(&req).map(|m| &m.resource)?,
+                        &[
+                            Segment::Literal("services"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("consumers"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -833,41 +851,39 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.resource)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("services"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:testIamPermissions", arg1,))
+                Some(format!(
+                    "/v1/{}:testIamPermissions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.resource)?,
+                        &[
+                            Segment::Literal("services"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.resource)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("services"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("consumers"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:testIamPermissions", arg1,))
+                Some(format!(
+                    "/v1/{}:testIamPermissions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.resource)?,
+                        &[
+                            Segment::Literal("services"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("consumers"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -924,7 +940,7 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -962,23 +978,22 @@ impl super::stub::ServiceManager for ServiceManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::MultiWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::MultiWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();

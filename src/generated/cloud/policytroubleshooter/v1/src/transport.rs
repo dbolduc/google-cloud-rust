@@ -46,7 +46,7 @@ impl super::stub::IamChecker for IamChecker {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None

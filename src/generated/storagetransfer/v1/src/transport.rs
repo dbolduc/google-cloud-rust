@@ -46,16 +46,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GoogleServiceAccount>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/googleServiceAccounts/{}", arg1,))
+                Some(format!(
+                    "/v1/googleServiceAccounts/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -92,7 +94,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TransferJob>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -126,23 +128,22 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TransferJob>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.job_name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("transferJobs"),
-                        Segment::Literal("/"),
-                        Segment::MultiWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.job_name)?,
+                        &[
+                            Segment::Literal("transferJobs"),
+                            Segment::Literal("/"),
+                            Segment::MultiWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -181,23 +182,22 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TransferJob>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.job_name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("transferJobs"),
-                        Segment::Literal("/"),
-                        Segment::MultiWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.job_name)?,
+                        &[
+                            Segment::Literal("transferJobs"),
+                            Segment::Literal("/"),
+                            Segment::MultiWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -239,7 +239,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListTransferJobsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -276,23 +276,22 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("transferOperations"),
-                        Segment::Literal("/"),
-                        Segment::MultiWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:pause", arg1,))
+                Some(format!(
+                    "/v1/{}:pause",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("transferOperations"),
+                            Segment::Literal("/"),
+                            Segment::MultiWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -336,23 +335,22 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("transferOperations"),
-                        Segment::Literal("/"),
-                        Segment::MultiWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:resume", arg1,))
+                Some(format!(
+                    "/v1/{}:resume",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("transferOperations"),
+                            Segment::Literal("/"),
+                            Segment::MultiWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -396,23 +394,22 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.job_name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("transferJobs"),
-                        Segment::Literal("/"),
-                        Segment::MultiWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:run", arg1,))
+                Some(format!(
+                    "/v1/{}:run",
+                    composable_matches(
+                        Some(&req).map(|m| &m.job_name)?,
+                        &[
+                            Segment::Literal("transferJobs"),
+                            Segment::Literal("/"),
+                            Segment::MultiWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -451,23 +448,22 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.job_name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("transferJobs"),
-                        Segment::Literal("/"),
-                        Segment::MultiWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.job_name)?,
+                        &[
+                            Segment::Literal("transferJobs"),
+                            Segment::Literal("/"),
+                            Segment::MultiWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -513,16 +509,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AgentPool>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/agentPools", arg1,))
+                Some(format!(
+                    "/v1/projects/{}/agentPools",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -560,29 +558,28 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AgentPool>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req)
-                    .and_then(|m| m.agent_pool.as_ref())
-                    .map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agentPools"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req)
+                            .and_then(|m| m.agent_pool.as_ref())
+                            .map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agentPools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -639,27 +636,26 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AgentPool>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agentPools"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agentPools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -704,16 +700,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAgentPoolsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/agentPools", arg1,))
+                Some(format!(
+                    "/v1/projects/{}/agentPools",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -753,27 +751,26 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("agentPools"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("agentPools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -822,16 +819,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(arg1, &[Segment::Literal("transferOperations")]) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[Segment::Literal("transferOperations"),]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -871,23 +870,22 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("transferOperations"),
-                        Segment::Literal("/"),
-                        Segment::MultiWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("transferOperations"),
+                            Segment::Literal("/"),
+                            Segment::MultiWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -928,23 +926,22 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("transferOperations"),
-                        Segment::Literal("/"),
-                        Segment::MultiWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:cancel", arg1,))
+                Some(format!(
+                    "/v1/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("transferOperations"),
+                            Segment::Literal("/"),
+                            Segment::MultiWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();

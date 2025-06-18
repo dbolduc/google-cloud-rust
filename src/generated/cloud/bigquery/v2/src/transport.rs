@@ -46,20 +46,22 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/bigquery/v2/projects/{}/datasets/{}", arg1, arg2,))
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -104,16 +106,18 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/bigquery/v2/projects/{}/datasets", arg1,))
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -151,20 +155,22 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/bigquery/v2/projects/{}/datasets/{}", arg1, arg2,))
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -209,20 +215,22 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/bigquery/v2/projects/{}/datasets/{}", arg1, arg2,))
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -267,20 +275,22 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/bigquery/v2/projects/{}/datasets/{}", arg1, arg2,))
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -328,16 +338,18 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DatasetList>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/bigquery/v2/projects/{}/datasets", arg1,))
+                Some(format!(
+                    "/bigquery/v2/projects/{}/datasets",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -387,22 +399,21 @@ impl super::stub::DatasetService for DatasetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}:undelete",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -467,26 +478,25 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Model>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.model_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/models/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.model_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -536,22 +546,21 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListModelsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/models",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -606,26 +615,25 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Model>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.model_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/models/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.model_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -673,26 +681,25 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.model_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/models/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.model_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -769,16 +776,18 @@ impl super::stub::ProjectService for ProjectService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GetServiceAccountResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/bigquery/v2/projects/{}/serviceAccount", arg1,))
+                Some(format!(
+                    "/bigquery/v2/projects/{}/serviceAccount",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -838,26 +847,25 @@ impl super::stub::RoutineService for RoutineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Routine>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.routine_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.routine_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -907,22 +915,21 @@ impl super::stub::RoutineService for RoutineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Routine>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/routines",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -966,26 +973,25 @@ impl super::stub::RoutineService for RoutineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Routine>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.routine_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.routine_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1035,26 +1041,25 @@ impl super::stub::RoutineService for RoutineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.routine_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.routine_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1108,22 +1113,21 @@ impl super::stub::RoutineService for RoutineService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRoutinesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/routines",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1202,26 +1206,25 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRowAccessPoliciesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.table_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.table_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1273,30 +1276,29 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.table_id)?;
-                let arg4 = Some(&req).map(|m| &m.policy_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg4, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
-                    arg1, arg2, arg3, arg4,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.table_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.policy_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1352,26 +1354,25 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.table_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.table_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1421,30 +1422,29 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.table_id)?;
-                let arg4 = Some(&req).map(|m| &m.policy_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg4, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
-                    arg1, arg2, arg3, arg4,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.table_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.policy_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1500,30 +1500,29 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.table_id)?;
-                let arg4 = Some(&req).map(|m| &m.policy_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg4, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
-                    arg1, arg2, arg3, arg4,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.table_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.policy_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1587,26 +1586,25 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.table_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies:batchDelete",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.table_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1682,26 +1680,25 @@ impl super::stub::TableService for TableService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Table>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.table_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.table_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1753,22 +1750,21 @@ impl super::stub::TableService for TableService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Table>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1810,26 +1806,25 @@ impl super::stub::TableService for TableService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Table>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.table_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.table_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1878,26 +1873,25 @@ impl super::stub::TableService for TableService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Table>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.table_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.table_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1946,26 +1940,25 @@ impl super::stub::TableService for TableService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                let arg3 = Some(&req).map(|m| &m.table_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.table_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2019,22 +2012,21 @@ impl super::stub::TableService for TableService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TableList>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.dataset_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables",
-                    arg1, arg2,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.dataset_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {

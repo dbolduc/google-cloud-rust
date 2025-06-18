@@ -72,12 +72,25 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             options,
             {{PathInfo.Codec.IsIdempotent}},
         );
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
         {{#PathInfo.Bindings}}
         .or_else(|| {
+            Some(format!(
+                "{{Codec.PathFmt}}",
+                {{#Codec.Bindings}}
+                {{#IsString}}
+                composable_matches({{{Accessor}}}?, {{{TemplateAsArray}}})?,
+                {{/IsString}}
+                {{^IsString}}
+                {{{Accessor}}}?,
+                {{/IsString}}
+                {{/Codec.Bindings}}
+            ))
+            {{#CommentOutImplWithArgs}}
+
             {{#Codec.Bindings}}
             let {{LocalVarName}} = {{{Accessor}}}?;
             {{/Codec.Bindings}}
@@ -94,6 +107,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
                 {{LocalVarName}},
                 {{/Codec.Bindings}}
             ))
+            {{/CommentOutImplWithArgs}}
         })
         {{/PathInfo.Bindings}}
         .ok_or_else(|| {

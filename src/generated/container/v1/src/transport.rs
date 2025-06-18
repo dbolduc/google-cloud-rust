@@ -46,38 +46,36 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListClustersResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}/clusters", arg1,))
+                Some(format!(
+                    "/v1/{}/clusters",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/zones/{}/clusters", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -140,48 +138,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Cluster>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -256,38 +249,36 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}/clusters", arg1,))
+                Some(format!(
+                    "/v1/{}/clusters",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/zones/{}/clusters", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/clusters",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -346,48 +337,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -457,56 +443,51 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("nodePools"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg4, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/update",
-                    arg1, arg2, arg3, arg4,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.node_pool_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -586,56 +567,51 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("nodePools"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setAutoscaling", arg1,))
+                Some(format!(
+                    "/v1/{}:setAutoscaling",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg4, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/autoscaling",
-                    arg1, arg2, arg3, arg4,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.node_pool_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -715,48 +691,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setLogging", arg1,))
+                Some(format!(
+                    "/v1/{}:setLogging",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/logging",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -826,48 +797,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setMonitoring", arg1,))
+                Some(format!(
+                    "/v1/{}:setMonitoring",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/monitoring",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -937,48 +903,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setAddons", arg1,))
+                Some(format!(
+                    "/v1/{}:setAddons",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/addons",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1048,48 +1009,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setLocations", arg1,))
+                Some(format!(
+                    "/v1/{}:setLocations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/locations",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1159,48 +1115,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:updateMaster", arg1,))
+                Some(format!(
+                    "/v1/{}:updateMaster",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/master",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1270,48 +1221,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setMasterAuth", arg1,))
+                Some(format!(
+                    "/v1/{}:setMasterAuth",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:setMasterAuth",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1381,48 +1327,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1497,38 +1438,36 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}/operations", arg1,))
+                Some(format!(
+                    "/v1/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/zones/{}/operations", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/operations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1591,48 +1530,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.operation_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/operations/{}",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.operation_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1707,48 +1641,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("operations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:cancel", arg1,))
+                Some(format!(
+                    "/v1/{}:cancel",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("operations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.operation_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/operations/{}:cancel",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.operation_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -1823,38 +1752,36 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServerConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}/serverConfig", arg1,))
+                Some(format!(
+                    "/v1/{}/serverConfig",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                Some(format!("/v1/projects/{}/zones/{}/serverconfig", arg1, arg2,))
+                Some(format!(
+                    "/v1/projects/{}/zones/{}/serverconfig",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1917,31 +1844,30 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GetJSONWebKeysResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}/jwks", arg1,))
+                Some(format!(
+                    "/v1/{}/jwks",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1990,48 +1916,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListNodePoolsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}/nodePools", arg1,))
+                Some(format!(
+                    "/v1/{}/nodePools",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2106,56 +2027,51 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NodePool>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("nodePools"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg4, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}",
-                    arg1, arg2, arg3, arg4,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.node_pool_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2241,48 +2157,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}/nodePools", arg1,))
+                Some(format!(
+                    "/v1/{}/nodePools",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2352,56 +2263,51 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("nodePools"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}", arg1,))
+                Some(format!(
+                    "/v1/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg4, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}",
-                    arg1, arg2, arg3, arg4,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.node_pool_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2487,35 +2393,34 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("nodePools"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:completeUpgrade", arg1,))
+                Some(format!(
+                    "/v1/{}:completeUpgrade",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2571,56 +2476,51 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("nodePools"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:rollback", arg1,))
+                Some(format!(
+                    "/v1/{}:rollback",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg4, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}:rollback",
-                    arg1, arg2, arg3, arg4,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.node_pool_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2700,56 +2600,51 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("nodePools"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setManagement", arg1,))
+                Some(format!(
+                    "/v1/{}:setManagement",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg4, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/setManagement",
-                    arg1, arg2, arg3, arg4,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.node_pool_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2829,48 +2724,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setResourceLabels", arg1,))
+                Some(format!(
+                    "/v1/{}:setResourceLabels",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/resourceLabels",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -2940,48 +2830,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setLegacyAbac", arg1,))
+                Some(format!(
+                    "/v1/{}:setLegacyAbac",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/legacyAbac",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -3051,48 +2936,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:startIpRotation", arg1,))
+                Some(format!(
+                    "/v1/{}:startIpRotation",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:startIpRotation",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -3162,48 +3042,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:completeIpRotation", arg1,))
+                Some(format!(
+                    "/v1/{}:completeIpRotation",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:completeIpRotation",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -3273,56 +3148,51 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("nodePools"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setSize", arg1,))
+                Some(format!(
+                    "/v1/{}:setSize",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                let arg4 = Some(&req).map(|m| &m.node_pool_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg4, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/setSize",
-                    arg1, arg2, arg3, arg4,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.node_pool_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -3402,48 +3272,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setNetworkPolicy", arg1,))
+                Some(format!(
+                    "/v1/{}:setNetworkPolicy",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:setNetworkPolicy",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -3513,48 +3378,43 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:setMaintenancePolicy", arg1,))
+                Some(format!(
+                    "/v1/{}:setMaintenancePolicy",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.project_id)?;
-                let arg2 = Some(&req).map(|m| &m.zone)?;
-                let arg3 = Some(&req).map(|m| &m.cluster_id)?;
-                if !matches(arg1, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg2, &[Segment::SingleWildcard]) {
-                    return None;
-                }
-                if !matches(arg3, &[Segment::SingleWildcard]) {
-                    return None;
-                }
                 Some(format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:setMaintenancePolicy",
-                    arg1, arg2, arg3,
+                    composable_matches(
+                        Some(&req).map(|m| &m.project_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.cluster_id)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
                 ))
             })
             .ok_or_else(|| {
@@ -3624,23 +3484,22 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUsableSubnetworksResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.parent)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}/aggregated/usableSubnetworks", arg1,))
+                Some(format!(
+                    "/v1/{}/aggregated/usableSubnetworks",
+                    composable_matches(
+                        Some(&req).map(|m| &m.parent)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3684,31 +3543,30 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:checkAutopilotCompatibility", arg1,))
+                Some(format!(
+                    "/v1/{}:checkAutopilotCompatibility",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3757,53 +3615,51 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ClusterUpgradeInfo>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:fetchClusterUpgradeInfo", arg1,))
+                Some(format!(
+                    "/v1/{}:fetchClusterUpgradeInfo",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("zones"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:fetchClusterUpgradeInfo", arg1,))
+                Some(format!(
+                    "/v1/{}:fetchClusterUpgradeInfo",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("zones"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3875,61 +3731,59 @@ impl super::stub::ClusterManager for ClusterManager {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NodePoolUpgradeInfo>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("locations"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("nodePools"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:fetchNodePoolUpgradeInfo", arg1,))
+                Some(format!(
+                    "/v1/{}:fetchNodePoolUpgradeInfo",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .or_else(|| {
-                let arg1 = Some(&req).map(|m| &m.name)?;
-                if !matches(
-                    arg1,
-                    &[
-                        Segment::Literal("projects"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("zones"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("clusters"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::Literal("nodePools"),
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
-                ) {
-                    return None;
-                }
-                Some(format!("/v1/{}:fetchNodePoolUpgradeInfo", arg1,))
+                Some(format!(
+                    "/v1/{}:fetchNodePoolUpgradeInfo",
+                    composable_matches(
+                        Some(&req).map(|m| &m.name)?,
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("zones"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("clusters"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("nodePools"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ]
+                    )?,
+                ))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();

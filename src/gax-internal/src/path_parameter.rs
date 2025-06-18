@@ -36,6 +36,16 @@ pub fn matches(value: &str, template: &[Segment]) -> bool {
     crate::routing_parameter::value(Some(value), &[], template, &[]).is_some()
 }
 
+pub fn composable_matches<'a>(value: &'a str, template: &[Segment]) -> Option<&'a str> {
+    // TODO : wtf?
+    //crate::routing_parameter::value(Some(value), &[], template, &[])
+
+    if !matches(value, template) {
+        return None;
+    }
+    Some(value)
+}
+
 fn make_path(
     foo: String,
     baz: Option<&str>,
@@ -245,6 +255,28 @@ impl PathMismatchBuilder {
 
 // plus whatever we need for the error messages.
 
+// NOTE : this is much better.
+// dereferencing the fields before trying the matches probably doesn't help in practice. We pretty much only get Option<> for nested fields, those are rare. And we are not going to catch empty strings or anything. matches will resolve them quickly anyways.
+fn direct_format_path() -> Option<String> {
+    let foo: String = "projects/project".to_string();
+    let baz: Option<String> = Some("location".to_string());
+    let number: i64 = 12345;
+    let maybe_number: Option<i32> = Some(42);
+
+    Some(format!(
+        "v1/{}/locations/{}/id/{}/maybeId/{}:darren",
+        {
+            composable_matches(
+                Some(&foo)?,
+                &[Segment::Literal("projects/"), Segment::SingleWildcard],
+            )?
+        },
+        { composable_matches(baz.as_deref()?, &[Segment::SingleWildcard,])? },
+        { &number },
+        { maybe_number.as_ref()? },
+    ))
+}
+
 fn transport_more_generaler() -> Result<(), BindingError> {
     // consider: "v1/{foo=projects/*}/locations/{bar.baz}/id/{number}/maybeId/{maybe_number}:darren"
     let foo: String = "projects/project".to_string();
@@ -370,6 +402,16 @@ mod tests {
     fn darren() -> anyhow::Result<()> {
         super::transport();
         super::transport_more_generaler()?;
+        Ok(())
+    }
+
+    #[test]
+    fn direct_format() -> anyhow::Result<()> {
+        let path = super::direct_format_path();
+        assert_eq!(
+            path.unwrap(),
+            "v1/projects/project/locations/location/id/12345/maybeId/42:darren"
+        );
         Ok(())
     }
 }

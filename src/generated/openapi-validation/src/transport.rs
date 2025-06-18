@@ -46,7 +46,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -90,7 +90,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -122,7 +122,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -166,7 +166,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -199,7 +199,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -243,7 +243,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -276,7 +276,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -306,7 +306,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -336,7 +336,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -368,7 +368,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Empty>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -404,7 +404,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -442,7 +442,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -474,7 +474,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Empty>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -510,7 +510,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -548,7 +548,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -592,7 +592,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -636,7 +636,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -668,7 +668,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -700,7 +700,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -732,7 +732,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -764,7 +764,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -794,7 +794,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -824,7 +824,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -854,7 +854,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -884,7 +884,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -914,7 +914,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -944,7 +944,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -974,7 +974,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -1004,7 +1004,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -1042,7 +1042,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -1080,7 +1080,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
@@ -1110,7 +1110,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None.or_else(|| Some(format!("",))).ok_or_else(|| {
