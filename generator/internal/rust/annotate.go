@@ -194,6 +194,9 @@ type bindingSubstitution struct {
         // - assume context i.e. use the try operator: `?`
 	Accessor string
 
+        // Whether the leaf field is a string (which requires matching) or not.
+        IsString bool
+
 	// Local variables for us to assign to
 	//
 	// These are just "arg0", "arg1", etc. in order to avoid conflicts with
@@ -683,8 +686,10 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
                                   }
                                   fieldPath += string(*field)
                                 }
+                                accessor, isString := darrenFieldPathRef(s.Variable.FieldPath, m.InputType, state)
 				bindings = append(bindings, bindingSubstitution{
-					Accessor:         darrenFieldPathRef(s.Variable.FieldPath, m.InputType, state),
+					Accessor:         accessor,
+                                        IsString:         isString,
 					LocalVarName:     fmt.Sprintf("arg%d", arg_i),
 					TemplateAsArray:  templateAsArray,
                                         FieldPath:        fieldPath,

@@ -123,7 +123,7 @@ pub struct BindingError {
     pub paths: Vec<PathMismatch>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct PathMismatch {
     pub subs: Vec<SubstitutionMismatch>,
 }
@@ -180,6 +180,45 @@ impl std::fmt::Display for BindingError {
             write!(f, "({}) {}", i + 1, sub)?;
         }
         Ok(())
+    }
+}
+
+// NOTE : This would live in gaxi. Don't want to expose it.
+#[derive(Debug, Default)]
+pub struct PathMismatchBuilder(PathMismatch);
+
+impl PathMismatchBuilder {
+    pub fn maybe_add_match_error(mut self, value: Option<&String>, field_name: &str, template: &[Segment], expecting: &'static str) -> Self {
+        match value.map(|s| s.as_str()) {
+            None | Some("") => {
+                self.0.subs.push(SubstitutionMismatch {
+                    field_name: field_name.to_string(),
+                    problem: SubstitutionFail::UnsetExpecting(expecting),
+                });
+            },
+            Some(arg) if !matches(arg, template) => {
+                self.0.subs.push(SubstitutionMismatch {
+                    field_name: field_name.to_string(),
+                    problem: SubstitutionFail::MismatchExpecting(arg.to_string(), expecting),
+                });
+            },
+            _ => {}
+        };
+        self
+    }
+
+    pub fn maybe_add_unset_error<T>(mut self, value: Option<&T>, field_name: &str) -> Self {
+        if value.is_none() {
+            self.0.subs.push(SubstitutionMismatch {
+                field_name: field_name.to_string(),
+                problem: SubstitutionFail::Unset,
+            });
+        }
+        self
+    }
+
+    pub fn build(self) -> PathMismatch {
+        self.0
     }
 }
 

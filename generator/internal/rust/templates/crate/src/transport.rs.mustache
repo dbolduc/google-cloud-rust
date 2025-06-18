@@ -72,8 +72,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             options,
             {{PathInfo.Codec.IsIdempotent}},
         );
-        // NEW:
-        use gaxi::path_parameter::{matches, BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch};
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -84,13 +83,13 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             {{/Codec.Bindings}}
     
             {{! TODO : We should filter out numeric bindings. }}
-            {{! #BindingsToCheck}}
             {{#Codec.Bindings}}
+            {{#IsString}}
             if !matches({{LocalVarName}}, {{{TemplateAsArray}}}) {
                 return None;
             }
+            {{/IsString}}
             {{/Codec.Bindings}}
-            {{! /BindingsToCheck}}
     
             Some(format!(
                 "{{Codec.PathFmt}}",
@@ -104,10 +103,27 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             let mut paths = Vec::new();
             {{#PathInfo.Bindings}}
             {
+                let builder = PathMismatchBuilder::default();
+                {{#Codec.Bindings}}
+                {{#IsString}}
+                let builder = builder.maybe_add_match_error(
+                    {{{Accessor}}},
+                    "{{FieldPath}}",
+                    {{{TemplateAsArray}}},
+                    "{{{TemplateAsString}}}");
+                {{/IsString}}
+                {{^IsString}}
+                let builder = builder.maybe_add_unset_error(
+                    {{{Accessor}}},
+                    "{{FieldPath}}");
+                {{/IsString}}
+                {{/Codec.Bindings}}
+                paths.push(builder.build());
+                {{#TodoOldImpTryingCommon}}
                 let mut subs = Vec::new();
                 {{#Codec.Bindings}}
+                {{#IsString}}
                 {{! TODO : Accessor should just give me the Option<&str>, tbh. }}
-                //match {{{Accessor}}}.as_deref() {
                 match {{{Accessor}}}.map(|s| s.as_str()) {
                     None | Some("") => {
                         subs.push(SubstitutionMismatch {
@@ -123,8 +139,18 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
                     },
                     _ => {}
                 };
+                {{/IsString}}
+                {{^IsString}}
+                if {{{Accessor}}}.is_none() {
+                    subs.push(SubstitutionMismatch {
+                        field_name: "{{FieldPath}}".to_string(),
+                        problem: SubstitutionFail::Unset,
+                    });
+                };
+                {{/IsString}}
                 {{/Codec.Bindings}}
                 paths.push(PathMismatch { subs });
+                {{/TodoOldImpTryingCommon}}
             }
             {{/PathInfo.Bindings}}
             gax::error::Error::binding(BindingError { paths })

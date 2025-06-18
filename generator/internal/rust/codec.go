@@ -967,8 +967,9 @@ func derefFieldPath(fieldPath string, message *api.Message, state *api.APIState)
 }
 
 // TODO : don't use Identifier
-func darrenFieldPathRef(fieldPaths []*api.Identifier, message *api.Message, state *api.APIState) string {
+func darrenFieldPathRef(fieldPaths []*api.Identifier, message *api.Message, state *api.APIState) (string, bool) {
 	accessor := "Some(&req)"
+	typez := api.UNDEFINED_TYPE
 
 	msg := message
 	for _, id_name := range fieldPaths {
@@ -981,9 +982,12 @@ func darrenFieldPathRef(fieldPaths []*api.Identifier, message *api.Message, stat
 			if name != field.Name {
 				continue
 			}
+			typez = field.Typez
 			if field.Optional {
 				accessor += fmt.Sprintf(".and_then(|m| m.%s.as_ref())", name)
 			} else if field.Typez == api.MESSAGE_TYPE {
+                                // TODO : Q: are messages always optional? I kinda think so. Testing...
+			        panic("Non-optional message")
 				accessor += fmt.Sprintf(".map(|m| m.%s).as_ref()", name)
 			} else {
 				accessor += fmt.Sprintf(".map(|m| &m.%s)", name)
@@ -994,7 +998,7 @@ func darrenFieldPathRef(fieldPaths []*api.Identifier, message *api.Message, stat
 			break
 		}
 	}
-	return accessor
+	return accessor, typez == api.STRING_TYPE
 }
 
 func leafFieldTypez(fieldPath string, message *api.Message, state *api.APIState) api.Typez {

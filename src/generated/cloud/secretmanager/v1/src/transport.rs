@@ -46,10 +46,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -92,72 +89,36 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.parent).as_deref() {
-                    match Some(&req).map(|m| &m.parent).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.parent).as_deref() {
-                    match Some(&req).map(|m| &m.parent).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*/locations/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -185,10 +146,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -231,72 +189,36 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.parent).as_deref() {
-                    match Some(&req).map(|m| &m.parent).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.parent).as_deref() {
-                    match Some(&req).map(|m| &m.parent).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*/locations/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -320,10 +242,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -374,82 +293,44 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.parent).as_deref() {
-                    match Some(&req).map(|m| &m.parent).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*/secrets/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.parent).as_deref() {
-                    match Some(&req).map(|m| &m.parent).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -472,10 +353,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -526,82 +404,44 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*/secrets/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -626,10 +466,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -684,90 +521,44 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).and_then(|m| m.secret.as_ref()).map(|m| &m.name).as_deref() {
-                    match Some(&req)
-                        .and_then(|m| m.secret.as_ref())
-                        .map(|m| &m.name)
-                        .map(|s| s.as_str())
-                    {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "secret.name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*/secrets/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "secret.name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).and_then(|m| m.secret.as_ref()).map(|m| &m.name),
+                        "secret.name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).and_then(|m| m.secret.as_ref()).map(|m| &m.name).as_deref() {
-                    match Some(&req)
-                        .and_then(|m| m.secret.as_ref())
-                        .map(|m| &m.name)
-                        .map(|s| s.as_str())
-                    {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "secret.name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "secret.name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).and_then(|m| m.secret.as_ref()).map(|m| &m.name),
+                        "secret.name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -800,10 +591,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -854,82 +642,44 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*/secrets/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -959,10 +709,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -1013,82 +760,44 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.parent).as_deref() {
-                    match Some(&req).map(|m| &m.parent).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*/secrets/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.parent).as_deref() {
-                    match Some(&req).map(|m| &m.parent).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "parent".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.parent),
+                        "parent",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1116,10 +825,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -1178,92 +884,52 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("versions"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/secrets/*/versions/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/locations/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("versions"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/secrets/*/versions/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1288,10 +954,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -1350,92 +1013,52 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("versions"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/secrets/*/versions/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/locations/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("versions"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/secrets/*/versions/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1460,10 +1083,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -1522,92 +1142,52 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("versions"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/secrets/*/versions/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/locations/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("versions"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/secrets/*/versions/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1630,10 +1210,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -1692,92 +1269,52 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("versions"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/secrets/*/versions/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/locations/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("versions"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/secrets/*/versions/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1800,10 +1337,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -1862,92 +1396,52 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("versions"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/secrets/*/versions/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/locations/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("versions"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*/secrets/*/versions/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("versions"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/secrets/*/versions/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -1970,10 +1464,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -2024,82 +1515,44 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.resource).as_deref() {
-                    match Some(&req).map(|m| &m.resource).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "resource".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*/secrets/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "resource".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.resource).as_deref() {
-                    match Some(&req).map(|m| &m.resource).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "resource".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "resource".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2122,10 +1575,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -2176,82 +1626,44 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.resource).as_deref() {
-                    match Some(&req).map(|m| &m.resource).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "resource".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*/secrets/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "resource".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.resource).as_deref() {
-                    match Some(&req).map(|m| &m.resource).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "resource".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "resource".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2286,10 +1698,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -2340,82 +1749,44 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.resource).as_deref() {
-                    match Some(&req).map(|m| &m.resource).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "resource".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*/secrets/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "resource".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.resource).as_deref() {
-                    match Some(&req).map(|m| &m.resource).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "resource".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting(
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("secrets"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "resource".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*/secrets/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.resource),
+                        "resource",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("secrets"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*/secrets/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2438,10 +1809,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -2464,36 +1832,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
@@ -2521,10 +1871,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        // NEW:
-        use gaxi::path_parameter::{
-            BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch, matches,
-        };
+        use gaxi::path_parameter::{BindingError, PathMismatchBuilder, matches};
         use gaxi::routing_parameter::Segment;
 
         let path = None
@@ -2551,40 +1898,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
-                    let mut subs = Vec::new();
-                    //match Some(&req).map(|m| &m.name).as_deref() {
-                    match Some(&req).map(|m| &m.name).map(|s| s.as_str()) {
-                        None | Some("") => {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::UnsetExpecting("projects/*/locations/*"),
-                            });
-                        }
-                        Some(arg)
-                            if !matches(
-                                arg,
-                                &[
-                                    Segment::Literal("projects"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                    Segment::Literal("/"),
-                                    Segment::Literal("locations"),
-                                    Segment::Literal("/"),
-                                    Segment::SingleWildcard,
-                                ],
-                            ) =>
-                        {
-                            subs.push(SubstitutionMismatch {
-                                field_name: "name".to_string(),
-                                problem: SubstitutionFail::MismatchExpecting(
-                                    arg.to_string(),
-                                    "projects/*/locations/*",
-                                ),
-                            });
-                        }
-                        _ => {}
-                    };
-                    paths.push(PathMismatch { subs });
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.name),
+                        "name",
+                        &[
+                            Segment::Literal("projects"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/"),
+                            Segment::Literal("locations"),
+                            Segment::Literal("/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
             })?;
