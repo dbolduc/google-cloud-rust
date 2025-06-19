@@ -428,6 +428,32 @@ type Segment struct {
 	Variable       *Variable
 }
 
+// =========================================
+
+type DarrenPathSegment struct {
+        Literal *string
+        Variable *DarrenVariable
+}
+
+type DarrenVariable struct {
+	FieldPath []string
+	Segments  []DarrenVariableSegment
+}
+
+type DarrenVariableSegment struct {
+	Literal        *string
+	Match          *DarrenMatch
+	MatchRecursive *DarrenMatchRecursive
+}
+
+// Match represents a single '*' match.
+type DarrenMatch struct{}
+
+// MatchRecursive represents a '**' match.
+type DarrenMatchRecursive struct{}
+
+// =========================================
+
 // Message defines a message used in request/response handling.
 type Message struct {
 	// Documentation for the message.
