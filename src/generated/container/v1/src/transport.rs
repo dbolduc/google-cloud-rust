@@ -49,9 +49,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/clusters",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -62,17 +62,32 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("projectId", &req.project_id)]);
+                    let builder = builder.query(&[("zone", &req.zone)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
                     composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("parent", &req.parent)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -108,18 +123,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("projectId", &req.project_id)]);
-        let builder = builder.query(&[("zone", &req.zone)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -135,9 +143,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -150,10 +158,19 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("projectId", &req.project_id)]);
+                    let builder = builder.query(&[("zone", &req.zone)]);
+                    let builder = builder.query(&[("clusterId", &req.cluster_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -164,7 +181,14 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("name", &req.name)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -208,19 +232,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("projectId", &req.project_id)]);
-        let builder = builder.query(&[("zone", &req.zone)]);
-        let builder = builder.query(&[("clusterId", &req.cluster_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -236,9 +252,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/clusters",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -249,17 +265,29 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
                     composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -295,16 +323,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -318,9 +341,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -333,10 +356,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PUT, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -347,7 +376,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PUT, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -391,16 +426,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PUT, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -414,9 +444,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -431,10 +461,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PUT, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/update",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -449,7 +485,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.node_pool_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -501,16 +543,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PUT, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -524,9 +561,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:setAutoscaling",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -541,10 +578,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/autoscaling",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -559,7 +602,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.node_pool_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -611,16 +660,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -634,9 +678,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:setLogging",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -649,10 +693,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/logging",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -663,7 +713,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -707,16 +763,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -730,9 +781,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:setMonitoring",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -745,10 +796,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/monitoring",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -759,7 +816,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -803,16 +866,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -826,9 +884,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:setAddons",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -841,10 +899,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/addons",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -855,7 +919,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -899,16 +969,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -922,9 +987,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:setLocations",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -937,10 +1002,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/locations",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -951,7 +1022,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -995,16 +1072,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1018,9 +1090,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:updateMaster",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1033,10 +1105,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/master",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -1047,7 +1125,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1091,16 +1175,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1114,9 +1193,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:setMasterAuth",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1129,10 +1208,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:setMasterAuth",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -1143,7 +1228,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1187,16 +1278,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1210,9 +1296,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1225,10 +1311,19 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    let builder = builder.query(&[("projectId", &req.project_id)]);
+                    let builder = builder.query(&[("zone", &req.zone)]);
+                    let builder = builder.query(&[("clusterId", &req.cluster_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -1239,7 +1334,14 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    let builder = builder.query(&[("name", &req.name)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1283,19 +1385,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("projectId", &req.project_id)]);
-        let builder = builder.query(&[("zone", &req.zone)]);
-        let builder = builder.query(&[("clusterId", &req.cluster_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1311,9 +1405,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/operations",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1324,17 +1418,32 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("projectId", &req.project_id)]);
+                    let builder = builder.query(&[("zone", &req.zone)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/operations",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
                     composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("parent", &req.parent)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1370,18 +1479,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("projectId", &req.project_id)]);
-        let builder = builder.query(&[("zone", &req.zone)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1397,9 +1499,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1412,10 +1514,19 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("projectId", &req.project_id)]);
+                    let builder = builder.query(&[("zone", &req.zone)]);
+                    let builder = builder.query(&[("operationId", &req.operation_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/operations/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -1426,7 +1537,14 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.operation_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("name", &req.name)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1470,19 +1588,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("projectId", &req.project_id)]);
-        let builder = builder.query(&[("zone", &req.zone)]);
-        let builder = builder.query(&[("operationId", &req.operation_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1498,9 +1608,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1513,10 +1623,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/operations/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -1527,7 +1643,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.operation_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1571,16 +1693,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -1599,9 +1716,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/serverConfig",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1612,17 +1729,32 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("projectId", &req.project_id)]);
+                    let builder = builder.query(&[("zone", &req.zone)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/serverconfig",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
                     composable_matches(Some(&req).map(|m| &m.zone)?, &[Segment::SingleWildcard,])?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("name", &req.name)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1658,18 +1790,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("projectId", &req.project_id)]);
-        let builder = builder.query(&[("zone", &req.zone)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1685,9 +1810,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/jwks",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1700,7 +1825,13 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1722,16 +1853,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1747,9 +1873,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/nodePools",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1762,10 +1888,19 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("projectId", &req.project_id)]);
+                    let builder = builder.query(&[("zone", &req.zone)]);
+                    let builder = builder.query(&[("clusterId", &req.cluster_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -1776,7 +1911,14 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("parent", &req.parent)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1820,19 +1962,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("projectId", &req.project_id)]);
-        let builder = builder.query(&[("zone", &req.zone)]);
-        let builder = builder.query(&[("clusterId", &req.cluster_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1848,9 +1982,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1865,10 +1999,20 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("projectId", &req.project_id)]);
+                    let builder = builder.query(&[("zone", &req.zone)]);
+                    let builder = builder.query(&[("clusterId", &req.cluster_id)]);
+                    let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -1883,7 +2027,14 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.node_pool_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("name", &req.name)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1935,20 +2086,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("projectId", &req.project_id)]);
-        let builder = builder.query(&[("zone", &req.zone)]);
-        let builder = builder.query(&[("clusterId", &req.cluster_id)]);
-        let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1964,9 +2106,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/nodePools",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1979,10 +2121,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -1993,7 +2141,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2037,16 +2191,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2060,9 +2209,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2077,10 +2226,20 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    let builder = builder.query(&[("projectId", &req.project_id)]);
+                    let builder = builder.query(&[("zone", &req.zone)]);
+                    let builder = builder.query(&[("clusterId", &req.cluster_id)]);
+                    let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -2095,7 +2254,14 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.node_pool_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    let builder = builder.query(&[("name", &req.name)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2147,20 +2313,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("projectId", &req.project_id)]);
-        let builder = builder.query(&[("zone", &req.zone)]);
-        let builder = builder.query(&[("clusterId", &req.cluster_id)]);
-        let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2176,9 +2333,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:completeUpgrade",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2193,7 +2350,13 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2217,16 +2380,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -2245,9 +2403,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:rollback",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2262,10 +2420,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}:rollback",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -2280,7 +2444,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.node_pool_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2332,16 +2502,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2355,9 +2520,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:setManagement",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2372,10 +2537,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/setManagement",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -2390,7 +2561,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.node_pool_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2442,16 +2619,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2465,9 +2637,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:setResourceLabels",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2480,10 +2652,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/resourceLabels",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -2494,7 +2672,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2538,16 +2722,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2561,9 +2740,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:setLegacyAbac",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2576,10 +2755,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/legacyAbac",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -2590,7 +2775,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2634,16 +2825,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2657,9 +2843,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:startIpRotation",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2672,10 +2858,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:startIpRotation",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -2686,7 +2878,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2730,16 +2928,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2753,9 +2946,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:completeIpRotation",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2768,10 +2961,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:completeIpRotation",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -2782,7 +2981,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2826,16 +3031,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2849,9 +3049,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:setSize",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2866,10 +3066,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/setSize",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -2884,7 +3090,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.node_pool_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2936,16 +3148,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2959,9 +3166,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:setNetworkPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2974,10 +3181,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:setNetworkPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -2988,7 +3201,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3032,16 +3251,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -3055,9 +3269,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:setMaintenancePolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -3070,10 +3284,16 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/projects/{}/zones/{}/clusters/{}:setMaintenancePolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
@@ -3084,7 +3304,13 @@ impl super::stub::ClusterManager for ClusterManager {
                         Some(&req).map(|m| &m.cluster_id)?,
                         &[Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3128,16 +3354,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -3151,15 +3372,24 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/aggregated/usableSubnetworks",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3174,19 +3404,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -3202,9 +3424,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:checkAutopilotCompatibility",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -3217,7 +3439,13 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3239,16 +3467,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -3264,9 +3487,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:fetchClusterUpgradeInfo",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -3279,10 +3502,17 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("version", &req.version)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:fetchClusterUpgradeInfo",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -3295,7 +3525,14 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("version", &req.version)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3334,17 +3571,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("version", &req.version)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -3360,9 +3591,9 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:fetchNodePoolUpgradeInfo",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -3377,10 +3608,17 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("version", &req.version)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:fetchNodePoolUpgradeInfo",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -3395,7 +3633,14 @@ impl super::stub::ClusterManager for ClusterManager {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("version", &req.version)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3438,17 +3683,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("version", &req.version)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)

@@ -49,9 +49,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:process",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -64,10 +64,16 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:process",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -82,7 +88,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -123,16 +135,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -146,9 +153,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:batchProcess",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -161,10 +168,16 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:batchProcess",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -179,7 +192,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -220,16 +239,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -243,9 +257,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:fetchProcessorTypes",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -256,7 +270,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -276,16 +296,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -301,9 +316,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/processorTypes",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -314,7 +329,15 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -334,18 +357,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -361,9 +377,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -376,7 +392,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -398,16 +420,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -423,9 +440,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/processors",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -436,7 +453,15 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -456,18 +481,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -483,9 +501,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -498,7 +516,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -520,16 +544,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -545,9 +564,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/processorVersions:train",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -560,7 +579,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -582,16 +607,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -605,9 +625,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -622,7 +642,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -646,16 +672,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -671,9 +692,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/processorVersions",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -686,7 +707,15 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -708,18 +737,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -735,9 +757,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -752,7 +774,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -776,16 +804,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -801,9 +824,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:deploy",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -818,7 +841,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -842,16 +871,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -865,9 +889,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:undeploy",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -882,7 +906,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -906,16 +936,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -929,9 +954,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/processors",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -942,7 +967,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -962,16 +993,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.processor), options)
@@ -987,9 +1013,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1002,7 +1028,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1024,16 +1056,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1049,9 +1076,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:enable",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1064,7 +1091,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1086,16 +1119,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1109,9 +1137,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:disable",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1124,7 +1152,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1146,16 +1180,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1169,9 +1198,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:setDefaultProcessorVersion",
                     composable_matches(
                         Some(&req).map(|m| &m.processor)?,
@@ -1184,7 +1213,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1206,16 +1241,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1229,9 +1259,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:reviewDocument",
                     composable_matches(
                         Some(&req).map(|m| &m.human_review_config)?,
@@ -1245,7 +1275,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::Literal("/humanReviewConfig"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1268,16 +1304,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1291,9 +1322,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:evaluateProcessorVersion",
                     composable_matches(
                         Some(&req).map(|m| &m.processor_version)?,
@@ -1308,7 +1339,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1332,16 +1369,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1355,9 +1387,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1374,7 +1406,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1400,16 +1438,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1425,9 +1458,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/evaluations",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1442,7 +1475,15 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1466,18 +1507,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1493,24 +1527,42 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/locations",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/uiv1beta3/{}/locations",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1535,19 +1587,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1563,9 +1607,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1576,10 +1620,16 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/uiv1beta3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1590,7 +1640,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1625,16 +1681,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1650,9 +1701,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1664,10 +1715,19 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::Literal("/operations"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/uiv1beta3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1679,7 +1739,16 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::Literal("/operations"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1716,19 +1785,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1744,9 +1805,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1757,10 +1818,16 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1773,10 +1840,16 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/uiv1beta3/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1789,7 +1862,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1843,16 +1922,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1868,9 +1942,9 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1883,10 +1957,16 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/uiv1beta3/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1899,7 +1979,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1938,16 +2024,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(gaxi::http::NoBody), options)

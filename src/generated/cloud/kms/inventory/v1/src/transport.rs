@@ -49,15 +49,23 @@ impl super::stub::KeyDashboardService for KeyDashboardService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/cryptoKeys",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -72,18 +80,11 @@ impl super::stub::KeyDashboardService for KeyDashboardService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -122,9 +123,9 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/protectedResourcesSummary",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -139,7 +140,13 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                             Segment::MultiWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -163,16 +170,11 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -188,15 +190,28 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/protectedResources:search",
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
                         &[Segment::Literal("organizations/"), Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("cryptoKey", &req.crypto_key)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = req
+                        .resource_types
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("resourceTypes", p)]));
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -211,23 +226,11 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("cryptoKey", &req.crypto_key)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = req
-            .resource_types
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("resourceTypes", p)]));
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)

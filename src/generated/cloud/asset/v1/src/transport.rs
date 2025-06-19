@@ -49,9 +49,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:exportAssets",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -62,7 +62,13 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -82,16 +88,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -105,9 +106,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/assets",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -118,7 +119,33 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .read_time
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "readTime")
+                        });
+                    let builder = req
+                        .asset_types
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("assetTypes", p)]));
+                    let builder = builder.query(&[("contentType", &req.content_type)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = req.relationship_types.iter().fold(builder, |builder, p| {
+                        builder.query(&[("relationshipTypes", p)])
+                    });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -138,36 +165,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .read_time
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "readTime")
-            });
-        let builder = req
-            .asset_types
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("assetTypes", p)]));
-        let builder = builder.query(&[("contentType", &req.content_type)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = req.relationship_types.iter().fold(builder, |builder, p| {
-            builder.query(&[("relationshipTypes", p)])
-        });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -183,9 +185,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:batchGetAssetsHistory",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -196,7 +198,31 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .asset_names
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("assetNames", p)]));
+                    let builder = builder.query(&[("contentType", &req.content_type)]);
+                    let builder = req
+                        .read_time_window
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "readTimeWindow")
+                        });
+                    let builder = req.relationship_types.iter().fold(builder, |builder, p| {
+                        builder.query(&[("relationshipTypes", p)])
+                    });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -216,34 +242,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .asset_names
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("assetNames", p)]));
-        let builder = builder.query(&[("contentType", &req.content_type)]);
-        let builder = req
-            .read_time_window
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "readTimeWindow")
-            });
-        let builder = req.relationship_types.iter().fold(builder, |builder, p| {
-            builder.query(&[("relationshipTypes", p)])
-        });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -259,9 +262,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/feeds",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -272,7 +275,13 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -292,16 +301,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -315,9 +319,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -330,7 +334,13 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -352,16 +362,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -377,9 +382,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/feeds",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -390,7 +395,13 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -410,16 +421,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -435,9 +441,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).and_then(|m| m.feed.as_ref()).map(|m| &m.name)?,
@@ -450,7 +456,13 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -472,16 +484,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -495,9 +502,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -510,7 +517,13 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -532,16 +545,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -561,9 +569,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:searchAllResources",
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
@@ -574,7 +582,31 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("query", &req.query)]);
+                    let builder = req
+                        .asset_types
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("assetTypes", p)]));
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("orderBy", &req.order_by)]);
+                    let builder = req
+                        .read_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "readMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -594,34 +626,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("query", &req.query)]);
-        let builder = req
-            .asset_types
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("assetTypes", p)]));
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("orderBy", &req.order_by)]);
-        let builder = req
-            .read_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "readMask")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -637,9 +646,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:searchAllIamPolicies",
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
@@ -650,7 +659,21 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("query", &req.query)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = req
+                        .asset_types
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("assetTypes", p)]));
+                    let builder = builder.query(&[("orderBy", &req.order_by)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -670,24 +693,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("query", &req.query)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = req
-            .asset_types
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("assetTypes", p)]));
-        let builder = builder.query(&[("orderBy", &req.order_by)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -703,9 +713,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:analyzeIamPolicy",
                     composable_matches(
                         Some(&req)
@@ -718,7 +728,35 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .analysis_query
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "analysisQuery")
+                        });
+                    let builder =
+                        builder.query(&[("savedAnalysisQuery", &req.saved_analysis_query)]);
+                    let builder = req
+                        .execution_timeout
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "executionTimeout")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -740,37 +778,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .analysis_query
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "analysisQuery")
-            });
-        let builder = builder.query(&[("savedAnalysisQuery", &req.saved_analysis_query)]);
-        let builder = req
-            .execution_timeout
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "executionTimeout")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -786,9 +798,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:analyzeIamPolicyLongrunning",
                     composable_matches(
                         Some(&req)
@@ -801,7 +813,13 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -823,16 +841,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -846,9 +859,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:analyzeMove",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
@@ -859,7 +872,15 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("destinationParent", &req.destination_parent)]);
+                    let builder = builder.query(&[("view", &req.view)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -879,18 +900,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("destinationParent", &req.destination_parent)]);
-        let builder = builder.query(&[("view", &req.view)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -906,9 +920,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:queryAssets",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -919,7 +933,13 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -939,16 +959,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -962,9 +977,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/savedQueries",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -975,7 +990,14 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("savedQueryId", &req.saved_query_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -995,17 +1017,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("savedQueryId", &req.saved_query_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.saved_query), options)
@@ -1021,9 +1037,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1036,7 +1052,13 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1058,16 +1080,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1083,9 +1100,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/savedQueries",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1096,7 +1113,16 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1116,19 +1142,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1144,9 +1162,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -1161,7 +1179,23 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1185,26 +1219,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.saved_query), options)
@@ -1220,9 +1239,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1235,7 +1254,13 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1257,16 +1282,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1286,9 +1306,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/effectiveIamPolicies:batchGet",
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
@@ -1299,7 +1319,17 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .names
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("names", p)]));
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1319,20 +1349,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .names
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("names", p)]));
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1348,9 +1369,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:analyzeOrgPolicies",
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
@@ -1361,7 +1382,20 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("constraint", &req.constraint)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = req
+                        .page_size
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1381,23 +1415,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("constraint", &req.constraint)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = req
-            .page_size
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1414,9 +1436,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:analyzeOrgPolicyGovernedContainers",
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
@@ -1427,7 +1449,20 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("constraint", &req.constraint)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = req
+                        .page_size
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1447,23 +1482,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("constraint", &req.constraint)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = req
-            .page_size
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1479,9 +1502,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:analyzeOrgPolicyGovernedAssets",
                     composable_matches(
                         Some(&req).map(|m| &m.scope)?,
@@ -1492,7 +1515,20 @@ impl super::stub::AssetService for AssetService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("constraint", &req.constraint)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = req
+                        .page_size
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1512,23 +1548,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("constraint", &req.constraint)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = req
-            .page_size
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1544,9 +1568,9 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1561,7 +1585,13 @@ impl super::stub::AssetService for AssetService {
                             Segment::MultiWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1585,16 +1615,11 @@ impl super::stub::AssetService for AssetService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)

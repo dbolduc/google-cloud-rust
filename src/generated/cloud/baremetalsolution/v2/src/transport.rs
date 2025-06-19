@@ -49,9 +49,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/instances",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -62,7 +62,16 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -82,19 +91,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -110,9 +111,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -125,7 +126,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -147,16 +154,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -172,9 +174,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req)
@@ -189,7 +191,23 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -213,26 +231,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.instance), options)
@@ -248,9 +251,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:rename",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -263,7 +266,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -285,16 +294,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -308,9 +312,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:reset",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -323,7 +327,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -345,16 +355,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -368,9 +373,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:start",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -383,7 +388,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -405,16 +416,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -428,9 +434,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:stop",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -443,7 +449,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -465,16 +477,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -488,9 +495,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:enableInteractiveSerialConsole",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -503,7 +510,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -525,16 +538,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -548,9 +556,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:disableInteractiveSerialConsole",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -563,7 +571,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -585,16 +599,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -608,9 +617,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:detachLun",
                     composable_matches(
                         Some(&req).map(|m| &m.instance)?,
@@ -623,7 +632,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -645,16 +660,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -668,9 +678,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/sshKeys",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -681,7 +691,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -701,18 +719,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -728,9 +739,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/sshKeys",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -741,7 +752,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("sshKeyId", &req.ssh_key_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -761,17 +779,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("sshKeyId", &req.ssh_key_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.ssh_key), options)
@@ -787,9 +799,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -802,7 +814,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -824,16 +842,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -853,9 +866,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/volumes",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -866,7 +879,16 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -886,19 +908,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -914,9 +928,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -929,7 +943,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -951,16 +971,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -976,9 +991,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req)
@@ -993,7 +1008,23 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1015,26 +1046,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req.volume), options).await
     }
@@ -1048,9 +1064,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:rename",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1063,7 +1079,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1085,16 +1107,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1108,9 +1125,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:evict",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1123,7 +1140,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1145,16 +1168,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1168,9 +1186,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:resize",
                     composable_matches(
                         Some(&req).map(|m| &m.volume)?,
@@ -1183,7 +1201,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1205,16 +1229,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1228,9 +1247,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/networks",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1241,7 +1260,16 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1261,19 +1289,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1289,9 +1309,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/networks:listNetworkUsage",
                     composable_matches(
                         Some(&req).map(|m| &m.location)?,
@@ -1302,7 +1322,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1322,16 +1348,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1347,9 +1368,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1362,7 +1383,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1384,16 +1411,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1409,9 +1431,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req)
@@ -1426,7 +1448,23 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1448,26 +1486,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.network), options)
@@ -1483,9 +1506,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/snapshots",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1498,7 +1521,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1520,16 +1549,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.volume_snapshot), options)
@@ -1545,9 +1569,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:restoreVolumeSnapshot",
                     composable_matches(
                         Some(&req).map(|m| &m.volume_snapshot)?,
@@ -1562,7 +1586,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1586,16 +1616,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1609,9 +1634,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1626,7 +1651,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1650,16 +1681,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1679,9 +1705,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1696,7 +1722,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1720,16 +1752,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1745,9 +1772,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/snapshots",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1760,7 +1787,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1782,18 +1817,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1809,9 +1837,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1826,7 +1854,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1850,16 +1884,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1875,9 +1904,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/luns",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1890,7 +1919,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1912,18 +1949,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1939,9 +1969,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:evict",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1956,7 +1986,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1980,16 +2016,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2003,9 +2034,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2018,7 +2049,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2040,16 +2077,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2065,9 +2097,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/nfsShares",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -2078,7 +2110,16 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2098,19 +2139,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2126,9 +2159,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req)
@@ -2143,7 +2176,23 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2167,26 +2216,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.nfs_share), options)
@@ -2202,9 +2236,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/nfsShares",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -2215,7 +2249,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2235,16 +2275,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.nfs_share), options)
@@ -2260,9 +2295,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:rename",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2275,7 +2310,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2297,16 +2338,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2320,9 +2356,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2335,7 +2371,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2357,16 +2399,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2382,9 +2419,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/provisioningQuotas",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -2395,7 +2432,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2415,18 +2460,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2442,9 +2480,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/provisioningConfigs:submit",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -2455,7 +2493,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2475,16 +2519,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2498,9 +2537,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2513,7 +2552,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2535,16 +2580,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2560,9 +2600,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/provisioningConfigs",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -2573,7 +2613,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("email", &req.email)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2593,17 +2640,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("email", &req.email)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.provisioning_config), options)
@@ -2619,9 +2660,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req)
@@ -2636,7 +2677,24 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("email", &req.email)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2660,27 +2718,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        let builder = builder.query(&[("email", &req.email)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.provisioning_config), options)
@@ -2696,9 +2738,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}:rename",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2711,7 +2753,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2733,16 +2781,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2756,9 +2799,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/osImages",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -2769,7 +2812,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2789,18 +2840,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2816,15 +2860,24 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}/locations",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2839,19 +2892,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2867,9 +2912,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v2/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2880,7 +2925,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2900,16 +2951,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2925,15 +2971,21 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[Segment::Literal("operations/"), Segment::MultiWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2948,16 +3000,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)

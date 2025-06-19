@@ -49,9 +49,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/certificates",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -64,7 +64,20 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("certificateId", &req.certificate_id)]);
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    let builder = builder.query(&[("validateOnly", &req.validate_only)]);
+                    let builder = builder.query(&[(
+                        "issuingCertificateAuthorityId",
+                        &req.issuing_certificate_authority_id,
+                    )]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -86,23 +99,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("certificateId", &req.certificate_id)]);
-        let builder = builder.query(&[("requestId", &req.request_id)]);
-        let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        let builder = builder.query(&[(
-            "issuingCertificateAuthorityId",
-            &req.issuing_certificate_authority_id,
-        )]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.certificate), options)
@@ -118,9 +119,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -135,7 +136,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -159,16 +166,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -184,9 +186,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/certificates",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -199,7 +201,17 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("orderBy", &req.order_by)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -221,20 +233,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("orderBy", &req.order_by)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -250,9 +253,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:revoke",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -267,7 +270,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -291,16 +300,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -314,9 +318,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -333,7 +337,24 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -359,27 +380,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        let builder = builder.query(&[("requestId", &req.request_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.certificate), options)
@@ -395,9 +400,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:activate",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -412,7 +417,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -436,16 +447,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -459,9 +465,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/certificateAuthorities",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -474,7 +480,16 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder =
+                        builder.query(&[("certificateAuthorityId", &req.certificate_authority_id)]);
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -496,18 +511,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("certificateAuthorityId", &req.certificate_authority_id)]);
-        let builder = builder.query(&[("requestId", &req.request_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.certificate_authority), options)
@@ -523,9 +531,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:disable",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -540,7 +548,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -564,16 +578,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -587,9 +596,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:enable",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -604,7 +613,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -628,16 +643,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -651,9 +661,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:fetch",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -668,7 +678,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -692,16 +708,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -717,9 +728,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -734,7 +745,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -758,16 +775,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -783,9 +795,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/certificateAuthorities",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -798,7 +810,17 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("orderBy", &req.order_by)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -820,20 +842,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("orderBy", &req.order_by)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -849,9 +862,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:undelete",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -866,7 +879,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -890,16 +909,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -913,9 +927,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -930,7 +944,19 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    let builder = builder
+                        .query(&[("ignoreActiveCertificates", &req.ignore_active_certificates)]);
+                    let builder = builder.query(&[("skipGracePeriod", &req.skip_grace_period)]);
+                    let builder = builder
+                        .query(&[("ignoreDependentResources", &req.ignore_dependent_resources)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -954,22 +980,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("requestId", &req.request_id)]);
-        let builder =
-            builder.query(&[("ignoreActiveCertificates", &req.ignore_active_certificates)]);
-        let builder = builder.query(&[("skipGracePeriod", &req.skip_grace_period)]);
-        let builder =
-            builder.query(&[("ignoreDependentResources", &req.ignore_dependent_resources)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -985,9 +1000,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -1004,7 +1019,24 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1030,27 +1062,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        let builder = builder.query(&[("requestId", &req.request_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.certificate_authority), options)
@@ -1066,9 +1082,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/caPools",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1079,7 +1095,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("caPoolId", &req.ca_pool_id)]);
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1099,18 +1123,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("caPoolId", &req.ca_pool_id)]);
-        let builder = builder.query(&[("requestId", &req.request_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.ca_pool), options)
@@ -1126,9 +1143,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -1143,7 +1160,24 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1165,27 +1199,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        let builder = builder.query(&[("requestId", &req.request_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.ca_pool), options)
@@ -1201,9 +1219,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1216,7 +1234,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1238,16 +1262,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1263,9 +1282,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/caPools",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1276,7 +1295,17 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("orderBy", &req.order_by)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1296,20 +1325,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("orderBy", &req.order_by)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1325,9 +1345,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1340,7 +1360,16 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    let builder = builder
+                        .query(&[("ignoreDependentResources", &req.ignore_dependent_resources)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1362,19 +1391,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("requestId", &req.request_id)]);
-        let builder =
-            builder.query(&[("ignoreDependentResources", &req.ignore_dependent_resources)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1390,9 +1411,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:fetchCaCerts",
                     composable_matches(
                         Some(&req).map(|m| &m.ca_pool)?,
@@ -1405,7 +1426,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1427,16 +1454,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1450,12 +1472,20 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -1469,16 +1499,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1494,9 +1519,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/certificateRevocationLists",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1511,7 +1536,17 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("orderBy", &req.order_by)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1535,20 +1570,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("orderBy", &req.order_by)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1564,12 +1590,22 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).and_then(|m| m.certificate_revocation_list.as_ref()).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::PATCH, path);
+                let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -1583,27 +1619,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        let builder = builder.query(&[("requestId", &req.request_id)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.certificate_revocation_list), options)
@@ -1619,9 +1639,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/certificateTemplates",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1632,7 +1652,16 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder =
+                        builder.query(&[("certificateTemplateId", &req.certificate_template_id)]);
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1652,18 +1681,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("certificateTemplateId", &req.certificate_template_id)]);
-        let builder = builder.query(&[("requestId", &req.request_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.certificate_template), options)
@@ -1679,9 +1701,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1694,7 +1716,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1716,17 +1745,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("requestId", &req.request_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1742,9 +1765,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -1757,7 +1780,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1779,16 +1808,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1804,9 +1828,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/certificateTemplates",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1817,7 +1841,17 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("orderBy", &req.order_by)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1837,20 +1871,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("orderBy", &req.order_by)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1866,9 +1891,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -1883,7 +1908,24 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1907,27 +1949,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        let builder = builder.query(&[("requestId", &req.request_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.certificate_template), options)
@@ -1943,15 +1969,24 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/locations",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1966,19 +2001,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1994,9 +2021,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2007,7 +2034,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2027,16 +2060,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2052,24 +2080,48 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}:setIamPolicy",
                 composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::POST, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}:setIamPolicy",
                 composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/certificateTemplates/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::POST, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}:setIamPolicy",
                 composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::POST, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2101,16 +2153,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2124,24 +2171,51 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}:getIamPolicy",
                 composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = req.options.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "options") });
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}:getIamPolicy",
                 composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/certificateTemplates/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = req.options.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "options") });
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}:getIamPolicy",
                 composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = req.options.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "options") });
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2173,26 +2247,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .options
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "options")
-            });
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2208,24 +2267,48 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}:testIamPermissions",
                 composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::POST, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}:testIamPermissions",
                 composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/certificateTemplates/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::POST, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}:testIamPermissions",
                 composable_matches(Some(&req).map(|m| &m.resource)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/caPools/"),Segment::SingleWildcard,Segment::Literal("/certificateAuthorities/"),Segment::SingleWildcard,Segment::Literal("/certificateRevocationLists/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::POST, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2257,16 +2340,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -2280,9 +2358,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/operations",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2293,7 +2371,16 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2313,19 +2400,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2341,9 +2420,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2356,7 +2435,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2378,16 +2463,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2403,9 +2483,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2418,7 +2498,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2440,16 +2526,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2469,9 +2550,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2484,7 +2565,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2506,16 +2593,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {

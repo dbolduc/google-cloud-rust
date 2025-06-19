@@ -157,7 +157,6 @@ type methodAnnotation struct {
 	PathInfo    *api.PathInfo
 
 	// TODO(#2316) - these gotta go.
-	PathParams  []*api.Field
 	QueryParams []*api.Field
 
 	// TODO(#2316) - Hmm.. this can stay. But there is one case where this doesn't match.
@@ -174,10 +173,21 @@ type methodAnnotation struct {
 	Attributes          []string
 }
 
-// TODO : DARREN : Rust annotations for path bindings
 type pathBindingAnnotation struct {
 	Bindings []bindingSubstitution
 	PathFmt  string
+
+	// TODO : good enough? I think I can call addQueryParameter on it? 
+        // Reminder that these things can never be nested. The fields always
+        // belong to the method in question. That is lucky, I guess.
+        //
+        // Or maybe it is not luck. It is just broken. Like when we have a
+        // nested field in the path, it also gets added as a query parameter.
+        // (Because we just flatten the top-level message field's JSON)
+        //
+        // Whatever. This is a giant mess. I am inclined to always include
+        // fields as QP, even if they are in the path. who the hell cares?
+	QueryParams []*api.Field
 }
 
 type bindingSubstitution struct {
@@ -185,17 +195,17 @@ type bindingSubstitution struct {
 	//
 	// This field can be deeply nested. We need to capture code for the entire
 	// chain. This accessor always returns an `Option<&T>`, even for fields
-        // which are always present. This simplifies the templates.
+	// which are always present. This simplifies the templates.
 	//
 	// The accessor should not
 	// - copy any fields
 	// - move any fields
 	// - panic
-        // - assume context i.e. use the try operator: `?`
+	// - assume context i.e. use the try operator: `?`
 	Accessor string
 
-        // Whether the leaf field is a string (which requires matching) or not.
-        IsString bool
+	// Whether the leaf field is a string (which requires matching) or not.
+	IsString bool
 
 	// Local variables for us to assign to
 	//
@@ -203,22 +213,22 @@ type bindingSubstitution struct {
 	// other local variables.
 	LocalVarName string
 
-        // Rust code that yields an array of path segments, to be supplied as arguments
-        // to `gaxi::path_parameter::matches()`
-        //
-        // e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard,]`
+	// Rust code that yields an array of path segments, to be supplied as arguments
+	// to `gaxi::path_parameter::matches()`
+	//
+	// e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard,]`
 	TemplateAsArray string
 
-        // TODO : might not be necessary if we have a decent error function (that we could just pass the template to.)
-        // TODO : This should use the Rust field names, e.g. r#type
-        // Recovers the field path as a period-separated string
-        FieldPath string
+	// TODO : might not be necessary if we have a decent error function (that we could just pass the template to.)
+	// TODO : This should use the Rust field names, e.g. r#type
+	// Recovers the field path as a period-separated string
+	FieldPath string
 
-        // TODO : might not be necessary if we have a decent error function (that we could just pass the template to.)
-        // TODO : The template as a human readable string, in weird GAPIC grammar.
-        //
-        // e.g.: "projects/*"
-        TemplateAsString string
+	// TODO : might not be necessary if we have a decent error function (that we could just pass the template to.)
+	// TODO : The template as a human readable string, in weird GAPIC grammar.
+	//
+	// e.g.: "projects/*"
+	TemplateAsString string
 }
 
 type pathInfoAnnotation struct {
@@ -639,13 +649,13 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		var bindings []bindingSubstitution
 		arg_i := 0
 		pathFmt := ""
-                if b.DarrenPath == nil {
-                    // Some services *cough* StorageControl *cough* do not have HTTP annotations.
-                    // Bindings are irrelevant for them.
-                    // TODO : Why isn't the list of Bindings empty? That is weird right?
-                    // Oh this must be our hack because we use Foo[0] everywhere.
-                    continue
-                }
+		if b.DarrenPath == nil {
+			// Some services *cough* StorageControl *cough* do not have HTTP annotations.
+			// Bindings are irrelevant for them.
+			// TODO : Why isn't the list of Bindings empty? That is weird right?
+			// Oh this must be our hack because we use Foo[0] everywhere.
+			continue
+		}
 		for _, s := range b.DarrenPath.Segments {
 			pathFmt += "/"
 			if s.Literal != nil {
@@ -663,7 +673,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 					templateAsArray += "Segment::SingleWildcard,"
 					templateAsString += "*"
 				}
-                                literalBuffer := ""
+				literalBuffer := ""
 				for i, vs := range s.Variable.Segments {
 					if i != 0 {
 						// TODO : Clean up.
@@ -671,56 +681,59 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 						// Ideally, we do not have multiple literal segments.
 						//templateAsArray += `Segment::Literal("/"),`
 						literalBuffer += "/"
-					        templateAsString += "/"
+						templateAsString += "/"
 					}
 					if vs.Literal != nil {
-					        literalBuffer += string(*vs.Literal)
+						literalBuffer += string(*vs.Literal)
 						//templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, *vs.Literal)
-					        templateAsString += string(*vs.Literal)
-                                        } else {
-                                          // Flush literalBuffer
-					  templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, literalBuffer)
-                                          literalBuffer = ""
-                                        }
+						templateAsString += string(*vs.Literal)
+					} else {
+						// Flush literalBuffer
+						templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, literalBuffer)
+						literalBuffer = ""
+					}
 					if vs.Match != nil {
 						templateAsArray += "Segment::SingleWildcard,"
-					        templateAsString += "*"
+						templateAsString += "*"
 					}
 					if vs.MatchRecursive != nil {
 						templateAsArray += "Segment::MultiWildcard,"
-					        templateAsString += "**"
+						templateAsString += "**"
 					}
 				}
-                                if literalBuffer != "" {
-                                     // Flush literalBuffer
-				     templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, literalBuffer)
-                                }
+				if literalBuffer != "" {
+					// Flush literalBuffer
+					templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, literalBuffer)
+				}
 				templateAsArray += "]"
-                                // TODO : use Strings.Join()
-                                fieldPath := ""
-                                for i, field := range s.Variable.FieldPath {
-                                  if i != 0 {
-                                    fieldPath += "."
-                                  }
-                                  fieldPath += string(*field)
-                                }
-                                accessor, isString := darrenFieldPathRef(s.Variable.FieldPath, m.InputType, state)
+				// TODO : use Strings.Join()
+				fieldPath := ""
+				for i, field := range s.Variable.FieldPath {
+					if i != 0 {
+						fieldPath += "."
+					}
+					fieldPath += string(*field)
+				}
+				accessor, isString := darrenFieldPathRef(s.Variable.FieldPath, m.InputType, state)
 				bindings = append(bindings, bindingSubstitution{
 					Accessor:         accessor,
-                                        IsString:         isString,
+					IsString:         isString,
 					LocalVarName:     fmt.Sprintf("arg%d", arg_i),
 					TemplateAsArray:  templateAsArray,
-                                        FieldPath:        fieldPath,
-                                        TemplateAsString: templateAsString,
+					FieldPath:        fieldPath,
+					TemplateAsString: templateAsString,
 				})
 			}
 		}
 		if b.DarrenPath.Verb != nil {
 			pathFmt += fmt.Sprintf(":%s", *b.DarrenPath.Verb)
 		}
+
 		pathBindingAnnotation := &pathBindingAnnotation{
 			Bindings: bindings,
 			PathFmt:  pathFmt,
+			// TODO :
+			QueryParams: language.DarrenQueryParams(m, b),
 		}
 		b.Codec = pathBindingAnnotation
 	}
@@ -736,7 +749,6 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		BodyAccessor:        bodyAccessor(m),
 		DocLines:            c.formatDocComments(m.Documentation, m.ID, state, s.Scopes()),
 		PathInfo:            m.PathInfo,
-		PathParams:          language.PathParams(m, state),
 		QueryParams:         language.QueryParams(m, state),
 		ServiceNameToPascal: toPascal(serviceName),
 		ServiceNameToCamel:  toCamel(serviceName),

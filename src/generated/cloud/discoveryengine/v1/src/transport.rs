@@ -49,9 +49,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -65,10 +65,17 @@ impl super::stub::CmekConfigService for CmekConfigService {
                             Segment::Literal("/cmekConfig"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = builder.query(&[("setDefault", &req.set_default)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -83,7 +90,14 @@ impl super::stub::CmekConfigService for CmekConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = builder.query(&[("setDefault", &req.set_default)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -121,17 +135,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("setDefault", &req.set_default)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req.config), options).await
     }
@@ -145,9 +153,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -159,10 +167,16 @@ impl super::stub::CmekConfigService for CmekConfigService {
                             Segment::Literal("/cmekConfig"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -175,7 +189,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -213,16 +233,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -238,9 +253,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/cmekConfigs",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -251,7 +266,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -271,16 +292,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -296,9 +312,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -311,7 +327,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -333,16 +355,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -358,102 +375,278 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -602,19 +795,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -630,102 +815,230 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -874,16 +1187,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -899,9 +1207,9 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -912,10 +1220,16 @@ impl super::stub::CmekConfigService for CmekConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -934,10 +1248,16 @@ impl super::stub::CmekConfigService for CmekConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -954,10 +1274,16 @@ impl super::stub::CmekConfigService for CmekConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -974,7 +1300,13 @@ impl super::stub::CmekConfigService for CmekConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1059,16 +1391,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -1124,9 +1451,9 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:completeQuery",
                     composable_matches(
                         Some(&req).map(|m| &m.data_store)?,
@@ -1139,10 +1466,21 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("query", &req.query)]);
+                    let builder = builder.query(&[("queryModel", &req.query_model)]);
+                    let builder = builder.query(&[("userPseudoId", &req.user_pseudo_id)]);
+                    let builder =
+                        builder.query(&[("includeTailSuggestions", &req.include_tail_suggestions)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:completeQuery",
                     composable_matches(
                         Some(&req).map(|m| &m.data_store)?,
@@ -1157,7 +1495,18 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("query", &req.query)]);
+                    let builder = builder.query(&[("queryModel", &req.query_model)]);
+                    let builder = builder.query(&[("userPseudoId", &req.user_pseudo_id)]);
+                    let builder =
+                        builder.query(&[("includeTailSuggestions", &req.include_tail_suggestions)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1198,20 +1547,11 @@ impl super::stub::CompletionService for CompletionService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("query", &req.query)]);
-        let builder = builder.query(&[("queryModel", &req.query_model)]);
-        let builder = builder.query(&[("userPseudoId", &req.user_pseudo_id)]);
-        let builder = builder.query(&[("includeTailSuggestions", &req.include_tail_suggestions)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1227,9 +1567,9 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/suggestionDenyListEntries:import",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1244,10 +1584,16 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/suggestionDenyListEntries:import",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1260,7 +1606,13 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1301,16 +1653,11 @@ impl super::stub::CompletionService for CompletionService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1324,9 +1671,9 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/suggestionDenyListEntries:purge",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1341,10 +1688,16 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/suggestionDenyListEntries:purge",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1357,7 +1710,13 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::MultiWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1398,16 +1757,11 @@ impl super::stub::CompletionService for CompletionService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1421,9 +1775,9 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/completionSuggestions:import",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1438,10 +1792,16 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/completionSuggestions:import",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1454,7 +1814,13 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1495,16 +1861,11 @@ impl super::stub::CompletionService for CompletionService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1518,9 +1879,9 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/completionSuggestions:purge",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1535,10 +1896,16 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/completionSuggestions:purge",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -1551,7 +1918,13 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1592,16 +1965,11 @@ impl super::stub::CompletionService for CompletionService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -1615,102 +1983,278 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -1859,19 +2403,11 @@ impl super::stub::CompletionService for CompletionService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -1887,102 +2423,230 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2131,16 +2795,11 @@ impl super::stub::CompletionService for CompletionService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2156,9 +2815,9 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2169,10 +2828,16 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2191,10 +2856,16 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2211,10 +2882,16 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2231,7 +2908,13 @@ impl super::stub::CompletionService for CompletionService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2316,16 +2999,11 @@ impl super::stub::CompletionService for CompletionService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -2381,9 +3059,9 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/controls",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -2396,10 +3074,17 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("controlId", &req.control_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/controls",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -2414,10 +3099,17 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("controlId", &req.control_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/controls",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -2432,7 +3124,14 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("controlId", &req.control_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2492,17 +3191,11 @@ impl super::stub::ControlService for ControlService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("controlId", &req.control_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.control), options)
@@ -2518,9 +3211,9 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2535,10 +3228,16 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2555,10 +3254,16 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2575,7 +3280,13 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2641,16 +3352,11 @@ impl super::stub::ControlService for ControlService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2670,9 +3376,9 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -2689,10 +3395,26 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -2711,10 +3433,26 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -2733,7 +3471,23 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2799,26 +3553,11 @@ impl super::stub::ControlService for ControlService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.control), options)
@@ -2834,9 +3573,9 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2851,10 +3590,16 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2871,10 +3616,16 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -2891,7 +3642,13 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2957,16 +3714,11 @@ impl super::stub::ControlService for ControlService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -2982,9 +3734,9 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/controls",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -2997,10 +3749,19 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/controls",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -3015,10 +3776,19 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/controls",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -3033,7 +3803,16 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3093,19 +3872,11 @@ impl super::stub::ControlService for ControlService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -3121,102 +3892,278 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -3365,19 +4312,11 @@ impl super::stub::ControlService for ControlService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -3393,102 +4332,230 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -3637,16 +4704,11 @@ impl super::stub::ControlService for ControlService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -3662,9 +4724,9 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -3675,10 +4737,16 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -3697,10 +4765,16 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -3717,10 +4791,16 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -3737,7 +4817,13 @@ impl super::stub::ControlService for ControlService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3822,16 +4908,11 @@ impl super::stub::ControlService for ControlService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -3873,9 +4954,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:converse",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -3890,10 +4971,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:converse",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -3910,10 +4997,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:converse",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -3930,7 +5023,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3996,16 +5095,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -4019,9 +5113,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/conversations",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -4034,10 +5128,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/conversations",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -4052,10 +5152,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/conversations",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -4070,7 +5176,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4130,16 +5242,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.conversation), options)
@@ -4155,9 +5262,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -4172,10 +5279,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -4192,10 +5305,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -4212,7 +5331,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4278,16 +5403,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -4307,9 +5427,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -4326,10 +5446,26 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -4348,10 +5484,26 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -4370,7 +5522,23 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4442,26 +5610,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.conversation), options)
@@ -4477,9 +5630,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -4494,10 +5647,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -4514,10 +5673,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -4534,7 +5699,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4600,16 +5771,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -4625,9 +5791,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/conversations",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -4640,10 +5806,20 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("orderBy", &req.order_by)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/conversations",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -4658,10 +5834,20 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("orderBy", &req.order_by)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/conversations",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -4676,7 +5862,17 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("orderBy", &req.order_by)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4736,20 +5932,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("orderBy", &req.order_by)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -4765,9 +5952,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:answer",
                     composable_matches(
                         Some(&req).map(|m| &m.serving_config)?,
@@ -4782,10 +5969,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:answer",
                     composable_matches(
                         Some(&req).map(|m| &m.serving_config)?,
@@ -4802,10 +5995,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:answer",
                     composable_matches(
                         Some(&req).map(|m| &m.serving_config)?,
@@ -4822,7 +6021,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4888,16 +6093,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -4911,9 +6111,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -4930,10 +6130,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -4952,10 +6158,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -4974,7 +6186,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5046,16 +6264,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -5071,9 +6284,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/sessions",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -5086,10 +6299,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/sessions",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -5104,10 +6323,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/sessions",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -5122,7 +6347,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5182,16 +6413,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.session), options)
@@ -5207,9 +6433,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -5224,10 +6450,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -5244,10 +6476,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -5264,7 +6502,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5330,16 +6574,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -5359,9 +6598,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -5378,10 +6617,26 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -5400,10 +6655,26 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -5422,7 +6693,23 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5488,26 +6775,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.session), options)
@@ -5523,9 +6795,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -5540,10 +6812,18 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder =
+                        builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -5560,10 +6840,18 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder =
+                        builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -5580,7 +6868,15 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder =
+                        builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5646,17 +6942,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -5672,9 +6962,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/sessions",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -5687,10 +6977,20 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("orderBy", &req.order_by)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/sessions",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -5705,10 +7005,20 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("orderBy", &req.order_by)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/sessions",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -5723,7 +7033,17 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("orderBy", &req.order_by)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5783,20 +7103,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("orderBy", &req.order_by)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -5812,102 +7123,278 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -6056,19 +7543,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -6084,102 +7563,230 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -6328,16 +7935,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -6353,9 +7955,9 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -6366,10 +7968,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -6388,10 +7996,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -6408,10 +8022,16 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -6428,7 +8048,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6513,16 +8139,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -6564,9 +8185,9 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/dataStores",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -6577,10 +8198,30 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = req.cmek_config_name().iter().fold(builder, |builder, p| {
+                        builder.query(&[("cmekConfigName", p)])
+                    });
+                    let builder = req
+                        .disable_cmek()
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("disableCmek", p)]));
+                    let builder = builder.query(&[("dataStoreId", &req.data_store_id)]);
+                    let builder = builder
+                        .query(&[("createAdvancedSiteSearch", &req.create_advanced_site_search)]);
+                    let builder = builder.query(&[(
+                        "skipDefaultSchemaCreation",
+                        &req.skip_default_schema_creation,
+                    )]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/dataStores",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -6593,7 +8234,27 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = req.cmek_config_name().iter().fold(builder, |builder, p| {
+                        builder.query(&[("cmekConfigName", p)])
+                    });
+                    let builder = req
+                        .disable_cmek()
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("disableCmek", p)]));
+                    let builder = builder.query(&[("dataStoreId", &req.data_store_id)]);
+                    let builder = builder
+                        .query(&[("createAdvancedSiteSearch", &req.create_advanced_site_search)]);
+                    let builder = builder.query(&[(
+                        "skipDefaultSchemaCreation",
+                        &req.skip_default_schema_creation,
+                    )]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6630,30 +8291,11 @@ impl super::stub::DataStoreService for DataStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req.cmek_config_name().iter().fold(builder, |builder, p| {
-            builder.query(&[("cmekConfigName", p)])
-        });
-        let builder = req
-            .disable_cmek()
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("disableCmek", p)]));
-        let builder = builder.query(&[("dataStoreId", &req.data_store_id)]);
-        let builder =
-            builder.query(&[("createAdvancedSiteSearch", &req.create_advanced_site_search)]);
-        let builder = builder.query(&[(
-            "skipDefaultSchemaCreation",
-            &req.skip_default_schema_creation,
-        )]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.data_store), options)
@@ -6669,9 +8311,9 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -6684,10 +8326,16 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -6702,7 +8350,13 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6743,16 +8397,11 @@ impl super::stub::DataStoreService for DataStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -6768,9 +8417,9 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/dataStores",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -6781,10 +8430,19 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/dataStores",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -6797,7 +8455,16 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6834,19 +8501,11 @@ impl super::stub::DataStoreService for DataStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -6862,9 +8521,9 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -6877,10 +8536,16 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -6895,7 +8560,13 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6936,16 +8607,11 @@ impl super::stub::DataStoreService for DataStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -6961,9 +8627,9 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -6978,10 +8644,26 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -6998,7 +8680,23 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7043,26 +8741,11 @@ impl super::stub::DataStoreService for DataStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.data_store), options)
@@ -7078,102 +8761,278 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -7322,19 +9181,11 @@ impl super::stub::DataStoreService for DataStoreService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -7350,102 +9201,230 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -7594,16 +9573,11 @@ impl super::stub::DataStoreService for DataStoreService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -7619,9 +9593,9 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -7632,10 +9606,16 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -7654,10 +9634,16 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -7674,10 +9660,16 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -7694,7 +9686,13 @@ impl super::stub::DataStoreService for DataStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7779,16 +9777,11 @@ impl super::stub::DataStoreService for DataStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -7844,9 +9837,9 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -7863,10 +9856,16 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -7885,7 +9884,13 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7934,16 +9939,11 @@ impl super::stub::DocumentService for DocumentService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -7959,9 +9959,9 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/documents",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -7976,10 +9976,18 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/documents",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -7996,7 +10004,15 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8041,18 +10057,11 @@ impl super::stub::DocumentService for DocumentService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -8068,9 +10077,9 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/documents",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -8085,10 +10094,17 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("documentId", &req.document_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/documents",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -8105,7 +10121,14 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("documentId", &req.document_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8150,17 +10173,11 @@ impl super::stub::DocumentService for DocumentService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("documentId", &req.document_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.document), options)
@@ -8176,9 +10193,9 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -8197,10 +10214,27 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -8221,7 +10255,24 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8274,27 +10325,11 @@ impl super::stub::DocumentService for DocumentService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.document), options)
@@ -8310,9 +10345,9 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -8329,10 +10364,16 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -8351,7 +10392,13 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8400,16 +10447,11 @@ impl super::stub::DocumentService for DocumentService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -8429,9 +10471,9 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/documents:import",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -8446,10 +10488,16 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/documents:import",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -8466,7 +10514,13 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8511,16 +10565,11 @@ impl super::stub::DocumentService for DocumentService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -8534,9 +10583,9 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/documents:purge",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -8551,10 +10600,16 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/documents:purge",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -8571,7 +10626,13 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8616,16 +10677,11 @@ impl super::stub::DocumentService for DocumentService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -8639,9 +10695,9 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/batchGetDocumentsMetadata",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -8656,10 +10712,26 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .matcher
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "matcher")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/batchGetDocumentsMetadata",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -8676,7 +10748,23 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .matcher
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "matcher")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8721,26 +10809,11 @@ impl super::stub::DocumentService for DocumentService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .matcher
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "matcher")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -8756,102 +10829,278 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -9000,19 +11249,11 @@ impl super::stub::DocumentService for DocumentService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -9028,102 +11269,230 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -9272,16 +11641,11 @@ impl super::stub::DocumentService for DocumentService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -9297,9 +11661,9 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -9310,10 +11674,16 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -9332,10 +11702,16 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -9352,10 +11728,16 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -9372,7 +11754,13 @@ impl super::stub::DocumentService for DocumentService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9457,16 +11845,11 @@ impl super::stub::DocumentService for DocumentService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -9522,9 +11905,9 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/engines",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -9537,7 +11920,14 @@ impl super::stub::EngineService for EngineService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("engineId", &req.engine_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9559,17 +11949,11 @@ impl super::stub::EngineService for EngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("engineId", &req.engine_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req.engine), options).await
     }
@@ -9583,9 +11967,9 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -9600,7 +11984,13 @@ impl super::stub::EngineService for EngineService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9624,16 +12014,11 @@ impl super::stub::EngineService for EngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -9649,9 +12034,9 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -9668,7 +12053,23 @@ impl super::stub::EngineService for EngineService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9692,26 +12093,11 @@ impl super::stub::EngineService for EngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req.engine), options).await
     }
@@ -9725,9 +12111,9 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -9742,7 +12128,13 @@ impl super::stub::EngineService for EngineService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9766,16 +12158,11 @@ impl super::stub::EngineService for EngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -9791,9 +12178,9 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/engines",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -9806,7 +12193,16 @@ impl super::stub::EngineService for EngineService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9828,19 +12224,11 @@ impl super::stub::EngineService for EngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -9856,102 +12244,278 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -10100,19 +12664,11 @@ impl super::stub::EngineService for EngineService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -10128,102 +12684,230 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -10372,16 +13056,11 @@ impl super::stub::EngineService for EngineService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -10397,9 +13076,9 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -10410,10 +13089,16 @@ impl super::stub::EngineService for EngineService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -10432,10 +13117,16 @@ impl super::stub::EngineService for EngineService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -10452,10 +13143,16 @@ impl super::stub::EngineService for EngineService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -10472,7 +13169,13 @@ impl super::stub::EngineService for EngineService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10557,16 +13260,11 @@ impl super::stub::EngineService for EngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -10622,9 +13320,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:generateGroundedContent",
                     composable_matches(
                         Some(&req).map(|m| &m.location)?,
@@ -10635,7 +13333,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10655,16 +13359,11 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -10678,9 +13377,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:check",
                     composable_matches(
                         Some(&req).map(|m| &m.grounding_config)?,
@@ -10693,7 +13392,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10715,16 +13420,11 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -10738,102 +13438,278 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -10982,19 +13858,11 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -11010,102 +13878,230 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -11254,16 +14250,11 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -11279,9 +14270,9 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -11292,10 +14283,16 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -11314,10 +14311,16 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -11334,10 +14337,16 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -11354,7 +14363,13 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11439,16 +14454,11 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -11490,9 +14500,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/identityMappingStores",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -11503,7 +14513,22 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = req.cmek_config_name().iter().fold(builder, |builder, p| {
+                        builder.query(&[("cmekConfigName", p)])
+                    });
+                    let builder = req
+                        .disable_cmek()
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("disableCmek", p)]));
+                    let builder = builder
+                        .query(&[("identityMappingStoreId", &req.identity_mapping_store_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11523,24 +14548,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req.cmek_config_name().iter().fold(builder, |builder, p| {
-            builder.query(&[("cmekConfigName", p)])
-        });
-        let builder = req
-            .disable_cmek()
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("disableCmek", p)]));
-        let builder = builder.query(&[("identityMappingStoreId", &req.identity_mapping_store_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.identity_mapping_store), options)
@@ -11556,9 +14568,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -11571,7 +14583,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11593,16 +14611,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -11618,9 +14631,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -11633,7 +14646,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11655,16 +14674,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -11680,9 +14694,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:importIdentityMappings",
                     composable_matches(
                         Some(&req).map(|m| &m.identity_mapping_store)?,
@@ -11695,7 +14709,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11717,16 +14737,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -11740,9 +14755,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:purgeIdentityMappings",
                     composable_matches(
                         Some(&req).map(|m| &m.identity_mapping_store)?,
@@ -11755,7 +14770,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11777,16 +14798,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -11800,9 +14816,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:listIdentityMappings",
                     composable_matches(
                         Some(&req).map(|m| &m.identity_mapping_store)?,
@@ -11815,7 +14831,15 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11837,18 +14861,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -11864,9 +14881,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/identityMappingStores",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -11877,7 +14894,15 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11897,18 +14922,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -11924,102 +14942,278 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -12168,19 +15362,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -12196,102 +15382,230 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -12440,16 +15754,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -12465,9 +15774,9 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -12478,10 +15787,16 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -12500,10 +15815,16 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -12520,10 +15841,16 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -12540,7 +15867,13 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12625,16 +15958,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -12690,15 +16018,21 @@ impl super::stub::ProjectService for ProjectService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:provision",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[Segment::Literal("projects/"), Segment::SingleWildcard,]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12713,16 +16047,11 @@ impl super::stub::ProjectService for ProjectService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -12736,102 +16065,278 @@ impl super::stub::ProjectService for ProjectService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -12980,19 +16485,11 @@ impl super::stub::ProjectService for ProjectService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -13008,102 +16505,230 @@ impl super::stub::ProjectService for ProjectService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -13252,16 +16877,11 @@ impl super::stub::ProjectService for ProjectService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -13277,9 +16897,9 @@ impl super::stub::ProjectService for ProjectService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -13290,10 +16910,16 @@ impl super::stub::ProjectService for ProjectService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -13312,10 +16938,16 @@ impl super::stub::ProjectService for ProjectService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -13332,10 +16964,16 @@ impl super::stub::ProjectService for ProjectService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -13352,7 +16990,13 @@ impl super::stub::ProjectService for ProjectService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13437,16 +17081,11 @@ impl super::stub::ProjectService for ProjectService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -13502,9 +17141,9 @@ impl super::stub::RankService for RankService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:rank",
                     composable_matches(
                         Some(&req).map(|m| &m.ranking_config)?,
@@ -13517,7 +17156,13 @@ impl super::stub::RankService for RankService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13539,16 +17184,11 @@ impl super::stub::RankService for RankService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -13562,102 +17202,278 @@ impl super::stub::RankService for RankService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -13806,19 +17622,11 @@ impl super::stub::RankService for RankService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -13834,102 +17642,230 @@ impl super::stub::RankService for RankService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -14078,16 +18014,11 @@ impl super::stub::RankService for RankService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -14103,9 +18034,9 @@ impl super::stub::RankService for RankService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -14116,10 +18047,16 @@ impl super::stub::RankService for RankService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -14138,10 +18075,16 @@ impl super::stub::RankService for RankService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -14158,10 +18101,16 @@ impl super::stub::RankService for RankService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -14178,7 +18127,13 @@ impl super::stub::RankService for RankService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14263,16 +18218,11 @@ impl super::stub::RankService for RankService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -14314,9 +18264,9 @@ impl super::stub::RecommendationService for RecommendationService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:recommend",
                     composable_matches(
                         Some(&req).map(|m| &m.serving_config)?,
@@ -14331,10 +18281,16 @@ impl super::stub::RecommendationService for RecommendationService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:recommend",
                     composable_matches(
                         Some(&req).map(|m| &m.serving_config)?,
@@ -14351,10 +18307,16 @@ impl super::stub::RecommendationService for RecommendationService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:recommend",
                     composable_matches(
                         Some(&req).map(|m| &m.serving_config)?,
@@ -14371,7 +18333,13 @@ impl super::stub::RecommendationService for RecommendationService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14437,16 +18405,11 @@ impl super::stub::RecommendationService for RecommendationService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -14460,102 +18423,278 @@ impl super::stub::RecommendationService for RecommendationService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -14704,19 +18843,11 @@ impl super::stub::RecommendationService for RecommendationService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -14732,102 +18863,230 @@ impl super::stub::RecommendationService for RecommendationService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -14976,16 +19235,11 @@ impl super::stub::RecommendationService for RecommendationService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -15001,9 +19255,9 @@ impl super::stub::RecommendationService for RecommendationService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -15014,10 +19268,16 @@ impl super::stub::RecommendationService for RecommendationService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -15036,10 +19296,16 @@ impl super::stub::RecommendationService for RecommendationService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -15056,10 +19322,16 @@ impl super::stub::RecommendationService for RecommendationService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -15076,7 +19348,13 @@ impl super::stub::RecommendationService for RecommendationService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15161,16 +19439,11 @@ impl super::stub::RecommendationService for RecommendationService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -15212,9 +19485,9 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -15229,10 +19502,16 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -15249,7 +19528,13 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15294,16 +19579,11 @@ impl super::stub::SchemaService for SchemaService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -15319,9 +19599,9 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/schemas",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -15334,10 +19614,18 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/schemas",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -15352,7 +19640,15 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15393,18 +19689,11 @@ impl super::stub::SchemaService for SchemaService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -15420,9 +19709,9 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/schemas",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -15435,10 +19724,17 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("schemaId", &req.schema_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/schemas",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -15453,7 +19749,14 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("schemaId", &req.schema_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15494,17 +19797,11 @@ impl super::stub::SchemaService for SchemaService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("schemaId", &req.schema_id)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req.schema), options).await
     }
@@ -15518,9 +19815,9 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -15537,10 +19834,17 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -15559,7 +19863,14 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15604,17 +19915,11 @@ impl super::stub::SchemaService for SchemaService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req.schema), options).await
     }
@@ -15628,9 +19933,9 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -15645,10 +19950,16 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -15665,7 +19976,13 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15710,16 +20027,11 @@ impl super::stub::SchemaService for SchemaService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -15735,102 +20047,278 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -15979,19 +20467,11 @@ impl super::stub::SchemaService for SchemaService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -16007,102 +20487,230 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -16251,16 +20859,11 @@ impl super::stub::SchemaService for SchemaService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -16276,9 +20879,9 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -16289,10 +20892,16 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -16311,10 +20920,16 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -16331,10 +20946,16 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -16351,7 +20972,13 @@ impl super::stub::SchemaService for SchemaService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16436,16 +21063,11 @@ impl super::stub::SchemaService for SchemaService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -16501,9 +21123,9 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:search",
                     composable_matches(
                         Some(&req).map(|m| &m.serving_config)?,
@@ -16518,10 +21140,16 @@ impl super::stub::SearchService for SearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:search",
                     composable_matches(
                         Some(&req).map(|m| &m.serving_config)?,
@@ -16538,10 +21166,16 @@ impl super::stub::SearchService for SearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:search",
                     composable_matches(
                         Some(&req).map(|m| &m.serving_config)?,
@@ -16558,7 +21192,13 @@ impl super::stub::SearchService for SearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16624,16 +21264,11 @@ impl super::stub::SearchService for SearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -16647,9 +21282,9 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:searchLite",
                     composable_matches(
                         Some(&req).map(|m| &m.serving_config)?,
@@ -16664,10 +21299,16 @@ impl super::stub::SearchService for SearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:searchLite",
                     composable_matches(
                         Some(&req).map(|m| &m.serving_config)?,
@@ -16684,10 +21325,16 @@ impl super::stub::SearchService for SearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:searchLite",
                     composable_matches(
                         Some(&req).map(|m| &m.serving_config)?,
@@ -16704,7 +21351,13 @@ impl super::stub::SearchService for SearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16770,16 +21423,11 @@ impl super::stub::SearchService for SearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -16793,102 +21441,278 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -17037,19 +21861,11 @@ impl super::stub::SearchService for SearchService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -17065,102 +21881,230 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -17309,16 +22253,11 @@ impl super::stub::SearchService for SearchService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -17334,9 +22273,9 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -17347,10 +22286,16 @@ impl super::stub::SearchService for SearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -17369,10 +22314,16 @@ impl super::stub::SearchService for SearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -17389,10 +22340,16 @@ impl super::stub::SearchService for SearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -17409,7 +22366,13 @@ impl super::stub::SearchService for SearchService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17494,16 +22457,11 @@ impl super::stub::SearchService for SearchService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -17545,9 +22503,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:trainCustomModel",
                     composable_matches(
                         Some(&req).map(|m| &m.data_store)?,
@@ -17562,7 +22520,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17586,16 +22550,11 @@ impl super::stub::SearchTuningService for SearchTuningService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -17609,9 +22568,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/customModels",
                     composable_matches(
                         Some(&req).map(|m| &m.data_store)?,
@@ -17626,7 +22585,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17650,16 +22615,11 @@ impl super::stub::SearchTuningService for SearchTuningService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -17675,102 +22635,278 @@ impl super::stub::SearchTuningService for SearchTuningService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -17919,19 +23055,11 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -17947,102 +23075,230 @@ impl super::stub::SearchTuningService for SearchTuningService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -18191,16 +23447,11 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -18216,9 +23467,9 @@ impl super::stub::SearchTuningService for SearchTuningService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -18229,10 +23480,16 @@ impl super::stub::SearchTuningService for SearchTuningService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -18251,10 +23508,16 @@ impl super::stub::SearchTuningService for SearchTuningService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -18271,10 +23534,16 @@ impl super::stub::SearchTuningService for SearchTuningService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -18291,7 +23560,13 @@ impl super::stub::SearchTuningService for SearchTuningService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18376,16 +23651,11 @@ impl super::stub::SearchTuningService for SearchTuningService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -18441,9 +23711,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -18460,10 +23730,26 @@ impl super::stub::ServingConfigService for ServingConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -18482,10 +23768,26 @@ impl super::stub::ServingConfigService for ServingConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req)
@@ -18504,7 +23806,23 @@ impl super::stub::ServingConfigService for ServingConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18576,26 +23894,11 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.serving_config), options)
@@ -18611,102 +23914,278 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -18855,19 +24334,11 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -18883,102 +24354,230 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -19127,16 +24726,11 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -19152,9 +24746,9 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -19165,10 +24759,16 @@ impl super::stub::ServingConfigService for ServingConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -19187,10 +24787,16 @@ impl super::stub::ServingConfigService for ServingConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -19207,10 +24813,16 @@ impl super::stub::ServingConfigService for ServingConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -19227,7 +24839,13 @@ impl super::stub::ServingConfigService for ServingConfigService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19312,16 +24930,11 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -19363,9 +24976,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -19379,10 +24992,16 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -19398,7 +25017,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19441,16 +25066,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -19466,9 +25086,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/targetSites",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -19482,10 +25102,16 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/targetSites",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -19501,7 +25127,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19544,16 +25176,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.target_site), options)
@@ -19569,9 +25196,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/targetSites:batchCreate",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -19585,10 +25212,16 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/targetSites:batchCreate",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -19604,7 +25237,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19647,16 +25286,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -19670,18 +25304,34 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -19704,16 +25354,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -19729,18 +25374,34 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).and_then(|m| m.target_site.as_ref()).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::PATCH, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).and_then(|m| m.target_site.as_ref()).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::PATCH, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -19763,16 +25424,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.target_site), options)
@@ -19788,18 +25444,34 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::DELETE, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::DELETE, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -19822,16 +25494,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -19847,9 +25514,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/targetSites",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -19863,10 +25530,18 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/targetSites",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -19882,7 +25557,15 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19925,18 +25608,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -19952,9 +25628,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/sitemaps",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -19968,10 +25644,16 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/sitemaps",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -19987,7 +25669,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20030,16 +25718,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.sitemap), options)
@@ -20055,18 +25738,34 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/sitemaps/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::DELETE, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/sitemaps/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::DELETE, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -20089,16 +25788,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -20114,9 +25808,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/sitemaps:fetch",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -20130,10 +25824,26 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .matcher
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "matcher")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/sitemaps:fetch",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -20149,7 +25859,23 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .matcher
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "matcher")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20192,26 +25918,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .matcher
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "matcher")
-            });
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -20227,9 +25938,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:enableAdvancedSiteSearch",
                     composable_matches(
                         Some(&req).map(|m| &m.site_search_engine)?,
@@ -20243,10 +25954,16 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:enableAdvancedSiteSearch",
                     composable_matches(
                         Some(&req).map(|m| &m.site_search_engine)?,
@@ -20262,7 +25979,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20305,16 +26028,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -20328,9 +26046,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:disableAdvancedSiteSearch",
                     composable_matches(
                         Some(&req).map(|m| &m.site_search_engine)?,
@@ -20344,10 +26062,16 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:disableAdvancedSiteSearch",
                     composable_matches(
                         Some(&req).map(|m| &m.site_search_engine)?,
@@ -20363,7 +26087,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20406,16 +26136,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -20429,9 +26154,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:recrawlUris",
                     composable_matches(
                         Some(&req).map(|m| &m.site_search_engine)?,
@@ -20445,10 +26170,16 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:recrawlUris",
                     composable_matches(
                         Some(&req).map(|m| &m.site_search_engine)?,
@@ -20464,7 +26195,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20507,16 +26244,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -20530,9 +26262,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:batchVerifyTargetSites",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -20548,7 +26280,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20573,16 +26311,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -20596,9 +26329,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:fetchDomainVerificationStatus",
                     composable_matches(
                         Some(&req).map(|m| &m.site_search_engine)?,
@@ -20614,7 +26347,15 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::Literal("/siteSearchEngine"),
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20639,18 +26380,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -20666,102 +26400,278 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -20910,19 +26820,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -20938,102 +26840,230 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -21182,16 +27212,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -21207,9 +27232,9 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -21220,10 +27245,16 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -21242,10 +27273,16 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -21262,10 +27299,16 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -21282,7 +27325,13 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21367,16 +27416,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -21432,9 +27476,9 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/userEvents:write",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -21447,10 +27491,17 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("writeAsync", &req.write_async)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/userEvents:write",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -21465,10 +27516,17 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("writeAsync", &req.write_async)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/userEvents:write",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -21479,7 +27537,14 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("writeAsync", &req.write_async)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21535,17 +27600,11 @@ impl super::stub::UserEventService for UserEventService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("writeAsync", &req.write_async)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, Some(req.user_event), options)
@@ -21561,9 +27620,9 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/userEvents:collect",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -21576,10 +27635,25 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("userEvent", &req.user_event)]);
+                    let builder = req
+                        .uri
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("uri", p)]));
+                    let builder = req
+                        .ets
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("ets", p)]));
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/userEvents:collect",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -21594,10 +27668,25 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("userEvent", &req.user_event)]);
+                    let builder = req
+                        .uri
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("uri", p)]));
+                    let builder = req
+                        .ets
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("ets", p)]));
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/userEvents:collect",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -21608,7 +27697,22 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("userEvent", &req.user_event)]);
+                    let builder = req
+                        .uri
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("uri", p)]));
+                    let builder = req
+                        .ets
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("ets", p)]));
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21664,25 +27768,11 @@ impl super::stub::UserEventService for UserEventService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("userEvent", &req.user_event)]);
-        let builder = req
-            .uri
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("uri", p)]));
-        let builder = req
-            .ets
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("ets", p)]));
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -21698,9 +27788,9 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/userEvents:purge",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -21713,10 +27803,16 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/userEvents:purge",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -21731,7 +27827,13 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21772,16 +27874,11 @@ impl super::stub::UserEventService for UserEventService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -21795,9 +27892,9 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/userEvents:import",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -21810,10 +27907,16 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/userEvents:import",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -21828,10 +27931,16 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/userEvents:import",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -21842,7 +27951,13 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21898,16 +28013,11 @@ impl super::stub::UserEventService for UserEventService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -21921,102 +28031,278 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -22165,19 +28451,11 @@ impl super::stub::UserEventService for UserEventService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -22193,102 +28471,230 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -22437,16 +28843,11 @@ impl super::stub::UserEventService for UserEventService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -22462,9 +28863,9 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -22475,10 +28876,16 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -22497,10 +28904,16 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -22517,10 +28930,16 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -22537,7 +28956,13 @@ impl super::stub::UserEventService for UserEventService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22622,16 +29047,11 @@ impl super::stub::UserEventService for UserEventService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
@@ -22687,9 +29107,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}/userLicenses",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -22702,7 +29122,16 @@ impl super::stub::UserLicenseService for UserLicenseService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22724,19 +29153,11 @@ impl super::stub::UserLicenseService for UserLicenseService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("filter", &req.filter)]);
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -22752,9 +29173,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:batchUpdateUserLicenses",
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
@@ -22767,7 +29188,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22789,16 +29216,11 @@ impl super::stub::UserLicenseService for UserLicenseService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await
     }
@@ -22812,102 +29234,278 @@ impl super::stub::UserLicenseService for UserLicenseService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine"),])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}/operations",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -23056,19 +29654,11 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -23084,102 +29674,230 @@ impl super::stub::UserLicenseService for UserLicenseService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataConnector/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/schemas/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/siteSearchEngine/targetSites/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/engines/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/collections/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/branches/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/models/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/dataStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/identityMappingStores/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/locations/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .or_else(|| {
-            Some(format!(
+            let path = format!(
                 "/v1/{}",
                 composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::Literal("projects/"),Segment::SingleWildcard,Segment::Literal("/operations/"),Segment::SingleWildcard,])?,
-            ))
+            );
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::GET, path);
+                Ok(builder)
+            })();
+            Some(builder)
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -23328,16 +30046,11 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 paths.push(builder.build());
             }
             gax::error::Error::binding(BindingError { paths })
-        })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
@@ -23353,9 +30066,9 @@ impl super::stub::UserLicenseService for UserLicenseService {
         use gaxi::path_parameter::{BindingError, PathMismatchBuilder, composable_matches};
         use gaxi::routing_parameter::Segment;
 
-        let path = None
+        let builder = None
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -23366,10 +30079,16 @@ impl super::stub::UserLicenseService for UserLicenseService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -23388,10 +30107,16 @@ impl super::stub::UserLicenseService for UserLicenseService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -23408,10 +30133,16 @@ impl super::stub::UserLicenseService for UserLicenseService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .or_else(|| {
-                Some(format!(
+                let path = format!(
                     "/v1/{}:cancel",
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
@@ -23428,7 +30159,13 @@ impl super::stub::UserLicenseService for UserLicenseService {
                             Segment::SingleWildcard,
                         ]
                     )?,
-                ))
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23513,16 +30250,11 @@ impl super::stub::UserLicenseService for UserLicenseService {
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
-            })?;
-
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
 
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {

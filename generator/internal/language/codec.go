@@ -64,6 +64,17 @@ func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 	return params
 }
 
+func DarrenQueryParams(m *api.Method, b *api.PathBinding) []*api.Field {
+	var queryParams []*api.Field
+	for _, field := range m.InputType.Fields {
+		if !b.QueryParameters[field.Name] {
+			continue
+		}
+		queryParams = append(queryParams, field)
+	}
+	return queryParams
+}
+
 func QueryParams(m *api.Method, state *api.APIState) []*api.Field {
 	msg, ok := state.MessageByID[m.InputTypeID]
 	if !ok {
