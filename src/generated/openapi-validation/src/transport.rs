@@ -51,10 +51,28 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .filter
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+                    let builder = req
+                        .page_size
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+                    let builder = req
+                        .page_token
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                     Ok(builder)
                 })();
                 Some(builder)
@@ -63,6 +81,12 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -88,7 +112,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
@@ -100,6 +134,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -125,10 +171,28 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .page_size
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+                    let builder = req
+                        .page_token
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                    let builder = req
+                        .filter
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("filter", p)]));
                     Ok(builder)
                 })();
                 Some(builder)
@@ -137,6 +201,12 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -162,10 +232,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("secretId", &req.secret_id)]);
                     Ok(builder)
                 })();
                 Some(builder)
@@ -174,6 +251,12 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -199,10 +282,32 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .page_size
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+                    let builder = req
+                        .page_token
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                    let builder = req
+                        .filter
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("filter", p)]));
                     Ok(builder)
                 })();
                 Some(builder)
@@ -211,6 +316,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -236,10 +353,21 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("secretId", &req.secret_id)]);
                     Ok(builder)
                 })();
                 Some(builder)
@@ -248,6 +376,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -273,7 +413,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}:addVersion",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
@@ -285,6 +435,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -308,7 +470,21 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}:addVersion",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
@@ -320,6 +496,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -343,7 +537,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
@@ -355,6 +559,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -380,10 +596,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    let builder = req
+                        .etag
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("etag", p)]));
                     Ok(builder)
                 })();
                 Some(builder)
@@ -392,6 +622,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -417,10 +659,26 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = {
+                        use gaxi::query_parameter::QueryParameter;
+                        serde_json::to_value(&req.update_mask)
+                            .map_err(Error::ser)?
+                            .add(builder, "updateMask")
+                    };
                     Ok(builder)
                 })();
                 Some(builder)
@@ -429,6 +687,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -454,7 +724,21 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
@@ -466,6 +750,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -491,10 +793,28 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    let builder = req
+                        .etag
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("etag", p)]));
                     Ok(builder)
                 })();
                 Some(builder)
@@ -503,6 +823,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -528,10 +866,30 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = {
+                        use gaxi::query_parameter::QueryParameter;
+                        serde_json::to_value(&req.update_mask)
+                            .map_err(Error::ser)?
+                            .add(builder, "updateMask")
+                    };
                     Ok(builder)
                 })();
                 Some(builder)
@@ -540,6 +898,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -565,10 +941,32 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}/versions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .page_size
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+                    let builder = req
+                        .page_token
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                    let builder = req
+                        .filter
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("filter", p)]));
                     Ok(builder)
                 })();
                 Some(builder)
@@ -577,6 +975,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -602,10 +1012,36 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}/versions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .page_size
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+                    let builder = req
+                        .page_token
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                    let builder = req
+                        .filter
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("filter", p)]));
                     Ok(builder)
                 })();
                 Some(builder)
@@ -614,6 +1050,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -639,7 +1093,21 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}/versions/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.version)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
@@ -651,6 +1119,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.version),
+                        "version",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -676,7 +1162,25 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.version)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
@@ -688,6 +1192,30 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.version),
+                        "version",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -713,7 +1241,21 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}/versions/{}:access",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.version)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
@@ -725,6 +1267,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.version),
+                        "version",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -750,7 +1310,25 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:access",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.version)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
@@ -762,6 +1340,30 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.version),
+                        "version",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -787,7 +1389,21 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}/versions/{}:disable",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.version)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
@@ -799,6 +1415,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.version),
+                        "version",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -822,7 +1456,25 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:disable",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.version)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
@@ -834,6 +1486,30 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.version),
+                        "version",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -857,7 +1533,21 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}/versions/{}:enable",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.version)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
@@ -869,6 +1559,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.version),
+                        "version",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -892,7 +1600,25 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:enable",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.version)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
@@ -904,6 +1630,30 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.version),
+                        "version",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -927,7 +1677,21 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}/versions/{}:destroy",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.version)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
@@ -939,6 +1703,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.version),
+                        "version",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -962,7 +1744,25 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:destroy",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.version)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
@@ -974,6 +1774,30 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.version),
+                        "version",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -997,7 +1821,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}:setIamPolicy",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
@@ -1009,6 +1843,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -1032,7 +1878,21 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}:setIamPolicy",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
@@ -1044,6 +1904,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -1067,10 +1945,26 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}:getIamPolicy",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .options_requested_policy_version
+                        .iter()
+                        .fold(builder, |builder, p| {
+                            builder.query(&[("options.requestedPolicyVersion", p)])
+                        });
                     Ok(builder)
                 })();
                 Some(builder)
@@ -1079,6 +1973,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -1104,10 +2010,30 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}:getIamPolicy",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .options_requested_policy_version
+                        .iter()
+                        .fold(builder, |builder, p| {
+                            builder.query(&[("options.requestedPolicyVersion", p)])
+                        });
                     Ok(builder)
                 })();
                 Some(builder)
@@ -1116,6 +2042,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -1141,7 +2085,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}:testIamPermissions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
@@ -1153,6 +2107,18 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
@@ -1176,7 +2142,21 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
         let builder = None
             .or_else(|| {
-                let path = format!("",);
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}:testIamPermissions",
+                    composable_matches(
+                        Some(&req).map(|m| &m.project)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.location)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                    composable_matches(
+                        Some(&req).map(|m| &m.secret)?,
+                        &[Segment::SingleWildcard,]
+                    )?,
+                );
 
                 let builder = (|| {
                     let builder = self.inner.builder(reqwest::Method::POST, path);
@@ -1188,6 +2168,24 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 let mut paths = Vec::new();
                 {
                     let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.project),
+                        "project",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.location),
+                        "location",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
+                    let builder = builder.maybe_add_match_error(
+                        Some(&req).map(|m| &m.secret),
+                        "secret",
+                        &[Segment::SingleWildcard],
+                        "*",
+                    );
                     paths.push(builder.build());
                 }
                 gax::error::Error::binding(BindingError { paths })
