@@ -55,7 +55,7 @@ impl super::stub::IAMPolicy for IAMPolicy {
                     "/v1/{}:setIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[Segment::Literal(""), Segment::MultiWildcard,]
+                        &[Segment::MultiWildcard,]
                     )?,
                 );
 
@@ -72,7 +72,7 @@ impl super::stub::IAMPolicy for IAMPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[Segment::Literal(""), Segment::MultiWildcard],
+                        &[Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());
@@ -102,7 +102,7 @@ impl super::stub::IAMPolicy for IAMPolicy {
                     "/v1/{}:getIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[Segment::Literal(""), Segment::MultiWildcard,]
+                        &[Segment::MultiWildcard,]
                     )?,
                 );
 
@@ -119,7 +119,7 @@ impl super::stub::IAMPolicy for IAMPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[Segment::Literal(""), Segment::MultiWildcard],
+                        &[Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());
@@ -149,7 +149,7 @@ impl super::stub::IAMPolicy for IAMPolicy {
                     "/v1/{}:testIamPermissions",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[Segment::Literal(""), Segment::MultiWildcard,]
+                        &[Segment::MultiWildcard,]
                     )?,
                 );
 
@@ -166,7 +166,7 @@ impl super::stub::IAMPolicy for IAMPolicy {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[Segment::Literal(""), Segment::MultiWildcard],
+                        &[Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());

@@ -76,7 +76,6 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.log_name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -175,7 +174,6 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.log_name),
                         "log_name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -373,7 +371,6 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -608,7 +605,6 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -764,7 +760,6 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -883,7 +878,6 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -982,7 +976,6 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1096,7 +1089,6 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1205,7 +1197,6 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1319,7 +1310,6 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1454,7 +1444,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1568,7 +1557,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1667,7 +1655,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1781,7 +1768,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1890,7 +1876,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -1999,7 +1984,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2096,7 +2080,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2260,7 +2243,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2367,7 +2349,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2476,7 +2457,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2573,7 +2553,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2737,7 +2716,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2844,7 +2822,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2958,7 +2935,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -3071,7 +3047,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -3185,7 +3160,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -3297,7 +3271,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -3421,7 +3394,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -3530,7 +3502,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -3654,7 +3625,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -3773,7 +3743,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -3892,7 +3861,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -3999,7 +3967,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -4173,7 +4140,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -4290,7 +4256,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -4414,7 +4379,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -4537,7 +4501,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -4632,7 +4595,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -4712,7 +4674,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -4816,7 +4777,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -4915,7 +4875,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -5010,7 +4969,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -5088,7 +5046,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -5380,7 +5337,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -5537,7 +5493,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.sink_name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -5641,7 +5596,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.sink_name),
                         "sink_name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -5744,7 +5698,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -5863,7 +5816,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -5970,7 +5922,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -6094,7 +6045,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -6213,7 +6163,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -6337,7 +6286,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -6446,7 +6394,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -6570,7 +6517,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -6689,7 +6635,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -6784,7 +6729,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -6864,7 +6808,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -6968,7 +6911,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7067,7 +7009,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7152,7 +7093,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7232,7 +7172,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7386,7 +7325,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7485,7 +7423,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7589,7 +7526,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7692,7 +7628,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7777,7 +7712,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7857,7 +7791,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7914,7 +7847,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -7961,7 +7893,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -8046,7 +7977,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -8126,7 +8056,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -8208,7 +8137,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -8300,7 +8228,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -8419,7 +8346,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -8518,7 +8444,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -8632,7 +8557,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -8741,7 +8665,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -8855,7 +8778,6 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -9281,7 +9203,6 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -9400,7 +9321,6 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -9499,7 +9419,6 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -9613,7 +9532,6 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -9722,7 +9640,6 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -9836,7 +9753,6 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,

@@ -55,7 +55,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     "/v1/{}:setIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[Segment::Literal(""), Segment::MultiWildcard,]
+                        &[Segment::MultiWildcard,]
                     )?,
                 );
 
@@ -72,7 +72,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[Segment::Literal(""), Segment::MultiWildcard],
+                        &[Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());
@@ -102,7 +102,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     "/v1/{}:getIamPolicy",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[Segment::Literal(""), Segment::MultiWildcard,]
+                        &[Segment::MultiWildcard,]
                     )?,
                 );
 
@@ -119,7 +119,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[Segment::Literal(""), Segment::MultiWildcard],
+                        &[Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());
@@ -149,7 +149,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     "/v1/{}:testIamPermissions",
                     composable_matches(
                         Some(&req).map(|m| &m.resource)?,
-                        &[Segment::Literal(""), Segment::MultiWildcard,]
+                        &[Segment::MultiWildcard,]
                     )?,
                 );
 
@@ -166,7 +166,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.resource),
                         "resource",
-                        &[Segment::Literal(""), Segment::MultiWildcard],
+                        &[Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());
@@ -194,10 +194,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:iapSettings",
-                    composable_matches(
-                        Some(&req).map(|m| &m.name)?,
-                        &[Segment::Literal(""), Segment::MultiWildcard,]
-                    )?,
+                    composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::MultiWildcard,])?,
                 );
 
                 let builder = (|| {
@@ -213,7 +210,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[Segment::Literal(""), Segment::MultiWildcard],
+                        &[Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());
@@ -247,7 +244,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                         Some(&req)
                             .and_then(|m| m.iap_settings.as_ref())
                             .map(|m| &m.name)?,
-                        &[Segment::Literal(""), Segment::MultiWildcard,]
+                        &[Segment::MultiWildcard,]
                     )?,
                 );
 
@@ -276,7 +273,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                             .and_then(|m| m.iap_settings.as_ref())
                             .map(|m| &m.name),
                         "iap_settings.name",
-                        &[Segment::Literal(""), Segment::MultiWildcard],
+                        &[Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());
@@ -306,10 +303,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:validateAttributeExpression",
-                    composable_matches(
-                        Some(&req).map(|m| &m.name)?,
-                        &[Segment::Literal(""), Segment::MultiWildcard,]
-                    )?,
+                    composable_matches(Some(&req).map(|m| &m.name)?, &[Segment::MultiWildcard,])?,
                 );
 
                 let builder = (|| {
@@ -326,7 +320,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.name),
                         "name",
-                        &[Segment::Literal(""), Segment::MultiWildcard],
+                        &[Segment::MultiWildcard],
                         "**",
                     );
                     paths.push(builder.build());

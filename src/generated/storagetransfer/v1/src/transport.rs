@@ -495,7 +495,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     "/v1/projects/{}/agentPools",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::Literal(""), Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard,]
                     )?,
                 );
 
@@ -513,7 +513,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::Literal(""), Segment::SingleWildcard],
+                        &[Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());
@@ -677,7 +677,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     "/v1/projects/{}/agentPools",
                     composable_matches(
                         Some(&req).map(|m| &m.project_id)?,
-                        &[Segment::Literal(""), Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard,]
                     )?,
                 );
 
@@ -697,7 +697,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     let builder = builder.maybe_add_match_error(
                         Some(&req).map(|m| &m.project_id),
                         "project_id",
-                        &[Segment::Literal(""), Segment::SingleWildcard],
+                        &[Segment::SingleWildcard],
                         "*",
                     );
                     paths.push(builder.build());

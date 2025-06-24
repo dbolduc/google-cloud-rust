@@ -56,7 +56,6 @@ impl super::stub::ServiceUsage for ServiceUsage {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -80,7 +79,6 @@ impl super::stub::ServiceUsage for ServiceUsage {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -117,7 +115,6 @@ impl super::stub::ServiceUsage for ServiceUsage {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -141,7 +138,6 @@ impl super::stub::ServiceUsage for ServiceUsage {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -178,7 +174,6 @@ impl super::stub::ServiceUsage for ServiceUsage {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -202,7 +197,6 @@ impl super::stub::ServiceUsage for ServiceUsage {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -241,7 +235,6 @@ impl super::stub::ServiceUsage for ServiceUsage {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -266,7 +259,6 @@ impl super::stub::ServiceUsage for ServiceUsage {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -303,7 +295,6 @@ impl super::stub::ServiceUsage for ServiceUsage {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -325,7 +316,6 @@ impl super::stub::ServiceUsage for ServiceUsage {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -360,7 +350,6 @@ impl super::stub::ServiceUsage for ServiceUsage {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -386,7 +375,6 @@ impl super::stub::ServiceUsage for ServiceUsage {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,

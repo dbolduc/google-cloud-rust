@@ -2109,7 +2109,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2132,7 +2131,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2169,7 +2167,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2193,7 +2190,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2232,7 +2228,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2257,7 +2252,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2296,7 +2290,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                             .and_then(|m| m.service.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2330,7 +2323,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).and_then(|m| m.service.as_ref()).map(|m| &m.name),
                         "service.name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2369,7 +2361,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2393,7 +2384,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2436,7 +2426,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2462,7 +2451,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2501,7 +2489,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2528,7 +2515,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2569,7 +2555,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.parent)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2597,7 +2582,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.parent),
                         "parent",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2638,7 +2622,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                             .and_then(|m| m.service_level_objective.as_ref())
                             .map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2676,7 +2659,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                             .map(|m| &m.name),
                         "service_level_objective.name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2717,7 +2699,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                     composable_matches(
                         Some(&req).map(|m| &m.name)?,
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,
@@ -2743,7 +2724,6 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
                         Some(&req).map(|m| &m.name),
                         "name",
                         &[
-                            Segment::Literal(""),
                             Segment::SingleWildcard,
                             Segment::Literal("/"),
                             Segment::SingleWildcard,

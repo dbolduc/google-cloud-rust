@@ -177,16 +177,16 @@ type pathBindingAnnotation struct {
 	Bindings []bindingSubstitution
 	PathFmt  string
 
-	// TODO : good enough? I think I can call addQueryParameter on it? 
-        // Reminder that these things can never be nested. The fields always
-        // belong to the method in question. That is lucky, I guess.
-        //
-        // Or maybe it is not luck. It is just broken. Like when we have a
-        // nested field in the path, it also gets added as a query parameter.
-        // (Because we just flatten the top-level message field's JSON)
-        //
-        // Whatever. This is a giant mess. I am inclined to always include
-        // fields as QP, even if they are in the path. who the hell cares?
+	// TODO : good enough? I think I can call addQueryParameter on it?
+	// Reminder that these things can never be nested. The fields always
+	// belong to the method in question. That is lucky, I guess.
+	//
+	// Or maybe it is not luck. It is just broken. Like when we have a
+	// nested field in the path, it also gets added as a query parameter.
+	// (Because we just flatten the top-level message field's JSON)
+	//
+	// Whatever. This is a giant mess. I am inclined to always include
+	// fields as QP, even if they are in the path. who the hell cares?
 	QueryParams []*api.Field
 }
 
@@ -674,6 +674,12 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 					templateAsString += "*"
 				}
 				literalBuffer := ""
+				flushBuffer := func() {
+					if literalBuffer != "" {
+						templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, literalBuffer)
+					}
+					literalBuffer = ""
+				}
 				for i, vs := range s.Variable.Segments {
 					if i != 0 {
 						// TODO : Clean up.
@@ -688,9 +694,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 						//templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, *vs.Literal)
 						templateAsString += string(*vs.Literal)
 					} else {
-						// Flush literalBuffer
-						templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, literalBuffer)
-						literalBuffer = ""
+						flushBuffer()
 					}
 					if vs.Match != nil {
 						templateAsArray += "Segment::SingleWildcard,"
@@ -701,10 +705,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 						templateAsString += "**"
 					}
 				}
-				if literalBuffer != "" {
-					// Flush literalBuffer
-					templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, literalBuffer)
-				}
+				flushBuffer()
 				templateAsArray += "]"
 				// TODO : use Strings.Join()
 				fieldPath := ""
