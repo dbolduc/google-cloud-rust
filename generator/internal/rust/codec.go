@@ -691,6 +691,7 @@ func httpPathFmt(t *api.PathTemplate) string {
 	return fmt
 }
 
+// TODO(#2317) - remove when unused
 func derefFieldExpr(name string, optional bool, nextMessage *api.Message) (string, *api.Message) {
 	const (
 		optionalFmt = `.%s.as_ref().ok_or_else(|| gaxi::path_parameter::missing("%s"))?`
@@ -701,6 +702,7 @@ func derefFieldExpr(name string, optional bool, nextMessage *api.Message) (strin
 	return fmt.Sprintf(`.%s`, name), nextMessage
 }
 
+// TODO(#2317) - remove when unused
 func derefFieldSingle(name string, message *api.Message, state *api.APIState) (string, *api.Message) {
 	for _, field := range message.Fields {
 		if name != field.Name {
@@ -717,6 +719,7 @@ func derefFieldSingle(name string, message *api.Message, state *api.APIState) (s
 	return "", nil
 }
 
+// TODO(#2317) - remove when unused
 func derefFieldPath(fieldPath []string, message *api.Message, state *api.APIState) string {
 	var expression strings.Builder
 	msg := message
@@ -731,6 +734,7 @@ func derefFieldPath(fieldPath []string, message *api.Message, state *api.APIStat
 	return expression.String()
 }
 
+// TODO(#2317) - remove when unused
 func leafFieldTypez(fieldPath []string, message *api.Message, state *api.APIState) api.Typez {
 	typez := api.UNDEFINED_TYPE
 	msg := message
@@ -753,12 +757,14 @@ func leafFieldTypez(fieldPath []string, message *api.Message, state *api.APIStat
 	return typez
 }
 
+// TODO(#2317) - remove when unused
 type pathArg struct {
 	Name          string
 	Accessor      string
 	CheckForEmpty bool
 }
 
+// TODO(#2317) - remove when unused
 func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []pathArg {
 	message, ok := state.MessageByID[method.InputTypeID]
 	if !ok {
@@ -777,6 +783,95 @@ func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []pa
 		}
 	}
 	return params
+}
+
+func bindingField(fieldPaths []string, message *api.Message, state *api.APIState) bindingSubstitutionField {
+	accessor := "Some(&req)"
+	typez := api.UNDEFINED_TYPE
+
+	msg := message
+	for _, name := range fieldPaths {
+		if msg == nil {
+			slog.Error("cannot build full expression", "fieldPath", fieldPaths, "message", msg)
+			panic("Bad fieldPath")
+		}
+		for _, field := range msg.Fields {
+			if name != field.Name {
+				continue
+			}
+			typez = field.Typez
+			if field.Optional {
+				accessor += fmt.Sprintf(".and_then(|m| m.%s.as_ref())", name)
+			} else {
+				accessor += fmt.Sprintf(".map(|m| &m.%s)", name)
+			}
+			if field.Typez == api.MESSAGE_TYPE {
+				msg = state.MessageByID[field.TypezID]
+			}
+			break
+		}
+	}
+        return bindingSubstitutionField{
+                Accessor:  accessor,
+                FieldName: strings.Join(fieldPaths, "."),
+                IsString:  typez == api.STRING_TYPE,
+        }
+}
+
+// Convert the `PathVariableSegment`s into something Rust can understand.
+//
+// Returns (templateAsArray, templateAsString)
+func transformTemplate(segments []api.PathVariableSegment) (string, string) {
+	templateAsString := ""
+	templateAsArray := "&["
+        // The model may have multiple consecutive literal segments. We use this
+        // buffer to consolidate them into a single literal.
+	literalBuffer := ""
+        flushBuffer := func() {
+                if literalBuffer != "" {
+	                  templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, literalBuffer)
+                          literalBuffer = ""
+                }
+        }
+	for i, s := range segments {
+		if i != 0 {
+			// All segments are separated by a '/'.
+			literalBuffer += "/"
+			templateAsString += "/"
+		}
+		if s.Literal != nil {
+			literalBuffer += *s.Literal
+			templateAsString += *s.Literal
+		} else {
+			// This ends a string of literals, time to flush the buffer.
+                        flushBuffer()
+		}
+		if s.Match != nil {
+			templateAsArray += "Segment::SingleWildcard,"
+			templateAsString += "*"
+		}
+		if s.MatchRecursive != nil {
+			templateAsArray += "Segment::MultiWildcard,"
+			templateAsString += "**"
+		}
+	}
+	if literalBuffer != "" {
+		// The above loop might have ended on a literal. We need to
+                // flush the buffer.
+                flushBuffer()
+	}
+	templateAsArray += "]"
+        return templateAsArray, templateAsString
+}
+
+func makeBindingSubstitution(v *api.PathVariable, m *api.Method, state *api.APIState) bindingSubstitution {
+        field := bindingField(v.FieldPath, m.InputType, state)
+        templateAsArray, templateAsString := transformTemplate(v.Segments)
+	return bindingSubstitution{
+                Field:            field,
+		TemplateAsArray:  templateAsArray,
+		TemplateAsString: templateAsString,
+	}
 }
 
 // Convert a name to `snake_case`. The Rust naming conventions use this style

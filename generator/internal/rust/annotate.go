@@ -183,6 +183,58 @@ func (a *pathInfoAnnotation) RequiresContentLength() bool {
 	return a.Method == "POST" || a.Method == "PUT"
 }
 
+type bindingSubstitutionField struct {
+	// Rust code to access the leaf field, given a `req`
+	//
+	// This field can be deeply nested. We need to capture code for the entire
+	// chain. This accessor always returns an `Option<&T>`, even for fields
+	// which are always present. This simplifies the templates.
+	//
+	// The accessor should not
+	// - copy any fields
+	// - move any fields
+	// - panic
+	// - assume context i.e. use the try operator: `?`
+        Accessor string
+
+	// The field name
+        //
+        // Nested fields are '.'-separated.
+        //
+        // e.g. "message_field.nested_field"
+        FieldName string
+
+        // Whether the leaf field is a string (which requires matching) or not.
+        // TODO(#2497) - Determine if this is necessary
+        IsString bool
+}
+
+type pathBindingAnnotation struct {
+	Substitutions []bindingSubstitution
+	PathFmt       string
+	QueryParams   []*api.Field
+}
+
+type bindingSubstitution struct {
+        // Info needed to use a message's field as a path parameter.
+        Field bindingSubstitutionField
+
+        // TODO : Darren - feel like we should be able to use a func. I failed in the prototype tho.
+        // Rust code that yields an array of path segments.
+        //
+        // This array is supplied as an argument to
+        // `gaxi::path_parameter::try_match()`, and
+        // `gaxi::path_parameter::PathMismatchBuilder`.
+	//
+	// e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard,]`
+        TemplateAsArray string
+
+        // The expected template, which can be used as a static string.
+	//
+	// e.g.: "projects/*"
+        TemplateAsString string
+}
+
 type operationInfo struct {
 	MetadataType     string
 	ResponseType     string
@@ -645,6 +697,8 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	m.Codec = annotation
 }
 
+// TODO : Darren : oops, I think I duped this code.
+// TODO : refactor to a common place.
 func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api.Method, state *api.APIState) []string {
 	findField := func(name string, message *api.Message) *api.Field {
 		for _, f := range message.Fields {
@@ -718,8 +772,16 @@ func annotateSegments(segments []string) []string {
 	return ann
 }
 
-func annotatePathBinding(b *api.PathBinding, m *api.Method, _state *api.APIState) {
+func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState) {
+        var subs []bindingSubstitution
+        for _, s := range b.PathTemplate.Segments {
+                if s.Variable != nil {
+                        sub := makeBindingSubstitution(s.Variable, m, state)
+                        subs = append(subs, sub)
+                }
+        }
 	b.Codec = &pathBindingAnnotation{
+                Substitutions: subs,
 		PathFmt:     httpPathFmt(b.PathTemplate),
 		QueryParams: language.QueryParams(m, b),
 	}
