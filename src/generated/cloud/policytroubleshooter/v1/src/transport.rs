@@ -46,15 +46,33 @@ impl super::stub::IamChecker for IamChecker {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = "/v1/iam:troubleshoot".to_string();
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!("/v1/iam:troubleshoot",);
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner.execute(builder, Some(req), options).await
     }
 }

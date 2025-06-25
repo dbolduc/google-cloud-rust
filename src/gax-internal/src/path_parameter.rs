@@ -24,20 +24,27 @@ use gax::error::binding::{PathMismatch, SubstitutionFail, SubstitutionMismatch};
 
 trait PathField {
     fn dern_try_match(self, template: &[Segment]) -> Self;
-    fn maybe_error(&self,
+    fn maybe_error(
+        &self,
         template: &[Segment],
-        expecting: &'static str) -> Option<SubstitutionFail>;
+        expecting: &'static str,
+    ) -> Option<SubstitutionFail>;
 }
 
 impl PathField for Option<&str> {
     fn dern_try_match(self, template: &[Segment]) -> Self {
         try_match(self?, template)
     }
-    fn maybe_error(&self, template: &[Segment], expecting: &'static str) -> Option<SubstitutionFail> {
+    fn maybe_error(
+        &self,
+        template: &[Segment],
+        expecting: &'static str,
+    ) -> Option<SubstitutionFail> {
         match self {
             None | Some("") => Some(SubstitutionFail::UnsetExpecting(expecting)),
-            Some(actual) if try_match(actual, template).is_none() =>
-                    Some(SubstitutionFail::MismatchExpecting(actual.to_string(), expecting)),
+            Some(actual) if try_match(actual, template).is_none() => Some(
+                SubstitutionFail::MismatchExpecting(actual.to_string(), expecting),
+            ),
             _ => None,
         }
     }
@@ -47,7 +54,11 @@ impl<T> PathField for Option<&T> {
     fn dern_try_match(self, _template: &[Segment]) -> Self {
         self
     }
-    fn maybe_error(&self, _template: &[Segment], _expecting: &'static str) -> Option<SubstitutionFail> {
+    fn maybe_error(
+        &self,
+        _template: &[Segment],
+        _expecting: &'static str,
+    ) -> Option<SubstitutionFail> {
         match self {
             Some(_) => None,
             None => Some(SubstitutionFail::UnsetExpecting("todo")),

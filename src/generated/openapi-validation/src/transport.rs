@@ -46,33 +46,57 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/projects/{}/locations", {
-            let arg = &req.project;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("project"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .filter
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("filter", p)]));
-        let builder = req
-            .page_size
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
-        let builder = req
-            .page_token
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .filter
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+                    let builder = req
+                        .page_size
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+                    let builder = req
+                        .page_token
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -84,31 +108,55 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -120,33 +168,57 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/projects/{}/secrets", {
-            let arg = &req.project;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("project"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .page_size
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
-        let builder = req
-            .page_token
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-        let builder = req
-            .filter
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .page_size
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+                    let builder = req
+                        .page_token
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                    let builder = req
+                        .filter
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -158,22 +230,46 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/projects/{}/secrets", {
-            let arg = &req.project;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("project"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("secretId", &req.secret_id)]);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("secretId", &req.secret_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await
@@ -185,43 +281,67 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .page_size
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+                    let builder = req
+                        .page_token
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                    let builder = req
+                        .filter
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .page_size
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
-        let builder = req
-            .page_token
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-        let builder = req
-            .filter
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -233,32 +353,56 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("secretId", &req.secret_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("secretId", &req.secret_id)]);
+
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await
@@ -270,31 +414,55 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}:addVersion",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}:addVersion",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -304,38 +472,65 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}:addVersion",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}:addVersion",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -345,31 +540,55 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -381,35 +600,59 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Empty>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    let builder = req
+                        .etag
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("etag", p)]));
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .etag
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("etag", p)]));
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -421,37 +664,61 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = {
+                        use gaxi::query_parameter::QueryParameter;
+                        serde_json::to_value(&req.update_mask)
+                            .map_err(Error::ser)?
+                            .add(builder, "updateMask")
+                    };
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = {
-            use gaxi::query_parameter::QueryParameter;
-            serde_json::to_value(&req.update_mask)
-                .map_err(Error::ser)?
-                .add(builder, "updateMask")
-        };
+
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await
@@ -463,38 +730,65 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -506,42 +800,69 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Empty>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    let builder = req
+                        .etag
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("etag", p)]));
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .etag
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("etag", p)]));
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -553,44 +874,71 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = {
+                        use gaxi::query_parameter::QueryParameter;
+                        serde_json::to_value(&req.update_mask)
+                            .map_err(Error::ser)?
+                            .add(builder, "updateMask")
+                    };
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = {
-            use gaxi::query_parameter::QueryParameter;
-            serde_json::to_value(&req.update_mask)
-                .map_err(Error::ser)?
-                .add(builder, "updateMask")
-        };
+
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await
@@ -602,43 +950,67 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}/versions",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}/versions",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .page_size
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+                    let builder = req
+                        .page_token
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                    let builder = req
+                        .filter
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .page_size
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
-        let builder = req
-            .page_token
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-        let builder = req
-            .filter
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -650,50 +1022,77 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}/versions",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}/versions",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .page_size
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+                    let builder = req
+                        .page_token
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                    let builder = req
+                        .filter
+                        .iter()
+                        .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .page_size
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
-        let builder = req
-            .page_token
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
-        let builder = req
-            .filter
-            .iter()
-            .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -705,38 +1104,65 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}/versions/{}",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}/versions/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "version",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -748,45 +1174,75 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "version",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -798,38 +1254,65 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}/versions/{}:access",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}/versions/{}:access",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "version",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -841,45 +1324,75 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:access",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:access",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "version",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -891,38 +1404,65 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}/versions/{}:disable",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}/versions/{}:disable",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "version",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -932,45 +1472,75 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:disable",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:disable",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "version",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -980,38 +1550,65 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}/versions/{}:enable",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}/versions/{}:enable",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "version",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1021,45 +1618,75 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:enable",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:enable",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "version",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1069,38 +1696,65 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}/versions/{}:destroy",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}/versions/{}:destroy",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "version",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1110,45 +1764,75 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:destroy",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:destroy",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "version",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
-            {
-                let arg = &req.version;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("version"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1158,31 +1842,55 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}:setIamPolicy",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}:setIamPolicy",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1192,38 +1900,65 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}:setIamPolicy",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}:setIamPolicy",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1233,37 +1968,61 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}:getIamPolicy",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}:getIamPolicy",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .options_requested_policy_version
+                        .iter()
+                        .fold(builder, |builder, p| {
+                            builder.query(&[("options.requestedPolicyVersion", p)])
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .options_requested_policy_version
-            .iter()
-            .fold(builder, |builder, p| {
-                builder.query(&[("options.requestedPolicyVersion", p)])
-            });
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1275,44 +2034,71 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}:getIamPolicy",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}:getIamPolicy",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = req
+                        .options_requested_policy_version
+                        .iter()
+                        .fold(builder, |builder, p| {
+                            builder.query(&[("options.requestedPolicyVersion", p)])
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .options_requested_policy_version
-            .iter()
-            .fold(builder, |builder, p| {
-                builder.query(&[("options.requestedPolicyVersion", p)])
-            });
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1324,31 +2110,55 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/secrets/{}:testIamPermissions",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/secrets/{}:testIamPermissions",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1358,38 +2168,65 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!(
-            "/v1/projects/{}/locations/{}/secrets/{}:testIamPermissions",
-            {
-                let arg = &req.project;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("project"));
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/projects/{}/locations/{}/secrets/{}:testIamPermissions",
+                    try_match2(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match2(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "secret",
+                        "*",
+                    );
+                    paths.push(builder.build());
                 }
-                arg
-            },
-            {
-                let arg = &req.location;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("location"));
-                }
-                arg
-            },
-            {
-                let arg = &req.secret;
-                if arg.is_empty() {
-                    return Err(gaxi::path_parameter::missing("secret"));
-                }
-                arg
-            },
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+
         self.inner.execute(builder, Some(req), options).await
     }
 }

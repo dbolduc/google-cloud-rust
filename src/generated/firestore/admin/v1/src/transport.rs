@@ -46,21 +46,59 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/indexes", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}/indexes",
+                    try_match2(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/databases/*/collectionGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner.execute(builder, Some(req.index), options).await
     }
 
@@ -70,24 +108,62 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListIndexesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/indexes", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}/indexes",
+                    try_match2(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/databases/*/collectionGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -99,21 +175,63 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Index>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/indexes/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/indexes/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*/collectionGroups/*/indexes/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -125,21 +243,63 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/indexes/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/indexes/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*/collectionGroups/*/indexes/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -155,21 +315,63 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Field>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/fields/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/fields/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*/collectionGroups/*/fields/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -181,35 +383,79 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}", {
-            let arg = &req
-                .field
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("field"))?
-                .name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("field.name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req)
+                            .and_then(|m| m.field.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/fields/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.field.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/fields/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "field.name",
+                        "projects/*/databases/*/collectionGroups/*/fields/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner.execute(builder, Some(req.field), options).await
     }
 
@@ -219,24 +465,62 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListFieldsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/fields", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}/fields",
+                    try_match2(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/collectionGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/databases/*/collectionGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -248,21 +532,55 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:exportDocuments", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:exportDocuments",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -272,21 +590,55 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:importDocuments", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:importDocuments",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -296,21 +648,55 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:bulkDeleteDocuments", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:bulkDeleteDocuments",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -320,22 +706,46 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/databases", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("databaseId", &req.database_id)]);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}/databases",
+                    try_match2(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("databaseId", &req.database_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "parent",
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, Some(req.database), options)
             .await
@@ -347,21 +757,55 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Database>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -373,22 +817,46 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDatabasesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/databases", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}/databases",
+                    try_match2(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "parent",
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -400,35 +868,71 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}", {
-            let arg = &req
-                .database
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("database"))?
-                .name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("database.name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req)
+                            .and_then(|m| m.database.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.database.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "database.name",
+                        "projects/*/databases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, Some(req.database), options)
             .await
@@ -440,22 +944,56 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("etag", &req.etag)]);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    let builder = builder.query(&[("etag", &req.etag)]);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -467,22 +1005,56 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UserCreds>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/userCreds", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("userCredsId", &req.user_creds_id)]);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}/userCreds",
+                    try_match2(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    let builder = builder.query(&[("userCredsId", &req.user_creds_id)]);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/databases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, Some(req.user_creds), options)
             .await
@@ -494,21 +1066,59 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UserCreds>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/userCreds/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/userCreds/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*/userCreds/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -520,21 +1130,55 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUserCredsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/userCreds", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}/userCreds",
+                    try_match2(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/databases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -546,21 +1190,59 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UserCreds>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:enable", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:enable",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/userCreds/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/userCreds/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*/userCreds/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -570,21 +1252,59 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UserCreds>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:disable", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:disable",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/userCreds/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/userCreds/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*/userCreds/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -594,21 +1314,59 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UserCreds>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:resetPassword", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:resetPassword",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/userCreds/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/userCreds/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*/userCreds/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -618,21 +1376,59 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/userCreds/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/userCreds/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*/userCreds/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -648,21 +1444,59 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Backup>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/backups/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/backups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/backups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -674,22 +1508,56 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBackupsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/backups", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}/backups",
+                    try_match2(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -701,21 +1569,59 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/backups/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/backups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/backups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -731,21 +1637,45 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/databases:restore", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}/databases:restore",
+                    try_match2(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "parent",
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -755,21 +1685,55 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BackupSchedule>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}/backupSchedules", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}/backupSchedules",
+                    try_match2(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/databases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, Some(req.backup_schedule), options)
             .await
@@ -781,21 +1745,59 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BackupSchedule>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/backupSchedules/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/backupSchedules/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*/backupSchedules/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -807,21 +1809,55 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBackupSchedulesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/backupSchedules", {
-            let arg = &req.parent;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("parent"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}/backupSchedules",
+                    try_match2(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/databases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -833,35 +1869,75 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BackupSchedule>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}", {
-            let arg = &req
-                .backup_schedule
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("backup_schedule"))?
-                .name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("backup_schedule.name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::PATCH, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = req
-            .update_mask
-            .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::ser))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req)
+                            .and_then(|m| m.backup_schedule.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/backupSchedules/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.backup_schedule.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/backupSchedules/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "backup_schedule.name",
+                        "projects/*/databases/*/backupSchedules/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, Some(req.backup_schedule), options)
             .await
@@ -873,21 +1949,59 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/backupSchedules/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/backupSchedules/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*/backupSchedules/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -903,24 +2017,58 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}/operations", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = builder.query(&[("filter", &req.filter)]);
-        let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}/operations",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    let builder = builder.query(&[("filter", &req.filter)]);
+                    let builder = builder.query(&[("pageSize", &req.page_size)]);
+                    let builder = builder.query(&[("pageToken", &req.page_token)]);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -932,21 +2080,59 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::GET, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::GET, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -958,21 +2144,59 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let path = format!("/v1/{}", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::DELETE, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -988,21 +2212,59 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
-        let path = format!("/v1/{}:cancel", {
-            let arg = &req.name;
-            if arg.is_empty() {
-                return Err(gaxi::path_parameter::missing("name"));
-            }
-            arg
-        },);
-        let builder = self
-            .inner
-            .builder(reqwest::Method::POST, path)
-            .query(&[("$alt", "json;enum-encoding=int")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        use gaxi::routing_parameter::Segment;
+
+        let builder = None
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:cancel",
+                    try_match2(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = (|| {
+                    let builder = self.inner.builder(reqwest::Method::POST, path);
+                    Ok(builder)
+                })();
+                Some(builder)
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databases/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/databases/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();

@@ -219,27 +219,27 @@ impl super::stub::Compliance for Compliance {
                             .and_then(|m| m.info.as_ref())
                             .map(|m| &m.f_string)
                             .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_int32),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req)
                             .and_then(|m| m.info.as_ref())
                             .map(|m| &m.f_double),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req)
                             .and_then(|m| m.info.as_ref())
                             .map(|m| &m.f_kingdom),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -353,7 +353,7 @@ impl super::stub::Compliance for Compliance {
                             .and_then(|m| m.info.as_ref())
                             .map(|m| &m.f_string)
                             .map(|s| s.as_str()),
-                        &[Segment::Literal("first/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("first/"), Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req)
@@ -361,11 +361,11 @@ impl super::stub::Compliance for Compliance {
                             .and_then(|m| m.f_child.as_ref())
                             .map(|m| &m.f_string)
                             .map(|s| s.as_str()),
-                        &[Segment::Literal("second/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("second/"), Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -414,18 +414,18 @@ impl super::stub::Compliance for Compliance {
                             .and_then(|m| m.f_child.as_ref())
                             .map(|m| &m.f_string)
                             .map(|s| s.as_str()),
-                        &[Segment::Literal("first/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("first/"), Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req)
                             .and_then(|m| m.info.as_ref())
                             .map(|m| &m.f_string)
                             .map(|s| s.as_str()),
-                        &[Segment::Literal("second/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("second/"), Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -556,7 +556,7 @@ impl super::stub::Compliance for Compliance {
                             .and_then(|m| m.info.as_ref())
                             .map(|m| &m.f_string)
                             .map(|s| s.as_str()),
-                        &[Segment::Literal("first/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("first/"), Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req)
@@ -564,7 +564,7 @@ impl super::stub::Compliance for Compliance {
                             .and_then(|m| m.f_child.as_ref())
                             .map(|m| &m.f_string)
                             .map(|s| s.as_str()),
-                        &[Segment::Literal("second/"), Segment::MultiWildcard,]
+                        &[Segment::Literal("second"), Segment::TrailingMultiWildcard]
                     )?,
                 );
 
@@ -623,7 +623,7 @@ impl super::stub::Compliance for Compliance {
                             .and_then(|m| m.f_child.as_ref())
                             .map(|m| &m.f_string)
                             .map(|s| s.as_str()),
-                        &[Segment::Literal("second/"), Segment::MultiWildcard],
+                        &[Segment::Literal("second"), Segment::TrailingMultiWildcard],
                         "info.f_child.f_string",
                         "second/**",
                     );
@@ -817,7 +817,7 @@ impl super::stub::Compliance for Compliance {
                     "/v1beta1/{}/locations",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -874,7 +874,7 @@ impl super::stub::Compliance for Compliance {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -930,7 +930,7 @@ impl super::stub::Compliance for Compliance {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -945,7 +945,7 @@ impl super::stub::Compliance for Compliance {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -964,7 +964,7 @@ impl super::stub::Compliance for Compliance {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -980,7 +980,7 @@ impl super::stub::Compliance for Compliance {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1063,7 +1063,7 @@ impl super::stub::Compliance for Compliance {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1088,7 +1088,7 @@ impl super::stub::Compliance for Compliance {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1117,7 +1117,7 @@ impl super::stub::Compliance for Compliance {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1143,7 +1143,7 @@ impl super::stub::Compliance for Compliance {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1238,7 +1238,7 @@ impl super::stub::Compliance for Compliance {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1253,7 +1253,7 @@ impl super::stub::Compliance for Compliance {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1272,7 +1272,7 @@ impl super::stub::Compliance for Compliance {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1288,7 +1288,7 @@ impl super::stub::Compliance for Compliance {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1413,7 +1413,10 @@ impl super::stub::Compliance for Compliance {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -1429,7 +1432,10 @@ impl super::stub::Compliance for Compliance {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -1463,7 +1469,10 @@ impl super::stub::Compliance for Compliance {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -1479,7 +1488,10 @@ impl super::stub::Compliance for Compliance {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -1517,7 +1529,10 @@ impl super::stub::Compliance for Compliance {
                     "/v1beta1/{}:cancel",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -1533,7 +1548,10 @@ impl super::stub::Compliance for Compliance {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -1880,7 +1898,7 @@ impl super::stub::Echo for Echo {
                     "/v1beta1/{}/locations",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1937,7 +1955,7 @@ impl super::stub::Echo for Echo {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1993,7 +2011,7 @@ impl super::stub::Echo for Echo {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2008,7 +2026,7 @@ impl super::stub::Echo for Echo {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2027,7 +2045,7 @@ impl super::stub::Echo for Echo {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -2043,7 +2061,7 @@ impl super::stub::Echo for Echo {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2126,7 +2144,7 @@ impl super::stub::Echo for Echo {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2151,7 +2169,7 @@ impl super::stub::Echo for Echo {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2180,7 +2198,7 @@ impl super::stub::Echo for Echo {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -2206,7 +2224,7 @@ impl super::stub::Echo for Echo {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2301,7 +2319,7 @@ impl super::stub::Echo for Echo {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2316,7 +2334,7 @@ impl super::stub::Echo for Echo {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2335,7 +2353,7 @@ impl super::stub::Echo for Echo {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -2351,7 +2369,7 @@ impl super::stub::Echo for Echo {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2476,7 +2494,10 @@ impl super::stub::Echo for Echo {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -2492,7 +2513,10 @@ impl super::stub::Echo for Echo {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -2526,7 +2550,10 @@ impl super::stub::Echo for Echo {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -2542,7 +2569,10 @@ impl super::stub::Echo for Echo {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -2580,7 +2610,10 @@ impl super::stub::Echo for Echo {
                     "/v1beta1/{}:cancel",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -2596,7 +2629,10 @@ impl super::stub::Echo for Echo {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -2707,7 +2743,7 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2760,7 +2796,7 @@ impl super::stub::Identity for Identity {
                             .and_then(|m| m.user.as_ref())
                             .map(|m| &m.name)
                             .map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2821,7 +2857,7 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2915,7 +2951,7 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}/locations",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2972,7 +3008,7 @@ impl super::stub::Identity for Identity {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -3028,7 +3064,7 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3043,7 +3079,7 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3062,7 +3098,7 @@ impl super::stub::Identity for Identity {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -3078,7 +3114,7 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3161,7 +3197,7 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3186,7 +3222,7 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3215,7 +3251,7 @@ impl super::stub::Identity for Identity {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -3241,7 +3277,7 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3336,7 +3372,7 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3351,7 +3387,7 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3370,7 +3406,7 @@ impl super::stub::Identity for Identity {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -3386,7 +3422,7 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3511,7 +3547,10 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -3527,7 +3566,10 @@ impl super::stub::Identity for Identity {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -3561,7 +3603,10 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -3577,7 +3622,10 @@ impl super::stub::Identity for Identity {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -3615,7 +3663,10 @@ impl super::stub::Identity for Identity {
                     "/v1beta1/{}:cancel",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -3631,7 +3682,10 @@ impl super::stub::Identity for Identity {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -3728,7 +3782,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3781,7 +3835,7 @@ impl super::stub::Messaging for Messaging {
                             .and_then(|m| m.room.as_ref())
                             .map(|m| &m.name)
                             .map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3842,7 +3896,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3936,7 +3990,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}/blurbs",
                     try_match2(
                         Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3954,7 +4008,7 @@ impl super::stub::Messaging for Messaging {
                         &[
                             Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/profile"),
+                            Segment::Literal("/profile")
                         ]
                     )?,
                 );
@@ -4021,7 +4075,7 @@ impl super::stub::Messaging for Messaging {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -4041,7 +4095,7 @@ impl super::stub::Messaging for Messaging {
                             Segment::Literal("users/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/profile/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -4119,7 +4173,7 @@ impl super::stub::Messaging for Messaging {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -4152,7 +4206,7 @@ impl super::stub::Messaging for Messaging {
                             Segment::Literal("users/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/profile/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -4241,7 +4295,7 @@ impl super::stub::Messaging for Messaging {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -4261,7 +4315,7 @@ impl super::stub::Messaging for Messaging {
                             Segment::Literal("users/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/profile/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -4336,7 +4390,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}/blurbs",
                     try_match2(
                         Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -4356,7 +4410,7 @@ impl super::stub::Messaging for Messaging {
                         &[
                             Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/profile"),
+                            Segment::Literal("/profile")
                         ]
                     )?,
                 );
@@ -4423,7 +4477,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}/blurbs:search",
                     try_match2(
                         Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -4441,7 +4495,7 @@ impl super::stub::Messaging for Messaging {
                         &[
                             Segment::Literal("users/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/profile"),
+                            Segment::Literal("/profile")
                         ]
                     )?,
                 );
@@ -4507,7 +4561,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}/locations",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -4564,7 +4618,7 @@ impl super::stub::Messaging for Messaging {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -4620,7 +4674,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -4635,7 +4689,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -4654,7 +4708,7 @@ impl super::stub::Messaging for Messaging {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -4670,7 +4724,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -4753,7 +4807,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -4778,7 +4832,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -4807,7 +4861,7 @@ impl super::stub::Messaging for Messaging {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -4833,7 +4887,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -4928,7 +4982,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -4943,7 +4997,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -4962,7 +5016,7 @@ impl super::stub::Messaging for Messaging {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -4978,7 +5032,7 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -5103,7 +5157,10 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -5119,7 +5176,10 @@ impl super::stub::Messaging for Messaging {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -5153,7 +5213,10 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -5169,7 +5232,10 @@ impl super::stub::Messaging for Messaging {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -5207,7 +5273,10 @@ impl super::stub::Messaging for Messaging {
                     "/v1beta1/{}:cancel",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -5223,7 +5292,10 @@ impl super::stub::Messaging for Messaging {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -5377,7 +5449,7 @@ impl super::stub::SequenceService for SequenceService {
                         &[
                             Segment::Literal("sequences/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/sequenceReport"),
+                            Segment::Literal("/sequenceReport")
                         ]
                     )?,
                 );
@@ -5435,7 +5507,7 @@ impl super::stub::SequenceService for SequenceService {
                         &[
                             Segment::Literal("streamingSequences/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/streamingSequenceReport"),
+                            Segment::Literal("/streamingSequenceReport")
                         ]
                     )?,
                 );
@@ -5490,7 +5562,7 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -5543,7 +5615,7 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}/locations",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -5600,7 +5672,7 @@ impl super::stub::SequenceService for SequenceService {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -5656,7 +5728,7 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -5671,7 +5743,7 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -5690,7 +5762,7 @@ impl super::stub::SequenceService for SequenceService {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -5706,7 +5778,7 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -5789,7 +5861,7 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -5814,7 +5886,7 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -5843,7 +5915,7 @@ impl super::stub::SequenceService for SequenceService {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -5869,7 +5941,7 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -5964,7 +6036,7 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -5979,7 +6051,7 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -5998,7 +6070,7 @@ impl super::stub::SequenceService for SequenceService {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -6014,7 +6086,7 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -6139,7 +6211,10 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -6155,7 +6230,10 @@ impl super::stub::SequenceService for SequenceService {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -6189,7 +6267,10 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -6205,7 +6286,10 @@ impl super::stub::SequenceService for SequenceService {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -6243,7 +6327,10 @@ impl super::stub::SequenceService for SequenceService {
                     "/v1beta1/{}:cancel",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -6259,7 +6346,10 @@ impl super::stub::SequenceService for SequenceService {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -6358,7 +6448,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("sessions/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sessions/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -6448,7 +6538,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("sessions/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sessions/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -6502,7 +6592,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}:report",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("sessions/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sessions/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -6552,7 +6642,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}/tests",
                     try_match2(
                         Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("sessions/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sessions/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -6608,7 +6698,7 @@ impl super::stub::Testing for Testing {
                             Segment::Literal("sessions/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/tests/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -6672,7 +6762,7 @@ impl super::stub::Testing for Testing {
                             Segment::Literal("sessions/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/tests/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -6733,7 +6823,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}/locations",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -6790,7 +6880,7 @@ impl super::stub::Testing for Testing {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -6846,7 +6936,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -6861,7 +6951,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -6880,7 +6970,7 @@ impl super::stub::Testing for Testing {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -6896,7 +6986,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}:setIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -6979,7 +7069,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -7004,7 +7094,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -7033,7 +7123,7 @@ impl super::stub::Testing for Testing {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -7059,7 +7149,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}:getIamPolicy",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -7154,7 +7244,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -7169,7 +7259,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -7188,7 +7278,7 @@ impl super::stub::Testing for Testing {
                             Segment::Literal("rooms/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -7204,7 +7294,7 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}:testIamPermissions",
                     try_match2(
                         Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -7329,7 +7419,10 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -7345,7 +7438,10 @@ impl super::stub::Testing for Testing {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -7379,7 +7475,10 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -7395,7 +7494,10 @@ impl super::stub::Testing for Testing {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
@@ -7433,7 +7535,10 @@ impl super::stub::Testing for Testing {
                     "/v1beta1/{}:cancel",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard,]
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard
+                        ]
                     )?,
                 );
 
@@ -7449,7 +7554,10 @@ impl super::stub::Testing for Testing {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("operations/"), Segment::MultiWildcard],
+                        &[
+                            Segment::Literal("operations"),
+                            Segment::TrailingMultiWildcard,
+                        ],
                         "name",
                         "operations/**",
                     );
