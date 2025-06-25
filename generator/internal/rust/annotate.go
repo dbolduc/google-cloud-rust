@@ -183,58 +183,6 @@ func (a *pathInfoAnnotation) RequiresContentLength() bool {
 	return a.Method == "POST" || a.Method == "PUT"
 }
 
-type bindingSubstitutionField struct {
-	// Rust code to access the leaf field, given a `req`
-	//
-	// This field can be deeply nested. We need to capture code for the entire
-	// chain. This accessor always returns an `Option<&T>`, even for fields
-	// which are always present. This simplifies the templates.
-	//
-	// The accessor should not
-	// - copy any fields
-	// - move any fields
-	// - panic
-	// - assume context i.e. use the try operator: `?`
-        Accessor string
-
-	// The field name
-        //
-        // Nested fields are '.'-separated.
-        //
-        // e.g. "message_field.nested_field"
-        FieldName string
-
-        // Whether the leaf field is a string (which requires matching) or not.
-        // TODO(#2497) - Determine if this is necessary
-        IsString bool
-}
-
-type pathBindingAnnotation struct {
-	Substitutions []bindingSubstitution
-	PathFmt       string
-	QueryParams   []*api.Field
-}
-
-type bindingSubstitution struct {
-        // Info needed to use a message's field as a path parameter.
-        Field bindingSubstitutionField
-
-        // TODO : Darren - feel like we should be able to use a func. I failed in the prototype tho.
-        // Rust code that yields an array of path segments.
-        //
-        // This array is supplied as an argument to
-        // `gaxi::path_parameter::try_match()`, and
-        // `gaxi::path_parameter::PathMismatchBuilder`.
-	//
-	// e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard,]`
-        TemplateAsArray string
-
-        // The expected template, which can be used as a static string.
-	//
-	// e.g.: "projects/*"
-        TemplateAsString string
-}
-
 type operationInfo struct {
 	MetadataType     string
 	ResponseType     string
@@ -265,7 +213,56 @@ type routingVariantAnnotations struct {
 	SuffixSegments   []string
 }
 
+type bindingSubstitutionField struct {
+	// Rust code to access the leaf field, given a `req`
+	//
+	// This field can be deeply nested. We need to capture code for the entire
+	// chain. This accessor always returns an `Option<&T>`, even for fields
+	// which are always present. This simplifies the templates.
+	//
+	// The accessor should not
+	// - copy any fields
+	// - move any fields
+	// - panic
+	// - assume context i.e. use the try operator: `?`
+        Accessor string
+
+	// The field name
+        //
+        // Nested fields are '.'-separated.
+        //
+        // e.g. "message_field.nested_field"
+        FieldName string
+
+        // Whether the leaf field is a string (which requires matching) or not.
+        // TODO(#2497) - Determine if this is necessary
+        IsString bool
+}
+
+type bindingSubstitution struct {
+        // Info needed to use a message's field as a path parameter.
+        Field bindingSubstitutionField
+
+        // TODO : Darren - feel like we should be able to use a func. I failed in the prototype tho.
+        // Rust code that yields an array of path segments.
+        //
+        // This array is supplied as an argument to
+        // `gaxi::path_parameter::try_match()`, and
+        // `gaxi::path_parameter::PathMismatchBuilder`.
+	//
+	// e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard,]`
+        TemplateAsArray string
+
+        // The expected template, which can be used as a static string.
+	//
+	// e.g.: "projects/*"
+        TemplateAsString string
+}
+
 type pathBindingAnnotation struct {
+        // TODO : document?
+	Substitutions []bindingSubstitution
+
 	// The path format string for this binding
 	//
 	// e.g. "/v1/projects/{}/locations/{}"

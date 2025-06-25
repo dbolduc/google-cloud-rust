@@ -811,10 +811,14 @@ func bindingField(fieldPaths []string, message *api.Message, state *api.APIState
 			break
 		}
 	}
+        isString := typez == api.STRING_TYPE
+        if isString {
+          accessor += ".map(|s| s.as_str())"
+        }
         return bindingSubstitutionField{
                 Accessor:  accessor,
                 FieldName: strings.Join(fieldPaths, "."),
-                IsString:  typez == api.STRING_TYPE,
+                IsString:  isString,
         }
 }
 

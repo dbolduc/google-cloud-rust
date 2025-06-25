@@ -22,6 +22,43 @@
 use crate::routing_parameter::Segment;
 use gax::error::binding::{PathMismatch, SubstitutionFail, SubstitutionMismatch};
 
+trait PathField {
+    fn dern_try_match(self, template: &[Segment]) -> Self;
+    fn maybe_error(&self,
+        template: &[Segment],
+        expecting: &'static str) -> Option<SubstitutionFail>;
+}
+
+impl PathField for Option<&str> {
+    fn dern_try_match(self, template: &[Segment]) -> Self {
+        try_match(self?, template)
+    }
+    fn maybe_error(&self, template: &[Segment], expecting: &'static str) -> Option<SubstitutionFail> {
+        match self {
+            None | Some("") => Some(SubstitutionFail::UnsetExpecting(expecting)),
+            Some(actual) if try_match(actual, template).is_none() =>
+                    Some(SubstitutionFail::MismatchExpecting(actual.to_string(), expecting)),
+            _ => None,
+        }
+    }
+}
+
+impl<T> PathField for Option<&T> {
+    fn dern_try_match(self, _template: &[Segment]) -> Self {
+        self
+    }
+    fn maybe_error(&self, _template: &[Segment], _expecting: &'static str) -> Option<SubstitutionFail> {
+        match self {
+            Some(_) => None,
+            None => Some(SubstitutionFail::UnsetExpecting("todo")),
+        }
+    }
+}
+
+pub fn try_match2<T: PathField>(value: T, template: &[Segment]) -> T {
+    value.dern_try_match(template)
+}
+
 /// Checks if a string field matches a given path template
 ///
 /// If it matches, it returns `Some(value)`. (Having a composable function
@@ -77,6 +114,22 @@ pub fn try_match<'a>(value: &'a str, template: &[Segment]) -> Option<&'a str> {
 pub struct PathMismatchBuilder(PathMismatch);
 
 impl PathMismatchBuilder {
+    pub fn maybe_add<T: PathField>(
+        mut self,
+        value: T,
+        template: &[Segment],
+        field_name: &'static str,
+        expecting: &'static str,
+    ) -> Self {
+        if let Some(problem) = value.maybe_error(template, expecting) {
+            self.0.subs.push(SubstitutionMismatch {
+                field_name,
+                problem,
+            });
+        }
+        self
+    }
+
     /// Tries to match `value` against the expected `template`. The error is
     /// recorded, if the match is unsuccessful.
     ///

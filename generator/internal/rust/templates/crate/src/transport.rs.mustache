@@ -72,39 +72,86 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             options,
             {{PathInfo.Codec.IsIdempotent}},
         );
-        let path =
-            {{^PathInfo.Codec.HasPathArgs}}
-            {{! Sometimes there are no path args and `format!()` produces warnings }}
-            "{{PathInfo.Codec.PathFmt}}".to_string();
-            {{/PathInfo.Codec.HasPathArgs}}
-            {{#PathInfo.Codec.HasPathArgs}}
-            format!("{{PathInfo.Codec.PathFmt}}",
-                {{#PathInfo.Codec.PathArgs}}
-                    {
-                        {{#CheckForEmpty}}
-                        let arg = &req{{{Accessor}}};
-                        if arg.is_empty() {
-                            return Err(gaxi::path_parameter::missing("{{Name}}"));
-                        }
-                        arg
-                        {{/CheckForEmpty}}
-                        {{^CheckForEmpty}}
-                        &req{{{Accessor}}}
-                        {{/CheckForEmpty}}
-                    },
-                {{/PathInfo.Codec.PathArgs}}
+        use gax::error::binding::BindingError;
+        use gaxi::routing_parameter::Segment;
+        {{^DarrensTraitRefactor}}
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
+        {{/DarrensTraitRefactor}}
+        {{#DarrensTraitRefactor}}
+        use gaxi::path_parameter::{PathMismatchBuilder, try_match};
+        {{/DarrensTraitRefactor}}
+
+        let builder = None
+        {{#PathInfo.Bindings}}
+        .or_else(|| {
+            let path = format!(
+                "{{Codec.PathFmt}}",
+                {{#Codec.Substitutions}}
+                {{^DarrensTraitRefactor}}
+                try_match2({{{Field.Accessor}}}, {{{TemplateAsArray}}})?,
+                {{/DarrensTraitRefactor}}
+                {{#DarrensTraitRefactor}}
+                {{#Field.IsString}}
+                try_match({{{Field.Accessor}}}?, {{{TemplateAsArray}}})?,
+                {{/Field.IsString}}
+                {{^Field.IsString}}
+                {{{Field.Accessor}}}?,
+                {{/Field.IsString}}
+                {{/DarrensTraitRefactor}}
+                {{/Codec.Substitutions}}
             );
-            {{/PathInfo.Codec.HasPathArgs}}
-        let builder = self
-            .inner
-            .builder(reqwest::Method::{{PathInfo.Codec.Method}}, path)
-            {{#Codec.SystemParameters}}
-            .query(&[("{{Name}}", "{{Value}}")])
-            {{/Codec.SystemParameters}}
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        {{#Codec.QueryParams}}
-        {{{Codec.AddQueryParameter}}}
-        {{/Codec.QueryParams}}
+
+            let builder = (|| {
+                let builder = self
+                    .inner
+                    .builder(reqwest::Method::{{Verb}}, path);
+                {{#Codec.QueryParams}}
+                {{{Codec.AddQueryParameter}}}
+                {{/Codec.QueryParams}}
+                Ok(builder)
+            })();
+            Some(builder)
+        })
+        {{/PathInfo.Bindings}}
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {{#PathInfo.Bindings}}
+            {
+                let builder = PathMismatchBuilder::default();
+                {{#Codec.Substitutions}}
+                {{^DarrensTraitRefactor}}
+                let builder = builder.maybe_add(
+                    {{{Field.Accessor}}},
+                    {{{TemplateAsArray}}},
+                    "{{Field.FieldName}}",
+                    "{{{TemplateAsString}}}");
+                {{/DarrensTraitRefactor}}
+                {{#DarrensTraitRefactor}}
+                {{#Field.IsString}}
+                let builder = builder.maybe_add_error_string(
+                    {{{Field.Accessor}}},
+                    "{{Field.FieldName}}",
+                    {{{TemplateAsArray}}},
+                    "{{{TemplateAsString}}}");
+                {{/Field.IsString}}
+                {{^Field.IsString}}
+                let builder = builder.maybe_add_error_other(
+                    {{{Field.Accessor}}},
+                    "{{Field.FieldName}}");
+                {{/Field.IsString}}
+                {{/DarrensTraitRefactor}}
+                {{/Codec.Substitutions}}
+                paths.push(builder.build());
+            }
+            {{/PathInfo.Bindings}}
+            gax::error::Error::binding(BindingError { paths })
+        })??;
+        let builder = builder
+                {{#Codec.SystemParameters}}
+                .query(&[("{{Name}}", "{{Value}}")])
+                {{/Codec.SystemParameters}}
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+
         self.inner.execute(
             builder,
             {{#PathInfo.Codec.HasBody}}
