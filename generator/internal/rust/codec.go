@@ -785,58 +785,21 @@ func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []pa
 	return params
 }
 
-func bindingField(fieldPaths []string, message *api.Message, state *api.APIState) bindingSubstitutionField {
-	accessor := "Some(&req)"
-	typez := api.UNDEFINED_TYPE
-
-	msg := message
-	for _, name := range fieldPaths {
-		if msg == nil {
-			slog.Error("cannot build full expression", "fieldPath", fieldPaths, "message", msg)
-			panic("Bad fieldPath")
-		}
-		for _, field := range msg.Fields {
-			if name != field.Name {
-				continue
-			}
-			typez = field.Typez
-			if field.Optional {
-				accessor += fmt.Sprintf(".and_then(|m| m.%s.as_ref())", name)
-			} else {
-				accessor += fmt.Sprintf(".map(|m| &m.%s)", name)
-			}
-			if field.Typez == api.MESSAGE_TYPE {
-				msg = state.MessageByID[field.TypezID]
-			}
-			break
-		}
-	}
-        isString := typez == api.STRING_TYPE
-        if isString {
-          accessor += ".map(|s| s.as_str())"
-        }
-        return bindingSubstitutionField{
-                Accessor:  accessor,
-                FieldName: strings.Join(fieldPaths, "."),
-                IsString:  isString,
-        }
-}
-
 // Convert the `PathVariableSegment`s into something Rust can understand.
 //
 // Returns (templateAsArray, templateAsString)
 func transformTemplate(segments []api.PathVariableSegment) (string, string) {
 	templateAsString := ""
 	templateAsArray := "&["
-        // The model may have multiple consecutive literal segments. We use this
-        // buffer to consolidate them into a single literal.
+	// The model may have multiple consecutive literal segments. We use this
+	// buffer to consolidate them into a single literal.
 	literalBuffer := ""
-        flushBuffer := func() {
-                if literalBuffer != "" {
-	                  templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, literalBuffer)
-                          literalBuffer = ""
-                }
-        }
+	flushBuffer := func() {
+		if literalBuffer != "" {
+			templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, literalBuffer)
+			literalBuffer = ""
+		}
+	}
 	for i, s := range segments {
 		if i != 0 {
 			// All segments are separated by a '/'.
@@ -848,7 +811,7 @@ func transformTemplate(segments []api.PathVariableSegment) (string, string) {
 			templateAsString += *s.Literal
 		} else {
 			// This ends a string of literals, time to flush the buffer.
-                        flushBuffer()
+			flushBuffer()
 		}
 		if s.Match != nil {
 			templateAsArray += "Segment::SingleWildcard,"
@@ -861,18 +824,22 @@ func transformTemplate(segments []api.PathVariableSegment) (string, string) {
 	}
 	if literalBuffer != "" {
 		// The above loop might have ended on a literal. We need to
-                // flush the buffer.
-                flushBuffer()
+		// flush the buffer.
+		flushBuffer()
 	}
 	templateAsArray += "]"
-        return templateAsArray, templateAsString
+	return templateAsArray, templateAsString
 }
 
 func makeBindingSubstitution(v *api.PathVariable, m *api.Method, state *api.APIState) bindingSubstitution {
-        field := bindingField(v.FieldPath, m.InputType, state)
-        templateAsArray, templateAsString := transformTemplate(v.Segments)
+	fieldAccessor := "Some(&req)"
+	for _, a := range makeAccessors(v.FieldPath, m, state) {
+		fieldAccessor += a
+	}
+	templateAsArray, templateAsString := transformTemplate(v.Segments)
 	return bindingSubstitution{
-                Field:            field,
+		FieldAccessor:    fieldAccessor,
+		FieldName:        strings.Join(v.FieldPath, "."),
 		TemplateAsArray:  templateAsArray,
 		TemplateAsString: templateAsString,
 	}

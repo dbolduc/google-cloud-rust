@@ -213,7 +213,7 @@ type routingVariantAnnotations struct {
 	SuffixSegments   []string
 }
 
-type bindingSubstitutionField struct {
+type bindingSubstitution struct {
 	// Rust code to access the leaf field, given a `req`
 	//
 	// This field can be deeply nested. We need to capture code for the entire
@@ -225,42 +225,33 @@ type bindingSubstitutionField struct {
 	// - move any fields
 	// - panic
 	// - assume context i.e. use the try operator: `?`
-        Accessor string
+	FieldAccessor string
 
 	// The field name
-        //
-        // Nested fields are '.'-separated.
-        //
-        // e.g. "message_field.nested_field"
-        FieldName string
+	//
+	// Nested fields are '.'-separated.
+	//
+	// e.g. "message_field.nested_field"
+	FieldName string
 
-        // Whether the leaf field is a string (which requires matching) or not.
-        // TODO(#2497) - Determine if this is necessary
-        IsString bool
-}
-
-type bindingSubstitution struct {
-        // Info needed to use a message's field as a path parameter.
-        Field bindingSubstitutionField
-
-        // TODO : Darren - feel like we should be able to use a func. I failed in the prototype tho.
-        // Rust code that yields an array of path segments.
-        //
-        // This array is supplied as an argument to
-        // `gaxi::path_parameter::try_match()`, and
-        // `gaxi::path_parameter::PathMismatchBuilder`.
+	// TODO : Darren - feel like we should be able to use a func. I failed in the prototype tho.
+	// Rust code that yields an array of path segments.
+	//
+	// This array is supplied as an argument to
+	// `gaxi::path_parameter::try_match()`, and
+	// `gaxi::path_parameter::PathMismatchBuilder`.
 	//
 	// e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard,]`
-        TemplateAsArray string
+	TemplateAsArray string
 
-        // The expected template, which can be used as a static string.
+	// The expected template, which can be used as a static string.
 	//
 	// e.g.: "projects/*"
-        TemplateAsString string
+	TemplateAsString string
 }
 
 type pathBindingAnnotation struct {
-        // TODO : document?
+	// TODO : document?
 	Substitutions []bindingSubstitution
 
 	// The path format string for this binding
@@ -694,9 +685,11 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	m.Codec = annotation
 }
 
-// TODO : Darren : oops, I think I duped this code.
-// TODO : refactor to a common place.
 func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api.Method, state *api.APIState) []string {
+	return makeAccessors(variant.FieldPath, m, state)
+}
+
+func makeAccessors(fields []string, m *api.Method, state *api.APIState) []string {
 	findField := func(name string, message *api.Message) *api.Field {
 		for _, f := range message.Fields {
 			if f.Name == name {
@@ -707,19 +700,19 @@ func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api
 	}
 	var accessors []string
 	message := m.InputType
-	for _, name := range variant.FieldPath {
+	for _, name := range fields {
 		field := findField(name, message)
 		if field == nil {
-			slog.Error("invalid routing field for request message", "field", name, "message ID", message.ID)
+			slog.Error("invalid routing/path field for request message", "field", name, "message ID", message.ID)
 			continue
 		}
-		switch {
-		case field.Optional:
-			accessors = append(accessors, fmt.Sprintf(".and_then(|v| v.%s.as_ref())", name))
-		case field.Typez == api.STRING_TYPE:
-			accessors = append(accessors, fmt.Sprintf(".map(|v| v.%s.as_str())", name))
-		default:
-			accessors = append(accessors, fmt.Sprintf(".map(|v| &v.%s)", name))
+		if field.Optional {
+			accessors = append(accessors, fmt.Sprintf(".and_then(|m| m.%s.as_ref())", name))
+		} else {
+			accessors = append(accessors, fmt.Sprintf(".map(|m| &m.%s)", name))
+		}
+		if field.Typez == api.STRING_TYPE {
+			accessors = append(accessors, ".map(|s| s.as_str())")
 		}
 		if field.Typez == api.MESSAGE_TYPE {
 			if fieldMessage, ok := state.MessageByID[field.TypezID]; ok {
@@ -770,17 +763,17 @@ func annotateSegments(segments []string) []string {
 }
 
 func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState) {
-        var subs []bindingSubstitution
-        for _, s := range b.PathTemplate.Segments {
-                if s.Variable != nil {
-                        sub := makeBindingSubstitution(s.Variable, m, state)
-                        subs = append(subs, sub)
-                }
-        }
+	var subs []bindingSubstitution
+	for _, s := range b.PathTemplate.Segments {
+		if s.Variable != nil {
+			sub := makeBindingSubstitution(s.Variable, m, state)
+			subs = append(subs, sub)
+		}
+	}
 	b.Codec = &pathBindingAnnotation{
-                Substitutions: subs,
-		PathFmt:     httpPathFmt(b.PathTemplate),
-		QueryParams: language.QueryParams(m, b),
+		Substitutions: subs,
+		PathFmt:       httpPathFmt(b.PathTemplate),
+		QueryParams:   language.QueryParams(m, b),
 	}
 }
 

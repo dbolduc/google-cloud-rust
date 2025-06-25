@@ -74,12 +74,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         );
         use gax::error::binding::BindingError;
         use gaxi::routing_parameter::Segment;
-        {{^DarrensTraitRefactor}}
         use gaxi::path_parameter::{PathMismatchBuilder, try_match2};
-        {{/DarrensTraitRefactor}}
-        {{#DarrensTraitRefactor}}
-        use gaxi::path_parameter::{PathMismatchBuilder, try_match};
-        {{/DarrensTraitRefactor}}
 
         let builder = None
         {{#PathInfo.Bindings}}
@@ -87,17 +82,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             let path = format!(
                 "{{Codec.PathFmt}}",
                 {{#Codec.Substitutions}}
-                {{^DarrensTraitRefactor}}
-                try_match2({{{Field.Accessor}}}, {{{TemplateAsArray}}})?,
-                {{/DarrensTraitRefactor}}
-                {{#DarrensTraitRefactor}}
-                {{#Field.IsString}}
-                try_match({{{Field.Accessor}}}?, {{{TemplateAsArray}}})?,
-                {{/Field.IsString}}
-                {{^Field.IsString}}
-                {{{Field.Accessor}}}?,
-                {{/Field.IsString}}
-                {{/DarrensTraitRefactor}}
+                try_match2({{{FieldAccessor}}}, {{{TemplateAsArray}}})?,
                 {{/Codec.Substitutions}}
             );
 
@@ -119,27 +104,11 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             {
                 let builder = PathMismatchBuilder::default();
                 {{#Codec.Substitutions}}
-                {{^DarrensTraitRefactor}}
                 let builder = builder.maybe_add(
-                    {{{Field.Accessor}}},
+                    {{{FieldAccessor}}},
                     {{{TemplateAsArray}}},
-                    "{{Field.FieldName}}",
+                    "{{FieldName}}",
                     "{{{TemplateAsString}}}");
-                {{/DarrensTraitRefactor}}
-                {{#DarrensTraitRefactor}}
-                {{#Field.IsString}}
-                let builder = builder.maybe_add_error_string(
-                    {{{Field.Accessor}}},
-                    "{{Field.FieldName}}",
-                    {{{TemplateAsArray}}},
-                    "{{{TemplateAsString}}}");
-                {{/Field.IsString}}
-                {{^Field.IsString}}
-                let builder = builder.maybe_add_error_other(
-                    {{{Field.Accessor}}},
-                    "{{Field.FieldName}}");
-                {{/Field.IsString}}
-                {{/DarrensTraitRefactor}}
                 {{/Codec.Substitutions}}
                 paths.push(builder.build());
             }
