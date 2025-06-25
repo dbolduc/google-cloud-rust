@@ -62,7 +62,7 @@ impl super::stub::Executions for Executions {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/workflows/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -131,7 +131,7 @@ impl super::stub::Executions for Executions {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/workflows/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -197,7 +197,7 @@ impl super::stub::Executions for Executions {
                             Segment::Literal("/workflows/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/executions/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -266,7 +266,7 @@ impl super::stub::Executions for Executions {
                             Segment::Literal("/workflows/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/executions/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );

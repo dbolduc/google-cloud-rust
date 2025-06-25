@@ -785,63 +785,28 @@ func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []pa
 	return params
 }
 
-// Convert the `PathVariableSegment`s into something Rust can understand.
-//
-// Returns (templateAsArray, templateAsString)
-func transformTemplate(segments []api.PathVariableSegment) (string, string) {
-	templateAsString := ""
-	templateAsArray := "&["
-	// The model may have multiple consecutive literal segments. We use this
-	// buffer to consolidate them into a single literal.
-	literalBuffer := ""
-	flushBuffer := func() {
-		if literalBuffer != "" {
-			templateAsArray += fmt.Sprintf(`Segment::Literal("%s"),`, literalBuffer)
-			literalBuffer = ""
-		}
-	}
-	for i, s := range segments {
-		if i != 0 {
-			// All segments are separated by a '/'.
-			literalBuffer += "/"
-			templateAsString += "/"
-		}
-		if s.Literal != nil {
-			literalBuffer += *s.Literal
-			templateAsString += *s.Literal
-		} else {
-			// This ends a string of literals, time to flush the buffer.
-			flushBuffer()
-		}
-		if s.Match != nil {
-			templateAsArray += "Segment::SingleWildcard,"
-			templateAsString += "*"
-		}
-		if s.MatchRecursive != nil {
-			templateAsArray += "Segment::MultiWildcard,"
-			templateAsString += "**"
-		}
-	}
-	if literalBuffer != "" {
-		// The above loop might have ended on a literal. We need to
-		// flush the buffer.
-		flushBuffer()
-	}
-	templateAsArray += "]"
-	return templateAsArray, templateAsString
-}
-
 func makeBindingSubstitution(v *api.PathVariable, m *api.Method, state *api.APIState) bindingSubstitution {
 	fieldAccessor := "Some(&req)"
 	for _, a := range makeAccessors(v.FieldPath, m, state) {
 		fieldAccessor += a
 	}
-	templateAsArray, templateAsString := transformTemplate(v.Segments)
+	// TODO(#557) - back from the grave!
+	var segments []string
+	for _, s := range v.Segments {
+		if s.Literal != nil {
+			segments = append(segments, *s.Literal)
+		} else if s.Match != nil {
+			segments = append(segments, "*")
+		} else if s.MatchRecursive != nil {
+			segments = append(segments, "**")
+		}
+	}
+
 	return bindingSubstitution{
 		FieldAccessor:    fieldAccessor,
 		FieldName:        strings.Join(v.FieldPath, "."),
-		TemplateAsArray:  templateAsArray,
-		TemplateAsString: templateAsString,
+		TemplateAsArray:  "&[" + strings.Join(annotateSegments(segments), ", ") + "]",
+		TemplateAsString: strings.Join(segments, "/"),
 	}
 }
 

@@ -56,13 +56,13 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                     "/v1/projects/{}/instances/{}/backupRuns/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
-                    try_match2(Some(&req).map(|m| &m.id), &[Segment::SingleWildcard,])?,
+                    try_match2(Some(&req).map(|m| &m.id), &[Segment::SingleWildcard])?,
                 );
 
                 let builder = (|| {
@@ -123,13 +123,13 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                     "/v1/projects/{}/instances/{}/backupRuns/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
-                    try_match2(Some(&req).map(|m| &m.id), &[Segment::SingleWildcard,])?,
+                    try_match2(Some(&req).map(|m| &m.id), &[Segment::SingleWildcard])?,
                 );
 
                 let builder = (|| {
@@ -190,11 +190,11 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                     "/v1/projects/{}/instances/{}/backupRuns",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -248,11 +248,11 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                     "/v1/projects/{}/instances/{}/backupRuns",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -333,11 +333,11 @@ impl super::stub::SqlConnectService for SqlConnectService {
                     "/v1/projects/{}/instances/{}/connectSettings",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -403,11 +403,11 @@ impl super::stub::SqlConnectService for SqlConnectService {
                     "/v1/projects/{}/instances/{}:generateEphemeralCert",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -484,15 +484,15 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                     "/v1/projects/{}/instances/{}/databases/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.database).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -554,15 +554,15 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                     "/v1/projects/{}/instances/{}/databases/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.database).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -624,11 +624,11 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                     "/v1/projects/{}/instances/{}/databases",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -682,11 +682,11 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                     "/v1/projects/{}/instances/{}/databases",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -742,15 +742,15 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                     "/v1/projects/{}/instances/{}/databases/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.database).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -810,15 +810,15 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                     "/v1/projects/{}/instances/{}/databases/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.database).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -963,11 +963,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/addServerCa",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1023,11 +1023,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/clone",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1081,11 +1081,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1141,11 +1141,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/demoteMaster",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1199,11 +1199,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/demote",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1257,11 +1257,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/export",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1315,11 +1315,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/failover",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1373,11 +1373,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/reencrypt",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1431,11 +1431,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1491,11 +1491,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/import",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1549,7 +1549,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1597,7 +1597,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1650,11 +1650,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/listServerCas",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1710,11 +1710,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1768,11 +1768,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/promoteReplica",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1829,11 +1829,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/switchover",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1899,11 +1899,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/resetSslConfig",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1959,11 +1959,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/restart",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2019,11 +2019,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/restoreBackup",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2077,11 +2077,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/rotateServerCa",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2135,11 +2135,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/startReplica",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2195,11 +2195,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/stopReplica",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2255,11 +2255,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/truncateLog",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2313,11 +2313,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2371,11 +2371,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/createEphemeral",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2429,11 +2429,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/rescheduleMaintenance",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2488,11 +2488,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/verifyExternalSyncSettings",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2546,11 +2546,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/startExternalSync",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2604,11 +2604,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/performDiskShrink",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2663,11 +2663,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/getDiskShrinkConfig",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2723,11 +2723,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/resetReplicaSize",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2782,11 +2782,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/getLatestRecoveryTime",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2842,11 +2842,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/acquireSsrsLease",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2900,11 +2900,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "/v1/projects/{}/instances/{}/releaseSsrsLease",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -2983,11 +2983,11 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                     "/v1/projects/{}/operations/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3043,7 +3043,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                     "/v1/projects/{}/operations",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3096,11 +3096,11 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                     "/v1/projects/{}/operations/{}/cancel",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3183,15 +3183,15 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                     "/v1/projects/{}/instances/{}/sslCerts/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.sha1_fingerprint).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3253,15 +3253,15 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                     "/v1/projects/{}/instances/{}/sslCerts/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.sha1_fingerprint).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3323,11 +3323,11 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                     "/v1/projects/{}/instances/{}/sslCerts",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3381,11 +3381,11 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                     "/v1/projects/{}/instances/{}/sslCerts",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3464,7 +3464,7 @@ impl super::stub::SqlTiersService for SqlTiersService {
                     "/v1/projects/{}/tiers",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3537,11 +3537,11 @@ impl super::stub::SqlUsersService for SqlUsersService {
                     "/v1/projects/{}/instances/{}/users",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3599,15 +3599,15 @@ impl super::stub::SqlUsersService for SqlUsersService {
                     "/v1/projects/{}/instances/{}/users/{}",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3670,11 +3670,11 @@ impl super::stub::SqlUsersService for SqlUsersService {
                     "/v1/projects/{}/instances/{}/users",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3728,11 +3728,11 @@ impl super::stub::SqlUsersService for SqlUsersService {
                     "/v1/projects/{}/instances/{}/users",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 
@@ -3788,11 +3788,11 @@ impl super::stub::SqlUsersService for SqlUsersService {
                     "/v1/projects/{}/instances/{}/users",
                     try_match2(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                     try_match2(
                         Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard,]
+                        &[Segment::SingleWildcard]
                     )?,
                 );
 

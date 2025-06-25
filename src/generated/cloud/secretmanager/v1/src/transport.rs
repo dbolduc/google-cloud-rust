@@ -56,7 +56,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     "/v1/{}/secrets",
                     try_match2(
                         Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -78,7 +78,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -147,7 +147,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     "/v1/{}/secrets",
                     try_match2(
                         Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -167,7 +167,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -236,7 +236,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -258,7 +258,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -333,7 +333,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -355,7 +355,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -435,7 +435,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -470,7 +470,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -561,7 +561,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -584,7 +584,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -666,7 +666,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -691,7 +691,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -773,7 +773,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/secrets/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/versions/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -797,7 +797,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/secrets/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/versions/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -880,7 +880,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/secrets/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/versions/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -904,7 +904,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/secrets/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/versions/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -987,7 +987,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/secrets/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/versions/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1011,7 +1011,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/secrets/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/versions/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1092,7 +1092,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/secrets/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/versions/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1116,7 +1116,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/secrets/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/versions/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1197,7 +1197,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/secrets/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/versions/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1221,7 +1221,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/secrets/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/versions/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1300,7 +1300,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1322,7 +1322,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1397,7 +1397,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1429,7 +1429,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1516,7 +1516,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1538,7 +1538,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/secrets/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -1609,7 +1609,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     "/v1/{}/locations",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -1666,7 +1666,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );

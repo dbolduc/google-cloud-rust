@@ -60,7 +60,7 @@ impl super::stub::Workflows for Workflows {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -126,7 +126,7 @@ impl super::stub::Workflows for Workflows {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/workflows/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -189,7 +189,7 @@ impl super::stub::Workflows for Workflows {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -252,7 +252,7 @@ impl super::stub::Workflows for Workflows {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/workflows/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -319,7 +319,7 @@ impl super::stub::Workflows for Workflows {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/workflows/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -396,7 +396,7 @@ impl super::stub::Workflows for Workflows {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/workflows/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -456,7 +456,7 @@ impl super::stub::Workflows for Workflows {
                     "/v1/{}/locations",
                     try_match2(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard,]
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
 
@@ -513,7 +513,7 @@ impl super::stub::Workflows for Workflows {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -573,7 +573,7 @@ impl super::stub::Workflows for Workflows {
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -638,7 +638,7 @@ impl super::stub::Workflows for Workflows {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/operations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
@@ -702,7 +702,7 @@ impl super::stub::Workflows for Workflows {
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/operations/"),
-                            Segment::SingleWildcard,
+                            Segment::SingleWildcard
                         ]
                     )?,
                 );
