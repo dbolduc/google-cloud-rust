@@ -805,8 +805,9 @@ func makeBindingSubstitution(v *api.PathVariable, m *api.Method, state *api.APIS
 	return bindingSubstitution{
 		FieldAccessor:    fieldAccessor,
 		FieldName:        strings.Join(v.FieldPath, "."),
-		TemplateAsArray:  "&[" + strings.Join(annotateSegments(segments), ", ") + "]",
-		TemplateAsString: strings.Join(segments, "/"),
+		//TemplateAsArray:  "&[" + strings.Join(annotateSegments(segments), ", ") + "]",
+		//TemplateAsString: strings.Join(segments, "/"),
+		Template:         segments,
 	}
 }
 

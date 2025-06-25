@@ -234,25 +234,30 @@ type bindingSubstitution struct {
 	// e.g. "message_field.nested_field"
 	FieldName string
 
-	// TODO : Darren - feel like we should be able to use a func. I failed in the prototype tho.
-	// Rust code that yields an array of path segments.
-	//
-	// This array is supplied as an argument to
-	// `gaxi::path_parameter::try_match()`, and
-	// `gaxi::path_parameter::PathMismatchBuilder`.
-	//
-	// e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard,]`
-	TemplateAsArray string
+        // TODO : can I hold one field for the template?
+	Template []string
+}
 
-	// The expected template, which can be used as a static string.
-	//
-	// e.g.: "projects/*"
-	TemplateAsString string
+// Rust code that yields an array of path segments.
+//
+// This array is supplied as an argument to `gaxi::path_parameter::try_match()`,
+// and `gaxi::path_parameter::PathMismatchBuilder`.
+//
+// e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard]`
+func (s *bindingSubstitution) TemplateAsArray() string {
+        return  "&[" + strings.Join(annotateSegments(s.Template), ", ") + "]"
+}
+
+// The expected template, which can be used as a static string.
+//
+// e.g.: "projects/*"
+func (s *bindingSubstitution) TemplateAsString() string {
+	return strings.Join(s.Template, "/")
 }
 
 type pathBindingAnnotation struct {
 	// TODO : document?
-	Substitutions []bindingSubstitution
+	Substitutions []*bindingSubstitution
 
 	// The path format string for this binding
 	//
@@ -763,11 +768,11 @@ func annotateSegments(segments []string) []string {
 }
 
 func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState) {
-	var subs []bindingSubstitution
+	var subs []*bindingSubstitution
 	for _, s := range b.PathTemplate.Segments {
 		if s.Variable != nil {
 			sub := makeBindingSubstitution(s.Variable, m, state)
-			subs = append(subs, sub)
+			subs = append(subs, &sub)
 		}
 	}
 	b.Codec = &pathBindingAnnotation{
