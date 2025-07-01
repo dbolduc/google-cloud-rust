@@ -134,6 +134,14 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         {{! TODO(#2548) - skip empty strings, and don't lead with a '&' }}
         .fold(String::new(), |b, p| b + "&" + &p);
         {{/HasRouting}}
+        {{! This chains more nicely. Meh. Harder to test. Maybe there is a gapic-showcase, or I can use httptest? }}
+        {{#AutoPopulatedFields}}
+        let req = if req.{{Codec.FieldName}}.is_empty() {
+            req.set_{{Codec.SetterName}}(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
+        };
+        {{/AutoPopulatedFields}}
 
         {{#ReturnsEmpty}}
         type TR = ();

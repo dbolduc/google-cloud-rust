@@ -224,6 +224,9 @@ type Method struct {
 	OperationInfo *OperationInfo
 	// The routing annotations, if any
 	Routing []*RoutingInfo
+	// The auto-populated (request_id) fields, if any, as defined in
+	// [AIP-4235](https://google.aip.dev/client-libraries/4235)
+	AutoPopulatedFields []*Field
 	// The model this method belongs to, mustache templates use this field to
 	// navigate the data structure.
 	Model *API

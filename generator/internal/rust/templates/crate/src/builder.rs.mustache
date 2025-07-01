@@ -149,7 +149,25 @@ pub mod {{Codec.ModuleName}} {
                 traits (e.g. `std::clone::Clone`) making the call ambiguous.
                 Using `*self.0.stub` makes the call not-ambiguous.
             }}
+            {{! this is a list. The code does not work in a list. }}
+            
+            {{{!
+                Meh, it is easier to see the diff in transport.rs, lemme start with that.
+                {{#AutoPopulatedFields}}
+                // TODO : let's leave this as-is. I sort of feel like auto-population is a builder concept.
+                let req = if self.0.request.{{Codec.FieldName}}.is_empty() {
+                    self.0.request.set_{{Codec.SetterName}}(uuid::Uuid::new_v4().to_string())
+                } else {
+                    self.0.request
+                };
+                {{/AutoPopulatedFields}}
+                {{^AutoPopulatedFields}}
+                let req = self.0.request;
+                {{/AutoPopulatedFields}}
+                (*self.0.stub).{{Codec.Name}}(req, self.0.options).await.map(gax::response::Response::into_body)
+            }}}
             (*self.0.stub).{{Codec.Name}}(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+
         }
         {{#Pagination}}
 

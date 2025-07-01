@@ -88,6 +88,11 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
+        };
 
         type TR = crate::google::storage::control::v2::Folder;
         self.inner
@@ -139,6 +144,11 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
+        };
 
         type TR = ();
         self.inner
@@ -189,6 +199,11 @@ impl super::stub::StorageControl for StorageControl {
                     )
                 })
                 .map(|v| ("bucket", v))])
+        };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
         };
 
         type TR = crate::google::storage::control::v2::Folder;
@@ -287,6 +302,11 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
+        };
 
         type TR = crate::google::longrunning::Operation;
         self.inner
@@ -338,6 +358,11 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
+        };
 
         type TR = crate::google::storage::control::v2::StorageLayout;
         self.inner
@@ -383,6 +408,11 @@ impl super::stub::StorageControl for StorageControl {
                     )
                 })
                 .map(|v| ("bucket", v))])
+        };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
         };
 
         type TR = crate::google::storage::control::v2::ManagedFolder;
@@ -435,6 +465,11 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
+        };
 
         type TR = ();
         self.inner
@@ -486,6 +521,11 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
+        };
 
         type TR = crate::google::storage::control::v2::ManagedFolder;
         self.inner
@@ -532,6 +572,11 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
+        };
 
         type TR = crate::google::storage::control::v2::ListManagedFoldersResponse;
         self.inner
@@ -577,6 +622,11 @@ impl super::stub::StorageControl for StorageControl {
                     )
                 })
                 .map(|v| ("bucket", v))])
+        };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
         };
 
         type TR = crate::google::longrunning::Operation;
@@ -632,6 +682,11 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
+        };
 
         type TR = crate::google::longrunning::Operation;
         self.inner
@@ -682,6 +737,11 @@ impl super::stub::StorageControl for StorageControl {
                     )
                 })
                 .map(|v| ("bucket", v))])
+        };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
         };
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
@@ -734,6 +794,11 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
+        };
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
         self.inner
@@ -784,6 +849,11 @@ impl super::stub::StorageControl for StorageControl {
                     )
                 })
                 .map(|v| ("bucket", v))])
+        };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
         };
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
@@ -836,6 +906,11 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
+        };
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
         self.inner
@@ -881,6 +956,11 @@ impl super::stub::StorageControl for StorageControl {
                     )
                 })
                 .map(|v| ("bucket", v))])
+        };
+        let req = if req.request_id.is_empty() {
+            req.set_request_id(uuid::Uuid::new_v4().to_string())
+        } else {
+            req
         };
 
         type TR = crate::google::storage::control::v2::ListAnywhereCachesResponse;

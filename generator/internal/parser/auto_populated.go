@@ -34,7 +34,7 @@ func updateAutoPopulatedFields(serviceConfig *serviceconfig.Service, model *api.
 	}
 	for _, m := range serviceConfig.GetPublishing().GetMethodSettings() {
 		selector := m.GetSelector()
-		method, ok := model.State.MethodByID[selector]
+		method, ok := model.State.MethodByID["."+selector]
 		if !ok {
 			continue
 		}
@@ -46,8 +46,8 @@ func updateAutoPopulatedFields(serviceConfig *serviceconfig.Service, model *api.
 			if !field.AutoPopulated {
 				continue
 			}
-			if !inAutoPopulatedList(field.Name, m) {
-				field.AutoPopulated = false
+			if inAutoPopulatedList(field.Name, m) {
+				method.AutoPopulatedFields = append(method.AutoPopulatedFields, field)
 			}
 		}
 	}

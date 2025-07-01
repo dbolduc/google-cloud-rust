@@ -39,6 +39,7 @@ serde_with.workspace  = true
 tonic.workspace       = true
 tokio                 = { workspace = true, features = ["macros", "rt-multi-thread"] }
 tracing.workspace     = true
+uuid.workspace        = true
 # Local crates
 gax.workspace         = true
 gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
