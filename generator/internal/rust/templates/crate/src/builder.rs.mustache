@@ -34,10 +34,11 @@ pub mod {{Codec.ModuleName}} {
     /// # use {{Model.Codec.PackageNamespace}}::*;
     /// # use builder::{{Codec.ModuleName}}::ClientBuilder;
     /// # use client::{{Codec.Name}};
-    /// let builder : ClientBuilder = {{Codec.Name}}::builder();
+    /// let builder: ClientBuilder = {{Codec.Name}}::builder();
     /// let client = builder
     ///     .with_endpoint("https://{{Model.Codec.DefaultHost}}")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -96,7 +97,7 @@ pub mod {{Codec.ModuleName}} {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     {{/Pagination}}
     {{^Pagination}}
@@ -108,8 +109,8 @@ pub mod {{Codec.ModuleName}} {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> {{Codec.BuilderName}} {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
