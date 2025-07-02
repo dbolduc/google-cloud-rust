@@ -24,10 +24,11 @@ pub mod grafeas {
     /// # use google_cloud_grafeas_v1::*;
     /// # use builder::grafeas::ClientBuilder;
     /// # use client::Grafeas;
-    /// let builder : ClientBuilder = Grafeas::builder();
+    /// let builder: ClientBuilder = Grafeas::builder();
     /// let client = builder
     ///     .with_endpoint("https://containeranalysis.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -82,8 +83,8 @@ pub mod grafeas {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetOccurrence {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -142,13 +143,13 @@ pub mod grafeas {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListOccurrences {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -250,8 +251,8 @@ pub mod grafeas {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteOccurrence {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -314,8 +315,8 @@ pub mod grafeas {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateOccurrence {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -400,8 +401,8 @@ pub mod grafeas {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> BatchCreateOccurrences {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -477,8 +478,8 @@ pub mod grafeas {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> UpdateOccurrence {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -581,8 +582,8 @@ pub mod grafeas {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetOccurrenceNote {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -645,8 +646,8 @@ pub mod grafeas {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetNote {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -705,13 +706,13 @@ pub mod grafeas {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListNotes {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -813,8 +814,8 @@ pub mod grafeas {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteNote {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -874,8 +875,8 @@ pub mod grafeas {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateNote {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -965,8 +966,8 @@ pub mod grafeas {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> BatchCreateNotes {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1042,8 +1043,8 @@ pub mod grafeas {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> UpdateNote {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1142,13 +1143,13 @@ pub mod grafeas {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListNoteOccurrences {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]

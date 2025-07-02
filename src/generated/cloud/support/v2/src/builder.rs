@@ -24,10 +24,11 @@ pub mod case_attachment_service {
     /// # use google_cloud_support_v2::*;
     /// # use builder::case_attachment_service::ClientBuilder;
     /// # use client::CaseAttachmentService;
-    /// let builder : ClientBuilder = CaseAttachmentService::builder();
+    /// let builder: ClientBuilder = CaseAttachmentService::builder();
     /// let client = builder
     ///     .with_endpoint("https://cloudsupport.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -83,13 +84,13 @@ pub mod case_attachment_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListAttachments {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -185,10 +186,11 @@ pub mod case_service {
     /// # use google_cloud_support_v2::*;
     /// # use builder::case_service::ClientBuilder;
     /// # use client::CaseService;
-    /// let builder : ClientBuilder = CaseService::builder();
+    /// let builder: ClientBuilder = CaseService::builder();
     /// let client = builder
     ///     .with_endpoint("https://cloudsupport.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -245,8 +247,8 @@ pub mod case_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetCase {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -307,13 +309,13 @@ pub mod case_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListCases {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -416,13 +418,13 @@ pub mod case_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> SearchCases {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -524,8 +526,8 @@ pub mod case_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateCase {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -609,8 +611,8 @@ pub mod case_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> UpdateCase {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -704,8 +706,8 @@ pub mod case_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> EscalateCase {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -785,8 +787,8 @@ pub mod case_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CloseCase {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -847,13 +849,13 @@ pub mod case_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> SearchCaseClassifications {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -956,10 +958,11 @@ pub mod comment_service {
     /// # use google_cloud_support_v2::*;
     /// # use builder::comment_service::ClientBuilder;
     /// # use client::CommentService;
-    /// let builder : ClientBuilder = CommentService::builder();
+    /// let builder: ClientBuilder = CommentService::builder();
     /// let client = builder
     ///     .with_endpoint("https://cloudsupport.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -1015,13 +1018,13 @@ pub mod comment_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListComments {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1119,8 +1122,8 @@ pub mod comment_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateComment {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]

@@ -24,10 +24,11 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::*;
     /// # use builder::cloud_redis_cluster::ClientBuilder;
     /// # use client::CloudRedisCluster;
-    /// let builder : ClientBuilder = CloudRedisCluster::builder();
+    /// let builder: ClientBuilder = CloudRedisCluster::builder();
     /// let client = builder
     ///     .with_endpoint("https://redis.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -83,13 +84,13 @@ pub mod cloud_redis_cluster {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListClusters {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -187,8 +188,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetCluster {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -251,8 +252,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> UpdateCluster {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -392,8 +393,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteCluster {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -502,8 +503,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateCluster {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -636,8 +637,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetClusterCertificateAuthority {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -705,8 +706,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> RescheduleClusterMaintenance {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -838,13 +839,13 @@ pub mod cloud_redis_cluster {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListBackupCollections {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -947,8 +948,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetBackupCollection {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1012,13 +1013,13 @@ pub mod cloud_redis_cluster {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListBackups {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1116,8 +1117,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetBackup {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1180,8 +1181,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteBackup {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1290,8 +1291,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ExportBackup {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1413,8 +1414,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> BackupCluster {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1546,13 +1547,13 @@ pub mod cloud_redis_cluster {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListLocations {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1657,8 +1658,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetLocation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1717,13 +1718,13 @@ pub mod cloud_redis_cluster {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListOperations {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1830,8 +1831,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetOperation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1894,8 +1895,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1958,8 +1959,8 @@ pub mod cloud_redis_cluster {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CancelOperation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]

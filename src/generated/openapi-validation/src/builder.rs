@@ -24,10 +24,11 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::*;
     /// # use builder::secret_manager_service::ClientBuilder;
     /// # use client::SecretManagerService;
-    /// let builder : ClientBuilder = SecretManagerService::builder();
+    /// let builder: ClientBuilder = SecretManagerService::builder();
     /// let client = builder
     ///     .with_endpoint("https://secretmanager.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -83,13 +84,13 @@ pub mod secret_manager_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListLocations {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -229,8 +230,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetLocation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -299,13 +300,13 @@ pub mod secret_manager_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListSecrets {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -445,8 +446,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateSecret {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -533,13 +534,13 @@ pub mod secret_manager_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListSecretsByProjectAndLocation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -692,8 +693,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateSecretByProjectAndLocation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -794,8 +795,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> AddSecretVersion {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -894,8 +895,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> AddSecretVersionByProjectAndLocationAndSecret {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -999,8 +1000,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetSecret {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1070,8 +1071,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteSecret {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1159,8 +1160,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> UpdateSecret {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1256,8 +1257,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetSecretByProjectAndLocationAndSecret {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1342,8 +1343,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteSecretByProjectAndLocationAndSecret {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1446,8 +1447,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> UpdateSecretByProjectAndLocationAndSecret {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1557,13 +1558,13 @@ pub mod secret_manager_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListSecretVersions {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1715,13 +1716,13 @@ pub mod secret_manager_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListSecretVersionsByProjectAndLocationAndSecret {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1889,8 +1890,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetSecretVersion {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1971,8 +1972,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetSecretVersionByProjectAndLocationAndSecretAndVersion {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2072,8 +2073,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> AccessSecretVersion {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2154,8 +2155,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2255,8 +2256,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DisableSecretVersion {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2363,8 +2364,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2478,8 +2479,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> EnableSecretVersion {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2586,8 +2587,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2701,8 +2702,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DestroySecretVersion {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2809,8 +2810,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2924,8 +2925,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3039,8 +3040,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> SetIamPolicyByProjectAndLocationAndSecret {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3156,8 +3157,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3248,8 +3249,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetIamPolicyByProjectAndLocationAndSecret {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3355,8 +3356,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3448,8 +3449,8 @@ pub mod secret_manager_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> TestIamPermissionsByProjectAndLocationAndSecret {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]

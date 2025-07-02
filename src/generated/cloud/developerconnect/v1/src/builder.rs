@@ -24,10 +24,11 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::*;
     /// # use builder::developer_connect::ClientBuilder;
     /// # use client::DeveloperConnect;
-    /// let builder : ClientBuilder = DeveloperConnect::builder();
+    /// let builder: ClientBuilder = DeveloperConnect::builder();
     /// let client = builder
     ///     .with_endpoint("https://developerconnect.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -83,13 +84,13 @@ pub mod developer_connect {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListConnections {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -199,8 +200,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetConnection {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -263,8 +264,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateConnection {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -410,8 +411,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> UpdateConnection {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -569,8 +570,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteConnection {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -694,8 +695,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateGitRepositoryLink {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -846,8 +847,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteGitRepositoryLink {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -971,13 +972,13 @@ pub mod developer_connect {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListGitRepositoryLinks {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1094,8 +1095,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetGitRepositoryLink {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1160,8 +1161,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> FetchReadWriteToken {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1226,8 +1227,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> FetchReadToken {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1288,13 +1289,13 @@ pub mod developer_connect {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> FetchLinkableGitRepositories {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1401,8 +1402,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> FetchGitHubInstallations {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1469,8 +1470,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> FetchGitRefs {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1554,13 +1555,13 @@ pub mod developer_connect {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListAccountConnectors {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1675,8 +1676,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetAccountConnector {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1742,8 +1743,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateAccountConnector {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -1892,8 +1893,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> UpdateAccountConnector {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2050,8 +2051,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteAccountConnector {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2180,8 +2181,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> FetchAccessToken {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2245,13 +2246,13 @@ pub mod developer_connect {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListUsers {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2362,8 +2363,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteUser {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2483,8 +2484,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> FetchSelf {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2547,8 +2548,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteSelf {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2649,13 +2650,13 @@ pub mod developer_connect {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListLocations {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2760,8 +2761,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetLocation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2820,13 +2821,13 @@ pub mod developer_connect {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListOperations {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2933,8 +2934,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetOperation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -2997,8 +2998,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3061,8 +3062,8 @@ pub mod developer_connect {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CancelOperation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3123,10 +3124,11 @@ pub mod insights_config_service {
     /// # use google_cloud_developerconnect_v1::*;
     /// # use builder::insights_config_service::ClientBuilder;
     /// # use client::InsightsConfigService;
-    /// let builder : ClientBuilder = InsightsConfigService::builder();
+    /// let builder: ClientBuilder = InsightsConfigService::builder();
     /// let client = builder
     ///     .with_endpoint("https://developerconnect.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -3182,13 +3184,13 @@ pub mod insights_config_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListInsightsConfigs {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3304,8 +3306,8 @@ pub mod insights_config_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateInsightsConfig {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3447,8 +3449,8 @@ pub mod insights_config_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetInsightsConfig {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3514,8 +3516,8 @@ pub mod insights_config_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> UpdateInsightsConfig {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3654,8 +3656,8 @@ pub mod insights_config_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteInsightsConfig {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3777,13 +3779,13 @@ pub mod insights_config_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListLocations {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3888,8 +3890,8 @@ pub mod insights_config_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetLocation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -3948,13 +3950,13 @@ pub mod insights_config_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListOperations {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -4061,8 +4063,8 @@ pub mod insights_config_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetOperation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -4125,8 +4127,8 @@ pub mod insights_config_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -4189,8 +4191,8 @@ pub mod insights_config_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CancelOperation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]

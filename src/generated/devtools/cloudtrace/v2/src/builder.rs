@@ -24,10 +24,11 @@ pub mod trace_service {
     /// # use google_cloud_trace_v2::*;
     /// # use builder::trace_service::ClientBuilder;
     /// # use client::TraceService;
-    /// let builder : ClientBuilder = TraceService::builder();
+    /// let builder: ClientBuilder = TraceService::builder();
     /// let client = builder
     ///     .with_endpoint("https://cloudtrace.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -84,8 +85,8 @@ pub mod trace_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> BatchWriteSpans {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -160,8 +161,8 @@ pub mod trace_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateSpan {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]

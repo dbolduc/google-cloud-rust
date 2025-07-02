@@ -24,10 +24,11 @@ pub mod key_dashboard_service {
     /// # use google_cloud_kms_inventory_v1::*;
     /// # use builder::key_dashboard_service::ClientBuilder;
     /// # use client::KeyDashboardService;
-    /// let builder : ClientBuilder = KeyDashboardService::builder();
+    /// let builder: ClientBuilder = KeyDashboardService::builder();
     /// let client = builder
     ///     .with_endpoint("https://kmsinventory.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -83,13 +84,13 @@ pub mod key_dashboard_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListCryptoKeys {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -185,10 +186,11 @@ pub mod key_tracking_service {
     /// # use google_cloud_kms_inventory_v1::*;
     /// # use builder::key_tracking_service::ClientBuilder;
     /// # use client::KeyTrackingService;
-    /// let builder : ClientBuilder = KeyTrackingService::builder();
+    /// let builder: ClientBuilder = KeyTrackingService::builder();
     /// let client = builder
     ///     .with_endpoint("https://kmsinventory.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -245,8 +247,8 @@ pub mod key_tracking_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetProtectedResourcesSummary {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -312,13 +314,13 @@ pub mod key_tracking_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> SearchProtectedResources {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]

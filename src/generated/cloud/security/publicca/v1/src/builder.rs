@@ -24,10 +24,11 @@ pub mod public_certificate_authority_service {
     /// # use google_cloud_security_publicca_v1::*;
     /// # use builder::public_certificate_authority_service::ClientBuilder;
     /// # use client::PublicCertificateAuthorityService;
-    /// let builder : ClientBuilder = PublicCertificateAuthorityService::builder();
+    /// let builder: ClientBuilder = PublicCertificateAuthorityService::builder();
     /// let client = builder
     ///     .with_endpoint("https://publicca.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -86,8 +87,8 @@ pub mod public_certificate_authority_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateExternalAccountKey {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]

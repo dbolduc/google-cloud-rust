@@ -24,10 +24,11 @@ pub mod connection_service {
     /// # use google_cloud_apigeeconnect_v1::*;
     /// # use builder::connection_service::ClientBuilder;
     /// # use client::ConnectionService;
-    /// let builder : ClientBuilder = ConnectionService::builder();
+    /// let builder: ClientBuilder = ConnectionService::builder();
     /// let client = builder
     ///     .with_endpoint("https://apigeeconnect.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -83,13 +84,13 @@ pub mod connection_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListConnections {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]

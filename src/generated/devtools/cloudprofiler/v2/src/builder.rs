@@ -24,10 +24,11 @@ pub mod profiler_service {
     /// # use google_cloud_profiler_v2::*;
     /// # use builder::profiler_service::ClientBuilder;
     /// # use client::ProfilerService;
-    /// let builder : ClientBuilder = ProfilerService::builder();
+    /// let builder: ClientBuilder = ProfilerService::builder();
     /// let client = builder
     ///     .with_endpoint("https://cloudprofiler.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -84,8 +85,8 @@ pub mod profiler_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateProfile {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -174,8 +175,8 @@ pub mod profiler_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> CreateOfflineProfile {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -256,8 +257,8 @@ pub mod profiler_service {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> UpdateProfile {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -345,10 +346,11 @@ pub mod export_service {
     /// # use google_cloud_profiler_v2::*;
     /// # use builder::export_service::ClientBuilder;
     /// # use client::ExportService;
-    /// let builder : ClientBuilder = ExportService::builder();
+    /// let builder: ClientBuilder = ExportService::builder();
     /// let client = builder
     ///     .with_endpoint("https://cloudprofiler.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -404,13 +406,13 @@ pub mod export_service {
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
-    ///   let item = result?;
+    ///     let item = result?;
     /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListProfiles {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]

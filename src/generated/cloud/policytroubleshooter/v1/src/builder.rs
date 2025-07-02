@@ -24,10 +24,11 @@ pub mod iam_checker {
     /// # use google_cloud_policytroubleshooter_v1::*;
     /// # use builder::iam_checker::ClientBuilder;
     /// # use client::IamChecker;
-    /// let builder : ClientBuilder = IamChecker::builder();
+    /// let builder: ClientBuilder = IamChecker::builder();
     /// let client = builder
     ///     .with_endpoint("https://policytroubleshooter.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -84,8 +85,8 @@ pub mod iam_checker {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> TroubleshootIamPolicy {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]

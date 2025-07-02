@@ -24,10 +24,11 @@ pub mod gateway_control {
     /// # use google_cloud_gkeconnect_gateway_v1::*;
     /// # use builder::gateway_control::ClientBuilder;
     /// # use client::GatewayControl;
-    /// let builder : ClientBuilder = GatewayControl::builder();
+    /// let builder: ClientBuilder = GatewayControl::builder();
     /// let client = builder
     ///     .with_endpoint("https://connectgateway.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -84,8 +85,8 @@ pub mod gateway_control {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GenerateCredentials {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]

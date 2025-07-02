@@ -24,10 +24,11 @@ pub mod fleet_routing {
     /// # use google_cloud_optimization_v1::*;
     /// # use builder::fleet_routing::ClientBuilder;
     /// # use client::FleetRouting;
-    /// let builder : ClientBuilder = FleetRouting::builder();
+    /// let builder: ClientBuilder = FleetRouting::builder();
     /// let client = builder
     ///     .with_endpoint("https://cloudoptimization.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -84,8 +85,8 @@ pub mod fleet_routing {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> OptimizeTours {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -342,8 +343,8 @@ pub mod fleet_routing {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> BatchOptimizeTours {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -462,8 +463,8 @@ pub mod fleet_routing {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> GetOperation {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]

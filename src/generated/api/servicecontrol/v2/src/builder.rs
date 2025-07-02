@@ -24,10 +24,11 @@ pub mod service_controller {
     /// # use google_cloud_api_servicecontrol_v2::*;
     /// # use builder::service_controller::ClientBuilder;
     /// # use client::ServiceController;
-    /// let builder : ClientBuilder = ServiceController::builder();
+    /// let builder: ClientBuilder = ServiceController::builder();
     /// let client = builder
     ///     .with_endpoint("https://servicecontrol.googleapis.com")
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
@@ -84,8 +85,8 @@ pub mod service_controller {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> Check {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
@@ -186,8 +187,8 @@ pub mod service_controller {
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> Report {
-    ///   # panic!();
-    ///   // ... details omitted ...
+    ///     # panic!();
+    ///     // ... details omitted ...
     /// }
     /// ```
     #[derive(Clone, Debug)]
