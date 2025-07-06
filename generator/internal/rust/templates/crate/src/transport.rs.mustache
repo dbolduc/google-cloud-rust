@@ -74,7 +74,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         {{/Codec.HasBindingSubstitutions}}
-        let (builder, method) = None
+        let (builder, idempotency, body) = None
         {{#PathInfo.Bindings}}
         .or_else(|| {
             {{#Codec.HasVariablePath}}
@@ -106,7 +106,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             {{/Codec.QueryParams}}
             let builder = Ok(builder);
             {{/Codec.QueryParamsCanFail}}
-            Some(builder.map(|b| (b, reqwest::Method::{{Verb}})))
+            Some(builder.map(|b| (b, {{Codec.IsIdempotent}}, {{{Codec.Body}}})))
         })
         {{/PathInfo.Bindings}}
         .ok_or_else(|| {
@@ -128,7 +128,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
-            gaxi::http::default_idempotency(&method),
+            idempotency,
         );
         let builder = builder
                 {{#Codec.SystemParameters}}
@@ -137,12 +137,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
                 .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
-            {{#PathInfo.Codec.HasBody}}
-            Some(req{{Codec.BodyAccessor}}),
-            {{/PathInfo.Codec.HasBody}}
-            {{^PathInfo.Codec.HasBody}}
-            gaxi::http::NoBody::new(&method),
-            {{/PathInfo.Codec.HasBody}}
+            body,
             options,
         ).await
         {{#ReturnsEmpty}}

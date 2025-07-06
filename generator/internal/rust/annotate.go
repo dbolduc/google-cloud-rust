@@ -282,6 +282,10 @@ type pathBindingAnnotation struct {
 
 	// The variables to be substituted into the path
 	Substitutions []*bindingSubstitution
+
+	IsIdempotent string
+
+	Body string
 }
 
 // We serialize certain query parameters, which can fail. The code we generate
@@ -791,10 +795,25 @@ func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState)
 			subs = append(subs, &sub)
 		}
 	}
+	idempotent := "true"
+	if b.Verb == "POST" || b.Verb == "PATCH" {
+		idempotent = "false"
+	}
+        body := "Some(req" + bodyAccessor(m) + ")"
+        if m.PathInfo.BodyFieldPath == "" {
+	        if b.Verb == "POST" || b.Verb == "PUT" {
+                        body = "Some(gaxi::http::NoBody)"
+	        } else {
+                        body = "None::<gaxi::http::NoBody>"
+	        }
+        }
 	return &pathBindingAnnotation{
 		PathFmt:       httpPathFmt(b.PathTemplate),
 		QueryParams:   language.QueryParams(m, b),
 		Substitutions: subs,
+
+		IsIdempotent: idempotent,
+		Body:         body,
 	}
 }
 

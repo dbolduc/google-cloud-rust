@@ -225,21 +225,6 @@ impl ReqwestClient {
 #[derive(serde::Serialize)]
 pub struct NoBody;
 
-impl NoBody {
-    // PUT and POST requests require a payload
-    pub fn new(m: &Method) -> Option<NoBody> {
-        if m == Method::PUT || m == Method::POST {
-            return Some(NoBody);
-        }
-        None
-    }
-}
-
-// Returns `true` if the method is idempotent by default, and `false`, if not.
-pub fn default_idempotency(m: &Method) -> bool {
-    m == Method::GET || m == Method::PUT || m == Method::DELETE
-}
-
 pub async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
     let status_code = response.status().as_u16();
     let response = http::Response::from(response);
@@ -390,23 +375,5 @@ mod test {
 
         let response: reqwest::Response = http_resp.into();
         Ok(response)
-    }
-
-    #[test_case(Method::GET, false)]
-    #[test_case(Method::POST, true)]
-    #[test_case(Method::PUT, true)]
-    #[test_case(Method::DELETE, false)]
-    #[test_case(Method::PATCH, false)]
-    fn no_body(input: Method, expected: bool) {
-        assert!(super::NoBody::new(&input).is_some() == expected);
-    }
-
-    #[test_case(Method::GET, true)]
-    #[test_case(Method::POST, false)]
-    #[test_case(Method::PUT, true)]
-    #[test_case(Method::DELETE, true)]
-    #[test_case(Method::PATCH, false)]
-    fn default_idempotency(input: Method, expected: bool) {
-        assert!(super::default_idempotency(&input) == expected);
     }
 }
