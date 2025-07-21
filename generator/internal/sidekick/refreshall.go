@@ -30,7 +30,7 @@ import (
 
 func init() {
 	newCommand(
-		"sidekick refresh-all",
+		"sidekick refreshall",
 		"Reruns the generator for all client libraries.",
 		`
 Reruns the generator for all client libraries, using the configuration parameters saved in the .sidekick.toml file for each library.
