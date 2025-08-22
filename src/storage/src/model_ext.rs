@@ -19,7 +19,7 @@ use crate::error::KeyAes256Error;
 use sha2::{Digest, Sha256};
 
 /// ObjectHighlights contains select metadata from a [crate::model::Object].
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectHighlights {
     /// The content generation of this object. Used for object versioning.
