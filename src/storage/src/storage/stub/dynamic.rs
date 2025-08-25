@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::read_object::dynamic::ReadObjectResponse;
+use crate::read_object::ReadObjectResponse;
 use crate::storage::checksum::details::Checksum;
 use crate::storage::request_options::RequestOptions;
 
@@ -24,7 +24,7 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         req: crate::model::ReadObjectRequest,
         options: RequestOptions,
         checksum: Checksum,
-    ) -> crate::Result<Box<dyn ReadObjectResponse + Send>>;
+    ) -> crate::Result<ReadObjectResponse>;
 }
 
 /// All implementations of [super::Storage] also implement [Storage].
@@ -36,8 +36,7 @@ impl<T: super::Storage> Storage for T {
         req: crate::model::ReadObjectRequest,
         options: RequestOptions,
         checksum: Checksum,
-    ) -> crate::Result<Box<dyn ReadObjectResponse + Send>> {
-        let response = T::read_object(self, req, options, checksum).await?;
-        Ok(Box::new(response))
+    ) -> crate::Result<ReadObjectResponse> {
+        T::read_object(self, req, options, checksum).await
     }
 }
