@@ -18,6 +18,7 @@ pub(crate) mod perform_upload;
 pub(crate) mod read_object;
 pub(crate) mod request_options;
 pub mod streaming_source;
+pub(crate) mod stub;
 pub(crate) mod v1;
 pub(crate) mod write_object;
 

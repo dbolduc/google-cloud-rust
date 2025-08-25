@@ -26,7 +26,7 @@ mod sealed {
 impl<T> sealed::ReadObjectResponse for T where T: ReadObjectResponse {}
 
 /// A trait representing the interface to read an object
-pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug {
+pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug + Send + Sync {
     /// Get the highlights of the object metadata included in the
     /// response.
     ///
@@ -72,6 +72,42 @@ pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug {
 
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
-    /// Convert the response to a [Stream].
-    fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin;
+    fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin 
+    where Self: Sized {
+        use futures::stream::unfold;
+        Box::pin(unfold(Some(self), move |state| async move {
+            if let Some(mut this) = state {
+                if let Some(chunk) = this.next().await {
+                    return Some((chunk, Some(this)));
+                }
+            };
+            None
+        }))
+    }
+}
+
+
+pub(crate) mod dynamic {
+    use crate::Result;
+    use crate::model_ext::ObjectHighlights;
+    
+    /// A dyn-compatible, crate-private version of [super::ReadObjectResponse].
+    #[async_trait::async_trait]
+    pub trait ReadObjectResponse: std::fmt::Debug + Send + Sync {
+        fn object(&self) -> ObjectHighlights;
+
+        async fn next(&mut self) -> Option<Result<bytes::Bytes>>;
+    }
+
+    /// All implementations of [super::ReadObjectResponse] also implement [ReadObjectResponse].
+    #[async_trait::async_trait]
+    impl<T: super::ReadObjectResponse> ReadObjectResponse for T {
+        fn object(&self) -> ObjectHighlights {
+            T::object(self)
+        }
+
+        async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
+            T::next(self).await
+        }
+    }
 }

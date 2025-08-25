@@ -41,7 +41,7 @@ pub(crate) struct TransportStub {
 }
 
 // TODO : this is going to be the trait impl
-impl TransportStub {
+impl stub::Storage for TransportStub {
     async fn read_object(
         &self,
         req: ReadObjectRequest,
@@ -53,7 +53,8 @@ impl TransportStub {
         // The empty `use<>` means the returned impl does not capture any of
         // the type or parameter lifetimes, notably the lifetime of `&self`.
         // See: https://blog.rust-lang.org/2024/09/05/impl-trait-capture-rules/
-        + use<>,
+
+        //+ use<>,
     > {
         ReplacementImpl::new(self.inner.clone(), req, options, checksum).await
     }
@@ -68,7 +69,7 @@ impl TransportStub {
 
 #[derive(Debug)]
 // TODO : I am going to build out a parallel implementation of `ReadObjectResponseImpl`
-struct ReplacementImpl {
+pub(crate) struct ReplacementImpl {
     inner: Arc<StorageInner>,
     request: ReadObjectRequest,
     options: RequestOptions,
@@ -297,20 +298,6 @@ impl ReadObjectResponse for ReplacementImpl {
             }
         }
     }
-
-    #[cfg(feature = "unstable-stream")]
-    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
-    fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin {
-        use futures::stream::unfold;
-        Box::pin(unfold(Some(self), move |state| async move {
-            if let Some(mut this) = state {
-                if let Some(chunk) = this.next().await {
-                    return Some((chunk, Some(this)));
-                }
-            };
-            None
-        }))
-    }
 }
 
 // resume helpers
@@ -419,21 +406,21 @@ impl ReplacementImpl {
 /// ```
 #[derive(Clone, Debug)]
 pub struct ReadObject {
-    stub: Arc<TransportStub>,
+    stub: Arc<dyn stub::dynamic::Storage>,
+    //stub: Arc<TransportStub>,
     request: ReadObjectRequest,
     options: RequestOptions,
     checksum: Checksum,
 }
 
 impl ReadObject {
-    pub(crate) fn new<B, O>(inner: Arc<StorageInner>, bucket: B, object: O) -> Self
+    pub(crate) fn new<B, O>(stub: Arc<dyn super::stub::dynamic::Storage>, options: RequestOptions, bucket: B, object: O) -> Self
     where
         B: Into<String>,
         O: Into<String>,
     {
-        let options = inner.options.clone();
         ReadObject {
-            stub: TransportStub::new(inner),
+            stub,
             request: crate::model::ReadObjectRequest::new()
                 .set_bucket(bucket)
                 .set_object(object),
@@ -725,120 +712,6 @@ impl ReadObject {
             .read_object(self.request, self.options, self.checksum)
             .await
     }
-
-    async fn read(self) -> Result<reqwest::Response> {
-        let throttler = self.options.retry_throttler.clone();
-        let retry = self.options.retry_policy.clone();
-        let backoff = self.options.backoff_policy.clone();
-
-        gax::retry_loop_internal::retry_loop(
-            async move |_| self.read_attempt().await,
-            async |duration| tokio::time::sleep(duration).await,
-            true,
-            throttler,
-            retry,
-            backoff,
-        )
-        .await
-    }
-
-    async fn read_attempt(&self) -> Result<reqwest::Response> {
-        let builder = self.http_request_builder().await?;
-        let response = builder.send().await.map_err(Error::io)?;
-        if !response.status().is_success() {
-            return gaxi::http::to_http_error(response).await;
-        }
-        Ok(response)
-    }
-
-    async fn http_request_builder(&self) -> Result<reqwest::RequestBuilder> {
-        // Collect the required bucket and object parameters.
-        let bucket = &self.request.bucket;
-        let bucket_id = bucket
-            .as_str()
-            .strip_prefix("projects/_/buckets/")
-            .ok_or_else(|| {
-                Error::binding(format!(
-                    "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
-                ))
-            })?;
-        let object = &self.request.object;
-
-        // Build the request.
-        let builder = self
-            .stub
-            .inner
-            .client
-            .request(
-                reqwest::Method::GET,
-                format!(
-                    "{}/storage/v1/b/{bucket_id}/o/{}",
-                    &self.stub.inner.endpoint,
-                    enc(object)
-                ),
-            )
-            .query(&[("alt", "media")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
-            );
-
-        // Add the optional query parameters.
-        let builder = if self.request.generation != 0 {
-            builder.query(&[("generation", self.request.generation)])
-        } else {
-            builder
-        };
-        let builder = self
-            .request
-            .if_generation_match
-            .iter()
-            .fold(builder, |b, v| b.query(&[("ifGenerationMatch", v)]));
-        let builder = self
-            .request
-            .if_generation_not_match
-            .iter()
-            .fold(builder, |b, v| b.query(&[("ifGenerationNotMatch", v)]));
-        let builder = self
-            .request
-            .if_metageneration_match
-            .iter()
-            .fold(builder, |b, v| b.query(&[("ifMetagenerationMatch", v)]));
-        let builder = self
-            .request
-            .if_metageneration_not_match
-            .iter()
-            .fold(builder, |b, v| b.query(&[("ifMetagenerationNotMatch", v)]));
-
-        let builder = apply_customer_supplied_encryption_headers(
-            builder,
-            &self.request.common_object_request_params,
-        );
-
-        // Apply "range" header for read limits and offsets.
-        let builder = match (self.request.read_offset, self.request.read_limit) {
-            // read_limit can't be negative.
-            (_, l) if l < 0 => {
-                unreachable!("ReadObject build never sets a negative read_limit value")
-            }
-            // negative offset can't also have a read_limit.
-            (o, l) if o < 0 && l > 0 => unreachable!(
-                "ReadObject builder never sets a positive read_offset value with a negative read_limit value"
-            ),
-            // If both are zero, we use default implementation (no range header).
-            (0, 0) => builder,
-            // negative offset with no limit means the last N bytes.
-            (o, 0) if o < 0 => builder.header("range", format!("bytes={o}")),
-            // read_limit is zero, means no limit. Read from offset to end of file.
-            // This handles cases like (5, 0) -> "bytes=5-"
-            (o, 0) => builder.header("range", format!("bytes={o}-")),
-            // General case: non-negative offset and positive limit.
-            // This covers cases like (0, 100) -> "bytes=0-99", (5, 100) -> "bytes=5-104"
-            (o, l) => builder.header("range", format!("bytes={o}-{}", o + l - 1)),
-        };
-
-        self.stub.inner.apply_auth_headers(builder).await
-    }
 }
 
 fn headers_to_crc32c(headers: &http::HeaderMap) -> Option<u32> {
@@ -862,171 +735,6 @@ fn headers_to_md5_hash(headers: &http::HeaderMap) -> Vec<u8> {
             base64::prelude::BASE64_STANDARD.decode(hash).ok()
         })
         .unwrap_or_default()
-}
-
-/// A response to a [Storage::read_object] request.
-#[derive(Debug)]
-struct ReadObjectResponseImpl {
-    inner: Option<reqwest::Response>,
-    highlights: ObjectHighlights,
-    // Fields for tracking the crc checksum checks.
-    response_checksums: ObjectChecksums,
-    // Fields for resuming a read request.
-    range: ReadRange,
-    generation: i64,
-    builder: ReadObject,
-    resume_count: u32,
-}
-
-impl ReadObjectResponseImpl {
-    fn new(builder: ReadObject, inner: reqwest::Response) -> Result<Self> {
-        let full = builder.request.read_offset == 0 && builder.request.read_limit == 0;
-        let response_checksums = checksums_from_response(full, inner.status(), inner.headers());
-        let range = response_range(&inner).map_err(Error::deser)?;
-        let generation = response_generation(&inner).map_err(Error::deser)?;
-
-        let headers = inner.headers();
-        let get_as_i64 = |header_name: &str| -> i64 {
-            headers
-                .get(header_name)
-                .and_then(|s| s.to_str().ok())
-                .and_then(|s| s.parse::<i64>().ok())
-                .unwrap_or_default()
-        };
-        let get_as_string = |header_name: &str| -> String {
-            headers
-                .get(header_name)
-                .and_then(|sc| sc.to_str().ok())
-                .map(|sc| sc.to_string())
-                .unwrap_or_default()
-        };
-        let highlights = ObjectHighlights {
-            generation,
-            metageneration: get_as_i64("x-goog-metageneration"),
-            size: get_as_i64("x-goog-stored-content-length"),
-            content_encoding: get_as_string("x-goog-stored-content-encoding"),
-            storage_class: get_as_string("x-goog-storage-class"),
-            content_type: get_as_string("content-type"),
-            content_language: get_as_string("content-language"),
-            content_disposition: get_as_string("content-disposition"),
-            etag: get_as_string("etag"),
-            checksums: headers.get("x-goog-hash").map(|_| {
-                crate::model::ObjectChecksums::new()
-                    .set_or_clear_crc32c(headers_to_crc32c(headers))
-                    .set_md5_hash(headers_to_md5_hash(headers))
-            }),
-        };
-
-        Ok(Self {
-            inner: Some(inner),
-            highlights,
-            // Fields for computing checksums.
-            response_checksums,
-            // Fields for resuming a read request.
-            range,
-            generation,
-            builder,
-            resume_count: 0,
-        })
-    }
-}
-
-impl ReadObjectResponse for ReadObjectResponseImpl {
-    fn object(&self) -> ObjectHighlights {
-        self.highlights.clone()
-    }
-
-    // A type-checking cycle is detected with `async fn` when its return type
-    // depends on an opaque type that is defined within the function body.
-    // Writing out `impl Future` breaks this cycle, allowing the compiler to
-    // resolve the return type and proceed.
-    #[allow(clippy::manual_async_fn)]
-    fn next(&mut self) -> impl Future<Output = Option<Result<bytes::Bytes>>> + Send {
-        async move {
-            match self.next_attempt().await {
-                None => None,
-                Some(Ok(b)) => Some(Ok(b)),
-                // Recursive async requires pin:
-                //     https://rust-lang.github.io/async-book/07_workarounds/04_recursion.html
-                Some(Err(e)) => Box::pin(self.resume(e)).await,
-            }
-        }
-    }
-
-    #[cfg(feature = "unstable-stream")]
-    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
-    fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin {
-        use futures::stream::unfold;
-        Box::pin(unfold(Some(self), move |state| async move {
-            if let Some(mut this) = state {
-                if let Some(chunk) = this.next().await {
-                    return Some((chunk, Some(this)));
-                }
-            };
-            None
-        }))
-    }
-}
-
-impl ReadObjectResponseImpl {
-    async fn next_attempt(&mut self) -> Option<Result<bytes::Bytes>> {
-        let inner = self.inner.as_mut()?;
-        let res = inner.chunk().await.map_err(Error::io);
-        match res {
-            Ok(Some(chunk)) => {
-                self.builder.checksum.update(self.range.start, &chunk);
-                let len = chunk.len() as u64;
-                if self.range.limit < len {
-                    return Some(Err(Error::deser(ReadError::LongRead {
-                        expected: self.range.limit,
-                        got: len,
-                    })));
-                }
-                self.range.limit -= len;
-                self.range.start += len;
-                Some(Ok(chunk))
-            }
-            Ok(None) => {
-                if self.range.limit != 0 {
-                    return Some(Err(Error::io(ReadError::ShortRead(self.range.limit))));
-                }
-                let computed = self.builder.checksum.finalize();
-                let res = validate(&self.response_checksums, &Some(computed));
-                match res {
-                    Err(e) => Some(Err(Error::deser(ReadError::ChecksumMismatch(e)))),
-                    Ok(()) => None,
-                }
-            }
-            Err(e) => Some(Err(e)),
-        }
-    }
-
-    async fn resume(&mut self, error: Error) -> Option<Result<bytes::Bytes>> {
-        use crate::read_resume_policy::{ResumeQuery, ResumeResult};
-
-        // The existing read is no longer valid.
-        self.inner = None;
-        self.resume_count += 1;
-        let query = ResumeQuery::new(self.resume_count);
-        match self
-            .builder
-            .options
-            .read_resume_policy
-            .on_error(&query, error)
-        {
-            ResumeResult::Continue(_) => {}
-            ResumeResult::Permanent(e) => return Some(Err(e)),
-            ResumeResult::Exhausted(e) => return Some(Err(e)),
-        };
-        self.builder.request.read_offset = self.range.start as i64;
-        self.builder.request.read_limit = self.range.limit as i64;
-        self.builder.request.generation = self.generation;
-        self.inner = match self.builder.clone().read().await {
-            Ok(r) => Some(r),
-            Err(e) => return Some(Err(e)),
-        };
-        self.next().await
-    }
 }
 
 /// Returns the object checksums to validate against.

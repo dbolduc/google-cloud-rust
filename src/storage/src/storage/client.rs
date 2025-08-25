@@ -87,7 +87,10 @@ use std::sync::Arc;
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
 pub struct Storage {
+    // TODO : We keep this around until write_object is ready
     inner: std::sync::Arc<StorageInner>,
+    // aka `inner` in GAPICs.
+    stub: std::sync::Arc<dyn super::stub::dynamic::Storage>,
 }
 
 #[derive(Clone, Debug)]
@@ -194,7 +197,7 @@ impl Storage {
         B: Into<String>,
         O: Into<String>,
     {
-        ReadObject::new(self.inner.clone(), bucket, object)
+        ReadObject::new(self.stub.clone(), self.inner.options.clone(), bucket, object)
     }
 
     pub(crate) fn new(builder: ClientBuilder) -> gax::client_builder::Result<Self> {
@@ -223,7 +226,8 @@ impl Storage {
         builder.credentials = Some(cred);
         builder.endpoint = Some(endpoint);
         let inner = Arc::new(StorageInner::new(client, builder));
-        Ok(Self { inner })
+        let stub = crate::storage::read_object::TransportStub::new(inner.clone());
+        Ok(Self { inner, stub })
     }
 }
 
