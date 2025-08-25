@@ -16,17 +16,34 @@
 
 use crate::Result;
 use crate::model_ext::ObjectHighlights;
+use crate::streaming_source::StreamingSource;
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
 
-mod sealed {
-    pub trait ReadObjectResponse {}
+/// The result of a `ReadObject` RPC.
+///
+/// A stream of data to be iterated over, with an option to retrieve the objec
+/// metadata.
+#[derive(Debug)]
+pub struct ReadObjectResponse {
+    inner: Box<dyn Darren>,
 }
 
-impl<T> sealed::ReadObjectResponse for T where T: ReadObjectResponse {}
+impl ReadObjectResponse {
+    pub(crate) fn from_inner<T: Darren + 'static>(inner: Box<T>) -> Self {
+        Self { inner }
+    }
 
-/// A trait representing the interface to read an object
-pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug + Send + Sync {
+    // Useful for mocking
+    pub fn from_source<P>(object: ObjectHighlights, source: P) -> Self
+    where
+        P: StreamingSource + Send + 'static,
+    {
+        Self {
+            inner: Box::new(FakeReadObjectResponse { object, source }),
+        }
+    }
+
     /// Get the highlights of the object metadata included in the
     /// response.
     ///
@@ -48,7 +65,9 @@ pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug + Sen
     /// println!("object content encoding={}", object.content_encoding);
     /// # Ok(()) }
     /// ```
-    fn object(&self) -> ObjectHighlights;
+    pub fn object(&self) -> ObjectHighlights {
+        self.inner.object()
+    }
 
     /// Stream the next bytes of the object.
     ///
@@ -68,12 +87,16 @@ pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug + Sen
     /// }
     /// # Ok(()) }
     /// ```
-    fn next(&mut self) -> impl Future<Output = Option<Result<bytes::Bytes>>> + Send;
+    pub fn next(&mut self) -> impl Future<Output = Option<Result<bytes::Bytes>>> + Send {
+        self.inner.next()
+    }
 
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
-    fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin 
-    where Self: Sized {
+    pub fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin
+    where
+        Self: Sized,
+    {
         use futures::stream::unfold;
         Box::pin(unfold(Some(self), move |state| async move {
             if let Some(mut this) = state {
@@ -86,28 +109,44 @@ pub trait ReadObjectResponse: sealed::ReadObjectResponse + std::fmt::Debug + Sen
     }
 }
 
+#[async_trait::async_trait]
+pub(crate) trait Darren: std::fmt::Debug {
+    fn object(&self) -> ObjectHighlights;
+    async fn next(&mut self) -> Option<Result<bytes::Bytes>>;
+}
 
-pub(crate) mod dynamic {
-    use crate::Result;
-    use crate::model_ext::ObjectHighlights;
-    
-    /// A dyn-compatible, crate-private version of [super::ReadObjectResponse].
-    #[async_trait::async_trait]
-    pub trait ReadObjectResponse: std::fmt::Debug + Send + Sync {
-        fn object(&self) -> ObjectHighlights;
+struct FakeReadObjectResponse<P>
+where
+    P: StreamingSource + Send,
+{
+    object: ObjectHighlights,
+    source: P,
+}
 
-        async fn next(&mut self) -> Option<Result<bytes::Bytes>>;
+impl<P> std::fmt::Debug for FakeReadObjectResponse<P>
+where
+    P: StreamingSource + Send,
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        todo!()
+    }
+}
+
+#[async_trait::async_trait]
+impl<P> crate::read_object::Darren for FakeReadObjectResponse<P>
+where
+    P: crate::streaming_source::StreamingSource + Send,
+{
+    fn object(&self) -> ObjectHighlights {
+        self.object.clone()
     }
 
-    /// All implementations of [super::ReadObjectResponse] also implement [ReadObjectResponse].
-    #[async_trait::async_trait]
-    impl<T: super::ReadObjectResponse> ReadObjectResponse for T {
-        fn object(&self) -> ObjectHighlights {
-            T::object(self)
-        }
-
-        async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
-            T::next(self).await
-        }
+    async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
+        self.source
+            .next()
+            .await
+            .transpose()
+            .map_err(gax::error::Error::io)
+            .transpose()
     }
 }

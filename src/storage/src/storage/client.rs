@@ -88,7 +88,7 @@ use std::sync::Arc;
 #[derive(Clone, Debug)]
 pub struct Storage {
     // TODO : We keep this around until write_object is ready
-    inner: std::sync::Arc<StorageInner>,
+    inner: Option<std::sync::Arc<StorageInner>>,
     // aka `inner` in GAPICs.
     stub: std::sync::Arc<dyn super::stub::dynamic::Storage>,
 }
@@ -102,6 +102,21 @@ pub(crate) struct StorageInner {
 }
 
 impl Storage {
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Storage + 'static,
+    {
+        Self {
+            // TODO : we shouldn't have a storageinner at this layer.
+            inner: None,
+            stub: std::sync::Arc::new(stub),
+        }
+    }
+
     /// Returns a builder for [Storage].
     ///
     /// # Example
@@ -166,7 +181,7 @@ impl Storage {
         O: Into<String>,
         T: Into<Payload<P>>,
     {
-        WriteObject::new(self.inner.clone(), bucket, object, payload)
+        WriteObject::new(self.inner.clone().unwrap(), bucket, object, payload)
     }
 
     /// Reads the contents of an object.
@@ -197,7 +212,12 @@ impl Storage {
         B: Into<String>,
         O: Into<String>,
     {
-        ReadObject::new(self.stub.clone(), self.inner.options.clone(), bucket, object)
+        let options = self
+            .inner
+            .as_ref()
+            .map(|i| i.options.clone())
+            .unwrap_or(RequestOptions::new());
+        ReadObject::new(self.stub.clone(), options, bucket, object)
     }
 
     pub(crate) fn new(builder: ClientBuilder) -> gax::client_builder::Result<Self> {
@@ -227,7 +247,10 @@ impl Storage {
         builder.endpoint = Some(endpoint);
         let inner = Arc::new(StorageInner::new(client, builder));
         let stub = crate::storage::read_object::TransportStub::new(inner.clone());
-        Ok(Self { inner, stub })
+        Ok(Self {
+            inner: Some(inner),
+            stub,
+        })
     }
 }
 
