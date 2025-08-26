@@ -246,7 +246,7 @@ impl Storage {
         builder.credentials = Some(cred);
         builder.endpoint = Some(endpoint);
         let inner = Arc::new(StorageInner::new(client, builder));
-        let stub = crate::storage::read_object::TransportStub::new(inner.clone());
+        let stub = crate::storage::transport::TransportStub::new(inner.clone());
         Ok(Self {
             inner: Some(inner),
             stub,
