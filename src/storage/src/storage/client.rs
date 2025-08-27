@@ -86,11 +86,11 @@ use std::sync::Arc;
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
-pub struct Storage {
+pub struct Storage<T = crate::storage::read_object::TransportStub> {
     // TODO : We keep this around until write_object is ready
     inner: Option<std::sync::Arc<StorageInner>>,
     // aka `inner` in GAPICs.
-    stub: std::sync::Arc<dyn super::stub::dynamic::Storage>,
+    stub: std::sync::Arc<T>,
 }
 
 #[derive(Clone, Debug)]
@@ -101,12 +101,15 @@ pub(crate) struct StorageInner {
     pub options: RequestOptions,
 }
 
-impl Storage {
+impl<T> Storage<T>
+where
+    T: crate::storage::stub::Storage + 'static,
+{
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub(stub: T) -> Self
     where
         T: super::stub::Storage + 'static,
     {
@@ -116,7 +119,9 @@ impl Storage {
             stub: std::sync::Arc::new(stub),
         }
     }
+}
 
+impl Storage {
     /// Returns a builder for [Storage].
     ///
     /// # Example
@@ -183,7 +188,12 @@ impl Storage {
     {
         WriteObject::new(self.inner.clone().unwrap(), bucket, object, payload)
     }
+}
 
+impl<T> Storage<T>
+where
+    T: crate::storage::stub::Storage + 'static,
+{
     /// Reads the contents of an object.
     ///
     /// # Example
@@ -207,7 +217,7 @@ impl Storage {
     /// * `bucket` - the bucket name containing the object. In
     ///   `projects/_/buckets/{bucket_id}` format.
     /// * `object` - the object name.
-    pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject
+    pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject<T>
     where
         B: Into<String>,
         O: Into<String>,
@@ -219,7 +229,9 @@ impl Storage {
             .unwrap_or(RequestOptions::new());
         ReadObject::new(self.stub.clone(), options, bucket, object)
     }
+}
 
+impl Storage {
     pub(crate) fn new(builder: ClientBuilder) -> gax::client_builder::Result<Self> {
         use gax::client_builder::Error;
         let client = reqwest::Client::builder()

@@ -34,7 +34,7 @@ use std::sync::Arc;
 // We also define the expected interface here. It will not work perfectly. But
 // this will let me do the refactor in peace.
 #[derive(Clone, Debug)]
-pub(crate) struct TransportStub {
+pub struct TransportStub {
     inner: Arc<StorageInner>,
 }
 
@@ -391,21 +391,22 @@ impl ReplacementImpl {
 /// }
 /// ```
 #[derive(Clone, Debug)]
-pub struct ReadObject {
-    stub: Arc<dyn stub::dynamic::Storage>,
+pub struct ReadObject<T = crate::storage::read_object::TransportStub>
+where
+    T: crate::storage::stub::Storage + 'static,
+{
+    stub: Arc<T>,
     //stub: Arc<TransportStub>,
     request: ReadObjectRequest,
     options: RequestOptions,
     checksum: Checksum,
 }
 
-impl ReadObject {
-    pub(crate) fn new<B, O>(
-        stub: Arc<dyn super::stub::dynamic::Storage>,
-        options: RequestOptions,
-        bucket: B,
-        object: O,
-    ) -> Self
+impl<T> ReadObject<T>
+where
+    T: crate::storage::stub::Storage + 'static,
+{
+    pub(crate) fn new<B, O>(stub: Arc<T>, options: RequestOptions, bucket: B, object: O) -> Self
     where
         B: Into<String>,
         O: Into<String>,
@@ -696,7 +697,10 @@ impl ReadObject {
 }
 
 // More of the implementation that actually matters.
-impl ReadObject {
+impl<T> ReadObject<T>
+where
+    T: crate::storage::stub::Storage + 'static,
+{
     /// Sends the request.
     pub async fn send(self) -> Result<ReadObjectResponse> {
         self.stub
