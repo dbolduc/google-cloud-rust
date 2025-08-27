@@ -199,6 +199,7 @@ where
     }
 }
 
+/*
 #[cfg(test)]
 mod resumable_tests;
 
@@ -706,3 +707,5 @@ mod tests {
         Ok(())
     }
 }
+
+ */

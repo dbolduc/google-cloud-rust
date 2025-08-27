@@ -38,7 +38,9 @@ fn response_body() -> Value {
 #[tokio::test]
 async fn start_resumable_upload() -> Result {
     let inner = test_inner_client(test_builder());
-    let mut request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+    let stub = crate::storage::read_object::TransportStub::new(inner);
+    let mut request = WriteObject::new(stub, "projects/_/buckets/bucket", "object", "hello")
+        // NOTE TO SELF : I removed the `build` method.
         .build()
         .start_resumable_upload_request()
         .await?

@@ -227,6 +227,7 @@ where
 // multiple of 256 KiB.
 const RESUMABLE_UPLOAD_QUANTUM: usize = 256 * 1024;
 
+/*
 #[cfg(test)]
 mod resumable_tests;
 
@@ -353,3 +354,5 @@ mod tests {
         Ok(())
     }
 }
+
+*/

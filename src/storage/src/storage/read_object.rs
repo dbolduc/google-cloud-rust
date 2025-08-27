@@ -22,6 +22,7 @@ use crate::model_ext::ObjectHighlights;
 use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::details::{Checksum, Crc32c, Md5, validate};
+use crate::storage::perform_upload::PerformUpload;
 use crate::storage::request_options::RequestOptions;
 use base64::Engine;
 use serde_with::DeserializeAs;
@@ -38,6 +39,8 @@ pub struct TransportStub {
     inner: Arc<StorageInner>,
 }
 
+use crate::model::{CommonObjectRequestParams, Object, WriteObjectSpec};
+use crate::streaming_source::{Seek, StreamingSource};
 // TODO : this is going to be the trait impl
 impl stub::Storage for TransportStub {
     async fn read_object(
@@ -48,6 +51,39 @@ impl stub::Storage for TransportStub {
     ) -> Result<ReadObjectResponse> {
         let inner = ReplacementImpl::new(self.inner.clone(), req, options, checksum).await?;
         Ok(ReadObjectResponse::from_inner(Box::new(inner)))
+    }
+
+    /// Implements [crate::client::Storage::read_object].
+    async fn write_object_buffered<P>(
+        &self,
+        payload: P,
+        spec: WriteObjectSpec,
+        params: Option<CommonObjectRequestParams>,
+        options: RequestOptions,
+        checksum: Checksum,
+    ) -> Result<Object>
+    where
+        P: StreamingSource + Send + Sync + 'static,
+    {
+        PerformUpload::new(checksum, payload, self.inner.clone(), spec, params, options)
+            .send()
+            .await
+    }
+    /// Implements [crate::client::Storage::read_object].
+    async fn write_object_unbuffered<P>(
+        &self,
+        payload: P,
+        spec: WriteObjectSpec,
+        params: Option<CommonObjectRequestParams>,
+        options: RequestOptions,
+        checksum: Checksum,
+    ) -> Result<Object>
+    where
+        P: StreamingSource + Seek + Send + Sync + 'static,
+    {
+        PerformUpload::new(checksum, payload, self.inner.clone(), spec, params, options)
+            .send_unbuffered()
+            .await
     }
 }
 

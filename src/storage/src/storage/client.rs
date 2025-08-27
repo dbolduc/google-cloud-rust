@@ -87,8 +87,6 @@ use std::sync::Arc;
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
 pub struct Storage<T = crate::storage::read_object::TransportStub> {
-    // TODO : We keep this around until write_object is ready
-    inner: Option<std::sync::Arc<StorageInner>>,
     // aka `inner` in GAPICs.
     stub: std::sync::Arc<T>,
 }
@@ -114,8 +112,6 @@ where
         T: super::stub::Storage + 'static,
     {
         Self {
-            // TODO : we shouldn't have a storageinner at this layer.
-            inner: None,
             stub: std::sync::Arc::new(stub),
         }
     }
@@ -134,7 +130,12 @@ impl Storage {
     pub fn builder() -> ClientBuilder {
         ClientBuilder::new()
     }
+}
 
+impl<T> Storage<T>
+where
+    T: crate::storage::stub::Storage + 'static,
+{
     /// Write an object using a local buffer.
     ///
     /// If the data source does **not** implement [Seek] the client library must
@@ -180,20 +181,15 @@ impl Storage {
     /// * `payload` - the object data.
     ///
     /// [Seek]: crate::streaming_source::Seek
-    pub fn write_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> WriteObject<P>
+    pub fn write_object<B, O, P, D>(&self, bucket: B, object: O, payload: P) -> WriteObject<D, T>
     where
         B: Into<String>,
         O: Into<String>,
-        T: Into<Payload<P>>,
+        P: Into<Payload<D>>,
     {
-        WriteObject::new(self.inner.clone().unwrap(), bucket, object, payload)
+        WriteObject::new(self.stub.clone(), bucket, object, payload)
     }
-}
 
-impl<T> Storage<T>
-where
-    T: crate::storage::stub::Storage + 'static,
-{
     /// Reads the contents of an object.
     ///
     /// # Example
@@ -222,12 +218,7 @@ where
         B: Into<String>,
         O: Into<String>,
     {
-        let options = self
-            .inner
-            .as_ref()
-            .map(|i| i.options.clone())
-            .unwrap_or(RequestOptions::new());
-        ReadObject::new(self.stub.clone(), options, bucket, object)
+        ReadObject::new(self.stub.clone(), RequestOptions::new(), bucket, object)
     }
 }
 
@@ -258,11 +249,8 @@ impl Storage {
         builder.credentials = Some(cred);
         builder.endpoint = Some(endpoint);
         let inner = Arc::new(StorageInner::new(client, builder));
-        let stub = crate::storage::read_object::TransportStub::new(inner.clone());
-        Ok(Self {
-            inner: Some(inner),
-            stub,
-        })
+        let stub = crate::storage::read_object::TransportStub::new(inner);
+        Ok(Self { stub })
     }
 }
 

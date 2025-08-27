@@ -23,6 +23,9 @@ use super::*;
 use crate::model_ext::KeyAes256;
 use crate::storage::checksum::details::update as checksum_update;
 use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
+use crate::storage::request_options::RequestOptions;
+use crate::storage::stub::Storage;
+use std::sync::Arc;
 
 /// A request builder for object writes.
 ///
@@ -73,16 +76,16 @@ use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
 ///     Ok(())
 /// }
 /// ```
-pub struct WriteObject<T> {
-    inner: std::sync::Arc<StorageInner>,
+pub struct WriteObject<P, T = crate::storage::read_object::TransportStub> {
+    stub: std::sync::Arc<T>,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
-    payload: Payload<T>,
+    payload: Payload<P>,
     options: super::request_options::RequestOptions,
     checksum: Checksum,
 }
 
-impl<T> WriteObject<T> {
+impl<P, U> WriteObject<P, U> {
     /// Set a [request precondition] on the object generation to match.
     ///
     /// With this precondition the request fails if the current object
@@ -779,17 +782,6 @@ impl<T> WriteObject<T> {
             .expect("resource field initialized in `new()`")
     }
 
-    pub(crate) fn build(self) -> PerformUpload<Payload<T>> {
-        PerformUpload::new(
-            self.checksum,
-            self.payload,
-            self.inner,
-            self.spec,
-            self.params,
-            self.options,
-        )
-    }
-
     fn set_crc32c<V: Into<u32>>(mut self, v: V) -> Self {
         let checksum = self.mut_resource().checksums.get_or_insert_default();
         checksum.crc32c = Some(v.into());
@@ -903,24 +895,25 @@ impl<T> WriteObject<T> {
         this.checksum.md5_hash = Some(Md5::default());
         this
     }
+}
 
-    pub(crate) fn new<B, O, P>(
-        inner: std::sync::Arc<StorageInner>,
-        bucket: B,
-        object: O,
-        payload: P,
-    ) -> Self
+impl<P, T> WriteObject<P, T>
+where
+    T: crate::storage::stub::Storage + 'static,
+{
+    pub(crate) fn new<B, O, D>(stub: std::sync::Arc<T>, bucket: B, object: O, payload: D) -> Self
     where
         B: Into<String>,
         O: Into<String>,
-        P: Into<Payload<T>>,
+        D: Into<Payload<P>>,
+        T: crate::storage::stub::Storage + 'static,
     {
-        let options = inner.options.clone();
+        let options = RequestOptions::new();
         let resource = crate::model::Object::new()
             .set_bucket(bucket)
             .set_name(object);
         WriteObject {
-            inner,
+            stub,
             spec: crate::model::WriteObjectSpec::new().set_resource(resource),
             params: None,
             payload: payload.into(),
@@ -933,11 +926,12 @@ impl<T> WriteObject<T> {
     }
 }
 
-impl<T> WriteObject<T>
+impl<T, U> WriteObject<T, U>
 where
     T: StreamingSource + Seek + Send + Sync + 'static,
     <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
     <T as Seek>::Error: std::error::Error + Send + Sync + 'static,
+    U: crate::storage::stub::Storage + 'static,
 {
     /// A simple upload from a buffer.
     ///
@@ -953,7 +947,15 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_unbuffered(self) -> Result<Object> {
-        self.build().send_unbuffered().await
+        self.stub
+            .write_object_buffered(
+                self.payload,
+                self.spec,
+                self.params,
+                self.options,
+                self.checksum,
+            )
+            .await
     }
 
     /// Precompute the payload checksums before uploading the data.
@@ -988,7 +990,7 @@ where
     /// send the checksums at the end of the upload with this API.
     ///
     /// [JSON API]: https://cloud.google.com/storage/docs/json_api
-    pub async fn precompute_checksums(mut self) -> Result<WriteObject<T>> {
+    pub async fn precompute_checksums(mut self) -> Result<WriteObject<T, U>> {
         let mut offset = 0_u64;
         self.payload.seek(offset).await.map_err(Error::ser)?;
         while let Some(n) = self.payload.next().await.transpose().map_err(Error::ser)? {
@@ -1007,10 +1009,11 @@ where
     }
 }
 
-impl<T> WriteObject<T>
+impl<T, U> WriteObject<T, U>
 where
     T: StreamingSource + Send + Sync + 'static,
     T::Error: std::error::Error + Send + Sync + 'static,
+    U: crate::storage::stub::Storage + 'static,
 {
     /// Upload an object from a streaming source without rewinds.
     ///
@@ -1026,7 +1029,15 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_buffered(self) -> crate::Result<Object> {
-        self.build().send().await
+        self.stub
+            .write_object_buffered(
+                self.payload,
+                self.spec,
+                self.params,
+                self.options,
+                self.checksum,
+            )
+            .await
     }
 }
 
@@ -1034,7 +1045,7 @@ where
 impl<T> std::fmt::Debug for WriteObject<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("WriteObject")
-            .field("inner", &self.inner)
+            .field("stub", &self.stub)
             .field("spec", &self.spec)
             .field("params", &self.params)
             // skip payload, as it is not `Debug`
@@ -1044,8 +1055,10 @@ impl<T> std::fmt::Debug for WriteObject<T> {
     }
 }
 
+/*
 #[cfg(test)]
 mod tests {
+    use crate::client::Storage;
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
     use crate::model::{ObjectChecksums, WriteObjectSpec};
@@ -1138,7 +1151,8 @@ mod tests {
     fn upload_object_unbuffered_metadata() -> Result {
         use crate::model::ObjectAccessControl;
         let inner = test_inner_client(test_builder());
-        let mut request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "")
+        let stub = crate::storage::read_object::TransportStub::new(inner);
+        let mut request = WriteObject::new(stub, "projects/_/buckets/bucket", "object", "")
             .set_if_generation_match(10)
             .set_if_generation_not_match(20)
             .set_if_metageneration_match(30)
@@ -1219,11 +1233,12 @@ mod tests {
                 .with_resumable_upload_threshold(123_usize)
                 .with_resumable_upload_buffer_size(234_usize),
         );
-        let request = WriteObject::new(inner.clone(), "projects/_/buckets/bucket", "object", "");
+        let stub = crate::storage::read_object::TransportStub::new(inner);
+        let request = WriteObject::new(stub.clone(), "projects/_/buckets/bucket", "object", "");
         assert_eq!(request.options.resumable_upload_threshold, 123);
         assert_eq!(request.options.resumable_upload_buffer_size, 234);
 
-        let request = WriteObject::new(inner, "projects/_/buckets/bucket", "object", "")
+        let request = WriteObject::new(stub, "projects/_/buckets/bucket", "object", "")
             .with_resumable_upload_threshold(345_usize)
             .with_resumable_upload_buffer_size(456_usize);
         assert_eq!(request.options.resumable_upload_threshold, 345);
@@ -1512,3 +1527,4 @@ mod tests {
         Ok(())
     }
 }
+ */

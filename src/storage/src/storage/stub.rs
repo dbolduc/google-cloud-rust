@@ -14,11 +14,13 @@
 
 use crate::Result;
 use crate::model::ReadObjectRequest;
+use crate::model::{CommonObjectRequestParams, Object, WriteObjectSpec};
 use crate::read_object::ReadObjectResponse;
 use crate::storage::checksum::details::Checksum;
 use crate::storage::request_options::RequestOptions;
+use crate::streaming_source::{Seek, StreamingSource};
 
-pub(crate) mod dynamic;
+//pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [crate::client::Storage].
 ///
@@ -41,6 +43,34 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = Result<ReadObjectResponse>> + Send {
         unimplemented_stub::<ReadObjectResponse>()
     }
+    /// Implements [crate::client::Storage::read_object].
+    fn write_object_buffered<P>(
+        &self,
+        _payload: P,
+        _spec: WriteObjectSpec,
+        _params: Option<CommonObjectRequestParams>,
+        _options: RequestOptions,
+        _checksum: Checksum,
+    ) -> impl std::future::Future<Output = Result<Object>> + Send
+    where
+        P: StreamingSource + Send + Sync + 'static,
+    {
+        unimplemented_stub::<Object>()
+    }
+    /// Implements [crate::client::Storage::read_object].
+    fn write_object_unbuffered<P>(
+        &self,
+        _payload: P,
+        _spec: WriteObjectSpec,
+        _params: Option<CommonObjectRequestParams>,
+        _options: RequestOptions,
+        _checksum: Checksum,
+    ) -> impl std::future::Future<Output = Result<Object>> + Send
+    where
+        P: StreamingSource + Seek + Send + Sync + 'static,
+    {
+        unimplemented_stub::<Object>()
+    }
 }
 
 async fn unimplemented_stub<T>() -> gax::Result<T> {
@@ -61,14 +91,23 @@ async fn unimplemented_stub<T>() -> gax::Result<T> {
 #[cfg(test)]
 mod tests {
     use crate::model_ext::ObjectHighlights;
+    use crate::streaming_source::BytesSource;
 
     use super::{Checksum, ReadObjectRequest, ReadObjectResponse, RequestOptions, Result};
+    use super::{CommonObjectRequestParams, Object, Seek, StreamingSource, WriteObjectSpec};
+    use crate::streaming_source::Payload;
 
     mockall::mock! {
         #[derive(Debug)]
         Storage {}
         impl crate::storage::stub::Storage for Storage {
             async fn read_object(&self, _req: ReadObjectRequest, _options: RequestOptions, _checksum: Checksum) -> Result<ReadObjectResponse>;
+
+            async fn write_object_buffered<P: StreamingSource + Send + Sync + 'static>(&self,
+                _payload: P,
+                _spec: WriteObjectSpec,
+                _params: Option<CommonObjectRequestParams>,
+                _options: RequestOptions, _checksum: Checksum) -> Result<Object>;
         }
     }
 
@@ -123,5 +162,27 @@ mod tests {
         let contents = bytes::Bytes::from_owner(contents);
         assert_eq!(contents, LAZY);
         Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn mock_write_object_buffered() {
+        use gax::error::{
+            Error,
+            rpc::{Code, Status},
+        };
+        const LAZY: &str = "the quick brown fox jumps over the lazy dog";
+
+        let mut mock = MockStorage::new();
+        mock.expect_write_object_buffered().times(1).returning(
+            |_payload: Payload<BytesSource>, _, _, _, _| {
+                Err(Error::service(Status::default().set_code(Code::Aborted)))
+            },
+        );
+        let client = crate::client::Storage::from_stub(mock);
+        let _ = client
+            .write_object("projects/_/buckets/my-bucket", "my-object", LAZY)
+            .send_buffered()
+            .await
+            .unwrap_err();
     }
 }
