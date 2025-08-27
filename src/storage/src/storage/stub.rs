@@ -20,6 +20,9 @@ use crate::storage::request_options::RequestOptions;
 
 pub(crate) mod dynamic;
 
+use crate::model::{WriteObjectSpec, CommonObjectRequestParams, Object};
+use crate::streaming_source::{StreamingSource, Seek};
+
 /// Defines the trait used to implement [crate::client::Storage].
 ///
 /// Application developers may need to implement this trait to mock
@@ -40,6 +43,32 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         _checksum: Checksum,
     ) -> impl std::future::Future<Output = Result<ReadObjectResponse>> + Send {
         unimplemented_stub::<ReadObjectResponse>()
+    }
+
+    /// Implements [crate::client::Storage::write_object].
+    fn write_object_buffered<P>(
+        &self,
+        _payload: P,
+         _checksum: Checksum,
+         _spec: WriteObjectSpec,
+         _params: Option<CommonObjectRequestParams>,
+        _options: RequestOptions,
+    ) -> impl std::future::Future<Output = Result<Object>> + Send
+    where P: StreamingSource + Send + Sync + 'static {
+        unimplemented_stub::<Object>()
+    }
+
+     /// Implements [crate::client::Storage::write_object].
+    fn write_object_unbuffered<P>(
+        &self,
+        _payload: P,
+         _checksum: Checksum,
+         _spec: WriteObjectSpec,
+         _params: Option<CommonObjectRequestParams>,
+        _options: RequestOptions,
+    ) -> impl std::future::Future<Output = Result<Object>> + Send
+    where P: StreamingSource + Seek + Send + Sync + 'static {
+        unimplemented_stub::<Object>()
     }
 }
 

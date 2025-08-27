@@ -14,6 +14,8 @@
 
 //! Defines data sources for object writes.
 
+pub(crate) mod dynamic;
+
 use std::collections::VecDeque;
 
 /// The *total* number of bytes expected in a [StreamingSource].

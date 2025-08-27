@@ -13,8 +13,10 @@
 // limitations under the License.
 
 use crate::read_object::ReadObjectResponse;
-use crate::storage::checksum::details::Checksum;
-use crate::storage::request_options::RequestOptions;
+use crate::streaming_source::StreamingSource;
+//use crate::streaming_source::dynamic::StreamingSource;
+use super::{WriteObjectSpec, CommonObjectRequestParams, Object, RequestOptions, Checksum};
+use crate::Result;
 
 /// A dyn-compatible, crate-private version of [super::Storage].
 #[async_trait::async_trait]
@@ -25,6 +27,16 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         options: RequestOptions,
         checksum: Checksum,
     ) -> crate::Result<ReadObjectResponse>;
+
+    async fn write_object_buffered<P>(
+        &self,
+        __payload: P,
+         _checksum: Checksum,
+         _spec: WriteObjectSpec,
+         _params: Option<CommonObjectRequestParams>,
+        __options: RequestOptions,
+    ) -> Result<Object>
+    where P: StreamingSource + Sized + Send + Sync + 'static;
 }
 
 /// All implementations of [super::Storage] also implement [Storage].
@@ -38,5 +50,18 @@ impl<T: super::Storage> Storage for T {
         checksum: Checksum,
     ) -> crate::Result<ReadObjectResponse> {
         T::read_object(self, req, options, checksum).await
+    }
+
+    async fn write_object_buffered<P>(
+        &self,
+        payload: P,
+        checksum: Checksum,
+        spec: WriteObjectSpec,
+        params: Option<CommonObjectRequestParams>,
+        options: RequestOptions,
+    ) -> Result<Object>
+    where P: StreamingSource + Sized + Send + Sync + 'static
+    {
+        T::write_object_buffered(self, payload, checksum, spec, params, options).await
     }
 }

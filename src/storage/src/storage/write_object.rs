@@ -23,6 +23,55 @@ use super::*;
 use crate::model_ext::KeyAes256;
 use crate::storage::checksum::details::update as checksum_update;
 use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
+use crate::storage::request_options::RequestOptions;
+use std::sync::Arc;
+
+#[derive(Debug)]
+struct TransportStub {
+    inner: Arc<StorageInner>,
+}
+
+impl TransportStub {
+    // TODO : must this have separate APIs for send vs. send unbuffered?
+    // I think not necessarily, it could be an argument. but meh.
+    pub async fn write_object_buffered<P>(
+        &self,
+        payload: P,
+        checksum: Checksum,
+        spec: crate::model::WriteObjectSpec,
+        params: Option<crate::model::CommonObjectRequestParams>,
+        options: RequestOptions,
+    ) -> Result<Object>
+    where
+        P: StreamingSource + Send + Sync + 'static,
+    {
+        PerformUpload::new(checksum, payload, self.inner.clone(), spec, params, options)
+            .send()
+            .await
+    }
+
+    pub async fn write_object_unbuffered<P>(
+        &self,
+        payload: P,
+        checksum: Checksum,
+        spec: crate::model::WriteObjectSpec,
+        params: Option<crate::model::CommonObjectRequestParams>,
+        options: RequestOptions,
+    ) -> Result<Object>
+    where
+        P: StreamingSource + Seek + Send + Sync + 'static,
+    {
+        PerformUpload::new(checksum, payload, self.inner.clone(), spec, params, options)
+            .send_unbuffered()
+            .await
+    }
+}
+
+impl TransportStub {
+    pub fn new(inner: Arc<StorageInner>) -> Arc<Self> {
+        Arc::new(Self { inner })
+    }
+}
 
 /// A request builder for object writes.
 ///
@@ -74,7 +123,7 @@ use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
 /// }
 /// ```
 pub struct WriteObject<T> {
-    inner: std::sync::Arc<StorageInner>,
+    stub: std::sync::Arc<TransportStub>,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
     payload: Payload<T>,
@@ -779,6 +828,7 @@ impl<T> WriteObject<T> {
             .expect("resource field initialized in `new()`")
     }
 
+    /*
     pub(crate) fn build(self) -> PerformUpload<Payload<T>> {
         PerformUpload::new(
             self.checksum,
@@ -789,6 +839,7 @@ impl<T> WriteObject<T> {
             self.options,
         )
     }
+    */
 
     fn set_crc32c<V: Into<u32>>(mut self, v: V) -> Self {
         let checksum = self.mut_resource().checksums.get_or_insert_default();
@@ -916,11 +967,12 @@ impl<T> WriteObject<T> {
         P: Into<Payload<T>>,
     {
         let options = inner.options.clone();
+        let stub = TransportStub::new(inner);
         let resource = crate::model::Object::new()
             .set_bucket(bucket)
             .set_name(object);
         WriteObject {
-            inner,
+            stub,
             spec: crate::model::WriteObjectSpec::new().set_resource(resource),
             params: None,
             payload: payload.into(),
@@ -953,7 +1005,15 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_unbuffered(self) -> Result<Object> {
-        self.build().send_unbuffered().await
+        self.stub
+            .write_object_unbuffered(
+                self.payload,
+                self.checksum,
+                self.spec,
+                self.params,
+                self.options,
+            )
+            .await
     }
 
     /// Precompute the payload checksums before uploading the data.
@@ -1026,7 +1086,15 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_buffered(self) -> crate::Result<Object> {
-        self.build().send().await
+        self.stub
+            .write_object_buffered(
+                self.payload,
+                self.checksum,
+                self.spec,
+                self.params,
+                self.options,
+            )
+            .await
     }
 }
 
@@ -1034,7 +1102,7 @@ where
 impl<T> std::fmt::Debug for WriteObject<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("WriteObject")
-            .field("inner", &self.inner)
+            .field("stub", &self.stub)
             .field("spec", &self.spec)
             .field("params", &self.params)
             // skip payload, as it is not `Debug`
