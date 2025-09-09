@@ -100,10 +100,6 @@ func (c *crate) getName(id string) string {
 	return c.Index[id].Name
 }
 
-func (c *crate) getDocString(id string) string {
-	return c.Index[id].Docs
-}
-
 type kind int
 
 const (
