@@ -27,3 +27,16 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
+http.workspace = true
+prost.workspace            = true
+prost-types.workspace      = true
+tonic.workspace = true
+tokio                      = { workspace = true, features = ["io-util"] }
+# Local crates
+auth.workspace        = true
+gax.workspace         = true
+gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
+
+[dev-dependencies]
+anyhow.workspace         = true
+tokio-test.workspace     = true
