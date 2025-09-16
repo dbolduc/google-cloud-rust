@@ -1658,6 +1658,18 @@ dependencies = [
 [[package]]
 name = "google-cloud-bigquery"
 version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-auth",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "http",
+ "prost",
+ "prost-types",
+ "tokio",
+ "tokio-test",
+ "tonic",
+]
 
 [[package]]
 name = "google-cloud-bigquery-analyticshub-v1"
