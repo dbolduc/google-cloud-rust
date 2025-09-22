@@ -55,7 +55,7 @@ _internal-grpc-client = [
   "_internal-common",
   "dep:auth",
   "dep:bytes",
-  "dep:futures-util",
+  "dep:futures",
   "dep:gax",
   "dep:http",
   "dep:http-body",
@@ -83,6 +83,7 @@ http                               = { workspace = true, optional = true }
 http-body                          = { workspace = true, optional = true }
 http-body-util                     = { workspace = true, optional = true }
 hyper                              = { workspace = true, optional = true }
+futures                            = { workspace = true, optional = true }
 opentelemetry-semantic-conventions = { workspace = true, optional = true }
 percent-encoding                   = { workspace = true, optional = true }
 pin-project                        = { workspace = true, optional = true }

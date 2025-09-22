@@ -141,13 +141,73 @@ mod info {
     }
 }
 
-#[allow(dead_code)]
-pub(crate) mod google {
+// Sidekick-generated protos. Exposed due to laziness.
+pub mod google {
+    pub mod api {
+        include!("generated/protos/google.api.rs");
+    }
     pub mod pubsub {
-        #[allow(clippy::enum_variant_names)]
         pub mod v1 {
-            include!("generated/protos/pubsub/google.pubsub.v1.rs");
             include!("generated/convert/pubsub/convert.rs");
+            include!("generated/protos/google.pubsub.v1.rs");
         }
+    }
+}
+
+use crate::google::pubsub::v1;
+
+#[derive(Clone)]
+pub struct Subscriber {
+    inner: gaxi::grpc::Client,
+}
+
+impl std::fmt::Debug for Subscriber {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        f.debug_struct("Subscriber")
+            .field("inner", &self.inner)
+            .finish()
+    }
+}
+
+impl Subscriber {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
+        Ok(Self { inner })
+    }
+
+    // Similar to a transport stub's API, but strictly in gRPC-land. (dbolduc is
+    // too lazy to wrap the gRPC-generated types and convert them.)
+    pub async fn streaming_pull(
+        &self,
+        // TODO : We would need to wrap the futures::Stream in our own streaming type
+        // We have `StreamingSource` in storage, specifically for conversion to bytes.
+        // I think we add a generic wrapper for conversion to `T`, `where T: wkt::Message`.
+        // TODO : we might also need to consider how a veneer adds metadata for the initial
+        // write. e.g. I know GCS WriteObject has a routing parameter we are supposed to send.
+        request: impl futures::Stream<Item = v1::StreamingPullRequest> + Send + 'static,
+        options: gax::options::RequestOptions,
+    ) -> Result<tonic::Response<tonic::codec::Streaming<v1::StreamingPullResponse>>> {
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.pubsub.v1.Subscriber",
+                "StreamingPull",
+            ));
+            e
+        };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.pubsub.v1.Subscriber/StreamingPull");
+
+        let api_client_header = "N/A - darren is testing";
+        self.inner
+            .bidi_stream(
+                extensions,
+                path,
+                request,
+                options,
+                api_client_header,
+                "", // I don't think streaming writes have routing params
+            )
+            .await
     }
 }

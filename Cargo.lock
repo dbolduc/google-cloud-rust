@@ -2818,7 +2818,7 @@ dependencies = [
  "anyhow",
  "bytes",
  "echo-server",
- "futures-util",
+ "futures",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-rpc",
@@ -4119,6 +4119,7 @@ dependencies = [
  "tokio-test",
  "tonic",
  "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]
