@@ -49,6 +49,7 @@ _internal-grpc-client = [
   "_internal-common",
   "dep:auth",
   "dep:bytes",
+  "dep:futures",
   "dep:gax",
   "dep:http",
   "dep:prost",
@@ -66,6 +67,7 @@ _internal-common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserro
 bytes            = { workspace = true, optional = true, features = ["serde"] }
 http             = { workspace = true, optional = true, features = ["std"] }
 http-body-util   = { workspace = true, optional = true }
+futures          = { workspace = true, optional = true }
 percent-encoding = { workspace = true, optional = true }
 prost            = { workspace = true, optional = true }
 prost-types      = { workspace = true, optional = true }

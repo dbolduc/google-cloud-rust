@@ -2611,6 +2611,7 @@ dependencies = [
  "anyhow",
  "bytes",
  "echo-server",
+ "futures",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-rpc",
@@ -3879,19 +3880,28 @@ dependencies = [
 name = "google-cloud-pubsub"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
  "async-trait",
  "bytes",
+ "futures",
+ "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",
  "google-cloud-wkt",
+ "http",
  "lazy_static",
+ "prost",
+ "prost-types",
  "reqwest",
  "serde",
  "serde_json",
  "serde_with",
+ "tokio",
  "tokio-test",
+ "tonic",
  "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]
