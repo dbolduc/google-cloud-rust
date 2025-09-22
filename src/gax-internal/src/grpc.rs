@@ -141,6 +141,52 @@ impl Client {
             .map_err(to_gax_error)
     }
 
+    /// Opens a bidirectional stream.
+    pub async fn bidi_stream<Request, Response>(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        request: impl futures::Stream<Item = Request> + Send + 'static,
+        options: gax::options::RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> Result<tonic::Response<tonic::codec::Streaming<Response>>>
+    where
+        Request: prost::Message + 'static + Clone,
+        Response: prost::Message + Default + 'static,
+    {
+        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
+
+        // This should be a resume loop. But for now we will open a single stream.
+        let mut headers = headers;
+        let cached_auth_headers = self
+            .credentials
+            .headers(http::Extensions::new())
+            .await
+            .map_err(Error::authentication)?;
+
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => {
+                unreachable!("headers are not cached");
+            }
+        };
+
+        let auth_headers = auth_headers?;
+        headers.extend(auth_headers);
+        let metadata = tonic::metadata::MetadataMap::from_headers(headers);
+        let request = tonic::Request::from_parts(metadata, extensions, request);
+        // TODO : timeouts
+        let codec = tonic_prost::ProstCodec::<Request, Response>::default();
+        let mut inner = self.inner.clone();
+        inner.ready().await.map_err(Error::io)?;
+        use tonic::IntoStreamingRequest;
+        inner
+            .streaming(request.into_streaming_request(), path, codec)
+            .await
+            .map_err(to_gax_error)
+    }
+
     /// Runs the retry loop.
     async fn retry_loop<Request, Response>(
         &self,
