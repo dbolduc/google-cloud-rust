@@ -27,6 +27,35 @@ dependencies = [
 ]
 
 [[package]]
+name = "aiplatform-grpc"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-api",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-rpc",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "http",
+ "lazy_static",
+ "prost",
+ "prost-types",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio",
+ "tokio-test",
+ "tonic",
+ "tracing",
+]
+
+[[package]]
 name = "android_system_properties"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"

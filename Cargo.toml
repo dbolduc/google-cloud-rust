@@ -45,6 +45,7 @@ default-members = [
 ]
 members = [
   "guide/samples",
+  "src/aiplatform-grpc",
   "src/auth",
   "src/auth/integration-tests",
   "src/base",
