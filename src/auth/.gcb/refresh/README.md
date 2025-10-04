@@ -9,6 +9,57 @@ We want to periodically rerun terraform in order to:
 
 We follow the instructions in: https://cloud.google.com/run/docs/quickstarts/jobs/build-create-shell
 
+## Create terraform-runner SA
+
+TODO : manage terraform-runner via Overground
+
+Create SA:
+
+```sh
+gcloud --project=rust-auth-testing \
+    iam service-accounts create "terraform-runner" \
+    --display-name="Integration test resource updater" \
+    --description="Service account for running Terraform automation."
+```
+
+Add roles - for now, admin. We will revoke later.
+
+```sh
+gcloud projects add-iam-policy-binding "rust-auth-testing" \
+        --member="serviceAccount:terraform-runner@rust-auth-testing.iam.gserviceaccount.com" \
+        --role="roles/admin" \
+        --condition=None
+```
+
+Need the following permissions for GCE default SA to deploy:
+
+```sh
+gcloud projects add-iam-policy-binding "rust-auth-testing" \
+    --member="serviceAccount:977362148892-compute@developer.gserviceaccount.com" \
+    --role="roles/storage.objectViewer" \
+    --condition=None
+gcloud projects add-iam-policy-binding "rust-auth-testing" \
+    --member="serviceAccount:977362148892-compute@developer.gserviceaccount.com" \
+    --role="roles/logging.logWriter" \
+    --condition=None
+
+# This actually might be the only one we need.
+gcloud projects add-iam-policy-binding "rust-auth-testing" \
+    --member="serviceAccount:977362148892-compute@developer.gserviceaccount.com" \
+    --role="roles/run.builder" \
+    --condition=None
+```
+
+We need to be able to read the external project SA.
+
+```sh
+# TODO : add some sort of role to testsa@rust-external-account-joonix.iam.gserviceaccount.com?
+# I started with "View serivce accounts"
+
+# THat didn't work. I think I just need project level permissions to view SAs and WIF pools
+# I just granted "Viewer" role on the project to terraform-runner
+```
+
 ## Deploy
 
 Enable the Cloud Run Admin API:
@@ -20,30 +71,30 @@ Enable the Cloud Run Admin API:
 Deploy the image:
 
 ```sh
-gcloud run jobs deploy refresh \            
+gcloud run jobs deploy refresh \
+    --project=rust-auth-testing \
     --source . \
     --tasks 1 \
-    --max-retries 1 \              
-    --region us-central1 \             
-    --project=dbolduc-test
+    --max-retries 0 \
+    --region us-central1 \
+    --service-account=terraform-runner@rust-auth-testing.iam.gserviceaccount.com
 ```
 
-I need this extra flag, because I deleted my default compute service accout a few years ago. Lol.
+The default of 512 MiB is not enough apparently. Ask for more memory:
 
 ```sh
---service-account=compute-default@dbolduc-test.iam.gserviceaccount.com
+gcloud run jobs update refresh \
+    --project=rust-auth-testing \
+    --region=us-central1 \
+    --memory=2GiB
 ```
-
-TODO : I think in the long run, we want to have a SA that has the permissions
-needed to create terraform resources. Typically we run terraform with our user
-account (which has Owner permissions in the testing projects) as principal.
 
 ## Run
 
 We want Cloud Scheduler to trigger this, but we can test it manually with:
 
 ```sh
-gcloud run jobs execute refresh
+gcloud run jobs execute refresh --project=rust-auth-testing
 ```
 
 ## Next steps
