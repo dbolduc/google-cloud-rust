@@ -44,6 +44,7 @@
 pub(crate) mod generated;
 
 pub(crate) mod publisher;
+pub mod subscriber;
 
 pub use gax::Result;
 pub use gax::error::Error;
@@ -157,11 +158,11 @@ pub mod google {
 use crate::google::pubsub::v1;
 
 #[derive(Clone)]
-pub struct Subscriber {
+pub struct RawGrpcSubscriberBooooo {
     inner: gaxi::grpc::Client,
 }
 
-impl std::fmt::Debug for Subscriber {
+impl std::fmt::Debug for RawGrpcSubscriberBooooo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("Subscriber")
             .field("inner", &self.inner)
@@ -169,7 +170,7 @@ impl std::fmt::Debug for Subscriber {
     }
 }
 
-impl Subscriber {
+impl RawGrpcSubscriberBooooo {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })

@@ -16,7 +16,7 @@
 mod tests {
     use futures::stream::unfold;
     use gax::options::RequestOptions;
-    use google_cloud_pubsub::Subscriber;
+    use google_cloud_pubsub::RawGrpcSubscriberBooooo;
     use google_cloud_pubsub::google::pubsub::v1;
     use tokio::sync::mpsc::{Receiver, channel};
 
@@ -52,7 +52,7 @@ mod tests {
             tracing::subscriber::set_default(subscriber)
         };
 
-        let client = Subscriber::new(gaxi::options::ClientConfig::default()).await?;
+        let client = RawGrpcSubscriberBooooo::new(gaxi::options::ClientConfig::default()).await?;
 
         // A write source that sends one request, waits 15 seconds, then closes the stream.
         let _open_only_stream = unfold(true, move |initial| async move {
