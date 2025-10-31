@@ -2564,6 +2564,7 @@ dependencies = [
  "http",
  "http-body-util",
  "httptest",
+ "hyper",
  "lazy_static",
  "mockall",
  "opentelemetry-semantic-conventions",
