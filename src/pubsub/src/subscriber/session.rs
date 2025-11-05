@@ -16,22 +16,18 @@ use super::builder::Subscribe;
 use super::model::Message;
 use super::transport::TransportStub;
 use crate::Result;
-use crate::google::pubsub::v1;
-use futures::Stream;
+use crate::google::pubsub::v1::{self, StreamingPullResponse};
 use futures::stream::unfold;
 use gax::options::RequestOptions;
-use std::pin::Pin;
 use std::sync::Arc;
 use tokio::sync::Notify;
-use tokio::sync::futures::Notified;
-use tokio::sync::futures::OwnedNotified;
-use tokio::task::JoinHandle;
 
 fn keepalive() -> v1::StreamingPullRequest {
     v1::StreamingPullRequest::default()
 }
 
 pub(crate) type TonicStream = tonic::Response<tonic::codec::Streaming<v1::StreamingPullResponse>>;
+pub(crate) type TonicStreamInner = tonic::codec::Streaming<v1::StreamingPullResponse>;
 
 // TODO : just open a stream that returns some response.
 async fn open_stream(
@@ -96,16 +92,12 @@ async fn open_stream(
 pub struct SubscribeSession {
     //inner: Arc<TransportStub>,
     close_signal: Arc<tokio::sync::Notify>,
-    //stream: TonicStream,
-    read_loop: JoinHandle<Result<()>>,
+    stream: TonicStreamInner,
+    pool: MessagePool,
 }
 
 impl SubscribeSession {
-    pub(crate) async fn new<C, F>(builder: Subscribe<C, F>) -> Result<Self>
-    where
-        C: Fn(Message) -> F + Send + 'static,
-        F: Future<Output = ()> + Send + 'static,
-    {
+    pub(crate) async fn new(builder: Subscribe) -> Result<Self> {
         let inner = builder.inner;
         let initial_req = {
             let mut r = v1::StreamingPullRequest::default();
@@ -119,45 +111,41 @@ impl SubscribeSession {
             r
         };
         let close_signal = Arc::new(Notify::new());
-        let mut stream = open_stream(inner, initial_req, close_signal.clone())
+        // TODO : we might need to open the stream in a task. I think I end up losing a single thread.
+        let stream = open_stream(inner, initial_req, close_signal.clone())
             .await?
+            // TODO : retries on errors
             .into_inner();
-        let callback = builder.callback;
-        let read_loop: JoinHandle<Result<()>> = tokio::spawn(async move {
-            while let Some(resp) = stream
-                .message()
-                .await
-                // TODO : probably the wrong error mapping.
-                .map_err(crate::Error::io)?
-            {
-                tracing::info!("Received message {resp:?}");
-                for msg in resp.received_messages {
-                    let m = msg.message.unwrap();
-                    let id = m.message_id;
-                    tracing::info!("Received message {id} with Ack ID: {}", msg.ack_id);
-
-                    let message = Message {
-                        data: m.data,
-                        message_id: id,
-                        ack_id: msg.ack_id,
-                    };
-                    // TODO : take control of the message
-                    // e.g. send modack, execute message callback. etc.
-
-                    // Execute callback
-                    // TODO : I just fire and forget this task. We should be limiting the number of outstanidng tasks.
-                    _ = tokio::task::spawn(callback(message));
-                }
-            }
-            Ok(())
-        });
+        let pool = MessagePool::default();
         let session = Self {
             //inner,
             close_signal,
-            //stream,
-            read_loop,
+            stream,
+            pool,
         };
         Ok(session)
+    }
+
+    pub async fn next(&mut self) -> Option<Message> {
+        // TODO : synchronization. This feels reckless.
+        while self.pool.messages.is_empty() {
+            self.next_stream().await.ok()?;
+        }
+        self.pool.messages.pop_front()
+    }
+
+    async fn next_stream(&mut self) -> Result<()> {
+        tracing::info!("Fetching more messages from stream.");
+        use futures::StreamExt;
+        if let Some(resp) = self.stream.next().await {
+            // move messages to the pool
+            self.pool
+                .digest(resp.map_err(crate::Error::io /* TODO : wrong error mapping */)?);
+        } else {
+            // Stream has shutdown. Maybe restart the stream.
+        }
+
+        Ok(())
     }
 
     /// Closes the stream.
@@ -172,6 +160,30 @@ impl SubscribeSession {
         tracing::info!("Closing stream.");
         // As of now there is one waiter: in the stream.
         self.close_signal.notify_waiters();
-        self.read_loop.await.map_err(crate::Error::io)?
+
+        Ok(())
+    }
+}
+
+use std::collections::VecDeque;
+// A message pool.
+//
+// This thing will likely do the lease management, when I am ready.
+#[derive(Default)]
+struct MessagePool {
+    messages: VecDeque<Message>,
+}
+
+impl MessagePool {
+    fn digest(&mut self, resp: StreamingPullResponse) {
+        for m in resp.received_messages {
+            tracing::info!("Added message={m:?} to the pool.");
+            let message = m.message.unwrap();
+            self.messages.push_back(Message {
+                data: message.data,
+                message_id: message.message_id,
+                ack_id: m.ack_id,
+            });
+        }
     }
 }

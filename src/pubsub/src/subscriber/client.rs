@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use super::builder::Subscribe;
-use super::model::Message;
 use super::transport::TransportStub;
 use std::sync::Arc;
 
@@ -34,12 +33,10 @@ impl Subscriber {
     }
 
     // Returns a result if we can't start the steram.
-    pub fn subscribe<T, C, F>(&self, subscription: T, callback: C) -> Subscribe<C, F>
+    pub fn subscribe<T>(&self, subscription: T) -> Subscribe
     where
-        C: Fn(Message) -> F + Send + 'static,
-        F: Future<Output = ()> + Send + 'static,
         T: Into<String>,
     {
-        Subscribe::new(self.inner.clone(), subscription.into(), callback)
+        Subscribe::new(self.inner.clone(), subscription.into())
     }
 }

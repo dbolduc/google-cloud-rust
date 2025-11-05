@@ -16,8 +16,8 @@
 mod tests {
     use google_cloud_pubsub::subscriber::client::Subscriber;
 
-    //#[tokio::test]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
+    //#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn quickstart() -> anyhow::Result<()> {
         // Enable a basic subscriber. Useful to troubleshoot problems and visually
         // verify tracing is doing something.
@@ -35,21 +35,33 @@ mod tests {
         let client = Subscriber::new().await?;
 
         tracing::info!("Opening subscriber session...");
-        let session = client
-            .subscribe(
-                format!("projects/dbolduc-test/subscriptions/subscription-id"),
-                async |m| {
-                    println!("Received message m={m:?}");
-                    m.ack().await;
-                },
-            )
+        let mut session = client
+            .subscribe(format!(
+                "projects/dbolduc-test/subscriptions/subscription-id"
+            ))
             .start()
             .await?;
         tracing::info!("Subscriber session is open.");
 
         // Wait for 15 seconds then close the session.
-        tokio::time::sleep(tokio::time::Duration::from_secs(15)).await;
-        tracing::info!("Closing subscriber session...");
+        use tokio::time::{Duration, sleep};
+        use tokio_util::sync::CancellationToken;
+        let cancel = CancellationToken::new();
+        let cancel_cloned = cancel.clone();
+        tokio::spawn(async move {
+            sleep(Duration::from_secs(15)).await;
+            tracing::info!("Closing subscriber session...");
+            cancel_cloned.cancel();
+        });
+
+        while let Some(m) = tokio::select! {
+            v = session.next() => v,
+            _ = cancel.cancelled() => None,
+        } {
+            tracing::info!("Application received message={m:?}.");
+            m.ack().await;
+        }
+
         let status = session.close().await;
         tracing::info!("Subscriber session closed. Status={status:?}");
 
@@ -63,13 +75,9 @@ mod tests {
     #[tokio::test]
     async fn session_markers() -> anyhow::Result<()> {
         let client = Subscriber::new().await?;
-        let builder = client.subscribe(
-            format!("projects/dbolduc-test/subscriptions/subscription-id"),
-            async |m| {
-                println!("Received message m={m:?}");
-                m.ack().await;
-            },
-        );
+        let builder = client.subscribe(format!(
+            "projects/dbolduc-test/subscriptions/subscription-id"
+        ));
 
         let session_fut = builder.start();
         need_send(&session_fut);
@@ -79,6 +87,8 @@ mod tests {
         need_send(&session);
         need_sync(&session);
         need_static(&session);
+
+        // TODO : need `Message` too. This one is interesting because of ack ID.
 
         session.close().await?;
 

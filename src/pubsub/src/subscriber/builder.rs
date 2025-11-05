@@ -12,32 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::model::Message;
 use super::session::SubscribeSession;
 use super::transport::TransportStub;
 use std::sync::Arc;
 
 /// Builder for the `client::Subscriber::subscribe` method.
-pub struct Subscribe<C, F>
-where
-    C: Fn(Message) -> F + Send + 'static,
-    F: Future<Output = ()> + Send + 'static,
-{
+pub struct Subscribe {
     pub(crate) inner: Arc<TransportStub>,
     pub(crate) subscription: String,
-    pub(crate) callback: C,
 }
 
-impl<C, F> Subscribe<C, F>
-where
-    C: Fn(Message) -> F + Send + 'static,
-    F: Future<Output = ()> + Send + 'static,
-{
-    pub(crate) fn new(inner: Arc<TransportStub>, subscription: String, callback: C) -> Self {
+impl Subscribe {
+    pub(crate) fn new(inner: Arc<TransportStub>, subscription: String) -> Self {
         Subscribe {
             inner,
             subscription,
-            callback,
         }
     }
 

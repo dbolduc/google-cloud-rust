@@ -52,5 +52,6 @@ auth.workspace       = true
 anyhow.workspace     = true
 mockall.workspace    = true
 tokio-test.workspace = true
+tokio-util.workspace = true
 tokio.workspace      = true
 tonic.workspace      = true
