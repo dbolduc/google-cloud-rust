@@ -16,6 +16,7 @@ use super::session::TonicStream;
 use crate::Result;
 use crate::google::pubsub::v1;
 
+// NOTE : This abstraction will be useful for OUR tests. I do not think we expose the interface for this. (We do not want )
 pub struct TransportStub {
     inner: gaxi::grpc::Client,
 }

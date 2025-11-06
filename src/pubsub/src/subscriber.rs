@@ -14,6 +14,7 @@
 
 pub mod builder;
 pub mod client;
+pub(crate) mod leaser;
 pub mod model;
 pub mod session;
 pub(crate) mod transport;

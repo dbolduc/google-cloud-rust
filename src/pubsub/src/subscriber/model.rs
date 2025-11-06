@@ -12,8 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::leaser::AckResult;
+use tokio::sync::mpsc::Sender;
+
 /// A wrapper over the proto message with ack/nack fns.
-#[derive(Clone, Debug, Default)]
+#[derive(Debug)]
 pub struct Message {
     pub data: bytes::Bytes,
     //pub attributes: HashMap<String, String>,
@@ -24,6 +27,8 @@ pub struct Message {
     // NOTE : In C++, ack IDs are not associated with the public message type.
     // Ack IDs are not in the proto, but I think they would be associated with our messages.
     pub(crate) ack_id: String,
+
+    pub(crate) ack_tx: Sender<AckResult>,
 }
 
 impl Message {
@@ -31,6 +36,12 @@ impl Message {
     // Now I understand why C++ and others have a separate AckHandler / MessageConsumer type, vs. a built in.
     // We could achieve this with inner-mutability. But it seems nicer not to? That involves locks / heap allocations.
     // If we need Send + Sync safety, then maybe we already have it, though. Let me just proceed.
-    pub async fn ack(mut self) {}
-    pub async fn nack(mut self) {}
+    pub async fn ack(self) {
+        let _ = self.ack_tx.send(AckResult::Ack(self.ack_id)).await;
+        // TODO : do we need to handle these errors?
+    }
+    pub async fn nack(self) {
+        let _ = self.ack_tx.send(AckResult::Nack(self.ack_id)).await;
+        // TODO : do we need to handle these errors?
+    }
 }

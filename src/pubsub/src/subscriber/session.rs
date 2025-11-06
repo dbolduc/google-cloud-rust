@@ -13,14 +13,16 @@
 // limitations under the License.
 
 use super::builder::Subscribe;
+use super::leaser::LeaseManager;
 use super::model::Message;
 use super::transport::TransportStub;
 use crate::Result;
 use crate::google::pubsub::v1::{self, StreamingPullResponse};
+use futures::StreamExt as _;
 use futures::stream::unfold;
 use gax::options::RequestOptions;
 use std::sync::Arc;
-use tokio::sync::Notify;
+use tokio_util::sync::CancellationToken;
 
 fn keepalive() -> v1::StreamingPullRequest {
     v1::StreamingPullRequest::default()
@@ -33,15 +35,15 @@ pub(crate) type TonicStreamInner = tonic::codec::Streaming<v1::StreamingPullResp
 async fn open_stream(
     inner: Arc<TransportStub>,
     initial_req: v1::StreamingPullRequest,
-    close_signal: Arc<Notify>,
+    shutdown: CancellationToken,
 ) -> Result<TonicStream> {
     enum State {
         Initial {
             req: v1::StreamingPullRequest,
-            close_signal: Arc<Notify>,
+            shutdown: CancellationToken,
         },
         Open {
-            close_signal: Arc<Notify>,
+            shutdown: CancellationToken,
         },
     }
 
@@ -49,28 +51,24 @@ async fn open_stream(
     let request_stream = unfold(
         State::Initial {
             req: initial_req,
-            close_signal,
+            shutdown,
         },
         move |state| async move {
             match state {
-                State::Initial { req, close_signal } => {
+                State::Initial { req, shutdown } => {
                     tracing::info!("Sending initial request.");
-                    Some((req, State::Open { close_signal }))
+                    Some((req, State::Open { shutdown }))
                 }
-                State::Open { close_signal } => {
+                State::Open { shutdown } => {
                     tracing::info!("Started sleeping.");
                     tokio::select! {
                         _ = tokio::time::sleep(tokio::time::Duration::from_secs(30)) => {
                             // This is a keepalive ping.
                             tracing::info!("Done sleeping. Sending keepalive ping.");
-                            Some((keepalive(), State::Open { close_signal }))
+                            Some((keepalive(), State::Open { shutdown }))
                         },
-                        _ = close_signal.notified() => {
-                            // NOTE : There is an unlikely race here.
-                            // We should create one `Notified` or `NotifiedOwned` total for the stream, instead of one every 30 seconds.
-                            // The sleep branch of the select can hit, then the session is closed, and we will miss the notification. The stream stays open.
-                            // I spent an hour trying to fix this, but failed. I will defer the fix. It is not important for the design.
-                            tracing::info!("Done sleeping. Closing stream.");
+                        _ = shutdown.cancelled() => {
+                            tracing::info!("Shutdown: Stream.");
                             None
                         },
                     }
@@ -91,9 +89,10 @@ async fn open_stream(
 /// Represents an open subscribe session.
 pub struct SubscribeSession {
     //inner: Arc<TransportStub>,
-    close_signal: Arc<tokio::sync::Notify>,
     stream: TonicStreamInner,
     pool: MessagePool,
+    leaser: LeaseManager,
+    shutdown: CancellationToken,
 }
 
 impl SubscribeSession {
@@ -110,24 +109,36 @@ impl SubscribeSession {
             r.client_id = "darren".to_string();
             r
         };
-        let close_signal = Arc::new(Notify::new());
+        let shutdown = CancellationToken::new();
         // TODO : we might need to open the stream in a task. I think I end up losing a single thread.
-        let stream = open_stream(inner, initial_req, close_signal.clone())
+        let stream = open_stream(inner, initial_req, shutdown.clone())
             .await?
             // TODO : retries on errors
             .into_inner();
         let pool = MessagePool::default();
+        let leaser = LeaseManager::new(shutdown.clone());
         let session = Self {
             //inner,
-            close_signal,
             stream,
             pool,
+            leaser,
+            shutdown,
         };
         Ok(session)
     }
 
     pub async fn next(&mut self) -> Option<Message> {
-        // TODO : synchronization. This feels reckless.
+        // TODO : It feels like we should be constantly pulling messages from
+        // the stream in a backgroud task (up to some limit), instead of waiting
+        // for the application to ask for more?
+
+        // NOTE : from team discussion:
+        // - we should only consider a max of one response. (The responses are configured to contain N messages. That is already a buffer)
+        // - gRPC might buffer reads on the socket. So we are not saving anything with an additional buffer.
+
+        // TODO : synchronization? This feels reckless.
+        // Should it even be possible?? I guess it is allowed because `next_stream` is inline.
+        // Maybe the compiler will stop me later when I try to do more complicated things?.
         while self.pool.messages.is_empty() {
             self.next_stream().await.ok()?;
         }
@@ -136,11 +147,10 @@ impl SubscribeSession {
 
     async fn next_stream(&mut self) -> Result<()> {
         tracing::info!("Fetching more messages from stream.");
-        use futures::StreamExt;
         if let Some(resp) = self.stream.next().await {
             // move messages to the pool
-            self.pool
-                .digest(resp.map_err(crate::Error::io /* TODO : wrong error mapping */)?);
+            let resp = resp.map_err(crate::Error::io /* TODO : wrong error mapping */)?;
+            self.on_read(resp).await;
         } else {
             // Stream has shutdown. Maybe restart the stream.
         }
@@ -148,18 +158,39 @@ impl SubscribeSession {
         Ok(())
     }
 
+    async fn on_read(&mut self, resp: StreamingPullResponse) {
+        for m in resp.received_messages {
+            tracing::info!("Added message={m:?} to the pool.");
+            self.leaser
+                .new_message_tx()
+                .send(m.ack_id.clone())
+                .await
+                .expect("sending new messages to the channel should be fine");
+
+            let message = m.message.unwrap();
+            self.pool.messages.push_back(Message {
+                data: message.data,
+                message_id: message.message_id,
+                ack_id: m.ack_id,
+                ack_tx: self.leaser.ack_tx(),
+            });
+        }
+    }
+
     /// Closes the stream.
     ///
-    /// Returns the final status of the stream, which always errors.
+    /// Returns the final status of the stream, which always errors. (the happy
+    /// case receives a CANCELLED).
     ///
     /// TODO : pick a default behavior for shutdown.
-    ///
-    // TODO : perhaps we want shutdown options, but we are nowhere near ready for that.
-    // TODO : perhaps we want to return an rpc::Status, because it is never Ok. I am mainly worried that the Result is misleading when it can never be Ok.
+    /// TODO : perhaps we want shutdown options, but we are nowhere near ready for that.
     pub async fn close(self) -> crate::Result<()> {
-        tracing::info!("Closing stream.");
-        // As of now there is one waiter: in the stream.
-        self.close_signal.notify_waiters();
+        tracing::info!("Shutdown: application triggered shutdown via close().");
+        self.shutdown.cancel();
+        self.leaser.close().await?;
+        // Drain stream? TODO : good idea or no?
+        let mut stream = self.stream;
+        while stream.next().await.is_some() {}
 
         Ok(())
     }
@@ -168,22 +199,14 @@ impl SubscribeSession {
 use std::collections::VecDeque;
 // A message pool.
 //
-// This thing will likely do the lease management, when I am ready.
+// This thing is separate from the lease management (which only knows/cares about ack IDs)
+//
+// TODO : This thing gets more complicated when we introduce ordering keys.
+// I suspect we get a `Hashmap<String, VecDeque<Message>>`.
+//
+// Q: which order do we serve messages from the many queues? Like obviously we
+// go in order for a given queue. Are there fairness considerations?
 #[derive(Default)]
 struct MessagePool {
     messages: VecDeque<Message>,
-}
-
-impl MessagePool {
-    fn digest(&mut self, resp: StreamingPullResponse) {
-        for m in resp.received_messages {
-            tracing::info!("Added message={m:?} to the pool.");
-            let message = m.message.unwrap();
-            self.messages.push_back(Message {
-                data: message.data,
-                message_id: message.message_id,
-                ack_id: m.ack_id,
-            });
-        }
-    }
 }
