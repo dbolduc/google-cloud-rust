@@ -18,18 +18,20 @@ use crate::info;
 use crate::{Error, Result};
 
 // NOTE : This abstraction will be useful for OUR tests. I do not think we expose the interface for this. (We do not want )
-pub struct TransportStub {
+pub(crate) struct TransportStub {
     inner: gaxi::grpc::Client,
 }
 
 impl TransportStub {
-    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 
     // TODO : the stub should be dealing in `model::` types, not prost types.
-    pub async fn streaming_pull(
+    pub(crate) async fn streaming_pull(
         &self,
         request: impl futures::Stream<Item = v1::StreamingPullRequest> + Send + 'static,
         options: gax::options::RequestOptions,
@@ -59,7 +61,7 @@ impl TransportStub {
     }
 
     // NOTE : I am just copying generated code for now. Would be nice to use the stub directly.
-    async fn modify_ack_deadline(
+    pub(crate) async fn modify_ack_deadline(
         &self,
         req: crate::model::ModifyAckDeadlineRequest,
         options: gax::options::RequestOptions,
@@ -98,7 +100,7 @@ impl TransportStub {
             .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
     }
 
-    async fn acknowledge(
+    pub(crate) async fn acknowledge(
         &self,
         req: crate::model::AcknowledgeRequest,
         options: gax::options::RequestOptions,

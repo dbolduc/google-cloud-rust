@@ -14,6 +14,8 @@
 
 use super::transport::TransportStub;
 use crate::{Error, Result};
+use gax::options::RequestOptions;
+use gax::retry_policy::NeverRetry;
 use std::collections::HashSet;
 use std::sync::Arc;
 use tokio::sync::mpsc::{Sender, channel};
@@ -28,26 +30,63 @@ pub(crate) enum AckResult {
 
 // Stub out the interface for leasing, so we can test.
 #[async_trait::async_trait]
-trait Leaser {
-    async fn ack(ack_ids: Vec<String>) -> Result<()>;
-    async fn nack(ack_ids: Vec<String>) -> Result<()>;
-    async fn mod_ack(ack_ids: Vec<String>) -> Result<()>;
+pub(crate) trait Leaser {
+    async fn ack(&self, ack_ids: Vec<String>) -> Result<()>;
+    async fn nack(&self, ack_ids: Vec<String>) -> Result<()>;
+    async fn mod_ack(&self, ack_ids: Vec<String>) -> Result<()>;
 }
 
-struct DefaultLeaser {
+pub(crate) struct DefaultLeaser {
     inner: Arc<TransportStub>,
+}
+
+impl DefaultLeaser {
+    pub(crate) fn new(inner: Arc<TransportStub>) -> Self {
+        Self { inner }
+    }
+}
+
+fn no_retry() -> RequestOptions {
+    let mut o = RequestOptions::default();
+    o.set_retry_policy(NeverRetry);
+    o
 }
 
 #[async_trait::async_trait]
 impl Leaser for DefaultLeaser {
-    async fn ack(ack_ids: Vec<String>) -> Result<()> {
-        unimplemented!();
+    async fn ack(&self, ack_ids: Vec<String>) -> Result<()> {
+        use crate::generated::gapic_dataplane::model::AcknowledgeRequest;
+        // TODO : consider req size limits.
+        let req = AcknowledgeRequest::new()
+            .set_subscription("projects/dbolduc-test/subscriptions/subscription-id")
+            .set_ack_ids(ack_ids);
+        Ok(self.inner.acknowledge(req, no_retry()).await?.into_body())
     }
-    async fn nack(ack_ids: Vec<String>) -> Result<()> {
-        unimplemented!();
+    async fn nack(&self, ack_ids: Vec<String>) -> Result<()> {
+        use crate::generated::gapic_dataplane::model::ModifyAckDeadlineRequest;
+        // TODO : consider req size limits.
+        let req = ModifyAckDeadlineRequest::new()
+            .set_subscription("projects/dbolduc-test/subscriptions/subscription-id")
+            .set_ack_ids(ack_ids)
+            .set_ack_deadline_seconds(0);
+        Ok(self
+            .inner
+            .modify_ack_deadline(req, no_retry())
+            .await?
+            .into_body())
     }
-    async fn mod_ack(ack_ids: Vec<String>) -> Result<()> {
-        unimplemented!();
+    async fn mod_ack(&self, ack_ids: Vec<String>) -> Result<()> {
+        use crate::generated::gapic_dataplane::model::ModifyAckDeadlineRequest;
+        // TODO : consider req size limits.
+        let req = ModifyAckDeadlineRequest::new()
+            .set_subscription("projects/dbolduc-test/subscriptions/subscription-id")
+            .set_ack_ids(ack_ids)
+            .set_ack_deadline_seconds(10);
+        Ok(self
+            .inner
+            .modify_ack_deadline(req, no_retry())
+            .await?
+            .into_body())
     }
 }
 
@@ -80,7 +119,10 @@ pub(crate) struct LeaseManager {
 //   - I think the drawback is that we want it to nack immediately.
 impl LeaseManager {
     // TODO : this could just be a fn start_lease_loop {} -> handle, Sender<String>, Sender<AckResult>
-    pub(crate) fn new(shutdown: CancellationToken) -> Self {
+    pub(crate) fn new<L>(shutdown: CancellationToken, leaser: L) -> Self
+    where
+        L: Leaser + Send + 'static,
+    {
         // TODO : Options for these channel sizes?
         let (new_message_tx, mut new_message_rx) = channel(1000);
         let (ack_tx, mut ack_rx) = channel(1000);
@@ -109,8 +151,9 @@ impl LeaseManager {
                     _ = flush_interval.tick() => {
                         tracing::info!("5s have passed. Flushing acks / nacks / modacks");
                         // TODO : move expiring messages into the nack bin
-                        to_ack.clear(); // NOTE : simulating a flush
-                        to_nack.clear(); // NOTE : simulating a flush
+                        let _ = leaser.ack(std::mem::take(&mut to_ack)).await;
+                        let _ = leaser.nack(std::mem::take(&mut to_nack)).await;
+                        let _ = leaser.mod_ack(under_lease.iter().cloned().collect()).await;
                     },
                     new_message = new_message_rx.recv() => {
                         match new_message {

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::builder::Subscribe;
+use super::leaser::DefaultLeaser;
 use super::leaser::LeaseManager;
 use super::model::Message;
 use super::transport::TransportStub;
@@ -111,12 +112,12 @@ impl SubscribeSession {
         };
         let shutdown = CancellationToken::new();
         // TODO : we might need to open the stream in a task. I think I end up losing a single thread.
-        let stream = open_stream(inner, initial_req, shutdown.clone())
+        let stream = open_stream(inner.clone(), initial_req, shutdown.clone())
             .await?
             // TODO : retries on errors
             .into_inner();
         let pool = MessagePool::default();
-        let leaser = LeaseManager::new(shutdown.clone());
+        let leaser = LeaseManager::new(shutdown.clone(), DefaultLeaser::new(inner));
         let session = Self {
             //inner,
             stream,
