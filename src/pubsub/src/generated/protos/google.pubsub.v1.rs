@@ -1194,7 +1194,7 @@ pub mod ingestion_failure_event {
         pub partition_key: ::prost::alloc::string::String,
         #[prost(string, tag = "3")]
         pub sequence_number: ::prost::alloc::string::String,
-        #[prost(oneof = "aws_kinesis_failure_reason::Reason", tags = "4, 5")]
+        #[prost(oneof = "aws_kinesis_failure_reason::Reason", tags = "4, 5, 6")]
         pub reason: ::core::option::Option<aws_kinesis_failure_reason::Reason>,
     }
     /// Nested message and enum types in `AwsKinesisFailureReason`.
@@ -1207,6 +1207,8 @@ pub mod ingestion_failure_event {
             MessageTransformationFailureReason(
                 super::MessageTransformationFailureReason,
             ),
+            #[prost(message, tag = "6")]
+            ApiViolationReason(super::ApiViolationReason),
         }
     }
     impl ::prost::Name for AwsKinesisFailureReason {
@@ -1316,6 +1318,11 @@ pub struct Topic {
     >,
     #[prost(message, repeated, tag = "13")]
     pub message_transforms: ::prost::alloc::vec::Vec<MessageTransform>,
+    #[prost(map = "string, string", tag = "14")]
+    pub tags: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
 }
 /// Nested message and enum types in `Topic`.
 pub mod topic {
@@ -1658,6 +1665,11 @@ pub struct Subscription {
     >,
     #[prost(message, repeated, tag = "25")]
     pub message_transforms: ::prost::alloc::vec::Vec<MessageTransform>,
+    #[prost(map = "string, string", tag = "26")]
+    pub tags: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
 }
 /// Nested message and enum types in `Subscription`.
 pub mod subscription {
@@ -2273,6 +2285,8 @@ pub struct StreamingPullRequest {
     pub max_outstanding_messages: i64,
     #[prost(int64, tag = "8")]
     pub max_outstanding_bytes: i64,
+    #[prost(int64, tag = "10")]
+    pub protocol_version: i64,
 }
 impl ::prost::Name for StreamingPullRequest {
     const NAME: &'static str = "StreamingPullRequest";
@@ -2386,6 +2400,11 @@ pub struct CreateSnapshotRequest {
     pub subscription: ::prost::alloc::string::String,
     #[prost(map = "string, string", tag = "3")]
     pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    #[prost(map = "string, string", tag = "4")]
+    pub tags: ::std::collections::HashMap<
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
     >,
