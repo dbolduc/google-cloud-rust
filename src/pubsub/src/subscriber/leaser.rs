@@ -30,12 +30,13 @@ pub(crate) enum AckResult {
 
 // Stub out the interface for leasing, so we can test.
 #[async_trait::async_trait]
-pub(crate) trait Leaser {
+pub(crate) trait Leaser: Clone {
     async fn ack(&self, ack_ids: Vec<String>) -> Result<()>;
     async fn nack(&self, ack_ids: Vec<String>) -> Result<()>;
     async fn mod_ack(&self, ack_ids: Vec<String>) -> Result<()>;
 }
 
+#[derive(Clone)]
 pub(crate) struct DefaultLeaser {
     inner: Arc<TransportStub>,
 }
@@ -126,7 +127,10 @@ impl LeaseManager {
         // TODO : Options for these channel sizes?
         let (new_message_tx, mut new_message_rx) = channel(1000);
         let (ack_tx, mut ack_rx) = channel(1000);
+
         let lease_loop = tokio::spawn(async move {
+            let mut leaser_handles = vec![None, None, None];
+
             let mut flush_interval = interval(Duration::from_secs(5));
             // We will move messages from here to either `to_ack` on an ack, or
             // `to_nack` on a nack or lease expiration.
@@ -151,9 +155,21 @@ impl LeaseManager {
                     _ = flush_interval.tick() => {
                         tracing::info!("5s have passed. Flushing acks / nacks / modacks");
                         // TODO : move expiring messages into the nack bin
-                        let _ = leaser.ack(std::mem::take(&mut to_ack)).await;
-                        let _ = leaser.nack(std::mem::take(&mut to_nack)).await;
-                        let _ = leaser.mod_ack(under_lease.iter().cloned().collect()).await;
+                        let to_ack = std::mem::take(&mut to_ack);
+                        let leaser_clone = leaser.clone();
+                        leaser_handles[0] = Some(tokio::spawn(async move {
+                            leaser_clone.ack(to_ack).await;
+                        }));
+                        let to_nack = std::mem::take(&mut to_nack);
+                        let leaser_clone = leaser.clone();
+                        leaser_handles[1] = Some(tokio::spawn(async move {
+                            leaser_clone.nack(to_nack).await;
+                        }));
+                        let under_lease: Vec<String> = under_lease.iter().cloned().collect();
+                        let leaser_clone = leaser.clone();
+                        leaser_handles[2] = Some(tokio::spawn(async move {
+                            leaser_clone.mod_ack(under_lease).await;
+                        }));
                     },
                     new_message = new_message_rx.recv() => {
                         match new_message {
