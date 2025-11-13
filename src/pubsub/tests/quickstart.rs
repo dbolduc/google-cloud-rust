@@ -59,7 +59,7 @@ mod tests {
             _ = cancel.cancelled() => None,
         } {
             tracing::info!("Application received message={m:?}.");
-            m.ack().await;
+            m.ack();
         }
 
         let status = session.close().await;

@@ -4121,6 +4121,7 @@ dependencies = [
  "tonic",
  "tracing",
  "tracing-subscriber",
+ "uuid",
 ]
 
 [[package]]
@@ -5282,6 +5283,31 @@ dependencies = [
  "serde_with",
  "tokio-test",
  "tracing",
+]
+
+[[package]]
+name = "googleapis-tonic-google-api"
+version = "0.25.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3109a5081ee98e069e28db714cb629682ddaea6ee50ed79f0ed5bae9dba2b87c"
+dependencies = [
+ "prost",
+ "prost-types",
+ "tonic",
+ "tonic-prost",
+]
+
+[[package]]
+name = "googleapis-tonic-google-pubsub-v1"
+version = "0.37.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2a2f2f862e7b9ac6a5a3070bad6dd10392577b4187248bf5cf87f5f17110658c"
+dependencies = [
+ "googleapis-tonic-google-api",
+ "prost",
+ "prost-types",
+ "tonic",
+ "tonic-prost",
 ]
 
 [[package]]
@@ -7344,12 +7370,17 @@ name = "subscriber-bench"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "futures",
  "google-cloud-gax",
  "google-cloud-pubsub",
+ "googleapis-tonic-google-pubsub-v1",
  "tokio",
+ "tokio-stream",
  "tokio-util",
+ "tonic",
  "tracing",
  "tracing-subscriber",
+ "uuid",
 ]
 
 [[package]]

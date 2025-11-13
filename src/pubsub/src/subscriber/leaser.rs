@@ -18,10 +18,12 @@ use gax::options::RequestOptions;
 use gax::retry_policy::NeverRetry;
 use std::collections::HashSet;
 use std::sync::Arc;
-use tokio::sync::mpsc::{Sender, channel};
+use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
 use tokio::task::JoinHandle;
 use tokio::time::{Duration, interval};
 use tokio_util::sync::CancellationToken;
+
+const ACK_FLUSH: Duration = Duration::from_secs(1);
 
 pub(crate) enum AckResult {
     Ack(String),
@@ -104,9 +106,9 @@ pub(crate) struct LeaseManager {
     //to_ack: Vec<String>,
     // Messages to nack (ack IDs)
     //to_nack: Vec<String>,
-    new_message_tx: Sender<String>,
+    new_message_tx: UnboundedSender<String>,
     //new_message_rx: Receiver<String>,
-    ack_tx: Sender<AckResult>,
+    ack_tx: UnboundedSender<AckResult>,
     //ack_rx: Receiver<AckResult>,
 
     // TODO : this thing needs to handle exactly once. Will generalize after I sketch it.
@@ -119,19 +121,19 @@ pub(crate) struct LeaseManager {
 //   - It would be less efficient though.
 //   - I think the drawback is that we want it to nack immediately.
 impl LeaseManager {
-    // TODO : this could just be a fn start_lease_loop {} -> handle, Sender<String>, Sender<AckResult>
+    // TODO : this could just be a fn start_lease_loop {} -> handle, UnboundedSender<String>, UnboundedSender<AckResult>
     pub(crate) fn new<L>(shutdown: CancellationToken, leaser: L) -> Self
     where
         L: Leaser + Send + 'static,
     {
         // TODO : Options for these channel sizes?
-        let (new_message_tx, mut new_message_rx) = channel(1000);
-        let (ack_tx, mut ack_rx) = channel(1000);
+        let (new_message_tx, mut new_message_rx) = unbounded_channel();
+        let (ack_tx, mut ack_rx) = unbounded_channel();
 
         let lease_loop = tokio::spawn(async move {
             let mut leaser_handles = vec![None, None, None];
 
-            let mut flush_interval = interval(Duration::from_secs(5));
+            let mut flush_interval = interval(Duration::from_millis(500));
             // We will move messages from here to either `to_ack` on an ack, or
             // `to_nack` on a nack or lease expiration.
             let mut under_lease = HashSet::new();
@@ -228,11 +230,11 @@ impl LeaseManager {
         }
     }
 
-    pub(crate) fn ack_tx(&self) -> Sender<AckResult> {
+    pub(crate) fn ack_tx(&self) -> UnboundedSender<AckResult> {
         self.ack_tx.clone()
     }
 
-    pub(crate) fn new_message_tx(&self) -> Sender<String> {
+    pub(crate) fn new_message_tx(&self) -> UnboundedSender<String> {
         // TODO : This is less than elegant. There is only one thing sending the Leaser messages.
         // So the Leaser should not be holding this prototype sender.
         self.new_message_tx.clone()

@@ -104,10 +104,10 @@ impl SubscribeSession {
             r.subscription = builder.subscription;
             // TODO : unhardcoded other settings
             r.stream_ack_deadline_seconds = 10;
-            r.max_outstanding_messages = 1000_i64;
+            // TODO : testing more generous defaults
+            r.max_outstanding_messages = 20000_i64;
             r.max_outstanding_bytes = 104857600_i64;
-            // TODO : generate client ID
-            r.client_id = "darren".to_string();
+            r.client_id = uuid::Uuid::new_v4().to_string();
             r
         };
         let shutdown = CancellationToken::new();
@@ -162,11 +162,7 @@ impl SubscribeSession {
     async fn on_read(&mut self, resp: StreamingPullResponse) {
         for m in resp.received_messages {
             tracing::info!("Added message={m:?} to the pool.");
-            self.leaser
-                .new_message_tx()
-                .send(m.ack_id.clone())
-                .await
-                .expect("sending new messages to the channel should be fine");
+            self.leaser.new_message_tx().send(m.ack_id.clone());
 
             let message = m.message.unwrap();
             self.pool.messages.push_back(Message {
