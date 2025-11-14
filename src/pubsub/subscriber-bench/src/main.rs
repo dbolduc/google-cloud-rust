@@ -29,7 +29,7 @@ fn trace_guard() -> tracing::dispatcher::DefaultGuard {
 
 const NUM_TASKS: usize = 256;
 const NUM_CLIENTS: usize = 16;
-const TEST_DURATION: Duration = Duration::from_secs(60);
+const TEST_DURATION: Duration = Duration::from_secs(600);
 //const NUM_TASKS: usize = 1;
 //const NUM_CLIENTS: usize = 1;
 //const TEST_DURATION: Duration = Duration::from_secs(5);
@@ -64,8 +64,6 @@ async fn main() -> anyhow::Result<()> {
     });
 
     let mut tasks = Vec::new();
-    // I am seeing like: 716k messages over 60 seconds. 12 MB/s. Pretty bad, but
-    // better than before.
     for i in 0..NUM_TASKS {
         let cancel = cancel.clone();
         let client = clients.get(i % NUM_CLIENTS).expect("always valid");

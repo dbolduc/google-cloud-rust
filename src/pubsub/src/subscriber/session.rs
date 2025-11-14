@@ -32,7 +32,6 @@ fn keepalive() -> v1::StreamingPullRequest {
 pub(crate) type TonicStream = tonic::Response<tonic::codec::Streaming<v1::StreamingPullResponse>>;
 pub(crate) type TonicStreamInner = tonic::codec::Streaming<v1::StreamingPullResponse>;
 
-// TODO : just open a stream that returns some response.
 async fn open_stream(
     inner: Arc<TransportStub>,
     initial_req: v1::StreamingPullRequest,
@@ -105,8 +104,8 @@ impl SubscribeSession {
             // TODO : unhardcoded other settings
             r.stream_ack_deadline_seconds = 10;
             // TODO : testing more generous defaults
-            r.max_outstanding_messages = 20000_i64;
-            r.max_outstanding_bytes = 104857600_i64;
+            r.max_outstanding_messages = 200000_i64;
+            r.max_outstanding_bytes = 200000000_i64;
             r.client_id = uuid::Uuid::new_v4().to_string();
             r
         };

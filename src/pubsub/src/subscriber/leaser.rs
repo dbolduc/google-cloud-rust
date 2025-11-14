@@ -133,7 +133,7 @@ impl LeaseManager {
         let lease_loop = tokio::spawn(async move {
             let mut leaser_handles = vec![None, None, None];
 
-            let mut flush_interval = interval(Duration::from_millis(500));
+            let mut flush_interval = interval(ACK_FLUSH);
             // We will move messages from here to either `to_ack` on an ack, or
             // `to_nack` on a nack or lease expiration.
             let mut under_lease = HashSet::new();
