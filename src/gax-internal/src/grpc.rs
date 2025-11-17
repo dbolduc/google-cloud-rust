@@ -187,7 +187,6 @@ impl Client {
             .map_err(to_gax_error)
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
     /// Opens a bidirectional stream.
     pub async fn bidi_stream<Request, Response>(
         &self,
@@ -214,7 +213,6 @@ impl Client {
         .map_err(to_gax_error)
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
     /// Opens a bidirectional stream.
     ///
     /// Some services (notably Storage) need to examine the `tonic::Status` to

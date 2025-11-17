@@ -155,7 +155,7 @@ impl LeaseManager {
                         break;
                     },
                     _ = flush_interval.tick() => {
-                        tracing::info!("5s have passed. Flushing acks / nacks / modacks");
+                        tracing::info!("{ACK_FLUSH:?} has passed. Flushing acks / nacks / modacks");
                         // TODO : move expiring messages into the nack bin
                         let to_ack = std::mem::take(&mut to_ack);
                         let leaser_clone = leaser.clone();
