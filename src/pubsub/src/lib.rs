@@ -44,6 +44,8 @@
 pub(crate) mod generated;
 
 pub(crate) mod publisher;
+#[allow(dead_code)]
+pub(crate) mod subscriber;
 
 pub use gax::Result;
 pub use gax::error::Error;
