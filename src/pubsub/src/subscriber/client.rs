@@ -19,13 +19,13 @@ use std::sync::Arc;
 pub struct Subscriber {
     // TODO : this is probably abstracted into a stub? too early.
     inner: Arc<TransportStub>,
-    // TODO : Radical idea: why even have a Subscriber client? What if we only had Subscriber session builders?
 }
 
 impl Subscriber {
     // TODO : play the ClientBuilder game
     pub async fn new() -> gax::client_builder::Result<Self> {
-        let config = gaxi::options::ClientConfig::default();
+        let mut config = gaxi::options::ClientConfig::default();
+        config.grpc_subchannel_count = Some(2);
         let transport = TransportStub::new(config).await?;
         Ok(Self {
             inner: Arc::new(transport),
