@@ -423,6 +423,8 @@ pub mod internal {
         pub retry_throttler: SharedRetryThrottler,
         pub polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
         pub polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+        pub grpc_subchannel_count: Option<usize>,
+        pub grpc_request_buffer_capacity: Option<usize>,
     }
 
     impl<Cr> std::default::Default for ClientConfig<Cr> {
@@ -438,6 +440,8 @@ pub mod internal {
                 retry_throttler: Arc::new(Mutex::new(AdaptiveThrottler::default())),
                 polling_error_policy: None,
                 polling_backoff_policy: None,
+                grpc_subchannel_count: None,
+                grpc_request_buffer_capacity: None,
             }
         }
     }

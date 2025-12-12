@@ -32,6 +32,9 @@ use http::HeaderMap;
 use std::sync::Arc;
 use std::time::Duration;
 
+// A tonic::transport::Channel always has a Buffer layer.
+const DEFAULT_REQUEST_BUFFER_CAPACITY: usize = 1024;
+
 #[cfg(not(google_cloud_unstable_tracing))]
 pub type GrpcService = tonic::transport::Channel;
 
@@ -91,7 +94,7 @@ impl Client {
         let tracing_enabled = crate::options::tracing_enabled(&config);
 
         let inner = Self::make_inner(
-            config.endpoint,
+            &config,
             default_endpoint,
             tracing_enabled,
             #[cfg(google_cloud_unstable_tracing)]
@@ -334,13 +337,56 @@ impl Client {
     }
 
     async fn make_inner(
-        endpoint: Option<String>,
+        config: &crate::options::ClientConfig,
         default_endpoint: &str,
         tracing_enabled: bool,
         #[cfg(google_cloud_unstable_tracing)] instrumentation: Option<
             &'static crate::options::InstrumentationClientInfo,
         >,
     ) -> gax::client_builder::Result<InnerClient> {
+        use tonic::transport::{Channel, channel::Change};
+        let endpoint = Self::make_endpoint(config.endpoint.clone(), default_endpoint).await?;
+        let (channel, tx) = Channel::balance_channel(
+            config
+                .grpc_request_buffer_capacity
+                .unwrap_or(DEFAULT_REQUEST_BUFFER_CAPACITY),
+        );
+        let count = std::cmp::max(1, config.grpc_subchannel_count.unwrap_or_default());
+        for i in 0..count {
+            let _ = tx.send(Change::Insert(i, endpoint.clone())).await;
+        }
+
+        #[cfg(not(google_cloud_unstable_tracing))]
+        {
+            let _ = tracing_enabled;
+            Ok(InnerClient::new(channel))
+        }
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use crate::observability::grpc_tracing::NoTracingTowerLayer;
+            use crate::observability::grpc_tracing::TracingTowerLayer;
+            use tower::ServiceBuilder;
+            use tower::util::Either;
+            if tracing_enabled {
+                let default_uri = default_endpoint
+                    .parse::<tonic::transport::Uri>()
+                    .map_err(BuilderError::transport)?;
+                let default_host = default_uri.host().unwrap_or("").to_string();
+                let layer = TracingTowerLayer::new(endpoint.uri(), default_host, instrumentation);
+                let service = ServiceBuilder::new().layer(layer).service(channel);
+                Ok(InnerClient::new(Either::Left(service)))
+            } else {
+                let layer = NoTracingTowerLayer;
+                let service = ServiceBuilder::new().layer(layer).service(channel);
+                Ok(InnerClient::new(Either::Right(service)))
+            }
+        }
+    }
+
+    async fn make_endpoint(
+        endpoint: Option<String>,
+        default_endpoint: &str,
+    ) -> gax::client_builder::Result<tonic::transport::Endpoint> {
         use tonic::transport::{ClientTlsConfig, Endpoint};
 
         let origin =
@@ -362,36 +408,7 @@ impl Client {
         } else {
             endpoint
         };
-        let endpoint = endpoint.origin(origin);
-        let channel = endpoint.connect_lazy();
-
-        #[cfg(not(google_cloud_unstable_tracing))]
-        {
-            let _ = tracing_enabled;
-            Ok(InnerClient::new(channel))
-        }
-
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use crate::observability::grpc_tracing::NoTracingTowerLayer;
-            use crate::observability::grpc_tracing::TracingTowerLayer;
-            use tower::ServiceBuilder;
-            use tower::util::Either;
-
-            if tracing_enabled {
-                let default_uri = default_endpoint
-                    .parse::<tonic::transport::Uri>()
-                    .map_err(BuilderError::transport)?;
-                let default_host = default_uri.host().unwrap_or("").to_string();
-                let layer = TracingTowerLayer::new(endpoint.uri(), default_host, instrumentation);
-                let service = ServiceBuilder::new().layer(layer).service(channel);
-                Ok(InnerClient::new(Either::Left(service)))
-            } else {
-                let layer = NoTracingTowerLayer;
-                let service = ServiceBuilder::new().layer(layer).service(channel);
-                Ok(InnerClient::new(Either::Right(service)))
-            }
-        }
+        Ok(endpoint.origin(origin))
     }
 
     async fn make_credentials(
