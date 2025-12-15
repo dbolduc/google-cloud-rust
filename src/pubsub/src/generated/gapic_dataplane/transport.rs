@@ -99,7 +99,10 @@ impl super::stub::Publisher for Publisher {
 /// Implements [Subscriber](super::stub::Subscriber) using a Tonic-generated client.
 #[derive(Clone)]
 pub struct Subscriber {
-    inner: gaxi::grpc::Client,
+    // TODO : need help from sidekick to enable this.
+    // Or we generate a method for bidi. I haven't thought about what that would
+    // take though.
+    pub(crate) inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Subscriber {
