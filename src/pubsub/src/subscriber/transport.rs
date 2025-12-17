@@ -61,7 +61,6 @@ impl Stub for Transport {
         options: gax::options::RequestOptions,
     ) -> Result<tonic::Response<Self::Stream>> {
         let request = ReceiverStream::new(request_rx);
-
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -88,9 +87,93 @@ impl Stub for Transport {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::google::pubsub::v1::ReceivedMessage;
+    use auth::credentials::anonymous::Builder as Anonymous;
+    use pubsub_grpc_mock::google::pubsub::v1;
+    use pubsub_grpc_mock::{MockSubscriber, start};
+
+    async fn test_transport(endpoint: String) -> anyhow::Result<Transport> {
+        let mut config = gaxi::options::ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        config.endpoint = Some(endpoint);
+        Ok(Transport::new(config).await?)
+    }
 
     #[tokio::test]
-    async fn todo() -> anyhow::Result<()> {
-        todo!("idr")
+    async fn acknowledge() -> anyhow::Result<()> {
+        let mut mock = MockSubscriber::new();
+        mock.expect_acknowledge()
+            .return_once(|_| Ok(tonic::Response::from(())));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = test_transport(endpoint).await?;
+        let _ = Stub::acknowledge(
+            &transport,
+            crate::model::AcknowledgeRequest::new(),
+            gax::options::RequestOptions::default(),
+        )
+        .await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn modify_ack_deadline() -> anyhow::Result<()> {
+        let mut mock = MockSubscriber::new();
+        mock.expect_modify_ack_deadline()
+            .return_once(|_| Ok(tonic::Response::from(())));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = test_transport(endpoint).await?;
+        let _ = Stub::modify_ack_deadline(
+            &transport,
+            crate::model::ModifyAckDeadlineRequest::new(),
+            gax::options::RequestOptions::default(),
+        )
+        .await?;
+        Ok(())
+    }
+
+    // Both crates have their own copies of the protos. We can just serialize
+    // then deserialize to convert between the two, as performance is not a
+    // concern for these unit tests.
+    fn convert(pb: &StreamingPullResponse) -> v1::StreamingPullResponse {
+        use prost::Message;
+        let v = pb.encode_to_vec();
+        v1::StreamingPullResponse::decode(v.as_slice()).expect("encoding is always valid.")
+    }
+
+    #[tokio::test]
+    async fn streaming_pull() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = tokio::sync::mpsc::channel(1);
+        let expected = StreamingPullResponse {
+            received_messages: vec![ReceivedMessage {
+                ack_id: "test-ack-id".to_string(),
+                ..Default::default()
+            }],
+            ..Default::default()
+        };
+        response_tx.send(Ok(convert(&expected))).await?;
+
+        let (request_tx, request_rx) = tokio::sync::mpsc::channel(1);
+        request_tx.send(StreamingPullRequest::default()).await?;
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = test_transport(endpoint).await?;
+        let mut stream = Stub::streaming_pull(
+            &transport,
+            request_rx,
+            gax::options::RequestOptions::default(),
+        )
+        .await?
+        .into_inner();
+
+        use futures::StreamExt;
+        assert_eq!(stream.next().await.transpose()?, Some(expected));
+
+        drop(response_tx);
+        assert_eq!(stream.next().await.transpose()?, None);
+
+        Ok(())
     }
 }
