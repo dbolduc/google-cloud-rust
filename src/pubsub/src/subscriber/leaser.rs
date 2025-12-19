@@ -28,6 +28,8 @@ pub(crate) trait Leaser {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use std::sync::Arc;
+    use tokio::sync::Mutex;
 
     mockall::mock! {
         #[derive(Debug)]
@@ -37,6 +39,19 @@ pub(crate) mod tests {
             async fn ack(&self, ack_ids: Vec<String>);
             async fn nack(&self, ack_ids: Vec<String>);
             async fn extend(&self, ack_ids: Vec<String>);
+        }
+    }
+
+    #[async_trait::async_trait]
+    impl Leaser for Arc<Mutex<MockLeaser>> {
+        async fn ack(&self, ack_ids: Vec<String>) {
+            self.lock().await.ack(ack_ids).await
+        }
+        async fn nack(&self, ack_ids: Vec<String>) {
+            self.lock().await.nack(ack_ids).await
+        }
+        async fn extend(&self, ack_ids: Vec<String>) {
+            self.lock().await.extend(ack_ids).await
         }
     }
 }

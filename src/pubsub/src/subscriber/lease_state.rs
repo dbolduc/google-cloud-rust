@@ -16,7 +16,7 @@ use super::leaser::Leaser;
 use std::collections::HashSet;
 
 #[derive(Debug)]
-struct LeaseState<L>
+pub(crate) struct LeaseState<L>
 where
     L: Leaser,
 {
@@ -32,7 +32,7 @@ impl<L> LeaseState<L>
 where
     L: Leaser,
 {
-    fn new(leaser: L) -> Self {
+    pub(crate) fn new(leaser: L) -> Self {
         Self {
             under_lease: HashSet::new(),
             to_ack: Vec::new(),
@@ -42,12 +42,12 @@ where
     }
 
     /// Accept a new ack ID under lease management
-    fn add(&mut self, ack_id: String) {
+    pub(crate) fn add(&mut self, ack_id: String) {
         self.under_lease.insert(ack_id);
     }
 
     /// Process an ack from the application
-    fn ack(&mut self, ack_id: String) {
+    pub(crate) fn ack(&mut self, ack_id: String) {
         self.under_lease.remove(&ack_id);
         // Unconditionally add the ack ID to the next ack batch. It doesn't hurt
         // to optimistically add it, even if its lease has expired.
@@ -55,7 +55,7 @@ where
     }
 
     /// Process a nack from the application
-    fn nack(&mut self, ack_id: String) {
+    pub(crate) fn nack(&mut self, ack_id: String) {
         if self.under_lease.remove(&ack_id) {
             // Only add the ack ID to the nack batch if the message is under our
             // lease. If the message's lease has already expired, we do not need
@@ -65,7 +65,7 @@ where
     }
 
     /// Flush pending acks/nacks
-    async fn flush(&mut self) {
+    pub(crate) async fn flush(&mut self) {
         let to_ack = std::mem::take(&mut self.to_ack);
         let to_nack = std::mem::take(&mut self.to_nack);
         // TODO(#3975) - await these concurrently.
@@ -76,7 +76,7 @@ where
     /// Extends leases for messages under lease management
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
-    async fn extend(&mut self) {
+    pub(crate) async fn extend(&mut self) {
         // TODO(#3957) - drop expired messages
         let under_lease: Vec<String> = self.under_lease.iter().cloned().collect();
         self.leaser.extend(under_lease).await;
@@ -85,7 +85,7 @@ where
     /// Shutdown the leaser
     ///
     /// This flushes all pending acks and nacks all other messages.
-    async fn shutdown(self) {
+    pub(crate) async fn shutdown(self) {
         let mut to_nack = self.to_nack;
         to_nack.extend(self.under_lease.into_iter());
         // TODO(#3975) - await these concurrently.
@@ -132,7 +132,7 @@ pub(crate) mod tests {
         range.map(test_id).collect()
     }
 
-    fn sorted(v: &[String]) -> Vec<String> {
+    pub(crate) fn sorted(v: &[String]) -> Vec<String> {
         let mut s = v.to_owned();
         s.sort();
         s
