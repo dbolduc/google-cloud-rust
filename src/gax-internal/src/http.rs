@@ -55,6 +55,10 @@ impl ReqwestClient {
     ) -> gax::client_builder::Result<Self> {
         let cred = Self::make_credentials(&config).await?;
         let mut builder = reqwest::Client::builder();
+
+        // Force HTTP/2
+        builder = builder.http2_prior_knowledge();
+
         if config.disable_automatic_decompression {
             builder = builder.no_gzip().no_brotli().no_deflate();
         }
@@ -168,6 +172,8 @@ impl ReqwestClient {
                 reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
             );
         }
+
+        // Comment this out for a successful request:
         builder = builder.header(reqwest::header::HOST, &self.host);
         Ok(builder)
     }
@@ -271,7 +277,11 @@ impl ReqwestClient {
             );
         }
 
-        intermediate_result
+        // DEBUG : print the HTTP version used
+        let response = intermediate_result?;
+        println!("response.version()={:?}", response.version());
+
+        Ok(response)
     }
 
     fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {
