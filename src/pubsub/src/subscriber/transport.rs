@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::stub::Stub;
+use super::stub::{Stub, TonicStreaming};
 use crate::Result;
 use crate::generated::gapic_dataplane::stub::dynamic::Subscriber as GapicStub;
-use crate::generated::gapic_dataplane::transport::Subscriber as Transport;
+pub(crate) use crate::generated::gapic_dataplane::transport::Subscriber as Transport;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use tokio::sync::mpsc::Receiver;
 use tokio_stream::wrappers::ReceiverStream;
@@ -32,6 +32,12 @@ mod info {
             };
             ac.grpc_header_value()
         };
+    }
+}
+
+impl TonicStreaming for tonic::Streaming<StreamingPullResponse> {
+    async fn next_message(&mut self) -> tonic::Result<Option<StreamingPullResponse>> {
+        self.message().await
     }
 }
 

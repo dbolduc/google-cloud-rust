@@ -22,7 +22,7 @@ use std::sync::Arc;
 ///
 /// We stub out the interface, in order to test the lease management.
 #[async_trait::async_trait]
-pub(crate) trait Leaser {
+pub(crate) trait Leaser : Clone {
     /// Acknowledge a batch of messages.
     async fn ack(&self, ack_ids: Vec<String>);
     /// Negatively acknowledge a batch of messages.
@@ -31,7 +31,7 @@ pub(crate) trait Leaser {
     async fn extend(&self, ack_ids: Vec<String>);
 }
 
-struct DefaultLeaser<T>
+pub(crate) struct DefaultLeaser<T>
 where
     T: Stub,
 {
@@ -40,11 +40,21 @@ where
     ack_deadline_seconds: i32,
 }
 
+impl<T> Clone for DefaultLeaser<T> where T: Stub {
+    fn clone(&self) -> Self {
+        Self {
+            inner: self.inner.clone(),
+            subscription: self.subscription.clone(),
+            ack_deadline_seconds: self.ack_deadline_seconds,
+        }
+    }
+}
+
 impl<T> DefaultLeaser<T>
 where
     T: Stub,
 {
-    fn new(inner: Arc<T>, subscription: String, ack_deadline_seconds: i32) -> Self {
+    pub(crate) fn new(inner: Arc<T>, subscription: String, ack_deadline_seconds: i32) -> Self {
         DefaultLeaser {
             inner,
             subscription,
@@ -68,30 +78,47 @@ where
         if ack_ids.is_empty() {
             return;
         }
+        let count = ack_ids.len();
         let req = AcknowledgeRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids);
-        let _ = self.inner.acknowledge(req, no_retry()).await;
+        let r = self.inner.acknowledge(req, no_retry()).await;
+//        match r {
+//            Ok(_) => println!("Successfully acked {count} messages"),
+//            Err(e) => println!("Error acking {count} messages: {e:#?}"),
+//        }
     }
     async fn nack(&self, ack_ids: Vec<String>) {
         if ack_ids.is_empty() {
             return;
         }
+        let count = ack_ids.len();
         let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids)
             .set_ack_deadline_seconds(0);
-        let _ = self.inner.modify_ack_deadline(req, no_retry()).await;
+        let r = self.inner.modify_ack_deadline(req, no_retry()).await;
+//        match r {
+//            Ok(_) => println!("Successfully nacked {count} messages"),
+//            Err(e) => println!("Error nacking {count} messages: {e:#?}"),
+//        }
     }
     async fn extend(&self, ack_ids: Vec<String>) {
         if ack_ids.is_empty() {
             return;
         }
+        // TODO : break into smaller RPCs. Maybe limit inflight RPCs.
+        return;
+        let count = ack_ids.len();
         let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids)
             .set_ack_deadline_seconds(self.ack_deadline_seconds);
-        let _ = self.inner.modify_ack_deadline(req, no_retry()).await;
+        let r = self.inner.modify_ack_deadline(req, no_retry()).await;
+        match r {
+            Ok(_) => println!("Successfully extended lease for {count} messages"),
+            Err(e) => println!("Error extending {count} leases: {e:#?}"),
+        }
     }
 }
 

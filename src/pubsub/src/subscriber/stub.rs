@@ -45,6 +45,37 @@ pub(crate) trait Stub: std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>>;
 }
 
+#[async_trait::async_trait]
+impl<T> Stub for std::sync::Arc<T>
+where
+    T: Stub,
+{
+    type Stream = T::Stream;
+    async fn streaming_pull(
+        &self,
+        request_rx: Receiver<StreamingPullRequest>,
+        options: gax::options::RequestOptions,
+    ) -> Result<tonic::Response<Self::Stream>> {
+        T::streaming_pull(self, request_rx, options).await
+    }
+
+    async fn modify_ack_deadline(
+        &self,
+        req: crate::model::ModifyAckDeadlineRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        T::modify_ack_deadline(self, req, options).await
+    }
+
+    async fn acknowledge(
+        &self,
+        req: crate::model::AcknowledgeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        T::acknowledge(self, req, options).await
+    }
+}
+
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;

@@ -13,11 +13,14 @@
 // limitations under the License.
 
 pub(crate) mod builder;
-pub(crate) mod handler;
+pub(crate) mod client;
+pub(crate) mod client_builder;
+pub mod handler;
 pub(crate) mod keepalive;
 pub(crate) mod lease_loop;
 pub(crate) mod lease_state;
 pub(crate) mod leaser;
+pub mod session;
 pub(crate) mod stream;
 pub(crate) mod stub;
 pub(crate) mod transport;

@@ -17,20 +17,19 @@ use super::lease_state::{LeaseEvent, LeaseOptions, LeaseState};
 use super::leaser::Leaser;
 use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
 use tokio::task::JoinHandle;
-use tokio_util::sync::CancellationToken;
 
 /// A convenience struct that groups the components of the lease loop.
 pub(crate) struct LeaseLoop {
     /// A handle to the task running the lease loop.
-    handle: JoinHandle<()>,
+    pub(crate) handle: JoinHandle<()>,
     /// For sending messages from the stream to the lease loop.
-    message_tx: UnboundedSender<String>,
+    pub(crate) message_tx: UnboundedSender<String>,
     /// For sending acks/nacks from the application to the lease loop.
-    ack_tx: UnboundedSender<AckResult>,
+    pub(crate) ack_tx: UnboundedSender<AckResult>,
 }
 
 impl LeaseLoop {
-    pub(crate) fn new<L>(leaser: L, shutdown: CancellationToken, options: LeaseOptions) -> Self
+    pub(crate) fn new<L>(leaser: L, options: LeaseOptions) -> Self
     where
         L: Leaser + Send + 'static,
     {
@@ -42,24 +41,26 @@ impl LeaseLoop {
             loop {
                 tokio::select! {
                     biased;
-                    _ = shutdown.cancelled() => {
-                        state.shutdown().await;
-                        break;
-                    },
                     event = state.next_event() => {
                         match event {
+                            // TODO : something needs to be done in a task. Think about the best
+                            // place for it. We can't block the lease loop on pending RPCs.
                             LeaseEvent::Flush => state.flush().await,
                             LeaseEvent::Extend => state.extend().await,
                         }
                     },
                     message = message_rx.recv() => {
                         match message {
-                            None => break,
+                            None => {
+                                state.shutdown().await;
+                                break;
+                            },
                             Some(ack_id) => state.add(ack_id),
                         }
                     },
                     ack_id = ack_rx.recv() => {
                         match ack_id {
+                            // TODO : this is unreachable
                             None => break,
                             Some(AckResult::Ack(ack_id)) => state.ack(ack_id),
                             Some(AckResult::Nack(ack_id)) => state.nack(ack_id),
@@ -99,8 +100,7 @@ mod tests {
             extend_start: Duration::from_secs(900),
             ..Default::default()
         };
-        let shutdown = CancellationToken::new();
-        let lease_loop = LeaseLoop::new(mock.clone(), shutdown.clone(), options);
+        let lease_loop = LeaseLoop::new(mock.clone(), options);
         // Yield execution, so tokio can actually start the lease loop.
         tokio::task::yield_now().await;
 
@@ -211,8 +211,7 @@ mod tests {
             extend_start: EXTEND_START,
             ..Default::default()
         };
-        let shutdown = CancellationToken::new();
-        let lease_loop = LeaseLoop::new(mock.clone(), shutdown.clone(), options);
+        let lease_loop = LeaseLoop::new(mock.clone(), options);
         // Yield execution, so tokio can actually start the lease loop.
         tokio::task::yield_now().await;
 
@@ -266,8 +265,7 @@ mod tests {
     async fn drop_does_not_wait_for_pending_operations() -> anyhow::Result<()> {
         let start = Instant::now();
         let mock = MockLeaser::new();
-        let shutdown = CancellationToken::new();
-        let lease_loop = LeaseLoop::new(mock, shutdown, LeaseOptions::default());
+        let lease_loop = LeaseLoop::new(mock, LeaseOptions::default());
         // Yield execution, so tokio can actually start the lease loop.
         tokio::task::yield_now().await;
 
@@ -304,8 +302,7 @@ mod tests {
             async fn nack(&self, _ack_ids: Vec<String>) {}
             async fn extend(&self, _ack_ids: Vec<String>) {}
         }
-        let shutdown = CancellationToken::new();
-        let lease_loop = LeaseLoop::new(FakeLeaser, shutdown.clone(), LeaseOptions::default());
+        let lease_loop = LeaseLoop::new(FakeLeaser, LeaseOptions::default());
 
         // Seed the lease loop with some messages
         for i in 0..30 {
@@ -318,7 +315,7 @@ mod tests {
         }
 
         // Shutdown the lease_loop.
-        shutdown.cancel();
+        drop(lease_loop.message_tx);
         lease_loop.handle.await?;
 
         // Verify that we flushed the acks immediately, and waited for them to
@@ -343,13 +340,12 @@ mod tests {
             // Run this test enough times to trigger a race, if one existed.
 
             let mock = Arc::new(Mutex::new(MockLeaser::new()));
-            let shutdown = CancellationToken::new();
             let options = LeaseOptions {
                 flush_start: Duration::from_millis(100),
                 extend_start: Duration::from_millis(200),
                 ..Default::default()
             };
-            let lease_loop = LeaseLoop::new(mock.clone(), shutdown, options);
+            let lease_loop = LeaseLoop::new(mock.clone(), options);
             // Yield execution, so tokio can actually start the lease loop.
             tokio::task::yield_now().await;
 

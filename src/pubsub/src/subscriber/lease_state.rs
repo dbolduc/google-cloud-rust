@@ -15,6 +15,7 @@
 use super::leaser::Leaser;
 use std::collections::HashSet;
 use tokio::time::{Duration, Instant, Interval, interval_at};
+use tokio::task::JoinSet;
 
 pub(crate) struct LeaseOptions {
     /// How often we flush acks/nacks
@@ -30,10 +31,13 @@ pub(crate) struct LeaseOptions {
 impl Default for LeaseOptions {
     fn default() -> Self {
         LeaseOptions {
-            flush_period: Duration::from_secs(1),
-            flush_start: Duration::from_secs(1),
+            //flush_period: Duration::from_secs(1),
+            //flush_start: Duration::from_secs(1),
+            flush_period: Duration::from_millis(500),
+            flush_start: Duration::from_millis(500),
             extend_period: Duration::from_secs(3),
-            extend_start: Duration::from_millis(500),
+            //extend_start: Duration::from_millis(500),
+            extend_start: Duration::from_millis(250),
         }
     }
 }
@@ -41,7 +45,7 @@ impl Default for LeaseOptions {
 #[derive(Debug)]
 pub(crate) struct LeaseState<L>
 where
-    L: Leaser,
+    L: Leaser + Send + 'static,
 {
     // TODO(#3957) - support message expiry
     under_lease: HashSet<String>,
@@ -54,6 +58,9 @@ where
     flush_interval: Interval,
     // A timer for extending leases
     extend_interval: Interval,
+
+    max_outstanding_rpcs: usize,
+    pending: JoinSet<()>,
 }
 
 /// Actions taken by the `LeaseState` in the lease loop.
@@ -67,7 +74,7 @@ pub(crate) enum LeaseEvent {
 
 impl<L> LeaseState<L>
 where
-    L: Leaser,
+    L: Leaser + Send + 'static,
 {
     pub(crate) fn new(leaser: L, options: LeaseOptions) -> Self {
         let flush_interval =
@@ -81,6 +88,8 @@ where
             leaser,
             flush_interval,
             extend_interval,
+            max_outstanding_rpcs: 8,
+            pending: JoinSet::new(),
         }
     }
 
@@ -94,6 +103,11 @@ where
     pub(crate) async fn next_event(&mut self) -> LeaseEvent {
         // TODO(#3972) - flush on size if an `Acknowledge` or
         // `ModifyAckDeadline` RPC is full.
+        if self.to_ack.len() >= 2_000 {
+            // An ack ID is around 200 bytes. The limit for a request is 512kB.
+            // It should be safe to flush when we get to ~400kB.
+            return LeaseEvent::Flush;
+        }
 
         tokio::select! {
             _ = self.flush_interval.tick() => LeaseEvent::Flush,
@@ -126,11 +140,19 @@ where
 
     /// Flush pending acks/nacks
     pub(crate) async fn flush(&mut self) {
+        while self.pending.len() >= self.max_outstanding_rpcs {
+            // Too many RPCs are out at the same time. Wait for one to finish
+            // before continuing.
+            self.pending.join_next().await;
+        }
         let to_ack = std::mem::take(&mut self.to_ack);
         let to_nack = std::mem::take(&mut self.to_nack);
-        // TODO(#3975) - await these concurrently.
-        self.leaser.ack(to_ack).await;
-        self.leaser.nack(to_nack).await;
+        let leaser = self.leaser.clone();
+        self.pending.spawn(async move {
+            // TODO(#3975) - await these concurrently.
+            leaser.ack(to_ack).await;
+            leaser.nack(to_nack).await;
+        });
     }
 
     /// Extends leases for messages under lease management
@@ -146,17 +168,23 @@ where
     ///
     /// This flushes all pending acks and nacks all other messages.
     pub(crate) async fn shutdown(self) {
+        let to_ack = self.to_ack;
         let mut to_nack = self.to_nack;
         to_nack.extend(self.under_lease.into_iter());
-        // TODO(#3975) - await these concurrently.
-        self.leaser.ack(self.to_ack).await;
-        self.leaser.nack(to_nack).await;
+        let leaser = self.leaser;
+        let mut pending = self.pending;
+        pending.spawn(async move {
+            // TODO(#3975) - await these concurrently.
+            leaser.ack(to_ack).await;
+            leaser.nack(to_nack).await;
+        });
+        let _ = pending.join_all().await;
     }
 }
 
 impl<L> PartialEq for LeaseState<L>
 where
-    L: Leaser,
+    L: Leaser + Send + 'static,
 {
     fn eq(&self, other: &Self) -> bool {
         self.under_lease == other.under_lease

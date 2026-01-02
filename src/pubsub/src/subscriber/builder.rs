@@ -12,7 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::session::Session;
 use super::stub::Stub;
+use super::transport::Transport;
+use crate::Result;
 use std::sync::Arc;
 
 const MIB: i64 = 1024 * 1024;
@@ -23,11 +26,23 @@ where
     S: Stub,
 {
     // TODO(#4061) - Use a dynamic stub to remove the generic.
+    // NOTE : this is the wrong stub. builders/clients should be implemented by
+    // the public stub, not our private internal stub for unit testing.
     pub(crate) inner: Arc<S>,
     pub(crate) subscription: String,
     pub(crate) ack_deadline_seconds: i32,
     pub(crate) max_outstanding_messages: i64,
     pub(crate) max_outstanding_bytes: i64,
+}
+
+// TODO(#4061) - Use a dynamic stub to remove the generic.
+impl StreamingPull<Transport> {
+    // TODO : document
+    // TODO : Result<T> or just Session, and iterating over the session gives you the first result.
+    // I definitely think I prefer Result<> immediately, but i dunno.
+    pub async fn start(self) -> Result<Session> {
+        Session::new(self).await
+    }
 }
 
 impl<S> StreamingPull<S>

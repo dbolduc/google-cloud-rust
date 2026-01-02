@@ -26,6 +26,7 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
+auth.workspace         = true
 async-trait.workspace  = true
 bytes.workspace        = true
 futures.workspace      = true
@@ -48,7 +49,6 @@ tracing.workspace      = true
 wkt.workspace          = true
 
 [dev-dependencies]
-auth.workspace       = true
 anyhow.workspace     = true
 mockall.workspace    = true
 tokio-test.workspace = true
