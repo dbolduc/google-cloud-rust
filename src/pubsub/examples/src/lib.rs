@@ -16,6 +16,7 @@ mod topic;
 
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_pubsub::{client::TopicAdmin, model::Topic};
+use google_cloud_pubsub::{client::SubscriptionAdmin, model::Subscription};
 use rand::{Rng, distr::Alphanumeric};
 
 pub async fn run_topic_examples(topic_names: &mut Vec<String>) -> anyhow::Result<()> {
@@ -36,7 +37,7 @@ pub async fn cleanup_test_topic(client: &TopicAdmin, topic_name: String) -> anyh
 
 pub async fn create_test_topic() -> anyhow::Result<(TopicAdmin, Topic)> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
-    let client = google_cloud_pubsub::client::TopicAdmin::builder()
+    let client = TopicAdmin::builder()
         .with_tracing()
         .build()
         .await?;
@@ -110,4 +111,40 @@ fn random_topic_id() -> String {
         .map(char::from)
         .collect();
     format!("{prefix}{topic_id}")
+}
+
+pub async fn create_test_subscription(topic_name: String) -> anyhow::Result<(SubscriptionAdmin, Subscription)> {
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+    let client = SubscriptionAdmin::builder()
+        .with_tracing()
+        .build()
+        .await?;
+
+    // TODO : cleanup stale subscriptions.
+
+    let subscription_id = random_subscription_id();
+    let now = chrono::Utc::now().timestamp().to_string();
+
+    let subscription = client
+        .create_subscription()
+        .set_name(format!("projects/{project_id}/subscriptions/{subscription_id}"))
+        .set_topic(topic_name)
+        .set_labels([("integration-test", "true"), ("create-time", &now)])
+        .send()
+        .await?;
+    println!("success on create_subscription(): {subscription:?}");
+
+    Ok((client, subscription))
+}
+
+pub const SUBSCRIPTION_ID_LENGTH: usize = 255;
+
+fn random_subscription_id() -> String {
+    let prefix = "subscription-";
+    let subscription_id: String = rand::rng()
+        .sample_iter(&Alphanumeric)
+        .take(TOPIC_ID_LENGTH - prefix.len())
+        .map(char::from)
+        .collect();
+    format!("{prefix}{subscription_id}")
 }

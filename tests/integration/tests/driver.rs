@@ -130,6 +130,14 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_pubsub_basic_roundtrip() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::pubsub::basic_roundtrip()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
     #[test_case(sm::client::SecretManagerService::builder(); "default")]
     #[test_case(sm::client::SecretManagerService::builder().with_tracing(); "with tracing enabled")]
     #[test_case(sm::client::SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]

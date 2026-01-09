@@ -18,6 +18,7 @@ use futures::future::join_all;
 use pubsub::client::Client;
 use pubsub::model::PubsubMessage;
 pub use pubsub_samples::{cleanup_test_topic, create_test_topic};
+pub use pubsub_samples::create_test_subscription;
 
 pub async fn basic_publisher() -> Result<()> {
     let (topic_admin, topic) = create_test_topic().await?;
@@ -62,3 +63,51 @@ pub async fn basic_topic() -> Result<()> {
 
     Ok(())
 }
+
+pub async fn basic_roundtrip() -> Result<()> {
+    let (topic_admin, topic) = create_test_topic().await?;
+    let (sub_admin, sub) = create_test_subscription(topic.name.clone()).await?;
+
+    tracing::info!("testing publish()");
+    let client = Client::builder().build().await?;
+    let publisher = client.publisher(topic.name.clone()).build();
+    let messages: [PubsubMessage; 2] = [
+        PubsubMessage::new().set_data("Hello"),
+        PubsubMessage::new().set_data("World"),
+    ];
+
+    let mut handles = Vec::new();
+    for msg in messages {
+        handles.push(publisher.publish(msg));
+    }
+
+    let results = join_all(handles).await;
+    let message_ids: Vec<_> = results
+        .into_iter()
+        .collect::<std::result::Result<Vec<_>, _>>()
+        .map_err(Error::from)?;
+    tracing::info!("successfully published messages: {:#?}", message_ids);
+
+    use pubsub::client::Subscriber;
+    let subscriber = Subscriber::builder().build().await?;
+    let mut session = subscriber.streaming_pull(sub.name.clone()).start().await?;
+
+    let mut data = Vec::new();
+    for i in 0..2 {
+        let Some((m, h)) = session.next().await.transpose()? else {
+            anyhow::bail!("Expected at least 2 messages.")
+        };
+        data.push(m.data);
+    }
+    drop(session);
+    data.sort();
+    assert_eq!(data[0], "Hello", "data={data:?}");
+    assert_eq!(data[1], "World", "data={data:?}");
+    tracing::info!("successfully received messages: {data:#?}");
+
+    cleanup_test_topic(&topic_admin, topic.name).await?;
+    //cleanup_test_subscription(&sub_admin, sub.name).await?;
+
+    Ok(())
+}
+
