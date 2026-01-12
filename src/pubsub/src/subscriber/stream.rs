@@ -47,6 +47,7 @@ where
 
 #[cfg(test)]
 mod tests {
+    use super::super::keepalive::KEEPALIVE_PERIOD;
     use super::super::lease_state::tests::test_ids;
     use super::super::stub::TonicStreaming;
     use super::super::stub::tests::MockStub;
@@ -75,13 +76,10 @@ mod tests {
     }
 
     fn keepalive_request() -> StreamingPullRequest {
-        StreamingPullRequest {
-            subscription: "projects/my-project/subscriptions/my-subscription".to_string(),
-            ..Default::default()
-        }
+        StreamingPullRequest::default()
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test(start_paused = true)]
     async fn success() -> anyhow::Result<()> {
         let (response_tx, response_rx) = mpsc::channel(10);
         // We use this channel to surface writes (requests) from outside our
@@ -105,7 +103,8 @@ mod tests {
                 Ok(tonic::Response::from(response_rx))
             });
 
-        let (mut stream, request_tx) = open_stream(Arc::new(mock), initial_request()).await?;
+        let shutdown = CancellationToken::new();
+        let mut stream = open_stream(Arc::new(mock), initial_request(), shutdown.clone()).await?;
 
         // Verify the stream is seeded with the initial request.
         assert_eq!(recover_writes_rx.recv().await, Some(initial_request()));
@@ -117,15 +116,15 @@ mod tests {
         assert_eq!(stream.next_message().await?, Some(test_response(1..10)));
         assert_eq!(stream.next_message().await?, Some(test_response(11..20)));
 
-        // Verify we can write to the stream from `request_tx`.
-        request_tx.send(keepalive_request()).await?;
+        // Verify the stream performs keepalives.
+        tokio::time::advance(KEEPALIVE_PERIOD).await;
         assert_eq!(recover_writes_rx.recv().await, Some(keepalive_request()));
 
         // Read the last batch of messages (verifying bidi nature of stream).
         assert_eq!(stream.next_message().await?, Some(test_response(21..30)));
 
-        // Drop the sender
-        drop(request_tx);
+        // Shutdown the keepalive task.
+        shutdown.cancel();
         assert_eq!(recover_writes_rx.recv().await, None);
 
         Ok(())
@@ -138,7 +137,7 @@ mod tests {
             .times(1)
             .return_once(|_, _| Err(Error::io("fail")));
 
-        let err = open_stream(Arc::new(mock), initial_request())
+        let err = open_stream(Arc::new(mock), initial_request(), CancellationToken::new())
             .await
             .expect_err("open_stream should fail");
         assert!(err.is_io(), "{err:?}");

@@ -51,8 +51,7 @@ impl StreamingPull {
     /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
     /// let mut session = client
     ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-    ///     .start()
-    ///     .await?;
+    ///     .start();
     /// while let Some((m, h)) = session.next().await.transpose()? {
     ///     println!("Received message m={m:?}");
     ///     h.ack();
