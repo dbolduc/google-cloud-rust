@@ -67,8 +67,7 @@ async fn main() -> anyhow::Result<()> {
             .streaming_pull("projects/dbolduc-test/subscriptions/help-me-andrew-browne")
             .set_max_outstanding_messages(200_000)
             .set_max_outstanding_bytes(200_000_000)
-            .start()
-            .await?;
+            .start();
         tracing::info!("Opened subscriber session {i}.");
         tasks.push(tokio::spawn(async move {
             let mut ack_count = 0;

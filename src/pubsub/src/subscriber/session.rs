@@ -26,6 +26,7 @@ use crate::{Error, Result};
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
 use std::collections::VecDeque;
+use std::sync::Arc;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio_util::sync::{CancellationToken, DropGuard};
 
@@ -85,7 +86,7 @@ pub struct Session {
 }
 
 impl Session {
-    pub(super) async fn new(builder: StreamingPull) -> Result<Self> {
+    pub(super) fn new(builder: StreamingPull) -> Self {
         let shutdown = CancellationToken::new();
         let inner = builder.inner;
         let subscription = builder.subscription;
@@ -110,17 +111,17 @@ impl Session {
             ..Default::default()
         };
 
-        Ok(Self {
+        Self {
             inner,
             initial_req,
-            stream,
+            stream: None,
             pool: VecDeque::new(),
             message_tx,
             ack_tx,
             shutdown: shutdown.clone(),
             _keepalive_guard: shutdown.drop_guard(),
             _lease_loop,
-        })
+        }
     }
 
     /// Returns the next message received on this subscription.
@@ -157,54 +158,38 @@ impl Session {
         }
     }
 
-    async fn stream_next(&mut self) -> Option<Result<()>> {
-// 1. Conditionally create the stream if it doesn't exist
-    if self.stream.is_none() {
-        let stream = open_stream(self.inner.clone(), self.initial_req.clone(), self.shutdown.clone()).await;
-        if !stream.is_ok() {
-            return Some(stream.err);
+    /// Returns a mutable reference to the underlying stream.
+    ///
+    /// If a stream is not yet open, this method opens the stream.
+    async fn mut_stream(&mut self) -> Result<&mut <Transport as Stub>::Stream> {
+        if self.stream.is_none() {
+            let stream = open_stream(
+                self.inner.clone(),
+                self.initial_req.clone(),
+                self.shutdown.clone(),
+            )
+            .await?;
+            self.stream = Some(stream);
         }
-        self.stream = Some(stream);
+
+        // Return the mutable reference
+        Ok(self.stream.as_mut().expect("Stream should be initialized"))
     }
 
-    // 2. Get a mutable reference to the stream inside the Option
-    // We expect this to exist because we just initialized it above.
-    let stream = self.stream.as_mut().expect("Stream should be initialized");
+    async fn stream_next(&mut self) -> Option<Result<()>> {
+        let resp = {
+            let stream = match self.mut_stream().await {
+                Ok(s) => s,
+                // TODO(#4097) - support stream retries / resumes.
+                Err(e) => return Some(Err(e)),
+            };
 
-    // 3. Perform the original logic using `stream` instead of `self.stream`
-    let resp = match stream.next_message().await.transpose()? {
-        Ok(resp) => resp,
-        Err(e) => return Some(Err(to_gax_error(e))),
-    };
+            match stream.next_message().await.transpose()? {
+                Ok(resp) => resp,
+                Err(e) => return Some(Err(to_gax_error(e))),
+            }
+        };
 
-    for rm in resp.received_messages {
-        let Some(message) = rm.message else {
-            // The message field should always be present. If not, the proto
-            // message was corrupted while in transit, or there is a bug in
-            // the service.
-            //
-            // The client can just ignore an ack ID without an associated
-            // message.
-            continue;
-        };
-        let _ = self.message_tx.send(rm.ack_id.clone());
-        let message = match message.cnv().map_err(Error::deser) {
-            Ok(message) => message,
-            Err(e) => return Some(Err(e)),
-        };
-        self.pool.push_back((
-            message,
-            Handler::AtLeastOnce(AtLeastOnce {
-                ack_id: rm.ack_id,
-                ack_tx: self.ack_tx.clone(),
-            }),
-        ));
-    }
-    Some(Ok(()))
-        let resp = match self.stream.next_message().await.transpose()? {
-            Ok(resp) => resp,
-            Err(e) => return Some(Err(to_gax_error(e))),
-        };
         for rm in resp.received_messages {
             let Some(message) = rm.message else {
                 // The message field should always be present. If not, the proto
