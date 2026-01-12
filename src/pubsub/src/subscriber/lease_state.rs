@@ -57,6 +57,9 @@ where
     // TODO(#3964) - support exactly once acks
     leaser: L,
 
+    subscription: String,
+    ack_deadline_seconds: Duration,
+
     // A timer for flushing acks/nacks
     flush_interval: Interval,
     // A timer for extending leases
@@ -76,7 +79,7 @@ impl<L> LeaseState<L>
 where
     L: Leaser,
 {
-    pub(super) fn new(leaser: L, options: LeaseOptions) -> Self {
+    pub(super) fn new(leaser: L, subscription: String, ack_deadline_seconds: i32, options: LeaseOptions) -> Self {
         let flush_interval =
             interval_at(Instant::now() + options.flush_start, options.flush_period);
         let extend_interval =
@@ -86,6 +89,8 @@ where
             to_ack: Vec::new(),
             to_nack: Vec::new(),
             leaser,
+            subscription,
+            ack_deadline_seconds,
             flush_interval,
             extend_interval,
         }
@@ -141,10 +146,10 @@ where
 
         // TODO(#3975) - await these concurrently.
         if !to_ack.is_empty() {
-            self.leaser.ack(to_ack).await;
+            self.leaser.ack(self.subscription.clone(), to_ack).await;
         }
         if !to_nack.is_empty() {
-            self.leaser.nack(to_nack).await;
+            self.leaser.nack(self.subscription.clone(), to_nack).await;
         }
     }
 
@@ -157,7 +162,7 @@ where
         for chunk in all_ack_ids.chunks(ACK_IDS_PER_RPC) {
             // TODO(#3975) - await these concurrently.
             let ack_ids: Vec<String> = chunk.iter().map(|&s| s.clone()).collect();
-            self.leaser.extend(ack_ids).await;
+            self.leaser.extend(self.subscription.clone(),self.ack_deadline_seconds, ack_ids).await;
         }
     }
 
@@ -168,13 +173,13 @@ where
         // TODO(#3975) - await these concurrently.
         let to_ack = self.to_ack;
         if !to_ack.is_empty() {
-            self.leaser.ack(to_ack).await;
+            self.leaser.ack(self.subscription.clone(), to_ack).await;
         }
 
         let mut to_nack = self.to_nack;
         to_nack.extend(self.under_lease.into_keys());
         if !to_nack.is_empty() {
-            self.leaser.nack(to_nack).await;
+            self.leaser.nack(self.subscription.clone(), to_nack).await;
         }
     }
 }

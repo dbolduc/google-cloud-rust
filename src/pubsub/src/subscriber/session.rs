@@ -88,14 +88,12 @@ impl Session {
 
         let leaser = DefaultLeaser::new(
             inner.clone(),
-            subscription.clone(),
-            builder.ack_deadline_seconds,
         );
         let LeaseLoop {
             handle: _lease_loop,
             message_tx,
             ack_tx,
-        } = LeaseLoop::new(leaser, LeaseOptions::default());
+        } = LeaseLoop::new(leaser, subscription.clone(), builder.ack_deadline_seconds, LeaseOptions::default());
 
         let initial_req = StreamingPullRequest {
             subscription,

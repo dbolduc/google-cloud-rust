@@ -29,13 +29,13 @@ pub(super) struct LeaseLoop {
 }
 
 impl LeaseLoop {
-    pub(super) fn new<L>(leaser: L, options: LeaseOptions) -> Self
+    pub(super) fn new<L>(leaser: L, subscription: String, ack_deadline_seconds: i32, options: LeaseOptions) -> Self
     where
         L: Leaser + Send + 'static,
     {
         let (message_tx, mut message_rx) = unbounded_channel();
         let (ack_tx, mut ack_rx) = unbounded_channel();
-        let mut state = LeaseState::new(leaser, options);
+        let mut state = LeaseState::new(leaser, subscription, ack_deadline_seconds, options);
 
         let handle = tokio::spawn(async move {
             loop {

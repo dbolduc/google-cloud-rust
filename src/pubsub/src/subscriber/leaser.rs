@@ -24,11 +24,11 @@ use std::sync::Arc;
 #[async_trait::async_trait]
 pub(super) trait Leaser {
     /// Acknowledge a batch of messages.
-    async fn ack(&self, ack_ids: Vec<String>);
+    async fn ack(&self, subscription: String, ack_ids: Vec<String>);
     /// Negatively acknowledge a batch of messages.
-    async fn nack(&self, ack_ids: Vec<String>);
+    async fn nack(&self, subscription: String,ack_ids: Vec<String>);
     /// Extend lease deadlines for a batch of messages.
-    async fn extend(&self, ack_ids: Vec<String>);
+    async fn extend(&self,subscription: String, ack_deadline_seconds: i32, ack_ids: Vec<String>);
 }
 
 pub(super) struct DefaultLeaser<T>
@@ -36,19 +36,15 @@ where
     T: Stub,
 {
     inner: Arc<T>,
-    subscription: String,
-    ack_deadline_seconds: i32,
 }
 
 impl<T> DefaultLeaser<T>
 where
     T: Stub,
 {
-    pub(super) fn new(inner: Arc<T>, subscription: String, ack_deadline_seconds: i32) -> Self {
+    pub(super) fn new(inner: Arc<T>) -> Self {
         DefaultLeaser {
             inner,
-            subscription,
-            ack_deadline_seconds,
         }
     }
 }
@@ -64,24 +60,24 @@ impl<T> Leaser for DefaultLeaser<T>
 where
     T: Stub,
 {
-    async fn ack(&self, ack_ids: Vec<String>) {
+    async fn ack(&self, subscription: String, ack_ids: Vec<String>) {
         let req = AcknowledgeRequest::new()
-            .set_subscription(self.subscription.clone())
+            .set_subscription(subscription)
             .set_ack_ids(ack_ids);
         let _ = self.inner.acknowledge(req, no_retry()).await;
     }
-    async fn nack(&self, ack_ids: Vec<String>) {
+    async fn nack(&self,subscription: String, ack_ids: Vec<String>) {
         let req = ModifyAckDeadlineRequest::new()
-            .set_subscription(self.subscription.clone())
+            .set_subscription(subscription)
             .set_ack_ids(ack_ids)
             .set_ack_deadline_seconds(0);
         let _ = self.inner.modify_ack_deadline(req, no_retry()).await;
     }
-    async fn extend(&self, ack_ids: Vec<String>) {
+    async fn extend(&self,subscription: String, ack_deadline_seconds: i32, ack_ids: Vec<String>) {
         let req = ModifyAckDeadlineRequest::new()
-            .set_subscription(self.subscription.clone())
+            .set_subscription(subscription)
             .set_ack_ids(ack_ids)
-            .set_ack_deadline_seconds(self.ack_deadline_seconds);
+            .set_ack_deadline_seconds(ack_deadline_seconds);
         let _ = self.inner.modify_ack_deadline(req, no_retry()).await;
     }
 }
@@ -100,22 +96,22 @@ pub(super) mod tests {
         pub(in super::super) Leaser {}
         #[async_trait::async_trait]
         impl Leaser for Leaser {
-            async fn ack(&self, ack_ids: Vec<String>);
-            async fn nack(&self, ack_ids: Vec<String>);
-            async fn extend(&self, ack_ids: Vec<String>);
+            async fn ack(&self, subscription: String, ack_ids: Vec<String>);
+            async fn nack(&self,  subscription: String,ack_ids: Vec<String>);
+            async fn extend(&self, subscription: String, ack_deadline_seconds: i32, ack_ids: Vec<String>);
         }
     }
 
     #[async_trait::async_trait]
     impl Leaser for Arc<Mutex<MockLeaser>> {
-        async fn ack(&self, ack_ids: Vec<String>) {
-            self.lock().await.ack(ack_ids).await
+        async fn ack(&self, subscription: String, ack_ids: Vec<String>) {
+            self.lock().await.ack(subscription, ack_ids).await
         }
-        async fn nack(&self, ack_ids: Vec<String>) {
-            self.lock().await.nack(ack_ids).await
+        async fn nack(&self, subscription: String, ack_ids: Vec<String>) {
+            self.lock().await.nack(subscription, ack_ids).await
         }
-        async fn extend(&self, ack_ids: Vec<String>) {
-            self.lock().await.extend(ack_ids).await
+        async fn extend(&self, subscription: String, ack_deadline_seconds: i32, ack_ids: Vec<String>) {
+            self.lock().await.extend(subscription, ack_deadline_seconds, ack_ids).await
         }
     }
 
@@ -135,12 +131,11 @@ pub(super) mod tests {
             Ok(Response::from(()))
         });
 
-        let leaser = DefaultLeaser::new(
-            Arc::new(mock),
+        let leaser = DefaultLeaser::new(Arc::new(mock));
+        leaser.ack(
             "projects/my-project/subscriptions/my-subscription".to_string(),
-            10,
-        );
-        leaser.ack(test_ids(0..10)).await;
+            test_ids(0..10)
+        ).await;
     }
 
     #[tokio::test]
@@ -162,12 +157,11 @@ pub(super) mod tests {
                 Ok(Response::from(()))
             });
 
-        let leaser = DefaultLeaser::new(
-            Arc::new(mock),
+        let leaser = DefaultLeaser::new(Arc::new(mock));
+        leaser.nack(
             "projects/my-project/subscriptions/my-subscription".to_string(),
-            10,
-        );
-        leaser.nack(test_ids(0..10)).await;
+            test_ids(0..10)
+        ).await;
     }
 
     #[tokio::test]
@@ -189,11 +183,11 @@ pub(super) mod tests {
                 Ok(Response::from(()))
             });
 
-        let leaser = DefaultLeaser::new(
-            Arc::new(mock),
+        let leaser = DefaultLeaser::new(Arc::new(mock));
+        leaser.extend(
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
-        );
-        leaser.extend(test_ids(0..10)).await;
+            test_ids(0..10)
+        ).await;
     }
 }
