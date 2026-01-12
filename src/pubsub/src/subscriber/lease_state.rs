@@ -16,6 +16,7 @@ use super::leaser::Leaser;
 use std::collections::HashMap;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::time::{Duration, Instant, Interval, interval_at};
+use tokio::task::JoinSet;
 
 // An ack ID is less than 200 bytes. The limit for a request is 512kB. It should
 // be safe to fit 2500 Ack IDs in a single RPC.
@@ -48,7 +49,7 @@ impl Default for LeaseOptions {
 #[derive(Debug)]
 pub(super) struct LeaseState<L>
 where
-    L: Leaser + Clone,
+    L: Leaser + Clone + Send + 'static,
 {
     // A map of ack IDs to the time they were first received.
     under_lease: HashMap<String, Instant>,
@@ -56,6 +57,7 @@ where
     to_nack: Vec<String>,
     // TODO(#3964) - support exactly once acks
     leaser: L,
+    pending: JoinSet<()>,
 
     // A timer for flushing acks/nacks
     flush_interval: Interval,
@@ -74,7 +76,7 @@ pub(super) enum LeaseEvent {
 
 impl<L> LeaseState<L>
 where
-    L: Leaser + Clone,
+    L: Leaser + Clone + Send + 'static,
 {
     pub(super) fn new(leaser: L, options: LeaseOptions) -> Self {
         let flush_interval =
@@ -86,6 +88,7 @@ where
             to_ack: Vec::new(),
             to_nack: Vec::new(),
             leaser,
+            pending: JoinSet::new(),
             flush_interval,
             extend_interval,
         }
@@ -141,10 +144,16 @@ where
 
         // TODO(#3975) - await these concurrently.
         if !to_ack.is_empty() {
-            self.leaser.ack(to_ack).await;
+            let leaser = self.leaser.clone();
+            self.pending.spawn(async move {
+                leaser.ack(to_ack).await;
+            });
         }
         if !to_nack.is_empty() {
-            self.leaser.nack(to_nack).await;
+            let leaser = self.leaser.clone();
+            self.pending.spawn(async move {
+                leaser.nack(to_nack).await;
+            });
         }
     }
 
@@ -157,7 +166,12 @@ where
         for chunk in all_ack_ids.chunks(ACK_IDS_PER_RPC) {
             // TODO(#3975) - await these concurrently.
             let ack_ids: Vec<String> = chunk.iter().map(|&s| s.clone()).collect();
-            self.leaser.extend(ack_ids).await;
+            //self.leaser.extend(ack_ids).await;
+            // TODO : This will be a merge conflict, maybe avoid it?
+            let leaser = self.leaser.clone();
+            self.pending.spawn(async move {
+                leaser.extend(ack_ids).await;
+            });
         }
     }
 
@@ -165,23 +179,31 @@ where
     ///
     /// This flushes all pending acks and nacks all other messages.
     pub(super) async fn shutdown(self) {
-        // TODO(#3975) - await these concurrently.
+        let mut pending = self.pending;
+
         let to_ack = self.to_ack;
         if !to_ack.is_empty() {
-            self.leaser.ack(to_ack).await;
+            let leaser = self.leaser.clone();
+            pending.spawn(async move {
+                leaser.ack(to_ack).await;
+            });
         }
 
         let mut to_nack = self.to_nack;
         to_nack.extend(self.under_lease.into_keys());
         if !to_nack.is_empty() {
-            self.leaser.nack(to_nack).await;
+            let leaser = self.leaser.clone();
+            pending.spawn(async move {
+                leaser.nack(to_nack).await;
+            });
         }
+        let _ = pending.join_all().await;
     }
 }
 
 impl<L> PartialEq for LeaseState<L>
 where
-    L: Leaser + Clone,
+    L: Leaser + Clone + Send + 'static,
 {
     fn eq(&self, other: &Self) -> bool {
         self.under_lease == other.under_lease
@@ -221,6 +243,7 @@ pub(super) mod tests {
             to_ack: to_ack.into_iter().map(|s| s.to_string()).collect(),
             to_nack: to_nack.into_iter().map(|s| s.to_string()).collect(),
             leaser: Arc::new(MockLeaser::new()),
+            pending: JoinSet::new(),
             flush_interval: test_interval(),
             extend_interval: test_interval(),
         }
@@ -312,6 +335,7 @@ pub(super) mod tests {
             to_ack: test_ids(0..10),
             to_nack: test_ids(10..20),
             leaser: Arc::new(MockLeaser::new()),
+            pending: JoinSet::new(),
             flush_interval: test_interval(),
             extend_interval: test_interval(),
         };
@@ -326,6 +350,7 @@ pub(super) mod tests {
             to_ack: Vec::new(),
             to_nack: Vec::new(),
             leaser: Arc::new(MockLeaser::new()),
+            pending: JoinSet::new(),
             flush_interval: test_interval(),
             extend_interval: test_interval(),
         };
