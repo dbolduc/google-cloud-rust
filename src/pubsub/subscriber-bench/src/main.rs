@@ -31,12 +31,12 @@ const NUM_CHANNELS: usize = 1;
 const TEST_DURATION: Duration = Duration::from_secs(30);
 //const NUM_STREAMS: usize = 16;
 //const NUM_CHANNELS: usize = 16;
-//const TEST_DURATION: Duration = Duration::from_secs(600);
+//const TEST_DURATION: Duration = Duration::from_secs(30);
 
 //#[tokio::main(flavor = "multi_thread", worker_threads = 16)]
 #[tokio::main(flavor = "multi_thread", worker_threads = 1)]
 async fn main() -> anyhow::Result<()> {
-    //let _guard = trace_guard();
+    let _guard = trace_guard();
 
     println!("std::thread::available_parallelism()={}", std::thread::available_parallelism()?.get());
 
@@ -63,11 +63,13 @@ async fn main() -> anyhow::Result<()> {
 
         tracing::info!("Opening subscriber session {i}.");
         let mut session = client
-            .streaming_pull("projects/dbolduc-test/subscriptions/subscription-id")
+            //.streaming_pull("projects/dbolduc-test/subscriptions/subscription-id")
+            .streaming_pull("projects/dbolduc-test/subscriptions/help-me-andrew-browne")
             .set_max_outstanding_messages(200_000)
             .set_max_outstanding_bytes(200_000_000)
             .start()
             .await?;
+        tracing::info!("Opened subscriber session {i}.");
         tasks.push(tokio::spawn(async move {
             let mut ack_count = 0;
             while let Some(r) = tokio::select! {

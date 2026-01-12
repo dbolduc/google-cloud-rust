@@ -12,12 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::keepalive;
 use super::stub::Stub;
 use crate::google::pubsub::v1::StreamingPullRequest;
 use crate::{Error, Result};
 use gax::options::RequestOptions;
 use std::sync::Arc;
 use tokio::sync::mpsc;
+use tokio_util::sync::CancellationToken;
 
 /// Open a stream for the `StreamingPull` RPC.
 ///
@@ -25,7 +27,8 @@ use tokio::sync::mpsc;
 pub(super) async fn open_stream<T>(
     inner: Arc<T>,
     initial_req: StreamingPullRequest,
-) -> Result<(<T as Stub>::Stream, mpsc::Sender<StreamingPullRequest>)>
+    shutdown: CancellationToken,
+) -> Result<<T as Stub>::Stream>
 where
     T: Stub,
 {
@@ -33,12 +36,13 @@ where
     // that we don't fear any back pressure on this channel.
     let (request_tx, request_rx) = mpsc::channel(1);
     request_tx.send(initial_req).await.map_err(Error::io)?;
+    keepalive::spawn(request_tx, shutdown.clone());
     let stream = inner
         .streaming_pull(request_rx, RequestOptions::default())
         .await?
         .into_inner();
 
-    Ok((stream, request_tx))
+    Ok(stream)
 }
 
 #[cfg(test)]

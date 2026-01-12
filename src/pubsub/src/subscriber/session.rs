@@ -14,7 +14,6 @@
 
 use super::builder::StreamingPull;
 use super::handler::{AckResult, AtLeastOnce, Handler};
-use super::keepalive;
 use super::lease_loop::LeaseLoop;
 use super::lease_state::LeaseOptions;
 use super::leaser::DefaultLeaser;
@@ -50,8 +49,11 @@ use tokio_util::sync::{CancellationToken, DropGuard};
 /// ```
 #[derive(Debug)]
 pub struct Session {
+    inner: Arc<Transport>,
+    initial_req: StreamingPullRequest,
+
     /// The bidirectional stream.
-    stream: <Transport as Stub>::Stream,
+    stream: Option<<Transport as Stub>::Stream>,
 
     /// Applications ask for messages one at a time. Individual stream responses
     /// can contain multiple messages. We use `pool` to hold the extra messages
@@ -67,6 +69,8 @@ pub struct Session {
     /// A sender for forwarding acks/nacks from the application to the lease
     /// management task. Each `Handler` holds a clone of this.
     ack_tx: UnboundedSender<AckResult>,
+
+    shutdown: CancellationToken,
 
     /// A guard which signals a shutdown to the task sending keepalive pings
     /// when it is dropped.
@@ -105,14 +109,15 @@ impl Session {
             client_id: builder.client_id,
             ..Default::default()
         };
-        let (stream, request_tx) = open_stream(inner, initial_req).await?;
-        keepalive::spawn(request_tx, shutdown.clone());
 
         Ok(Self {
+            inner,
+            initial_req,
             stream,
             pool: VecDeque::new(),
             message_tx,
             ack_tx,
+            shutdown: shutdown.clone(),
             _keepalive_guard: shutdown.drop_guard(),
             _lease_loop,
         })
@@ -153,6 +158,49 @@ impl Session {
     }
 
     async fn stream_next(&mut self) -> Option<Result<()>> {
+// 1. Conditionally create the stream if it doesn't exist
+    if self.stream.is_none() {
+        let stream = open_stream(self.inner.clone(), self.initial_req.clone(), self.shutdown.clone()).await;
+        if !stream.is_ok() {
+            return Some(stream.err);
+        }
+        self.stream = Some(stream);
+    }
+
+    // 2. Get a mutable reference to the stream inside the Option
+    // We expect this to exist because we just initialized it above.
+    let stream = self.stream.as_mut().expect("Stream should be initialized");
+
+    // 3. Perform the original logic using `stream` instead of `self.stream`
+    let resp = match stream.next_message().await.transpose()? {
+        Ok(resp) => resp,
+        Err(e) => return Some(Err(to_gax_error(e))),
+    };
+
+    for rm in resp.received_messages {
+        let Some(message) = rm.message else {
+            // The message field should always be present. If not, the proto
+            // message was corrupted while in transit, or there is a bug in
+            // the service.
+            //
+            // The client can just ignore an ack ID without an associated
+            // message.
+            continue;
+        };
+        let _ = self.message_tx.send(rm.ack_id.clone());
+        let message = match message.cnv().map_err(Error::deser) {
+            Ok(message) => message,
+            Err(e) => return Some(Err(e)),
+        };
+        self.pool.push_back((
+            message,
+            Handler::AtLeastOnce(AtLeastOnce {
+                ack_id: rm.ack_id,
+                ack_tx: self.ack_tx.clone(),
+            }),
+        ));
+    }
+    Some(Ok(()))
         let resp = match self.stream.next_message().await.transpose()? {
             Ok(resp) => resp,
             Err(e) => return Some(Err(to_gax_error(e))),
