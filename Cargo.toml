@@ -264,6 +264,7 @@ members = [
   "src/lro",
   "src/pubsub",
   "src/pubsub/examples",
+  "src/pubsub/benchmarks/endurance",
   "src/root",
   "src/spanner",
   "src/storage",
