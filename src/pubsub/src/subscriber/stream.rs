@@ -13,13 +13,71 @@
 // limitations under the License.
 
 use super::keepalive;
-use super::stub::Stub;
-use crate::google::pubsub::v1::StreamingPullRequest;
+use super::stub::{Stub, TonicStreaming};
+use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use crate::{Error, Result};
 use gax::options::RequestOptions;
 use std::sync::Arc;
 use tokio::sync::mpsc;
-use tokio_util::sync::CancellationToken;
+use tokio_util::sync::{CancellationToken, DropGuard};
+//use gax::backoff_policy::BackoffPolicy;
+//use gax::retry_policy::RetryPolicy;
+//use gax::retry_result::RetryResult;
+//use gax::retry_loop_internal::retry_loop;
+
+#[derive(Debug)]
+pub(super) struct Stream<T>
+where
+    T: Stub,
+{
+    pub(super) stream: <T as Stub>::Stream,
+
+    /// A guard which signals a shutdown to the task sending keepalive pings
+    /// when it is dropped. It is more convenient to hold a `DropGuard` than to
+    /// have a custom `impl Drop for Stream`.
+    _keepalive_guard: DropGuard,
+}
+
+impl<T> TonicStreaming for Stream<T>
+where
+    T: Stub + 'static,
+    <T as Stub>::Stream: TonicStreaming,
+{
+    async fn next_message(&mut self) -> tonic::Result<Option<StreamingPullResponse>> {
+        self.stream.next_message().await
+    }
+}
+
+/*
+pub(super) async fn open_stream_with_retries<T>(
+    inner: Arc<T>,
+    initial_req: StreamingPullRequest,
+    backoff: Arc<BackoffPolicy>,
+) -> Result<Stream<T>>
+where
+    T: Stub,
+{
+        let sleep = async |d| tokio::time::sleep(d).await;
+        let op = move |_| {
+            let inner = inner.clone();
+            let initial_req = initial_req.clone();
+            async move {
+                open_stream(inner, initial_req).await
+            }
+        };
+
+        retry_loop(
+            op,
+            sleep,
+            /*idempotent=*/true,
+            self.retry_throttler.clone(),
+            retry_policy,
+            self.backoff_policy.clone(),
+        )
+        .await
+        .map_err(Self::map_retry_error)
+}
+*/
 
 /// Open a stream for the `StreamingPull` RPC.
 ///
@@ -27,8 +85,7 @@ use tokio_util::sync::CancellationToken;
 pub(super) async fn open_stream<T>(
     inner: Arc<T>,
     initial_req: StreamingPullRequest,
-    shutdown: CancellationToken,
-) -> Result<<T as Stub>::Stream>
+) -> Result<Stream<T>>
 where
     T: Stub,
 {
@@ -46,6 +103,7 @@ where
     // being idle for ~90s, leading to unnecessary retries.
     //
     // [^1]: https://github.com/hyperium/tonic/issues/515
+    let shutdown = CancellationToken::new();
     keepalive::spawn(request_tx, shutdown.clone());
 
     let stream = inner
@@ -53,14 +111,16 @@ where
         .await?
         .into_inner();
 
-    Ok(stream)
+    Ok(Stream {
+        stream,
+        _keepalive_guard: shutdown.drop_guard(),
+    })
 }
 
 #[cfg(test)]
 mod tests {
     use super::super::keepalive::KEEPALIVE_PERIOD;
     use super::super::lease_state::tests::test_ids;
-    use super::super::stub::TonicStreaming;
     use super::super::stub::tests::MockStub;
     use super::*;
     use crate::google::pubsub::v1::{ReceivedMessage, StreamingPullResponse};
@@ -104,8 +164,7 @@ mod tests {
         response_tx.send(Ok(test_response(21..30))).await?;
         drop(response_tx);
 
-        let mut stream =
-            open_stream(Arc::new(mock), initial_request(), CancellationToken::new()).await?;
+        let mut stream = open_stream(Arc::new(mock), initial_request()).await?;
         assert_eq!(stream.next_message().await?, Some(test_response(1..10)));
         assert_eq!(stream.next_message().await?, Some(test_response(11..20)));
         assert_eq!(stream.next_message().await?, Some(test_response(21..30)));
@@ -138,8 +197,7 @@ mod tests {
                 Ok(tonic::Response::from(response_rx))
             });
 
-        let shutdown = CancellationToken::new();
-        let mut stream = open_stream(Arc::new(mock), initial_request(), shutdown.clone()).await?;
+        let mut stream = open_stream(Arc::new(mock), initial_request()).await?;
 
         // Verify the stream is seeded with the initial request.
         assert_eq!(recover_writes_rx.recv().await, Some(initial_request()));
@@ -153,7 +211,7 @@ mod tests {
         assert_eq!(stream.next_message().await?, Some(test_response(1..10)));
 
         // Shutdown the keepalive task.
-        shutdown.cancel();
+        drop(stream);
         assert_eq!(recover_writes_rx.recv().await, None);
 
         Ok(())
@@ -166,7 +224,7 @@ mod tests {
             .times(1)
             .return_once(|_, _| Err(Error::io("fail")));
 
-        let err = open_stream(Arc::new(mock), initial_request(), CancellationToken::new())
+        let err = open_stream(Arc::new(mock), initial_request())
             .await
             .expect_err("open_stream should fail");
         assert!(err.is_io(), "{err:?}");
