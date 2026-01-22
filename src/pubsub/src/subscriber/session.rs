@@ -17,12 +17,14 @@ use super::handler::{AckResult, AtLeastOnce, Handler};
 use super::lease_loop::LeaseLoop;
 use super::lease_state::LeaseOptions;
 use super::leaser::DefaultLeaser;
-use super::stream::{Stream, open_stream};
+use super::retry_policy::StreamRetryPolicy;
+use super::stream::{Stream, default_backoff_policy};
 use super::stub::TonicStreaming;
 use super::transport::Transport;
 use crate::google::pubsub::v1::StreamingPullRequest;
 use crate::model::PubsubMessage;
 use crate::{Error, Result};
+use gax::retry_result::RetryResult;
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
 use std::collections::VecDeque;
@@ -157,8 +159,17 @@ impl Session {
             }
             // Otherwise, read more messages from the stream.
             if let Err(e) = self.stream_next().await? {
-                // TODO : reconnects.
-                return Some(Err(e));
+                match StreamRetryPolicy::is_transient(e) {
+                    RetryResult::Continue(_) => {
+                        // The stream failed with a transient error. Reset the stream.
+                        self.stream = None;
+                        continue;
+                    }
+                    RetryResult::Permanent(e) | RetryResult::Exhausted(e) => {
+                        // The stream failed with a permanent error. Return the error.
+                        return Some(Err(e));
+                    }
+                }
             }
         }
     }
@@ -168,7 +179,12 @@ impl Session {
     /// If a stream is not yet open, this method opens the stream.
     async fn mut_stream(&mut self) -> Result<&mut Stream<Transport>> {
         if self.stream.is_none() {
-            let stream = open_stream(self.inner.clone(), self.initial_req.clone()).await?;
+            let stream = Stream::<Transport>::new(
+                self.inner.clone(),
+                self.initial_req.clone(),
+                default_backoff_policy(),
+            )
+            .await?;
             self.stream = Some(stream);
         }
         Ok(self
@@ -177,7 +193,6 @@ impl Session {
             .expect("`self.stream.is_some()` must be true"))
     }
 
-    // TODO : this should be RetryResult, methinks.
     async fn stream_next(&mut self) -> Option<Result<()>> {
         let resp = {
             let stream = match self.mut_stream().await {
@@ -286,7 +301,7 @@ mod tests {
     async fn error_starting_stream() -> anyhow::Result<()> {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(|_| Err(tonic::Status::internal("fail")));
+            .return_once(|_| Err(tonic::Status::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
@@ -297,7 +312,7 @@ mod tests {
             .expect_err("the first streamed item should be an error");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
-        assert_eq!(status.code, gax::error::rpc::Code::Internal);
+        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
         assert_eq!(status.message, "fail");
 
         Ok(())
@@ -324,7 +339,7 @@ mod tests {
                         .expect("forwarding writes always succeeds");
                 }
             });
-            Err(tonic::Status::internal("fail"))
+            Err(tonic::Status::failed_precondition("fail"))
         });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
@@ -656,7 +671,7 @@ mod tests {
 
         response_tx.send(Ok(test_response(1..4))).await?;
         response_tx
-            .send(Err(tonic::Status::internal("fail")))
+            .send(Err(tonic::Status::failed_precondition("fail")))
             .await?;
         drop(response_tx);
 
@@ -673,7 +688,7 @@ mod tests {
             .expect_err("expected an error from stream");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
-        assert_eq!(status.code, gax::error::rpc::Code::Internal);
+        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
         assert_eq!(status.message, "fail");
 
         Ok(())
@@ -758,7 +773,7 @@ mod tests {
                             .expect("forwarding writes always succeeds");
                     }
                 });
-                Err(tonic::Status::internal("fail"))
+                Err(tonic::Status::failed_precondition("fail"))
             });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;

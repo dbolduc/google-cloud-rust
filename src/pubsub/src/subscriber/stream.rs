@@ -13,17 +13,21 @@
 // limitations under the License.
 
 use super::keepalive;
+use super::retry_policy::StreamRetryPolicy;
 use super::stub::{Stub, TonicStreaming};
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use crate::{Error, Result};
+use gax::backoff_policy::BackoffPolicy;
+use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptions;
-use std::sync::Arc;
+use gax::retry_loop_internal::retry_loop;
+use gax::retry_policy::RetryPolicy;
+use gax::retry_result::RetryResult;
+use gax::retry_throttler::CircuitBreaker;
+use std::sync::{Arc, Mutex};
+use std::time::Duration;
 use tokio::sync::mpsc;
 use tokio_util::sync::{CancellationToken, DropGuard};
-//use gax::backoff_policy::BackoffPolicy;
-//use gax::retry_policy::RetryPolicy;
-//use gax::retry_result::RetryResult;
-//use gax::retry_loop_internal::retry_loop;
 
 #[derive(Debug)]
 pub(super) struct Stream<T>
@@ -48,44 +52,36 @@ where
     }
 }
 
-/*
-pub(super) async fn open_stream_with_retries<T>(
-    inner: Arc<T>,
-    initial_req: StreamingPullRequest,
-    backoff: Arc<BackoffPolicy>,
-) -> Result<Stream<T>>
+impl<T> Stream<T>
 where
     T: Stub,
 {
+    pub(super) async fn new(
+        inner: Arc<T>,
+        initial_req: StreamingPullRequest,
+        backoff: Arc<dyn BackoffPolicy>,
+    ) -> Result<Self> {
         let sleep = async |d| tokio::time::sleep(d).await;
         let op = move |_| {
             let inner = inner.clone();
             let initial_req = initial_req.clone();
-            async move {
-                open_stream(inner, initial_req).await
-            }
+            async move { open_stream(inner, initial_req).await }
         };
 
         retry_loop(
             op,
             sleep,
-            /*idempotent=*/true,
-            self.retry_throttler.clone(),
-            retry_policy,
-            self.backoff_policy.clone(),
+            true,
+            default_retry_throttler(),
+            default_retry_policy(),
+            backoff,
         )
         .await
-        .map_err(Self::map_retry_error)
+    }
 }
-*/
 
-/// Open a stream for the `StreamingPull` RPC.
-///
-/// This returns the stream and a Sender for feeding the stream writes.
-pub(super) async fn open_stream<T>(
-    inner: Arc<T>,
-    initial_req: StreamingPullRequest,
-) -> Result<Stream<T>>
+/// One attempt to open a stream for the `StreamingPull` RPC.
+async fn open_stream<T>(inner: Arc<T>, initial_req: StreamingPullRequest) -> Result<Stream<T>>
 where
     T: Stub,
 {
@@ -115,6 +111,29 @@ where
         stream,
         _keepalive_guard: shutdown.drop_guard(),
     })
+}
+
+fn default_retry_policy() -> Arc<StreamRetryPolicy> {
+    Arc::new(StreamRetryPolicy)
+}
+
+fn default_retry_throttler() -> Arc<Mutex<CircuitBreaker>> {
+    // Effectively disable throttling. Opening a stream is done infrequently
+    // enough that a throttler is unnecessary.
+    Arc::new(Mutex::new(
+        CircuitBreaker::new(1000, 0, 0).expect("This is a valid configuration"),
+    ))
+}
+
+pub(super) fn default_backoff_policy() -> Arc<ExponentialBackoff> {
+    Arc::new(
+        ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_millis(100))
+            .with_maximum_delay(Duration::from_secs(60))
+            .with_scaling(4)
+            .build()
+            .expect("This is a valid configuration"),
+    )
 }
 
 #[cfg(test)]

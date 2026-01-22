@@ -18,33 +18,35 @@ use gax::retry_policy::RetryPolicy;
 use gax::retry_result::RetryResult;
 use gax::retry_state::RetryState;
 
-/// Whether a stream error is transient (retry-able).
-fn is_transient(error: Error) -> RetryResult {
-    if error.is_transient_and_before_rpc() {
-        return RetryResult::Continue(error);
-    }
-    if error.is_io() {
-        return RetryResult::Continue(error);
-    }
-    if let Some(status) = error.status() {
-        return match status.code {
-            Code::ResourceExhausted | Code::Aborted | Code::Internal | Code::Unavailable => {
-                RetryResult::Continue(error)
-            }
-            Code::Unknown if is_rst_stream(&error) => RetryResult::Continue(error),
-            _ => RetryResult::Permanent(error),
-        };
-    }
-    RetryResult::Permanent(error)
-}
-
 #[derive(Debug)]
 /// The subscriber's retry policy, specifically for StreamingPull RPCs.
-struct StreamRetryPolicy;
+pub(super) struct StreamRetryPolicy;
+
+impl StreamRetryPolicy {
+    /// Whether a stream error is transient (retry-able).
+    pub(super) fn is_transient(error: Error) -> RetryResult {
+        if error.is_transient_and_before_rpc() {
+            return RetryResult::Continue(error);
+        }
+        if error.is_io() {
+            return RetryResult::Continue(error);
+        }
+        if let Some(status) = error.status() {
+            return match status.code {
+                Code::ResourceExhausted | Code::Aborted | Code::Internal | Code::Unavailable => {
+                    RetryResult::Continue(error)
+                }
+                Code::Unknown if is_rst_stream(&error) => RetryResult::Continue(error),
+                _ => RetryResult::Permanent(error),
+            };
+        }
+        RetryResult::Permanent(error)
+    }
+}
 
 impl RetryPolicy for StreamRetryPolicy {
     fn on_error(&self, _state: &RetryState, error: Error) -> RetryResult {
-        is_transient(error)
+        Self::is_transient(error)
     }
 }
 
@@ -102,13 +104,19 @@ mod tests {
     #[test]
     fn retry_transient_before_rpc() {
         let err = Error::authentication(CredentialsError::from_msg(true, "try again"));
-        assert!(matches!(is_transient(err), RetryResult::Continue(_)));
+        assert!(matches!(
+            StreamRetryPolicy::is_transient(err),
+            RetryResult::Continue(_)
+        ));
     }
 
     #[test]
     fn retry_io() {
         let err = Error::io("try again");
-        assert!(matches!(is_transient(err), RetryResult::Continue(_)));
+        assert!(matches!(
+            StreamRetryPolicy::is_transient(err),
+            RetryResult::Continue(_)
+        ));
     }
 
     #[test_case(Code::ResourceExhausted)]
@@ -117,7 +125,10 @@ mod tests {
     #[test_case(Code::Unavailable)]
     fn retryable_status_codes(code: Code) {
         let err = Error::service(Status::default().set_code(code).set_message("try again"));
-        assert!(matches!(is_transient(err), RetryResult::Continue(_)));
+        assert!(matches!(
+            StreamRetryPolicy::is_transient(err),
+            RetryResult::Continue(_)
+        ));
     }
 
     #[test_case(Code::Cancelled)]
@@ -127,9 +138,13 @@ mod tests {
     #[test_case(Code::DataLoss)]
     fn non_retryable_status_codes(code: Code) {
         let err = Error::service(Status::default().set_code(code).set_message("fail"));
-        assert!(matches!(is_transient(err), RetryResult::Permanent(_)));
+        assert!(matches!(
+            StreamRetryPolicy::is_transient(err),
+            RetryResult::Permanent(_)
+        ));
     }
 
+    #[test]
     fn stream_retry_policy() {
         let retry = StreamRetryPolicy;
         let state = RetryState::default();
