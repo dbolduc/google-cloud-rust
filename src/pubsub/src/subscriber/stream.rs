@@ -19,7 +19,35 @@ use crate::{Error, Result};
 use gax::options::RequestOptions;
 use std::sync::Arc;
 use tokio::sync::mpsc;
-use tokio_util::sync::CancellationToken;
+
+/*
+/// Representation for the `StreamingPull` RPC.
+///
+/// When this struct is dropped, the task sending keepalive pings is signaled to
+/// close.
+#[derive(Debug)]
+pub(super) struct Stream<T>
+where
+    T: Stub,
+{
+    pub(super) stream: <T as Stub>::Stream,
+
+    /// A guard which signals a shutdown to the task sending keepalive pings
+    /// when it is dropped. It is more convenient to hold a `DropGuard` than to
+    /// have a custom `impl Drop for Stream`.
+    _keepalive_guard: DropGuard,
+}
+
+impl<T> TonicStreaming for Stream<T>
+where
+    T: Stub + 'static,
+    <T as Stub>::Stream: TonicStreaming,
+{
+    async fn next_message(&mut self) -> tonic::Result<Option<StreamingPullResponse>> {
+        self.stream.next_message().await
+    }
+}
+*/
 
 /// Open a stream for the `StreamingPull` RPC.
 ///
@@ -27,7 +55,6 @@ use tokio_util::sync::CancellationToken;
 pub(super) async fn open_stream<T>(
     inner: Arc<T>,
     initial_req: StreamingPullRequest,
-    shutdown: CancellationToken,
 ) -> Result<<T as Stub>::Stream>
 where
     T: Stub,
@@ -46,7 +73,7 @@ where
     // being idle for ~90s, leading to unnecessary retries.
     //
     // [^1]: https://github.com/hyperium/tonic/issues/515
-    keepalive::spawn(request_tx, shutdown.clone());
+    keepalive::spawn(request_tx);
 
     let stream = inner
         .streaming_pull(request_rx, RequestOptions::default())
@@ -104,8 +131,7 @@ mod tests {
         response_tx.send(Ok(test_response(21..30))).await?;
         drop(response_tx);
 
-        let mut stream =
-            open_stream(Arc::new(mock), initial_request(), CancellationToken::new()).await?;
+        let mut stream = open_stream(Arc::new(mock), initial_request()).await?;
         assert_eq!(stream.next_message().await?, Some(test_response(1..10)));
         assert_eq!(stream.next_message().await?, Some(test_response(11..20)));
         assert_eq!(stream.next_message().await?, Some(test_response(21..30)));
@@ -126,20 +152,21 @@ mod tests {
             .times(1)
             .return_once(move |mut request_rx, _o| {
                 tokio::spawn(async move {
-                    // Note that this task stays alive as long as we hold
-                    // `recover_writes_rx`.
-                    while let Some(request) = request_rx.recv().await {
-                        recover_writes_tx
-                            .send(request)
-                            .await
-                            .expect("forwarding writes always succeeds");
+                    for _ in 0..2 {
+                        // Kill the stream after receiving two requests -- the
+                        // initial request, and the first keepalive.
+                        if let Some(request) = request_rx.recv().await {
+                            recover_writes_tx
+                                .send(request)
+                                .await
+                                .expect("forwarding writes always succeeds");
+                        }
                     }
                 });
                 Ok(tonic::Response::from(response_rx))
             });
 
-        let shutdown = CancellationToken::new();
-        let mut stream = open_stream(Arc::new(mock), initial_request(), shutdown.clone()).await?;
+        let mut stream = open_stream(Arc::new(mock), initial_request()).await?;
 
         // Verify the stream is seeded with the initial request.
         assert_eq!(recover_writes_rx.recv().await, Some(initial_request()));
@@ -152,8 +179,8 @@ mod tests {
         response_tx.send(Ok(test_response(1..10))).await?;
         assert_eq!(stream.next_message().await?, Some(test_response(1..10)));
 
-        // Shutdown the keepalive task.
-        shutdown.cancel();
+        // Shutdown the stream and the keepalive task.
+        drop(stream);
         assert_eq!(recover_writes_rx.recv().await, None);
 
         Ok(())
@@ -166,7 +193,7 @@ mod tests {
             .times(1)
             .return_once(|_, _| Err(Error::io("fail")));
 
-        let err = open_stream(Arc::new(mock), initial_request(), CancellationToken::new())
+        let err = open_stream(Arc::new(mock), initial_request())
             .await
             .expect_err("open_stream should fail");
         assert!(err.is_io(), "{err:?}");

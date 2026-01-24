@@ -192,6 +192,10 @@ where
     ///
     /// This flushes all pending acks and nacks all other messages.
     pub(super) async fn shutdown(self) {
+        println!("SHUTDOWN LEASE STATE.");
+        println!("to_ack={:?}", self.to_ack);
+        println!("to_nack={:?}", self.to_nack);
+        println!("under_lease={:?}", self.under_lease);
         // TODO(#3975) - await these concurrently.
         let to_ack = self.to_ack;
         if !to_ack.is_empty() {

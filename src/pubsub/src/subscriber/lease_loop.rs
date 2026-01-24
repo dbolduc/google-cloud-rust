@@ -84,6 +84,7 @@ where
             state.ack(ack_id);
         }
     }
+    println!("SHUTDOWN LEASE LOOP");
     state.shutdown().await;
 }
 
@@ -288,7 +289,8 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn close_waits_for_flush() -> anyhow::Result<()> {
-        const EXPECTED_SLEEP: Duration = Duration::from_millis(100);
+        const EXPECTED_ACK_SLEEP: Duration = Duration::from_millis(100);
+        const EXPECTED_NACK_SLEEP: Duration = Duration::from_millis(1);
 
         let start = Instant::now();
 
@@ -299,11 +301,12 @@ mod tests {
             async fn ack(&self, mut ack_ids: Vec<String>) {
                 ack_ids.sort();
                 assert_eq!(ack_ids, test_ids(0..10));
-                tokio::time::sleep(EXPECTED_SLEEP).await;
+                tokio::time::sleep(EXPECTED_ACK_SLEEP).await;
             }
             async fn nack(&self, mut ack_ids: Vec<String>) {
                 ack_ids.sort();
                 assert_eq!(ack_ids, test_ids(10..30));
+                tokio::time::sleep(EXPECTED_NACK_SLEEP).await;
             }
             async fn extend(&self, _ack_ids: Vec<String>) {}
         }
@@ -326,7 +329,7 @@ mod tests {
 
         // Verify that we flushed the acks immediately, and waited for them to
         // complete.
-        assert_eq!(start.elapsed(), EXPECTED_SLEEP);
+        assert_eq!(start.elapsed(), EXPECTED_ACK_SLEEP + EXPECTED_NACK_SLEEP);
 
         Ok(())
     }

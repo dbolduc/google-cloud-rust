@@ -16,30 +16,37 @@ use crate::google::pubsub::v1::StreamingPullRequest;
 use tokio::sync::mpsc::Sender;
 use tokio::task::JoinHandle;
 use tokio::time::{Duration, Instant, interval_at};
-use tokio_util::sync::CancellationToken;
 
 pub(super) const KEEPALIVE_PERIOD: Duration = Duration::from_secs(30);
 
-/// Spawns a task to keepalive a stream
+/// Spawns a task to keepalive a stream.
 ///
 /// This task periodically writes requests into a channel. The receiver of this
-/// channel is the request stream for a StreamingPull bidi RPC.
+/// channel is the request stream for a StreamingPull bidi RPC. One of these
+/// tasks is spawned for each attempt to open a stream.
 ///
-/// Callers may signal a graceful shutdown of this task by cancelling the
-/// `CancellationToken` and `await`ing the returned handle.
+/// Callers signal a shutdown of this task by dropping the request receiver.
+pub(super) fn spawn(request_tx: Sender<StreamingPullRequest>) {
+    spawn_impl(request_tx);
+}
+
+/// Spawns a task to keepalive a stream.
 ///
-/// Callers can also just drop the returned handle to shutdown.
-pub(super) fn spawn(
-    request_tx: Sender<StreamingPullRequest>,
-    shutdown: CancellationToken,
-) -> JoinHandle<()> {
+/// Returns a `JoinHandle` on the task, so our unit tests can confirm that the
+/// task is eventually joined.
+///
+/// Note that this function is intentionally private, so that we cannot await
+/// the result of the task outside of this module.
+fn spawn_impl(request_tx: Sender<StreamingPullRequest>) -> JoinHandle<()> {
     tokio::spawn(async move {
         let mut keepalive = interval_at(Instant::now() + KEEPALIVE_PERIOD, KEEPALIVE_PERIOD);
         loop {
             tokio::select! {
-                _ = shutdown.cancelled() => break,
                 _ = keepalive.tick() => {
-                    let _ = request_tx.send(StreamingPullRequest::default()).await;
+                    match request_tx.send(StreamingPullRequest::default()).await {
+                        Ok(_) => continue,
+                        Err(_) => break,
+                    }
                 }
             }
         }
@@ -55,8 +62,7 @@ mod tests {
     async fn keepalive_interval() {
         let start = Instant::now();
         let (request_tx, mut request_rx) = channel(1);
-        let shutdown = CancellationToken::new();
-        let _handle = spawn(request_tx, shutdown);
+        let _handle = spawn(request_tx);
 
         // Wait for the first keepalive
         let r = request_rx.recv().await.unwrap();
@@ -75,26 +81,21 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn shutdown_immediately() -> anyhow::Result<()> {
+    async fn no_leaked_tasks() -> anyhow::Result<()> {
         let start = Instant::now();
         let (request_tx, mut request_rx) = channel(1);
-        let shutdown = CancellationToken::new();
-        let handle = spawn(request_tx, shutdown.clone());
+        let handle = spawn_impl(request_tx);
 
         // Wait for the first keepalive
         let _ = request_rx.recv().await.unwrap();
         assert_eq!(start.elapsed(), KEEPALIVE_PERIOD);
 
-        // Simulate the loop running for a bit.
-        const DELTA: Duration = Duration::from_secs(10);
-        tokio::time::advance(DELTA).await;
-
-        // Shutdown the task
-        shutdown.cancel();
+        // Signal a shutdown
+        drop(request_rx);
+        // Confirm the task eventually joins. We do not want to leak tasks doing
+        // work in the background for each attempt to open a stream.
         handle.await?;
 
-        // Verify that we did not wait for the full keepalive interval.
-        assert_eq!(start.elapsed(), KEEPALIVE_PERIOD + DELTA);
         Ok(())
     }
 }

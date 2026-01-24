@@ -28,7 +28,6 @@ use gaxi::prost::FromProto as _;
 use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::mpsc::UnboundedSender;
-use tokio_util::sync::{CancellationToken, DropGuard};
 
 /// Represents an open subscribe session.
 ///
@@ -82,15 +81,6 @@ pub struct Session {
     /// management task. Each `Handler` holds a clone of this.
     ack_tx: UnboundedSender<AckResult>,
 
-    /// A cancellation token for signalling a shutdown to the task sending
-    /// keepalive pings.
-    shutdown: CancellationToken,
-
-    /// A guard which signals a shutdown to the task sending keepalive pings
-    /// when it is dropped. It is more convenient to hold a `DropGuard` than to
-    /// have a custom `impl Drop for Session`.
-    _keepalive_guard: DropGuard,
-
     /// A handle on the lease loop task.
     ///
     /// We hold onto this handle so we can await pending lease operations. While awaiting pending
@@ -101,7 +91,6 @@ pub struct Session {
 
 impl Session {
     pub(super) fn new(builder: StreamingPull) -> Self {
-        let shutdown = CancellationToken::new();
         let inner = builder.inner;
         let subscription = builder.subscription;
 
@@ -135,8 +124,6 @@ impl Session {
             pool: VecDeque::new(),
             message_tx,
             ack_tx,
-            shutdown: shutdown.clone(),
-            _keepalive_guard: shutdown.drop_guard(),
             _lease_loop,
         }
     }
@@ -180,12 +167,7 @@ impl Session {
     /// If a stream is not yet open, this method opens the stream.
     async fn mut_stream(&mut self) -> Result<&mut <Transport as Stub>::Stream> {
         if self.stream.is_none() {
-            let stream = open_stream(
-                self.inner.clone(),
-                self.initial_req.clone(),
-                self.shutdown.clone(),
-            )
-            .await?;
+            let stream = open_stream(self.inner.clone(), self.initial_req.clone()).await?;
             self.stream = Some(stream);
         }
         Ok(self
@@ -239,11 +221,10 @@ impl Session {
     ///
     /// This is a useful method for setting clean test expectations.
     async fn close(self) -> anyhow::Result<()> {
-        // Signal a shutdown to the keepalive task.
-        drop(self._keepalive_guard);
-
         // Signal a shutdown to the lease management background task.
         drop(self.message_tx);
+
+        tokio::task::yield_now().await;
 
         // Wait for the lease management task to complete.
         self._lease_loop.await?;
@@ -419,6 +400,8 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn basic_lease_management() -> anyhow::Result<()> {
+        let t = tokio::time::Instant::now();
+        let t2 = tokio::time::Instant::now();
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (nack_tx, mut nack_rx) = unbounded_channel();
@@ -428,20 +411,25 @@ mod tests {
         mock.expect_streaming_pull()
             .return_once(|_| Ok(tonic::Response::from(response_rx)));
         mock.expect_acknowledge().returning(move |r| {
+            let r = r.into_inner();
+            println!("RECEIVED ACK. count={}", r.ack_ids.len());
             ack_tx
-                .send(r.into_inner())
+                .send(r)
                 .expect("sending on channel always succeeds");
             Ok(tonic::Response::from(()))
         });
         mock.expect_modify_ack_deadline().returning(move |r| {
             let r = r.into_inner();
             if r.ack_deadline_seconds == 0 {
+                println!("RECEIVED NACK. count={}", r.ack_ids.len());
                 nack_tx.send(r).expect("sending on channel always succeeds");
             } else {
+                println!("RECEIVED EXTEND. count={}", r.ack_ids.len());
                 extend_tx
                     .send(r)
                     .expect("sending on channel always succeeds");
             }
+            println!("t={:?}", t.elapsed());
             Ok(tonic::Response::from(()))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
@@ -476,10 +464,14 @@ mod tests {
 
         // Advance the clock 10s, which is the default stream ack deadline. In
         // this time, we should attempt at least one lease extension RPC.
+        tokio::task::yield_now().await;
         tokio::time::advance(Duration::from_secs(10)).await;
+        //tokio::time::sleep(Duration::from_secs(10)).await;
+        tokio::task::yield_now().await;
 
         // Close the session, to make sure pending operations complete.
         session.close().await?;
+        tokio::task::yield_now().await;
 
         // Verify the acks went through.
         let ack_req = ack_rx.try_recv()?;
@@ -506,6 +498,7 @@ mod tests {
         assert_eq!(extend_req.ack_deadline_seconds, 10);
         assert_eq!(sorted(extend_req.ack_ids), test_ids(20..30));
 
+        panic!("see output");
         Ok(())
     }
 
