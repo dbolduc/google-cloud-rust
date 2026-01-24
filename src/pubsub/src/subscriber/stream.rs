@@ -21,14 +21,13 @@ use gax::backoff_policy::BackoffPolicy;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptions;
 use gax::retry_loop_internal::retry_loop;
-use gax::retry_policy::RetryPolicy;
-use gax::retry_result::RetryResult;
 use gax::retry_throttler::CircuitBreaker;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::sync::mpsc;
 use tokio_util::sync::{CancellationToken, DropGuard};
 
+/// Representation for the `StreamingPull` RPC.
 #[derive(Debug)]
 pub(super) struct Stream<T>
 where
@@ -56,9 +55,14 @@ impl<T> Stream<T>
 where
     T: Stub,
 {
+    /// Open a stream for the `StreamingPull` RPC.
+    ///
+    /// This method includes retries, and spawns a keepalive task.
     pub(super) async fn new(
         inner: Arc<T>,
         initial_req: StreamingPullRequest,
+        // The default backoff policy is non-deterministic. Exposing the backoff
+        // policy in this interface helps us set better test expectations.
         backoff: Arc<dyn BackoffPolicy>,
     ) -> Result<Self> {
         let sleep = async |d| tokio::time::sleep(d).await;
@@ -143,6 +147,32 @@ mod tests {
     use super::super::stub::tests::MockStub;
     use super::*;
     use crate::google::pubsub::v1::{ReceivedMessage, StreamingPullResponse};
+    use gax::error::rpc::{Code, Status};
+    use gax::retry_state::RetryState;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        BackoffPolicy {}
+        impl BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, state: &RetryState) -> Duration;
+        }
+    }
+
+    fn transient_error() -> Error {
+        Error::service(
+            Status::default()
+                .set_code(Code::Unavailable)
+                .set_message("try again"),
+        )
+    }
+
+    fn permanent_error() -> Error {
+        Error::service(
+            Status::default()
+                .set_code(Code::FailedPrecondition)
+                .set_message("fail"),
+        )
+    }
 
     fn test_response(range: std::ops::Range<i32>) -> StreamingPullResponse {
         StreamingPullResponse {
@@ -247,6 +277,97 @@ mod tests {
             .await
             .expect_err("open_stream should fail");
         assert!(err.is_io(), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn retry_then_success() -> anyhow::Result<()> {
+        let mut seq = mockall::Sequence::new();
+        let mut mock_stub = MockStub::new();
+        let mut mock_backoff = MockBackoffPolicy::new();
+        for attempt in 1..20 {
+            // Simulate N transient errors + N backoffs.
+            mock_stub
+                .expect_streaming_pull()
+                .times(1)
+                .in_sequence(&mut seq)
+                .return_once(|_, _| Err(transient_error()));
+            mock_backoff
+                .expect_on_failure()
+                .times(1)
+                .withf(move |s| s.attempt_count == attempt)
+                .in_sequence(&mut seq)
+                .return_const(Duration::ZERO);
+        }
+        // Simulate a success.
+        let (response_tx, response_rx) = mpsc::channel(10);
+        response_tx.send(Ok(test_response(1..10))).await?;
+        drop(response_tx);
+
+        mock_stub
+            .expect_streaming_pull()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |_r, _o| Ok(tonic::Response::from(response_rx)));
+
+        let mut stream = Stream::new(
+            Arc::new(mock_stub),
+            initial_request(),
+            Arc::new(mock_backoff),
+        )
+        .await?;
+        assert_eq!(stream.next_message().await?, Some(test_response(1..10)));
+        assert_eq!(stream.next_message().await?, None);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn retry_then_permanent_failure() -> anyhow::Result<()> {
+        let mut seq = mockall::Sequence::new();
+        let mut mock_stub = MockStub::new();
+        let mut mock_backoff = MockBackoffPolicy::new();
+        for attempt in 1..20 {
+            // Simulate N transient errors + N backoffs.
+            mock_stub
+                .expect_streaming_pull()
+                .times(1)
+                .in_sequence(&mut seq)
+                .return_once(|_, _| Err(transient_error()));
+            mock_backoff
+                .expect_on_failure()
+                .times(1)
+                .withf(move |s| s.attempt_count == attempt)
+                .in_sequence(&mut seq)
+                .return_const(Duration::ZERO);
+        }
+        // Simulate a permanent error.
+        mock_stub
+            .expect_streaming_pull()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|_, _| Err(permanent_error()));
+        // The retry loop calculates the backoff delay before determining
+        // whether a retry should occur. Hence, we expect this extra call to
+        // `on_failure()`.
+        mock_backoff
+            .expect_on_failure()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_const(Duration::ZERO);
+
+        let err = Stream::new(
+            Arc::new(mock_stub),
+            initial_request(),
+            Arc::new(mock_backoff),
+        )
+        .await
+        .expect_err("opening stream should fail");
+        assert!(err.status().is_some(), "{err:?}");
+        let status = err.status().unwrap();
+        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
+        assert_eq!(status.message, "fail");
 
         Ok(())
     }
