@@ -282,6 +282,7 @@ members = [
   "src/lro",
   "src/pubsub",
   "src/pubsub/examples",
+  "src/pubsub/subscriber-bench",
   "src/spanner",
   "src/storage",
   "src/storage/benchmarks/random",

@@ -168,8 +168,9 @@ impl Session {
             if let Err(e) = self.read_from_stream().await? {
                 // Handle errors opening or reading from the stream.
                 match StreamRetryPolicy::on_midstream_error(e) {
-                    RetryResult::Continue(_) => {
+                    RetryResult::Continue(e) => {
                         // The stream failed with a transient error. Reset the stream.
+                        tracing::info!("STREAM RESET: {e:?}");
                         self.stream = None;
                         continue;
                     }
@@ -230,6 +231,25 @@ impl Session {
                 Err(e) => return Some(Err(to_gax_error(e))),
             }
         };
+
+        // TODO : Hack in sending of receipt modacks. I want to benchmark the performance...
+        let ack_ids: Vec<String> = resp.received_messages.iter().map(|m| m.ack_id.clone()).collect();
+        let inner = self.inner.clone();
+        let subscription = self.initial_req.subscription.clone();
+        let ack_deadline_seconds = self.initial_req.stream_ack_deadline_seconds;
+        tokio::spawn(async move {
+            use super::stub::Stub;
+            use crate::model::ModifyAckDeadlineRequest;
+            use super::retry_policy::at_least_once_options;
+            let req = ModifyAckDeadlineRequest::new()
+                .set_subscription(subscription)
+                .set_ack_ids(ack_ids)
+                .set_ack_deadline_seconds(ack_deadline_seconds);
+            let _ = inner
+                .modify_ack_deadline(req, at_least_once_options(1))
+                .await;
+        });
+
 
         for rm in resp.received_messages {
             let Some(message) = rm.message else {
