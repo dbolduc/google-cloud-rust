@@ -167,8 +167,9 @@ impl Session {
             if let Err(e) = self.read_from_stream().await? {
                 // Handle errors opening or reading from the stream.
                 match StreamRetryPolicy::on_midstream_error(e) {
-                    RetryResult::Continue(_) => {
+                    RetryResult::Continue(e) => {
                         // The stream failed with a transient error. Reset the stream.
+                        tracing::info!("STREAM RESET: {e:?}");
                         self.stream = None;
                         continue;
                     }
