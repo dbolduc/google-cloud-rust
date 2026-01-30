@@ -16,24 +16,25 @@ use google_cloud_pubsub::client::Subscriber;
 use tokio::time::{Duration, sleep};
 use tokio::task::JoinSet;
 
-fn trace_guard() -> tracing::dispatcher::DefaultGuard {
+fn enable_tracing() {
     use tracing_subscriber::fmt::format::FmtSpan;
-    let subscriber = tracing_subscriber::fmt()
+    use tracing_subscriber::util::SubscriberInitExt;
+    tracing_subscriber::fmt()
         .with_level(true)
         .with_thread_ids(true)
         .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-        .finish();
-
-    tracing::subscriber::set_default(subscriber)
+        .finish()
+        .init();
 }
 
-const NUM_STREAMS: usize = 48;
-const NUM_CHANNELS: usize = 48;
-const TEST_DURATION: Duration = Duration::from_secs(4 * 60 * 60);
+const NUM_STREAMS: usize = 16;
+const NUM_CHANNELS: usize = 8;
+const TEST_DURATION: Duration = Duration::from_secs(36 * 60 * 60);
+//const TEST_DURATION: Duration = Duration::from_secs(60);
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    let _guard = trace_guard();
+    enable_tracing();
 
     let client = Subscriber::builder()
             .with_grpc_subchannel_count(NUM_CHANNELS)
@@ -49,7 +50,7 @@ async fn main() -> anyhow::Result<()> {
         cancel_cloned.cancel();
     });
 
-    let mut tasks: JoinSet<(i32, google_cloud_pubsub::Result<()>)> = JoinSet::new();
+    let mut tasks: JoinSet<(u64, google_cloud_pubsub::Result<()>)> = JoinSet::new();
     for i in 0..NUM_STREAMS {
         let cancel = cancel.clone();
         let client = client.clone();
@@ -67,11 +68,11 @@ async fn main() -> anyhow::Result<()> {
                 v = session.next() => v,
                 _ = cancel.cancelled() => None,
             } {
-                let (m, h) = match r {
+                let (_m, h) = match r {
                     Ok((m, h)) => (m, h),
                     Err(e) => return (ack_count, Err(e)),
                 };
-                tracing::info!("Application received message={m:?}.");
+                //tracing::info!("Application received message={m:?}.");
                 h.ack();
                 ack_count += 1;
             }
@@ -84,10 +85,10 @@ async fn main() -> anyhow::Result<()> {
     let mut ack_count = 0;
     for t in tasks.join_all().await {
         ack_count += t.0;
-        println!("Final stream status={:?}", t.1);
+        tracing::info!("Final stream status={:?}", t.1);
     }
 
-    println!("Acked {ack_count} messages in {TEST_DURATION:?}, via {NUM_STREAMS} streams/clients.");
+    println!("Acked {ack_count} messages in {TEST_DURATION:?}, via {NUM_STREAMS} streams. Client had {NUM_CHANNELS} channels.");
 
     Ok(())
 }

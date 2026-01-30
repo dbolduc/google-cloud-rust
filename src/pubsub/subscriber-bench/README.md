@@ -11,5 +11,7 @@ check pantheon to see real metrics. :thinking-face:
 # Run
 
 ```sh
-RUSTFLAGS="-C target-cpu=native" cargo run --release -p subscriber-bench
+TS=$(date +%s); RUSTFLAGS="-C target-cpu=native" \
+  cargo run --release -p subscriber-bench \
+  >bm-${TS}.txt 2>bm-${TS}.log </dev/null &
 ```
