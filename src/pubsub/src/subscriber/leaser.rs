@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::retry_policy::{AtLeastOnceBackoffPolicy, AtLeastOnceRetryPolicy};
 use super::stub::Stub;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
 use gax::options::RequestOptions;
-use gax::retry_policy::NeverRetry;
 use std::sync::Arc;
 
 /// A trait representing leaser actions.
@@ -36,6 +36,7 @@ where
     T: Stub,
 {
     inner: Arc<T>,
+    options: RequestOptions,
     subscription: String,
     ack_deadline_seconds: i32,
 }
@@ -47,6 +48,7 @@ where
     fn clone(&self) -> Self {
         Self {
             inner: self.inner.clone(),
+            options: self.options.clone(),
             // TODO(#3975) - We can save some clones of the subscription if we
             // make the `Leaser` API functional.
             subscription: self.subscription.clone(),
@@ -62,15 +64,17 @@ where
     pub(super) fn new(inner: Arc<T>, subscription: String, ack_deadline_seconds: i32) -> Self {
         DefaultLeaser {
             inner,
+            options: at_least_once_options(),
             subscription,
             ack_deadline_seconds,
         }
     }
 }
 
-fn no_retry() -> RequestOptions {
+fn at_least_once_options() -> RequestOptions {
     let mut o = RequestOptions::default();
-    o.set_retry_policy(NeverRetry);
+    o.set_retry_policy(AtLeastOnceRetryPolicy);
+    o.set_backoff_policy(AtLeastOnceBackoffPolicy);
     o
 }
 
@@ -83,21 +87,27 @@ where
         let req = AcknowledgeRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids);
-        let _ = self.inner.acknowledge(req, no_retry()).await;
+        let _ = self.inner.acknowledge(req, self.options.clone()).await;
     }
     async fn nack(&self, ack_ids: Vec<String>) {
         let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids)
             .set_ack_deadline_seconds(0);
-        let _ = self.inner.modify_ack_deadline(req, no_retry()).await;
+        let _ = self
+            .inner
+            .modify_ack_deadline(req, self.options.clone())
+            .await;
     }
     async fn extend(&self, ack_ids: Vec<String>) {
         let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids)
             .set_ack_deadline_seconds(self.ack_deadline_seconds);
-        let _ = self.inner.modify_ack_deadline(req, no_retry()).await;
+        let _ = self
+            .inner
+            .modify_ack_deadline(req, self.options.clone())
+            .await;
     }
 }
 
@@ -171,8 +181,12 @@ pub(super) mod tests {
             );
             assert_eq!(r.ack_ids, test_ids(0..10));
             assert!(
-                format!("{o:?}").contains("NeverRetry"),
-                "Basic acks should not have a retry policy. o={o:?}"
+                format!("{o:?}").contains("AtLeastOnceRetryPolicy"),
+                "Basic acks should use the `AtLeastOnceRetryPolicy`. o={o:?}"
+            );
+            assert!(
+                format!("{o:?}").contains("AtLeastOnceBackoffPolicy"),
+                "Basic acks should use the `AtLeastOnceBackoffPolicy`. o={o:?}"
             );
             Ok(Response::from(()))
         });
@@ -198,8 +212,12 @@ pub(super) mod tests {
                 );
                 assert_eq!(r.ack_ids, test_ids(0..10));
                 assert!(
-                    format!("{o:?}").contains("NeverRetry"),
-                    "Basic modacks should not have a retry policy. o={o:?}"
+                    format!("{o:?}").contains("AtLeastOnceRetryPolicy"),
+                    "Basic modacks should use the `AtLeastOnceRetryPolicy`. o={o:?}"
+                );
+                assert!(
+                    format!("{o:?}").contains("AtLeastOnceBackoffPolicy"),
+                    "Basic modacks should use the `AtLeastOnceBackoffPolicy`. o={o:?}"
                 );
                 Ok(Response::from(()))
             });
@@ -225,8 +243,12 @@ pub(super) mod tests {
                 );
                 assert_eq!(r.ack_ids, test_ids(0..10));
                 assert!(
-                    format!("{o:?}").contains("NeverRetry"),
-                    "Basic acks should not have a retry policy. o={o:?}"
+                    format!("{o:?}").contains("AtLeastOnceRetryPolicy"),
+                    "Basic modacks should use the `AtLeastOnceRetryPolicy`. o={o:?}"
+                );
+                assert!(
+                    format!("{o:?}").contains("AtLeastOnceBackoffPolicy"),
+                    "Basic modacks should use the `AtLeastOnceBackoffPolicy`. o={o:?}"
                 );
                 Ok(Response::from(()))
             });
