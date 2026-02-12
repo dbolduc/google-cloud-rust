@@ -562,6 +562,7 @@ libraries:
       - googleapis
     specification_format: discovery
     rust:
+      detailed_tracing_attributes: true
       package_dependencies:
         - name: google-cloud-lro
           package: google-cloud-lro
@@ -987,6 +988,8 @@ libraries:
   - name: google-cloud-kms-v1
     version: 1.5.0
     copyright_year: "2025"
+    rust:
+      detailed_tracing_attributes: true
   - name: google-cloud-language-v2
     version: 1.5.0
     copyright_year: "2025"
