@@ -239,6 +239,7 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
         #[cfg(google_cloud_unstable_tracing)]
         let options =
             google_cloud_gax::options::internal::set_path_template(options, _path_template);
+            // Look here...
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

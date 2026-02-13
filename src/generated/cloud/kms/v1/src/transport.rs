@@ -102,6 +102,7 @@ impl super::stub::Autokey for Autokey {
         let options =
             google_cloud_gax::options::internal::set_path_template(options, _path_template);
         #[cfg(google_cloud_unstable_tracing)]
+        // Look here...
         let options = {
             let resource_name = Option::<&String>::None
                 .or(Some(&req.parent))
