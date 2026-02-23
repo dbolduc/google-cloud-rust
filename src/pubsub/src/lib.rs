@@ -67,6 +67,7 @@ pub mod subscriber;
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
+pub type SharedResult<T> = std::result::Result<T, std::sync::Arc<Error>>;
 // Define some shortcuts for imported crates.
 pub(crate) use google_cloud_gax::client_builder::ClientBuilder;
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;

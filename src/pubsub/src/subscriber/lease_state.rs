@@ -12,8 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::lease_loop::LeaseInfo; // TODO : move the class into this file.
 use super::leaser::Leaser;
+use crate::{Error, SharedResult};
 use std::collections::HashMap;
+use std::sync::Arc;
+use tokio::sync::oneshot::Sender;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::time::{Duration, Instant, Interval, interval_at};
 
@@ -49,16 +53,23 @@ impl Default for LeaseOptions {
     }
 }
 
+// TODO : Naming for this and LeaseInfo sucks.
+#[derive(Debug)]
+struct MessageInfo {
+    admit_time: Instant,
+    exactly_once: bool,
+}
+
 #[derive(Debug)]
 pub(super) struct LeaseState<L>
 where
     L: Leaser + Clone,
 {
     // A map of ack IDs to the time they were first received.
-    under_lease: HashMap<String, Instant>,
+    under_lease: HashMap<String, MessageInfo>,
     to_ack: Vec<String>,
     to_nack: Vec<String>,
-    // TODO(#3964) - support exactly once acks
+    to_confirmed_ack: HashMap<String, Sender<SharedResult<()>>>,
     leaser: L,
 
     // A timer for flushing acks/nacks
@@ -91,6 +102,7 @@ where
             under_lease: HashMap::new(),
             to_ack: Vec::new(),
             to_nack: Vec::new(),
+            to_confirmed_ack: HashMap::new(),
             leaser,
             flush_interval,
             extend_interval,
@@ -106,7 +118,10 @@ where
     /// hold one mutable reference to `LeaseState` within its `select!`
     /// statement.
     pub(super) async fn next_event(&mut self) -> LeaseEvent {
-        if self.to_ack.len() >= ACK_IDS_PER_RPC || self.to_nack.len() >= ACK_IDS_PER_RPC {
+        if self.to_ack.len() >= ACK_IDS_PER_RPC
+            || self.to_nack.len() >= ACK_IDS_PER_RPC
+            || self.to_confirmed_ack.len() >= ACK_IDS_PER_RPC
+        {
             // This is an OR because `Acknowledge` and `ModifyAckDeadline` are
             // separate RPCs, with separate limits.
             return LeaseEvent::Flush;
@@ -119,8 +134,14 @@ where
     }
 
     /// Accept a new ack ID under lease management
-    pub(super) fn add(&mut self, ack_id: String) {
-        self.under_lease.insert(ack_id, Instant::now());
+    pub(super) fn add(&mut self, lease_info: LeaseInfo) {
+        self.under_lease.insert(
+            lease_info.ack_id,
+            MessageInfo {
+                admit_time: Instant::now(),
+                exactly_once: lease_info.exactly_once,
+            },
+        );
     }
 
     /// Process an ack from the application
@@ -141,17 +162,59 @@ where
         }
     }
 
+    /// Process a confirmed ack from the application
+    pub(super) fn confirmed_ack(&mut self, ack_id: String, tx: Sender<SharedResult<()>>) {
+        self.under_lease.remove(&ack_id);
+        // Unconditionally add the ack ID to the next ack batch. It doesn't hurt
+        // to optimistically add it, even if its lease has expired.
+        self.to_confirmed_ack.insert(ack_id, tx);
+    }
+
     /// Flush pending acks/nacks
     pub(super) async fn flush(&mut self) {
         let to_ack = std::mem::take(&mut self.to_ack);
         let to_nack = std::mem::take(&mut self.to_nack);
+        let to_confirmed_ack = std::mem::take(&mut self.to_confirmed_ack);
 
         // TODO(#3975) - await these concurrently.
         if !to_ack.is_empty() {
+            // TODO : this should take options
             self.leaser.ack(to_ack).await;
         }
         if !to_nack.is_empty() {
             self.leaser.nack(to_nack).await;
+        }
+
+        // TODO : clean up.
+        // Exactly once acks.
+        let mut batch = Vec::new();
+        for (id, tx) in to_confirmed_ack {
+            batch.push((id, tx));
+            // TODO(#3975) - await these concurrently.
+            if batch.len() == ACK_IDS_PER_RPC {
+                let (ids, txs): (Vec<String>, Vec<Sender<SharedResult<()>>>) =
+                    std::mem::take(&mut batch).into_iter().unzip();
+                let result = self
+                    .leaser
+                    .confirmed_ack(ids)
+                    .await
+                    .map_err(|e| Arc::new(e));
+                for tx in txs {
+                    let _ = tx.send(result.clone());
+                }
+            }
+        }
+        if !batch.is_empty() {
+            let (ids, txs): (Vec<String>, Vec<Sender<SharedResult<()>>>) =
+                batch.into_iter().unzip();
+            let result = self
+                .leaser
+                .confirmed_ack(ids)
+                .await
+                .map_err(|e| Arc::new(e));
+            for tx in txs {
+                let _ = tx.send(result.clone());
+            }
         }
     }
 
@@ -162,13 +225,16 @@ where
         let now = Instant::now();
         let mut batches = Vec::new();
         let mut batch = Vec::new();
-        self.under_lease.retain(|ack_id, receive_time| {
+        self.under_lease.retain(|ack_id, info| {
             // Note that using `HashMap::retain` allows us to iterate over the
             // map and conditionally drop elements in one pass.
 
-            if *receive_time + self.max_lease_extension < now {
+            if info.admit_time + self.max_lease_extension < now {
                 // Drop messages that have been held for too long.
                 false
+            } else if info.exactly_once {
+                todo!("exactly once leasing.");
+                true
             } else {
                 // Extend leases for all other messages.
                 batch.push(ack_id.clone());
@@ -206,6 +272,7 @@ where
     }
 }
 
+#[cfg(test)]
 impl<L> PartialEq for LeaseState<L>
 where
     L: Leaser + Clone,
@@ -214,6 +281,8 @@ where
         self.under_lease == other.under_lease
             && self.to_ack == other.to_ack
             && self.to_nack == other.to_nack
+            // TODO : compare to_confirmed_ack ? Probably.
+            && self.to_confirmed_ack.keys() == other.to_confirmed_ack.keys()
     }
 }
 

@@ -18,12 +18,18 @@ use super::leaser::Leaser;
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender, unbounded_channel};
 use tokio::task::JoinHandle;
 
+pub(super) struct LeaseInfo {
+    pub(super) ack_id: String,
+    // TODO : could be Option<oneshot::Sender<Result<()>>>
+    pub(super) exactly_once: bool,
+}
+
 /// A convenience struct that groups the components of the lease loop.
 pub(super) struct LeaseLoop {
     /// A handle to the task running the lease loop.
     pub(super) handle: JoinHandle<()>,
     /// For sending messages from the stream to the lease loop.
-    pub(super) message_tx: UnboundedSender<String>,
+    pub(super) message_tx: UnboundedSender<LeaseInfo>,
     /// For sending acks/nacks from the application to the lease loop.
     pub(super) ack_tx: UnboundedSender<AckResult>,
 }
@@ -50,7 +56,7 @@ impl LeaseLoop {
                     message = message_rx.recv() => {
                         match message {
                             None => break shutdown(state, ack_rx).await,
-                            Some(ack_id) => state.add(ack_id),
+                            Some(lease_info) => state.add(lease_info),
                         }
                     },
                     ack_id = ack_rx.recv() => {
@@ -58,6 +64,7 @@ impl LeaseLoop {
                             None => break,
                             Some(AckResult::Ack(ack_id)) => state.ack(ack_id),
                             Some(AckResult::Nack(ack_id)) => state.nack(ack_id),
+                            Some(AckResult::ConfirmedAck(ack_id, tx)) => state.confirmed_ack(ack_id, tx),
                         }
                     },
                 }

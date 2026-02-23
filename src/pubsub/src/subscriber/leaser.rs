@@ -15,6 +15,7 @@
 use super::retry_policy::at_least_once_options;
 use super::stub::Stub;
 use crate::RequestOptions;
+use crate::Result;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
 use std::sync::Arc;
 
@@ -29,6 +30,9 @@ pub(super) trait Leaser {
     async fn nack(&self, ack_ids: Vec<String>);
     /// Extend lease deadlines for a batch of messages.
     async fn extend(&self, ack_ids: Vec<String>);
+
+    /// Acknowledge a batch of messages with exactly-once semantics.
+    async fn confirmed_ack(&self, ack_ids: Vec<String>) -> Result<()>;
 }
 
 pub(super) struct DefaultLeaser<T>
@@ -106,6 +110,17 @@ where
             .inner
             .modify_ack_deadline(req, self.options.clone())
             .await;
+    }
+
+    async fn confirmed_ack(&self, ack_ids: Vec<String>) -> Result<()> {
+        let req = AcknowledgeRequest::new()
+            .set_subscription(self.subscription.clone())
+            .set_ack_ids(ack_ids);
+        self.inner
+            .acknowledge(req, self.options.clone())
+            .await
+            // TODO : exactly once retries. We need the full response for this.
+            .map(|_| ())
     }
 }
 

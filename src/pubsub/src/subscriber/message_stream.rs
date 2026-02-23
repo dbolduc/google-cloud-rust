@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use super::builder::StreamingPull;
-use super::handler::{AckResult, AtLeastOnce, Handler};
-use super::lease_loop::LeaseLoop;
+use super::handler::{AckResult, AtLeastOnce, ExactlyOnce, Handler};
+use super::lease_loop::{LeaseInfo, LeaseLoop};
 use super::lease_state::LeaseOptions;
 use super::leaser::DefaultLeaser;
 use super::retry_policy::StreamRetryPolicy;
@@ -77,7 +77,7 @@ pub struct MessageStream {
 
     /// A sender for sending new messages from the stream into the lease
     /// management task.
-    message_tx: UnboundedSender<String>,
+    message_tx: UnboundedSender<LeaseInfo>,
 
     /// A sender for forwarding acks/nacks from the application to the lease
     /// management task. Each `Handler` holds a clone of this.
@@ -231,6 +231,10 @@ impl MessageStream {
             }
         };
 
+        let exactly_once = resp
+            .subscription_properties
+            .is_some_and(|m| m.exactly_once_delivery_enabled);
+
         for rm in resp.received_messages {
             let Some(message) = rm.message else {
                 // The message field should always be present. If not, the proto
@@ -241,15 +245,22 @@ impl MessageStream {
                 // message.
                 continue;
             };
-            let _ = self.message_tx.send(rm.ack_id.clone());
+            let info = LeaseInfo {
+                ack_id: rm.ack_id.clone(),
+                exactly_once,
+            };
+            let _ = self.message_tx.send(info);
             let message = match message.cnv().map_err(Error::deser) {
                 Ok(message) => message,
                 Err(e) => return Some(Err(e)),
             };
-            self.pool.push_back((
-                message,
-                Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id, self.ack_tx.clone())),
-            ));
+            // TODO : nit: could be a standalone function given that the arguments are the same.
+            let handler = if exactly_once {
+                Handler::ExactlyOnce(ExactlyOnce::new(rm.ack_id, self.ack_tx.clone()))
+            } else {
+                Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id, self.ack_tx.clone()))
+            };
+            self.pool.push_back((message, handler));
         }
         Some(Ok(()))
     }
