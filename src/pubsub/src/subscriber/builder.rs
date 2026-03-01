@@ -15,6 +15,7 @@
 use super::MessageStream;
 use super::transport::Transport;
 use std::sync::Arc;
+use tokio::task::JoinHandle;
 
 const MIB: i64 = 1024 * 1024;
 
@@ -68,6 +69,11 @@ impl StreamingPull {
     /// # Ok(()) }
     /// ```
     pub fn build(self) -> MessageStream {
+        let (stream, _handle) = self.build_with_handle();
+        stream
+    }
+
+    fn build_with_handle(self) -> (MessageStream, JoinHandle<()>) {
         MessageStream::new(self)
     }
 

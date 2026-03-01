@@ -30,7 +30,16 @@ use google_cloud_gax::retry_result::RetryResult;
 use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
+use tokio::task::JoinHandle;
 use tokio::time::Instant;
+
+#[derive(Debug)]
+enum StreamState {
+    Unstarted,
+    Active(Stream<Transport>),
+    Failed,
+    // TODO : Shutdown?
+}
 
 /// Represents an open subscribe stream.
 ///
@@ -67,7 +76,7 @@ pub struct MessageStream {
     /// of `MessageStream` is blocked on the first message being available.
     ///
     /// [^1]: <https://github.com/hyperium/tonic/issues/515>
-    stream: Option<Stream<Transport>>,
+    stream: StreamState,
 
     /// Applications ask for messages one at a time. Individual stream responses
     /// can contain multiple messages. We use `pool` to hold the extra messages
@@ -83,17 +92,10 @@ pub struct MessageStream {
     /// A sender for forwarding acks/nacks from the application to the lease
     /// management task. Each `Handler` holds a clone of this.
     ack_tx: UnboundedSender<Action>,
-
-    /// A handle on the lease loop task.
-    ///
-    /// We hold onto this handle so we can await pending lease operations. While awaiting pending
-    /// lease operations is useful for setting expectations in our unit tests, it is not that
-    /// helpful to applications in practice.
-    _lease_loop: tokio::task::JoinHandle<()>,
 }
 
 impl MessageStream {
-    pub(super) fn new(builder: StreamingPull) -> Self {
+    pub(super) fn new(builder: StreamingPull) -> (Self, JoinHandle<()>) {
         let inner = builder.inner;
         let subscription = builder.subscription;
 
@@ -106,7 +108,7 @@ impl MessageStream {
             builder.grpc_subchannel_count,
         );
         let LeaseLoop {
-            handle: _lease_loop,
+            handle: lease_loop,
             message_tx,
             ack_tx,
         } = LeaseLoop::new(leaser, LeaseOptions::default());
@@ -123,15 +125,17 @@ impl MessageStream {
             ..Default::default()
         };
 
-        Self {
-            inner,
-            initial_req,
-            stream: None,
-            pool: VecDeque::new(),
-            message_tx,
-            ack_tx,
-            _lease_loop,
-        }
+        (
+            Self {
+                inner,
+                initial_req,
+                stream: StreamState::Unstarted,
+                pool: VecDeque::new(),
+                message_tx,
+                ack_tx,
+            },
+            lease_loop,
+        )
     }
 
     /// Returns the next message received on this subscription.
@@ -173,11 +177,12 @@ impl MessageStream {
                 match StreamRetryPolicy::on_midstream_error(e) {
                     RetryResult::Continue(_) => {
                         // The stream failed with a transient error. Reset the stream.
-                        self.stream = None;
+                        self.stream = StreamState::Unstarted;
                         continue;
                     }
                     RetryResult::Permanent(e) | RetryResult::Exhausted(e) => {
                         // The stream failed with a permanent error. Return the error.
+                        self.stream = StreamState::Failed;
                         return Some(Err(e));
                     }
                 }
@@ -203,16 +208,21 @@ impl MessageStream {
     /// Returns a mutable reference to the underlying stream.
     ///
     /// If a stream is not yet open, this method opens the stream.
-    async fn mut_stream(&mut self) -> Result<&mut Stream<Transport>> {
-        if self.stream.is_none() {
+    async fn mut_stream(&mut self) -> Option<Result<&mut Stream<Transport>>> {
+        if let StreamState::Unstarted = self.stream {
             let stream =
-                Stream::<Transport>::new(self.inner.clone(), self.initial_req.clone()).await?;
-            self.stream = Some(stream);
+                Stream::<Transport>::new(self.inner.clone(), self.initial_req.clone()).await;
+            match stream {
+                Ok(s) => self.stream = StreamState::Active(s),
+                Err(e) => return Some(Err(e)),
+            }
         }
-        Ok(self
-            .stream
-            .as_mut()
-            .expect("`self.stream.is_some()` must be true"))
+
+        match &mut self.stream {
+            StreamState::Unstarted => unreachable!("we must transition to Active, or return an error above."),
+            StreamState::Active(s) => Some(Ok(s)),
+            StreamState::Failed => None,
+        }
     }
 
     /// Reads the next response from the stream.
@@ -223,7 +233,7 @@ impl MessageStream {
     /// If we receive an error reading from the stream, we return it.
     async fn read_from_stream(&mut self) -> Option<Result<()>> {
         let resp = {
-            let stream = match self.mut_stream().await {
+            let stream = match self.mut_stream().await? {
                 Ok(s) => s,
                 Err(e) => return Some(Err(e)),
             };
@@ -292,7 +302,6 @@ mod tests {
     use pubsub_grpc_mock::google::pubsub::v1;
     use pubsub_grpc_mock::{MockSubscriber, start};
     use tokio::sync::mpsc::{channel, unbounded_channel};
-    use tokio::task::JoinHandle;
     use tokio::time::{Duration, Instant};
 
     fn sorted(mut v: Vec<String>) -> Vec<String> {
