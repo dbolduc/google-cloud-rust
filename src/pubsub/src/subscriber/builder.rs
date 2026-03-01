@@ -13,6 +13,8 @@
 // limitations under the License.
 
 use super::MessageStream;
+use super::ShutdownBehavior;
+use super::StreamHandle;
 use super::transport::Transport;
 use std::sync::Arc;
 
@@ -29,6 +31,7 @@ pub struct StreamingPull {
     pub(super) ack_deadline_seconds: i32,
     pub(super) max_outstanding_messages: i64,
     pub(super) max_outstanding_bytes: i64,
+    pub(super) shutdown_behavior: ShutdownBehavior,
 }
 
 impl StreamingPull {
@@ -46,6 +49,7 @@ impl StreamingPull {
             ack_deadline_seconds: 10,
             max_outstanding_messages: 1000,
             max_outstanding_bytes: 100 * MIB,
+            shutdown_behavior: ShutdownBehavior::WaitOnAllMessages,
         }
     }
 
@@ -67,8 +71,24 @@ impl StreamingPull {
     /// }
     /// # Ok(()) }
     /// ```
-    pub fn build(self) -> MessageStream {
-        MessageStream::new(self)
+    pub fn build(self) -> (MessageStream, StreamHandle) {
+        todo!("write me.")
+        //MessageStream::new(self)
+    }
+
+    /// Creates N new streams to receive messages from the subscription.
+    ///
+    /// Note that the underlying connection with the server is lazy-initialized.
+    /// It is not established until `MessageStream::next()` is called, for each
+    /// stream.
+    ///
+    /// # Example
+    /// ```
+    /// todo!("write me.")
+    /// ```
+    pub fn build_many(self, count: usize) -> (Vec<MessageStream>, StreamHandle) {
+        todo!("write me.")
+        //MessageStream::new(self)
     }
 
     /// Sets the ack deadline to use for the stream.
@@ -154,6 +174,23 @@ impl StreamingPull {
     /// ```
     pub fn set_max_outstanding_bytes<T: Into<i64>>(mut self, v: T) -> Self {
         self.max_outstanding_bytes = v.into();
+        self
+    }
+
+    /// Sets the shutdown behavior for the stream.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Subscriber;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let client = Subscriber::builder().build().await?;
+    /// let stream = client.stream("projects/my-project/subscriptions/my-subscription")
+    ///     .set_shutdown_behavior(20)
+    ///     .build();
+    /// # Ok(()) }
+    /// ```
+    pub fn set_shutdown_behavior(mut self, v: ShutdownBehavior) -> Self {
+        self.shutdown_behavior = v;
         self
     }
 }

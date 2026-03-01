@@ -12,9 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// TODO : Darren - rename to message_handle / MessageHandle ?
 pub mod handler;
 
 pub use message_stream::MessageStream;
+pub use options::ShutdownBehavior;
+pub use stream_handle::StreamHandle;
+
 /// Request and client builders for the [Subscriber][crate::client::Subscriber] client.
 pub mod builder;
 /// Clients to receive messages.
@@ -26,7 +30,9 @@ mod lease_loop;
 mod lease_state;
 mod leaser;
 mod message_stream;
+mod options;
 mod retry_policy;
 mod stream;
+mod stream_handle;
 mod stub;
 mod transport;
