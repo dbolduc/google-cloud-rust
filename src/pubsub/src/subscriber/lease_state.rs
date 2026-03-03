@@ -15,11 +15,12 @@
 mod at_least_once;
 mod exactly_once;
 
-use super::handler::Action;
-use super::leaser::Leaser;
-// Use a `tokio::time::Instant` to facilitate time-based unit testing.
+use super::handler::{AckResult, Action};
+use super::leaser::{ConfirmedAcks, Leaser};
 use at_least_once::Leases;
 use exactly_once::Leases as EoLeases;
+// Use a `tokio::time::Instant` to facilitate time-based unit testing.
+use tokio::sync::oneshot::Sender;
 use tokio::time::{Duration, Instant, Interval, interval_at};
 
 // An ack ID is less than 200 bytes. The limit for a request is 512kB. It should
@@ -62,7 +63,32 @@ pub(super) struct NewMessage {
 #[derive(Debug)]
 pub(super) enum LeaseInfo {
     AtLeastOnce(Instant),
-    // TODO(#3964) - support exactly once delivery
+    ExactlyOnce(ExactlyOnceInfo),
+}
+
+#[derive(Debug)]
+pub(super) struct ExactlyOnceInfo {
+    receive_time: Instant,
+    result_tx: Sender<AckResult>,
+    // If true, we are currently trying to ack this message.
+    //
+    // We need to continue to extend these leases because the exactly-once
+    // confirmed ack retry loop can take arbitrarily long.
+    //
+    // The client will not expire leases in this state. The server will
+    // report if a lease has expired. We do not want to mask a success with
+    // a `LeaseExpired` error.
+    pending: bool,
+}
+
+impl ExactlyOnceInfo {
+    pub(super) fn new(result_tx: Sender<AckResult>) -> Self {
+        ExactlyOnceInfo {
+            receive_time: Instant::now(),
+            result_tx,
+            pending: false,
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -123,7 +149,7 @@ where
     /// hold one mutable reference to `LeaseState` within its `select!`
     /// statement.
     pub(super) async fn next_event(&mut self) -> LeaseEvent {
-        if self.leases.needs_flush() {
+        if self.leases.needs_flush() || self.eo_leases.needs_flush() {
             return LeaseEvent::Flush;
         }
 
@@ -138,6 +164,9 @@ where
         match info {
             LeaseInfo::AtLeastOnce(i) => {
                 self.leases.add(ack_id, i);
+            }
+            LeaseInfo::ExactlyOnce(i) => {
+                self.eo_leases.add(ack_id, i);
             }
         }
     }
@@ -157,18 +186,32 @@ where
         match action {
             Action::Ack(ack_id) => self.leases.ack(ack_id),
             Action::Nack(ack_id) => self.leases.nack(ack_id),
-            // TODO(#3964) - process exactly-once acks/nacks in the lease state
-            _ => unreachable!("we do not return exactly-once handlers yet."),
+            Action::ExactlyOnceAck(ack_id) => self.eo_leases.ack(ack_id),
+            Action::ExactlyOnceNack(ack_id) => self.eo_leases.nack(ack_id),
+        }
+    }
+
+    /// Process ack results from the server.
+    pub(super) fn confirm(&mut self, results: ConfirmedAcks) {
+        for (ack_id, result) in results {
+            self.eo_leases.confirm(ack_id, result);
         }
     }
 
     /// Flush pending acks/nacks
     pub(super) async fn flush(&mut self) {
-        let (to_ack, to_nack) = self.leases.flush();
-
         // TODO(#3975) - await these concurrently.
+        let (to_ack, to_nack) = self.leases.flush();
         if !to_ack.is_empty() {
             self.leaser.ack(to_ack).await;
+        }
+        if !to_nack.is_empty() {
+            self.leaser.nack(to_nack).await;
+        }
+
+        let (to_ack, to_nack) = self.eo_leases.flush();
+        if !to_ack.is_empty() {
+            self.leaser.confirmed_ack(to_ack).await;
         }
         if !to_nack.is_empty() {
             self.leaser.nack(to_nack).await;
@@ -179,9 +222,15 @@ where
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
     pub(super) async fn extend(&mut self) {
+        // TODO(#3975) - send RPCs concurrently
         let batches = self.leases.retain(self.max_lease_extension);
         for ack_ids in batches {
-            // TODO(#3975) - send RPCs concurrently
+            self.leaser.extend(ack_ids).await;
+        }
+
+        let batches = self.eo_leases.retain(self.max_lease_extension);
+        for ack_ids in batches {
+            // TODO(#4804) - exactly-once lease extensions
             self.leaser.extend(ack_ids).await;
         }
     }
@@ -190,17 +239,26 @@ where
     ///
     /// This flushes all pending acks and nacks all other messages.
     pub(super) async fn shutdown(mut self) {
-        // TODO(#4869) - support `WaitForProcessing` shutdown behavior.
-        self.leases.evict();
-
         // TODO(#3975) - await these concurrently.
+        // TODO(#4869) - support `WaitForProcessing` shutdown behavior.
+
+        self.leases.evict();
         let (to_ack, to_nack) = self.leases.flush();
         if !to_ack.is_empty() {
             self.leaser.ack(to_ack).await;
         }
-
-        // TODO(#4847) - this nack needs to be broken into batches.
         if !to_nack.is_empty() {
+            // TODO(#4847) - this nack needs to be broken into batches.
+            self.leaser.nack(to_nack).await;
+        }
+
+        self.eo_leases.evict();
+        let (to_ack, to_nack) = self.eo_leases.flush();
+        if !to_ack.is_empty() {
+            self.leaser.confirmed_ack(to_ack).await;
+        }
+        if !to_nack.is_empty() {
+            // TODO(#4847) - this nack needs to be broken into batches.
             self.leaser.nack(to_nack).await;
         }
     }

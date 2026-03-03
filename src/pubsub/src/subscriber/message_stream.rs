@@ -13,9 +13,9 @@
 // limitations under the License.
 
 use super::builder::StreamingPull;
-use super::handler::{Action, AtLeastOnce, Handler};
+use super::handler::{Action, AtLeastOnce, ExactlyOnce, Handler};
 use super::lease_loop::LeaseLoop;
-use super::lease_state::{LeaseInfo, LeaseOptions, NewMessage};
+use super::lease_state::{ExactlyOnceInfo, LeaseInfo, LeaseOptions, NewMessage};
 use super::leaser::DefaultLeaser;
 use super::retry_policy::StreamRetryPolicy;
 use super::stream::Stream;
@@ -108,7 +108,7 @@ impl MessageStream {
         let inner = builder.inner;
         let subscription = builder.subscription;
 
-        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
+        let (confirmed_tx, confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             inner.clone(),
             confirmed_tx,
@@ -120,7 +120,7 @@ impl MessageStream {
             handle: _lease_loop,
             message_tx,
             ack_tx,
-        } = LeaseLoop::new(leaser, LeaseOptions::default());
+        } = LeaseLoop::new(leaser, confirmed_rx, LeaseOptions::default());
 
         let initial_req = StreamingPullRequest {
             subscription,
@@ -260,6 +260,10 @@ impl MessageStream {
             Err(e) => return Some(Err(e)),
         };
 
+        let exactly_once = resp
+            .subscription_properties
+            .is_some_and(|m| m.exactly_once_delivery_enabled);
+
         // Process the received messages in the response.
         for rm in resp.received_messages {
             let Some(message) = rm.message else {
@@ -271,19 +275,32 @@ impl MessageStream {
                 // message.
                 continue;
             };
-            let lease_info = LeaseInfo::AtLeastOnce(Instant::now());
+
+            let (lease_info, handler) = if exactly_once {
+                let (result_tx, result_rx) = tokio::sync::oneshot::channel();
+                (
+                    LeaseInfo::ExactlyOnce(ExactlyOnceInfo::new(result_tx)),
+                    Handler::ExactlyOnce(ExactlyOnce::new(
+                        rm.ack_id.clone(),
+                        self.ack_tx.clone(),
+                        result_rx,
+                    )),
+                )
+            } else {
+                (
+                    LeaseInfo::AtLeastOnce(Instant::now()),
+                    Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id.clone(), self.ack_tx.clone())),
+                )
+            };
             let _ = self.message_tx.send(NewMessage {
-                ack_id: rm.ack_id.clone(),
+                ack_id: rm.ack_id,
                 lease_info,
             });
             let message = match message.cnv().map_err(Error::deser) {
                 Ok(message) => message,
                 Err(e) => return Some(Err(e)),
             };
-            self.pool.push_back((
-                message,
-                Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id, self.ack_tx.clone())),
-            ));
+            self.pool.push_back((message, handler));
         }
         Some(Ok(()))
     }
