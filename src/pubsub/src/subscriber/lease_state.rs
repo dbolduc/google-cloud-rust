@@ -13,11 +13,13 @@
 // limitations under the License.
 
 mod at_least_once;
+mod exactly_once;
 
 use super::handler::Action;
 use super::leaser::Leaser;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use at_least_once::Leases;
+use exactly_once::Leases as EoLeases;
 use tokio::time::{Duration, Instant, Interval, interval_at};
 
 // An ack ID is less than 200 bytes. The limit for a request is 512kB. It should
@@ -70,7 +72,8 @@ where
 {
     // Ack IDs with at-least-once semantics under lease management.
     leases: Leases,
-    // TODO(#3964) - support exactly once acks
+    // Ack IDs with exactly-once semantics under lease management.
+    eo_leases: EoLeases,
 
     // The leaser, which performs lease operations - (acks, nacks, lease
     // extensions).
@@ -104,6 +107,7 @@ where
             interval_at(Instant::now() + options.extend_start, options.extend_period);
         Self {
             leases: Leases::default(),
+            eo_leases: EoLeases::default(),
             leaser,
             flush_interval,
             extend_interval,
