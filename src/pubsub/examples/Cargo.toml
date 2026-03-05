@@ -29,6 +29,7 @@ chrono                     = { workspace = true, features = ["now"] }
 futures.workspace          = true
 google-cloud-pubsub        = { workspace = true, features = ["default", "unstable-stream"] }
 google-cloud-gax.workspace = true
+google-cloud-test-utils.workspace = true
 google-cloud-wkt.workspace = true
 rand.workspace             = true
 tokio.workspace            = true
@@ -38,3 +39,5 @@ tracing.workspace          = true
 [features]
 run-integration-tests     = []
 skipped-integration-tests = []
+# Enable additional logging in the integration tests.
+log-integration-tests = ["google-cloud-test-utils/log-integration-tests"]

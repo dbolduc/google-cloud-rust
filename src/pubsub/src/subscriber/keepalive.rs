@@ -27,8 +27,6 @@ pub(super) const KEEPALIVE_PERIOD: Duration = Duration::from_secs(30);
 ///
 /// Callers may signal a graceful shutdown of this task by cancelling the
 /// `CancellationToken` and `await`ing the returned handle.
-///
-/// Callers can also just drop the returned handle to shutdown.
 pub(super) fn spawn(
     request_tx: Sender<StreamingPullRequest>,
     shutdown: CancellationToken,

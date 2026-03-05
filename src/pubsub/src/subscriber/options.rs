@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// TODO : we probably want separate fns on the StreamHandle.
 /// The behavior on shutdown.
 ///
 /// # Example
@@ -19,8 +20,18 @@
 /// todo!("write me.");
 /// ```
 ///
-/// The default behavior is ______.
+/// The default behavior is WaitForProcessing.
+#[derive(Clone, Copy, Debug)]
 pub enum ShutdownBehavior {
+    /// The subscriber will continue to accept acks for messages it has
+    /// delivered to the application. The subscriber will continue to extend
+    /// leases for these messages while it waits.
+    ///
+    /// The shutdown is complete when all message handles delivered to the
+    /// application have been used, and all pending ack/nack RPCs have
+    /// completed.
+    WaitForProcessing,
+
     /// The subscriber flushes all pending acks from the application. No further
     /// acks are accepted. The lease loop is closed.
     ///
@@ -29,28 +40,4 @@ pub enum ShutdownBehavior {
     ///
     /// The shutdown is complete when all pending ack/nack RPCs have completed.
     NackImmediately,
-
-    /// The subscriber will continue to accept acks, for messages it has
-    /// delivered to the application. The subscriber will continue to extend
-    /// leases for these messages while it waits.
-    ///
-    /// The subscriber may know about messages that have not been served to the
-    /// application yet. These messages are immediately nacked.
-    ///
-    /// The shutdown is complete when all message handles delivered to the
-    /// application have been used, and all pending ack/nack RPCs have
-    /// completed.
-    WaitOnDeliveredMessages,
-
-    /// The subscriber will continue to accept acks, for messages it has
-    /// delivered to the application. The subscriber will continue to extend
-    /// leases for these messages while it waits.
-    ///
-    /// The subscriber may know about messages that have not been served to the
-    /// application yet. These messages will be yielded on the stream, if the
-    /// application continues to call `stream.next()`.
-    ///
-    /// The shutdown is complete when all message handles have been used, and
-    /// all pending ack/nack RPCs have completed.
-    WaitOnAllMessages,
 }

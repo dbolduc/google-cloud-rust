@@ -31,6 +31,7 @@ use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
 use tokio::time::Instant;
+use tokio_util::sync::CancellationToken;
 
 /// Represents an open subscribe stream.
 ///
@@ -67,7 +68,7 @@ pub struct MessageStream {
     /// of `MessageStream` is blocked on the first message being available.
     ///
     /// [^1]: <https://github.com/hyperium/tonic/issues/515>
-    stream: Option<StreamState>,
+    stream: StreamState,
 
     /// Applications ask for messages one at a time. Individual stream responses
     /// can contain multiple messages. We use `pool` to hold the extra messages
@@ -76,20 +77,19 @@ pub struct MessageStream {
     /// A FIFO queue is necessary to preserve ordering.
     pool: VecDeque<(Message, Handler)>,
 
+    /// A token that can detect a shutdown from the application.
+    shutdown: CancellationToken,
+}
+
+#[derive(Clone, Debug)]
+pub(super) struct Senders {
     /// A sender for sending new messages from the stream into the lease
     /// management task.
-    message_tx: UnboundedSender<NewMessage>,
+    pub(super) message_tx: UnboundedSender<NewMessage>,
 
     /// A sender for forwarding acks/nacks from the application to the lease
     /// management task. Each `Handler` holds a clone of this.
-    ack_tx: UnboundedSender<Action>,
-
-    /// A handle on the lease loop task.
-    ///
-    /// We hold onto this handle so we can await pending lease operations. While awaiting pending
-    /// lease operations is useful for setting expectations in our unit tests, it is not that
-    /// helpful to applications in practice.
-    _lease_loop: tokio::task::JoinHandle<()>,
+    pub(super) ack_tx: UnboundedSender<Action>,
 }
 
 // We would rather always allocate enough space to hold the stream on the stack
@@ -97,33 +97,40 @@ pub struct MessageStream {
 #[allow(clippy::large_enum_variant)]
 #[derive(Debug)]
 enum StreamState {
+    /// The stream is closed now, but should be (re)opened.
+    Inactive(Senders),
     /// The stream failed with a permanent error. It should not be re-opened.
-    Failed,
+    PermanentlyClosed,
     /// The stream is active.
-    Active(Stream<Transport>),
+    Active {
+        stream: Stream<Transport>,
+        senders: Senders,
+    },
+}
+
+impl StreamState {
+    // Reset the stream to an inactive state.
+    fn reset(&mut self) {
+        // Annoyingly, we cannot mutate the type in place. So we throw in a
+        // temporary value. This at least saves a clone of the senders.
+        let current = std::mem::replace(self, StreamState::PermanentlyClosed);
+
+        *self = match current {
+            StreamState::PermanentlyClosed => StreamState::PermanentlyClosed,
+            StreamState::Inactive(senders) => StreamState::Inactive(senders),
+            StreamState::Active { senders, .. } => StreamState::Inactive(senders),
+        };
+    }
 }
 
 impl MessageStream {
-    pub(super) fn new(builder: StreamingPull) -> Self {
-        let inner = builder.inner;
-        let subscription = builder.subscription;
-
-        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
-        let leaser = DefaultLeaser::new(
-            inner.clone(),
-            confirmed_tx,
-            subscription.clone(),
-            builder.ack_deadline_seconds,
-            builder.grpc_subchannel_count,
-        );
-        let LeaseLoop {
-            handle: _lease_loop,
-            message_tx,
-            ack_tx,
-        } = LeaseLoop::new(leaser, LeaseOptions::default());
-
+    pub(super) fn new(
+        builder: StreamingPull,
+        shutdown: CancellationToken,
+        senders: Senders,
+    ) -> Self {
         let initial_req = StreamingPullRequest {
-            subscription,
+            subscription: builder.subscription,
             stream_ack_deadline_seconds: builder.ack_deadline_seconds,
             max_outstanding_messages: builder.max_outstanding_messages,
             max_outstanding_bytes: builder.max_outstanding_bytes,
@@ -135,13 +142,11 @@ impl MessageStream {
         };
 
         Self {
-            inner,
+            inner: builder.inner,
             initial_req,
-            stream: None,
+            stream: StreamState::Inactive(senders),
             pool: VecDeque::new(),
-            message_tx,
-            ack_tx,
-            _lease_loop,
+            shutdown,
         }
     }
 
@@ -167,6 +172,21 @@ impl MessageStream {
     /// # Ok(()) }
     /// ```
     pub async fn next(&mut self) -> Option<Result<(Message, Handler)>> {
+        let shutdown = self.shutdown.clone();
+        let next = tokio::select! {
+            _ = shutdown.cancelled() => None,
+            next = self.next_impl() => next,
+        };
+        if next.is_none() {
+            // Permanently close the stream, and drop messages that we haven't
+            // delivered to the application yet.
+            self.stream = StreamState::PermanentlyClosed;
+            self.pool.clear();
+        }
+        next
+    }
+
+    async fn next_impl(&mut self) -> Option<Result<(Message, Handler)>> {
         loop {
             // Serve a message if we have one ready.
             if let Some(item) = self.pool.pop_front() {
@@ -184,12 +204,12 @@ impl MessageStream {
                 match StreamRetryPolicy::on_midstream_error(e) {
                     RetryResult::Continue(_) => {
                         // The stream failed with a transient error. Reset the stream.
-                        self.stream = None;
+                        self.stream.reset();
                         continue;
                     }
                     RetryResult::Permanent(e) | RetryResult::Exhausted(e) => {
                         // The stream failed with a permanent error. Return the error.
-                        self.stream = Some(StreamState::Failed);
+                        self.stream = StreamState::PermanentlyClosed;
                         return Some(Err(e));
                     }
                 }
@@ -212,36 +232,48 @@ impl MessageStream {
         }))
     }
 
-    /// Make a new attempt to open the underlying gRPC stream.
-    async fn open_stream(&mut self) -> Result<()> {
-        let stream = Stream::<Transport>::new(self.inner.clone(), self.initial_req.clone()).await?;
-        self.stream = Some(StreamState::Active(stream));
-        Ok(())
-    }
-
     /// Reads the next response from the stream.
     ///
     /// If necessary, this method will open a new stream.
     ///
     /// If we receive an error either opening or reading from the stream, we
     /// return it.
-    async fn next_response(&mut self) -> Option<Result<StreamingPullResponse>> {
-        if self.stream.is_none() {
+    async fn next_response(&mut self) -> Option<Result<(StreamingPullResponse, Senders)>> {
+        if let StreamState::Inactive(senders) = &self.stream {
             // Open the stream, if necessary.
-            if let Err(e) = self.open_stream().await {
-                return Some(Err(e));
+            let r = Stream::<Transport>::new(
+                self.inner.clone(),
+                self.initial_req.clone(),
+                self.shutdown.clone(),
+            )
+            .await;
+            match r {
+                Ok(stream) => {
+                    self.stream = StreamState::Active {
+                        stream,
+                        senders: senders.clone(),
+                    };
+                }
+                Err(e) => {
+                    self.stream = StreamState::Inactive(senders.clone());
+                    return Some(Err(e));
+                }
             }
         }
 
-        let stream = match self.stream.as_mut()? {
-            StreamState::Failed => return None,
-            StreamState::Active(s) => s,
+        let (stream, senders) = match &mut self.stream {
+            StreamState::Inactive(_) => {
+                unreachable!("we must return an error, or transition to Active")
+            }
+            StreamState::PermanentlyClosed => return None,
+            StreamState::Active { stream, senders } => (stream, senders.clone()),
         };
         stream
             .next_message()
             .await
             .map_err(to_gax_error)
             .transpose()
+            .map(|o| o.map(|r| (r, senders)))
     }
 
     /// Populate the message pool by reading from the stream.
@@ -255,8 +287,8 @@ impl MessageStream {
     /// If we receive an error reading from the stream, we return it.
     async fn populate_pool(&mut self) -> Option<Result<()>> {
         // Read the next response from the stream.
-        let resp = match self.next_response().await? {
-            Ok(resp) => resp,
+        let (resp, senders) = match self.next_response().await? {
+            Ok(r) => r,
             Err(e) => return Some(Err(e)),
         };
 
@@ -272,7 +304,7 @@ impl MessageStream {
                 continue;
             };
             let lease_info = LeaseInfo::AtLeastOnce(Instant::now());
-            let _ = self.message_tx.send(NewMessage {
+            let _ = senders.message_tx.send(NewMessage {
                 ack_id: rm.ack_id.clone(),
                 lease_info,
             });
@@ -282,7 +314,7 @@ impl MessageStream {
             };
             self.pool.push_back((
                 message,
-                Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id, self.ack_tx.clone())),
+                Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id, senders.ack_tx.clone())),
             ));
         }
         Some(Ok(()))

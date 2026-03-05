@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use futures::StreamExt as _;
 use futures::TryStreamExt as _;
 use google_cloud_pubsub::client::Subscriber;
 use std::time::Duration;
@@ -20,25 +19,27 @@ use std::time::Duration;
 pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<()> {
     let subscription_name = format!("projects/{project_id}/subscriptions/{subscription_id}");
     let client = Subscriber::builder().build().await?;
-
-    let session = client.stream(subscription_name).build();
-
-    println!("listening for messages using streams...");
+    let (stream, handle) = client.stream(subscription_name).build();
 
     // Terminate the example after 10 seconds. Applications typically process
     // messages indefinitely in a long-running loop.
-    let deadline = tokio::time::sleep(Duration::from_secs(10));
-    session
+    let shutdown = tokio::spawn(async move {
+        tokio::time::sleep(Duration::from_secs(10)).await;
+        handle.shutdown().await;
+    });
+
+    println!("receiving messages...");
+    stream
         .into_stream()
-        .take_until(deadline)
-        .try_for_each(|(message, handler)| {
-            println!("received message: {message:?}");
-            handler.ack();
-            async { Ok(()) }
+        .try_for_each(|(m, h)| {
+            println!("received message: {m:?}");
+            h.ack();
+            futures::future::ready(Ok(()))
         })
         .await?;
 
-    println!("done listening for messages");
+    shutdown.await?;
+    println!("done receiving messages");
 
     Ok(())
 }

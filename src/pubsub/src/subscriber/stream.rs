@@ -63,13 +63,18 @@ where
     /// Open a stream for the `StreamingPull` RPC.
     ///
     /// This method includes retries, and spawns a keepalive task.
-    pub(super) async fn new(inner: Arc<T>, initial_req: StreamingPullRequest) -> Result<Self> {
-        Self::new_with_backoff(inner, initial_req, default_backoff_policy()).await
+    pub(super) async fn new(
+        inner: Arc<T>,
+        initial_req: StreamingPullRequest,
+        shutdown: CancellationToken,
+    ) -> Result<Self> {
+        Self::new_with_backoff(inner, initial_req, shutdown, default_backoff_policy()).await
     }
 
     async fn new_with_backoff(
         inner: Arc<T>,
         initial_req: StreamingPullRequest,
+        shutdown: CancellationToken,
         // The default backoff policy is non-deterministic. Exposing the backoff
         // policy in this interface helps us set better test expectations.
         backoff: Arc<dyn BackoffPolicy>,
@@ -78,7 +83,8 @@ where
         let attempt = move |_| {
             let inner = inner.clone();
             let initial_req = initial_req.clone();
-            async move { open_stream(inner, initial_req).await }
+            let shutdown = shutdown.clone();
+            async move { open_stream(inner, initial_req, shutdown).await }
         };
 
         retry_loop(
@@ -94,7 +100,11 @@ where
 }
 
 /// One attempt to open a stream for the `StreamingPull` RPC.
-async fn open_stream<T>(inner: Arc<T>, initial_req: StreamingPullRequest) -> Result<Stream<T>>
+async fn open_stream<T>(
+    inner: Arc<T>,
+    initial_req: StreamingPullRequest,
+    shutdown: CancellationToken,
+) -> Result<Stream<T>>
 where
     T: Stub,
 {
@@ -114,16 +124,25 @@ where
     // being idle for ~90s, leading to unnecessary retries.
     //
     // [^1]: https://github.com/hyperium/tonic/issues/515
-    let shutdown = CancellationToken::new();
-    keepalive::spawn(request_tx, shutdown.clone());
+    let reset = CancellationToken::new();
+    let _keepalive_guard = reset.clone().drop_guard();
+    keepalive::spawn(request_tx, reset);
 
-    let stream = inner
-        .streaming_pull(&request_params, request_rx, RequestOptions::default())
-        .await?
-        .into_inner();
+    tracing::info!("spawned keepalive task.");
+    let open_fut = inner.streaming_pull(&request_params, request_rx, RequestOptions::default());
+    let stream = tokio::select! {
+        _ = shutdown.cancelled() => {
+            tracing::info!("gave up trying to create the stream.");
+            return Err(Error::timeout("shutdown before stream was opened."));
+        },
+        r = open_fut => r,
+    }?
+    .into_inner();
+
+    tracing::info!("successfully created the stream.");
 
     Ok(Stream {
-        _keepalive_guard: shutdown.drop_guard(),
+        _keepalive_guard,
         stream,
     })
 }

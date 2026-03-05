@@ -12,7 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::builder::StreamingPull;
+use super::lease_loop::LeaseLoop;
+use super::lease_state::{LeaseInfo, LeaseOptions, NewMessage};
+use super::leaser::DefaultLeaser;
+use super::message_stream::Senders;
 use crate::{Error, Result};
+use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
 use tokio::task::JoinHandle;
 use tokio_util::sync::{CancellationToken, DropGuard};
 
@@ -48,10 +54,15 @@ use tokio_util::sync::{CancellationToken, DropGuard};
 /// before the server redelivers it to another client. If this is unacceptable
 /// to your application, you should await the shutdown.
 pub struct StreamHandle {
-    lease_loop: JoinHandle<()>,
+    pub(super) shutdown: CancellationToken,
+    pub(super) lease_loop: LeaseLoop,
 }
 
 impl StreamHandle {
+    // TODO : prefer multiple APIs per shutdown behavior?
+    // Note to self, I think I just start with one shutdown behavior of
+    // `WaitForProcessing`.
+
     /// Shutdown the stream(s) associated with this handle.
     ///
     /// The exact behavior is configured via
@@ -66,7 +77,34 @@ impl StreamHandle {
     ///
     /// The lease management event loop also continues to run. Its termination
     /// depends on the configured shutdown behavior.
-    async fn shutdown(self) -> Result<()> {
-        self.lease_loop.await.map_err(Error::io)
+    pub async fn shutdown(self) {
+        self.shutdown.cancel();
+        let LeaseLoop {
+            handle,
+            ack_tx,
+            message_tx,
+        } = self.lease_loop;
+        drop(ack_tx);
+        drop(message_tx);
+        let _ = handle.await;
+    }
+
+    pub(super) fn new(builder: StreamingPull) -> Self {
+        let shutdown = CancellationToken::new();
+
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
+        let leaser = DefaultLeaser::new(
+            builder.inner,
+            confirmed_tx,
+            builder.subscription,
+            builder.ack_deadline_seconds,
+            builder.grpc_subchannel_count,
+        );
+        let lease_loop = LeaseLoop::new(leaser, LeaseOptions::default());
+
+        Self {
+            shutdown,
+            lease_loop,
+        }
     }
 }

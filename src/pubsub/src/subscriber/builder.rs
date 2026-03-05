@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::MessageStream;
 use super::ShutdownBehavior;
 use super::StreamHandle;
+use super::message_stream::{MessageStream, Senders};
 use super::transport::Transport;
 use std::sync::Arc;
 
@@ -23,6 +23,7 @@ const MIB: i64 = 1024 * 1024;
 pub use super::client_builder::ClientBuilder;
 
 /// Builder for the `client::Subscriber::streaming_pull` method.
+#[derive(Clone, Debug)]
 pub struct StreamingPull {
     pub(super) inner: Arc<Transport>,
     pub(super) subscription: String,
@@ -49,7 +50,7 @@ impl StreamingPull {
             ack_deadline_seconds: 10,
             max_outstanding_messages: 1000,
             max_outstanding_bytes: 100 * MIB,
-            shutdown_behavior: ShutdownBehavior::WaitOnAllMessages,
+            shutdown_behavior: ShutdownBehavior::WaitForProcessing,
         }
     }
 
@@ -72,8 +73,13 @@ impl StreamingPull {
     /// # Ok(()) }
     /// ```
     pub fn build(self) -> (MessageStream, StreamHandle) {
-        todo!("write me.")
-        //MessageStream::new(self)
+        let handle = StreamHandle::new(self.clone());
+        let senders = Senders {
+            message_tx: handle.lease_loop.message_tx.clone(),
+            ack_tx: handle.lease_loop.ack_tx.clone(),
+        };
+        let stream = MessageStream::new(self, handle.shutdown.clone(), senders);
+        (stream, handle)
     }
 
     /// Creates N new streams to receive messages from the subscription.
@@ -87,8 +93,17 @@ impl StreamingPull {
     /// todo!("write me.")
     /// ```
     pub fn build_many(self, count: usize) -> (Vec<MessageStream>, StreamHandle) {
-        todo!("write me.")
-        //MessageStream::new(self)
+        let handle = StreamHandle::new(self.clone());
+        let streams: Vec<_> = (0..count)
+            .map(|_| {
+                let senders = Senders {
+                    message_tx: handle.lease_loop.message_tx.clone(),
+                    ack_tx: handle.lease_loop.ack_tx.clone(),
+                };
+                MessageStream::new(self.clone(), handle.shutdown.clone(), senders)
+            })
+            .collect();
+        (streams, handle)
     }
 
     /// Sets the ack deadline to use for the stream.
