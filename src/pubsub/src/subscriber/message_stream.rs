@@ -96,6 +96,25 @@ pub struct MessageStream {
     shutdown: CancellationToken,
 }
 
+impl Clone for MessageStream {
+    fn clone(&self) -> Self {
+        let stream = match &self.stream {
+            Some(StreamState::Failed) => Some(StreamState::Failed),
+            _ => None
+        };
+        Self {
+            inner: self.inner.clone(),
+            initial_req: self.initial_req.clone(),
+            stream,
+            pool: VecDeque::new(),
+            message_tx: self.message_tx.clone(),
+            ack_tx: self.ack_tx.clone(),
+            lease_loop: self.lease_loop.clone(),
+            shutdown: self.shutdown.clone(),
+        }
+    }
+}
+
 // We would rather always allocate enough space to hold the stream on the stack
 // than add a layer of indirection by `Box`ing it.
 #[allow(clippy::large_enum_variant)]
