@@ -24,7 +24,10 @@ pub async fn roundtrip(topic_name: &str, subscription_name: &str) -> anyhow::Res
     tracing::info!("testing exactly once subscription");
     let publisher = Publisher::builder(topic_name).build().await?;
     let subscriber = Subscriber::builder().build().await?;
-    let mut stream = subscriber.subscribe(subscription_name).build();
+    let mut stream = subscriber
+        .subscribe(subscription_name)
+        .set_max_lease_extension(Duration::from_secs(120))
+        .build();
 
     let subscribe: tokio::task::JoinHandle<Result<(), Error>> = tokio::spawn(async move {
         let mut acks = JoinSet::new();
