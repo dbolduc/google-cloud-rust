@@ -1279,7 +1279,7 @@ mod tests {
         );
 
         // Close the stream, to make sure pending operations complete.
-        stream.close().await?;
+        stream.close().await;
 
         Ok(())
     }
