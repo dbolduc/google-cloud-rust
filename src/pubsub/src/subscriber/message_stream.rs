@@ -118,6 +118,7 @@ impl MessageStream {
         );
         let options = LeaseOptions {
             max_lease: builder.max_lease,
+            shutdown_behavior: builder.shutdown_behavior,
             ..Default::default()
         };
         let LeaseLoop {

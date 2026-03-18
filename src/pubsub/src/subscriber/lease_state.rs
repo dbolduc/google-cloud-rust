@@ -56,8 +56,7 @@ impl Default for LeaseOptions {
             extend_period: Duration::from_secs(3),
             extend_start: Duration::from_millis(500),
             max_lease: Duration::from_secs(600),
-            // TODO(#4869) - switch to `WaitForProcessing`
-            shutdown_behavior: ShutdownBehavior::NackImmediately,
+            shutdown_behavior: ShutdownBehavior::WaitForProcessing,
         }
     }
 }
