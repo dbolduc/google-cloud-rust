@@ -13,11 +13,13 @@
 // limitations under the License.
 
 use super::builder::Subscribe;
-use super::handler::{Action, AtLeastOnce, ExactlyOnce, Handler};
+use super::handler::{AckResult, Action, AtLeastOnce, ExactlyOnce, Handler};
 use super::lease_loop::LeaseLoop;
 use super::lease_state::{ExactlyOnceInfo, LeaseInfo, LeaseOptions, NewMessage};
 use super::leaser::DefaultLeaser;
 use super::retry_policy::StreamRetryPolicy;
+#[cfg(test)] // TODO(#5024) - make this public
+use super::shutdown_token::ShutdownToken;
 use super::stream::Stream;
 use super::stub::TonicStreaming as _;
 use super::transport::Transport;
@@ -31,9 +33,10 @@ use gaxi::prost::FromProto as _;
 use google_cloud_gax::retry_result::RetryResult;
 use std::collections::VecDeque;
 use std::sync::Arc;
-use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
+use tokio::sync::mpsc::{UnboundedSender, WeakUnboundedSender, unbounded_channel};
+use tokio::sync::oneshot::Receiver;
 use tokio::time::Instant;
-use tokio_util::sync::CancellationToken;
+use tokio_util::sync::{CancellationToken, DropGuard};
 
 /// Represents an open subscribe stream.
 ///
@@ -68,6 +71,11 @@ pub struct MessageStream {
 
     /// A token that can detect a shutdown from the application.
     shutdown: CancellationToken,
+
+    /// Shutdown the stream gracefully if the application drops this struct.
+    ///
+    /// It is simpler to hold a `DropGuard` than `impl Drop for MessageStream`.
+    _shutdown_guard: DropGuard,
 }
 
 #[derive(Debug)]
@@ -95,15 +103,15 @@ pub struct MessageStreamImpl {
     /// while we wait to serve them to applications.
     ///
     /// A FIFO queue is necessary to preserve ordering.
-    pool: VecDeque<(Message, Handler)>,
+    pool: VecDeque<(Message, DernHandler)>,
 
     /// A sender for sending new messages from the stream into the lease
     /// management task.
-    message_tx: UnboundedSender<NewMessage>,
+    message_tx: WeakUnboundedSender<NewMessage>,
 
     /// A sender for forwarding acks/nacks from the application to the lease
     /// management task. Each `Handler` holds a clone of this.
-    ack_tx: UnboundedSender<Action>,
+    ack_tx: WeakUnboundedSender<Action>,
 }
 
 // We would rather always allocate enough space to hold the stream on the stack
@@ -143,6 +151,18 @@ impl MessageStream {
         } = LeaseLoop::new(leaser, confirmed_rx, options);
         let lease_loop = handle.map(|_| ()).boxed().shared();
 
+        let weak_message_tx = message_tx.downgrade();
+        let weak_ack_tx = ack_tx.downgrade();
+
+        let shutdown = CancellationToken::new();
+        let shutdown_clone = shutdown.clone();
+        let _shutdown_guard = shutdown.clone().drop_guard();
+        tokio::spawn(async move {
+            shutdown_clone.cancelled().await;
+            drop(message_tx);
+            drop(ack_tx);
+        });
+
         let initial_req = StreamingPullRequest {
             subscription,
             stream_ack_deadline_seconds: builder.ack_deadline_seconds,
@@ -160,13 +180,14 @@ impl MessageStream {
             initial_req,
             stream: None,
             pool: VecDeque::new(),
-            message_tx,
-            ack_tx,
+            message_tx: weak_message_tx,
+            ack_tx: weak_ack_tx,
         };
         Self {
             inner,
             lease_loop,
-            shutdown: CancellationToken::new(),
+            shutdown,
+            _shutdown_guard,
         }
     }
 
@@ -194,14 +215,18 @@ impl MessageStream {
     pub async fn next(&mut self) -> Option<Result<(Message, Handler)>> {
         let next = tokio::select! {
             biased;
-            _ = self.shutdown.cancelled() => None,
+            _ = self.shutdown.cancelled() => {
+                self.inner.close();
+                None
+            },
             n = self.inner.next() => n,
         };
-        if next.is_none() {
-            // Permanently close the stream, and drop messages that we haven't
-            // delivered to the application yet.
-            self.inner.stream = Some(StreamState::Closed);
-            self.inner.pool.clear();
+
+        if next.as_ref().is_some_and(|r| r.is_err()) {
+            // TODO : this is so ugly.
+            // Basically we still need to drop the senders in the case of a
+            // stream error.
+            self.shutdown.cancel();
         }
         next
     }
@@ -231,17 +256,49 @@ impl MessageStream {
         }))
     }
 
-    #[cfg(test)]
+    #[cfg(test)] // TODO(#5024) - make this public
+    /// Returns a shutdown token for the stream.
+    ///
+    /// # Example
+    /// ```no_rust
+    /// # use google_cloud_pubsub::subscriber::MessageStream;
+    /// # async fn sample(stream: MessageStream) {
+    /// // Get a shutdown token for the stream.
+    /// let shutdown_token = stream.shutdown_token();
+    ///
+    /// // Signal a shutdown of the stream.
+    /// shutdown_token.cancel();
+    ///
+    /// // The stream stops yielding messages after a cancel.
+    /// assert!(stream.next().is_none());
+    ///
+    /// // Await a graceful shutdown of the stream.
+    /// shutdown_token.shutdown().await;
+    /// # }
+    /// ```
+    ///
+    /// Use this token to signal and/or await shutdown of the stream.
+    ///
+    /// Awaiting a stream shutdown gives the subscriber time to flush its
+    /// pending acknowledgements, and schedule other messages for redelivery to
+    /// another client as soon as possible.
+    pub fn shutdown_token(&self) -> ShutdownToken {
+        ShutdownToken {
+            inner: self.shutdown.clone(),
+            fut: self.lease_loop.clone(),
+        }
+    }
+
+    #[cfg(test)] // TODO(#5024) - remove, in favor of public APIs.
     /// Close the stream, awaiting all pending acks and nacks.
     ///
     /// This is a useful method for setting clean test expectations.
-    async fn close(self) {
-        // Shutdown the stream and its keepalive task.
-        drop(self.inner.stream);
+    async fn close(mut self) {
+        // Signal a shutdown.
+        self.shutdown.cancel();
 
-        // Signal a shutdown to the lease management background task.
-        drop(self.inner.message_tx);
-        drop(self.inner.ack_tx);
+        // Shutdown the stream and its keepalive task.
+        self.inner.close();
 
         // Wait for the lease management task to complete.
         self.lease_loop.await;
@@ -252,8 +309,8 @@ impl MessageStreamImpl {
     async fn next(&mut self) -> Option<Result<(Message, Handler)>> {
         loop {
             // Serve a message if we have one ready.
-            if let Some(item) = self.pool.pop_front() {
-                return Some(Ok(item));
+            if let Some((m, dh)) = self.pool.pop_front() {
+                return Some(Ok((m, dh.to_handler(self.ack_tx.upgrade()?))));
             }
 
             // Otherwise, read the next response from the stream, which will
@@ -272,7 +329,7 @@ impl MessageStreamImpl {
                     }
                     RetryResult::Permanent(e) | RetryResult::Exhausted(e) => {
                         // The stream failed with a permanent error. Return the error.
-                        self.stream = Some(StreamState::Closed);
+                        self.close();
                         return Some(Err(e));
                     }
                 }
@@ -344,24 +401,25 @@ impl MessageStreamImpl {
                 continue;
             };
 
-            let (lease_info, handler) = if exactly_once {
+            let (lease_info, dern_handler) = if exactly_once {
                 let (result_tx, result_rx) = tokio::sync::oneshot::channel();
                 (
                     LeaseInfo::ExactlyOnce(ExactlyOnceInfo::new(result_tx)),
-                    Handler::ExactlyOnce(ExactlyOnce::new(
-                        rm.ack_id.clone(),
-                        self.ack_tx.clone(),
+                    DernHandler::ExactlyOnce {
+                        ack_id: rm.ack_id.clone(),
                         result_rx,
-                    )),
+                    },
                 )
             } else {
                 (
                     LeaseInfo::AtLeastOnce(Instant::now()),
-                    Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id.clone(), self.ack_tx.clone())),
+                    DernHandler::AtLeastOnce {
+                        ack_id: rm.ack_id.clone(),
+                    },
                 )
             };
 
-            let _ = self.message_tx.send(NewMessage {
+            let _ = self.message_tx.upgrade()?.send(NewMessage {
                 ack_id: rm.ack_id,
                 lease_info,
             });
@@ -369,9 +427,41 @@ impl MessageStreamImpl {
                 Ok(message) => message,
                 Err(e) => return Some(Err(e)),
             };
-            self.pool.push_back((message, handler));
+            self.pool.push_back((message, dern_handler));
         }
         Some(Ok(()))
+    }
+
+    /// Leave the stream in a permanently closed state.
+    fn close(&mut self) {
+        // Permanently close the stream, and drop messages that we haven't
+        // delivered to the application yet.
+        self.stream = Some(StreamState::Closed);
+        self.pool.clear();
+    }
+}
+
+#[derive(Debug)]
+enum DernHandler {
+    AtLeastOnce {
+        ack_id: String,
+    },
+    ExactlyOnce {
+        ack_id: String,
+        result_rx: Receiver<AckResult>,
+    },
+}
+
+impl DernHandler {
+    fn to_handler(self, ack_tx: UnboundedSender<Action>) -> Handler {
+        match self {
+            DernHandler::AtLeastOnce { ack_id } => {
+                Handler::AtLeastOnce(AtLeastOnce::new(ack_id, ack_tx))
+            }
+            DernHandler::ExactlyOnce { ack_id, result_rx } => {
+                Handler::ExactlyOnce(ExactlyOnce::new(ack_id, ack_tx, result_rx))
+            }
+        }
     }
 }
 
@@ -388,6 +478,7 @@ mod tests {
     use google_cloud_test_macros::tokio_test_no_panics;
     use pubsub_grpc_mock::google::pubsub::v1;
     use pubsub_grpc_mock::{MockSubscriber, start};
+    use test_case::test_case;
     use tokio::sync::mpsc::{channel, unbounded_channel};
     use tokio::task::{JoinHandle, JoinSet};
     use tokio::time::{Duration, Instant};
@@ -895,8 +986,6 @@ mod tests {
             assert_eq!(h.ack_id(), test_id(i));
             handlers.push(h);
         }
-        let end = stream.next().await.transpose()?;
-        assert!(end.is_none(), "Received extra message: {end:?}");
 
         // Advance the clock 10s, which is the stream ack deadline. In this
         // time, we should attempt at least one lease extension RPC.
@@ -1537,8 +1626,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
-        // TODO(#5024) - use public functions when available.
-        let shutdown_token = stream.shutdown.clone();
+        let shutdown_token = stream.shutdown_token();
 
         let next = tokio::spawn(async move { stream.next().await });
         shutdown_token.cancel();
@@ -1578,8 +1666,7 @@ mod tests {
             .subscribe("projects/p/subscriptions/s")
             .set_shutdown_behavior(ShutdownBehavior::WaitForProcessing)
             .build();
-        // TODO(#5024) - use public functions when available.
-        let shutdown_token = stream.shutdown.clone();
+        let shutdown_token = stream.shutdown_token();
 
         response_tx.send(Ok(test_response(1..10))).await?;
         for i in 1..6 {
@@ -1595,7 +1682,174 @@ mod tests {
 
         // Verify that we drop the messages and handles in the pool that we have
         // not returned to the application yet.
-        stream.close().await;
+        shutdown_token.shutdown().await;
+
+        let ack_req = ack_rx.try_recv()?;
+        assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(sorted(ack_req.ack_ids), test_ids(1..6));
+
+        let nack_req = nack_rx.try_recv()?;
+        assert_eq!(nack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(nack_req.ack_deadline_seconds, 0);
+        assert_eq!(sorted(nack_req.ack_ids), test_ids(6..10));
+
+        Ok(())
+    }
+
+    #[test_case(ShutdownBehavior::NackImmediately)]
+    #[test_case(ShutdownBehavior::WaitForProcessing)]
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn shutdown_without_next_after_cancel(
+        shutdown_behavior: ShutdownBehavior,
+    ) -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let (nack_tx, mut nack_rx) = unbounded_channel();
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_acknowledge().times(1).returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
+        mock.expect_modify_ack_deadline()
+            .times(1)
+            .returning(move |r| {
+                nack_tx
+                    .send(r.into_inner())
+                    .expect("sending on channel always succeeds");
+                Ok(TonicResponse::from(()))
+            });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_shutdown_behavior(shutdown_behavior)
+            .build();
+        let shutdown_token = stream.shutdown_token();
+
+        response_tx.send(Ok(test_response(1..10))).await?;
+        for i in 1..6 {
+            let Some((m, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/5")
+            };
+            assert_eq!(m.data, test_data(i));
+            h.ack();
+        }
+        shutdown_token.cancel();
+        // Note that the application does not have to call `stream.next()`, or
+        // `drop(stream)` to begin the shutdown procedure after a cancel.
+        shutdown_token.shutdown().await;
+
+        let ack_req = ack_rx.try_recv()?;
+        assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(sorted(ack_req.ack_ids), test_ids(1..6));
+
+        let nack_req = nack_rx.try_recv()?;
+        assert_eq!(nack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(nack_req.ack_deadline_seconds, 0);
+        assert_eq!(sorted(nack_req.ack_ids), test_ids(6..10));
+
+        Ok(())
+    }
+
+    #[test_case(ShutdownBehavior::NackImmediately)]
+    #[test_case(ShutdownBehavior::WaitForProcessing)]
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn shutdown_without_next_after_error(
+        shutdown_behavior: ShutdownBehavior,
+    ) -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_acknowledge().times(1).returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_shutdown_behavior(shutdown_behavior)
+            .build();
+        let shutdown_token = stream.shutdown_token();
+
+        response_tx.send(Ok(test_response(0..1))).await?;
+        response_tx
+            .send(Err(TonicStatus::failed_precondition("fail")))
+            .await?;
+        drop(response_tx);
+
+        let (m, h) = stream.next().await.expect("should yield a message")?;
+        assert_eq!(m.data, test_data(0));
+        h.ack();
+
+        let err = stream.next().await.expect("should yield an error");
+        assert!(err.is_err(), "{err:?}");
+
+        // Note that the application does not have to signal a shutdown. Nor do
+        // they have to call `stream.next()`, or `drop(stream)` to begin the
+        // shutdown procedure after a permanent error.
+        shutdown_token.shutdown().await;
+
+        let ack_req = ack_rx.try_recv()?;
+        assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(ack_req.ack_ids, test_ids(0..1));
+
+        Ok(())
+    }
+
+    #[test_case(ShutdownBehavior::NackImmediately)]
+    #[test_case(ShutdownBehavior::WaitForProcessing)]
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn drop_cancels(shutdown_behavior: ShutdownBehavior) -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let (nack_tx, mut nack_rx) = unbounded_channel();
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_acknowledge().times(1).returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
+        mock.expect_modify_ack_deadline()
+            .times(1)
+            .returning(move |r| {
+                nack_tx
+                    .send(r.into_inner())
+                    .expect("sending on channel always succeeds");
+                Ok(TonicResponse::from(()))
+            });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_shutdown_behavior(shutdown_behavior)
+            .build();
+        let shutdown_token = stream.shutdown_token();
+
+        response_tx.send(Ok(test_response(1..10))).await?;
+        for i in 1..6 {
+            let Some((m, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/5")
+            };
+            assert_eq!(m.data, test_data(i));
+            h.ack();
+        }
+        drop(stream); // Equivalent to `ShutdownToken::cancel()`
+        shutdown_token.shutdown().await;
 
         let ack_req = ack_rx.try_recv()?;
         assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
