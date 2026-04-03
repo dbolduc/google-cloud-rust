@@ -77,6 +77,18 @@ pub struct MessageStream {
     _shutdown_guard: DropGuard,
 }
 
+impl Clone for MessageStream {
+    fn clone(&self) -> Self {
+        let _shutdown_guard = self.shutdown.clone().drop_guard();
+        Self {
+            inner: self.inner.clone(),
+            lease_loop: self.lease_loop.clone(),
+            shutdown: self.shutdown.clone(),
+            _shutdown_guard,
+        }
+    }
+}
+
 #[derive(Debug)]
 pub struct MessageStreamImpl {
     /// The stub implementing this struct.
@@ -114,6 +126,24 @@ pub struct MessageStreamImpl {
 
     /// A token that can initiate shutdown after a stream error.
     shutdown: CancellationToken,
+}
+
+impl Clone for MessageStreamImpl {
+    fn clone(&self) -> Self {
+        let stream = match self.stream {
+            Some(StreamState::Closed) => Some(StreamState::Closed),
+            _ => None,
+        };
+        Self {
+            stub: self.stub.clone(),
+            initial_req: self.initial_req.clone(),
+            stream,
+            pool: VecDeque::new(),
+            message_tx: self.message_tx.clone(),
+            ack_tx: self.ack_tx.clone(),
+            shutdown: self.shutdown.clone(),
+        }
+    }
 }
 
 // We would rather always allocate enough space to hold the stream on the stack

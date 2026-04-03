@@ -100,7 +100,9 @@ where
         let req = AcknowledgeRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids);
-        let _ = self.inner.acknowledge(req, self.options.clone()).await;
+        if let Err(e) = self.inner.acknowledge(req, self.options.clone()).await {
+            tracing::info!("ACK RPC ERROR: {e:?}");
+        }
     }
 
     async fn nack(&self, ack_ids: Vec<String>) {
@@ -108,10 +110,13 @@ where
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids)
             .set_ack_deadline_seconds(0);
-        let _ = self
+        if let Err(e) = self
             .inner
             .modify_ack_deadline(req, self.options.clone())
-            .await;
+            .await
+        {
+            tracing::info!("NACK RPC ERROR: {e:?}");
+        }
     }
 
     async fn extend(&self, ack_ids: Vec<String>) {
@@ -119,10 +124,14 @@ where
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids)
             .set_ack_deadline_seconds(self.ack_deadline_seconds);
-        let _ = self
+        if let Err(e) = self
             .inner
             .modify_ack_deadline(req, self.options.clone())
-            .await;
+            .await
+        {
+            // Disable logging. It is happening way too much with exactly once...
+            //tracing::info!("EXTEND RPC ERROR: {e:?}");
+        }
     }
 
     /// The exactly-once ack retry loop.
@@ -141,7 +150,13 @@ where
         let req = AcknowledgeRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids.clone());
-        let response = self.inner.acknowledge(req, self.options.clone()).await;
+        let response = self
+            .inner
+            .acknowledge(req, self.options.clone())
+            .await
+            .inspect_err(|e| {
+                tracing::info!("CONFIRMED_ACK RPC ERROR: {e:?}");
+            });
         let shared_result = response.map(|_| ()).map_err(Arc::new);
         let confirmed_acks = ack_ids
             .into_iter()
