@@ -68,6 +68,10 @@ pub(crate) mod universe_domain;
 
 #[cfg(feature = "_internal-grpc-client")]
 pub(crate) mod google {
+    pub mod protobuf {
+        use prost_types::*;
+        include!("generated/convert/protobuf/convert.rs");
+    }
     pub mod rpc {
         include!("generated/protos/rpc/google.rpc.rs");
         include!("generated/convert/rpc/convert.rs");

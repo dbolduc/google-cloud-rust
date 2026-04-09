@@ -811,8 +811,18 @@ libraries:
     version: 0.7.10
     copyright_year: "2025"
     output: src/gax-internal
+    roots:
+      - googleapis
+      - protobuf-src
     rust:
       modules:
+        - include_list: descriptor.proto
+          module_path: wkt
+          output: src/gax-internal/src/generated/convert/protobuf
+          api_path: google/protobuf
+          template: convert-prost
+          included_ids:
+            - .google.protobuf.DescriptorProto
         - module_path: google_cloud_rpc::model
           output: src/gax-internal/src/generated/convert/rpc
           skipped_ids:
