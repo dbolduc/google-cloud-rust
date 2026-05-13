@@ -14,9 +14,10 @@
 
 use anyhow::Result;
 use futures::stream::StreamExt;
-use google_cloud_bigquery_v2::client::{DatasetService, JobService};
+use google_cloud_bigquery_v2::client::{DatasetService, JobService, TableService};
 use google_cloud_bigquery_v2::model::{
-    Dataset, DatasetReference, Job, JobConfiguration, JobConfigurationQuery, JobReference,
+    Dataset, DatasetReference, Job, JobConfiguration, JobConfigurationQuery, JobReference, Table,
+    TableFieldSchema, TableReference, TableSchema,
 };
 use google_cloud_gax::{error::rpc::Code, paginator::ItemPaginator};
 use google_cloud_test_utils::runtime_config::project_id;
@@ -281,4 +282,169 @@ async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()>
 
     futures::future::join_all(pending_deletion).await;
     Ok(())
+}
+
+pub async fn writes() -> Result<()> {
+    use arrow::array::{Int64Array, StringArray};
+    use arrow::datatypes::{DataType, Field, Schema};
+    use arrow::ipc::writer::StreamWriter;
+    use arrow::record_batch::RecordBatch;
+    use std::sync::Arc;
+
+    let project_id = project_id()?;
+    let dataset_service = DatasetService::builder().with_tracing().build().await?;
+    let table_service = TableService::builder().with_tracing().build().await?;
+    let write_client = google_cloud_bigquery_write::client::Client::builder()
+        .build()
+        .await?;
+
+    cleanup_stale_datasets(&dataset_service, &project_id).await?;
+
+    let dataset_id = random_dataset_id();
+    println!("CREATING DATASET WITH ID: {dataset_id}");
+    dataset_service
+        .insert_dataset()
+        .set_project_id(&project_id)
+        .set_dataset(
+            Dataset::new()
+                .set_dataset_reference(DatasetReference::new().set_dataset_id(&dataset_id))
+                .set_labels([(INSTANCE_LABEL, "true")]),
+        )
+        .send()
+        .await?;
+    println!("DATASET CREATED");
+
+    let table_id = random_table_id();
+    println!("CREATING TABLE WITH ID: {table_id}");
+    let bq_schema = TableSchema::new().set_fields([
+        TableFieldSchema::new().set_name("col1").set_type("STRING"),
+        TableFieldSchema::new().set_name("col2").set_type("INTEGER"),
+    ]);
+
+    table_service
+        .insert_table()
+        .set_project_id(&project_id)
+        .set_dataset_id(&dataset_id)
+        .set_table(
+            Table::new()
+                .set_table_reference(
+                    TableReference::new()
+                        .set_project_id(&project_id)
+                        .set_dataset_id(&dataset_id)
+                        .set_table_id(&table_id),
+                )
+                .set_schema(bq_schema),
+        )
+        .send()
+        .await?;
+    println!("TABLE CREATED");
+
+    // Create Arrow Schema
+    let arrow_schema = Arc::new(Schema::new(vec![
+        Field::new("col1", DataType::Utf8, false),
+        Field::new("col2", DataType::Int64, false),
+    ]));
+
+    // Serialize Schema
+    let mut schema_buf = Vec::new();
+    {
+        let mut writer = StreamWriter::try_new(&mut schema_buf, &arrow_schema)?;
+        writer.finish()?;
+    }
+    let schema_full_len = schema_buf.len();
+    // StreamWriter writes [Schema Message] [End-of-stream]
+    // End-of-stream is 0xFFFFFFFF 0x00000000 (8 bytes)
+    if schema_buf.ends_with(&[255, 255, 255, 255, 0, 0, 0, 0]) {
+        schema_buf.truncate(schema_buf.len() - 8);
+    }
+    println!("Schema message size: {}", schema_buf.len());
+
+    // Create Arrow Record Batch
+    let col1 = StringArray::from(vec!["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]);
+    let col2 = Int64Array::from(vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(col1), Arc::new(col2)])?;
+
+    // Serialize Record Batch
+    // We want to extract just the RecordBatch message.
+    // The StreamWriter writes [Schema Message] [RecordBatch Message] [End-of-stream]
+    let mut batch_buf = Vec::new();
+    {
+        let mut writer = StreamWriter::try_new(&mut batch_buf, &arrow_schema)?;
+        writer.write(&batch)?;
+        writer.finish()?;
+    }
+
+    // The schema message length (without footer) is schema_full_len - 8.
+    // However, the StreamWriter writes the schema message (without footer) at the start.
+    // So the RecordBatch message starts at schema_full_len - 8.
+    let schema_msg_len = schema_full_len - 8;
+    let rb_msg = batch_buf[schema_msg_len..(batch_buf.len() - 8)].to_vec();
+    println!("RecordBatch message size: {}", rb_msg.len());
+
+    let stream_name =
+        format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/streams/_default");
+
+    let arrow_schema_proto =
+        google_cloud_bigquery_write::google::cloud::bigquery::storage::v1::ArrowSchema {
+            serialized_schema: schema_buf.into(),
+        };
+
+    let stream_writer = write_client.write_stream(stream_name, arrow_schema_proto);
+
+    let arrow_batch_proto =
+        google_cloud_bigquery_write::google::cloud::bigquery::storage::v1::ArrowRecordBatch {
+            serialized_record_batch: rb_msg.into(),
+            row_count: 10,
+        };
+
+    let _response = stream_writer.append(arrow_batch_proto).await?;
+    drop(stream_writer);
+    drop(write_client);
+
+    // Verify
+    let job_service = JobService::builder().build().await?;
+    let query_config = JobConfigurationQuery::new()
+        .set_query(format!(
+            "SELECT * FROM `{project_id}.{dataset_id}.{table_id}`"
+        ))
+        .set_use_legacy_sql(false);
+
+    let job = job_service
+        .insert_job()
+        .set_project_id(&project_id)
+        .set_job(Job::new().set_configuration(JobConfiguration::new().set_query(query_config)))
+        .send()
+        .await?;
+
+    let job_id = job.job_reference.as_ref().unwrap().job_id.clone();
+
+    // Wait for job completion and get results
+    let mut attempts = 0;
+    let row_count = loop {
+        let results = job_service
+            .get_query_results()
+            .set_project_id(&project_id)
+            .set_job_id(&job_id)
+            .send()
+            .await?;
+
+        if results.job_complete.unwrap_or(false) {
+            break results.total_rows.unwrap_or(0);
+        }
+
+        attempts += 1;
+        if attempts > 10 {
+            anyhow::bail!("Query job did not complete in time");
+        }
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+    };
+
+    assert_eq!(row_count, 10);
+
+    Ok(())
+}
+
+fn random_table_id() -> String {
+    let rand_suffix = random_id_suffix();
+    format!("rust_bq_test_table_{rand_suffix}")
 }

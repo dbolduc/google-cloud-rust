@@ -32,4 +32,15 @@ mod bigquery {
             .await
             .inspect_err(anydump)
     }
+
+    #[tokio::test]
+    async fn run_writes() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        tokio::time::timeout(
+            std::time::Duration::from_secs(60),
+            integration_tests_bigquery::writes(),
+        )
+        .await?
+        .inspect_err(anydump)
+    }
 }
