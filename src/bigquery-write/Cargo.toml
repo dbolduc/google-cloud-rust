@@ -39,10 +39,11 @@ serde_with.workspace       = true
 tokio.workspace            = true
 tokio-stream.workspace     = true
 tracing.workspace          = true
+google-cloud-auth.workspace = true
 google-cloud-gax.workspace = true
 google-cloud-rpc.workspace = true
 wkt.workspace              = true
-gaxi                       = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
+gaxi                       = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_default-rustls-provider"] }
 
 [dev-dependencies]
 anyhow.workspace            = true

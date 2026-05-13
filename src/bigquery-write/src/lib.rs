@@ -34,9 +34,14 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
+/// The BigQuery Write client.
+pub mod client;
+/// The BigQuery Write client builder.
+pub mod client_builder;
 mod proto_schema;
-#[cfg_attr(not(test), expect(dead_code))]
-mod transport;
+/// The BigQuery Write stream writer.
+pub mod stream_writer;
+pub(crate) mod transport;
 
 // TODO(#4832) - remove handwritten code.
 mod status;
@@ -48,7 +53,7 @@ pub(crate) mod model {
 pub(crate) mod generated;
 
 #[allow(dead_code)]
-pub(crate) mod google {
+pub mod google {
     pub mod api {
         include!("generated/protos/storage/google.api.rs");
     }

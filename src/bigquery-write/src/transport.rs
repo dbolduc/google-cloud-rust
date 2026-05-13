@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
-pub(super) use crate::generated::gapic_storage::transport::BigQueryWrite as Transport;
+pub(crate) use crate::generated::gapic_storage::transport::BigQueryWrite as Transport;
 use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};
 use gaxi::grpc::tonic::{Response as TonicResponse, Streaming};
 use tokio::sync::mpsc::Receiver;
@@ -35,7 +35,7 @@ mod info {
 }
 
 impl Transport {
-    async fn append_rows(
+    pub(crate) async fn append_rows(
         &self,
         request_params: &str,
         request_rx: Receiver<AppendRowsRequest>,
