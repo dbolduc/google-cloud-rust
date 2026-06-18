@@ -38,7 +38,9 @@ pub(crate) use google_cloud_gax::response::Response;
 pub mod client;
 /// The BigQuery Write client builder.
 pub mod client_builder;
+mod pool;
 mod proto_schema;
+mod runner;
 /// The BigQuery Write stream writer.
 pub mod stream_writer;
 pub(crate) mod transport;
@@ -52,7 +54,7 @@ pub(crate) mod model {
 #[allow(dead_code)]
 pub(crate) mod generated;
 
-#[allow(dead_code)]
+#[allow(dead_code, missing_docs)]
 pub mod google {
     pub mod api {
         include!("generated/protos/storage/google.api.rs");

@@ -12,16 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::pool::ConnectionPool;
 use crate::ClientBuilderResult as BuilderResult;
 use crate::client_builder::ClientBuilder;
 use crate::google::cloud::bigquery::storage::v1::ArrowSchema;
 use crate::stream_writer::StreamWriter;
 use crate::transport::Transport;
 use std::sync::Arc;
+use std::collections::HashMap;
 
 /// A client for BigQuery Storage Write API.
 pub struct Client {
     inner: Arc<Transport>,
+    /// Map of region -> connection pool.
+    pool: HashMap<String, Arc<ConnectionPool>>,
 }
 
 impl Client {
@@ -34,6 +38,7 @@ impl Client {
         let transport = Transport::new(builder.config).await?;
         Ok(Self {
             inner: Arc::new(transport),
+            pool: HashMap::new(),
         })
     }
 
