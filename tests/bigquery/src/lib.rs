@@ -345,18 +345,26 @@ pub async fn writes() -> Result<()> {
         Field::new("col2", DataType::Int64, false),
     ]));
 
+    let serialize_schema = |schema: &Schema| -> Result<Vec<u8>> {
+        let mut buf = Vec::new();
+        let _ = StreamWriter::try_new(&mut buf, schema)?;
+        Ok(buf)
+    };
+
+    let serialize_batch = |batch: &RecordBatch| -> Result<Vec<u8>> {
+        let mut buf = Vec::new();
+        let schema_len = {
+            let mut schema_buf = Vec::new();
+            let _ = StreamWriter::try_new(&mut schema_buf, &batch.schema())?;
+            schema_buf.len()
+        };
+        let mut writer = StreamWriter::try_new(&mut buf, &batch.schema())?;
+        writer.write(batch)?;
+        Ok(buf[schema_len..].to_vec())
+    };
+
     // Serialize Schema
-    let mut schema_buf = Vec::new();
-    {
-        let mut writer = StreamWriter::try_new(&mut schema_buf, &arrow_schema)?;
-        writer.finish()?;
-    }
-    let schema_full_len = schema_buf.len();
-    // StreamWriter writes [Schema Message] [End-of-stream]
-    // End-of-stream is 0xFFFFFFFF 0x00000000 (8 bytes)
-    if schema_buf.ends_with(&[255, 255, 255, 255, 0, 0, 0, 0]) {
-        schema_buf.truncate(schema_buf.len() - 8);
-    }
+    let schema_buf = serialize_schema(&arrow_schema)?;
     println!("Schema message size: {}", schema_buf.len());
 
     // Create Arrow Record Batch
@@ -365,20 +373,7 @@ pub async fn writes() -> Result<()> {
     let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(col1), Arc::new(col2)])?;
 
     // Serialize Record Batch
-    // We want to extract just the RecordBatch message.
-    // The StreamWriter writes [Schema Message] [RecordBatch Message] [End-of-stream]
-    let mut batch_buf = Vec::new();
-    {
-        let mut writer = StreamWriter::try_new(&mut batch_buf, &arrow_schema)?;
-        writer.write(&batch)?;
-        writer.finish()?;
-    }
-
-    // The schema message length (without footer) is schema_full_len - 8.
-    // However, the StreamWriter writes the schema message (without footer) at the start.
-    // So the RecordBatch message starts at schema_full_len - 8.
-    let schema_msg_len = schema_full_len - 8;
-    let rb_msg = batch_buf[schema_msg_len..(batch_buf.len() - 8)].to_vec();
+    let rb_msg = serialize_batch(&batch)?;
     println!("RecordBatch message size: {}", rb_msg.len());
 
     let stream_name =
