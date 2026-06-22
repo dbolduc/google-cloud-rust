@@ -13,7 +13,9 @@
 // limitations under the License.
 
 use super::runner::{StreamWriterRunner, WriterSchema};
-use crate::google::cloud::bigquery::storage::v1::append_rows_request::{ArrowData, ProtoData, Rows};
+use crate::google::cloud::bigquery::storage::v1::append_rows_request::{
+    ArrowData, ProtoData, Rows,
+};
 use crate::google::cloud::bigquery::storage::v1::{
     AppendRowsRequest, AppendRowsResponse, ArrowRecordBatch, ArrowSchema, ProtoRows, ProtoSchema,
 };

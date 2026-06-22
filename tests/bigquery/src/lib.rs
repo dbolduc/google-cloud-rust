@@ -21,7 +21,7 @@ use google_cloud_bigquery_v2::model::{
 };
 use google_cloud_gax::{error::rpc::Code, paginator::ItemPaginator};
 use google_cloud_test_utils::runtime_config::project_id;
-use rand::{distr::Alphanumeric, RngExt};
+use rand::{RngExt, distr::Alphanumeric};
 
 const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
 
@@ -399,20 +399,18 @@ pub async fn run_proto_writes(project_id: &str, dataset_id: &str) -> Result<()> 
     println!("PROTO TABLE CREATED: {table_id}");
 
     // Manually construct DescriptorProto
-    let descriptor = DescriptorProto::new()
-        .set_name("SampleData")
-        .set_field([
-            FieldDescriptorProto::new()
-                .set_name("name")
-                .set_number(1)
-                .set_type(google_cloud_wkt::field_descriptor_proto::Type::String)
-                .set_label(google_cloud_wkt::field_descriptor_proto::Label::Optional),
-            FieldDescriptorProto::new()
-                .set_name("age")
-                .set_number(2)
-                .set_type(google_cloud_wkt::field_descriptor_proto::Type::Int64)
-                .set_label(google_cloud_wkt::field_descriptor_proto::Label::Optional),
-        ]);
+    let descriptor = DescriptorProto::new().set_name("SampleData").set_field([
+        FieldDescriptorProto::new()
+            .set_name("name")
+            .set_number(1)
+            .set_type(google_cloud_wkt::field_descriptor_proto::Type::String)
+            .set_label(google_cloud_wkt::field_descriptor_proto::Label::Optional),
+        FieldDescriptorProto::new()
+            .set_name("age")
+            .set_number(2)
+            .set_type(google_cloud_wkt::field_descriptor_proto::Type::Int64)
+            .set_label(google_cloud_wkt::field_descriptor_proto::Label::Optional),
+    ]);
 
     let schema = ProtoSchema {
         proto_descriptor: Some(descriptor),
@@ -541,17 +539,11 @@ async fn verify_test_table(project_id: &str, dataset_id: &str, table_id: &str) -
         jane_row[0].get("v").and_then(|v| v.as_str()).unwrap(),
         "Jane"
     );
-    assert_eq!(
-        jane_row[1].get("v").and_then(|v| v.as_str()).unwrap(),
-        "27"
-    );
+    assert_eq!(jane_row[1].get("v").and_then(|v| v.as_str()).unwrap(), "27");
 
     // Jim, 35
     let jim_row = rows[1].get("f").and_then(|f| f.as_array()).unwrap();
-    assert_eq!(
-        jim_row[0].get("v").and_then(|v| v.as_str()).unwrap(),
-        "Jim"
-    );
+    assert_eq!(jim_row[0].get("v").and_then(|v| v.as_str()).unwrap(), "Jim");
     assert_eq!(jim_row[1].get("v").and_then(|v| v.as_str()).unwrap(), "35");
 
     Ok(())

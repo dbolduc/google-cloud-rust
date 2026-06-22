@@ -48,7 +48,11 @@ impl Client {
     /// Create a [ArrowStreamWriter] for a specific stream using Arrow format.
     ///
     /// The schema must be provided and will be sent in the first AppendRows request.
-    pub fn write_stream_arrow(&self, stream_name: String, schema: ArrowSchema) -> ArrowStreamWriter {
+    pub fn write_stream_arrow(
+        &self,
+        stream_name: String,
+        schema: ArrowSchema,
+    ) -> ArrowStreamWriter {
         ArrowStreamWriter::new(self.inner.clone(), stream_name, schema)
     }
 

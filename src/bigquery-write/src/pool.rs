@@ -12,14 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{Error, Result};
 use crate::google::cloud::bigquery::storage::v1::{
     AppendRowsRequest, AppendRowsResponse, ArrowRecordBatch, ArrowSchema,
 };
+use crate::{Error, Result};
 
 /// An abstraction
-pub(super) struct Stream {
-}
+pub(super) struct Stream {}
 
 /// The client's connection pool.
 ///
@@ -39,9 +38,7 @@ pub(super) struct Stream {
 ///
 /// Any custom streams have their own `StreamActor`. These are added to the pool
 /// and removed from the pool as needed.
-pub(super) struct ConnectionPool {
-
-}
+pub(super) struct ConnectionPool {}
 
 struct StreamRequest {
     rows: ArrowRecordBatch,
@@ -50,7 +47,7 @@ struct StreamRequest {
 
 /// A handle to a task running a stream
 struct StreamActor {
-    tx: tokio::sync::mpsc::Sender<StreamRequest>
+    tx: tokio::sync::mpsc::Sender<StreamRequest>,
 }
 
 impl ConnectionPool {
@@ -61,14 +58,11 @@ impl ConnectionPool {
 
         // Routing
         let handle = self.lookup_stream();
-        let stream_req = StreamRequest {
-            rows, resp_tx
-        };
+        let stream_req = StreamRequest { rows, resp_tx };
         handle.tx.send(stream_req).await.map_err(Error::io)?;
 
         resp_rx.await.map_err(Error::io)?
     }
-
 
     fn lookup_stream(&self) -> StreamActor {
         todo!();

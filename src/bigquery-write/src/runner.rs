@@ -38,7 +38,11 @@ pub(super) struct StreamWriterRunner {
 }
 
 impl StreamWriterRunner {
-    pub(super) fn new(transport: Arc<Transport>, stream_name: String, schema: WriterSchema) -> Self {
+    pub(super) fn new(
+        transport: Arc<Transport>,
+        stream_name: String,
+        schema: WriterSchema,
+    ) -> Self {
         Self {
             transport,
             stream_name,
