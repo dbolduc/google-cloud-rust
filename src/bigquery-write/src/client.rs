@@ -17,7 +17,7 @@ use crate::ClientBuilderResult as BuilderResult;
 use crate::client_builder::ClientBuilder;
 use crate::google::cloud::bigquery::storage::v1::ArrowSchema;
 use crate::proto_schema::ProtoSchema;
-use crate::stream_writer::{ProtoStreamWriter, StreamWriter};
+use crate::stream_writer::{ArrowStreamWriter, ProtoStreamWriter};
 use crate::transport::Transport;
 use crate::{Error, Result};
 use gaxi::prost::ToProto;
@@ -45,11 +45,11 @@ impl Client {
         })
     }
 
-    /// Create a [StreamWriter] for a specific stream using Arrow format.
+    /// Create a [ArrowStreamWriter] for a specific stream using Arrow format.
     ///
     /// The schema must be provided and will be sent in the first AppendRows request.
-    pub fn write_stream(&self, stream_name: String, schema: ArrowSchema) -> StreamWriter {
-        StreamWriter::new(self.inner.clone(), stream_name, schema)
+    pub fn write_stream_arrow(&self, stream_name: String, schema: ArrowSchema) -> ArrowStreamWriter {
+        ArrowStreamWriter::new(self.inner.clone(), stream_name, schema)
     }
 
     /// Create a [ProtoStreamWriter] for a specific stream using Proto format.

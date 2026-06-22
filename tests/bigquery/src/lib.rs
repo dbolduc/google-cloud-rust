@@ -367,7 +367,7 @@ pub async fn run_arrow_writes(project_id: &str, dataset_id: &str) -> Result<()> 
             serialized_schema: schema_buf.into(),
         };
 
-    let stream_writer = write_client.write_stream(stream_name, arrow_schema_proto);
+    let stream_writer = write_client.write_stream_arrow(stream_name, arrow_schema_proto);
 
     let arrow_batch_proto =
         google_cloud_bigquery_write::google::cloud::bigquery::storage::v1::ArrowRecordBatch {
