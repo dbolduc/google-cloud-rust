@@ -21,7 +21,7 @@ use google_cloud_bigquery_v2::model::{
 };
 use google_cloud_gax::{error::rpc::Code, paginator::ItemPaginator};
 use google_cloud_test_utils::runtime_config::project_id;
-use rand::{RngExt, distr::Alphanumeric};
+use rand::{distr::Alphanumeric, RngExt};
 
 const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
 
@@ -285,19 +285,8 @@ async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()>
 }
 
 pub async fn writes() -> Result<()> {
-    use arrow::array::{Int64Array, StringArray};
-    use arrow::datatypes::{DataType, Field, Schema};
-    use arrow::ipc::writer::StreamWriter;
-    use arrow::record_batch::RecordBatch;
-    use std::sync::Arc;
-
     let project_id = project_id()?;
     let dataset_service = DatasetService::builder().with_tracing().build().await?;
-    let table_service = TableService::builder().with_tracing().build().await?;
-    let write_client = google_cloud_bigquery_write::client::Client::builder()
-        .build()
-        .await?;
-
     cleanup_stale_datasets(&dataset_service, &project_id).await?;
 
     let dataset_id = random_dataset_id();
@@ -314,35 +303,31 @@ pub async fn writes() -> Result<()> {
         .await?;
     println!("DATASET CREATED");
 
-    let table_id = random_table_id();
-    println!("CREATING TABLE WITH ID: {table_id}");
-    let bq_schema = TableSchema::new().set_fields([
-        TableFieldSchema::new().set_name("col1").set_type("STRING"),
-        TableFieldSchema::new().set_name("col2").set_type("INTEGER"),
-    ]);
+    run_arrow_writes(&project_id, &dataset_id).await?;
+    run_proto_writes(&project_id, &dataset_id).await?;
 
-    table_service
-        .insert_table()
-        .set_project_id(&project_id)
-        .set_dataset_id(&dataset_id)
-        .set_table(
-            Table::new()
-                .set_table_reference(
-                    TableReference::new()
-                        .set_project_id(&project_id)
-                        .set_dataset_id(&dataset_id)
-                        .set_table_id(&table_id),
-                )
-                .set_schema(bq_schema),
-        )
-        .send()
+    Ok(())
+}
+
+pub async fn run_arrow_writes(project_id: &str, dataset_id: &str) -> Result<()> {
+    use arrow::array::{Int64Array, StringArray};
+    use arrow::datatypes::{DataType, Field, Schema};
+    use arrow::ipc::writer::StreamWriter;
+    use arrow::record_batch::RecordBatch;
+    use std::sync::Arc;
+
+    let write_client = google_cloud_bigquery_write::client::Client::builder()
+        .build()
         .await?;
-    println!("TABLE CREATED");
+    let table_service = TableService::builder().with_tracing().build().await?;
+
+    let table_id = create_test_table(&table_service, project_id, dataset_id).await?;
+    println!("ARROW TABLE CREATED: {table_id}");
 
     // Create Arrow Schema
     let arrow_schema = Arc::new(Schema::new(vec![
-        Field::new("col1", DataType::Utf8, false),
-        Field::new("col2", DataType::Int64, false),
+        Field::new("name", DataType::Utf8, false),
+        Field::new("age", DataType::Int64, false),
     ]));
 
     let serialize_schema = |schema: &Schema| -> Result<Vec<u8>> {
@@ -365,16 +350,14 @@ pub async fn writes() -> Result<()> {
 
     // Serialize Schema
     let schema_buf = serialize_schema(&arrow_schema)?;
-    println!("Schema message size: {}", schema_buf.len());
 
     // Create Arrow Record Batch
-    let col1 = StringArray::from(vec!["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]);
-    let col2 = Int64Array::from(vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-    let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(col1), Arc::new(col2)])?;
+    let name = StringArray::from(vec!["Jim", "Jane"]);
+    let age = Int64Array::from(vec![35, 27]);
+    let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(name), Arc::new(age)])?;
 
     // Serialize Record Batch
     let rb_msg = serialize_batch(&batch)?;
-    println!("RecordBatch message size: {}", rb_msg.len());
 
     let stream_name =
         format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/streams/_default");
@@ -389,61 +372,21 @@ pub async fn writes() -> Result<()> {
     let arrow_batch_proto =
         google_cloud_bigquery_write::google::cloud::bigquery::storage::v1::ArrowRecordBatch {
             serialized_record_batch: rb_msg.into(),
-            row_count: 10,
+            row_count: 2,
         };
 
     let _response = stream_writer.append(arrow_batch_proto).await?;
-    drop(stream_writer);
-    drop(write_client);
+    println!("Arrow rows appended");
 
-    // Verify
-    let job_service = JobService::builder().build().await?;
-    let query_config = JobConfigurationQuery::new()
-        .set_query(format!(
-            "SELECT * FROM `{project_id}.{dataset_id}.{table_id}`"
-        ))
-        .set_use_legacy_sql(false);
-
-    let job = job_service
-        .insert_job()
-        .set_project_id(&project_id)
-        .set_job(Job::new().set_configuration(JobConfiguration::new().set_query(query_config)))
-        .send()
-        .await?;
-
-    let job_id = job.job_reference.as_ref().unwrap().job_id.clone();
-
-    // Wait for job completion and get results
-    let mut attempts = 0;
-    let row_count = loop {
-        let results = job_service
-            .get_query_results()
-            .set_project_id(&project_id)
-            .set_job_id(&job_id)
-            .send()
-            .await?;
-
-        if results.job_complete.unwrap_or(false) {
-            break results.total_rows.unwrap_or(0);
-        }
-
-        attempts += 1;
-        if attempts > 10 {
-            anyhow::bail!("Query job did not complete in time");
-        }
-        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    };
-
-    assert_eq!(row_count, 10);
-
-    run_proto_writes(&project_id, &dataset_id).await?;
+    verify_test_table(project_id, dataset_id, &table_id).await?;
+    println!("ARROW DATA CONTENT VERIFIED");
 
     Ok(())
 }
 
 pub async fn run_proto_writes(project_id: &str, dataset_id: &str) -> Result<()> {
-    use google_cloud_bigquery_write::proto_schema::ProtoSchema;
     use google_cloud_bigquery_write::google::cloud::bigquery::storage::v1::ProtoRows;
+    use google_cloud_bigquery_write::proto_schema::ProtoSchema;
     use google_cloud_wkt::{DescriptorProto, FieldDescriptorProto};
     use prost::Message;
 
@@ -452,36 +395,10 @@ pub async fn run_proto_writes(project_id: &str, dataset_id: &str) -> Result<()> 
         .await?;
     let table_service = TableService::builder().with_tracing().build().await?;
 
-    let table_id = random_table_id();
-    println!("CREATING PROTO TABLE WITH ID: {table_id}");
-    let bq_schema = TableSchema::new().set_fields([
-        TableFieldSchema::new().set_name("name").set_type("STRING"),
-        TableFieldSchema::new().set_name("age").set_type("INTEGER"),
-    ]);
+    let table_id = create_test_table(&table_service, project_id, dataset_id).await?;
+    println!("PROTO TABLE CREATED: {table_id}");
 
-    table_service
-        .insert_table()
-        .set_project_id(project_id)
-        .set_dataset_id(dataset_id)
-        .set_table(
-            Table::new()
-                .set_table_reference(
-                    TableReference::new()
-                        .set_project_id(project_id)
-                        .set_dataset_id(dataset_id)
-                        .set_table_id(&table_id),
-                )
-                .set_schema(bq_schema),
-        )
-        .send()
-        .await?;
-    println!("PROTO TABLE CREATED");
-
-    // Manually construct DescriptorProto for:
-    // message SampleData {
-    //   string name = 1;
-    //   int64 age = 2;
-    // }
+    // Manually construct DescriptorProto
     let descriptor = DescriptorProto::new()
         .set_name("SampleData")
         .set_field([
@@ -506,7 +423,6 @@ pub async fn run_proto_writes(project_id: &str, dataset_id: &str) -> Result<()> 
 
     let stream_writer = write_client.write_stream_proto(stream_name, schema)?;
 
-    // Define a simple message for serialization
     #[derive(Clone, PartialEq, ::prost::Message)]
     struct SampleData {
         #[prost(string, tag = "1")]
@@ -516,8 +432,14 @@ pub async fn run_proto_writes(project_id: &str, dataset_id: &str) -> Result<()> 
     }
 
     let rows = vec![
-        SampleData { name: "Jim".to_string(), age: 35 },
-        SampleData { name: "Jane".to_string(), age: 27 },
+        SampleData {
+            name: "Jim".to_string(),
+            age: 35,
+        },
+        SampleData {
+            name: "Jane".to_string(),
+            age: 27,
+        },
     ];
 
     let mut serialized_rows = Vec::new();
@@ -527,14 +449,49 @@ pub async fn run_proto_writes(project_id: &str, dataset_id: &str) -> Result<()> 
         serialized_rows.push(buf.into());
     }
 
-    let proto_rows = ProtoRows {
-        serialized_rows,
-    };
+    let proto_rows = ProtoRows { serialized_rows };
 
     let _response = stream_writer.append(proto_rows).await?;
     println!("Proto rows appended");
 
-    // Verify
+    verify_test_table(project_id, dataset_id, &table_id).await?;
+    println!("PROTO DATA CONTENT VERIFIED");
+
+    Ok(())
+}
+
+async fn create_test_table(
+    table_service: &TableService,
+    project_id: &str,
+    dataset_id: &str,
+) -> Result<String> {
+    let table_id = random_table_id();
+    let bq_schema = TableSchema::new().set_fields([
+        TableFieldSchema::new().set_name("name").set_type("STRING"),
+        TableFieldSchema::new().set_name("age").set_type("INTEGER"),
+    ]);
+
+    table_service
+        .insert_table()
+        .set_project_id(project_id)
+        .set_dataset_id(dataset_id)
+        .set_table(
+            Table::new()
+                .set_table_reference(
+                    TableReference::new()
+                        .set_project_id(project_id)
+                        .set_dataset_id(dataset_id)
+                        .set_table_id(&table_id),
+                )
+                .set_schema(bq_schema),
+        )
+        .send()
+        .await?;
+
+    Ok(table_id)
+}
+
+async fn verify_test_table(project_id: &str, dataset_id: &str, table_id: &str) -> Result<()> {
     let job_service = JobService::builder().build().await?;
     let query_config = JobConfigurationQuery::new()
         .set_query(format!(
@@ -580,15 +537,22 @@ pub async fn run_proto_writes(project_id: &str, dataset_id: &str) -> Result<()> 
 
     // Jane, 27 (ordered by name)
     let jane_row = rows[0].get("f").and_then(|f| f.as_array()).unwrap();
-    assert_eq!(jane_row[0].get("v").and_then(|v| v.as_str()).unwrap(), "Jane");
-    assert_eq!(jane_row[1].get("v").and_then(|v| v.as_str()).unwrap(), "27");
+    assert_eq!(
+        jane_row[0].get("v").and_then(|v| v.as_str()).unwrap(),
+        "Jane"
+    );
+    assert_eq!(
+        jane_row[1].get("v").and_then(|v| v.as_str()).unwrap(),
+        "27"
+    );
 
     // Jim, 35
     let jim_row = rows[1].get("f").and_then(|f| f.as_array()).unwrap();
-    assert_eq!(jim_row[0].get("v").and_then(|v| v.as_str()).unwrap(), "Jim");
+    assert_eq!(
+        jim_row[0].get("v").and_then(|v| v.as_str()).unwrap(),
+        "Jim"
+    );
     assert_eq!(jim_row[1].get("v").and_then(|v| v.as_str()).unwrap(), "35");
-
-    println!("PROTO DATA CONTENT VERIFIED");
 
     Ok(())
 }
