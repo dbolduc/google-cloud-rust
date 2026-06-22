@@ -16,10 +16,13 @@ use super::pool::ConnectionPool;
 use crate::ClientBuilderResult as BuilderResult;
 use crate::client_builder::ClientBuilder;
 use crate::google::cloud::bigquery::storage::v1::ArrowSchema;
-use crate::stream_writer::StreamWriter;
+use crate::proto_schema::ProtoSchema;
+use crate::stream_writer::{ProtoStreamWriter, StreamWriter};
 use crate::transport::Transport;
-use std::sync::Arc;
+use crate::{Error, Result};
+use gaxi::prost::ToProto;
 use std::collections::HashMap;
+use std::sync::Arc;
 
 /// A client for BigQuery Storage Write API.
 pub struct Client {
@@ -42,11 +45,29 @@ impl Client {
         })
     }
 
-    /// Create a [StreamWriter] for a specific stream.
+    /// Create a [StreamWriter] for a specific stream using Arrow format.
     ///
     /// The schema must be provided and will be sent in the first AppendRows request.
     pub fn write_stream(&self, stream_name: String, schema: ArrowSchema) -> StreamWriter {
         StreamWriter::new(self.inner.clone(), stream_name, schema)
+    }
+
+    /// Create a [ProtoStreamWriter] for a specific stream using Proto format.
+    ///
+    /// The schema must be provided and will be sent in the first AppendRows request.
+    pub fn write_stream_proto(
+        &self,
+        stream_name: String,
+        schema: ProtoSchema,
+    ) -> Result<ProtoStreamWriter> {
+        let v1_schema: crate::google::cloud::bigquery::storage::v1::ProtoSchema =
+            ToProto::<crate::google::cloud::bigquery::storage::v1::ProtoSchema>::to_proto(schema)
+                .map_err(Error::ser)?;
+        Ok(ProtoStreamWriter::new(
+            self.inner.clone(),
+            stream_name,
+            v1_schema,
+        ))
     }
 }
 

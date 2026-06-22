@@ -436,6 +436,160 @@ pub async fn writes() -> Result<()> {
 
     assert_eq!(row_count, 10);
 
+    run_proto_writes(&project_id, &dataset_id).await?;
+
+    Ok(())
+}
+
+pub async fn run_proto_writes(project_id: &str, dataset_id: &str) -> Result<()> {
+    use google_cloud_bigquery_write::proto_schema::ProtoSchema;
+    use google_cloud_bigquery_write::google::cloud::bigquery::storage::v1::ProtoRows;
+    use google_cloud_wkt::{DescriptorProto, FieldDescriptorProto};
+    use prost::Message;
+
+    let write_client = google_cloud_bigquery_write::client::Client::builder()
+        .build()
+        .await?;
+    let table_service = TableService::builder().with_tracing().build().await?;
+
+    let table_id = random_table_id();
+    println!("CREATING PROTO TABLE WITH ID: {table_id}");
+    let bq_schema = TableSchema::new().set_fields([
+        TableFieldSchema::new().set_name("name").set_type("STRING"),
+        TableFieldSchema::new().set_name("age").set_type("INTEGER"),
+    ]);
+
+    table_service
+        .insert_table()
+        .set_project_id(project_id)
+        .set_dataset_id(dataset_id)
+        .set_table(
+            Table::new()
+                .set_table_reference(
+                    TableReference::new()
+                        .set_project_id(project_id)
+                        .set_dataset_id(dataset_id)
+                        .set_table_id(&table_id),
+                )
+                .set_schema(bq_schema),
+        )
+        .send()
+        .await?;
+    println!("PROTO TABLE CREATED");
+
+    // Manually construct DescriptorProto for:
+    // message SampleData {
+    //   string name = 1;
+    //   int64 age = 2;
+    // }
+    let descriptor = DescriptorProto::new()
+        .set_name("SampleData")
+        .set_field([
+            FieldDescriptorProto::new()
+                .set_name("name")
+                .set_number(1)
+                .set_type(google_cloud_wkt::field_descriptor_proto::Type::String)
+                .set_label(google_cloud_wkt::field_descriptor_proto::Label::Optional),
+            FieldDescriptorProto::new()
+                .set_name("age")
+                .set_number(2)
+                .set_type(google_cloud_wkt::field_descriptor_proto::Type::Int64)
+                .set_label(google_cloud_wkt::field_descriptor_proto::Label::Optional),
+        ]);
+
+    let schema = ProtoSchema {
+        proto_descriptor: Some(descriptor),
+    };
+
+    let stream_name =
+        format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/streams/_default");
+
+    let stream_writer = write_client.write_stream_proto(stream_name, schema)?;
+
+    // Define a simple message for serialization
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    struct SampleData {
+        #[prost(string, tag = "1")]
+        pub name: String,
+        #[prost(int64, tag = "2")]
+        pub age: i64,
+    }
+
+    let rows = vec![
+        SampleData { name: "Jim".to_string(), age: 35 },
+        SampleData { name: "Jane".to_string(), age: 27 },
+    ];
+
+    let mut serialized_rows = Vec::new();
+    for row in rows {
+        let mut buf = Vec::new();
+        row.encode(&mut buf)?;
+        serialized_rows.push(buf.into());
+    }
+
+    let proto_rows = ProtoRows {
+        serialized_rows,
+    };
+
+    let _response = stream_writer.append(proto_rows).await?;
+    println!("Proto rows appended");
+
+    // Verify
+    let job_service = JobService::builder().build().await?;
+    let query_config = JobConfigurationQuery::new()
+        .set_query(format!(
+            "SELECT * FROM `{project_id}.{dataset_id}.{table_id}` ORDER BY name"
+        ))
+        .set_use_legacy_sql(false);
+
+    let job = job_service
+        .insert_job()
+        .set_project_id(project_id)
+        .set_job(Job::new().set_configuration(JobConfiguration::new().set_query(query_config)))
+        .send()
+        .await?;
+
+    let job_id = job.job_reference.as_ref().unwrap().job_id.clone();
+
+    // Wait for job completion and get results
+    let mut attempts = 0;
+    let results = loop {
+        let results = job_service
+            .get_query_results()
+            .set_project_id(project_id)
+            .set_job_id(&job_id)
+            .send()
+            .await?;
+
+        if results.job_complete.unwrap_or(false) {
+            break results;
+        }
+
+        attempts += 1;
+        if attempts > 10 {
+            anyhow::bail!("Query job did not complete in time");
+        }
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+    };
+
+    assert_eq!(results.total_rows.unwrap_or(0), 2);
+
+    // Verify content
+    let rows = &results.rows;
+    assert_eq!(rows.len(), 2);
+
+    // Jane, 27 (ordered by name)
+    let jane_row = rows[0].get("f").and_then(|f| f.as_array()).unwrap();
+    assert_eq!(jane_row[0].get("v").and_then(|v| v.as_str()).unwrap(), "Jane");
+    assert_eq!(jane_row[1].get("v").and_then(|v| v.as_str()).unwrap(), "27");
+
+    // Jim, 35
+    let jim_row = rows[1].get("f").and_then(|f| f.as_array()).unwrap();
+    assert_eq!(jim_row[0].get("v").and_then(|v| v.as_str()).unwrap(), "Jim");
+    assert_eq!(jim_row[1].get("v").and_then(|v| v.as_str()).unwrap(), "35");
+
+    println!("PROTO DATA CONTENT VERIFIED");
+
     Ok(())
 }
 

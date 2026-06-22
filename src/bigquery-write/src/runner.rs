@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{Error, Result};
-use crate::google::cloud::bigquery::storage::v1::append_rows_request::{ArrowData, Rows};
+use crate::google::cloud::bigquery::storage::v1::append_rows_request::Rows;
 use crate::google::cloud::bigquery::storage::v1::{
-    AppendRowsRequest, AppendRowsResponse, ArrowRecordBatch, ArrowSchema,
+    AppendRowsRequest, AppendRowsResponse, ArrowSchema, ProtoSchema,
 };
 use crate::transport::Transport;
+use crate::{Error, Result};
 use gaxi::grpc::from_status::to_gax_error;
 use google_cloud_gax::error::rpc::{Code, Status};
 use std::collections::VecDeque;
@@ -25,15 +25,20 @@ use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot};
 use tokio_stream::StreamExt;
 
+pub(super) enum WriterSchema {
+    Arrow(ArrowSchema),
+    Proto(ProtoSchema),
+}
+
 pub(super) struct StreamWriterRunner {
     transport: Arc<Transport>,
     stream_name: String,
-    schema: ArrowSchema,
+    schema: WriterSchema,
     pending_responses: VecDeque<oneshot::Sender<Result<AppendRowsResponse>>>,
 }
 
 impl StreamWriterRunner {
-    pub(super) fn new(transport: Arc<Transport>, stream_name: String, schema: ArrowSchema) -> Self {
+    pub(super) fn new(transport: Arc<Transport>, stream_name: String, schema: WriterSchema) -> Self {
         Self {
             transport,
             stream_name,
@@ -59,8 +64,17 @@ impl StreamWriterRunner {
 
         // Prepare the first request
         first_request.write_stream = self.stream_name.clone();
-        if let Some(Rows::ArrowRows(ref mut arrow_data)) = first_request.rows {
-            arrow_data.writer_schema = Some(self.schema.clone());
+        match (&self.schema, &mut first_request.rows) {
+            (WriterSchema::Arrow(s), Some(Rows::ArrowRows(data))) => {
+                data.writer_schema = Some(s.clone());
+            }
+            (WriterSchema::Proto(s), Some(Rows::ProtoRows(data))) => {
+                data.writer_schema = Some(s.clone());
+            }
+            _ => {
+                // If the user sent the wrong row type for the schema, the server will error.
+                // We just pass it through.
+            }
         }
 
         // Send the first request to the gRPC stream channel before opening the stream

@@ -6238,6 +6238,8 @@ dependencies = [
  "google-cloud-bigquery-write",
  "google-cloud-gax",
  "google-cloud-test-utils",
+ "google-cloud-wkt",
+ "prost",
  "rand 0.10.1",
  "tokio",
 ]

@@ -31,6 +31,8 @@ anyhow.workspace         = true
 futures.workspace        = true
 google-cloud-bigquery-v2 = { workspace = true, features = ["default"] }
 google-cloud-bigquery-write = { workspace = true }
+google-cloud-wkt            = { workspace = true }
+prost                    = { workspace = true }
 arrow                    = { workspace = true, features = ["ipc"] }
 google-cloud-gax         = { workspace = true, features = ["unstable-stream"] }
 google-cloud-test-utils  = { workspace = true }

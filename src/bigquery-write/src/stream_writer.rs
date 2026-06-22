@@ -12,21 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::runner::StreamWriterRunner;
-use crate::google::cloud::bigquery::storage::v1::append_rows_request::{ArrowData, Rows};
+use super::runner::{StreamWriterRunner, WriterSchema};
+use crate::google::cloud::bigquery::storage::v1::append_rows_request::{ArrowData, ProtoData, Rows};
 use crate::google::cloud::bigquery::storage::v1::{
-    AppendRowsRequest, AppendRowsResponse, ArrowRecordBatch, ArrowSchema,
+    AppendRowsRequest, AppendRowsResponse, ArrowRecordBatch, ArrowSchema, ProtoRows, ProtoSchema,
 };
 use crate::transport::Transport;
 use crate::{Error, Result};
-use gaxi::grpc::from_status::to_gax_error;
 use google_cloud_gax::error::rpc::{Code, Status};
-use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot};
-use tokio_stream::StreamExt;
 
-/// A writer for a specific BigQuery write stream.
+/// A writer for a specific BigQuery write stream using Arrow format.
 pub struct StreamWriter {
     request_tx: mpsc::Sender<(
         AppendRowsRequest,
@@ -38,7 +35,8 @@ impl StreamWriter {
     pub(crate) fn new(transport: Arc<Transport>, stream_name: String, schema: ArrowSchema) -> Self {
         let (request_tx, request_rx) = mpsc::channel(100);
         tokio::spawn(async move {
-            let mut runner = StreamWriterRunner::new(transport, stream_name, schema);
+            let mut runner =
+                StreamWriterRunner::new(transport, stream_name, WriterSchema::Arrow(schema));
             let _ = runner.run(request_rx).await;
         });
         Self { request_tx }
@@ -55,14 +53,90 @@ impl StreamWriter {
             ..Default::default()
         };
 
+        self.send_request(request, tx).await?;
+        self.recv_response(rx).await
+    }
+
+    pub(crate) async fn send_request(
+        &self,
+        request: AppendRowsRequest,
+        tx: oneshot::Sender<Result<AppendRowsResponse>>,
+    ) -> Result<()> {
         self.request_tx.send((request, tx)).await.map_err(|_| {
             Error::service(
                 Status::default()
                     .set_code(Code::Cancelled)
                     .set_message("stream closed"),
             )
-        })?;
+        })
+    }
 
+    pub(crate) async fn recv_response(
+        &self,
+        rx: oneshot::Receiver<Result<AppendRowsResponse>>,
+    ) -> Result<AppendRowsResponse> {
+        rx.await.map_err(|_| {
+            Error::service(
+                Status::default()
+                    .set_code(Code::Cancelled)
+                    .set_message("response channel closed"),
+            )
+        })?
+    }
+}
+
+/// A writer for a specific BigQuery write stream using Proto format.
+pub struct ProtoStreamWriter {
+    request_tx: mpsc::Sender<(
+        AppendRowsRequest,
+        oneshot::Sender<Result<AppendRowsResponse>>,
+    )>,
+}
+
+impl ProtoStreamWriter {
+    pub(crate) fn new(transport: Arc<Transport>, stream_name: String, schema: ProtoSchema) -> Self {
+        let (request_tx, request_rx) = mpsc::channel(100);
+        tokio::spawn(async move {
+            let mut runner =
+                StreamWriterRunner::new(transport, stream_name, WriterSchema::Proto(schema));
+            let _ = runner.run(request_rx).await;
+        });
+        Self { request_tx }
+    }
+
+    /// Append Proto rows to the stream.
+    pub async fn append(&self, rows: ProtoRows) -> Result<AppendRowsResponse> {
+        let (tx, rx) = oneshot::channel();
+        let request = AppendRowsRequest {
+            rows: Some(Rows::ProtoRows(ProtoData {
+                rows: Some(rows),
+                ..Default::default()
+            })),
+            ..Default::default()
+        };
+
+        self.send_request(request, tx).await?;
+        self.recv_response(rx).await
+    }
+
+    pub(crate) async fn send_request(
+        &self,
+        request: AppendRowsRequest,
+        tx: oneshot::Sender<Result<AppendRowsResponse>>,
+    ) -> Result<()> {
+        self.request_tx.send((request, tx)).await.map_err(|_| {
+            Error::service(
+                Status::default()
+                    .set_code(Code::Cancelled)
+                    .set_message("stream closed"),
+            )
+        })
+    }
+
+    pub(crate) async fn recv_response(
+        &self,
+        rx: oneshot::Receiver<Result<AppendRowsResponse>>,
+    ) -> Result<AppendRowsResponse> {
         rx.await.map_err(|_| {
             Error::service(
                 Status::default()

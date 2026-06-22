@@ -39,7 +39,8 @@ pub mod client;
 /// The BigQuery Write client builder.
 pub mod client_builder;
 mod pool;
-mod proto_schema;
+/// The BigQuery Write proto schema.
+pub mod proto_schema;
 mod runner;
 /// The BigQuery Write stream writer.
 pub mod stream_writer;
