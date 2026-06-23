@@ -12,59 +12,50 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::google::cloud::bigquery::storage::v1::{
-    AppendRowsRequest, AppendRowsResponse, ArrowRecordBatch, ArrowSchema,
-};
-use crate::{Error, Result};
+use crate::Result;
+use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};
+use tokio::sync::{mpsc, oneshot};
 
-/// An abstraction
-pub(super) struct Stream {}
-
-/// The client's connection pool.
-///
-/// This pool is scoped to a region, e.g. "us-east1".
-///
-/// It holds handles for `StreamActors`, for each bidirectional stream.
-///
-/// ## Default stream
-///
-/// At a high level, the default stream can be multiplexed across many tables.
-/// Requests to the default stream are serviced by N `StreamActors`.
-///
-/// The connection pool grows dynamically. If there is no available stream, we
-/// add new streams (up to a limit). We may rebalance this pool dynamically too.
-///
-/// ## Custom streams (buffered, committed, pending)
-///
-/// Any custom streams have their own `StreamActor`. These are added to the pool
-/// and removed from the pool as needed.
-pub(super) struct ConnectionPool {}
-
-struct StreamRequest {
-    rows: ArrowRecordBatch,
-    resp_tx: tokio::sync::oneshot::Sender<Result<AppendRowsResponse>>,
+pub(super) struct AppendRequest {
+    pub request: AppendRowsRequest,
+    pub resp_tx: oneshot::Sender<Result<AppendRowsResponse>>,
 }
 
-/// A handle to a task running a stream
-struct StreamActor {
-    tx: tokio::sync::mpsc::Sender<StreamRequest>,
+pub(super) enum StreamCommand {
+    Append(AppendRequest),
+}
+
+/// A handle to a task running a stream.
+#[derive(Clone)]
+pub(super) struct StreamHandle {
+    pub tx: mpsc::Sender<StreamCommand>,
+}
+
+pub(super) struct ConnectionPool {
+    // For now, we only handle the default stream.
+    // In the future, this will be a more complex manager for multiplexing and auto-scaling.
+    default_stream: tokio::sync::OnceCell<StreamHandle>,
 }
 
 impl ConnectionPool {
-    pub async fn append(&self, rows: ArrowRecordBatch) -> Result<AppendRowsResponse> {
-        // TODO : retry loop.
-
-        let (resp_tx, resp_rx) = tokio::sync::oneshot::channel();
-
-        // Routing
-        let handle = self.lookup_stream();
-        let stream_req = StreamRequest { rows, resp_tx };
-        handle.tx.send(stream_req).await.map_err(Error::io)?;
-
-        resp_rx.await.map_err(Error::io)?
+    pub fn new() -> Self {
+        Self {
+            default_stream: tokio::sync::OnceCell::new(),
+        }
     }
 
-    fn lookup_stream(&self) -> StreamActor {
-        todo!();
+    pub async fn get_or_init_default<F, Fut>(&self, init: F) -> Result<StreamHandle>
+    where
+        F: FnOnce() -> Fut,
+        Fut: std::future::Future<Output = Result<StreamHandle>>,
+    {
+        if let Some(handle) = self.default_stream.get() {
+            return Ok(handle.clone());
+        }
+
+        let handle = init().await?;
+        // Ignore the error if another thread initialized it in the meantime.
+        let _ = self.default_stream.set(handle.clone());
+        Ok(handle)
     }
 }

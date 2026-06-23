@@ -367,7 +367,9 @@ pub async fn run_arrow_writes(project_id: &str, dataset_id: &str) -> Result<()> 
             serialized_schema: schema_buf.into(),
         };
 
-    let stream_writer = write_client.write_stream_arrow(stream_name, arrow_schema_proto);
+    let stream_writer = write_client
+        .write_stream_arrow(stream_name, arrow_schema_proto)
+        .await?;
 
     let arrow_batch_proto =
         google_cloud_bigquery_write::google::cloud::bigquery::storage::v1::ArrowRecordBatch {
@@ -419,7 +421,7 @@ pub async fn run_proto_writes(project_id: &str, dataset_id: &str) -> Result<()> 
     let stream_name =
         format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/streams/_default");
 
-    let stream_writer = write_client.write_stream_proto(stream_name, schema)?;
+    let stream_writer = write_client.write_stream_proto(stream_name, schema).await?;
 
     #[derive(Clone, PartialEq, ::prost::Message)]
     struct SampleData {

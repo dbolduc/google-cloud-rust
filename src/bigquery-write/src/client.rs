@@ -12,17 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::pool::ConnectionPool;
+use super::pool::{ConnectionPool, StreamHandle};
 use crate::ClientBuilderResult as BuilderResult;
 use crate::client_builder::ClientBuilder;
 use crate::google::cloud::bigquery::storage::v1::ArrowSchema;
 use crate::proto_schema::ProtoSchema;
+use crate::runner::StreamTask;
 use crate::stream_writer::{ArrowStreamWriter, ProtoStreamWriter};
 use crate::transport::Transport;
 use crate::{Error, Result};
 use gaxi::prost::ToProto;
 use std::collections::HashMap;
 use std::sync::Arc;
+use tokio::sync::mpsc;
 
 /// A client for BigQuery Storage Write API.
 pub struct Client {
@@ -39,27 +41,50 @@ impl Client {
 
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
         let transport = Transport::new(builder.config).await?;
+        let mut pool = HashMap::new();
+        pool.insert("default".to_string(), Arc::new(ConnectionPool::new()));
         Ok(Self {
             inner: Arc::new(transport),
-            pool: HashMap::new(),
+            pool,
         })
+    }
+
+    async fn get_default_handle(&self) -> Result<StreamHandle> {
+        let pool = self.pool.get("default").ok_or_else(|| {
+            Error::service(
+                google_cloud_gax::error::rpc::Status::default()
+                    .set_code(google_cloud_gax::error::rpc::Code::Internal)
+                    .set_message("default pool not found"),
+            )
+        })?;
+
+        pool.get_or_init_default(|| async {
+            let (tx, rx) = mpsc::channel(100);
+            let mut runner = StreamTask::new(self.inner.clone());
+            tokio::spawn(async move {
+                let _ = runner.run(rx).await;
+            });
+            Ok(StreamHandle { tx })
+        })
+        .await
     }
 
     /// Create a [ArrowStreamWriter] for a specific stream using Arrow format.
     ///
     /// The schema must be provided and will be sent in the first AppendRows request.
-    pub fn write_stream_arrow(
+    pub async fn write_stream_arrow(
         &self,
         stream_name: String,
         schema: ArrowSchema,
-    ) -> ArrowStreamWriter {
-        ArrowStreamWriter::new(self.inner.clone(), stream_name, schema)
+    ) -> Result<ArrowStreamWriter> {
+        let handle = self.get_default_handle().await?;
+        Ok(ArrowStreamWriter::new(handle, stream_name, schema))
     }
 
     /// Create a [ProtoStreamWriter] for a specific stream using Proto format.
     ///
     /// The schema must be provided and will be sent in the first AppendRows request.
-    pub fn write_stream_proto(
+    pub async fn write_stream_proto(
         &self,
         stream_name: String,
         schema: ProtoSchema,
@@ -67,11 +92,8 @@ impl Client {
         let v1_schema: crate::google::cloud::bigquery::storage::v1::ProtoSchema =
             ToProto::<crate::google::cloud::bigquery::storage::v1::ProtoSchema>::to_proto(schema)
                 .map_err(Error::ser)?;
-        Ok(ProtoStreamWriter::new(
-            self.inner.clone(),
-            stream_name,
-            v1_schema,
-        ))
+        let handle = self.get_default_handle().await?;
+        Ok(ProtoStreamWriter::new(handle, stream_name, v1_schema))
     }
 }
 

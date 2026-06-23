@@ -12,87 +12,63 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::google::cloud::bigquery::storage::v1::append_rows_request::Rows;
-use crate::google::cloud::bigquery::storage::v1::{
-    AppendRowsRequest, AppendRowsResponse, ArrowSchema, ProtoSchema,
-};
+use crate::pool::StreamCommand;
 use crate::transport::Transport;
 use crate::{Error, Result};
 use gaxi::grpc::from_status::to_gax_error;
 use google_cloud_gax::error::rpc::{Code, Status};
 use std::collections::VecDeque;
 use std::sync::Arc;
-use tokio::sync::{mpsc, oneshot};
+use tokio::sync::mpsc;
 use tokio_stream::StreamExt;
 
-pub(super) enum WriterSchema {
-    Arrow(ArrowSchema),
-    Proto(ProtoSchema),
-}
-
-pub(super) struct StreamWriterRunner {
+pub(super) struct StreamTask {
     transport: Arc<Transport>,
-    stream_name: String,
-    schema: WriterSchema,
-    pending_responses: VecDeque<oneshot::Sender<Result<AppendRowsResponse>>>,
+    pending_responses: VecDeque<
+        tokio::sync::oneshot::Sender<
+            Result<crate::google::cloud::bigquery::storage::v1::AppendRowsResponse>,
+        >,
+    >,
 }
 
-impl StreamWriterRunner {
-    pub(super) fn new(
-        transport: Arc<Transport>,
-        stream_name: String,
-        schema: WriterSchema,
-    ) -> Self {
+impl StreamTask {
+    pub(super) fn new(transport: Arc<Transport>) -> Self {
         Self {
             transport,
-            stream_name,
-            schema,
             pending_responses: VecDeque::new(),
         }
     }
 
     pub(super) async fn run(
         &mut self,
-        mut request_rx: mpsc::Receiver<(
-            AppendRowsRequest,
-            oneshot::Sender<Result<AppendRowsResponse>>,
-        )>,
+        mut command_rx: mpsc::Receiver<StreamCommand>,
     ) -> Result<()> {
-        let (mut first_request, first_response_tx) = match request_rx.recv().await {
-            Some(r) => r,
+        // Wait for the first append request to open the stream.
+        let first_request = match command_rx.recv().await {
+            Some(StreamCommand::Append(req)) => req,
             None => return Ok(()),
         };
 
         let (grpc_request_tx, grpc_request_rx) = mpsc::channel(100);
-        let request_params = format!("write_stream={}", self.stream_name);
 
-        // Prepare the first request
-        first_request.write_stream = self.stream_name.clone();
-        match (&self.schema, &mut first_request.rows) {
-            (WriterSchema::Arrow(s), Some(Rows::ArrowRows(data))) => {
-                data.writer_schema = Some(s.clone());
-            }
-            (WriterSchema::Proto(s), Some(Rows::ProtoRows(data))) => {
-                data.writer_schema = Some(s.clone());
-            }
-            _ => {
-                // If the user sent the wrong row type for the schema, the server will error.
-                // We just pass it through.
-            }
-        }
+        // The first request must have the write_stream set.
+        let request_params = format!("write_stream={}", first_request.request.write_stream);
 
         // Send the first request to the gRPC stream channel before opening the stream
         // to avoid deadlock with servers that wait for the first request.
-        grpc_request_tx.send(first_request).await.map_err(|_| {
-            Error::service(
-                Status::default()
-                    .set_code(Code::Internal)
-                    .set_message("internal channel closed"),
-            )
-        })?;
-        self.pending_responses.push_back(first_response_tx);
+        grpc_request_tx
+            .send(first_request.request)
+            .await
+            .map_err(|_| {
+                Error::service(
+                    Status::default()
+                        .set_code(Code::Internal)
+                        .set_message("internal channel closed"),
+                )
+            })?;
+        self.pending_responses.push_back(first_request.resp_tx);
 
-        tracing::info!("Opening AppendRows stream for {}", self.stream_name);
+        tracing::info!("Opening AppendRows stream");
         let mut grpc_response_stream = self
             .transport
             .append_rows(
@@ -105,13 +81,16 @@ impl StreamWriterRunner {
 
         loop {
             tokio::select! {
-                Some((mut request, response_tx)) = request_rx.recv() => {
-                    tracing::debug!("Received request for append");
-                    request.write_stream = self.stream_name.clone();
-                    self.pending_responses.push_back(response_tx);
-                    if grpc_request_tx.send(request).await.is_err() {
-                        tracing::error!("Failed to send request to gRPC stream");
-                        break;
+                Some(command) = command_rx.recv() => {
+                    match command {
+                        StreamCommand::Append(req) => {
+                            tracing::debug!("Received request for append");
+                            self.pending_responses.push_back(req.resp_tx);
+                            if grpc_request_tx.send(req.request).await.is_err() {
+                                tracing::error!("Failed to send request to gRPC stream");
+                                break;
+                            }
+                        }
                     }
                 }
                 Some(response) = grpc_response_stream.next() => {

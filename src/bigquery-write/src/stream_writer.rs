@@ -12,56 +12,60 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::runner::{StreamWriterRunner, WriterSchema};
 use crate::google::cloud::bigquery::storage::v1::append_rows_request::{
     ArrowData, ProtoData, Rows,
 };
 use crate::google::cloud::bigquery::storage::v1::{
     AppendRowsRequest, AppendRowsResponse, ArrowRecordBatch, ArrowSchema, ProtoRows, ProtoSchema,
 };
-use crate::transport::Transport;
+use crate::pool::{AppendRequest, StreamCommand, StreamHandle};
 use crate::{Error, Result};
 use google_cloud_gax::error::rpc::{Code, Status};
-use std::sync::Arc;
-use tokio::sync::{mpsc, oneshot};
+use tokio::sync::oneshot;
 
-type RequestPair = (
-    AppendRowsRequest,
-    oneshot::Sender<Result<AppendRowsResponse>>,
-);
-
-struct InnerStreamWriter {
-    request_tx: mpsc::Sender<RequestPair>,
+/// A writer for a specific BigQuery write stream using Arrow format.
+pub struct ArrowStreamWriter {
+    handle: StreamHandle,
+    stream_name: String,
+    schema: ArrowSchema,
 }
 
-impl InnerStreamWriter {
-    fn new(transport: Arc<Transport>, stream_name: String, schema: WriterSchema) -> Self {
-        let (request_tx, request_rx) = mpsc::channel(100);
-        tokio::spawn(async move {
-            let mut runner = StreamWriterRunner::new(transport, stream_name, schema);
-            let _ = runner.run(request_rx).await;
-        });
-        Self { request_tx }
+impl ArrowStreamWriter {
+    pub(crate) fn new(handle: StreamHandle, stream_name: String, schema: ArrowSchema) -> Self {
+        Self {
+            handle,
+            stream_name,
+            schema,
+        }
     }
 
-    async fn send_request(
-        &self,
-        request: AppendRowsRequest,
-        tx: oneshot::Sender<Result<AppendRowsResponse>>,
-    ) -> Result<()> {
-        self.request_tx.send((request, tx)).await.map_err(|_| {
-            Error::service(
-                Status::default()
-                    .set_code(Code::Cancelled)
-                    .set_message("stream closed"),
-            )
-        })
-    }
+    /// Append Arrow record batches to the stream.
+    pub async fn append(&self, rows: ArrowRecordBatch) -> Result<AppendRowsResponse> {
+        let (tx, rx) = oneshot::channel();
+        let request = AppendRowsRequest {
+            write_stream: self.stream_name.clone(),
+            rows: Some(Rows::ArrowRows(ArrowData {
+                rows: Some(rows),
+                writer_schema: Some(self.schema.clone()),
+            })),
+            ..Default::default()
+        };
 
-    async fn recv_response(
-        &self,
-        rx: oneshot::Receiver<Result<AppendRowsResponse>>,
-    ) -> Result<AppendRowsResponse> {
+        self.handle
+            .tx
+            .send(StreamCommand::Append(AppendRequest {
+                request,
+                resp_tx: tx,
+            }))
+            .await
+            .map_err(|_| {
+                Error::service(
+                    Status::default()
+                        .set_code(Code::Cancelled)
+                        .set_message("stream closed"),
+                )
+            })?;
+
         rx.await.map_err(|_| {
             Error::service(
                 Status::default()
@@ -72,43 +76,19 @@ impl InnerStreamWriter {
     }
 }
 
-/// A writer for a specific BigQuery write stream using Arrow format.
-pub struct ArrowStreamWriter {
-    inner: InnerStreamWriter,
-}
-
-impl ArrowStreamWriter {
-    pub(crate) fn new(transport: Arc<Transport>, stream_name: String, schema: ArrowSchema) -> Self {
-        Self {
-            inner: InnerStreamWriter::new(transport, stream_name, WriterSchema::Arrow(schema)),
-        }
-    }
-
-    /// Append Arrow record batches to the stream.
-    pub async fn append(&self, rows: ArrowRecordBatch) -> Result<AppendRowsResponse> {
-        let (tx, rx) = oneshot::channel();
-        let request = AppendRowsRequest {
-            rows: Some(Rows::ArrowRows(ArrowData {
-                rows: Some(rows),
-                ..Default::default()
-            })),
-            ..Default::default()
-        };
-
-        self.inner.send_request(request, tx).await?;
-        self.inner.recv_response(rx).await
-    }
-}
-
 /// A writer for a specific BigQuery write stream using Proto format.
 pub struct ProtoStreamWriter {
-    inner: InnerStreamWriter,
+    handle: StreamHandle,
+    stream_name: String,
+    schema: ProtoSchema,
 }
 
 impl ProtoStreamWriter {
-    pub(crate) fn new(transport: Arc<Transport>, stream_name: String, schema: ProtoSchema) -> Self {
+    pub(crate) fn new(handle: StreamHandle, stream_name: String, schema: ProtoSchema) -> Self {
         Self {
-            inner: InnerStreamWriter::new(transport, stream_name, WriterSchema::Proto(schema)),
+            handle,
+            stream_name,
+            schema,
         }
     }
 
@@ -116,14 +96,35 @@ impl ProtoStreamWriter {
     pub async fn append(&self, rows: ProtoRows) -> Result<AppendRowsResponse> {
         let (tx, rx) = oneshot::channel();
         let request = AppendRowsRequest {
+            write_stream: self.stream_name.clone(),
             rows: Some(Rows::ProtoRows(ProtoData {
                 rows: Some(rows),
-                ..Default::default()
+                writer_schema: Some(self.schema.clone()),
             })),
             ..Default::default()
         };
 
-        self.inner.send_request(request, tx).await?;
-        self.inner.recv_response(rx).await
+        self.handle
+            .tx
+            .send(StreamCommand::Append(AppendRequest {
+                request,
+                resp_tx: tx,
+            }))
+            .await
+            .map_err(|_| {
+                Error::service(
+                    Status::default()
+                        .set_code(Code::Cancelled)
+                        .set_message("stream closed"),
+                )
+            })?;
+
+        rx.await.map_err(|_| {
+            Error::service(
+                Status::default()
+                    .set_code(Code::Cancelled)
+                    .set_message("response channel closed"),
+            )
+        })?
     }
 }
