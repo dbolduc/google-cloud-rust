@@ -15,13 +15,12 @@
 use super::pool::{ConnectionPool, StreamHandle};
 use crate::ClientBuilderResult as BuilderResult;
 use crate::client_builder::ClientBuilder;
-use crate::google::cloud::bigquery::storage::v1::ArrowSchema;
+use crate::model::ArrowSchema;
 use crate::proto_schema::ProtoSchema;
 use crate::runner::StreamTask;
 use crate::stream_writer::{ArrowStreamWriter, ProtoStreamWriter};
 use crate::transport::Transport;
 use crate::{Error, Result};
-use gaxi::prost::ToProto;
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::mpsc;
@@ -89,11 +88,8 @@ impl Client {
         stream_name: String,
         schema: ProtoSchema,
     ) -> Result<ProtoStreamWriter> {
-        let v1_schema: crate::google::cloud::bigquery::storage::v1::ProtoSchema =
-            ToProto::<crate::google::cloud::bigquery::storage::v1::ProtoSchema>::to_proto(schema)
-                .map_err(Error::ser)?;
         let handle = self.get_default_handle().await?;
-        Ok(ProtoStreamWriter::new(handle, stream_name, v1_schema))
+        Ok(ProtoStreamWriter::new(handle, stream_name, schema))
     }
 }
 

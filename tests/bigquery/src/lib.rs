@@ -314,11 +314,12 @@ pub async fn run_arrow_writes(project_id: &str, dataset_id: &str) -> Result<()> 
     use arrow::datatypes::{DataType, Field, Schema};
     use arrow::ipc::writer::StreamWriter;
     use arrow::record_batch::RecordBatch;
+    use google_cloud_bigquery_write::client::Client;
+    use google_cloud_bigquery_write::model::ArrowRecordBatch;
+    use google_cloud_bigquery_write::model::ArrowSchema;
     use std::sync::Arc;
 
-    let write_client = google_cloud_bigquery_write::client::Client::builder()
-        .build()
-        .await?;
+    let write_client = Client::builder().build().await?;
     let table_service = TableService::builder().with_tracing().build().await?;
 
     let table_id = create_test_table(&table_service, project_id, dataset_id).await?;
@@ -362,20 +363,15 @@ pub async fn run_arrow_writes(project_id: &str, dataset_id: &str) -> Result<()> 
     let stream_name =
         format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/streams/_default");
 
-    let arrow_schema_proto =
-        google_cloud_bigquery_write::google::cloud::bigquery::storage::v1::ArrowSchema {
-            serialized_schema: schema_buf.into(),
-        };
+    let arrow_schema_proto = ArrowSchema::new().set_serialized_schema(schema_buf);
 
     let stream_writer = write_client
         .write_stream_arrow(stream_name, arrow_schema_proto)
         .await?;
 
-    let arrow_batch_proto =
-        google_cloud_bigquery_write::google::cloud::bigquery::storage::v1::ArrowRecordBatch {
-            serialized_record_batch: rb_msg.into(),
-            row_count: 2,
-        };
+    let arrow_batch_proto = ArrowRecordBatch::new()
+        .set_serialized_record_batch(rb_msg)
+        .set_row_count(2);
 
     let _response = stream_writer.append(arrow_batch_proto).await?;
     println!("Arrow rows appended");
@@ -387,14 +383,13 @@ pub async fn run_arrow_writes(project_id: &str, dataset_id: &str) -> Result<()> 
 }
 
 pub async fn run_proto_writes(project_id: &str, dataset_id: &str) -> Result<()> {
-    use google_cloud_bigquery_write::google::cloud::bigquery::storage::v1::ProtoRows;
+    use google_cloud_bigquery_write::client::Client;
+    use google_cloud_bigquery_write::model::ProtoRows;
     use google_cloud_bigquery_write::proto_schema::ProtoSchema;
     use google_cloud_wkt::{DescriptorProto, FieldDescriptorProto};
     use prost::Message;
 
-    let write_client = google_cloud_bigquery_write::client::Client::builder()
-        .build()
-        .await?;
+    let write_client = Client::builder().build().await?;
     let table_service = TableService::builder().with_tracing().build().await?;
 
     let table_id = create_test_table(&table_service, project_id, dataset_id).await?;
@@ -446,10 +441,10 @@ pub async fn run_proto_writes(project_id: &str, dataset_id: &str) -> Result<()> 
     for row in rows {
         let mut buf = Vec::new();
         row.encode(&mut buf)?;
-        serialized_rows.push(buf.into());
+        serialized_rows.push(prost::bytes::Bytes::from(buf));
     }
 
-    let proto_rows = ProtoRows { serialized_rows };
+    let proto_rows = ProtoRows::new().set_serialized_rows(serialized_rows);
 
     let _response = stream_writer.append(proto_rows).await?;
     println!("Proto rows appended");

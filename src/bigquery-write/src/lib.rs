@@ -48,7 +48,8 @@ pub(crate) mod transport;
 
 // TODO(#4832) - remove handwritten code.
 mod status;
-pub(crate) mod model {
+/// The BigQuery Write model types.
+pub mod model {
     pub use crate::generated::gapic_storage::model::*;
 }
 
@@ -56,7 +57,7 @@ pub(crate) mod model {
 pub(crate) mod generated;
 
 #[allow(dead_code, missing_docs)]
-pub mod google {
+pub(crate) mod google {
     pub mod api {
         include!("generated/protos/storage/google.api.rs");
     }

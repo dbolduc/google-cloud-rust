@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::google::cloud::bigquery::storage::v1::AppendRowsRequest;
 use crate::google::cloud::bigquery::storage::v1::append_rows_request::{
     ArrowData, ProtoData, Rows,
 };
-use crate::google::cloud::bigquery::storage::v1::{
-    AppendRowsRequest, AppendRowsResponse, ArrowRecordBatch, ArrowSchema, ProtoRows, ProtoSchema,
-};
+use crate::model::{AppendRowsResponse, ArrowRecordBatch, ArrowSchema, ProtoRows};
 use crate::pool::{AppendRequest, StreamCommand, StreamHandle};
+use crate::proto_schema::ProtoSchema;
 use crate::{Error, Result};
+use gaxi::prost::{FromProto, ToProto};
 use google_cloud_gax::error::rpc::{Code, Status};
 use tokio::sync::oneshot;
 
@@ -45,8 +46,8 @@ impl ArrowStreamWriter {
         let request = AppendRowsRequest {
             write_stream: self.stream_name.clone(),
             rows: Some(Rows::ArrowRows(ArrowData {
-                rows: Some(rows),
-                writer_schema: Some(self.schema.clone()),
+                rows: Some(rows.to_proto().map_err(Error::ser)?),
+                writer_schema: Some(self.schema.clone().to_proto().map_err(Error::ser)?),
             })),
             ..Default::default()
         };
@@ -66,13 +67,16 @@ impl ArrowStreamWriter {
                 )
             })?;
 
-        rx.await.map_err(|_| {
-            Error::service(
-                Status::default()
-                    .set_code(Code::Cancelled)
-                    .set_message("response channel closed"),
-            )
-        })?
+        rx.await
+            .map_err(|_| {
+                Error::service(
+                    Status::default()
+                        .set_code(Code::Cancelled)
+                        .set_message("response channel closed"),
+                )
+            })??
+            .cnv()
+            .map_err(Error::ser)
     }
 }
 
@@ -98,8 +102,13 @@ impl ProtoStreamWriter {
         let request = AppendRowsRequest {
             write_stream: self.stream_name.clone(),
             rows: Some(Rows::ProtoRows(ProtoData {
-                rows: Some(rows),
-                writer_schema: Some(self.schema.clone()),
+                rows: Some(rows.to_proto().map_err(Error::ser)?),
+                writer_schema: Some(
+                    ToProto::<crate::google::cloud::bigquery::storage::v1::ProtoSchema>::to_proto(
+                        self.schema.clone(),
+                    )
+                    .map_err(Error::ser)?,
+                ),
             })),
             ..Default::default()
         };
@@ -119,12 +128,15 @@ impl ProtoStreamWriter {
                 )
             })?;
 
-        rx.await.map_err(|_| {
-            Error::service(
-                Status::default()
-                    .set_code(Code::Cancelled)
-                    .set_message("response channel closed"),
-            )
-        })?
+        rx.await
+            .map_err(|_| {
+                Error::service(
+                    Status::default()
+                        .set_code(Code::Cancelled)
+                        .set_message("response channel closed"),
+                )
+            })??
+            .cnv()
+            .map_err(Error::ser)
     }
 }
