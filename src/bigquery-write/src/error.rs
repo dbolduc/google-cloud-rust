@@ -27,6 +27,10 @@ pub enum AppendError {
         #[source]
         source: Error,
     },
+
+    /// The `AppendRows` stream closed unexpectedly.
+    #[error("the `AppendRows` stream closed unexpectedly and the client library could not recover.")]
+    UnexpectedEndOfStream,
 }
 
 pub(crate) type AppendResult<T> = std::result::Result<T, AppendError>;
