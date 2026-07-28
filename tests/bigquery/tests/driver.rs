@@ -18,6 +18,17 @@ mod bigquery {
     use google_cloud_test_utils::tracing::enable_tracing;
 
     #[tokio::test]
+    async fn run_writes() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        tokio::time::timeout(
+            std::time::Duration::from_secs(60),
+            integration_tests_bigquery::run_writes(),
+        )
+        .await?
+        .inspect_err(anydump)
+    }
+
+    #[tokio::test]
     async fn run_dataset_service() -> anyhow::Result<()> {
         let _guard = enable_tracing();
         integration_tests_bigquery::dataset_admin()

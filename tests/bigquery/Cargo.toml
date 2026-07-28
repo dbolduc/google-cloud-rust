@@ -30,8 +30,11 @@ log-integration-tests = []
 anyhow.workspace         = true
 bytes.workspace          = true
 futures.workspace        = true
-google-cloud-bigquery    = { path = "../../src/bigquery" }
+google-cloud-bigquery    = { workspace = true, features = ["default"] }
 google-cloud-bigquery-v2 = { workspace = true, features = ["default"] }
+google-cloud-bigquery-write = { workspace = true, features = ["default"] }
+prost                    = { workspace = true }
+arrow                    = { workspace = true, features = ["ipc"] }
 google-cloud-gax         = { workspace = true, features = ["unstable-stream"] }
 google-cloud-test-utils  = { workspace = true }
 google-cloud-type        = { workspace = true }

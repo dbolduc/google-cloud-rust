@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod writes;
+
+pub use writes::run_writes;
+
 use anyhow::Result;
 use futures::stream::StreamExt;
 use google_cloud_bigquery::client::BigQuery;
