@@ -44,8 +44,8 @@ pub mod builder {
     }
     // TODO(#6152) - add admin client
 }
-pub mod arrow;
 pub mod append_result;
+pub mod arrow;
 mod client_builder;
 mod error;
 mod proto_schema;

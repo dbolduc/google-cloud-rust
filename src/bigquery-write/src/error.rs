@@ -29,7 +29,9 @@ pub enum AppendError {
     },
 
     /// The `AppendRows` stream closed unexpectedly.
-    #[error("the `AppendRows` stream closed unexpectedly and the client library could not recover.")]
+    #[error(
+        "the `AppendRows` stream closed unexpectedly and the client library could not recover."
+    )]
     UnexpectedEndOfStream,
 }
 

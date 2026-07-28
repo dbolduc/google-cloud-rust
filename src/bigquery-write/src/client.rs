@@ -13,7 +13,9 @@
 // limitations under the License.
 
 use crate::ClientBuilderResult as BuilderResult;
+use crate::arrow::WriterBuilder as ArrowWriterBuilder;
 use crate::client_builder::ClientBuilder;
+use crate::model::ArrowSchema;
 use crate::transport::Transport;
 use std::sync::Arc;
 
@@ -36,6 +38,11 @@ impl Write {
             inner: Arc::new(transport),
         })
     }
+
+    /// Creates a writer with Arrow as the data format.
+    pub fn arrow(&self, schema: ArrowSchema) -> ArrowWriterBuilder {
+        ArrowWriterBuilder::new(self.inner.clone(), schema)
+    }
 }
 
 #[cfg(test)]
@@ -49,6 +56,18 @@ mod tests {
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_arrow_writer() -> anyhow::Result<()> {
+        let client = Write::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let _ = client
+            .arrow(ArrowSchema::new())
+            .default("projects/p/tables/t");
         Ok(())
     }
 }
