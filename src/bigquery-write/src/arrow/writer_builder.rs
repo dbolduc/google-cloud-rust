@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::DefaultWriter;
+use super::{DefaultWriter, PendingWriter};
+use crate::Result;
 use crate::append_result::AppendResult;
+use crate::model::CreateWriteStreamRequest;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
 use crate::transport::Transport;
 use std::sync::Arc;
@@ -36,14 +38,28 @@ impl WriterBuilder {
         DefaultWriter::new(self.inner, write_stream, self.schema)
     }
 
-    /*
     /// Creates a pending writer for the given table.
     ///
     /// The client library creates a `WriteStream` with type `PENDING` on behalf of the application.
     pub async fn pending<T: Into<String>>(self, table: T) -> Result<PendingWriter> {
-        todo!()
+        pub use crate::generated::gapic_storage::client::BigQueryWrite;
+        pub use crate::model::WriteStream;
+        pub use crate::model::write_stream::Type;
+        let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
+        let write_stream = client
+            .create_write_stream()
+            .set_parent(table)
+            .set_write_stream(WriteStream::new().set_type(Type::Pending))
+            .send()
+            .await?;
+        Ok(PendingWriter::new(
+            self.inner,
+            write_stream.name,
+            self.schema,
+        ))
     }
 
+    /*
     /// Creates a committed writer for the given table.
     ///
     /// The client library creates a `WriteStream` with type `COMMITTED` on behalf of the application.
