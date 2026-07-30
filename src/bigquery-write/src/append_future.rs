@@ -12,15 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::errors::AppendError;
+use crate::errors::{AppendError, AppendResult};
 use std::future::Future;
 use std::pin::Pin;
 use std::task::{Context, Poll, ready};
 use tokio::sync::oneshot;
 
-// TODO : the name clashes are unnecessarily confusing. Not to mention there is
-// a message type named `AppendResult` too LOL.
-type Response = crate::errors::AppendResult<crate::append_result::AppendResult>;
+type Response = AppendResult<AppendResponse>;
 
 /// A [`Future`] representing the result of an append operation.
 ///

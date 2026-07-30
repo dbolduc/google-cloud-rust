@@ -40,14 +40,27 @@ pub mod client;
 pub mod builder {
     /// Request and client builders for the [Write][crate::client::Write] client
     pub mod write {
+        pub use crate::append_builder::Append;
+        pub use crate::append_builder::AppendWithOffset;
         pub use crate::client_builder::ClientBuilder;
     }
     // TODO(#6152) - add admin client
 }
-pub mod append_result;
+/// The messages and enums that are part of this client library
+pub mod model {
+    pub use crate::append_response::AppendResponse;
+    pub use crate::generated::gapic_storage::model::*;
+}
+/// Types to write data in [Arrow] format
+///
+/// [arrow]: https://arrow.apache.org/
 pub mod arrow;
+/// Custom errors for the Cloud BigQuery Storage Write clients
+pub mod error;
+
+mod append_builder;
+mod append_response;
 mod client_builder;
-mod error;
 mod proto_schema;
 #[cfg_attr(not(test), expect(dead_code))]
 mod runner;
@@ -56,9 +69,6 @@ mod transport;
 
 // TODO(#4832) - remove handwritten code.
 mod status;
-pub mod model {
-    pub use crate::generated::gapic_storage::model::*;
-}
 
 #[allow(dead_code)]
 pub(crate) mod generated;

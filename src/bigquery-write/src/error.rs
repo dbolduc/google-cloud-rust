@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::Error;
+use crate::model::RowError;
 
 /// Represents an error that can occur when appending rows.
 #[derive(thiserror::Error, Debug)]
@@ -33,6 +34,12 @@ pub enum AppendError {
         "the `AppendRows` stream closed unexpectedly and the client library could not recover."
     )]
     UnexpectedEndOfStream,
+
+    /// Certain rows have errors.
+    #[error(
+        "the service reports an error for the following rows. No rows in the batch were appended. You should remove the bad rows and retry the request. Rows: {0:?}"
+    )]
+    RowErrors(Vec<RowError>),
 }
 
 pub(crate) type AppendResult<T> = std::result::Result<T, AppendError>;

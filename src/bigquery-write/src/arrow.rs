@@ -19,6 +19,6 @@ mod writer_builder;
 use crate::Result;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
 
-pub use default::{AppendBuilder as DefaultAppendBuilder, DefaultWriter};
-pub use pending::{AppendBuilder as PendingAppendBuilder, PendingWriter};
+pub use default::DefaultWriter;
+pub use pending::PendingWriter;
 pub use writer_builder::WriterBuilder;

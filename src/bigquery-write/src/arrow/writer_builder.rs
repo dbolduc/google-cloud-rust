@@ -14,7 +14,6 @@
 
 use super::{DefaultWriter, PendingWriter};
 use crate::Result;
-use crate::append_result::AppendResult;
 use crate::model::CreateWriteStreamRequest;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
 use crate::transport::Transport;
