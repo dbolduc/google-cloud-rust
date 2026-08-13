@@ -17,10 +17,12 @@ use ::arrow::array::{Int64Array, StringArray};
 use ::arrow::datatypes::{DataType, Field, Schema};
 use ::arrow::ipc::writer::StreamWriter;
 use ::arrow::record_batch::RecordBatch;
+use arrow_json::ReaderBuilder;
 use google_cloud_bigquery_write::client::Write;
 use google_cloud_bigquery_write::model::{ArrowRecordBatch, ArrowSchema};
 use std::sync::Arc;
 
+#[allow(dead_code)]
 pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result<()> {
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
 
@@ -81,7 +83,6 @@ pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result
 }
 
 pub async fn json(project_id: &str, dataset_id: &str, table_id: &str) -> Result<()> {
-    use arrow_json::ReaderBuilder;
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
 
     // Create a Schema
@@ -97,33 +98,30 @@ pub async fn json(project_id: &str, dataset_id: &str, table_id: &str) -> Result<
     let schema = ArrowSchema::new().set_serialized_schema(schema_buf);
     let writer = client.arrow(schema).default(table)?;
 
-    let js = br#"
-        {"name": "Alice", "age": 25}
-        {"name": "Bob", "age": 28}
-    "#;
-    let mut reader = ReaderBuilder::new(arrow_schema.clone()).build(&js[..])?;
-    if let Some(batch) = reader.next().transpose()? {
-        println!("Successfully parsed {} rows", batch.num_rows());
-        println!("{:#?}", batch);
-        let batch_buf = serialize_batch(&batch, schema_len)?;
+    // Create a single JSON decoder to reuse across inputs
+    let mut decoder = ReaderBuilder::new(arrow_schema).build_decoder()?;
 
-        // Write the batch
-        let rows = ArrowRecordBatch::new().set_serialized_record_batch(batch_buf);
-        let _ = writer.append(rows).send().await?;
-    }
+    // Simulate a mini-application feeding complete log lines sequentially
+    let logs: Vec<&[u8]> = vec![
+        br#"{"name": "Alice", "age": 25}
+{"name": "Bob", "age": 28}
+"#,
+        br#"{"name": "Charlie", "age": 31}
+"#,
+    ];
 
-    let js = br#"
-        {"name": "Charlie", "age": 31}
-    "#;
-    let mut reader = ReaderBuilder::new(arrow_schema).build(&js[..])?;
-    if let Some(batch) = reader.next().transpose()? {
-        println!("Successfully parsed {} rows", batch.num_rows());
-        println!("{:#?}", batch);
-        let batch_buf = serialize_batch(&batch, schema_len)?;
-
-        // Write the batch
-        let rows = ArrowRecordBatch::new().set_serialized_record_batch(batch_buf);
-        let _ = writer.append(rows).send().await?;
+    for (i, chunk) in logs.into_iter().enumerate() {
+        println!("Feeding complete log input {i}...");
+        // Decode the complete JSON lines
+        let _ = decoder.decode(chunk)?;
+        // Flush the parsed records from the decoder's buffer
+        if let Some(batch) = decoder.flush()? {
+            println!("Parsed batch with {} rows from input {i}", batch.num_rows());
+            println!("{:#?}", batch);
+            let batch_buf = serialize_batch(&batch, schema_len)?;
+            let rows = ArrowRecordBatch::new().set_serialized_record_batch(batch_buf);
+            let _ = writer.append(rows).send().await?;
+        }
     }
 
     // Verify the writes
@@ -146,8 +144,7 @@ pub async fn json(project_id: &str, dataset_id: &str, table_id: &str) -> Result<
         ]
     );
 
-    anyhow::bail!("I want to see the logs, if we even get here.");
-    //Ok(())
+    Ok(())
 }
 
 fn serialize_schema(schema: &Schema) -> Result<Vec<u8>> {
