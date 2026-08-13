@@ -29,6 +29,7 @@ log-integration-tests = []
 [dependencies]
 anyhow.workspace            = true
 arrow                       = { workspace = true, features = ["ipc"] }
+arrow-json                  = { version = "59.2" }
 bytes.workspace             = true
 futures.workspace           = true
 google-cloud-bigquery       = { workspace = true, features = ["default"] }
