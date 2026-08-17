@@ -35,7 +35,7 @@ impl Write {
 
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
         let transport = Arc::new(Transport::new(builder.config).await?);
-        let pool = Arc::new(StreamPool::new(transport.clone(), 0));
+        let pool = Arc::new(StreamPool::new(transport.clone()));
 
         // Spawn background watchdog to manage and prune streams.
         let watchdog_pool = Arc::downgrade(&pool);

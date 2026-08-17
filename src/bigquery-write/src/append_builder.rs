@@ -133,7 +133,7 @@ mod tests {
                 .await
                 .unwrap(),
         );
-        let pool = Arc::new(StreamPool::new(transport, 1));
+        let pool = Arc::new(StreamPool::new(transport));
         let stream = StreamEntry {
             id: 1,
             sender: req_tx,

@@ -48,23 +48,12 @@ const MAX_REQUESTS_THRESHOLD: u64 = 100;
 const MAX_BYTES_THRESHOLD: u64 = 10 * 1024 * 1024; // 10 MB
 
 impl StreamPool {
-    /// Initializes a new [StreamPool] with the specified pool size.
-    pub(crate) fn new(inner: Arc<Transport>, initial_pool_size: usize) -> Self {
-        let mut initial_streams = Vec::with_capacity(initial_pool_size);
-        for id in 1..=(initial_pool_size as u64) {
-            let runner = Runner::new(inner.clone());
-            initial_streams.push(StreamEntry {
-                id,
-                sender: runner.req_tx,
-                outstanding_requests: Arc::new(AtomicU64::new(0)),
-                outstanding_bytes: Arc::new(AtomicU64::new(0)),
-            });
-        }
-
+    /// Initializes a new [StreamPool].
+    pub(crate) fn new(inner: Arc<Transport>) -> Self {
         Self {
             inner,
-            next_stream_id: AtomicU64::new((initial_pool_size + 1) as u64),
-            streams: ArcSwap::from_pointee(initial_streams),
+            next_stream_id: AtomicU64::new(1),
+            streams: ArcSwap::from_pointee(Vec::new()),
         }
     }
 
@@ -74,10 +63,13 @@ impl StreamPool {
 
         // 1. If empty, lazily spawn the first stream immediately.
         if streams.is_empty() {
-            return self.spawn_new_stream_atomic();
+            return self
+                .spawn_new_stream_atomic()
+                .expect("StreamPool invariant: lazy spawn of first stream must succeed");
         }
 
-        // 2. Locate the least loaded stream.
+        // Reload the streams list in case it was modified.
+        let streams = self.streams.load();
         let least_loaded = streams
             .iter()
             .min_by_key(|entry| entry.outstanding_requests.load(Ordering::Relaxed))
@@ -91,19 +83,24 @@ impl StreamPool {
         if (reqs >= MAX_REQUESTS_THRESHOLD || bytes >= MAX_BYTES_THRESHOLD)
             && streams.len() < MAX_POOL_SIZE
         {
-            return self.spawn_new_stream_atomic();
+            let maybe_stream = self.spawn_new_stream_atomic();
+            if let Some(stream) = maybe_stream {
+                return stream;
+            }
         }
 
         least_loaded
     }
 
     /// Atomically and thread-safely provisions a new stream connection to scale up.
-    fn spawn_new_stream_atomic(&self) -> StreamEntry {
+    fn spawn_new_stream_atomic(&self) -> Option<StreamEntry> {
         let mut newly_created: Option<StreamEntry> = None;
+        let mut success = false;
 
         self.streams.rcu(|current| {
             // If another racing thread scaled us up to limit already, do nothing.
             if !current.is_empty() && current.len() >= MAX_POOL_SIZE {
+                success = false;
                 return Arc::clone(current);
             }
 
@@ -123,12 +120,13 @@ impl StreamPool {
                 entry
             };
 
+            success = true;
             let mut updated = (**current).clone();
             updated.push(entry);
             Arc::new(updated)
         });
 
-        newly_created.expect("StreamPool invariant: lazy spawn must succeed")
+        if success { newly_created } else { None }
     }
 
     /// Atomically evicts the failed stream and provisions a new one in place.
@@ -204,7 +202,10 @@ mod tests {
     #[tokio::test]
     async fn least_loaded_routing() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = StreamPool::new(transport, 3);
+        let pool = StreamPool::new(transport);
+        for _ in 0..3 {
+            pool.spawn_new_stream_atomic();
+        }
 
         // Initially, all have 0 load.
         let first = pool.get_least_loaded_stream();
@@ -253,7 +254,10 @@ mod tests {
     #[tokio::test]
     async fn evict_and_replace() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = StreamPool::new(transport, 3);
+        let pool = StreamPool::new(transport);
+        for _ in 0..3 {
+            pool.spawn_new_stream_atomic();
+        }
 
         // Fetch initial snapshot IDs
         let initial_ids: Vec<u64> = pool.streams.load().iter().map(|e| e.id).collect();
@@ -272,7 +276,10 @@ mod tests {
     #[tokio::test]
     async fn prune_dead_streams() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = StreamPool::new(transport, 3);
+        let pool = StreamPool::new(transport);
+        for _ in 0..3 {
+            pool.spawn_new_stream_atomic();
+        }
 
         // Initially all are open/healthy
         pool.prune_dead_streams();
@@ -304,7 +311,7 @@ mod tests {
     #[tokio::test]
     async fn dynamic_scale_up() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = StreamPool::new(transport, 0); // Start with 0 streams!
+        let pool = StreamPool::new(transport); // Start with 0 streams!
 
         // Initially empty
         assert_eq!(pool.streams.load().len(), 0);

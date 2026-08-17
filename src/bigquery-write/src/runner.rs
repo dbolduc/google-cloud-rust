@@ -94,6 +94,11 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::Receiver<Write
                         // Keep track of the response channel.
                         resp_txs.push_back(r.resp_tx);
 
+                        // TODO(#5744): Implement send optimization.
+                        // Track last_write_stream and last_schema on the active gRPC stream connection.
+                        // For subsequent requests, if they match the tracked stream/schema, strip them
+                        // (set write_stream to "" and writer_schema to None) before forwarding to optimize payload.
+
                         // Forward the request to the stream.
                         let _ = request_tx.send(r.req).await;
                     }

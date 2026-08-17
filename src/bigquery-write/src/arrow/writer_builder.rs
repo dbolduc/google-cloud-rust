@@ -89,7 +89,7 @@ mod tests {
     #[tokio::test]
     async fn default() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = Arc::new(StreamPool::new(transport.clone(), 1));
+        let pool = Arc::new(StreamPool::new(transport.clone()));
         let schema = ArrowSchema::new().set_serialized_schema("test");
         let builder = WriterBuilder::new(transport, pool, schema.clone());
         let writer = builder.default("projects/p/datasets/d/tables/t")?;
@@ -110,7 +110,7 @@ mod tests {
     #[tokio::test]
     async fn bad_table_format(table: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = Arc::new(StreamPool::new(transport.clone(), 1));
+        let pool = Arc::new(StreamPool::new(transport.clone()));
         let schema = ArrowSchema::new().set_serialized_schema("test");
         let builder = WriterBuilder::new(transport, pool, schema.clone());
         let err = builder

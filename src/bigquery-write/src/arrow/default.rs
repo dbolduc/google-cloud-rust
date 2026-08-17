@@ -60,6 +60,7 @@ impl DefaultWriter {
 
     /// Append rows to the stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> Append {
+        // TODO(#5744) - send optimization
         let req = AppendRowsRequest::new()
             .set_write_stream(&self.write_stream)
             .set_arrow_rows(
@@ -84,7 +85,7 @@ mod tests {
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = Arc::new(StreamPool::new(transport.clone(), 1));
+        let pool = Arc::new(StreamPool::new(transport.clone()));
         let writer = DefaultWriter::new(transport, pool, write_stream(), schema());
 
         let b = writer.append(rows(1));
@@ -115,7 +116,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let pool = Arc::new(StreamPool::new(transport.clone(), 1));
+        let pool = Arc::new(StreamPool::new(transport.clone()));
 
         let writer = DefaultWriter::new(transport, pool, write_stream(), schema());
 
