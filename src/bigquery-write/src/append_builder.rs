@@ -23,6 +23,26 @@ use prost::Message;
 use std::sync::Arc;
 use tokio::sync::oneshot;
 
+/// An RAII guard that manages outstanding connection load metrics.
+///
+/// This guard guarantees that both the request count and byte count metrics are
+/// decremented when the append operation exits, whether it completes normally,
+/// errors out, or is cancelled mid-execution.
+struct LoadGuard {
+    outstanding_requests: Arc<std::sync::atomic::AtomicU64>,
+    outstanding_bytes: Arc<std::sync::atomic::AtomicU64>,
+    bytes: u64,
+}
+
+impl Drop for LoadGuard {
+    fn drop(&mut self) {
+        self.outstanding_requests
+            .fetch_sub(1, std::sync::atomic::Ordering::Relaxed);
+        self.outstanding_bytes
+            .fetch_sub(self.bytes, std::sync::atomic::Ordering::Relaxed);
+    }
+}
+
 /// A request builder for appending rows on the default stream.
 #[derive(Clone, Debug)]
 pub struct Append {
@@ -56,31 +76,21 @@ impl Append {
         outstanding_requests.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
         outstanding_bytes.fetch_add(req_len as u64, std::sync::atomic::Ordering::Relaxed);
 
+        let _guard = LoadGuard {
+            outstanding_requests,
+            outstanding_bytes,
+            bytes: req_len as u64,
+        };
+
         match sender.send(write).await {
             Ok(()) => {
                 match resp_rx.await {
                     Ok(Ok(resp)) => {
-                        // Decrement metrics on success.
-                        outstanding_requests.fetch_sub(1, std::sync::atomic::Ordering::Relaxed);
-                        outstanding_bytes
-                            .fetch_sub(req_len as u64, std::sync::atomic::Ordering::Relaxed);
-
                         let resp = resp.cnv().map_err(Error::ser)?;
                         to_result(resp)
                     }
-                    Ok(Err(err)) => {
-                        // Decrement metrics on business-logic errors.
-                        outstanding_requests.fetch_sub(1, std::sync::atomic::Ordering::Relaxed);
-                        outstanding_bytes
-                            .fetch_sub(req_len as u64, std::sync::atomic::Ordering::Relaxed);
-                        Err(err)
-                    }
+                    Ok(Err(err)) => Err(err),
                     Err(_) => {
-                        // Decrement metrics on background connection crash.
-                        outstanding_requests.fetch_sub(1, std::sync::atomic::Ordering::Relaxed);
-                        outstanding_bytes
-                            .fetch_sub(req_len as u64, std::sync::atomic::Ordering::Relaxed);
-
                         // Stream connection died mid-stream! Evict & re-bind.
                         self.inner.pool.evict_and_replace(stream_id);
                         let new_stream = self.inner.pool.get_least_loaded_stream();
@@ -92,10 +102,6 @@ impl Append {
                 }
             }
             Err(_) => {
-                // Decrement metrics as send failed.
-                outstanding_requests.fetch_sub(1, std::sync::atomic::Ordering::Relaxed);
-                outstanding_bytes.fetch_sub(req_len as u64, std::sync::atomic::Ordering::Relaxed);
-
                 // Stream connection closed/dead! Evict & re-bind.
                 self.inner.pool.evict_and_replace(stream_id);
                 let new_stream = self.inner.pool.get_least_loaded_stream();
@@ -239,6 +245,27 @@ mod tests {
         let err = handle.await?.expect_err("should return an error");
         assert!(matches!(err, AppendError::RowErrors(_)));
         Ok(())
+    }
+
+    #[test]
+    fn load_guard_drops() {
+        use std::sync::atomic::{AtomicU64, Ordering};
+        let outstanding_requests = Arc::new(AtomicU64::new(10));
+        let outstanding_bytes = Arc::new(AtomicU64::new(100));
+
+        {
+            let _guard = LoadGuard {
+                outstanding_requests: outstanding_requests.clone(),
+                outstanding_bytes: outstanding_bytes.clone(),
+                bytes: 40,
+            };
+
+            assert_eq!(outstanding_requests.load(Ordering::Relaxed), 10);
+            assert_eq!(outstanding_bytes.load(Ordering::Relaxed), 100);
+        }
+
+        assert_eq!(outstanding_requests.load(Ordering::Relaxed), 9);
+        assert_eq!(outstanding_bytes.load(Ordering::Relaxed), 60);
     }
 
     fn write_stream() -> String {

@@ -71,19 +71,30 @@ To safely support high-concurrency workloads, the system tracks and manages two 
 1. **Outstanding Requests**
 2. **Outstanding Bytes**
 
-### Zero-Contention Atomic Tracking
-Because the background connection `Runner` is single-threaded, we can update these metrics using zero-contention relaxed atomic variables (`AtomicU64`):
-- **On Write Dispatch:** The `Append::send()` method atomically increments the selected connection's `outstanding_requests` and `outstanding_bytes` by the encoded length of the request.
-- **On Response / Error:** When a response is successfully received from BQ Storage Write, or if the connection task exits with an error, the background task atomically decrements both counters.
+### Zero-Contention Atomic Tracking via RAII
+To prevent metrics drift under task cancellation (e.g., if an `Append::send()` future is canceled at an `.await` boundary by a caller-level timeout), we avoid manual decrements. Instead, we utilize an RAII-based safety guard (`LoadGuard`) that automatically decrements the respective counters upon dropping, even if the future is terminated mid-execution.
+
+- **On Write Dispatch:** The `Append::send()` method atomically increments the connection's `outstanding_requests` and `outstanding_bytes`, then binds them to a `LoadGuard`.
+- **On Response / Error / Cancellation:** The `LoadGuard` is dropped when the future returns or is cancelled, ensuring that counters are accurately decremented without any manual state cleanup.
 
 ```rust
-outstanding_requests.fetch_add(1, Ordering::Relaxed);
-outstanding_bytes.fetch_add(req_proto.encoded_len() as u64, Ordering::Relaxed);
+struct LoadGuard {
+    outstanding_requests: Arc<AtomicU64>,
+    outstanding_bytes: Arc<AtomicU64>,
+    bytes: u64,
+}
+
+impl Drop for LoadGuard {
+    fn drop(&mut self) {
+        self.outstanding_requests.fetch_sub(1, Ordering::Relaxed);
+        self.outstanding_bytes.fetch_sub(self.bytes, Ordering::Relaxed);
+    }
+}
 ```
 
 ### Flow Control & Scale-Up
 - **Backpressure:** Before dispatching, the client can compare the target stream's `outstanding_bytes` and `outstanding_requests` against configured high watermarks, suspending the writer until the connection drains.
-- **Out-of-Band Watchdog Task:** Spawns a background worker (`watchdog::spawn_watchdog`) that runs completely out-of-band. Every tick, it inspects these metrics to prune closed connections, trigger rebalancing, or dynamically scale up/down the number of physical stream connections inside the `ArcSwap` table without interrupting ongoing writes.
+- **Leak-Free Out-of-Band Watchdog Task:** Spawns a background worker (`watchdog::spawn_watchdog`) that runs completely out-of-band. To prevent memory and connection leaks, the task holds a `Weak<StreamPool>` pointer. If the parent `StreamPool` and all writers are dropped, the task automatically terminates. Every tick, it inspects these metrics to prune closed connections, trigger rebalancing, or dynamically scale up/down the number of physical stream connections inside the `ArcSwap` table without interrupting ongoing writes.
 
 ---
 
@@ -98,15 +109,16 @@ The client detects and recovers from connection failures reactively at the call 
 [ Append::send() fails or channel closed ]
              │
              ├──> 1. pool.evict_and_replace(stream_id) ──> Atomically removes dead stream,
-             │                                              provisions a replacement runner.
+             │                                              provisions a replacement runner (cached).
              │
              └──> 2. cached_stream.store(new_stream)   ──> Updates DefaultWriter's local cache
                                                             so subsequent writes route smoothly.
 ```
 
 1. **Detection:** When a gRPC stream breaks, calling `sender.send()` or waiting on the `oneshot` channel fails with `SendError` or `RecvError`.
-2. **Atomic Eviction:** The first failing writer atomically evicts the failed stream and spawns a replacement via `pool.evict_and_replace()`. Multiple racing writers attempting to evict the same `failed_id` result in a single, collision-free RCU swap.
-3. **Local Cache Invalidation:** The writer updates its local `cached_stream` with a new, healthy connection from the pool. Healthy writers mapped to other streams are completely unaffected, experiencing zero thundering herd or pointer lookups.
+2. **Atomic Eviction:** The first failing writer atomically evicts the failed stream and spawns a replacement via `pool.evict_and_replace()`. 
+3. **RCU Closure Caching:** To prevent spawning multiple redundant `Runner` tasks if the RCU transaction retries under high contention, the newly created replacement stream entry is cached locally within the closure context.
+4. **Local Cache Invalidation:** The writer updates its local `cached_stream` with a new, healthy connection from the pool. Healthy writers mapped to other streams are completely unaffected, experiencing zero thundering herd or pointer lookups.
 
 ---
 

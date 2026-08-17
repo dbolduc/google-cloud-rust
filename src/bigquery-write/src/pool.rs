@@ -133,6 +133,8 @@ impl StreamPool {
 
     /// Atomically evicts the failed stream and provisions a new one in place.
     pub(crate) fn evict_and_replace(&self, failed_id: u64) {
+        let mut newly_created: Option<StreamEntry> = None;
+
         self.streams.rcu(|current| {
             // If already evicted by a racing writer, do nothing
             if !current.iter().any(|entry| entry.id == failed_id) {
@@ -142,16 +144,23 @@ impl StreamPool {
             let mut updated = (**current).clone();
             updated.retain(|entry| entry.id != failed_id);
 
-            // Provision a replacement stream (Runner)
-            let new_id = self.next_stream_id.fetch_add(1, Ordering::Relaxed);
-            let runner = Runner::new(self.inner.clone());
-            updated.push(StreamEntry {
-                id: new_id,
-                sender: runner.req_tx,
-                outstanding_requests: Arc::new(AtomicU64::new(0)),
-                outstanding_bytes: Arc::new(AtomicU64::new(0)),
-            });
+            // Provision a replacement stream (Runner), caching during retries
+            let entry = if let Some(ref entry) = newly_created {
+                entry.clone()
+            } else {
+                let new_id = self.next_stream_id.fetch_add(1, Ordering::Relaxed);
+                let runner = Runner::new(self.inner.clone());
+                let entry = StreamEntry {
+                    id: new_id,
+                    sender: runner.req_tx,
+                    outstanding_requests: Arc::new(AtomicU64::new(0)),
+                    outstanding_bytes: Arc::new(AtomicU64::new(0)),
+                };
+                newly_created = Some(entry.clone());
+                entry
+            };
 
+            updated.push(entry);
             Arc::new(updated)
         });
     }

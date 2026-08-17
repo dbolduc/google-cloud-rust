@@ -38,7 +38,7 @@ impl Write {
         let pool = Arc::new(StreamPool::new(transport.clone(), 0));
 
         // Spawn background watchdog to manage and prune streams.
-        let watchdog_pool = pool.clone();
+        let watchdog_pool = Arc::downgrade(&pool);
         crate::watchdog::spawn_watchdog(watchdog_pool, std::time::Duration::from_secs(5));
 
         Ok(Self {
