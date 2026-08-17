@@ -15,26 +15,44 @@
 use crate::builder::write::Append;
 use crate::model::append_rows_request::ArrowData;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
-use crate::runner::Runner;
+use crate::pool::{StreamEntry, StreamPool};
 use crate::transport::Transport;
+use arc_swap::ArcSwap;
 use std::sync::Arc;
+
+/// Shared state of the default stream writer.
+#[derive(Debug)]
+pub(crate) struct WriterSharedState {
+    pub(crate) pool: Arc<StreamPool>,
+    pub(crate) cached_stream: ArcSwap<StreamEntry>,
+}
 
 /// A writer for the [default stream]
 ///
 /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
 #[derive(Debug)]
 pub struct DefaultWriter {
-    // TODO(#5744) - support multiplexed connections
-    runner: Runner,
+    pub(crate) inner: Arc<WriterSharedState>,
     pub(crate) write_stream: String,
     pub(crate) schema: ArrowSchema,
 }
 
 impl DefaultWriter {
-    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-        let runner = Runner::new(inner);
+    pub(crate) fn new(
+        _inner: Arc<Transport>,
+        pool: Arc<StreamPool>,
+        write_stream: String,
+        schema: ArrowSchema,
+    ) -> Self {
+        let initial_stream = pool.get_least_loaded_stream();
+
+        let inner = Arc::new(WriterSharedState {
+            pool,
+            cached_stream: ArcSwap::from_pointee(initial_stream),
+        });
+
         Self {
-            runner,
+            inner,
             write_stream,
             schema,
         }
@@ -42,7 +60,6 @@ impl DefaultWriter {
 
     /// Append rows to the stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> Append {
-        // TODO(#5744) - send optimization
         let req = AppendRowsRequest::new()
             .set_write_stream(&self.write_stream)
             .set_arrow_rows(
@@ -50,7 +67,7 @@ impl DefaultWriter {
                     .set_writer_schema(self.schema.clone())
                     .set_rows(rows),
             );
-        Append::new(self.runner.req_tx.clone(), req)
+        Append::new(self.inner.clone(), req)
     }
 }
 
@@ -67,7 +84,8 @@ mod tests {
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let writer = DefaultWriter::new(transport, write_stream(), schema());
+        let pool = Arc::new(StreamPool::new(transport.clone(), 1));
+        let writer = DefaultWriter::new(transport, pool, write_stream(), schema());
 
         let b = writer.append(rows(1));
         assert_eq!(b.req.write_stream, write_stream());
@@ -97,8 +115,9 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
+        let pool = Arc::new(StreamPool::new(transport.clone(), 1));
 
-        let writer = DefaultWriter::new(transport, write_stream(), schema());
+        let writer = DefaultWriter::new(transport, pool, write_stream(), schema());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;

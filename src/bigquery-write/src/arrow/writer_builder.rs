@@ -14,6 +14,7 @@
 
 use crate::arrow::DefaultWriter;
 use crate::model::ArrowSchema;
+use crate::pool::StreamPool;
 use crate::transport::Transport;
 use crate::{Error, Result};
 use gaxi::path_parameter::{PathMismatchBuilder, try_match};
@@ -25,12 +26,17 @@ use std::sync::Arc;
 #[derive(Clone, Debug)]
 pub struct WriterBuilder {
     inner: Arc<Transport>,
+    pool: Arc<StreamPool>,
     schema: ArrowSchema,
 }
 
 impl WriterBuilder {
-    pub(crate) fn new(inner: Arc<Transport>, schema: ArrowSchema) -> Self {
-        Self { inner, schema }
+    pub(crate) fn new(inner: Arc<Transport>, pool: Arc<StreamPool>, schema: ArrowSchema) -> Self {
+        Self {
+            inner,
+            pool,
+            schema,
+        }
     }
 
     /// Create a writer for the [default stream] for the given table.
@@ -41,7 +47,12 @@ impl WriterBuilder {
         validate_table(table.as_str())?;
         let mut write_stream = table;
         write_stream.push_str("/streams/_default");
-        Ok(DefaultWriter::new(self.inner, write_stream, self.schema))
+        Ok(DefaultWriter::new(
+            self.inner,
+            self.pool,
+            write_stream,
+            self.schema,
+        ))
     }
 }
 
@@ -78,8 +89,9 @@ mod tests {
     #[tokio::test]
     async fn default() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
+        let pool = Arc::new(StreamPool::new(transport.clone(), 1));
         let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let builder = WriterBuilder::new(transport, pool, schema.clone());
         let writer = builder.default("projects/p/datasets/d/tables/t")?;
         assert_eq!(
             writer.write_stream,
@@ -98,8 +110,9 @@ mod tests {
     #[tokio::test]
     async fn bad_table_format(table: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
+        let pool = Arc::new(StreamPool::new(transport.clone(), 1));
         let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let builder = WriterBuilder::new(transport, pool, schema.clone());
         let err = builder
             .default(table)
             .expect_err("should fail locally on bad format");

@@ -16,14 +16,15 @@ use crate::ClientBuilderResult as BuilderResult;
 use crate::arrow::WriterBuilder as ArrowWriterBuilder;
 use crate::client_builder::ClientBuilder;
 use crate::model::ArrowSchema;
+use crate::pool::StreamPool;
 use crate::transport::Transport;
 use std::sync::Arc;
 
 /// A client for BigQuery Storage Write API.
 #[derive(Debug)]
 pub struct Write {
-    #[allow(unused)]
     inner: Arc<Transport>,
+    pool: Arc<StreamPool>,
 }
 
 impl Write {
@@ -33,9 +34,16 @@ impl Write {
     }
 
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
-        let transport = Transport::new(builder.config).await?;
+        let transport = Arc::new(Transport::new(builder.config).await?);
+        let pool = Arc::new(StreamPool::new(transport.clone(), 0));
+
+        // Spawn background watchdog to manage and prune streams.
+        let watchdog_pool = pool.clone();
+        crate::watchdog::spawn_watchdog(watchdog_pool, std::time::Duration::from_secs(5));
+
         Ok(Self {
-            inner: Arc::new(transport),
+            inner: transport,
+            pool,
         })
     }
 
@@ -58,7 +66,7 @@ impl Write {
     ///
     /// [arrow]: https://arrow.apache.org/
     pub fn arrow(&self, schema: ArrowSchema) -> ArrowWriterBuilder {
-        ArrowWriterBuilder::new(self.inner.clone(), schema)
+        ArrowWriterBuilder::new(self.inner.clone(), self.pool.clone(), schema)
     }
 }
 

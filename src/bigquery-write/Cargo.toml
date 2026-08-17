@@ -35,6 +35,7 @@ default = ["default-rustls-provider"]
 default-rustls-provider = ["gaxi/_default-rustls-provider"]
 
 [dependencies]
+arc-swap                    = "1.7.1"
 async-trait.workspace       = true
 bytes.workspace             = true
 http.workspace              = true

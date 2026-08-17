@@ -16,4 +16,5 @@ mod default;
 mod writer_builder;
 
 pub use default::DefaultWriter;
+pub(crate) use default::WriterSharedState;
 pub use writer_builder::WriterBuilder;
