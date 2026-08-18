@@ -27,7 +27,11 @@
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
 
-pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+// Define some shortcuts for imported crates.
+pub(crate) use google_cloud_gax::client_builder::internal::{
+    ClientFactory, new_builder as new_client_builder,
+};
+pub(crate) use google_cloud_gax::client_builder::{ClientBuilder, Result as ClientBuilderResult};
 pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;

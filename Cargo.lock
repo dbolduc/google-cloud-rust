@@ -7086,6 +7086,7 @@ dependencies = [
  "futures",
  "google-cloud-auth",
  "google-cloud-bigquery",
+ "google-cloud-bigquery-read",
  "google-cloud-bigquery-v2",
  "google-cloud-bigquery-write",
  "google-cloud-gax",

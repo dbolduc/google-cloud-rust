@@ -19,12 +19,68 @@
 #![allow(rustdoc::redundant_explicit_links)]
 
 /// Implements a client for the BigQuery Storage API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_bigquery_read::client::BigQueryRead;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = BigQueryRead::builder().build().await?;
+///     // use `client` to make requests to the BigQuery Storage API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// BigQuery Read API.
+///
+/// The Read API can be used to read data from BigQuery.
+///
+/// # Configuration
+///
+/// To configure `BigQueryRead` use the `with_*` methods in the type returned
+/// by [builder()][BigQueryRead::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigquerystorage.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::big_query_read::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::big_query_read::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `BigQueryRead` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `BigQueryRead` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct BigQueryRead {
     inner: std::sync::Arc<dyn super::stub::dynamic::BigQueryRead>,
 }
 
 impl BigQueryRead {
+    /// Returns a builder for [BigQueryRead].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_bigquery_read::client::BigQueryRead;
+    /// let client = BigQueryRead::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::big_query_read::ClientBuilder {
+        crate::new_client_builder(super::builder::big_query_read::client::Factory)
+    }
+
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the

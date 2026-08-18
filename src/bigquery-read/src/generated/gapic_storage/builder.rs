@@ -18,6 +18,36 @@
 pub mod big_query_read {
     use crate::Result;
 
+    /// A builder for [BigQueryRead][crate::client::BigQueryRead].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_bigquery_read::*;
+    /// # use builder::big_query_read::ClientBuilder;
+    /// # use client::BigQueryRead;
+    /// let builder : ClientBuilder = BigQueryRead::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://bigquerystorage.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::BigQueryRead;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = BigQueryRead;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [crate::client::BigQueryRead] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {

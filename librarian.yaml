@@ -567,7 +567,6 @@ libraries:
         - extend_grpc_transport: true
           generate_setter_samples: "false"
           generate_rpc_samples: "false"
-          has_veneer: true
           output: src/bigquery-read/src/generated/gapic_storage
           service_config: google/cloud/bigquery/storage/v1/bigquerystorage_v1.yaml
           skipped_ids:
