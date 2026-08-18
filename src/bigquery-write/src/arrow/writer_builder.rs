@@ -14,7 +14,7 @@
 
 use crate::arrow::DefaultWriter;
 use crate::model::ArrowSchema;
-use crate::pool::StreamPool;
+use crate::pool::{ConnectionPool, StreamPool};
 use crate::transport::Transport;
 use crate::{Error, Result};
 use gaxi::path_parameter::{PathMismatchBuilder, try_match};
@@ -28,6 +28,7 @@ pub struct WriterBuilder {
     inner: Arc<Transport>,
     pool: Arc<StreamPool>,
     schema: ArrowSchema,
+    multiplexing: bool,
 }
 
 impl WriterBuilder {
@@ -36,7 +37,14 @@ impl WriterBuilder {
             inner,
             pool,
             schema,
+            multiplexing: true,
         }
+    }
+
+    /// Disable multiplexed stream pooling for this writer (each writer gets its own exclusive connection).
+    pub fn with_multiplexing(mut self, enabled: bool) -> Self {
+        self.multiplexing = enabled;
+        self
     }
 
     /// Create a writer for the [default stream] for the given table.
@@ -47,9 +55,16 @@ impl WriterBuilder {
         validate_table(table.as_str())?;
         let mut write_stream = table;
         write_stream.push_str("/streams/_default");
+
+        let pool = if self.multiplexing {
+            ConnectionPool::Multiplexed(self.pool)
+        } else {
+            ConnectionPool::Exclusive(crate::pool::ExclusivePool::new(self.inner.clone()))
+        };
+
         Ok(DefaultWriter::new(
             self.inner,
-            self.pool,
+            pool,
             write_stream,
             self.schema,
         ))
@@ -83,15 +98,24 @@ fn validate_table(table: &str) -> Result<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::pool::StreamPool;
     use crate::transport::tests::test_transport;
     use test_case::test_case;
+
+    fn test_builder(
+        transport: Arc<Transport>,
+        pool: Arc<StreamPool>,
+        schema: ArrowSchema,
+    ) -> WriterBuilder {
+        WriterBuilder::new(transport, pool, schema)
+    }
 
     #[tokio::test]
     async fn default() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
         let pool = Arc::new(StreamPool::new(transport.clone()));
         let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, pool, schema.clone());
+        let builder = test_builder(transport, pool, schema.clone());
         let writer = builder.default("projects/p/datasets/d/tables/t")?;
         assert_eq!(
             writer.write_stream,
@@ -112,7 +136,7 @@ mod tests {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
         let pool = Arc::new(StreamPool::new(transport.clone()));
         let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, pool, schema.clone());
+        let builder = test_builder(transport, pool, schema.clone());
         let err = builder
             .default(table)
             .expect_err("should fail locally on bad format");

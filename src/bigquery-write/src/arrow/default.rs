@@ -9,30 +9,23 @@
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// See the License for the_project/LICENSE.
 
 use crate::builder::write::Append;
+use crate::dispatcher::Dispatcher;
 use crate::model::append_rows_request::ArrowData;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
-use crate::pool::{StreamEntry, StreamPool};
+use crate::pool::ConnectionPool;
 use crate::transport::Transport;
 use arc_swap::ArcSwap;
 use std::sync::Arc;
-
-/// Shared state of the default stream writer.
-#[derive(Debug)]
-pub(crate) struct WriterSharedState {
-    pub(crate) pool: Arc<StreamPool>,
-    pub(crate) cached_stream: ArcSwap<StreamEntry>,
-}
 
 /// A writer for the [default stream]
 ///
 /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
 #[derive(Debug)]
 pub struct DefaultWriter {
-    pub(crate) inner: Arc<WriterSharedState>,
+    pub(crate) inner: Arc<Dispatcher>,
     pub(crate) write_stream: String,
     pub(crate) schema: ArrowSchema,
 }
@@ -40,16 +33,13 @@ pub struct DefaultWriter {
 impl DefaultWriter {
     pub(crate) fn new(
         _inner: Arc<Transport>,
-        pool: Arc<StreamPool>,
+        pool: ConnectionPool,
         write_stream: String,
         schema: ArrowSchema,
     ) -> Self {
-        let initial_stream = pool.get_least_loaded_stream();
+        let initial_stream = pool.get_stream();
 
-        let inner = Arc::new(WriterSharedState {
-            pool,
-            cached_stream: ArcSwap::from_pointee(initial_stream),
-        });
+        let inner = Arc::new(Dispatcher::new(pool, ArcSwap::from_pointee(initial_stream)));
 
         Self {
             inner,
@@ -76,17 +66,27 @@ impl DefaultWriter {
 mod tests {
     use super::*;
     use crate::error::AppendError;
+    use crate::pool::StreamPool;
     use crate::runner::tests::*;
     use crate::transport::tests::*;
     use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use tokio::sync::mpsc;
 
+    fn test_writer(transport: Arc<Transport>, pool: Arc<StreamPool>) -> DefaultWriter {
+        DefaultWriter::new(
+            transport,
+            ConnectionPool::Multiplexed(pool),
+            write_stream(),
+            schema(),
+        )
+    }
+
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
         let pool = Arc::new(StreamPool::new(transport.clone()));
-        let writer = DefaultWriter::new(transport, pool, write_stream(), schema());
+        let writer = test_writer(transport, pool);
 
         let b = writer.append(rows(1));
         assert_eq!(b.req.write_stream, write_stream());
@@ -118,7 +118,7 @@ mod tests {
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport.clone()));
 
-        let writer = DefaultWriter::new(transport, pool, write_stream(), schema());
+        let writer = test_writer(transport, pool);
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;
@@ -149,5 +149,24 @@ mod tests {
 
     fn rows(id: i64) -> ArrowRecordBatch {
         ArrowRecordBatch::new().set_serialized_record_batch(id.to_string())
+    }
+
+    #[test]
+    fn load_guard_drops() {
+        use crate::dispatcher::LoadGuard;
+        use std::sync::atomic::{AtomicU64, Ordering};
+        let outstanding_requests = Arc::new(AtomicU64::new(10));
+        let outstanding_bytes = Arc::new(AtomicU64::new(100));
+
+        {
+            let _guard =
+                LoadGuard::new(outstanding_requests.clone(), outstanding_bytes.clone(), 40);
+
+            assert_eq!(outstanding_requests.load(Ordering::Relaxed), 11);
+            assert_eq!(outstanding_bytes.load(Ordering::Relaxed), 140);
+        }
+
+        assert_eq!(outstanding_requests.load(Ordering::Relaxed), 10);
+        assert_eq!(outstanding_bytes.load(Ordering::Relaxed), 100);
     }
 }

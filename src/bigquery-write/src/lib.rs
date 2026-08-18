@@ -61,6 +61,7 @@ pub mod error;
 mod append_builder;
 mod append_response;
 mod client_builder;
+mod dispatcher;
 mod pool;
 mod proto_schema;
 mod runner;

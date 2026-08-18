@@ -19,7 +19,6 @@ use crate::model::ArrowSchema;
 use crate::pool::StreamPool;
 use crate::transport::Transport;
 use std::sync::Arc;
-
 /// A client for BigQuery Storage Write API.
 #[derive(Debug)]
 pub struct Write {
