@@ -15,8 +15,8 @@
 use crate::dataset::{cleanup_stale_datasets, create_dataset, delete_dataset, random_dataset_id};
 use crate::table::create_table;
 use anyhow::Result;
-use google_cloud_bigquery_read::client::Read;
-use google_cloud_bigquery_read::model::{DataFormat, ReadSession};
+use google_cloud_bigquery_storage_v1::client::BigQueryRead;
+use google_cloud_bigquery_storage_v1::model::{DataFormat, ReadSession};
 use google_cloud_bigquery_v2::client::{DatasetService, TableService};
 use google_cloud_test_utils::runtime_config::project_id;
 
@@ -43,7 +43,7 @@ pub async fn run_reads() -> Result<()> {
 
 // Calls the one unary RPC the service has to offer.
 pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result<()> {
-    let client = Read::builder().build().await?;
+    let client = BigQueryRead::builder().build().await?;
 
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
     let session = client

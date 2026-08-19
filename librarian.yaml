@@ -535,6 +535,13 @@ libraries:
   - name: google-cloud-bigquery-reservation-v1
     version: 1.11.0
     copyright_year: "2025"
+  - name: google-cloud-bigquery-storage-v1
+    copyright_year: "2026"
+    skip_release: true
+    rust:
+      include_bidi_streaming_methods: true
+      included_ids:
+        - .google.cloud.bigquery.storage.v1.BigQueryRead
   - name: google-cloud-bigquery-v2
     version: 0.1.0
     copyright_year: "2025"
@@ -551,31 +558,6 @@ libraries:
         - name: uuid
           package: uuid
           force_used: true
-  - name: google-cloud-bigquery-read
-    copyright_year: "2026"
-    skip_release: true
-    output: src/bigquery-read
-    rust:
-      modules:
-        - module_path: crate::generated::gapic_storage::model
-          output: src/bigquery-read/src/generated/convert/storage
-          skipped_ids:
-            - .google.cloud.bigquery.storage.v1.BigQueryWrite
-            - .google.cloud.bigquery.storage.v1.ProtoSchema
-          api_path: google/cloud/bigquery/storage/v1
-          template: convert-prost
-        - extend_grpc_transport: true
-          generate_setter_samples: "false"
-          generate_rpc_samples: "false"
-          output: src/bigquery-read/src/generated/gapic_storage
-          service_config: google/cloud/bigquery/storage/v1/bigquerystorage_v1.yaml
-          skipped_ids:
-            - .google.cloud.bigquery.storage.v1.BigQueryWrite
-          api_path: google/cloud/bigquery/storage/v1
-          template: grpc-client
-        - output: src/bigquery-read/src/generated/protos/storage
-          api_path: google/cloud/bigquery/storage/v1
-          template: prost
   - name: google-cloud-bigquery-write
     version: 0.1.0
     copyright_year: "2026"
