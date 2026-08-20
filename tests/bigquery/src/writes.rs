@@ -32,11 +32,15 @@ pub async fn run_writes() -> Result<()> {
     let _ = create_dataset(&dataset_service, &project_id, &dataset_id).await?;
 
     let table_service = TableService::builder().with_tracing().build().await?;
-    let table_id = "writes";
+    //let table_id = "writes";
 
     let result = async {
-        create_table(&table_service, &project_id, &dataset_id, table_id).await?;
-        arrow::basic(&project_id, &dataset_id, table_id).await
+        create_table(&table_service, &project_id, &dataset_id, "writes").await?;
+        arrow::basic(&project_id, &dataset_id, "writes").await?;
+
+        create_table(&table_service, &project_id, &dataset_id, "writes1").await?;
+        create_table(&table_service, &project_id, &dataset_id, "writes2").await?;
+        arrow::multiplexing(&project_id, &dataset_id, "writes").await
     }
     .await;
 

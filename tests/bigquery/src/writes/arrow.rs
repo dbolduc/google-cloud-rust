@@ -21,7 +21,7 @@ use google_cloud_bigquery_write::client::Write;
 use google_cloud_bigquery_write::model::{ArrowRecordBatch, ArrowSchema};
 use std::sync::Arc;
 
-pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result<()> {
+pub(super) async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result<()> {
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
 
     // Create a Schema
@@ -76,6 +76,110 @@ pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result
             },
         ]
     );
+
+    Ok(())
+}
+
+pub(super) async fn multiplexing(
+    project_id: &str,
+    dataset_id: &str,
+    table_id_prefix: &str,
+) -> Result<()> {
+    let table1 = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id_prefix}1");
+    let table2 = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id_prefix}2");
+
+    // Create a Schema
+    let arrow_schema = Arc::new(Schema::new(vec![
+        Field::new("name", DataType::Utf8, false),
+        Field::new("age", DataType::Int64, false),
+    ]));
+    let schema_buf = serialize_schema(&arrow_schema)?;
+    let schema_len = schema_buf.len();
+    let schema = ArrowSchema::new().set_serialized_schema(schema_buf);
+
+    // Create a writer for each table
+    let client = Write::builder().build().await?;
+    let w1 = client
+        .arrow(schema.clone())
+        .with_multiplexing(false)
+        .default(table1)?;
+    let w2 = client
+        .arrow(schema)
+        .with_multiplexing(false)
+        .default(table2)?;
+
+    {
+        // TESTING
+        let name = StringArray::from(vec!["Charlie"]);
+        let age = Int64Array::from(vec![31]);
+        let batch =
+            RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(name), Arc::new(age)])?;
+        let batch_buf = serialize_batch(&batch, schema_len)?;
+
+        // Write the batch to both tables
+        let rows1 = ArrowRecordBatch::new().set_serialized_record_batch(batch_buf.clone());
+        let _ = w1.append(rows1).send().await?;
+        let rows2 = ArrowRecordBatch::new().set_serialized_record_batch(batch_buf);
+        let _ = w2.append(rows2).send().await?;
+
+        // NOTE : This seems to finish successfully....
+    }
+
+    // Create a RecordBatch
+    let name = StringArray::from(vec!["Alice", "Bob"]);
+    let age = Int64Array::from(vec![25, 28]);
+    let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(name), Arc::new(age)])?;
+    let batch_buf = serialize_batch(&batch, schema_len)?;
+
+    // Write the batch to both tables
+    let rows1 = ArrowRecordBatch::new().set_serialized_record_batch(batch_buf.clone());
+    let _ = w1.append(rows1).send().await?;
+    {
+        // TODO : so I think the problem is here.
+        // It seems to fail on record batches of size >=1 ?
+        let rows2 = ArrowRecordBatch::new().set_serialized_record_batch(batch_buf);
+        let _ = w2.append(rows2).send().await?;
+    }
+
+    // Create a second RecordBatch
+    let name = StringArray::from(vec!["Charlie"]);
+    let age = Int64Array::from(vec![31]);
+    let batch = RecordBatch::try_new(arrow_schema, vec![Arc::new(name), Arc::new(age)])?;
+    let batch_buf = serialize_batch(&batch, schema_len)?;
+
+    // Write the batch to both tables
+    let rows1 = ArrowRecordBatch::new().set_serialized_record_batch(batch_buf.clone());
+    let _ = w1.append(rows1).send().await?;
+    let rows2 = ArrowRecordBatch::new().set_serialized_record_batch(batch_buf);
+    let _ = w2.append(rows2).send().await?;
+
+    // Verify the writes
+    let table_id1 = format!("{table_id_prefix}1");
+    let table_id2 = format!("{table_id_prefix}2");
+    for table_id in [table_id1, table_id2] {
+        let mut users = read_table(project_id, dataset_id, &table_id).await?;
+        users.sort_by(|a, b| (&a.name, a.age).cmp(&(&b.name, b.age)));
+        let mut expected = vec![
+            UserRecord {
+                name: "Alice".to_string(),
+                age: 25,
+            },
+            UserRecord {
+                name: "Bob".to_string(),
+                age: 28,
+            },
+            UserRecord {
+                name: "Charlie".to_string(),
+                age: 31,
+            },
+            UserRecord {
+                name: "Charlie".to_string(),
+                age: 31,
+            },
+        ];
+        expected.sort_by(|a, b| (&a.name, a.age).cmp(&(&b.name, b.age)));
+        assert_eq!(users, expected);
+    }
 
     Ok(())
 }

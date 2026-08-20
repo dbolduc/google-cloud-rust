@@ -70,6 +70,7 @@ members = [
   "src/bigquery",
   "src/bigquery-derive",
   "src/bigquery-write",
+  "src/bigquery-write/benchmarks/throughput",
   "src/bigquery-write/grpc-mock",
   "src/bigquery/examples",
   "src/bigtable",
