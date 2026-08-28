@@ -61,47 +61,50 @@ impl StreamPool {
 
     /// Selects the stream connection with the least load, dynamically scaling up if needed.
     pub(crate) fn get_least_loaded_stream(&self) -> StreamEntry {
-        let streams = self.streams.load();
+        loop {
+            let streams = self.streams.load();
+            let current_len = streams.len();
 
-        // 1. If empty, lazily spawn the first stream immediately.
-        if streams.is_empty() {
-            return self
-                .spawn_new_stream_atomic()
-                .expect("StreamPool invariant: lazy spawn of first stream must succeed");
-        }
+            // Find the least loaded stream if any exist.
+            let (least_loaded, reqs, bytes) = if let Some(min_stream) = streams
+                .iter()
+                .min_by_key(|entry| entry.outstanding_requests.load(Ordering::Relaxed))
+            {
+                (
+                    Some(min_stream.clone()),
+                    min_stream.outstanding_requests.load(Ordering::Relaxed),
+                    min_stream.outstanding_bytes.load(Ordering::Relaxed),
+                )
+            } else {
+                (None, u64::MAX, u64::MAX)
+            };
 
-        // Reload the streams list in case it was modified.
-        let streams = self.streams.load();
-        let least_loaded = streams
-            .iter()
-            .min_by_key(|entry| entry.outstanding_requests.load(Ordering::Relaxed))
-            .cloned()
-            .unwrap();
+            // Scale up if the pool is empty, or if the least loaded stream is congested.
+            if (current_len == 0 || reqs >= MAX_REQUESTS_THRESHOLD || bytes >= MAX_BYTES_THRESHOLD)
+                && current_len < self.max_connections
+            {
+                if let Some(stream) = self.spawn_new_stream_atomic(current_len) {
+                    return stream;
+                }
+                // A racing thread already scaled up the pool. Retry the loop!
+                continue;
+            }
 
-        let reqs = least_loaded.outstanding_requests.load(Ordering::Relaxed);
-        let bytes = least_loaded.outstanding_bytes.load(Ordering::Relaxed);
-
-        // 3. Scale up if the stream is congested and we are under the limit.
-        if (reqs >= MAX_REQUESTS_THRESHOLD || bytes >= MAX_BYTES_THRESHOLD)
-            && streams.len() < self.max_connections
-        {
-            let maybe_stream = self.spawn_new_stream_atomic();
-            if let Some(stream) = maybe_stream {
+            if let Some(stream) = least_loaded {
                 return stream;
             }
         }
-
-        least_loaded
     }
 
     /// Atomically and thread-safely provisions a new stream connection to scale up.
-    fn spawn_new_stream_atomic(&self) -> Option<StreamEntry> {
+    /// If a racing thread already scaled up the pool, this returns None to avoid thundering herd.
+    fn spawn_new_stream_atomic(&self, expected_len: usize) -> Option<StreamEntry> {
         let mut newly_created: Option<StreamEntry> = None;
         let mut success = false;
 
         self.streams.rcu(|current| {
-            // If another racing thread scaled us up to limit already, do nothing.
-            if !current.is_empty() && current.len() >= self.max_connections {
+            // If another racing thread scaled us up, or we are at the limit, do nothing.
+            if current.len() > expected_len || current.len() >= self.max_connections {
                 success = false;
                 return Arc::clone(current);
             }
@@ -206,7 +209,7 @@ mod tests {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
         let pool = StreamPool::new(transport, DEFAULT_MAX_POOL_SIZE);
         for _ in 0..3 {
-            pool.spawn_new_stream_atomic();
+            pool.spawn_new_stream_atomic(pool.streams.load().len());
         }
 
         // Initially, all have 0 load.
@@ -258,7 +261,7 @@ mod tests {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
         let pool = StreamPool::new(transport, DEFAULT_MAX_POOL_SIZE);
         for _ in 0..3 {
-            pool.spawn_new_stream_atomic();
+            pool.spawn_new_stream_atomic(pool.streams.load().len());
         }
 
         // Fetch initial snapshot IDs
@@ -280,7 +283,7 @@ mod tests {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
         let pool = StreamPool::new(transport, DEFAULT_MAX_POOL_SIZE);
         for _ in 0..3 {
-            pool.spawn_new_stream_atomic();
+            pool.spawn_new_stream_atomic(pool.streams.load().len());
         }
 
         // Initially all are open/healthy
