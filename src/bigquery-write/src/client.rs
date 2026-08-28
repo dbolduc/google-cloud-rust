@@ -16,7 +16,7 @@ use crate::ClientBuilderResult as BuilderResult;
 use crate::arrow::WriterBuilder as ArrowWriterBuilder;
 use crate::client_builder::ClientBuilder;
 use crate::model::ArrowSchema;
-use crate::pool::StreamPool;
+use crate::pool::{DEFAULT_MAX_POOL_SIZE, StreamPool};
 use crate::transport::Transport;
 use std::sync::Arc;
 /// A client for BigQuery Storage Write API.
@@ -34,7 +34,7 @@ impl Write {
 
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
         let transport = Arc::new(Transport::new(builder.config).await?);
-        let pool = Arc::new(StreamPool::new(transport.clone()));
+        let pool = Arc::new(StreamPool::new(transport.clone(), DEFAULT_MAX_POOL_SIZE));
 
         // Spawn background watchdog to manage and prune streams.
         let watchdog_pool = Arc::downgrade(&pool);

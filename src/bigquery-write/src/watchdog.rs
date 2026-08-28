@@ -42,13 +42,14 @@ pub(crate) fn spawn_watchdog(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::pool::DEFAULT_MAX_POOL_SIZE;
     use crate::transport::tests::test_transport;
     use std::sync::Arc;
 
     #[tokio::test]
     async fn watchdog_terminates_when_pool_dropped() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = Arc::new(StreamPool::new(transport));
+        let pool = Arc::new(StreamPool::new(transport, DEFAULT_MAX_POOL_SIZE));
         let weak_pool = Arc::downgrade(&pool);
 
         // Spawn watchdog with a short interval (e.g., 1ms)

@@ -14,7 +14,7 @@
 
 use crate::arrow::DefaultWriter;
 use crate::model::ArrowSchema;
-use crate::pool::{ConnectionPool, StreamPool};
+use crate::pool::StreamPool;
 use crate::transport::Transport;
 use crate::{Error, Result};
 use gaxi::path_parameter::{PathMismatchBuilder, try_match};
@@ -57,9 +57,9 @@ impl WriterBuilder {
         write_stream.push_str("/streams/_default");
 
         let pool = if self.multiplexing {
-            ConnectionPool::Multiplexed(self.pool)
+            self.pool
         } else {
-            ConnectionPool::Exclusive(crate::pool::ExclusivePool::new(self.inner.clone()))
+            Arc::new(StreamPool::new(self.inner.clone(), 1))
         };
 
         Ok(DefaultWriter::new(
@@ -98,7 +98,7 @@ fn validate_table(table: &str) -> Result<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::pool::StreamPool;
+    use crate::pool::{DEFAULT_MAX_POOL_SIZE, StreamPool};
     use crate::transport::tests::test_transport;
     use test_case::test_case;
 
@@ -113,7 +113,7 @@ mod tests {
     #[tokio::test]
     async fn default() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = Arc::new(StreamPool::new(transport.clone()));
+        let pool = Arc::new(StreamPool::new(transport.clone(), DEFAULT_MAX_POOL_SIZE));
         let schema = ArrowSchema::new().set_serialized_schema("test");
         let builder = test_builder(transport, pool, schema.clone());
         let writer = builder.default("projects/p/datasets/d/tables/t")?;
@@ -134,7 +134,7 @@ mod tests {
     #[tokio::test]
     async fn bad_table_format(table: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = Arc::new(StreamPool::new(transport.clone()));
+        let pool = Arc::new(StreamPool::new(transport.clone(), DEFAULT_MAX_POOL_SIZE));
         let schema = ArrowSchema::new().set_serialized_schema("test");
         let builder = test_builder(transport, pool, schema.clone());
         let err = builder

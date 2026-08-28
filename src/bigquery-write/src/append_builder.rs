@@ -50,7 +50,7 @@ mod tests {
         AppendResult, Response,
     };
     use crate::model::TableSchema;
-    use crate::pool::{ConnectionPool, StreamEntry, StreamPool};
+    use crate::pool::{DEFAULT_MAX_POOL_SIZE, StreamEntry, StreamPool};
     use crate::runner::WriteRequest;
     use crate::transport::tests::test_transport;
     use arc_swap::ArcSwap;
@@ -62,17 +62,14 @@ mod tests {
                 .await
                 .unwrap(),
         );
-        let pool = Arc::new(StreamPool::new(transport));
+        let pool = Arc::new(StreamPool::new(transport, DEFAULT_MAX_POOL_SIZE));
         let stream = StreamEntry {
             id: 1,
             sender: req_tx,
             outstanding_requests: Arc::new(std::sync::atomic::AtomicU64::new(0)),
             outstanding_bytes: Arc::new(std::sync::atomic::AtomicU64::new(0)),
         };
-        Arc::new(Dispatcher::new(
-            ConnectionPool::Multiplexed(pool),
-            ArcSwap::from_pointee(stream),
-        ))
+        Arc::new(Dispatcher::new(pool, ArcSwap::from_pointee(stream)))
     }
 
     #[tokio::test]

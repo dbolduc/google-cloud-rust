@@ -15,7 +15,7 @@ use crate::builder::write::Append;
 use crate::dispatcher::Dispatcher;
 use crate::model::append_rows_request::ArrowData;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
-use crate::pool::ConnectionPool;
+use crate::pool::StreamPool;
 use crate::transport::Transport;
 use arc_swap::ArcSwap;
 use std::sync::Arc;
@@ -33,11 +33,11 @@ pub struct DefaultWriter {
 impl DefaultWriter {
     pub(crate) fn new(
         _inner: Arc<Transport>,
-        pool: ConnectionPool,
+        pool: Arc<StreamPool>,
         write_stream: String,
         schema: ArrowSchema,
     ) -> Self {
-        let initial_stream = pool.get_stream();
+        let initial_stream = pool.get_least_loaded_stream();
 
         let inner = Arc::new(Dispatcher::new(pool, ArcSwap::from_pointee(initial_stream)));
 
@@ -66,7 +66,7 @@ impl DefaultWriter {
 mod tests {
     use super::*;
     use crate::error::AppendError;
-    use crate::pool::StreamPool;
+    use crate::pool::{DEFAULT_MAX_POOL_SIZE, StreamPool};
     use crate::runner::tests::*;
     use crate::transport::tests::*;
     use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
@@ -74,18 +74,13 @@ mod tests {
     use tokio::sync::mpsc;
 
     fn test_writer(transport: Arc<Transport>, pool: Arc<StreamPool>) -> DefaultWriter {
-        DefaultWriter::new(
-            transport,
-            ConnectionPool::Multiplexed(pool),
-            write_stream(),
-            schema(),
-        )
+        DefaultWriter::new(transport, pool, write_stream(), schema())
     }
 
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = Arc::new(StreamPool::new(transport.clone()));
+        let pool = Arc::new(StreamPool::new(transport.clone(), DEFAULT_MAX_POOL_SIZE));
         let writer = test_writer(transport, pool);
 
         let b = writer.append(rows(1));
@@ -116,7 +111,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let pool = Arc::new(StreamPool::new(transport.clone()));
+        let pool = Arc::new(StreamPool::new(transport.clone(), DEFAULT_MAX_POOL_SIZE));
 
         let writer = test_writer(transport, pool);
 

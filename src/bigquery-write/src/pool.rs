@@ -41,19 +41,21 @@ pub(crate) struct StreamPool {
     inner: Arc<Transport>,
     next_stream_id: AtomicU64,
     streams: ArcSwap<Vec<StreamEntry>>,
+    max_connections: usize,
 }
 
-const MAX_POOL_SIZE: usize = 8;
+pub(crate) const DEFAULT_MAX_POOL_SIZE: usize = 8;
 const MAX_REQUESTS_THRESHOLD: u64 = 100;
 const MAX_BYTES_THRESHOLD: u64 = 10 * 1024 * 1024; // 10 MB
 
 impl StreamPool {
     /// Initializes a new [StreamPool].
-    pub(crate) fn new(inner: Arc<Transport>) -> Self {
+    pub(crate) fn new(inner: Arc<Transport>, max_connections: usize) -> Self {
         Self {
             inner,
             next_stream_id: AtomicU64::new(1),
             streams: ArcSwap::from_pointee(Vec::new()),
+            max_connections,
         }
     }
 
@@ -81,7 +83,7 @@ impl StreamPool {
 
         // 3. Scale up if the stream is congested and we are under the limit.
         if (reqs >= MAX_REQUESTS_THRESHOLD || bytes >= MAX_BYTES_THRESHOLD)
-            && streams.len() < MAX_POOL_SIZE
+            && streams.len() < self.max_connections
         {
             let maybe_stream = self.spawn_new_stream_atomic();
             if let Some(stream) = maybe_stream {
@@ -99,7 +101,7 @@ impl StreamPool {
 
         self.streams.rcu(|current| {
             // If another racing thread scaled us up to limit already, do nothing.
-            if !current.is_empty() && current.len() >= MAX_POOL_SIZE {
+            if !current.is_empty() && current.len() >= self.max_connections {
                 success = false;
                 return Arc::clone(current);
             }
@@ -194,94 +196,6 @@ impl StreamPool {
     }
 }
 
-/// A single, exclusive connection manager (no multiplexing).
-#[allow(dead_code)]
-#[derive(Debug)]
-pub(crate) struct ExclusivePool {
-    inner: Arc<Transport>,
-    next_stream_id: AtomicU64,
-    stream: ArcSwap<StreamEntry>,
-}
-
-#[allow(dead_code)]
-impl ExclusivePool {
-    /// Initializes a new [ExclusivePool].
-    pub(crate) fn new(inner: Arc<Transport>) -> Self {
-        let runner = Runner::new(inner.clone());
-        let initial_stream = StreamEntry {
-            id: 1,
-            sender: runner.req_tx,
-            outstanding_requests: Arc::new(AtomicU64::new(0)),
-            outstanding_bytes: Arc::new(AtomicU64::new(0)),
-        };
-        Self {
-            inner,
-            next_stream_id: AtomicU64::new(2),
-            stream: ArcSwap::from_pointee(initial_stream),
-        }
-    }
-
-    /// Acquires the current exclusive stream connection.
-    pub(crate) fn get_exclusive_stream(&self) -> StreamEntry {
-        (*self.stream.load_full()).clone()
-    }
-
-    /// Atomically replaces the dead exclusive stream connection.
-    pub(crate) fn evict_and_replace_exclusive(&self, failed_id: u64) {
-        let mut newly_created: Option<StreamEntry> = None;
-
-        self.stream.rcu(|current| {
-            // If already replaced by another writer, do nothing.
-            if current.id != failed_id {
-                return Arc::clone(current);
-            }
-
-            let entry = if let Some(ref entry) = newly_created {
-                entry.clone()
-            } else {
-                let new_id = self.next_stream_id.fetch_add(1, Ordering::Relaxed);
-                let runner = Runner::new(self.inner.clone());
-                let entry = StreamEntry {
-                    id: new_id,
-                    sender: runner.req_tx,
-                    outstanding_requests: Arc::new(AtomicU64::new(0)),
-                    outstanding_bytes: Arc::new(AtomicU64::new(0)),
-                };
-                newly_created = Some(entry.clone());
-                entry
-            };
-
-            Arc::new(entry)
-        });
-    }
-}
-
-/// Connection pool strategy enum (Pattern A).
-#[allow(dead_code)]
-#[derive(Debug)]
-pub(crate) enum ConnectionPool {
-    Multiplexed(Arc<StreamPool>),
-    Exclusive(ExclusivePool),
-}
-
-impl ConnectionPool {
-    /// Loads a stream connection, delegating based on the pool strategy.
-    pub(crate) fn get_stream(&self) -> StreamEntry {
-        match self {
-            ConnectionPool::Multiplexed(pool) => pool.get_least_loaded_stream(),
-            ConnectionPool::Exclusive(pool) => pool.get_exclusive_stream(),
-        }
-    }
-
-    /// Atomically handles stream failure eviction and replacement.
-    pub(crate) fn evict_and_replace(&self, failed_id: u64) {
-        match self {
-            ConnectionPool::Multiplexed(pool) => pool.evict_and_replace(failed_id),
-            ConnectionPool::Exclusive(pool) => pool.evict_and_replace_exclusive(failed_id),
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -290,7 +204,7 @@ mod tests {
     #[tokio::test]
     async fn least_loaded_routing() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = StreamPool::new(transport);
+        let pool = StreamPool::new(transport, DEFAULT_MAX_POOL_SIZE);
         for _ in 0..3 {
             pool.spawn_new_stream_atomic();
         }
@@ -342,7 +256,7 @@ mod tests {
     #[tokio::test]
     async fn evict_and_replace() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = StreamPool::new(transport);
+        let pool = StreamPool::new(transport, DEFAULT_MAX_POOL_SIZE);
         for _ in 0..3 {
             pool.spawn_new_stream_atomic();
         }
@@ -364,7 +278,7 @@ mod tests {
     #[tokio::test]
     async fn prune_dead_streams() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = StreamPool::new(transport);
+        let pool = StreamPool::new(transport, DEFAULT_MAX_POOL_SIZE);
         for _ in 0..3 {
             pool.spawn_new_stream_atomic();
         }
@@ -399,7 +313,7 @@ mod tests {
     #[tokio::test]
     async fn dynamic_scale_up() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let pool = StreamPool::new(transport); // Start with 0 streams!
+        let pool = StreamPool::new(transport, DEFAULT_MAX_POOL_SIZE); // Start with 0 streams!
 
         // Initially empty
         assert_eq!(pool.streams.load().len(), 0);

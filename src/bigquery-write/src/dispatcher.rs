@@ -12,7 +12,7 @@
 // See the License for the_project/LICENSE.
 
 use crate::error::{AppendError, AppendResult};
-use crate::pool::{ConnectionPool, StreamEntry};
+use crate::pool::{StreamEntry, StreamPool};
 use crate::runner::WriteRequest;
 use arc_swap::ArcSwap;
 use google_cloud_gax::error::rpc::Code;
@@ -129,14 +129,14 @@ impl LoadGuardedDispatcher {
 /// Layer 3: Connection Dispatcher (Coordinates failover routing and connection eviction)
 #[derive(Debug)]
 pub(crate) struct Dispatcher {
-    pub(crate) pool: ConnectionPool,
+    pub(crate) pool: Arc<StreamPool>,
     pub(crate) cached_stream: ArcSwap<StreamEntry>,
     dispatcher: LoadGuardedDispatcher,
 }
 
 impl Dispatcher {
     /// Creates a new [Dispatcher].
-    pub(crate) fn new(pool: ConnectionPool, cached_stream: ArcSwap<StreamEntry>) -> Self {
+    pub(crate) fn new(pool: Arc<StreamPool>, cached_stream: ArcSwap<StreamEntry>) -> Self {
         Self {
             pool,
             cached_stream,
@@ -157,7 +157,7 @@ impl Dispatcher {
             Err(err) => {
                 if is_transient_error(&err) {
                     self.pool.evict_and_replace(stream_id);
-                    let new_stream = self.pool.get_stream();
+                    let new_stream = self.pool.get_least_loaded_stream();
                     self.cached_stream.store(Arc::new(new_stream));
                 }
                 Err(err)
