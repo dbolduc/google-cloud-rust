@@ -39,55 +39,89 @@ To resolve the challenges for unordered ingestion, we replace any central coordi
 
 ---
 
-## 3. Least Loaded Stream Routing
+## 3. Power of Two Choices (Po2C) Least Loaded Routing
 
-To guarantee optimal workload balancing and prevent stream saturation, the `StreamPool` implements a dynamic **Least Loaded Stream** routing algorithm rather than static hash-based mappings.
+To guarantee optimal workload balancing and prevent stream saturation, the `StreamPool` implements a dynamic **hybrid Least Loaded Stream selection** algorithm utilizing the **Power of Two Choices (Po2C)** model, rather than static hash-based mappings or full linear scans at scale.
 
-### How it operates:
-When selecting a stream connection for a newly created writer or upon rebinding after a connection failure:
-1. The pool queries the active list of healthy stream connections in the atomic `ArcSwap` snapshot.
-2. It evaluates the load on each stream by reading their atomic tracking counters (`outstanding_requests`) and selects the connection with the lowest value:
+```
+                  [ StreamPool::get_least_loaded_stream() ]
+                                      │
+                         Is Pool Size <= 3 streams?
+                                     / \
+                                    /   \
+                             (Yes) /     \ (No)
+                                  /       \
+         [ Scan Entire Pool ]                  [ Power of Two Choices (Po2C) ]
+                  │                                            │
+       Find global absolute min                         Select 2 random indices
+                  │                                     (rand::thread_rng)
+                  │                                            │
+                  │                                     Compare load metrics
+                  │                                            │
+                  ▼                                            ▼
+           [ Selected Stream ]                          [ Selected Stream ]
+```
+
+### Hybrid Selection Algorithm
+When selecting a stream connection for a newly created writer or upon rebinding after a connection failure, the pool evaluates current pool capacity and delegates load-balancing:
+
+1. **Deterministic Small-Pool Fallback (Size $\le 3$):** 
+   If the pool has 3 or fewer streams, it scans all of them to find the absolute global minimum load. Since $N$ is tiny, this $O(N)$ lookup executes in nanoseconds with perfect balancing correctness.
    $$\text{Selected Stream} = \arg\min_{S_i} \text{Outstanding Requests}(S_i)$$
 
+2. **Power of Two Choices (Po2C) (Size $> 3$):**
+   If the pool is larger than 3 streams, doing a full scan introduces unnecessary cache line transfers and CPU cycles. Instead, the pool chooses **two distinct stream indices** pseudorandomly, compares their outstanding loads, and picks the lower of the two:
+   $$\text{Selected Stream} = \arg\min_{S \in \{S_a, S_b\}} \text{Outstanding Requests}(S)$$
+   
+   This $O(1)$ strategy mathematically breaks load polarization (avoiding the thundering herd effect that occurs when multiple concurrent reconnects grab the exact same global minimum).
+
+3. **High-Performance Randomness using `rand`:**
+   To pick indices efficiently and leverage established project conventions, the pool utilizes the standard `rand` crate's high-performance generator:
+   ```rust
+   let mut rng = rand::rng();
+   let idx1 = rng.gen_range(0..len);
+   let mut idx2 = rng.gen_range(0..len);
+   ```
+   This is extremely fast, standard, and perfectly matches the random generation patterns established across handwritten crates in the workspace.
+
+### Implementation Snippet
+
 ```rust
-pub(crate) fn get_least_loaded_stream(&self) -> StreamEntry {
-    let streams = self.streams.load();
-
-    // 1. If empty, lazily spawn the first stream immediately.
+/// Selects a stream using the Power of Two Choices (Po2C) algorithm.
+pub(crate) fn select_stream_po2c(
+    streams: &[StreamEntry],
+    mut get_indices: impl FnMut(usize) -> (usize, usize),
+) -> Option<StreamEntry> {
     if streams.is_empty() {
-        return self
-            .spawn_new_stream_atomic()
-            .expect("StreamPool invariant: lazy spawn of first stream must succeed");
+        return None;
+    }
+    if streams.len() <= 3 {
+        // Fallback to absolute minimum for very small pools.
+        return streams
+            .iter()
+            .min_by_key(|entry| entry.outstanding_requests.load(Ordering::Relaxed))
+            .cloned();
     }
 
-    // Reload the streams list in case it was modified.
-    let streams = self.streams.load();
-    let least_loaded = streams
-        .iter()
-        .min_by_key(|entry| entry.outstanding_requests.load(Ordering::Relaxed))
-        .cloned()
-        .unwrap();
+    let (idx1, idx2) = get_indices(streams.len());
+    let s1 = &streams[idx1 % streams.len()];
+    let s2 = &streams[idx2 % streams.len()];
 
-    let reqs = least_loaded.outstanding_requests.load(Ordering::Relaxed);
-    let bytes = least_loaded.outstanding_bytes.load(Ordering::Relaxed);
+    let load1 = s1.outstanding_requests.load(Ordering::Relaxed);
+    let load2 = s2.outstanding_requests.load(Ordering::Relaxed);
 
-    // 3. Scale up if the stream is congested and we are under the limit.
-    if (reqs >= MAX_REQUESTS_THRESHOLD || bytes >= MAX_BYTES_THRESHOLD)
-        && streams.len() < MAX_POOL_SIZE
-    {
-        let maybe_stream = self.spawn_new_stream_atomic();
-        if let Some(stream) = maybe_stream {
-            return stream;
-        }
+    if load1 < load2 {
+        Some(s1.clone())
+    } else {
+        Some(s2.clone())
     }
-
-    least_loaded
 }
 ```
 
 This guarantees:
-- **Automatic Load Distribution:** Highly active writers naturally fanning out across all available connections based on real-time outstanding request counts.
-- **Dynamic Rebalancing:** If a connection becomes congested, subsequent writer re-binds are automatically routed to idle connections, alleviating bottlenecks.
+- **Scalable $O(1)$ Load Distribution:** Bypasses full pool searches as the pool grows, scaling linearly with thread count.
+- **Thundering Herd Suppression:** Concurrently failing writers random-sample different pairs of connections, naturally fanning traffic out over the pool.
+- **Microsecond Freshness:** Avoids periodic background sorting, querying real-time load atomic counters at the exact microsecond of write dispatch.
 
 ---
 

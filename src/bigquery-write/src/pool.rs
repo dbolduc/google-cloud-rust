@@ -48,6 +48,40 @@ pub(crate) const DEFAULT_MAX_POOL_SIZE: usize = 8;
 const MAX_REQUESTS_THRESHOLD: u64 = 100;
 const MAX_BYTES_THRESHOLD: u64 = 10 * 1024 * 1024; // 10 MB
 
+/// Selects a stream using the Power of Two Choices (Po2C) algorithm.
+///
+/// If the list of streams has 3 or fewer items, it falls back to picking the
+/// absolute least loaded stream from the entire list.
+/// Otherwise, it selects two distinct random indices and returns the one with the least load.
+pub(crate) fn select_stream_po2c(
+    streams: &[StreamEntry],
+    mut get_indices: impl FnMut(usize) -> (usize, usize),
+) -> Option<StreamEntry> {
+    if streams.is_empty() {
+        return None;
+    }
+    if streams.len() <= 3 {
+        // Fallback to absolute minimum for very small pools.
+        return streams
+            .iter()
+            .min_by_key(|entry| entry.outstanding_requests.load(Ordering::Relaxed))
+            .cloned();
+    }
+
+    let (idx1, idx2) = get_indices(streams.len());
+    let s1 = &streams[idx1 % streams.len()];
+    let s2 = &streams[idx2 % streams.len()];
+
+    let load1 = s1.outstanding_requests.load(Ordering::Relaxed);
+    let load2 = s2.outstanding_requests.load(Ordering::Relaxed);
+
+    if load1 < load2 {
+        Some(s1.clone())
+    } else {
+        Some(s2.clone())
+    }
+}
+
 impl StreamPool {
     /// Initializes a new [StreamPool].
     pub(crate) fn new(inner: Arc<Transport>, max_connections: usize) -> Self {
@@ -59,27 +93,41 @@ impl StreamPool {
         }
     }
 
+    /// Generates two distinct pseudorandom indices in the range `[0, len)`
+    /// using the standard rand crate.
+    fn get_two_distinct_indices(&self, len: usize) -> (usize, usize) {
+        use rand::RngExt;
+        let mut rng = rand::rng();
+        let idx1 = rng.random_range(0..len);
+        let mut idx2 = rng.random_range(0..len);
+
+        if len > 1 && idx1 == idx2 {
+            idx2 = (idx1 + 1) % len;
+        }
+        (idx1, idx2)
+    }
+
+    fn select_stream_po2c_internal(&self, streams: &[StreamEntry]) -> Option<StreamEntry> {
+        select_stream_po2c(streams, |len| self.get_two_distinct_indices(len))
+    }
+
     /// Selects the stream connection with the least load, dynamically scaling up if needed.
     pub(crate) fn get_least_loaded_stream(&self) -> StreamEntry {
         loop {
             let streams = self.streams.load();
             let current_len = streams.len();
 
-            // Find the least loaded stream if any exist.
-            let (least_loaded, reqs, bytes) = if let Some(min_stream) = streams
-                .iter()
-                .min_by_key(|entry| entry.outstanding_requests.load(Ordering::Relaxed))
-            {
+            let least_loaded = self.select_stream_po2c_internal(&streams);
+            let (reqs, bytes) = if let Some(ref entry) = least_loaded {
                 (
-                    Some(min_stream.clone()),
-                    min_stream.outstanding_requests.load(Ordering::Relaxed),
-                    min_stream.outstanding_bytes.load(Ordering::Relaxed),
+                    entry.outstanding_requests.load(Ordering::Relaxed),
+                    entry.outstanding_bytes.load(Ordering::Relaxed),
                 )
             } else {
-                (None, u64::MAX, u64::MAX)
+                (u64::MAX, u64::MAX)
             };
 
-            // Scale up if the pool is empty, or if the least loaded stream is congested.
+            // Scale up if the pool is empty, or if the selected stream is congested.
             if (current_len == 0 || reqs >= MAX_REQUESTS_THRESHOLD || bytes >= MAX_BYTES_THRESHOLD)
                 && current_len < self.max_connections
             {
@@ -339,11 +387,79 @@ mod tests {
         assert_eq!(s3.id, 2);
         assert_eq!(pool.streams.load().len(), 2);
 
-        // 5. Under low load, both are in the pool, but stream 2 has 0 load and stream 1 has 100 load.
+        // Under low load, both are in the pool, but stream 2 has 0 load and stream 1 has 100 load.
         // It should return stream 2.
         let s4 = pool.get_least_loaded_stream();
         assert_eq!(s4.id, 2);
         assert_eq!(pool.streams.load().len(), 2);
+
+        Ok(())
+    }
+
+    #[test]
+    fn test_select_stream_po2c() {
+        let (tx, _rx) = mpsc::channel(1);
+
+        // Helper to create a dummy StreamEntry with given ID and load
+        let make_stream = |id: u64, load: u64| -> StreamEntry {
+            StreamEntry {
+                id,
+                sender: tx.clone(),
+                outstanding_requests: Arc::new(AtomicU64::new(load)),
+                outstanding_bytes: Arc::new(AtomicU64::new(0)),
+            }
+        };
+
+        // 1. Empty list -> should return None
+        let streams_empty: Vec<StreamEntry> = Vec::new();
+        let result = select_stream_po2c(&streams_empty, |_| (0, 0));
+        assert!(result.is_none());
+
+        // 2. Small list (len <= 3) -> should always return the absolute least loaded stream,
+        // ignoring get_indices entirely.
+        let streams_small = vec![
+            make_stream(1, 100),
+            make_stream(2, 10), // absolute min
+            make_stream(3, 50),
+        ];
+        // Mock get_indices to select indices that would normally point to other items (e.g. 1 and 3)
+        let result = select_stream_po2c(&streams_small, |_| (0, 2));
+        assert_eq!(result.unwrap().id, 2);
+
+        // 3. Larger list (len > 3) -> should use Po2C
+        let streams_large = vec![
+            make_stream(1, 100),
+            make_stream(2, 50), // index 1
+            make_stream(3, 10), // index 2 (global min)
+            make_stream(4, 30), // index 3
+        ];
+
+        // Case A: Select indices 1 and 3 (Stream 2 with 50 load, Stream 4 with 30 load).
+        // It should select Stream 4 because 30 < 50.
+        let result = select_stream_po2c(&streams_large, |_| (1, 3));
+        assert_eq!(result.unwrap().id, 4);
+
+        // Case B: Select indices 1 and 2 (Stream 2 with 50 load, Stream 3 with 10 load).
+        // It should select Stream 3 because 10 < 50.
+        let result = select_stream_po2c(&streams_large, |_| (1, 2));
+        assert_eq!(result.unwrap().id, 3);
+    }
+
+    #[tokio::test]
+    async fn test_get_least_loaded_stream_large_pool() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
+        let pool = StreamPool::new(transport, DEFAULT_MAX_POOL_SIZE);
+
+        // Spawn 4 streams (indices 0, 1, 2, 3) to trigger Po2C (since 4 > 3)
+        for _ in 0..4 {
+            pool.spawn_new_stream_atomic(pool.streams.load().len());
+        }
+
+        // Calling get_least_loaded_stream() will trigger Po2C and invoke `rand`.
+        let picked = pool.get_least_loaded_stream();
+
+        // It should successfully return one of the 4 streams in the pool.
+        assert!([1, 2, 3, 4].contains(&picked.id));
 
         Ok(())
     }

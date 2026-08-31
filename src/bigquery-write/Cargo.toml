@@ -48,6 +48,7 @@ thiserror.workspace         = true
 tokio.workspace             = true
 tokio-stream.workspace      = true
 tracing.workspace           = true
+rand                        = { workspace = true, features = ["std", "thread_rng"] }
 google-cloud-auth.workspace = true
 google-cloud-gax.workspace  = true
 google-cloud-rpc.workspace  = true
