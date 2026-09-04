@@ -146,6 +146,14 @@ impl Append {
     pub fn send(self) -> AppendFuture {
         let (tx, rx) = oneshot::channel();
         tokio::spawn(async move {
+            /*
+            // TODO : I think the final code looks like this?
+                let res = self.dispatcher.send(self.req).await
+                let _ = tx.send(res);
+            });
+            AppendFuture::new(rx)
+            */
+
             let (resp_tx, resp_rx) = oneshot::channel();
             let res = async move {
                 let req = self.req.to_proto().map_err(Error::deser)?;

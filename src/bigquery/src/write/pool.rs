@@ -12,24 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::entry::StreamEntry;
 use super::runner::{Runner, WriteRequest};
 use super::transport::Transport;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
 use tokio::sync::mpsc;
-
-/// An entry representing an active, healthy stream connection (Runner).
-#[derive(Clone, Debug)]
-pub(crate) struct StreamEntry {
-    /// Unique identifier for this stream connection.
-    pub(crate) id: u64,
-    /// Channel to send requests to the stream's background runner task.
-    pub(crate) req_tx: mpsc::UnboundedSender<WriteRequest>,
-    /// Track the number of outstanding requests on this stream.
-    pub(crate) outstanding_requests: Arc<AtomicU64>,
-    /// Track the total outstanding bytes on this stream.
-    pub(crate) outstanding_bytes: Arc<AtomicU64>,
-}
 
 /// A pool of open streams that supports multiplexing, load balancing.
 #[derive(Debug)]
