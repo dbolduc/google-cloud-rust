@@ -13,10 +13,13 @@
 // limitations under the License.
 
 use super::super::append_builder::Append;
+use super::super::dispatcher::Dispatcher;
+use super::super::pool::StreamPool;
 use super::super::runner::Runner;
 use super::super::transport::Transport;
 use crate::model::append_rows_request::ArrowData;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
+use arc_swap::ArcSwap;
 use std::sync::Arc;
 
 /// A writer for the [default stream]
@@ -24,17 +27,18 @@ use std::sync::Arc;
 /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
 #[derive(Debug)]
 pub struct DefaultWriter {
-    // TODO(#5744) - support multiplexed connections
-    runner: Runner,
+    inner: Arc<Dispatcher>,
     pub(crate) write_stream: String,
     pub(crate) schema: ArrowSchema,
 }
 
 impl DefaultWriter {
-    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-        let runner = Runner::new(inner);
+    pub(crate) fn new(pool: Arc<StreamPool>, write_stream: String, schema: ArrowSchema) -> Self {
+        let stream = pool.get();
+        let inner = Arc::new(Dispatcher::new(pool, stream));
+
         Self {
-            runner,
+            inner,
             write_stream,
             schema,
         }
@@ -50,7 +54,7 @@ impl DefaultWriter {
                     .set_writer_schema(self.schema.clone())
                     .set_rows(rows),
             );
-        Append::new(self.runner.req_tx.clone(), req)
+        Append::new(self.inner.clone(), req)
     }
 }
 

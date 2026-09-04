@@ -21,11 +21,15 @@
 // TODO : DARREN : THIS CODE HAS NOT BEEN VETTED.
 // TODO : DARREN : THIS CODE HAS NOT BEEN VETTED.
 
+use super::append_response::{AppendResponse, to_result};
 use super::entry::StreamEntry;
 use super::error::{AppendError, AppendResult};
 use super::pool::StreamPool;
 use super::runner::WriteRequest;
+use crate::Error;
+use crate::model::AppendRowsRequest;
 use arc_swap::ArcSwap;
+use gaxi::prost::{FromProto, ToProto};
 use google_cloud_gax::error::rpc::Code;
 use prost::Message;
 use std::sync::Arc;
@@ -41,22 +45,22 @@ pub(crate) struct Dispatcher {
 
 impl Dispatcher {
     /// Creates a new [Dispatcher] initialized with a stream from the pool.
-    pub(crate) fn new(pool: Arc<StreamPool>, initial_stream: StreamEntry) -> Self {
+    pub(crate) fn new(pool: Arc<StreamPool>, stream: StreamEntry) -> Self {
         Self {
             pool,
-            cached_stream: ArcSwap::from_pointee(initial_stream),
+            cached_stream: ArcSwap::from_pointee(stream),
         }
     }
 
     /// Sends a request over the sticky connection. Evicts and updates stream cache on transient errors.
-    pub(crate) async fn send(
-        &self,
-        req: crate::google::cloud::bigquery::storage::v1::AppendRowsRequest,
-    ) -> AppendResult<crate::google::cloud::bigquery::storage::v1::AppendRowsResponse> {
+    pub(crate) async fn send(&self, req: AppendRowsRequest) -> AppendResult<AppendResponse> {
+        // TODO : should the conversions happen in here? or in the builder?
+        let req = req.to_proto().map_err(Error::deser)?;
+
         let stream = self.cached_stream.load_full();
         let stream_id = stream.id;
 
-        match stream.send(req).await {
+        let resp = match stream.send(req).await {
             Ok(resp) => Ok(resp),
             Err(err) => {
                 if is_transient_error(&err) {
@@ -72,7 +76,11 @@ impl Dispatcher {
                 }
                 Err(err)
             }
-        }
+        }?;
+
+        // TODO : should the conversions happen in here? or in the builder?
+        let resp = resp.cnv().map_err(Error::ser)?;
+        to_result(resp)
     }
 }
 
