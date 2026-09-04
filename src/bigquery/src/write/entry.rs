@@ -13,11 +13,10 @@
 // limitations under the License.
 
 use super::error::{AppendError, AppendResult};
-use super::runner::{Runner, WriteRequest};
-use super::transport::Transport;
+use super::runner::WriteRequest;
 use prost::Message;
 use std::sync::atomic::{AtomicU64, Ordering};
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot};
 
 /// An entry representing an active, healthy stream connection (Runner).

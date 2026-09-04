@@ -13,11 +13,10 @@
 // limitations under the License.
 
 use super::entry::StreamEntry;
-use super::runner::{Runner, WriteRequest};
+use super::runner::Runner;
 use super::transport::Transport;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
-use tokio::sync::mpsc;
 
 /// A pool of open streams that supports multiplexing, load balancing.
 #[derive(Debug)]

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::super::generated::gapic_storage::client::BigQueryWrite;
+use super::super::pool::StreamPool;
 use super::super::transport::Transport;
 use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
 use crate::model::write_stream::Type;
@@ -28,12 +29,29 @@ use std::sync::Arc;
 #[derive(Clone, Debug)]
 pub struct WriterBuilder {
     inner: Arc<Transport>,
+    pool: Arc<StreamPool>,
     schema: ArrowSchema,
+    multiplexing: bool,
 }
 
 impl WriterBuilder {
-    pub(crate) fn new(inner: Arc<Transport>, schema: ArrowSchema) -> Self {
-        Self { inner, schema }
+    pub(crate) fn new(inner: Arc<Transport>, pool: Arc<StreamPool>, schema: ArrowSchema) -> Self {
+        Self {
+            inner,
+            pool,
+            schema,
+            // TODO : testing...
+            multiplexing: true,
+        }
+    }
+
+    /// Enable multiplexing.
+    ///
+    /// Note that the service and client library only support multiplexing on
+    /// the default stream.
+    pub fn with_multiplexing(mut self, enabled: bool) -> Self {
+        self.multiplexing = enabled;
+        self
     }
 
     /// Create a writer for the [default stream] for the given table.
@@ -60,7 +78,14 @@ impl WriterBuilder {
         validate_table(table.as_str())?;
         let mut write_stream = table;
         write_stream.push_str("/streams/_default");
-        Ok(DefaultWriter::new(self.inner, write_stream, self.schema))
+
+        let pool = if self.multiplexing {
+            self.pool
+        } else {
+            Arc::new(StreamPool::new(self.inner, 1))
+        };
+
+        Ok(DefaultWriter::new(pool, write_stream, self.schema))
     }
 
     /// Creates a pending writer for the given table.

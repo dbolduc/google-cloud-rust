@@ -14,11 +14,13 @@
 
 use super::append_future::AppendFuture;
 use super::append_response::to_result;
+use super::dispatcher::Dispatcher;
 use super::error::AppendError;
 use super::runner::WriteRequest;
 use crate::Error;
 use crate::model::AppendRowsRequest;
 use gaxi::prost::{FromProto, ToProto};
+use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot};
 
 /// A request builder for appending rows with a specific stream offset,
@@ -112,13 +114,13 @@ impl AppendWithOffset {
 /// A request builder for appending rows on the default stream.
 #[derive(Clone, Debug)]
 pub struct Append {
-    req_tx: mpsc::UnboundedSender<WriteRequest>,
+    inner: Arc<Dispatcher>,
     pub(crate) req: AppendRowsRequest,
 }
 
 impl Append {
-    pub(crate) fn new(req_tx: mpsc::UnboundedSender<WriteRequest>, req: AppendRowsRequest) -> Self {
-        Self { req_tx, req }
+    pub(crate) fn new(inner: Arc<Dispatcher>, req: AppendRowsRequest) -> Self {
+        Self { inner, req }
     }
 
     /// Append rows to the stream.
@@ -146,26 +148,7 @@ impl Append {
     pub fn send(self) -> AppendFuture {
         let (tx, rx) = oneshot::channel();
         tokio::spawn(async move {
-            /*
-            // TODO : I think the final code looks like this?
-                let res = self.dispatcher.send(self.req).await
-                let _ = tx.send(res);
-            });
-            AppendFuture::new(rx)
-            */
-
-            let (resp_tx, resp_rx) = oneshot::channel();
-            let res = async move {
-                let req = self.req.to_proto().map_err(Error::deser)?;
-                let write = WriteRequest { req, resp_tx };
-                let _ = self.req_tx.send(write);
-                let resp = resp_rx
-                    .await
-                    .map_err(|_| AppendError::UnexpectedEndOfStream)??;
-                let resp = resp.cnv().map_err(Error::ser)?;
-                to_result(resp)
-            }
-            .await;
+            let res = self.inner.send(self.req).await;
             let _ = tx.send(res);
         });
         AppendFuture::new(rx)
