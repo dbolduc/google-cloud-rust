@@ -158,8 +158,11 @@ impl Dispatcher {
                 if is_transient_error(&err) {
                     self.pool.evict_and_replace(stream_id);
                     let new_stream = self.pool.get_least_loaded_stream();
-                    self.cached_stream.store(Arc::new(new_stream));
+                    // 3. Atomically update OUR cache ONLY if another task hasn't 
+                    //    already updated it to a newer stream while we were waiting.
+                    let _ = self.cached_stream.compare_and_swap(&stream, Arc::new(new_stream));
                 }
+                // TODO : Retries
                 Err(err)
             }
         }
