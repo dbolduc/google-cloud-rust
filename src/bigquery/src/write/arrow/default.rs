@@ -66,8 +66,9 @@ mod tests {
 
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let writer = DefaultWriter::new(transport, write_stream(), schema());
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
+        let pool = Arc::new(StreamPool::new(transport, 1));
+        let writer = DefaultWriter::new(pool, write_stream(), schema());
 
         let b = writer.append(rows(1));
         assert_eq!(b.req.write_stream, write_stream());
@@ -97,8 +98,9 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
+        let pool = Arc::new(StreamPool::new(transport, 1));
 
-        let writer = DefaultWriter::new(transport, write_stream(), schema());
+        let writer = DefaultWriter::new(pool, write_stream(), schema());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;

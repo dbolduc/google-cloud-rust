@@ -12,15 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO : DARREN : THIS CODE HAS NOT BEEN VETTED.
-// TODO : DARREN : THIS CODE HAS NOT BEEN VETTED.
-// TODO : DARREN : THIS CODE HAS NOT BEEN VETTED.
-// TODO : DARREN : THIS CODE HAS NOT BEEN VETTED.
-// TODO : DARREN : THIS CODE HAS NOT BEEN VETTED.
-// TODO : DARREN : THIS CODE HAS NOT BEEN VETTED.
-// TODO : DARREN : THIS CODE HAS NOT BEEN VETTED.
-// TODO : DARREN : THIS CODE HAS NOT BEEN VETTED.
-
 use super::append_response::{AppendResponse, to_result};
 use super::entry::StreamEntry;
 use super::error::{AppendError, AppendResult};
@@ -51,7 +42,6 @@ impl Dispatcher {
 
     /// Sends a request over the sticky connection. Evicts and updates stream cache on transient errors.
     pub(crate) async fn send(&self, req: AppendRowsRequest) -> AppendResult<AppendResponse> {
-        // TODO : should the conversions happen in here? or in the builder?
         let req = req.to_proto().map_err(Error::deser)?;
 
         let stream = self.cached_stream.load_full();
@@ -69,23 +59,22 @@ impl Dispatcher {
                         .cached_stream
                         .compare_and_swap(&stream, Arc::new(new_stream));
 
-                    // TODO: Retries
+                    // TODO(#6355): implement retries
                 }
                 Err(err)
             }
         }?;
 
-        // TODO : should the conversions happen in here? or in the builder?
         let resp = resp.cnv().map_err(Error::ser)?;
         to_result(resp)
     }
 }
 
-// TODO : DARREN : THIS CODE HAS NOT BEEN VETTED.
 pub(crate) fn is_transient_error(err: &AppendError) -> bool {
     match err {
         AppendError::UnexpectedEndOfStream => true,
         AppendError::RowErrors(_) => false,
+        // TODO(#6355): classify transient RPC errors
         AppendError::Rpc { source } => {
             if let Some(status) = source.status() {
                 matches!(
@@ -106,15 +95,6 @@ pub(crate) fn is_transient_error(err: &AppendError) -> bool {
 
 #[cfg(test)]
 pub(crate) mod tests {
-    use super::super::runner::tests::*;
-    use super::super::transport::tests::*;
-    use super::*;
-    use bigquery_grpc_mock::{MockBigQueryWrite, start};
-    use gaxi::grpc::tonic::Response as TonicResponse;
-    use test_case::test_case;
-    use tokio::sync::oneshot;
-    use tokio::task::JoinSet;
-
     #[tokio::test]
     async fn todo() -> anyhow::Result<()> {
         Ok(())

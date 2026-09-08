@@ -126,13 +126,14 @@ impl StreamPool {
 
 #[cfg(test)]
 pub(crate) mod tests {
+    use super::super::runner::WriteRequest;
     use super::super::runner::tests::*;
     use super::super::transport::tests::*;
     use super::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use test_case::test_case;
-    use tokio::sync::oneshot;
+    use tokio::sync::{mpsc, oneshot};
     use tokio::task::JoinSet;
 
     #[test_case(10, Some(100), 10_000, Some(100_000), 0.1, false)]

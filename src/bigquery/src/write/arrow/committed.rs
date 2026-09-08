@@ -65,7 +65,7 @@ mod tests {
 
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
         let writer = CommittedWriter::new(transport, write_stream(), schema());
         assert_eq!(writer.write_stream(), write_stream());
 

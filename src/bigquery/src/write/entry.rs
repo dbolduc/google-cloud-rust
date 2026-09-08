@@ -15,8 +15,8 @@
 use super::error::{AppendError, AppendResult};
 use super::runner::WriteRequest;
 use prost::Message;
-use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
+use std::sync::atomic::{AtomicU64, Ordering};
 use tokio::sync::{mpsc, oneshot};
 
 /// An entry representing an active, healthy stream connection (Runner).
@@ -85,14 +85,6 @@ impl Drop for LoadGuard {
 
 #[cfg(test)]
 pub(crate) mod tests {
-    use super::super::runner::tests::*;
-    use super::super::transport::tests::*;
-    use super::*;
-    use bigquery_grpc_mock::{MockBigQueryWrite, start};
-    use gaxi::grpc::tonic::Response as TonicResponse;
-    use tokio::sync::oneshot;
-    use tokio::task::JoinSet;
-
     #[tokio::test]
     async fn todo() -> anyhow::Result<()> {
         Ok(())
