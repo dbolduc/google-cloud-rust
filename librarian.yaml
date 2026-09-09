@@ -692,6 +692,7 @@ libraries:
       - discovery
       - googleapis
     specification_format: discovery
+    skip_generate: true
     rust:
       package_dependencies:
         - name: google-cloud-lro
