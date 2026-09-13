@@ -15,10 +15,12 @@
 use super::super::builder::Append;
 use super::super::dispatcher::Dispatcher;
 use super::super::pool::StreamPool;
-use super::super::retry_policy::{default_backoff_policy, default_retry_policy};
 use crate::model::append_rows_request::ProtoData;
 use crate::model::{AppendRowsRequest, ProtoRows, ProtoSchema};
+use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::retry_policy::RetryPolicy;
 use std::sync::Arc;
+use std::time::Duration;
 
 /// A writer for the [default stream] using Protobuf as the data format.
 ///
@@ -31,12 +33,19 @@ pub struct DefaultWriter {
 }
 
 impl DefaultWriter {
-    pub(crate) fn new(pool: Arc<StreamPool>, write_stream: String, schema: ProtoSchema) -> Self {
+    pub(crate) fn new(
+        pool: Arc<StreamPool>,
+        write_stream: String,
+        schema: ProtoSchema,
+        retry_policy: Arc<dyn RetryPolicy>,
+        backoff_policy: Arc<dyn BackoffPolicy>,
+        attempt_timeout: Option<Duration>,
+    ) -> Self {
         let inner = Arc::new(Dispatcher::new(
             pool,
-            default_retry_policy(),
-            default_backoff_policy(),
-            None,
+            retry_policy,
+            backoff_policy,
+            attempt_timeout,
         ));
         Self {
             inner,
@@ -67,11 +76,22 @@ mod tests {
     use gaxi::grpc::tonic::Response as TonicResponse;
     use tokio::sync::mpsc;
 
+    fn test_writer(pool: Arc<StreamPool>) -> DefaultWriter {
+        DefaultWriter::new(
+            pool,
+            write_stream(),
+            proto_schema(),
+            test_retry_policy(),
+            test_backoff_policy(),
+            None,
+        )
+    }
+
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
         let pool = Arc::new(StreamPool::new(transport, 1));
-        let writer = DefaultWriter::new(pool, write_stream(), proto_schema());
+        let writer = test_writer(pool);
 
         let b = writer.append(rows(1));
         assert_eq!(b.req.write_stream, write_stream());
@@ -108,7 +128,7 @@ mod tests {
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 1));
 
-        let writer = DefaultWriter::new(pool, write_stream(), proto_schema());
+        let writer = test_writer(pool);
 
         response1_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;

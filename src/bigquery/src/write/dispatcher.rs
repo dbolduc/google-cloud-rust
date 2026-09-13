@@ -407,7 +407,7 @@ mod tests {
                 let mut req_rx = request.into_inner();
                 let (tx, rx) = mpsc::channel(1000);
                 tokio::spawn(async move {
-                    while let Some(_) = req_rx.recv().await {
+                    while req_rx.recv().await.is_some() {
                         let _ = tx.send(Ok(convert(&test_response(1)))).await;
                     }
                 });
