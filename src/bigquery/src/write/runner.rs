@@ -81,7 +81,14 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::UnboundedRecei
     } = match Stream::new(inner, initial_req.req).await {
         Ok(s) => s,
         Err(e) => {
-            process_gax_response(&mut resp_txs, Err(e));
+            let shared_error = Arc::new(e);
+            while let Some(tx) = resp_txs.pop_front() {
+                let _ = tx.send(Err(shared_error.clone().into()));
+            }
+            req_rx.close();
+            while let Some(r) = req_rx.recv().await {
+                let _ = r.resp_tx.send(Err(shared_error.clone().into()));
+            }
             return;
         }
     };
@@ -256,6 +263,68 @@ mod tests {
         drop(req_tx);
         handle.await?;
 
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn shared_error() -> anyhow::Result<()> {
+        let (stream_started_tx, stream_started_rx) = oneshot::channel();
+        let (release_stream_tx, release_stream_rx) = std::sync::mpsc::channel::<()>();
+
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows().return_once(move |_| {
+            let _ = stream_started_tx.send(());
+            let _ = release_stream_rx.recv();
+            Err(TonicStatus::unavailable("try again"))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+
+        let Runner { req_tx, handle } = Runner::new(transport);
+
+        // Send initial write that triggers stream connection
+        let (resp_tx1, resp_rx1) = oneshot::channel();
+        let write1 = WriteRequest {
+            req: test_request(1),
+            resp_tx: resp_tx1,
+        };
+        req_tx.send(write1)?;
+
+        // Wait until the stream has started connecting in the mock
+        stream_started_rx.await?;
+
+        // Queue up additional writes while Stream::new is connecting
+        let (resp_tx2, resp_rx2) = oneshot::channel();
+        let write2 = WriteRequest {
+            req: test_request(2),
+            resp_tx: resp_tx2,
+        };
+        req_tx.send(write2)?;
+
+        let (resp_tx3, resp_rx3) = oneshot::channel();
+        let write3 = WriteRequest {
+            req: test_request(3),
+            resp_tx: resp_tx3,
+        };
+        req_tx.send(write3)?;
+
+        // Release the stream to fail with Unavailable "try again"
+        drop(release_stream_tx);
+
+        // Verify write 1, 2, and 3 all receive the shared RPC error
+        for resp_rx in [resp_rx1, resp_rx2, resp_rx3] {
+            let resp = resp_rx.await?;
+            let Err(AppendError::Rpc { source: err }) = resp else {
+                anyhow::bail!("expected an RPC error, got: {resp:?}");
+            };
+            let Some(status) = err.status() else {
+                anyhow::bail!("expected a status, got: {err:?}");
+            };
+            assert_eq!(status.code, Code::Unavailable);
+            assert_eq!(status.message, "try again");
+        }
+
+        handle.await?;
         Ok(())
     }
 

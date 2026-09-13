@@ -266,4 +266,149 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test]
+    #[ignore = "TODO(#6355): Implement retries"]
+    async fn row_error() -> anyhow::Result<()> {
+        // 1. Mock server accepts 1 append_rows stream call
+        // 2. Client sends write
+        // 3. Mock sends response with row_errors set
+        // 4. Verify send() returns Err(AppendError::RowErrors)
+        // 5. Verify stream was NOT evicted: pool.stream_ids() == [1]
+        todo!()
+    }
+
+    #[tokio::test]
+    #[ignore = "TODO(#6355): Implement retries"]
+    async fn resource_exhausted() -> anyhow::Result<()> {
+        // 1. Mock server accepts 1 append_rows stream call
+        // 2. Client sends write with a tracking backoff policy
+        // 3. Mock sends response with Response::Error(Status { code: ResourceExhausted })
+        // 4. Verify stream was NOT evicted: pool.stream_ids() == [1]
+        // 5. Mock sends second response on the SAME stream: Ok(AppendResult)
+        // 6. Verify write succeeds and backoff was called once
+        todo!()
+    }
+
+    #[tokio::test]
+    #[ignore = "TODO(#6355): Implement retries"]
+    async fn unexpected_end_of_stream() -> anyhow::Result<()> {
+        // 1. Mock expects stream 1 and stream 2
+        // 2. Client sends write to stream 1 (id: 1)
+        // 3. Drop response channel 1 (simulating stream close / UnexpectedEndOfStream)
+        // 4. Stream 2 is opened automatically by the pool
+        // 5. Stream 2 sends Ok(AppendResult)
+        // 6. Verify write succeeds with new stream id: 2
+        // 7. Verify retry was immediate (0 backoff delay)
+        todo!()
+    }
+
+    #[tokio::test]
+    #[ignore = "TODO(#6355): Implement retries"]
+    async fn consecutive_disconnects() -> anyhow::Result<()> {
+        // 1. Mock expects streams 1, 2, and 3
+        // 2. Client sends write with a tracking backoff policy
+        // 3. Drop stream 1 -> client retries immediately on stream 2 (0 delay)
+        // 4. Drop stream 2 -> client encounters consecutive disconnect
+        // 5. Verify backoff sleep was invoked before attempting stream 3
+        // 6. Stream 3 sends Ok(AppendResult)
+        // 7. Verify write succeeds
+        todo!()
+    }
+
+    #[tokio::test]
+    #[ignore = "TODO(#6355): Implement retries"]
+    async fn transport_error() -> anyhow::Result<()> {
+        // 1. Mock expects stream 1 and stream 2
+        // 2. Client sends write
+        // 3. Stream 1 yields TonicStatus with a source error (h2 reset)
+        // 4. Verify stream 1 is evicted (id -> 2)
+        // 5. Stream 2 yields Ok(AppendResult)
+        // 6. Verify write succeeds immediately without backoff delay
+        todo!()
+    }
+
+    #[tokio::test]
+    #[ignore = "TODO(#6355): Implement retries"]
+    async fn server_restart() -> anyhow::Result<()> {
+        // 1. Mock expects stream 1 and stream 2
+        // 2. Client sends write
+        // 3. Stream 1 yields TonicStatus::aborted("Closing the stream because server is restarted")
+        // 4. Verify stream 1 is evicted (pool id: 2)
+        // 5. Stream 2 yields Ok(AppendResult)
+        // 6. Verify write succeeds immediately without backoff delay
+        todo!()
+    }
+
+    #[tokio::test]
+    #[ignore = "TODO(#6355): Implement retries"]
+    async fn shared_error() -> anyhow::Result<()> {
+        todo!()
+    }
+
+    #[tokio::test]
+    #[ignore = "TODO(#6355): Implement retries"]
+    async fn connect_error() -> anyhow::Result<()> {
+        // 1. Mock expect_append_rows call 1: returns Err(TonicStatus::unavailable("unavailable"))
+        // 2. Mock expect_append_rows call 2: succeeds and returns response channel
+        // 3. Client sends write with a tracking backoff policy
+        // 4. Verify backoff was invoked between call 1 and call 2
+        // 5. Stream 2 yields Ok(AppendResult)
+        // 6. Verify write succeeds
+        todo!()
+    }
+
+    #[tokio::test]
+    #[ignore = "TODO(#6355): Implement retries"]
+    async fn attempt_timeout() -> anyhow::Result<()> {
+        // 1. Configure dispatcher with attempt_timeout (e.g. 50ms)
+        // 2. Mock expects stream 1 and stream 2
+        // 3. Client sends write to stream 1
+        // 4. Stream 1 never sends a response (hangs)
+        // 5. After 50ms, attempt_timeout triggers
+        // 6. Verify stream 1 is evicted (id -> 2)
+        // 7. Stream 2 sends Ok(AppendResult)
+        // 8. Verify write succeeds on stream 2
+        todo!()
+    }
+
+    #[tokio::test]
+    #[ignore = "TODO(#6355): Implement retries"]
+    async fn retry_exhausted() -> anyhow::Result<()> {
+        // 1. Configure retry policy with with_time_limit(100ms) and attempt_timeout(40ms)
+        // 2. Mock streams always hang or drop
+        // 3. Client sends write
+        // 4. Loop attempts retry until elapsed time >= 100ms
+        // 5. Verify write returns Err(AppendError::Rpc { source }) where source.is_exhausted() == true
+        todo!()
+    }
+
+    #[tokio::test]
+    #[ignore = "TODO(#6355): Implement retries"]
+    async fn strict_customer_policy() -> anyhow::Result<()> {
+        // 1. Configure customer retry policy that returns Permanent for all RPC errors
+        // 2. Stream 1 closes (drop response_tx)
+        // 3. Stream 2 succeeds with Ok(AppendResult)
+        // 4. Verify write succeeds: the library handled UnexpectedEndOfStream internally
+        todo!()
+    }
+
+    #[tokio::test]
+    #[ignore = "TODO(#6355): Implement retries"]
+    async fn customer_retry_policy() -> anyhow::Result<()> {
+        // 1. Configure customer retry policy that rejects Code::ResourceExhausted
+        // 2. Stream yields response with error Code::ResourceExhausted
+        // 3. Verify write fails immediately with Code::ResourceExhausted (no retries)
+        // 4. Verify stream was kept open (id == 1)
+        todo!()
+    }
+
+    #[tokio::test]
+    #[ignore = "TODO(#6355): Implement retries"]
+    async fn permanent_rpc_error() -> anyhow::Result<()> {
+        // 1. Stream yields TonicStatus::invalid_argument("table does not exist")
+        // 2. Client receives Err(AppendError::Rpc) with Code::InvalidArgument
+        // 3. Verify no retries were attempted and call failed immediately
+        todo!()
+    }
 }

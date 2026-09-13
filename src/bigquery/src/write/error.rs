@@ -14,6 +14,7 @@
 
 use crate::Error;
 use crate::model::RowError;
+use std::sync::Arc;
 
 /// Represents an error that can occur when appending rows.
 #[derive(thiserror::Error, Debug)]
@@ -24,9 +25,8 @@ pub enum AppendError {
     #[error("the operation failed. RPC error: {source}")]
     Rpc {
         /// The error returned by the service for the request.
-        #[from]
         #[source]
-        source: Error,
+        source: Arc<Error>,
     },
 
     /// Certain rows have errors.
@@ -40,6 +40,20 @@ pub enum AppendError {
         "the `AppendRows` stream closed unexpectedly and the client library could not recover."
     )]
     UnexpectedEndOfStream,
+}
+
+impl From<Error> for AppendError {
+    fn from(source: Error) -> Self {
+        AppendError::Rpc {
+            source: Arc::new(source),
+        }
+    }
+}
+
+impl From<Arc<Error>> for AppendError {
+    fn from(source: Arc<Error>) -> Self {
+        AppendError::Rpc { source }
+    }
 }
 
 pub(crate) type AppendResult<T> = std::result::Result<T, AppendError>;
@@ -77,13 +91,12 @@ mod tests {
 
     #[test]
     fn append_error_rpc_debug() {
-        let e = AppendError::Rpc {
-            source: Error::service(
-                Status::default()
-                    .set_code(Code::FailedPrecondition)
-                    .set_message("inner fail"),
-            ),
-        };
+        let e: AppendError = Error::service(
+            Status::default()
+                .set_code(Code::FailedPrecondition)
+                .set_message("inner fail"),
+        )
+        .into();
         let fmt = format!("{e}");
         assert!(fmt.contains("operation failed."), "{fmt}");
         assert!(fmt.contains("inner fail"), "{fmt}");
