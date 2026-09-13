@@ -52,6 +52,7 @@ impl Dispatcher {
         pool: Arc<StreamPool>,
         retry_policy: Arc<dyn RetryPolicy>,
         backoff_policy: Arc<dyn BackoffPolicy>,
+        attempt_timeout: Option<Duration>,
     ) -> Self {
         let stream = pool.get();
         Self {
@@ -59,15 +60,8 @@ impl Dispatcher {
             entry: ArcSwap::from_pointee(stream),
             retry_policy,
             backoff_policy,
-            attempt_timeout: None,
+            attempt_timeout,
         }
-    }
-
-    /// Sets the per-attempt timeout.
-    #[allow(dead_code)]
-    pub(crate) fn with_attempt_timeout(mut self, timeout: Duration) -> Self {
-        self.attempt_timeout = Some(timeout);
-        self
     }
 
     /// Send the write and process the response.
@@ -78,22 +72,52 @@ impl Dispatcher {
         let mut state = RetryState::new(true);
 
         loop {
+            let remaining_time = self.retry_policy.remaining_time(&state);
+            if remaining_time.is_some_and(|r| r.is_zero()) {
+                return Err(AppendError::Rpc {
+                    source: Error::exhausted("retry policy exhausted"),
+                });
+            }
+
             state.attempt_count += 1;
-            let err = match self.send_one_attempt(req.clone()).await {
+            let effective_timeout = resolve_effective_timeout(self.attempt_timeout, remaining_time);
+
+            let err = match self.send_one_attempt(req.clone(), effective_timeout).await {
                 Ok(res) => return Ok(res),
                 Err(e) => e,
             };
 
-            let delay = match err {
+            let (delay, source) = match err {
                 AppendError::RowErrors(_) => return Err(err),
-                AppendError::UnexpectedEndOfStream => self.backoff_policy.on_failure(&state),
+                AppendError::UnexpectedEndOfStream => {
+                    let delay = self.backoff_policy.on_failure(&state);
+                    (delay, Error::io("unexpected end of stream"))
+                }
                 AppendError::Rpc { source } => match self.retry_policy.on_error(&state, source) {
-                    RetryResult::Continue(_) => self.backoff_policy.on_failure(&state),
-                    RetryResult::Exhausted(source) | RetryResult::Permanent(source) => {
+                    RetryResult::Continue(source) => {
+                        let delay = self.backoff_policy.on_failure(&state);
+                        (delay, source)
+                    }
+                    RetryResult::Exhausted(source) => {
+                        let source = if source.is_exhausted() {
+                            source
+                        } else {
+                            Error::exhausted(source)
+                        };
+                        return Err(AppendError::Rpc { source });
+                    }
+                    RetryResult::Permanent(source) => {
                         return Err(AppendError::Rpc { source });
                     }
                 },
             };
+
+            let remaining_time = self.retry_policy.remaining_time(&state);
+            if remaining_time.is_some_and(|remaining| remaining < delay) {
+                return Err(AppendError::Rpc {
+                    source: Error::exhausted(source),
+                });
+            }
 
             tokio::time::sleep(delay).await;
         }
@@ -102,12 +126,13 @@ impl Dispatcher {
     async fn send_one_attempt(
         &self,
         req: crate::google::cloud::bigquery::storage::v1::AppendRowsRequest,
+        effective_timeout: Option<Duration>,
     ) -> AppendResult<AppendResponse> {
         let stream = self.entry.load_full();
         let stream_id = stream.id;
 
         let send_fut = stream.send(req);
-        let resp = match self.apply_attempt_timeout(send_fut).await {
+        let resp = match apply_attempt_timeout(send_fut, effective_timeout).await {
             Ok(resp) => resp,
             Err(err) => {
                 if should_reconnect(&err) {
@@ -126,20 +151,32 @@ impl Dispatcher {
         let resp = resp.cnv().map_err(Error::deser)?;
         to_result(resp)
     }
+}
 
-    async fn apply_attempt_timeout<F, T>(&self, fut: F) -> AppendResult<T>
-    where
-        F: std::future::Future<Output = AppendResult<T>>,
-    {
-        match self.attempt_timeout {
-            Some(timeout) => match tokio::time::timeout(timeout, fut).await {
-                Ok(res) => res,
-                Err(_) => Err(AppendError::Rpc {
-                    source: Error::timeout("attempt timed out"),
-                }),
-            },
-            None => fut.await,
-        }
+async fn apply_attempt_timeout<F, T>(fut: F, timeout: Option<Duration>) -> AppendResult<T>
+where
+    F: std::future::Future<Output = AppendResult<T>>,
+{
+    match timeout {
+        Some(timeout) => match tokio::time::timeout(timeout, fut).await {
+            Ok(res) => res,
+            Err(_) => Err(AppendError::Rpc {
+                source: Error::timeout("attempt timed out"),
+            }),
+        },
+        None => fut.await,
+    }
+}
+
+fn resolve_effective_timeout(
+    attempt_timeout: Option<Duration>,
+    remaining_time: Option<Duration>,
+) -> Option<Duration> {
+    match (attempt_timeout, remaining_time) {
+        (None, None) => None,
+        (None, Some(t)) => Some(t),
+        (Some(t), None) => Some(t),
+        (Some(a), Some(r)) => Some(std::cmp::min(a, r)),
     }
 }
 
@@ -172,8 +209,10 @@ mod tests {
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
     use google_cloud_gax::error::rpc::Status as GaxStatus;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_gax::retry_policy::RetryPolicyExt;
     use http::HeaderMap;
+    use std::error::Error as _;
     use std::time::Duration;
     use tokio::sync::{mpsc, oneshot};
     use tokio::task::JoinSet;
@@ -183,11 +222,33 @@ mod tests {
             pool,
             test_retry_policy(),
             test_backoff_policy(),
+            None,
         ))
     }
 
     fn test_req() -> AppendRowsRequest {
         AppendRowsRequest::new()
+    }
+
+    #[test]
+    fn test_resolve_effective_timeout() {
+        assert_eq!(resolve_effective_timeout(None, None), None);
+        assert_eq!(
+            resolve_effective_timeout(None, Some(Duration::from_secs(10))),
+            Some(Duration::from_secs(10))
+        );
+        assert_eq!(
+            resolve_effective_timeout(Some(Duration::from_secs(5)), None),
+            Some(Duration::from_secs(5))
+        );
+        assert_eq!(
+            resolve_effective_timeout(Some(Duration::from_secs(5)), Some(Duration::from_secs(10))),
+            Some(Duration::from_secs(5))
+        );
+        assert_eq!(
+            resolve_effective_timeout(Some(Duration::from_secs(10)), Some(Duration::from_secs(5))),
+            Some(Duration::from_secs(5))
+        );
     }
 
     #[test]
@@ -277,6 +338,7 @@ mod tests {
             pool.clone(),
             test_retry_policy(),
             Arc::new(mock_backoff),
+            None,
         ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -359,6 +421,7 @@ mod tests {
             pool.clone(),
             Arc::new(google_cloud_gax::retry_policy::NeverRetry),
             test_backoff_policy(),
+            None,
         ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -494,6 +557,7 @@ mod tests {
             pool.clone(),
             test_retry_policy(),
             Arc::new(mock_backoff),
+            None,
         ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -549,6 +613,7 @@ mod tests {
             pool.clone(),
             test_retry_policy(),
             Arc::new(mock_backoff),
+            None,
         ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -599,6 +664,7 @@ mod tests {
             pool.clone(),
             test_retry_policy(),
             Arc::new(mock_backoff),
+            None,
         ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -634,6 +700,7 @@ mod tests {
             pool.clone(),
             retry_policy,
             test_backoff_policy(),
+            None,
         ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -644,7 +711,12 @@ mod tests {
         let AppendError::Rpc { source } = err else {
             anyhow::bail!("expected AppendError::Rpc, got {err:?}");
         };
-        let status = source.status().expect("status should be set");
+        assert!(source.is_exhausted(), "{source:?}");
+        let inner = source
+            .source()
+            .and_then(|e| e.downcast_ref::<Error>())
+            .expect("inner error");
+        let status = inner.status().expect("status should be set");
         assert_eq!(status.code, Code::Unavailable);
 
         // Stream 1 and 2 both failed.
@@ -673,6 +745,7 @@ mod tests {
             pool.clone(),
             Arc::new(google_cloud_gax::retry_policy::NeverRetry),
             test_backoff_policy(),
+            None,
         ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -713,10 +786,12 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 10));
-        let dispatcher = Arc::new(
-            Dispatcher::new(pool.clone(), test_retry_policy(), test_backoff_policy())
-                .with_attempt_timeout(Duration::from_millis(50)),
-        );
+        let dispatcher = Arc::new(Dispatcher::new(
+            pool.clone(),
+            test_retry_policy(),
+            test_backoff_policy(),
+            Some(Duration::from_millis(50)),
+        ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let resp = dispatcher.send(test_req()).await?;
@@ -727,14 +802,95 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "TODO(#6355): Implement retries"]
     async fn retry_exhausted() -> anyhow::Result<()> {
-        // 1. Configure retry policy with with_time_limit(100ms) and attempt_timeout(40ms)
-        // 2. Mock streams always hang or drop
-        // 3. Client sends write
-        // 4. Loop attempts retry until elapsed time >= 100ms
-        // 5. Verify write returns Err(AppendError::Rpc { source }) where source.is_exhausted() == true
-        todo!()
+        let mut mock = MockBigQueryWrite::new();
+        // Server hangs and never sends a response or closes the stream.
+        let txs = Arc::new(std::sync::Mutex::new(Vec::new()));
+        let txs_clone = txs.clone();
+        mock.expect_append_rows().returning(move |_| {
+            let (tx, rx) = mpsc::channel(10);
+            txs_clone
+                .lock()
+                .expect("lock should not be poisoned")
+                .push(tx);
+            Ok(TonicResponse::from(rx))
+        });
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let pool = Arc::new(StreamPool::new(transport, 10));
+        let retry_policy = Arc::new(
+            crate::write::retry_policy::RetryableErrors.with_time_limit(Duration::from_millis(80)),
+        );
+        let backoff_policy = Arc::new(
+            ExponentialBackoffBuilder::default()
+                .with_initial_delay(Duration::from_millis(10))
+                .with_maximum_delay(Duration::from_millis(20))
+                .with_scaling(2.0)
+                .build()
+                .expect("valid backoff configuration"),
+        );
+        let dispatcher = Arc::new(Dispatcher::new(
+            pool,
+            retry_policy,
+            backoff_policy,
+            Some(Duration::from_millis(30)),
+        ));
+
+        let err = dispatcher
+            .send(test_req())
+            .await
+            .expect_err("should exhaust");
+        let AppendError::Rpc { source } = err else {
+            anyhow::bail!("expected AppendError::Rpc, got: {err:?}");
+        };
+        assert!(source.is_exhausted(), "{source:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn retry_exhausted_before_backoff_sleep() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        // Server immediately closes stream
+        mock.expect_append_rows().times(1).return_once(|_| {
+            let (tx, rx) = mpsc::channel(1);
+            drop(tx);
+            Ok(TonicResponse::from(rx))
+        });
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let pool = Arc::new(StreamPool::new(transport, 10));
+        let retry_policy = Arc::new(
+            crate::write::retry_policy::RetryableErrors.with_time_limit(Duration::from_millis(20)),
+        );
+        // Backoff delay is much larger than time limit
+        let backoff_policy = Arc::new(
+            ExponentialBackoffBuilder::default()
+                .with_initial_delay(Duration::from_secs(10))
+                .with_maximum_delay(Duration::from_secs(20))
+                .with_scaling(2.0)
+                .build()
+                .expect("valid backoff configuration"),
+        );
+        let dispatcher = Arc::new(Dispatcher::new(pool, retry_policy, backoff_policy, None));
+
+        let start = std::time::Instant::now();
+        let err = dispatcher
+            .send(test_req())
+            .await
+            .expect_err("should exhaust without sleeping 10s");
+        assert!(
+            start.elapsed() < Duration::from_secs(1),
+            "should not sleep past deadline"
+        );
+        let AppendError::Rpc { source } = err else {
+            anyhow::bail!("expected AppendError::Rpc, got: {err:?}");
+        };
+        assert!(source.is_exhausted(), "{source:?}");
+
+        Ok(())
     }
 
     #[tokio::test]

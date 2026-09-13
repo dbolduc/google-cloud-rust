@@ -130,6 +130,7 @@ pub(super) async fn test_dispatcher(
         pool,
         Arc::new(google_cloud_gax::retry_policy::NeverRetry),
         test_backoff_policy(),
+        None,
     ));
     Ok(dispatcher)
 }

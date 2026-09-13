@@ -36,6 +36,7 @@ impl DefaultWriter {
             pool,
             default_retry_policy(),
             default_backoff_policy(),
+            None,
         ));
         Self {
             inner,
