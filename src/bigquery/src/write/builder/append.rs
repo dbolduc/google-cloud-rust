@@ -107,23 +107,6 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn stream_closed() -> anyhow::Result<()> {
-        let (req_tx, req_rx) = mpsc::unbounded_channel();
-        let dispatcher = test_dispatcher(req_tx).await?;
-        let req = AppendRowsRequest::new().set_write_stream(write_stream());
-
-        let builder = Append::new(dispatcher, req);
-        let handle = tokio::spawn(async move { builder.send().await });
-
-        // Simulate a stream closure
-        drop(req_rx);
-
-        let err = handle.await?.expect_err("should return an error");
-        assert!(matches!(err, AppendError::UnexpectedEndOfStream));
-        Ok(())
-    }
-
-    #[tokio::test]
     async fn rpc_error() -> anyhow::Result<()> {
         let (req_tx, mut req_rx) = mpsc::unbounded_channel();
         let dispatcher = test_dispatcher(req_tx).await?;

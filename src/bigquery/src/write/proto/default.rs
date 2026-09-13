@@ -15,6 +15,7 @@
 use super::super::builder::Append;
 use super::super::dispatcher::Dispatcher;
 use super::super::pool::StreamPool;
+use super::super::retry_policy::{default_backoff_policy, default_retry_policy};
 use crate::model::append_rows_request::ProtoData;
 use crate::model::{AppendRowsRequest, ProtoRows, ProtoSchema};
 use std::sync::Arc;
@@ -31,7 +32,11 @@ pub struct DefaultWriter {
 
 impl DefaultWriter {
     pub(crate) fn new(pool: Arc<StreamPool>, write_stream: String, schema: ProtoSchema) -> Self {
-        let inner = Arc::new(Dispatcher::new(pool));
+        let inner = Arc::new(Dispatcher::new(
+            pool,
+            default_retry_policy(),
+            default_backoff_policy(),
+        ));
         Self {
             inner,
             write_stream,
@@ -56,7 +61,6 @@ impl DefaultWriter {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::error::AppendError;
     use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
@@ -89,32 +93,38 @@ mod tests {
 
     #[tokio::test]
     async fn basic_success() -> anyhow::Result<()> {
-        let (response_tx, response_rx) = mpsc::channel(10);
+        let (response1_tx, response1_rx) = mpsc::channel(10);
+        let (response2_tx, response2_rx) = mpsc::channel(10);
 
         let mut mock = MockBigQueryWrite::new();
         mock.expect_append_rows()
-            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+            .times(1)
+            .return_once(|_| Ok(TonicResponse::from(response1_rx)));
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(|_| Ok(TonicResponse::from(response2_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 1));
 
         let writer = DefaultWriter::new(pool, write_stream(), proto_schema());
 
-        response_tx.send(Ok(convert(&test_response(1)))).await?;
+        response1_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;
         assert_eq!(resp.offset, Some(1));
 
-        response_tx.send(Ok(convert(&test_response(2)))).await?;
+        response1_tx.send(Ok(convert(&test_response(2)))).await?;
         let resp = writer.append(rows(2)).send().await?;
         assert_eq!(resp.offset, Some(2));
 
-        response_tx.send(Ok(convert(&test_response(3)))).await?;
+        response1_tx.send(Ok(convert(&test_response(3)))).await?;
         let resp = writer.append(rows(3)).send().await?;
         assert_eq!(resp.offset, Some(3));
 
-        drop(response_tx);
-        let err = writer.append(rows(4)).send().await.expect_err("channel");
-        assert!(matches!(err, AppendError::UnexpectedEndOfStream));
+        drop(response1_tx);
+        response2_tx.send(Ok(convert(&test_response(4)))).await?;
+        let resp = writer.append(rows(4)).send().await?;
+        assert_eq!(resp.offset, Some(4));
 
         Ok(())
     }

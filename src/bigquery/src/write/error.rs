@@ -14,7 +14,6 @@
 
 use crate::Error;
 use crate::model::RowError;
-use std::sync::Arc;
 
 /// Represents an error that can occur when appending rows.
 #[derive(thiserror::Error, Debug)]
@@ -25,8 +24,9 @@ pub enum AppendError {
     #[error("the operation failed. RPC error: {source}")]
     Rpc {
         /// The error returned by the service for the request.
+        #[from]
         #[source]
-        source: Arc<Error>,
+        source: Error,
     },
 
     /// Certain rows have errors.
@@ -40,20 +40,6 @@ pub enum AppendError {
         "the `AppendRows` stream closed unexpectedly and the client library could not recover."
     )]
     UnexpectedEndOfStream,
-}
-
-impl From<Error> for AppendError {
-    fn from(source: Error) -> Self {
-        AppendError::Rpc {
-            source: Arc::new(source),
-        }
-    }
-}
-
-impl From<Arc<Error>> for AppendError {
-    fn from(source: Arc<Error>) -> Self {
-        AppendError::Rpc { source }
-    }
 }
 
 pub(crate) type AppendResult<T> = std::result::Result<T, AppendError>;

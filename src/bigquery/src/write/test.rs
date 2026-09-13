@@ -23,8 +23,33 @@ use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsR
 use crate::model::{ArrowSchema, ProtoSchema};
 use bigquery_grpc_mock::google::cloud::bigquery::storage::v1;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyExt};
+use google_cloud_gax::retry_result::RetryResult;
+use google_cloud_gax::retry_state::RetryState;
+use google_cloud_gax::throttle_result::ThrottleResult;
 use std::sync::Arc;
+use std::time::Duration;
 use tokio::sync::mpsc;
+
+mockall::mock! {
+    #[derive(Debug)]
+    pub BackoffPolicy {}
+    impl BackoffPolicy for BackoffPolicy {
+        fn on_failure(&self, state: &RetryState) -> Duration;
+    }
+}
+
+mockall::mock! {
+    #[derive(Debug)]
+    pub RetryPolicy {}
+    impl RetryPolicy for RetryPolicy {
+        fn on_error(&self, state: &RetryState, error: crate::Error) -> RetryResult;
+        fn on_throttle(&self, state: &RetryState, error: crate::Error) -> ThrottleResult;
+        fn remaining_time(&self, state: &RetryState) -> Option<Duration>;
+    }
+}
 
 pub(super) fn write_stream() -> String {
     "projects/p/datasets/d/tables/t/streams/s".to_string()
@@ -73,6 +98,21 @@ pub(super) fn test_response(index: i64) -> AppendRowsResponse {
     }
 }
 
+pub(super) fn test_retry_policy() -> Arc<dyn RetryPolicy> {
+    Arc::new(crate::write::retry_policy::RetryableErrors.with_attempt_limit(3))
+}
+
+pub(super) fn test_backoff_policy() -> Arc<dyn BackoffPolicy> {
+    Arc::new(
+        ExponentialBackoffBuilder::default()
+            .with_initial_delay(Duration::from_millis(1))
+            .with_maximum_delay(Duration::from_millis(2))
+            .with_scaling(2.0)
+            .build()
+            .expect("valid backoff configuration"),
+    )
+}
+
 // Return a dispatcher that sends requests on the provided channel.
 pub(super) async fn test_dispatcher(
     req_tx: mpsc::UnboundedSender<WriteRequest>,
@@ -86,6 +126,10 @@ pub(super) async fn test_dispatcher(
         .first_mut()
         .expect("there is one entry in the pool")
         .req_tx = req_tx;
-    let dispatcher = Arc::new(Dispatcher::new(pool));
+    let dispatcher = Arc::new(Dispatcher::new(
+        pool,
+        Arc::new(google_cloud_gax::retry_policy::NeverRetry),
+        test_backoff_policy(),
+    ));
     Ok(dispatcher)
 }

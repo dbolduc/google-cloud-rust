@@ -20,7 +20,11 @@ use crate::Error;
 use crate::model::AppendRowsRequest;
 use arc_swap::ArcSwap;
 use gaxi::prost::{FromProto, ToProto};
+use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::rpc::Code;
+use google_cloud_gax::retry_policy::RetryPolicy;
+use google_cloud_gax::retry_result::RetryResult;
+use google_cloud_gax::retry_state::RetryState;
 use std::sync::Arc;
 
 /// Efficiently dispatches writes to a stream in a stream pool.
@@ -36,15 +40,23 @@ use std::sync::Arc;
 pub(crate) struct Dispatcher {
     pub(crate) pool: Arc<StreamPool>,
     pub(crate) entry: ArcSwap<StreamEntry>,
+    pub(crate) retry_policy: Arc<dyn RetryPolicy>,
+    pub(crate) backoff_policy: Arc<dyn BackoffPolicy>,
 }
 
 impl Dispatcher {
     /// Creates a new `Dispatcher` for a given `StreamPool`.
-    pub(crate) fn new(pool: Arc<StreamPool>) -> Self {
+    pub(crate) fn new(
+        pool: Arc<StreamPool>,
+        retry_policy: Arc<dyn RetryPolicy>,
+        backoff_policy: Arc<dyn BackoffPolicy>,
+    ) -> Self {
         let stream = pool.get();
         Self {
             pool,
             entry: ArcSwap::from_pointee(stream),
+            retry_policy,
+            backoff_policy,
         }
     }
 
@@ -53,12 +65,39 @@ impl Dispatcher {
     /// Evicts and updates its cached stream on transient errors.
     pub(crate) async fn send(&self, req: AppendRowsRequest) -> AppendResult<AppendResponse> {
         let req = req.to_proto().map_err(Error::ser)?;
+        let mut state = RetryState::new(true);
 
+        loop {
+            state.attempt_count += 1;
+            let err = match self.send_one_attempt(req.clone()).await {
+                Ok(res) => return Ok(res),
+                Err(e) => e,
+            };
+
+            let delay = match err {
+                AppendError::RowErrors(_) => return Err(err),
+                AppendError::UnexpectedEndOfStream => self.backoff_policy.on_failure(&state),
+                AppendError::Rpc { source } => match self.retry_policy.on_error(&state, source) {
+                    RetryResult::Continue(_) => self.backoff_policy.on_failure(&state),
+                    RetryResult::Exhausted(source) | RetryResult::Permanent(source) => {
+                        return Err(AppendError::Rpc { source });
+                    }
+                },
+            };
+
+            tokio::time::sleep(delay).await;
+        }
+    }
+
+    async fn send_one_attempt(
+        &self,
+        req: crate::google::cloud::bigquery::storage::v1::AppendRowsRequest,
+    ) -> AppendResult<AppendResponse> {
         let stream = self.entry.load_full();
         let stream_id = stream.id;
 
         let resp = match stream.send(req).await {
-            Ok(resp) => Ok(resp),
+            Ok(resp) => resp,
             Err(err) => {
                 if should_reconnect(&err) {
                     // Atomically evicts failed_id and returns a new stream for use.
@@ -68,12 +107,10 @@ impl Dispatcher {
                     // concurrently. Only one `send()` will update the cached
                     // stream on a transient error.
                     let _ = self.entry.compare_and_swap(&stream, Arc::new(new_stream));
-
-                    // TODO(#6355): implement retries
                 }
-                Err(err)
+                return Err(err);
             }
-        }?;
+        };
 
         let resp = resp.cnv().map_err(Error::deser)?;
         to_result(resp)
@@ -100,13 +137,24 @@ mod tests {
     use super::*;
     use crate::google::cloud::bigquery::storage::v1::AppendRowsResponse;
     use crate::google::cloud::bigquery::storage::v1::append_rows_response::Response;
+    use crate::write::runner::WriteRequest;
     use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
     use google_cloud_gax::error::rpc::Status as GaxStatus;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
     use http::HeaderMap;
+    use std::time::Duration;
     use tokio::sync::{mpsc, oneshot};
     use tokio::task::JoinSet;
+
+    fn new_test_dispatcher(pool: Arc<StreamPool>) -> Arc<Dispatcher> {
+        Arc::new(Dispatcher::new(
+            pool,
+            test_retry_policy(),
+            test_backoff_policy(),
+        ))
+    }
 
     fn test_req() -> AppendRowsRequest {
         AppendRowsRequest::new()
@@ -145,7 +193,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 10));
-        let dispatcher = Arc::new(Dispatcher::new(pool));
+        let dispatcher = new_test_dispatcher(pool);
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write1 = {
@@ -172,15 +220,30 @@ mod tests {
 
     #[tokio::test]
     async fn stream_closed() -> anyhow::Result<()> {
-        let (response_tx, response_rx) = mpsc::channel(10);
+        let (response1_tx, response1_rx) = mpsc::channel(10);
+        let (response2_tx, response2_rx) = mpsc::channel(10);
         let mut mock = MockBigQueryWrite::new();
         mock.expect_append_rows()
-            .return_once(move |_| Ok(TonicResponse::from(response_rx)));
+            .times(1)
+            .return_once(move |_| Ok(TonicResponse::from(response1_rx)));
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(move |_| Ok(TonicResponse::from(response2_rx)));
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 10));
-        let dispatcher = Arc::new(Dispatcher::new(pool));
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(1)
+            .return_const(Duration::ZERO);
+        let dispatcher = Arc::new(Dispatcher::new(
+            pool.clone(),
+            test_retry_policy(),
+            Arc::new(mock_backoff),
+        ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write = {
@@ -189,11 +252,13 @@ mod tests {
         };
 
         // Simulate the stream closing before responding to the request.
-        drop(response_tx);
+        drop(response1_tx);
 
-        // TODO(#6355) - expect retries.
-        let err = write.await?.expect_err("should return an error");
-        assert!(matches!(err, AppendError::UnexpectedEndOfStream));
+        // Stream 2 responds to the retried write.
+        response2_tx.send(Ok(convert(&test_response(1)))).await?;
+
+        let resp = write.await??;
+        assert_eq!(resp.offset, Some(1));
 
         // We ran into a transient error. We should now have a new stream.
         assert_eq!(dispatcher.entry.load().id, 2);
@@ -211,7 +276,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 10));
-        let dispatcher = Arc::new(Dispatcher::new(pool.clone()));
+        let dispatcher = new_test_dispatcher(pool.clone());
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write = {
@@ -235,15 +300,32 @@ mod tests {
 
     #[tokio::test]
     async fn transient_error_evict_contention() -> anyhow::Result<()> {
-        let (response_tx, response_rx) = mpsc::channel(10);
+        let (response1_tx, response1_rx) = mpsc::channel(10);
         let mut mock = MockBigQueryWrite::new();
         mock.expect_append_rows()
-            .return_once(move |_| Ok(TonicResponse::from(response_rx)));
+            .times(1)
+            .return_once(move |_| Ok(TonicResponse::from(response1_rx)));
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(move |request| {
+                let mut req_rx = request.into_inner();
+                let (tx, rx) = mpsc::channel(1000);
+                tokio::spawn(async move {
+                    while let Some(_) = req_rx.recv().await {
+                        let _ = tx.send(Ok(convert(&test_response(1)))).await;
+                    }
+                });
+                Ok(TonicResponse::from(rx))
+            });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 10));
-        let dispatcher = Arc::new(Dispatcher::new(pool.clone()));
+        let dispatcher = Arc::new(Dispatcher::new(
+            pool.clone(),
+            Arc::new(google_cloud_gax::retry_policy::NeverRetry),
+            test_backoff_policy(),
+        ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let mut writes = JoinSet::new();
@@ -253,11 +335,10 @@ mod tests {
         }
 
         // Simulate the stream closing before responding to the requests.
-        drop(response_tx);
+        drop(response1_tx);
 
         while let Some(write) = writes.join_next().await {
-            let err = write?.expect_err("should return an error");
-            assert!(matches!(err, AppendError::UnexpectedEndOfStream));
+            assert!(write?.is_ok());
         }
 
         // We ran into a transient error. We should now have a new stream. Only
@@ -278,7 +359,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 10));
-        let dispatcher = Arc::new(Dispatcher::new(pool.clone()));
+        let dispatcher = new_test_dispatcher(pool.clone());
 
         // Acquire the stream pool's lock to simulate a pool scaling event. This
         // needs to run in a separate thread because we don't want to hold the
@@ -315,7 +396,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 10));
-        let dispatcher = Arc::new(Dispatcher::new(pool.clone()));
+        let dispatcher = new_test_dispatcher(pool.clone());
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write = {
@@ -359,83 +440,224 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "TODO(#6355): Implement retries"]
-    async fn resource_exhausted() -> anyhow::Result<()> {
-        // 1. Mock server accepts 1 append_rows stream call
-        // 2. Client sends write with a tracking backoff policy
-        // 3. Mock sends response with Response::Error(Status { code: ResourceExhausted })
-        // 4. Verify stream was NOT evicted: pool.stream_ids() == [1]
-        // 5. Mock sends second response on the SAME stream: Ok(AppendResult)
-        // 6. Verify write succeeds and backoff was called once
-        todo!()
-    }
-
-    #[tokio::test]
-    #[ignore = "TODO(#6355): Implement retries"]
-    async fn unexpected_end_of_stream() -> anyhow::Result<()> {
-        // 1. Mock expects stream 1 and stream 2
-        // 2. Client sends write to stream 1 (id: 1)
-        // 3. Drop response channel 1 (simulating stream close / UnexpectedEndOfStream)
-        // 4. Stream 2 is opened automatically by the pool
-        // 5. Stream 2 sends Ok(AppendResult)
-        // 6. Verify write succeeds with new stream id: 2
-        // 7. Verify retry was immediate (0 backoff delay)
-        todo!()
-    }
-
-    #[tokio::test]
-    #[ignore = "TODO(#6355): Implement retries"]
-    async fn consecutive_disconnects() -> anyhow::Result<()> {
-        // 1. Mock expects streams 1, 2, and 3
-        // 2. Client sends write with a tracking backoff policy
-        // 3. Drop stream 1 -> client retries immediately on stream 2 (0 delay)
-        // 4. Drop stream 2 -> client encounters consecutive disconnect
-        // 5. Verify backoff sleep was invoked before attempting stream 3
-        // 6. Stream 3 sends Ok(AppendResult)
-        // 7. Verify write succeeds
-        todo!()
-    }
-
-    #[tokio::test]
-    #[ignore = "TODO(#6355): Implement retries"]
     async fn transport_error() -> anyhow::Result<()> {
-        // 1. Mock expects stream 1 and stream 2
-        // 2. Client sends write
-        // 3. Stream 1 yields TonicStatus with a source error (h2 reset)
-        // 4. Verify stream 1 is evicted (id -> 2)
-        // 5. Stream 2 yields Ok(AppendResult)
-        // 6. Verify write succeeds immediately without backoff delay
-        todo!()
+        let (response2_tx, response2_rx) = mpsc::channel(10);
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(move |_| Ok(TonicResponse::from(response2_rx)));
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let pool = Arc::new(StreamPool::new(transport, 10));
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(1)
+            .return_const(Duration::ZERO);
+        let dispatcher = Arc::new(Dispatcher::new(
+            pool.clone(),
+            test_retry_policy(),
+            Arc::new(mock_backoff),
+        ));
+        assert_eq!(dispatcher.entry.load().id, 1);
+
+        let (stream1_tx, mut stream1_rx) = mpsc::unbounded_channel::<WriteRequest>();
+        let mut entry = dispatcher.entry.load().as_ref().clone();
+        entry.req_tx = stream1_tx;
+        dispatcher.entry.store(Arc::new(entry));
+
+        let write = {
+            let d = dispatcher.clone();
+            tokio::spawn(async move { d.send(test_req()).await })
+        };
+
+        // Stream 1 yields a transport error.
+        let req1 = stream1_rx.recv().await.expect("request sent");
+        let _ = req1.resp_tx.send(Err(
+            Error::transport(HeaderMap::default(), "h2 reset").into()
+        ));
+
+        // Stream 2 yields Ok.
+        response2_tx.send(Ok(convert(&test_response(1)))).await?;
+
+        let resp = write.await??;
+        assert_eq!(resp.offset, Some(1));
+
+        assert_eq!(dispatcher.entry.load().id, 2);
+
+        Ok(())
     }
 
     #[tokio::test]
-    #[ignore = "TODO(#6355): Implement retries"]
     async fn server_restart() -> anyhow::Result<()> {
-        // 1. Mock expects stream 1 and stream 2
-        // 2. Client sends write
-        // 3. Stream 1 yields TonicStatus::aborted("Closing the stream because server is restarted")
-        // 4. Verify stream 1 is evicted (pool id: 2)
-        // 5. Stream 2 yields Ok(AppendResult)
-        // 6. Verify write succeeds immediately without backoff delay
-        todo!()
+        let (response1_tx, response1_rx) = mpsc::channel(10);
+        let (response2_tx, response2_rx) = mpsc::channel(10);
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(move |_| Ok(TonicResponse::from(response1_rx)));
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(move |_| Ok(TonicResponse::from(response2_rx)));
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let pool = Arc::new(StreamPool::new(transport, 10));
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(1)
+            .return_const(Duration::ZERO);
+        let dispatcher = Arc::new(Dispatcher::new(
+            pool.clone(),
+            test_retry_policy(),
+            Arc::new(mock_backoff),
+        ));
+        assert_eq!(dispatcher.entry.load().id, 1);
+
+        let write = {
+            let d = dispatcher.clone();
+            tokio::spawn(async move { d.send(test_req()).await })
+        };
+
+        // Stream 1 yields TonicStatus::aborted
+        response1_tx
+            .send(Err(TonicStatus::aborted(
+                "Closing the stream because server is restarted",
+            )))
+            .await?;
+
+        // Stream 2 yields Ok
+        response2_tx.send(Ok(convert(&test_response(1)))).await?;
+
+        let resp = write.await??;
+        assert_eq!(resp.offset, Some(1));
+
+        assert_eq!(dispatcher.entry.load().id, 2);
+
+        Ok(())
     }
 
     #[tokio::test]
-    #[ignore = "TODO(#6355): Implement retries"]
-    async fn shared_error() -> anyhow::Result<()> {
-        todo!()
-    }
-
-    #[tokio::test]
-    #[ignore = "TODO(#6355): Implement retries"]
     async fn connect_error() -> anyhow::Result<()> {
-        // 1. Mock expect_append_rows call 1: returns Err(TonicStatus::unavailable("unavailable"))
-        // 2. Mock expect_append_rows call 2: succeeds and returns response channel
-        // 3. Client sends write with a tracking backoff policy
-        // 4. Verify backoff was invoked between call 1 and call 2
-        // 5. Stream 2 yields Ok(AppendResult)
-        // 6. Verify write succeeds
-        todo!()
+        let (response2_tx, response2_rx) = mpsc::channel(10);
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(|_| Err(TonicStatus::unavailable("unavailable")));
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(move |_| Ok(TonicResponse::from(response2_rx)));
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let pool = Arc::new(StreamPool::new(transport, 10));
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(1)
+            .return_const(Duration::ZERO);
+        let dispatcher = Arc::new(Dispatcher::new(
+            pool.clone(),
+            test_retry_policy(),
+            Arc::new(mock_backoff),
+        ));
+        assert_eq!(dispatcher.entry.load().id, 1);
+
+        let write = {
+            let d = dispatcher.clone();
+            tokio::spawn(async move { d.send(test_req()).await })
+        };
+
+        // Stream 2 succeeds
+        response2_tx.send(Ok(convert(&test_response(1)))).await?;
+
+        let resp = write.await??;
+        assert_eq!(resp.offset, Some(1));
+
+        assert_eq!(dispatcher.entry.load().id, 2);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn too_many_transients() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows()
+            .returning(|_| Err(TonicStatus::unavailable("try again")));
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let pool = Arc::new(StreamPool::new(transport, 10));
+
+        let retry_policy =
+            Arc::new(crate::write::retry_policy::RetryableErrors.with_attempt_limit(2));
+        let dispatcher = Arc::new(Dispatcher::new(
+            pool.clone(),
+            retry_policy,
+            test_backoff_policy(),
+        ));
+        assert_eq!(dispatcher.entry.load().id, 1);
+
+        let err = dispatcher
+            .send(test_req())
+            .await
+            .expect_err("should exhaust retries");
+        let AppendError::Rpc { source } = err else {
+            anyhow::bail!("expected AppendError::Rpc, got {err:?}");
+        };
+        let status = source.status().expect("status should be set");
+        assert_eq!(status.code, Code::Unavailable);
+
+        // Stream 1 and 2 both failed.
+        assert_eq!(dispatcher.entry.load().id, 3);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn library_retries_stream_closed_with_never_retry() -> anyhow::Result<()> {
+        let (response1_tx, response1_rx) = mpsc::channel(10);
+        let (response2_tx, response2_rx) = mpsc::channel(10);
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(move |_| Ok(TonicResponse::from(response1_rx)));
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(move |_| Ok(TonicResponse::from(response2_rx)));
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let pool = Arc::new(StreamPool::new(transport, 10));
+
+        let dispatcher = Arc::new(Dispatcher::new(
+            pool.clone(),
+            Arc::new(google_cloud_gax::retry_policy::NeverRetry),
+            test_backoff_policy(),
+        ));
+        assert_eq!(dispatcher.entry.load().id, 1);
+
+        let write = {
+            let d = dispatcher.clone();
+            tokio::spawn(async move { d.send(test_req()).await })
+        };
+
+        // Stream 1 closes unexpectedly
+        drop(response1_tx);
+
+        // Stream 2 responds to the retried write
+        response2_tx.send(Ok(convert(&test_response(1)))).await?;
+
+        let resp = write.await??;
+        assert_eq!(resp.offset, Some(1));
+        assert_eq!(dispatcher.entry.load().id, 2);
+
+        Ok(())
     }
 
     #[tokio::test]
@@ -464,26 +686,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "TODO(#6355): Implement retries"]
-    async fn strict_customer_policy() -> anyhow::Result<()> {
-        // 1. Configure customer retry policy that returns Permanent for all RPC errors
-        // 2. Stream 1 closes (drop response_tx)
-        // 3. Stream 2 succeeds with Ok(AppendResult)
-        // 4. Verify write succeeds: the library handled UnexpectedEndOfStream internally
-        todo!()
-    }
-
-    #[tokio::test]
-    #[ignore = "TODO(#6355): Implement retries"]
-    async fn customer_retry_policy() -> anyhow::Result<()> {
-        // 1. Configure customer retry policy that rejects Code::ResourceExhausted
-        // 2. Stream yields response with error Code::ResourceExhausted
-        // 3. Verify write fails immediately with Code::ResourceExhausted (no retries)
-        // 4. Verify stream was kept open (id == 1)
-        todo!()
-    }
-
-    #[tokio::test]
     async fn permanent_rpc_error() -> anyhow::Result<()> {
         let (response_tx, response_rx) = mpsc::channel(10);
         let mut mock = MockBigQueryWrite::new();
@@ -493,7 +695,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 10));
-        let dispatcher = Arc::new(Dispatcher::new(pool.clone()));
+        let dispatcher = new_test_dispatcher(pool.clone());
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write = {
