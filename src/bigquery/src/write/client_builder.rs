@@ -143,12 +143,86 @@ impl ClientBuilder {
         self.config.grpc_subchannel_count = Some(v);
         self
     }
+
+    /// Configure the retry policy.
+    ///
+    /// The client libraries can automatically retry operations that fail. The
+    /// retry policy controls what errors are considered retryable, sets limits
+    /// on the number of attempts or the time trying to make attempts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_bigquery::write::retry_policy::RetryableErrors;
+    /// use google_cloud_gax::retry_policy::RetryPolicyExt;
+    /// let client = Write::builder()
+    ///     .with_retry_policy(RetryableErrors.with_attempt_limit(3))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_retry_policy<V: Into<google_cloud_gax::retry_policy::RetryPolicyArg>>(
+        mut self,
+        v: V,
+    ) -> Self {
+        self.config.retry_policy = Some(v.into().into());
+        self
+    }
+
+    /// Configure the retry backoff policy.
+    ///
+    /// The client libraries can automatically retry operations that fail. The
+    /// backoff policy controls how long to wait in between retry attempts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// let policy = ExponentialBackoff::default();
+    /// let client = Write::builder()
+    ///     .with_backoff_policy(policy)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_backoff_policy<V: Into<google_cloud_gax::backoff_policy::BackoffPolicyArg>>(
+        mut self,
+        v: V,
+    ) -> Self {
+        self.config.backoff_policy = Some(v.into().into());
+        self
+    }
+
+    /// Configure the per-attempt timeout used as the client default.
+    ///
+    /// When set, this timeout will be used for each write attempt.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # use std::time::Duration;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Write::builder()
+    ///     .with_attempt_timeout(Duration::from_secs(30))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_attempt_timeout<V: Into<std::time::Duration>>(mut self, v: V) -> Self {
+        self.config.attempt_timeout = Some(v.into());
+        self
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::write::retry_policy::RetryableErrors;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    use std::time::Duration;
 
     #[test]
     fn defaults() {
@@ -165,6 +239,21 @@ mod tests {
             "{:?}",
             builder.config
         );
+        assert!(
+            builder.config.retry_policy.is_none(),
+            "{:?}",
+            builder.config
+        );
+        assert!(
+            builder.config.backoff_policy.is_none(),
+            "{:?}",
+            builder.config
+        );
+        assert!(
+            builder.config.attempt_timeout.is_none(),
+            "{:?}",
+            builder.config
+        );
     }
 
     #[test]
@@ -173,7 +262,10 @@ mod tests {
             .with_endpoint("test-endpoint.com")
             .with_universe_domain("test-ud.com")
             .with_credentials(Anonymous::new().build())
-            .with_grpc_subchannel_count(16);
+            .with_grpc_subchannel_count(16)
+            .with_retry_policy(RetryableErrors)
+            .with_backoff_policy(ExponentialBackoff::default())
+            .with_attempt_timeout(Duration::from_secs(42));
         assert_eq!(
             builder.config.endpoint,
             Some("test-endpoint.com".to_string())
@@ -184,5 +276,19 @@ mod tests {
         );
         assert!(builder.config.cred.is_some(), "{:?}", builder.config);
         assert_eq!(builder.config.grpc_subchannel_count, Some(16));
+        assert!(
+            builder.config.retry_policy.is_some(),
+            "{:?}",
+            builder.config
+        );
+        assert!(
+            builder.config.backoff_policy.is_some(),
+            "{:?}",
+            builder.config
+        );
+        assert_eq!(
+            builder.config.attempt_timeout,
+            Some(Duration::from_secs(42))
+        );
     }
 }

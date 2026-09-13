@@ -27,7 +27,7 @@ pub(super) mod builder;
 pub(super) mod client;
 pub(super) mod client_builder;
 pub(super) mod error;
-pub(super) mod retry_policy;
+pub mod retry_policy;
 
 mod dispatcher;
 mod entry;
