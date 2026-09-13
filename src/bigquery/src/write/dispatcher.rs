@@ -26,6 +26,7 @@ use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use std::sync::Arc;
+use std::time::Duration;
 
 /// Efficiently dispatches writes to a stream in a stream pool.
 ///
@@ -42,6 +43,7 @@ pub(crate) struct Dispatcher {
     pub(crate) entry: ArcSwap<StreamEntry>,
     pub(crate) retry_policy: Arc<dyn RetryPolicy>,
     pub(crate) backoff_policy: Arc<dyn BackoffPolicy>,
+    pub(crate) attempt_timeout: Option<Duration>,
 }
 
 impl Dispatcher {
@@ -57,7 +59,15 @@ impl Dispatcher {
             entry: ArcSwap::from_pointee(stream),
             retry_policy,
             backoff_policy,
+            attempt_timeout: None,
         }
+    }
+
+    /// Sets the per-attempt timeout.
+    #[allow(dead_code)]
+    pub(crate) fn with_attempt_timeout(mut self, timeout: Duration) -> Self {
+        self.attempt_timeout = Some(timeout);
+        self
     }
 
     /// Send the write and process the response.
@@ -96,7 +106,8 @@ impl Dispatcher {
         let stream = self.entry.load_full();
         let stream_id = stream.id;
 
-        let resp = match stream.send(req).await {
+        let send_fut = stream.send(req);
+        let resp = match self.apply_attempt_timeout(send_fut).await {
             Ok(resp) => resp,
             Err(err) => {
                 if should_reconnect(&err) {
@@ -115,6 +126,21 @@ impl Dispatcher {
         let resp = resp.cnv().map_err(Error::deser)?;
         to_result(resp)
     }
+
+    async fn apply_attempt_timeout<F, T>(&self, fut: F) -> AppendResult<T>
+    where
+        F: std::future::Future<Output = AppendResult<T>>,
+    {
+        match self.attempt_timeout {
+            Some(timeout) => match tokio::time::timeout(timeout, fut).await {
+                Ok(res) => res,
+                Err(_) => Err(AppendError::Rpc {
+                    source: Error::timeout("attempt timed out"),
+                }),
+            },
+            None => fut.await,
+        }
+    }
 }
 
 fn should_reconnect(err: &AppendError) -> bool {
@@ -124,9 +150,13 @@ fn should_reconnect(err: &AppendError) -> bool {
             source.is_transport()
                 || source.is_io()
                 || source.is_connect()
-                || source
-                    .status()
-                    .is_some_and(|s| matches!(s.code, Code::Aborted | Code::Unavailable))
+                || source.is_timeout()
+                || source.status().is_some_and(|s| {
+                    matches!(
+                        s.code,
+                        Code::Aborted | Code::Unavailable | Code::DeadlineExceeded
+                    )
+                })
         }
         AppendError::RowErrors(_) => false,
     }
@@ -168,11 +198,15 @@ mod tests {
         ));
         assert!(should_reconnect(&Error::io("io").into()));
         assert!(should_reconnect(&Error::connect("connect").into()));
+        assert!(should_reconnect(&Error::timeout("timeout").into()));
         assert!(should_reconnect(
             &Error::service(GaxStatus::default().set_code(Code::Aborted)).into()
         ));
         assert!(should_reconnect(
             &Error::service(GaxStatus::default().set_code(Code::Unavailable)).into()
+        ));
+        assert!(should_reconnect(
+            &Error::service(GaxStatus::default().set_code(Code::DeadlineExceeded)).into()
         ));
         assert!(!should_reconnect(
             &Error::service(GaxStatus::default().set_code(Code::InvalidArgument)).into()
@@ -661,17 +695,35 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "TODO(#6355): Implement retries"]
     async fn attempt_timeout() -> anyhow::Result<()> {
-        // 1. Configure dispatcher with attempt_timeout (e.g. 50ms)
-        // 2. Mock expects stream 1 and stream 2
-        // 3. Client sends write to stream 1
-        // 4. Stream 1 never sends a response (hangs)
-        // 5. After 50ms, attempt_timeout triggers
-        // 6. Verify stream 1 is evicted (id -> 2)
-        // 7. Stream 2 sends Ok(AppendResult)
-        // 8. Verify write succeeds on stream 2
-        todo!()
+        let mut mock = MockBigQueryWrite::new();
+        // Stream 1 hangs (never sends a response)
+        let (_tx1, response_rx1) = mpsc::channel(1);
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(move |_| Ok(TonicResponse::from(response_rx1)));
+        // Stream 2 responds successfully
+        let (response_tx2, response_rx2) = mpsc::channel(1);
+        let expected = test_response(1);
+        response_tx2.send(Ok(convert(&expected))).await?;
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(move |_| Ok(TonicResponse::from(response_rx2)));
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let pool = Arc::new(StreamPool::new(transport, 10));
+        let dispatcher = Arc::new(
+            Dispatcher::new(pool.clone(), test_retry_policy(), test_backoff_policy())
+                .with_attempt_timeout(Duration::from_millis(50)),
+        );
+        assert_eq!(dispatcher.entry.load().id, 1);
+
+        let resp = dispatcher.send(test_req()).await?;
+        assert_eq!(resp.offset, Some(1));
+        assert_eq!(dispatcher.entry.load().id, 2);
+
+        Ok(())
     }
 
     #[tokio::test]

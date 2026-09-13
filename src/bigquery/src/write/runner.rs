@@ -121,8 +121,14 @@ async fn drain_stream(
     mut stream: Streaming<AppendRowsResponse>,
     mut resp_txs: VecDeque<oneshot::Sender<AppendResult<AppendRowsResponse>>>,
 ) {
-    while let Some(r) = stream.message().await.transpose() {
-        process_response(&mut resp_txs, r);
+    while !resp_txs.is_empty() {
+        if resp_txs.iter().all(|tx| tx.is_closed()) {
+            break;
+        }
+        match stream.message().await.transpose() {
+            Some(r) => process_response(&mut resp_txs, r),
+            None => break,
+        }
     }
 }
 
@@ -467,6 +473,37 @@ mod tests {
         req_tx.send(write)?;
         drop(req_tx);
 
+        handle.await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn drain_stream_exits_when_receivers_closed() -> anyhow::Result<()> {
+        let (_response_tx, response_rx) = mpsc::channel(10);
+        let mut mock = MockBigQueryWrite::new();
+        // Server hangs and never sends a response or closes the stream.
+        mock.expect_append_rows()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+
+        let Runner { req_tx, handle } = Runner::new(transport);
+
+        let (resp_tx, resp_rx) = oneshot::channel();
+        let write = WriteRequest {
+            req: test_request(1),
+            resp_tx,
+        };
+        req_tx.send(write)?;
+
+        // The caller drops its receiver (e.g. timeout or cancellation).
+        drop(resp_rx);
+        // The sender is dropped when the stream is evicted.
+        drop(req_tx);
+
+        // The runner detects that all receivers are closed and exits promptly
+        // without waiting for the hung stream to send a message.
         handle.await?;
 
         Ok(())
