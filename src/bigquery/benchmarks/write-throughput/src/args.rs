@@ -62,6 +62,9 @@ pub struct Config {
 
     #[arg(long)]
     pub max_outstanding_bytes: Option<u64>,
+
+    #[arg(long, value_parser = parse_duration)]
+    pub attempt_timeout: Option<Duration>,
 }
 
 pub fn parse_args() -> Config {
@@ -88,6 +91,7 @@ mod tests {
         assert_eq!(args.multiplex_pool_size, 4);
         assert_eq!(args.max_outstanding_requests, None);
         assert_eq!(args.max_outstanding_bytes, None);
+        assert_eq!(args.attempt_timeout, None);
         Ok(())
     }
 
@@ -116,6 +120,8 @@ mod tests {
             "500",
             "--max-outstanding-bytes",
             "10485760",
+            "--attempt-timeout",
+            "10s",
         ])?;
         assert_eq!(args.project, "test-project");
         assert_eq!(args.row_size, 2048);
@@ -128,6 +134,7 @@ mod tests {
         assert_eq!(args.multiplex_pool_size, 8);
         assert_eq!(args.max_outstanding_requests, Some(500));
         assert_eq!(args.max_outstanding_bytes, Some(10485760));
+        assert_eq!(args.attempt_timeout, Some(Duration::from_secs(10)));
         Ok(())
     }
 }

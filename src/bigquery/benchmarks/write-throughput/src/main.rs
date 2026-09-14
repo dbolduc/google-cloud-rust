@@ -78,6 +78,9 @@ async fn run_benchmark(config: crate::args::Config) -> anyhow::Result<()> {
         if let Some(b) = config.max_outstanding_bytes {
             client_builder = client_builder.with_multiplex_max_outstanding_bytes(b);
         }
+        if let Some(t) = config.attempt_timeout {
+            client_builder = client_builder.with_attempt_timeout(t);
+        }
         let client = Arc::new(client_builder.build().await?);
 
         let schema = Arc::new(Schema::new(vec![Field::new(
@@ -105,13 +108,14 @@ async fn run_benchmark(config: crate::args::Config) -> anyhow::Result<()> {
 
         let logical_bytes_per_batch = (config.row_size * config.rows_per_batch) as i64;
         println!(
-            "# Setup complete. Row size: {} bytes, Rows per batch: {}, Logical batch size: {} bytes, Pool size: {}, Multiplex: {} (pool size: {})",
+            "# Setup complete. Row size: {} bytes, Rows per batch: {}, Logical batch size: {} bytes, Pool size: {}, Multiplex: {} (pool size: {}), Attempt timeout: {:?}",
             config.row_size,
             config.rows_per_batch,
             logical_bytes_per_batch,
             pool_size,
             config.multiplex,
             config.multiplex_pool_size,
+            config.attempt_timeout,
         );
 
         let stats = Arc::new(Stats::default());

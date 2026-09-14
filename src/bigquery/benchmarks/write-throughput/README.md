@@ -46,6 +46,9 @@ cargo run -p bigquery-write-throughput -- --help
   `1000`.
 - `--max-outstanding-bytes <MAX_OUTSTANDING_BYTES>`: Maximum outstanding bytes
   per multiplexed stream before load balancing kicks in. Default: none.
+- `--attempt-timeout <ATTEMPT_TIMEOUT>`: Maximum duration for an individual
+  write attempt before timing out and retrying (e.g. `20ms`, `500ms`, `5s`).
+  Default: none (unbounded).
 
 ## Output Format
 
