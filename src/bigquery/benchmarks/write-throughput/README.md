@@ -90,3 +90,27 @@ cargo run --release -p bigquery-write-throughput -- \
     --multiplex \
     --multiplex-pool-size 4
 ```
+
+## Automated Sweep & Visual Dashboard
+
+The `sweep.py` script runs the benchmark $N$ times with randomized configurations
+(channels, pool sizes, writer counts, batch sizes, etc.), logs time-series data, and
+automatically generates an interactive HTML performance dashboard with charts.
+
+```bash
+# Run 10 random 5-minute benchmarks and generate visual dashboard
+python3 src/bigquery/benchmarks/write-throughput/sweep.py \
+    --project ${GOOGLE_CLOUD_PROJECT} \
+    -n 10 \
+    --duration 5m \
+    --report-interval 10s
+
+# Generate an interactive graph for any existing benchmark log file
+python3 src/bigquery/benchmarks/write-throughput/sweep.py --plot-log path/to/bm-run.txt
+```
+
+The script produces:
+- `report.html`: Standalone interactive dashboard with leaderboard, time-series charts, and metrics table.
+- `summary.csv` and `summary.json`: Tabular benchmark results for all runs.
+- `logs/run_*.txt`: Raw console and CSV outputs for each individual run.
+
