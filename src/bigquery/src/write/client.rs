@@ -14,6 +14,7 @@
 
 use super::arrow::WriterBuilder as ArrowWriterBuilder;
 use super::client_builder::ClientBuilder;
+use super::pool::StreamPool;
 use super::proto::WriterBuilder as ProtoWriterBuilder;
 use super::retry_policy::{default_backoff_policy, default_retry_policy};
 use super::transport::Transport;
@@ -28,6 +29,7 @@ use std::time::Duration;
 #[derive(Debug)]
 pub struct Write {
     inner: Arc<Transport>,
+    multiplex_pool: Arc<StreamPool>,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
     attempt_timeout: Option<Duration>,
@@ -51,9 +53,19 @@ impl Write {
             .clone()
             .unwrap_or_else(default_backoff_policy);
         let attempt_timeout = builder.config.attempt_timeout;
-        let transport = Transport::new(builder.config).await?;
+        let pool_size = builder.config.multiplex_pool_size;
+        let max_reqs = builder.config.multiplex_max_outstanding_requests;
+        let max_bytes = builder.config.multiplex_max_outstanding_bytes;
+        let transport = Arc::new(Transport::new(builder.config.inner).await?);
+        let multiplex_pool = Arc::new(StreamPool::with_limits(
+            transport.clone(),
+            pool_size,
+            max_reqs,
+            max_bytes,
+        ));
         Ok(Self {
-            inner: Arc::new(transport),
+            inner: transport,
+            multiplex_pool,
             retry_policy,
             backoff_policy,
             attempt_timeout,
@@ -82,6 +94,7 @@ impl Write {
     pub fn arrow(&self, schema: ArrowSchema) -> ArrowWriterBuilder {
         ArrowWriterBuilder::new(
             self.inner.clone(),
+            self.multiplex_pool.clone(),
             schema,
             self.retry_policy.clone(),
             self.backoff_policy.clone(),
@@ -93,6 +106,7 @@ impl Write {
     pub(crate) fn proto(&self, schema: ProtoSchema) -> ProtoWriterBuilder {
         ProtoWriterBuilder::new(
             self.inner.clone(),
+            self.multiplex_pool.clone(),
             schema,
             self.retry_policy.clone(),
             self.backoff_policy.clone(),

@@ -30,15 +30,18 @@ use std::time::Duration;
 #[derive(Clone, Debug)]
 pub struct WriterBuilder {
     inner: Arc<Transport>,
+    multiplex_pool: Arc<StreamPool>,
     schema: ArrowSchema,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
     attempt_timeout: Option<Duration>,
+    multiplex: bool,
 }
 
 impl WriterBuilder {
     pub(crate) fn new(
         inner: Arc<Transport>,
+        multiplex_pool: Arc<StreamPool>,
         schema: ArrowSchema,
         retry_policy: Arc<dyn RetryPolicy>,
         backoff_policy: Arc<dyn BackoffPolicy>,
@@ -46,11 +49,37 @@ impl WriterBuilder {
     ) -> Self {
         Self {
             inner,
+            multiplex_pool,
             schema,
             retry_policy,
             backoff_policy,
             attempt_timeout,
+            multiplex: false,
         }
+    }
+
+    /// Enables or disables stream multiplexing for this writer.
+    ///
+    /// When enabled, writes through this writer share the client's multiplexed stream pool
+    /// rather than using a dedicated stream connection. Note that multiplexing only applies
+    /// to the default stream ([`default`][WriterBuilder::default]).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .arrow(schema())
+    ///     .with_multiplexing(true)
+    ///     .default("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///     .await?;
+    /// # Ok(()) }
+    /// # use google_cloud_bigquery::model::ArrowSchema;
+    /// # fn schema() -> ArrowSchema { ArrowSchema::new() }
+    /// ```
+    pub fn with_multiplexing(mut self, enabled: bool) -> Self {
+        self.multiplex = enabled;
+        self
     }
 
     /// Create a writer for the [default stream] for the given table.
@@ -78,8 +107,11 @@ impl WriterBuilder {
         validate_table(table.as_str())?;
         let mut write_stream = table;
         write_stream.push_str("/streams/_default");
-        // TODO(#6765) - use client's pool if multiplexing is enabled
-        let pool = Arc::new(StreamPool::new(self.inner, 1));
+        let pool = if self.multiplex {
+            self.multiplex_pool
+        } else {
+            Arc::new(StreamPool::new(self.inner, 1))
+        };
         Ok(DefaultWriter::new(
             pool,
             write_stream,
@@ -253,7 +285,8 @@ mod tests {
 
     fn test_builder(transport: Arc<Transport>) -> WriterBuilder {
         WriterBuilder::new(
-            transport,
+            transport.clone(),
+            Arc::new(StreamPool::new(transport, 1)),
             schema(),
             test_retry_policy(),
             test_backoff_policy(),
@@ -498,6 +531,43 @@ mod tests {
             .expect_err("should return type mismatch error");
         assert!(matches!(err, AttachError::TypeMismatch { .. }));
         assert!(err.to_string().contains("stream type mismatch: requested"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn multiplexing_pool_sharing() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
+        let multiplex_pool = Arc::new(StreamPool::new(transport.clone(), 4));
+        let builder = WriterBuilder::new(
+            transport,
+            multiplex_pool.clone(),
+            schema(),
+            test_retry_policy(),
+            test_backoff_policy(),
+            None,
+        );
+        let writer_multiplexed1 = builder
+            .clone()
+            .with_multiplexing(true)
+            .default("projects/p/datasets/d/tables/t1")
+            .await?;
+        let writer_multiplexed2 = builder
+            .clone()
+            .with_multiplexing(true)
+            .default("projects/p/datasets/d/tables/t2")
+            .await?;
+        let writer_dedicated = builder
+            .clone()
+            .with_multiplexing(false)
+            .default("projects/p/datasets/d/tables/t3")
+            .await?;
+
+        assert!(Arc::ptr_eq(
+            writer_multiplexed1.pool(),
+            writer_multiplexed2.pool()
+        ));
+        assert!(Arc::ptr_eq(writer_multiplexed1.pool(), &multiplex_pool));
+        assert!(!Arc::ptr_eq(writer_dedicated.pool(), &multiplex_pool));
         Ok(())
     }
 }

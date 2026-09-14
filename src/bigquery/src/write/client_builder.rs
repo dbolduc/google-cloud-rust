@@ -17,6 +17,45 @@ use crate::client::Write;
 use gaxi::options::ClientConfig;
 use google_cloud_auth::credentials::Credentials;
 
+#[derive(Clone, Debug)]
+pub(crate) struct Config {
+    pub(crate) inner: ClientConfig,
+    pub(crate) multiplex_pool_size: usize,
+    pub(crate) multiplex_max_outstanding_requests: Option<u64>,
+    pub(crate) multiplex_max_outstanding_bytes: Option<u64>,
+}
+
+impl Default for Config {
+    fn default() -> Self {
+        Self {
+            inner: ClientConfig::default(),
+            multiplex_pool_size: 4,
+            multiplex_max_outstanding_requests: Some(1000),
+            multiplex_max_outstanding_bytes: None,
+        }
+    }
+}
+
+impl std::ops::Deref for Config {
+    type Target = ClientConfig;
+
+    fn deref(&self) -> &Self::Target {
+        &self.inner
+    }
+}
+
+impl std::ops::DerefMut for Config {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.inner
+    }
+}
+
+impl From<Config> for ClientConfig {
+    fn from(config: Config) -> Self {
+        config.inner
+    }
+}
+
 /// A builder for [Write].
 ///
 /// # Example
@@ -32,13 +71,13 @@ use google_cloud_auth::credentials::Credentials;
 /// ```
 #[derive(Debug)]
 pub struct ClientBuilder {
-    pub(super) config: ClientConfig,
+    pub(super) config: Config,
 }
 
 impl ClientBuilder {
     pub(super) fn new() -> Self {
         Self {
-            config: ClientConfig::default(),
+            config: Config::default(),
         }
     }
 
@@ -214,6 +253,63 @@ impl ClientBuilder {
         self.config.attempt_timeout = Some(v.into());
         self
     }
+
+    /// Sets the maximum number of streams in the client's multiplexed stream pool.
+    ///
+    /// Defaults to 4.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Write::builder()
+    ///     .with_multiplex_pool_size(8)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_multiplex_pool_size(mut self, size: usize) -> Self {
+        self.config.multiplex_pool_size = size.max(1);
+        self
+    }
+
+    /// Sets the maximum outstanding requests per multiplexed stream before load balancing kicks in.
+    ///
+    /// Defaults to 1000.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Write::builder()
+    ///     .with_multiplex_max_outstanding_requests(500)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_multiplex_max_outstanding_requests(mut self, count: u64) -> Self {
+        self.config.multiplex_max_outstanding_requests = Some(count);
+        self
+    }
+
+    /// Sets the maximum outstanding bytes per multiplexed stream before load balancing kicks in.
+    ///
+    /// Defaults to `None`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Write::builder()
+    ///     .with_multiplex_max_outstanding_bytes(10 * 1024 * 1024)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_multiplex_max_outstanding_bytes(mut self, bytes: u64) -> Self {
+        self.config.multiplex_max_outstanding_bytes = Some(bytes);
+        self
+    }
 }
 
 #[cfg(test)]
@@ -254,6 +350,12 @@ mod tests {
             "{:?}",
             builder.config
         );
+        assert_eq!(builder.config.multiplex_pool_size, 4);
+        assert_eq!(
+            builder.config.multiplex_max_outstanding_requests,
+            Some(1000)
+        );
+        assert!(builder.config.multiplex_max_outstanding_bytes.is_none());
     }
 
     #[test]
@@ -265,7 +367,10 @@ mod tests {
             .with_grpc_subchannel_count(16)
             .with_retry_policy(RetryableErrors)
             .with_backoff_policy(ExponentialBackoff::default())
-            .with_attempt_timeout(Duration::from_secs(42));
+            .with_attempt_timeout(Duration::from_secs(42))
+            .with_multiplex_pool_size(8)
+            .with_multiplex_max_outstanding_requests(500)
+            .with_multiplex_max_outstanding_bytes(10 * 1024 * 1024);
         assert_eq!(
             builder.config.endpoint,
             Some("test-endpoint.com".to_string())
@@ -289,6 +394,12 @@ mod tests {
         assert_eq!(
             builder.config.attempt_timeout,
             Some(Duration::from_secs(42))
+        );
+        assert_eq!(builder.config.multiplex_pool_size, 8);
+        assert_eq!(builder.config.multiplex_max_outstanding_requests, Some(500));
+        assert_eq!(
+            builder.config.multiplex_max_outstanding_bytes,
+            Some(10 * 1024 * 1024)
         );
     }
 }

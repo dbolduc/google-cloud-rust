@@ -39,13 +39,22 @@ pub(crate) struct StreamPool {
 impl StreamPool {
     /// Initializes a new [StreamPool].
     pub(crate) fn new(inner: Arc<Transport>, max_streams: usize) -> Self {
+        Self::with_limits(inner, max_streams, Some(1000), None)
+    }
+
+    pub(crate) fn with_limits(
+        inner: Arc<Transport>,
+        max_streams: usize,
+        max_outstanding_requests: Option<u64>,
+        max_outstanding_bytes: Option<u64>,
+    ) -> Self {
         Self {
             inner,
             next_stream_id: AtomicU64::new(1),
             streams: Mutex::new(Vec::new()),
-            max_streams,
-            max_outstanding_requests: Some(1000),
-            max_outstanding_bytes: None,
+            max_streams: max_streams.max(1),
+            max_outstanding_requests,
+            max_outstanding_bytes,
             load_threshold: 0.2,
         }
     }
@@ -115,10 +124,12 @@ impl StreamPool {
     fn normalize_load(&self, entry: &StreamEntry) -> f64 {
         let r = self
             .max_outstanding_requests
+            .filter(|&m| m > 0)
             .map(|m| entry.outstanding_requests.load(Ordering::Relaxed) as f64 / m as f64)
             .unwrap_or_default();
         let b = self
             .max_outstanding_bytes
+            .filter(|&m| m > 0)
             .map(|m| entry.outstanding_bytes.load(Ordering::Relaxed) as f64 / m as f64)
             .unwrap_or_default();
         f64::max(r, b)

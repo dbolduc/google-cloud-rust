@@ -54,6 +54,11 @@ impl DefaultWriter {
         }
     }
 
+    #[cfg(test)]
+    pub(crate) fn pool(&self) -> &Arc<StreamPool> {
+        &self.inner.pool
+    }
+
     /// Append rows to the stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> Append {
         // TODO(#5744) - send optimization
