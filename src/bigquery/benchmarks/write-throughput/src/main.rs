@@ -188,7 +188,7 @@ async fn run_stream_task(ctx: StreamTaskContext) -> anyhow::Result<()> {
         client
             .arrow(arrow_schema)
             .with_multiplexing(multiplex)
-            .default(table_path)
+            .default(table_path.clone())
             .await?,
     );
 
@@ -215,6 +215,7 @@ async fn run_stream_task(ctx: StreamTaskContext) -> anyhow::Result<()> {
             .fetch_add(logical_bytes_per_batch, Ordering::Relaxed);
 
         let stats = stats.clone();
+        let table_path = table_path.clone();
         tokio::spawn(async move {
             let _permit = permit;
             match append.send().await {
@@ -225,7 +226,10 @@ async fn run_stream_task(ctx: StreamTaskContext) -> anyhow::Result<()> {
                         .fetch_add(logical_bytes_per_batch, Ordering::Relaxed);
                 }
                 Err(e) => {
-                    eprintln!("Write error on writer {}: {:?}", task_id, e);
+                    let now = humantime::format_rfc3339(std::time::SystemTime::now());
+                    println!(
+                        "# [{now}] CLIENT ERROR (writer: {task_id}, table: {table_path}): {e:?}"
+                    );
                     stats.error_count.fetch_add(1, Ordering::Relaxed);
                 }
             }

@@ -82,9 +82,18 @@ impl Dispatcher {
             state.attempt_count += 1;
             let effective_timeout = resolve_effective_timeout(self.attempt_timeout, remaining_time);
 
-            let err = match self.send_one_attempt(req.clone(), effective_timeout).await {
+            let (res, stream_id, reconnected) =
+                self.send_one_attempt(req.clone(), effective_timeout).await;
+            let err = match res {
                 Ok(res) => return Ok(res),
-                Err(e) => e,
+                Err(e) => {
+                    let now = time::OffsetDateTime::now_utc();
+                    let attempt = state.attempt_count;
+                    println!(
+                        "# [{now}] INTERNAL ERROR (stream_id: {stream_id}, attempt: {attempt}, reconnect: {reconnected}): {e:?}"
+                    );
+                    e
+                }
             };
 
             let (delay, source) = match err {
@@ -127,7 +136,7 @@ impl Dispatcher {
         &self,
         req: crate::google::cloud::bigquery::storage::v1::AppendRowsRequest,
         effective_timeout: Option<Duration>,
-    ) -> AppendResult<AppendResponse> {
+    ) -> (AppendResult<AppendResponse>, u64, bool) {
         let stream = self.entry.load_full();
         let stream_id = stream.id;
 
@@ -135,7 +144,7 @@ impl Dispatcher {
         let resp = match apply_attempt_timeout(send_fut, effective_timeout).await {
             Ok(resp) => resp,
             Err(err) => {
-                if should_reconnect(&err) {
+                let reconnected = if should_reconnect(&err) {
                     // Atomically evicts failed_id and returns a new stream for use.
                     let new_stream = self.pool.evict_and_replace(stream_id);
 
@@ -143,13 +152,19 @@ impl Dispatcher {
                     // concurrently. Only one `send()` will update the cached
                     // stream on a transient error.
                     let _ = self.entry.compare_and_swap(&stream, Arc::new(new_stream));
-                }
-                return Err(err);
+                    true
+                } else {
+                    false
+                };
+                return (Err(err), stream_id, reconnected);
             }
         };
 
-        let resp = resp.cnv().map_err(Error::deser)?;
-        to_result(resp)
+        let resp = match resp.cnv().map_err(Error::deser) {
+            Ok(r) => r,
+            Err(e) => return (Err(e.into()), stream_id, false),
+        };
+        (to_result(resp), stream_id, false)
     }
 }
 
