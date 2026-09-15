@@ -14,6 +14,7 @@
 
 use super::arrow::WriterBuilder as ArrowWriterBuilder;
 use super::client_builder::ClientBuilder;
+use super::pool::StreamPool;
 use super::proto::WriterBuilder as ProtoWriterBuilder;
 use super::transport::Transport;
 use crate::ClientBuilderResult as BuilderResult;
@@ -23,8 +24,10 @@ use std::sync::Arc;
 /// A client for BigQuery Storage Write API.
 #[derive(Debug)]
 pub struct Write {
-    #[allow(unused)]
     inner: Arc<Transport>,
+    // TODO(#6765) - plumb this to the writer builders
+    #[allow(dead_code)]
+    pool: Arc<StreamPool>,
 }
 
 impl Write {
@@ -34,10 +37,9 @@ impl Write {
     }
 
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
-        let transport = Transport::new(builder.config).await?;
-        Ok(Self {
-            inner: Arc::new(transport),
-        })
+        let inner = Arc::new(Transport::new(builder.config).await?);
+        let pool = Arc::new(StreamPool::new(inner.clone(), builder.pool_options));
+        Ok(Self { inner, pool })
     }
 
     /// Create a writer using [Arrow] as the data format.

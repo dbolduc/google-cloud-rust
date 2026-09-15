@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::pool::StreamPoolOptions;
 use crate::ClientBuilderResult as BuilderResult;
 use crate::client::Write;
 use gaxi::options::ClientConfig;
@@ -33,12 +34,14 @@ use google_cloud_auth::credentials::Credentials;
 #[derive(Debug)]
 pub struct ClientBuilder {
     pub(super) config: ClientConfig,
+    pub(super) pool_options: StreamPoolOptions,
 }
 
 impl ClientBuilder {
     pub(super) fn new() -> Self {
         Self {
             config: ClientConfig::default(),
+            pool_options: StreamPoolOptions::default(),
         }
     }
 
@@ -141,6 +144,49 @@ impl ClientBuilder {
     /// file descriptors for other purposes.
     pub fn with_grpc_subchannel_count(mut self, v: usize) -> Self {
         self.config.grpc_subchannel_count = Some(v);
+        self
+    }
+
+    // TODO(#6765) - make public, add example
+    #[allow(dead_code)]
+    /// Configure the maximum streams in the client's multiplexed stream pool.
+    ///
+    /// This stream pool is shared by default writers with multiplexing enabled.
+    ///
+    /// The client scales the stream pool up to this limit as the streams in the
+    /// pool encounter load.
+    ///
+    /// The default is 8 streams.
+    pub(crate) fn with_pool_size_limit(mut self, v: usize) -> Self {
+        self.pool_options.max_streams = v;
+        self
+    }
+
+    // TODO(#6765) - make public
+    #[allow(dead_code)]
+    /// Configure the maximum outstanding requests in the client's multiplexed
+    /// stream pool.
+    ///
+    /// As streams in the stream pool approach this limit, the client
+    /// dynamically adds more streams to the stream pool, up to the limit
+    /// configured by `with_pool_size_limit`.
+    ///
+    /// The default is 1000 requests.
+    pub(crate) fn with_max_outstanding_requests(mut self, v: u64) -> Self {
+        self.pool_options.max_outstanding_requests = Some(v);
+        self
+    }
+
+    // TODO(#6765) - make public
+    #[allow(dead_code)]
+    /// Configure the maximum outstanding bytes in the client's multiplexed
+    /// stream pool.
+    ///
+    /// As streams in the stream pool approach this limit, the client
+    /// dynamically adds more streams to the stream pool, up to the limit
+    /// configured by `with_pool_size_limit`.
+    pub(crate) fn with_max_outstanding_bytes(mut self, v: u64) -> Self {
+        self.pool_options.max_outstanding_bytes = Some(v);
         self
     }
 }
