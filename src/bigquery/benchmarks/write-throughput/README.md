@@ -114,3 +114,38 @@ The script produces:
 - `summary.csv` and `summary.json`: Tabular benchmark results for all runs.
 - `logs/run_*.txt`: Raw console and CSV outputs for each individual run.
 
+## Idle Connection Prober (`idle-probe`)
+
+The `idle-probe` binary probes the BigQuery Storage Write API with an exponential idle delay schedule ($2^n$ seconds) to detect server-side idle connection timeouts (e.g. GFE / backend disconnects) and verify that the client transparently reconnects and retries without user-visible errors.
+
+### Usage
+
+```bash
+cargo run --release -p bigquery-write-throughput --bin idle-probe -- [OPTIONS]
+```
+
+### Options
+
+- `--project <PROJECT>`: Google Cloud project ID (defaults to `GOOGLE_CLOUD_PROJECT`).
+- `--start-n <START_N>`: Starting exponent $n$ (sleep = $\text{base}^n$ seconds). Default: `0` ($1\text{s}$).
+- `--max-n <MAX_N>`: Maximum exponent $n$ (sleep = $\text{base}^n$ seconds). Default: `11` ($2^{11} = 2048\text{s} \approx 34.1\text{m}$).
+- `--base <BASE>`: Base for exponential sleep. Default: `2.0`.
+- `--dataset-id <DATASET_ID>`: Existing dataset ID, or omitted for an auto-generated temporary dataset.
+- `--table-id <TABLE_ID>`: Table ID. Default: `idle_probe_table`.
+- `--multiplex`: Enable connection multiplexing. Default: `false`.
+- `--multiplex-pool-size <SIZE>`: Multiplex pool size. Default: `4`.
+- `--attempt-timeout <DURATION>`: Timeout for an individual RPC attempt (e.g. `30s`).
+- `--keep-dataset`: Do not delete the temporary dataset upon completion.
+- `--csv-output <PATH>`: Write tabular results to a CSV file.
+
+### Example
+
+```bash
+# Run probe from n=0 (1s) to n=10 (1024s ≈ 17m)
+cargo run --release -p bigquery-write-throughput --bin idle-probe -- \
+    --project ${GOOGLE_CLOUD_PROJECT} \
+    --start-n 0 \
+    --max-n 10 \
+    --csv-output idle_probe_results.csv
+```
+

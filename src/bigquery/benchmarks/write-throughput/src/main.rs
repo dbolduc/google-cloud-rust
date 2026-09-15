@@ -22,10 +22,8 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicI64, Ordering};
 use std::time::{Duration, Instant};
 
-mod args;
-mod table;
-
-use table::BenchmarkEnvironment;
+use bigquery_write_throughput::args::{self, Config};
+use bigquery_write_throughput::table::BenchmarkEnvironment;
 
 const CSV_HEADER: &str =
     "timestamp,elapsed(s),op,iteration,count,batches/s,bytes,MB/s,errors,errors/s";
@@ -42,7 +40,7 @@ struct Stats {
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
-    let config = crate::args::parse_args();
+    let config = args::parse_args();
     if config.project.is_empty() {
         anyhow::bail!(
             "GOOGLE_CLOUD_PROJECT environment variable or --project argument must be set"
@@ -64,7 +62,7 @@ async fn main() -> Result<(), anyhow::Error> {
     Ok(())
 }
 
-async fn run_benchmark(config: crate::args::Config) -> anyhow::Result<()> {
+async fn run_benchmark(config: Config) -> anyhow::Result<()> {
     let env =
         BenchmarkEnvironment::setup(&config.project, &config.dataset_id, config.num_tables).await?;
 
@@ -342,7 +340,7 @@ async fn drain_and_shutdown(
     result
 }
 
-fn print_summary(stats: &Stats, total_elapsed: Duration, config: &crate::args::Config) {
+fn print_summary(stats: &Stats, total_elapsed: Duration, config: &Config) {
     println!("# Benchmark finished.");
     println!("# Configuration: {:?}", config);
     let total_elapsed_s = total_elapsed.as_secs_f64();

@@ -35,3 +35,15 @@ google-cloud-bigquery-v2 = { workspace = true, features = ["default"] }
 humantime.workspace      = true
 rand                     = { workspace = true }
 tokio                    = { workspace = true, features = ["full"] }
+
+[lib]
+name = "bigquery_write_throughput"
+path = "src/lib.rs"
+
+[[bin]]
+name = "bigquery-write-throughput"
+path = "src/main.rs"
+
+[[bin]]
+name = "idle-probe"
+path = "src/bin/idle_probe.rs"

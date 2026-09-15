@@ -85,6 +85,63 @@ impl BenchmarkEnvironment {
         })
     }
 
+    /// Sets up the environment with a specific table ID.
+    pub async fn setup_with_table(
+        project: &str,
+        dataset_id: &str,
+        table_id: &str,
+    ) -> anyhow::Result<Self> {
+        let dataset_service = DatasetService::builder().build().await?;
+        let table_service = TableService::builder().build().await?;
+
+        let (dataset_id, is_temporary_dataset) = if dataset_id.is_empty() {
+            let rand_suffix: String = rand::rng()
+                .sample_iter(&Alphanumeric)
+                .take(8)
+                .map(char::from)
+                .collect();
+            (
+                format!("rust_bq_bench_dataset_{}", rand_suffix.to_lowercase()),
+                true,
+            )
+        } else {
+            (dataset_id.to_string(), false)
+        };
+
+        if is_temporary_dataset {
+            println!("# Creating temporary dataset: {}", dataset_id);
+            dataset_service
+                .insert_dataset()
+                .set_project_id(project)
+                .set_dataset(
+                    Dataset::new()
+                        .set_dataset_reference(DatasetReference::new().set_dataset_id(&dataset_id))
+                        .set_labels([("bq_benchmark", "true")]),
+                )
+                .send()
+                .await?;
+        }
+
+        println!(
+            "# Creating or verifying table: {} in dataset: {}",
+            table_id, dataset_id
+        );
+        create_table_and_await_readiness(&table_service, project, &dataset_id, table_id).await?;
+
+        Ok(Self {
+            project: project.to_string(),
+            dataset_id,
+            table_ids: vec![table_id.to_string()],
+            is_temporary_dataset,
+            dataset_service,
+        })
+    }
+
+    /// Retains the dataset upon cleanup even if it was marked temporary.
+    pub fn keep_dataset(&mut self) {
+        self.is_temporary_dataset = false;
+    }
+
     /// Cleans up the temporary dataset and its tables if one was created.
     pub async fn cleanup(self) {
         if self.is_temporary_dataset {
@@ -115,7 +172,8 @@ pub async fn create_table_and_await_readiness(
         .set_name("payload")
         .set_type("STRING")]);
 
-    table_service
+    // Attempt to create table; if it already exists (409), proceed to readiness check.
+    let insert_res = table_service
         .insert_table()
         .set_project_id(project)
         .set_dataset_id(dataset_id)
@@ -130,7 +188,13 @@ pub async fn create_table_and_await_readiness(
                 .set_schema(schema),
         )
         .send()
-        .await?;
+        .await;
+
+    if let Err(e) = insert_res
+        && e.http_status_code() != Some(409)
+    {
+        return Err(e.into());
+    }
 
     let mut attempts = 0;
     loop {
