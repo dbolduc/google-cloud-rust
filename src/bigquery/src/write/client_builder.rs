@@ -162,7 +162,7 @@ impl ClientBuilder {
         self
     }
 
-    // TODO(#6765) - make public
+    // TODO(#6765) - make public, add example
     #[allow(dead_code)]
     /// Configure the maximum outstanding requests in the client's multiplexed
     /// stream pool.
@@ -177,7 +177,7 @@ impl ClientBuilder {
         self
     }
 
-    // TODO(#6765) - make public
+    // TODO(#6765) - make public, add example
     #[allow(dead_code)]
     /// Configure the maximum outstanding bytes in the client's multiplexed
     /// stream pool.
@@ -211,6 +211,9 @@ mod tests {
             "{:?}",
             builder.config
         );
+        assert_eq!(builder.pool_options.max_streams, 8);
+        assert_eq!(builder.pool_options.max_outstanding_requests, Some(1000));
+        assert_eq!(builder.pool_options.max_outstanding_bytes, None);
     }
 
     #[test]
@@ -219,7 +222,10 @@ mod tests {
             .with_endpoint("test-endpoint.com")
             .with_universe_domain("test-ud.com")
             .with_credentials(Anonymous::new().build())
-            .with_grpc_subchannel_count(16);
+            .with_grpc_subchannel_count(16)
+            .with_pool_size_limit(10)
+            .with_max_outstanding_requests(900)
+            .with_max_outstanding_bytes(1_000_000);
         assert_eq!(
             builder.config.endpoint,
             Some("test-endpoint.com".to_string())
@@ -230,5 +236,8 @@ mod tests {
         );
         assert!(builder.config.cred.is_some(), "{:?}", builder.config);
         assert_eq!(builder.config.grpc_subchannel_count, Some(16));
+        assert_eq!(builder.pool_options.max_streams, 10);
+        assert_eq!(builder.pool_options.max_outstanding_requests, Some(900));
+        assert_eq!(builder.pool_options.max_outstanding_bytes, Some(1_000_000));
     }
 }
