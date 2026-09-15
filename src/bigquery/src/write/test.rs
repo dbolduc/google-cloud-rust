@@ -126,11 +126,11 @@ pub(super) async fn test_dispatcher(
         .first_mut()
         .expect("there is one entry in the pool")
         .req_tx = req_tx;
-    let dispatcher = Arc::new(Dispatcher::new(
+    let dispatcher = Dispatcher::new(
         pool,
         Arc::new(google_cloud_gax::retry_policy::NeverRetry),
         test_backoff_policy(),
         None,
-    ));
+    );
     Ok(dispatcher)
 }

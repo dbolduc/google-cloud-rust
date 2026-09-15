@@ -53,15 +53,17 @@ impl Dispatcher {
         retry_policy: Arc<dyn RetryPolicy>,
         backoff_policy: Arc<dyn BackoffPolicy>,
         attempt_timeout: Option<Duration>,
-    ) -> Self {
+    ) -> Arc<Self> {
         let stream = pool.get();
-        Self {
-            pool,
+        let dispatcher = Arc::new(Self {
+            pool: pool.clone(),
             entry: ArcSwap::from_pointee(stream),
             retry_policy,
             backoff_policy,
             attempt_timeout,
-        }
+        });
+        pool.register_dispatcher(Arc::downgrade(&dispatcher));
+        dispatcher
     }
 
     /// Send the write and process the response.
@@ -141,8 +143,16 @@ impl Dispatcher {
         let stream_id = stream.id;
 
         let send_fut = stream.send(req);
-        let resp = match apply_attempt_timeout(send_fut, effective_timeout).await {
-            Ok(resp) => resp,
+        let res = match apply_attempt_timeout(send_fut, effective_timeout).await {
+            Ok(resp) => match resp.cnv().map_err(Error::deser) {
+                Ok(r) => to_result(r),
+                Err(e) => Err(e.into()),
+            },
+            Err(err) => Err(err),
+        };
+
+        match res {
+            Ok(resp) => (Ok(resp), stream_id, false),
             Err(err) => {
                 let reconnected = if should_reconnect(&err) {
                     // Atomically evicts failed_id and returns a new stream for use.
@@ -156,15 +166,9 @@ impl Dispatcher {
                 } else {
                     false
                 };
-                return (Err(err), stream_id, reconnected);
+                (Err(err), stream_id, reconnected)
             }
-        };
-
-        let resp = match resp.cnv().map_err(Error::deser) {
-            Ok(r) => r,
-            Err(e) => return (Err(e.into()), stream_id, false),
-        };
-        (to_result(resp), stream_id, false)
+        }
     }
 }
 
@@ -206,7 +210,7 @@ fn should_reconnect(err: &AppendError) -> bool {
                 || source.status().is_some_and(|s| {
                     matches!(
                         s.code,
-                        Code::Aborted | Code::Unavailable | Code::DeadlineExceeded
+                        Code::Aborted | Code::Internal | Code::Unavailable | Code::DeadlineExceeded
                     )
                 })
         }
@@ -233,12 +237,7 @@ mod tests {
     use tokio::task::JoinSet;
 
     fn new_test_dispatcher(pool: Arc<StreamPool>) -> Arc<Dispatcher> {
-        Arc::new(Dispatcher::new(
-            pool,
-            test_retry_policy(),
-            test_backoff_policy(),
-            None,
-        ))
+        Dispatcher::new(pool, test_retry_policy(), test_backoff_policy(), None)
     }
 
     fn test_req() -> AppendRowsRequest {
@@ -277,6 +276,9 @@ mod tests {
         assert!(should_reconnect(&Error::timeout("timeout").into()));
         assert!(should_reconnect(
             &Error::service(GaxStatus::default().set_code(Code::Aborted)).into()
+        ));
+        assert!(should_reconnect(
+            &Error::service(GaxStatus::default().set_code(Code::Internal)).into()
         ));
         assert!(should_reconnect(
             &Error::service(GaxStatus::default().set_code(Code::Unavailable)).into()
@@ -349,12 +351,12 @@ mod tests {
             .expect_on_failure()
             .times(1)
             .return_const(Duration::ZERO);
-        let dispatcher = Arc::new(Dispatcher::new(
+        let dispatcher = Dispatcher::new(
             pool.clone(),
             test_retry_policy(),
             Arc::new(mock_backoff),
             None,
-        ));
+        );
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write = {
@@ -432,12 +434,12 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 10));
-        let dispatcher = Arc::new(Dispatcher::new(
+        let dispatcher = Dispatcher::new(
             pool.clone(),
             Arc::new(google_cloud_gax::retry_policy::NeverRetry),
             test_backoff_policy(),
             None,
-        ));
+        );
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let mut writes = JoinSet::new();
@@ -568,12 +570,12 @@ mod tests {
             .expect_on_failure()
             .times(1)
             .return_const(Duration::ZERO);
-        let dispatcher = Arc::new(Dispatcher::new(
+        let dispatcher = Dispatcher::new(
             pool.clone(),
             test_retry_policy(),
             Arc::new(mock_backoff),
             None,
-        ));
+        );
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let (stream1_tx, mut stream1_rx) = mpsc::unbounded_channel::<WriteRequest>();
@@ -624,12 +626,12 @@ mod tests {
             .expect_on_failure()
             .times(1)
             .return_const(Duration::ZERO);
-        let dispatcher = Arc::new(Dispatcher::new(
+        let dispatcher = Dispatcher::new(
             pool.clone(),
             test_retry_policy(),
             Arc::new(mock_backoff),
             None,
-        ));
+        );
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write = {
@@ -675,12 +677,12 @@ mod tests {
             .expect_on_failure()
             .times(1)
             .return_const(Duration::ZERO);
-        let dispatcher = Arc::new(Dispatcher::new(
+        let dispatcher = Dispatcher::new(
             pool.clone(),
             test_retry_policy(),
             Arc::new(mock_backoff),
             None,
-        ));
+        );
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write = {
@@ -711,12 +713,7 @@ mod tests {
 
         let retry_policy =
             Arc::new(crate::write::retry_policy::RetryableErrors.with_attempt_limit(2));
-        let dispatcher = Arc::new(Dispatcher::new(
-            pool.clone(),
-            retry_policy,
-            test_backoff_policy(),
-            None,
-        ));
+        let dispatcher = Dispatcher::new(pool.clone(), retry_policy, test_backoff_policy(), None);
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let err = dispatcher
@@ -756,12 +753,12 @@ mod tests {
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 10));
 
-        let dispatcher = Arc::new(Dispatcher::new(
+        let dispatcher = Dispatcher::new(
             pool.clone(),
             Arc::new(google_cloud_gax::retry_policy::NeverRetry),
             test_backoff_policy(),
             None,
-        ));
+        );
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write = {
@@ -801,12 +798,12 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 10));
-        let dispatcher = Arc::new(Dispatcher::new(
+        let dispatcher = Dispatcher::new(
             pool.clone(),
             test_retry_policy(),
             test_backoff_policy(),
             Some(Duration::from_millis(50)),
-        ));
+        );
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let resp = dispatcher.send(test_req()).await?;
@@ -845,12 +842,12 @@ mod tests {
                 .build()
                 .expect("valid backoff configuration"),
         );
-        let dispatcher = Arc::new(Dispatcher::new(
+        let dispatcher = Dispatcher::new(
             pool,
             retry_policy,
             backoff_policy,
             Some(Duration::from_millis(30)),
-        ));
+        );
 
         let err = dispatcher
             .send(test_req())
@@ -889,7 +886,7 @@ mod tests {
                 .build()
                 .expect("valid backoff configuration"),
         );
-        let dispatcher = Arc::new(Dispatcher::new(pool, retry_policy, backoff_policy, None));
+        let dispatcher = Dispatcher::new(pool, retry_policy, backoff_policy, None);
 
         let start = std::time::Instant::now();
         let err = dispatcher
@@ -957,6 +954,90 @@ mod tests {
         assert_eq!(resp2.offset, Some(2));
         assert_eq!(dispatcher.entry.load().id, 1);
         assert_eq!(pool.stream_ids(), [1]);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn watchdog_rebalances_dispatchers() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("ignored").await?);
+        let pool = Arc::new(StreamPool::with_limits(transport, 2, Some(10), None));
+
+        // Create 4 dispatchers sharing the multiplexed pool.
+        // Because no writes are in flight at creation time, all 4 start on stream 1.
+        let dispatchers: Vec<_> = (0..4).map(|_| new_test_dispatcher(pool.clone())).collect();
+        assert_eq!(pool.stream_ids(), [1]);
+        for d in &dispatchers {
+            assert_eq!(d.entry.load().id, 1);
+        }
+
+        // Simulate in-flight load on stream 1 (8 requests -> 0.8 load > 0.2 threshold).
+        dispatchers[0]
+            .entry
+            .load()
+            .outstanding_requests
+            .store(8, std::sync::atomic::Ordering::Relaxed);
+
+        // Run a watchdog pulse.
+        pool.watchdog_pulse();
+
+        // Pool should have spun up stream 2 and balanced the 4 dispatchers (2 on stream 1, 2 on stream 2).
+        assert_eq!(pool.stream_ids(), [1, 2]);
+        let count_1 = dispatchers
+            .iter()
+            .filter(|d| d.entry.load().id == 1)
+            .count();
+        let count_2 = dispatchers
+            .iter()
+            .filter(|d| d.entry.load().id == 2)
+            .count();
+        assert_eq!(count_1, 2);
+        assert_eq!(count_2, 2);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn in_stream_internal_error_reconnects() -> anyhow::Result<()> {
+        let (response_tx1, response_rx1) = mpsc::channel(10);
+        let (response_tx2, response_rx2) = mpsc::channel(10);
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(move |_| Ok(TonicResponse::from(response_rx1)));
+        mock.expect_append_rows()
+            .times(1)
+            .return_once(move |_| Ok(TonicResponse::from(response_rx2)));
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let pool = Arc::new(StreamPool::new(transport, 10));
+        let dispatcher = new_test_dispatcher(pool.clone());
+        assert_eq!(dispatcher.entry.load().id, 1);
+
+        let write = {
+            let d = dispatcher.clone();
+            tokio::spawn(async move { d.send(test_req()).await })
+        };
+
+        // Stream 1 returns an in-stream Code::Internal error (e.g. STREAM_CLOSED).
+        let err_res = AppendRowsResponse {
+            response: Some(Response::Error(crate::google::rpc::Status {
+                code: Code::Internal as i32,
+                message: "STREAM_CLOSED".to_string(),
+                details: vec![],
+            })),
+            ..Default::default()
+        };
+        response_tx1.send(Ok(convert(&err_res))).await?;
+
+        // Stream 2 returns success on the retry attempt.
+        response_tx2.send(Ok(convert(&test_response(42)))).await?;
+
+        let resp = write.await??;
+        assert_eq!(resp.offset, Some(42));
+        assert_eq!(dispatcher.entry.load().id, 2);
+        assert_eq!(pool.stream_ids(), [2]);
 
         Ok(())
     }

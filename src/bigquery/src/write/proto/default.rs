@@ -41,12 +41,7 @@ impl DefaultWriter {
         backoff_policy: Arc<dyn BackoffPolicy>,
         attempt_timeout: Option<Duration>,
     ) -> Self {
-        let inner = Arc::new(Dispatcher::new(
-            pool,
-            retry_policy,
-            backoff_policy,
-            attempt_timeout,
-        ));
+        let inner = Dispatcher::new(pool, retry_policy, backoff_policy, attempt_timeout);
         Self {
             inner,
             write_stream,
