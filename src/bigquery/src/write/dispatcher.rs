@@ -161,6 +161,7 @@ mod tests {
     use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
+    use google_cloud_gax::retry_policy::NeverRetry;
     use tokio::sync::{mpsc, oneshot};
     use tokio::task::JoinSet;
 
@@ -213,7 +214,11 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Arc::new(Dispatcher::new(pool));
+        let dispatcher = Arc::new(Dispatcher::with_policies(
+            pool,
+            Arc::new(NeverRetry),
+            Arc::new(NoBackoff),
+        ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write = {
@@ -278,7 +283,11 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Arc::new(Dispatcher::new(pool.clone()));
+        let dispatcher = Arc::new(Dispatcher::with_policies(
+            pool.clone(),
+            Arc::new(NeverRetry),
+            Arc::new(NoBackoff),
+        ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let mut writes = JoinSet::new();
@@ -340,40 +349,30 @@ mod tests {
         Ok(())
     }
 
-    /// The write is retried when the stream closes before responding.
     #[tokio::test]
-    async fn retry_after_stream_closed() -> anyhow::Result<()> {
+    async fn retry_then_success() -> anyhow::Result<()> {
+        // Queue up 2 writes, each with a custom retry policy, backoff policy.
+        // Yield an UNAVAILABLE("try again") error on the stream.
+        // Expect gax::Error::service for the first write.
+        // Expect gax::Error::io for the second write
+        // Expect a call to delay() on the mock backoff for w1 and w2.
+
+        // Then respond to the writes successfully on the second stream!
         todo!()
     }
 
-    /// A policy that stops the loop is honored on a closed stream, and the
-    /// original `UnexpectedEndOfStream` is reported.
-    #[tokio::test]
-    async fn stream_closed_respects_retry_policy() -> anyhow::Result<()> {
-        todo!()
-    }
-
-    /// The write is retried when the policy classifies the error as transient.
-    #[tokio::test]
-    async fn retry_after_transient_rpc_error() -> anyhow::Result<()> {
-        todo!()
-    }
-
-    /// Row errors are returned immediately, and the stream is not evicted.
-    #[tokio::test]
-    async fn row_errors_not_retried() -> anyhow::Result<()> {
-        todo!()
-    }
-
-    /// The last error is reported once the policy stops the loop.
     #[tokio::test]
     async fn retry_exhausted() -> anyhow::Result<()> {
+        // Use a LimitedAttemptCount retry policy wrapping RetryableErrors probably
+        // The mock returns times(NUM_RETRIES+1) an Err(TonicStatus::UNAVAILABLE)
+        // Send and await a write
+        // Verify it is an UNAVAILABLE
         todo!()
     }
 
-    /// The backoff policy is consulted between attempts.
     #[tokio::test]
-    async fn backoff_between_attempts() -> anyhow::Result<()> {
+    async fn row_errors() -> anyhow::Result<()> {
+        // Verify a row error is permanent and that the stream pool stays the same.
         todo!()
     }
 }
