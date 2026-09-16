@@ -43,9 +43,9 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
     // Create a writer for a committed stream
     let writer = client
-        .arrow(ArrowSchema::new().set_serialized_schema(schema_buf))
-        .committed(table)
-        .await?;
+        .create_committed_stream(table)
+        .await?
+        .with_arrow_format(ArrowSchema::new().set_serialized_schema(schema_buf));
 
     // Create a decoder to convert JSON to Arrow
     let mut decoder = ReaderBuilder::new(schema).build_decoder()?;

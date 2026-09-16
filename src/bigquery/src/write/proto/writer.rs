@@ -12,48 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::{BufferedWriter, CommittedWriter, PendingWriter};
-use crate::model::ProtoSchema;
-use crate::model::write_stream::Type;
-use crate::write::transport::Transport;
-use std::sync::Arc;
-
-pub(crate) mod sealed {
-    use super::*;
-
-    pub trait Writer {
-        const STREAM_TYPE: Type;
-        fn build(inner: Arc<Transport>, write_stream: String, schema: ProtoSchema) -> Self;
-    }
-
-    impl Writer for PendingWriter {
-        const STREAM_TYPE: Type = Type::Pending;
-
-        fn build(inner: Arc<Transport>, write_stream: String, schema: ProtoSchema) -> Self {
-            Self::new(inner, write_stream, schema)
-        }
-    }
-
-    impl Writer for CommittedWriter {
-        const STREAM_TYPE: Type = Type::Committed;
-
-        fn build(inner: Arc<Transport>, write_stream: String, schema: ProtoSchema) -> Self {
-            Self::new(inner, write_stream, schema)
-        }
-    }
-
-    impl Writer for BufferedWriter {
-        const STREAM_TYPE: Type = Type::Buffered;
-
-        fn build(inner: Arc<Transport>, write_stream: String, schema: ProtoSchema) -> Self {
-            Self::new(inner, write_stream, schema)
-        }
-    }
-}
-
-/// A trait for strongly-typed stream writers that can be attached to an existing stream.
-///
-/// This trait is sealed and cannot be implemented for types outside of this crate.
-pub trait Writer: sealed::Writer + Sized {}
-
-impl<T: sealed::Writer + Sized> Writer for T {}
+#[allow(unused_imports)]
+pub(crate) use crate::write::arrow::Writer;

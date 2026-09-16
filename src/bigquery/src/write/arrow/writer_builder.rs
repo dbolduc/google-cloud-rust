@@ -12,225 +12,111 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::super::generated::gapic_storage::client::BigQueryWrite;
 use super::super::pool::{StreamPool, StreamPoolOptions};
 use super::super::transport::Transport;
-use super::super::validate::{validate_stream, validate_table};
-use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
-use crate::Result;
-use crate::model::write_stream::Type;
-use crate::model::{ArrowSchema, WriteStream};
-use crate::write::error::{AttachError, AttachResult};
+use super::DefaultWriter;
+use super::writer::sealed;
+use crate::model::{ArrowSchema, ProtoSchema};
+use std::marker::PhantomData;
 use std::sync::Arc;
 
-/// A builder to create a stream writer.
+/// A builder to configure and create a stream writer.
 #[derive(Clone, Debug)]
-pub struct WriterBuilder {
-    inner: Arc<Transport>,
-    pool: Arc<StreamPool>,
-    schema: ArrowSchema,
-    multiplexing: bool,
+pub struct WriterBuilder<U> {
+    pub(crate) inner: Arc<Transport>,
+    pub(crate) pool: Arc<StreamPool>,
+    pub(crate) write_stream: String,
+    pub(crate) multiplexing: bool,
+    _marker: PhantomData<U>,
 }
 
-impl WriterBuilder {
-    pub(crate) fn new(inner: Arc<Transport>, pool: Arc<StreamPool>, schema: ArrowSchema) -> Self {
+impl<U> WriterBuilder<U> {
+    pub(crate) fn new(inner: Arc<Transport>, pool: Arc<StreamPool>, write_stream: String) -> Self {
         Self {
             inner,
             pool,
-            schema,
+            write_stream,
             multiplexing: false,
+            _marker: PhantomData,
         }
     }
 
-    /// Creates a writer for the [default stream] for the given table.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// # use google_cloud_bigquery::client::Write;
-    /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer = client
-    ///     .arrow(schema())
-    ///     .default("projects/my-project/datasets/my-dataset/tables/my-table")
-    ///     .await?;
-    /// # Ok(()) }
-    ///
-    /// use google_cloud_bigquery::model::ArrowSchema;
-    /// fn schema() -> ArrowSchema {
-    ///   todo!("Define your table's schema...")
-    /// }
-    /// ```
-    ///
-    /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
-    pub async fn default<T: Into<String>>(self, table: T) -> Result<DefaultWriter> {
-        let table = table.into();
-        validate_table(table.as_str())?;
-        let mut write_stream = table;
-        write_stream.push_str("/streams/_default");
-        let pool = if self.multiplexing {
-            self.pool
+    /// Returns the full resource name of the underlying write stream.
+    pub fn write_stream(&self) -> &str {
+        &self.write_stream
+    }
+
+    pub(crate) fn stream_pool(&self) -> Arc<StreamPool> {
+        if self.multiplexing {
+            self.pool.clone()
         } else {
             let options = StreamPoolOptions {
                 max_streams: 1,
                 ..Default::default()
             };
-            Arc::new(StreamPool::new(self.inner, options))
-        };
-        Ok(DefaultWriter::new(pool, write_stream, self.schema))
+            Arc::new(StreamPool::new(self.inner.clone(), options))
+        }
     }
 
-    /// Creates a pending writer for the given table.
+    /// Consumes the builder and creates a writer using [Arrow] as the data format.
     ///
     /// # Example
-    ///
     /// ```
     /// # use google_cloud_bigquery::client::Write;
+    /// # use google_cloud_bigquery::model::ArrowSchema;
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
     /// let writer = client
-    ///     .arrow(schema())
-    ///     .pending("projects/my-project/datasets/my-dataset/tables/my-table")
-    ///     .await?;
-    /// # Ok(()) }
-    ///
-    /// use google_cloud_bigquery::model::ArrowSchema;
-    /// fn schema() -> ArrowSchema {
-    ///   todo!("Define your table's schema...")
-    /// }
-    /// ```
-    pub async fn pending<T: Into<String>>(self, table: T) -> Result<PendingWriter> {
-        let table = table.into();
-        validate_table(table.as_str())?;
-
-        let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
-        let write_stream = client
-            .create_write_stream()
-            .set_parent(table)
-            .set_write_stream(WriteStream::new().set_type(Type::Pending))
-            .send()
-            .await?;
-
-        Ok(PendingWriter::new(
-            self.inner,
-            write_stream.name,
-            self.schema,
-        ))
-    }
-
-    /// Creates a committed writer for the given table.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// # use google_cloud_bigquery::client::Write;
-    /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer = client
-    ///     .arrow(schema())
-    ///     .committed("projects/my-project/datasets/my-dataset/tables/my-table")
-    ///     .await?;
-    /// # Ok(()) }
-    ///
-    /// use google_cloud_bigquery::model::ArrowSchema;
-    /// fn schema() -> ArrowSchema {
-    ///   todo!("Define your table's schema...")
-    /// }
-    /// ```
-    pub async fn committed<T: Into<String>>(self, table: T) -> Result<CommittedWriter> {
-        let table = table.into();
-        validate_table(table.as_str())?;
-
-        let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
-        let write_stream = client
-            .create_write_stream()
-            .set_parent(table)
-            .set_write_stream(WriteStream::new().set_type(Type::Committed))
-            .send()
-            .await?;
-
-        Ok(CommittedWriter::new(
-            self.inner,
-            write_stream.name,
-            self.schema,
-        ))
-    }
-
-    /// Creates a buffered writer for the given table.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// # use google_cloud_bigquery::client::Write;
-    /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer = client
-    ///     .arrow(schema())
-    ///     .buffered("projects/my-project/datasets/my-dataset/tables/my-table")
-    ///     .await?;
-    /// # Ok(()) }
-    ///
-    /// use google_cloud_bigquery::model::ArrowSchema;
-    /// fn schema() -> ArrowSchema {
-    ///   todo!("Define your table's schema...")
-    /// }
-    /// ```
-    pub async fn buffered<T: Into<String>>(self, table: T) -> Result<BufferedWriter> {
-        let table = table.into();
-        validate_table(table.as_str())?;
-
-        let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
-        let write_stream = client
-            .create_write_stream()
-            .set_parent(table)
-            .set_write_stream(WriteStream::new().set_type(Type::Buffered))
-            .send()
-            .await?;
-
-        Ok(BufferedWriter::new(
-            self.inner,
-            write_stream.name,
-            self.schema,
-        ))
-    }
-
-    /// Attaches the builder to an existing stream.
-    ///
-    /// # Example
-    /// ```
-    /// use google_cloud_bigquery::write::arrow::CommittedWriter;
-    /// # use google_cloud_bigquery::client::Write;
-    /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer: CommittedWriter = client
-    ///     .arrow(schema())
-    ///     .attach("projects/my-project/datasets/my_dataset/tables/my_table/streams/my_stream")
-    ///     .await?;
+    ///     .open_default_stream("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///     .await?
+    ///     .with_arrow_format(ArrowSchema::new());
     /// # Ok(())
     /// # }
-    /// #
-    /// # use google_cloud_bigquery::model::ArrowSchema;
-    /// # fn schema() -> ArrowSchema {
-    /// #   todo!("Define your table's schema...")
-    /// # }
     /// ```
-    pub async fn attach<U: Writer, S: Into<String>>(self, write_stream: S) -> AttachResult<U> {
-        let write_stream = write_stream.into();
-        validate_stream(write_stream.as_str())?;
-
-        let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
-        let stream = client
-            .get_write_stream()
-            .set_name(&write_stream)
-            .send()
-            .await?;
-
-        let stream_type = stream.r#type.clone();
-        if stream_type != U::STREAM_TYPE {
-            return Err(AttachError::TypeMismatch {
-                expected: U::STREAM_TYPE,
-                actual: stream_type,
-            });
-        }
-        Ok(U::build(self.inner, write_stream, self.schema))
+    ///
+    /// [Arrow]: https://arrow.apache.org/
+    pub fn with_arrow_format<W>(self, schema: ArrowSchema) -> W
+    where
+        U: sealed::HasArrow<Writer = W>,
+        W: sealed::IsArrowWriter<BuilderParam = U>,
+    {
+        U::build_arrow(self, schema)
     }
 
-    /// Enable multiplexing
+    /// Consumes the builder and creates a writer using [Arrow] as the data format.
+    ///
+    /// This method is an alias for [`with_arrow_format`][Self::with_arrow_format].
+    ///
+    /// [Arrow]: https://arrow.apache.org/
+    pub fn build_with_arrow_format<W>(self, schema: ArrowSchema) -> W
+    where
+        U: sealed::HasArrow<Writer = W>,
+        W: sealed::IsArrowWriter<BuilderParam = U>,
+    {
+        self.with_arrow_format(schema)
+    }
+
+    /// Consumes the builder and creates a writer using Protobuf as the data format.
+    pub(crate) fn with_proto_format<W>(self, schema: ProtoSchema) -> W
+    where
+        U: sealed::HasProto<Writer = W>,
+        W: sealed::IsProtoWriter<BuilderParam = U>,
+    {
+        U::build_proto(self, schema)
+    }
+
+    /// Consumes the builder and creates a writer using Protobuf as the data format.
+    #[allow(dead_code)]
+    pub(crate) fn build_with_proto_format<W>(self, schema: ProtoSchema) -> W
+    where
+        U: sealed::HasProto<Writer = W>,
+        W: sealed::IsProtoWriter<BuilderParam = U>,
+    {
+        self.with_proto_format(schema)
+    }
+}
+
+impl WriterBuilder<DefaultWriter> {
+    /// Enable multiplexing.
     ///
     /// Set this option to use the client's shared stream pool.
     ///
@@ -239,18 +125,14 @@ impl WriterBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery::client::Write;
+    /// # use google_cloud_bigquery::model::ArrowSchema;
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
     /// let writer = client
-    ///     .arrow(schema())
+    ///     .open_default_stream("projects/my-project/datasets/my_dataset/tables/my_table")
+    ///     .await?
     ///     .with_multiplexing(true)
-    ///     .default("projects/my-project/datasets/my_dataset/tables/my_table")
-    ///     .await?;
+    ///     .with_arrow_format(ArrowSchema::new());
     /// # Ok(())
-    /// # }
-    /// #
-    /// # use google_cloud_bigquery::model::ArrowSchema;
-    /// # fn schema() -> ArrowSchema {
-    /// #   todo!("Define your table's schema...")
     /// # }
     /// ```
     pub fn with_multiplexing(mut self, enable: bool) -> Self {
@@ -261,12 +143,24 @@ impl WriterBuilder {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use super::super::{BufferedWriter, CommittedWriter, PendingWriter};
+    use crate::client::Write;
+    use crate::model::write_stream::Type;
+    use crate::write::error::AttachError;
     use crate::write::test::*;
     use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use test_case::test_case;
     use tokio::task::JoinHandle;
+
+    async fn test_client(endpoint: String) -> anyhow::Result<Write> {
+        Ok(Write::builder()
+            .with_endpoint(endpoint)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?)
+    }
 
     #[tokio::test]
     async fn pending_success() -> anyhow::Result<()> {
@@ -282,9 +176,11 @@ mod tests {
             }))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = Arc::new(test_transport(endpoint).await?);
-        let builder = test_builder(transport);
-        let writer = builder.pending("projects/p/datasets/d/tables/t").await?;
+        let client = test_client(endpoint).await?;
+        let writer = client
+            .create_pending_stream("projects/p/datasets/d/tables/t")
+            .await?
+            .with_arrow_format(schema());
         assert_eq!(
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
@@ -298,10 +194,9 @@ mod tests {
     #[test_case("projects/p/datasets/d/tables/")]
     #[tokio::test]
     async fn pending_bad_table_format(table: &str) -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let builder = test_builder(transport);
-        let err = builder
-            .pending(table)
+        let client = test_client("http://ignored:1".to_string()).await?;
+        let err = client
+            .create_pending_stream(table)
             .await
             .expect_err("should fail locally on bad format");
         assert!(err.is_binding(), "{err:?}");
@@ -322,9 +217,11 @@ mod tests {
             }))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = Arc::new(test_transport(endpoint).await?);
-        let builder = test_builder(transport);
-        let writer = builder.committed("projects/p/datasets/d/tables/t").await?;
+        let client = test_client(endpoint).await?;
+        let writer = client
+            .create_committed_stream("projects/p/datasets/d/tables/t")
+            .await?
+            .with_arrow_format(schema());
         assert_eq!(
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
@@ -338,10 +235,9 @@ mod tests {
     #[test_case("projects/p/datasets/d/tables/")]
     #[tokio::test]
     async fn committed_bad_table_format(table: &str) -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let builder = test_builder(transport);
-        let err = builder
-            .committed(table)
+        let client = test_client("http://ignored:1".to_string()).await?;
+        let err = client
+            .create_committed_stream(table)
             .await
             .expect_err("should fail locally on bad format");
         assert!(err.is_binding(), "{err:?}");
@@ -350,9 +246,11 @@ mod tests {
 
     #[tokio::test]
     async fn default() -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let builder = test_builder(transport);
-        let writer = builder.default("projects/p/datasets/d/tables/t").await?;
+        let client = test_client("http://ignored:1".to_string()).await?;
+        let writer = client
+            .open_default_stream("projects/p/datasets/d/tables/t")
+            .await?
+            .with_arrow_format(schema());
         assert_eq!(
             writer.write_stream,
             "projects/p/datasets/d/tables/t/streams/_default"
@@ -369,15 +267,15 @@ mod tests {
     #[test_case("projects/p/datasets/d/tables/t/streams/_default")]
     #[tokio::test]
     async fn bad_table_format(table: &str) -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let builder = test_builder(transport);
-        let err = builder
-            .default(table)
+        let client = test_client("http://ignored:1".to_string()).await?;
+        let err = client
+            .open_default_stream(table)
             .await
             .expect_err("should fail locally on bad format");
         assert!(err.is_binding(), "{err:?}");
         Ok(())
     }
+
     #[tokio::test]
     async fn buffered_success() -> anyhow::Result<()> {
         let mut mock = MockBigQueryWrite::new();
@@ -392,9 +290,11 @@ mod tests {
             }))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = Arc::new(test_transport(endpoint).await?);
-        let builder = test_builder(transport);
-        let writer = builder.buffered("projects/p/datasets/d/tables/t").await?;
+        let client = test_client(endpoint).await?;
+        let writer = client
+            .create_buffered_stream("projects/p/datasets/d/tables/t")
+            .await?
+            .with_arrow_format(schema());
         assert_eq!(
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
@@ -408,17 +308,16 @@ mod tests {
     #[test_case("projects/p/datasets/d/tables/")]
     #[tokio::test]
     async fn buffered_bad_table_format(table: &str) -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let builder = test_builder(transport);
-        let err = builder
-            .buffered(table)
+        let client = test_client("http://ignored:1".to_string()).await?;
+        let err = client
+            .create_buffered_stream(table)
             .await
             .expect_err("should fail locally on bad format");
         assert!(err.is_binding(), "{err:?}");
         Ok(())
     }
 
-    async fn attach_mock(stream_type: Type) -> anyhow::Result<(Arc<Transport>, JoinHandle<()>)> {
+    async fn attach_mock(stream_type: Type) -> anyhow::Result<(Write, JoinHandle<()>)> {
         let mut mock = MockBigQueryWrite::new();
         mock.expect_get_write_stream().return_once(move |req| {
             let req = req.into_inner();
@@ -430,17 +329,17 @@ mod tests {
             }))
         });
         let (endpoint, server) = start("0.0.0.0:0", mock).await?;
-        let transport = Arc::new(test_transport(endpoint).await?);
-        Ok((transport, server))
+        let client = test_client(endpoint).await?;
+        Ok((client, server))
     }
 
     #[tokio::test]
     async fn attach_committed_success() -> anyhow::Result<()> {
-        let (transport, _server) = attach_mock(Type::Committed).await?;
-        let builder = test_builder(transport);
-        let writer: CommittedWriter = builder
+        let (client, _server) = attach_mock(Type::Committed).await?;
+        let writer: CommittedWriter = client
             .attach("projects/p/datasets/d/tables/t/streams/s")
-            .await?;
+            .await?
+            .with_arrow_format(schema());
         assert_eq!(
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
@@ -451,11 +350,11 @@ mod tests {
 
     #[tokio::test]
     async fn attach_pending_success() -> anyhow::Result<()> {
-        let (transport, _server) = attach_mock(Type::Pending).await?;
-        let builder = test_builder(transport);
-        let writer: PendingWriter = builder
+        let (client, _server) = attach_mock(Type::Pending).await?;
+        let writer: PendingWriter = client
             .attach("projects/p/datasets/d/tables/t/streams/s")
-            .await?;
+            .await?
+            .with_arrow_format(schema());
         assert_eq!(
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
@@ -466,11 +365,11 @@ mod tests {
 
     #[tokio::test]
     async fn attach_buffered_success() -> anyhow::Result<()> {
-        let (transport, _server) = attach_mock(Type::Buffered).await?;
-        let builder = test_builder(transport);
-        let writer: BufferedWriter = builder
+        let (client, _server) = attach_mock(Type::Buffered).await?;
+        let writer: BufferedWriter = client
             .attach("projects/p/datasets/d/tables/t/streams/s")
-            .await?;
+            .await?
+            .with_arrow_format(schema());
         assert_eq!(
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
@@ -485,9 +384,8 @@ mod tests {
     #[test_case("projects/p/datasets/d/tables/t/streams/")]
     #[tokio::test]
     async fn attach_bad_stream_format(stream: &str) -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let builder = test_builder(transport);
-        let err = builder
+        let client = test_client("http://ignored:1".to_string()).await?;
+        let err = client
             .attach::<CommittedWriter, _>(stream)
             .await
             .expect_err("should fail locally on bad format");
@@ -497,22 +395,13 @@ mod tests {
 
     #[tokio::test]
     async fn attach_stream_type_mismatch() -> anyhow::Result<()> {
-        let (transport, _server) = attach_mock(Type::Buffered).await?;
-        let builder = test_builder(transport);
-        let err = builder
+        let (client, _server) = attach_mock(Type::Buffered).await?;
+        let err = client
             .attach::<CommittedWriter, _>("projects/p/datasets/d/tables/t/streams/s")
             .await
             .expect_err("should return type mismatch error");
         assert!(matches!(err, AttachError::TypeMismatch { .. }));
         assert!(err.to_string().contains("stream type mismatch: requested"));
         Ok(())
-    }
-
-    fn test_builder(transport: Arc<Transport>) -> WriterBuilder {
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        WriterBuilder::new(transport, pool, schema())
     }
 }

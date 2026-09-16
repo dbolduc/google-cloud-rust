@@ -39,9 +39,9 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
     // Create a writer for the default stream
     let writer = client
-        .arrow(ArrowSchema::new().set_serialized_schema(schema_buf))
-        .default(table)
-        .await?;
+        .open_default_stream(table)
+        .await?
+        .with_arrow_format(ArrowSchema::new().set_serialized_schema(schema_buf));
 
     let mut writes = JoinSet::new();
     for i in 0..100 {

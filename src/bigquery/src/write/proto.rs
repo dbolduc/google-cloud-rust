@@ -24,5 +24,3 @@ pub(crate) use buffered::BufferedWriter;
 pub(crate) use committed::CommittedWriter;
 pub(crate) use default::DefaultWriter;
 pub(crate) use pending::PendingWriter;
-pub(crate) use writer::Writer;
-pub(crate) use writer_builder::WriterBuilder;
