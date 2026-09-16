@@ -14,12 +14,19 @@
 
 use super::append_response::{AppendResponse, to_result};
 use super::entry::StreamEntry;
-use super::error::AppendResult;
+use super::error::{AppendError, AppendResult};
 use super::pool::StreamPool;
+use super::retry_policy::RetryableErrors;
 use crate::Error;
+use crate::google::cloud::bigquery::storage::v1::AppendRowsRequest as AppendRowsRequestProto;
 use crate::model::AppendRowsRequest;
 use arc_swap::ArcSwap;
 use gaxi::prost::{FromProto, ToProto};
+use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyExt};
+use google_cloud_gax::retry_result::RetryResult;
+use google_cloud_gax::retry_state::RetryState;
 use std::sync::Arc;
 
 /// Efficiently dispatches writes to a stream in a stream pool.
@@ -35,29 +42,92 @@ use std::sync::Arc;
 pub(crate) struct Dispatcher {
     pub(crate) pool: Arc<StreamPool>,
     pub(crate) entry: ArcSwap<StreamEntry>,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
 }
 
 impl Dispatcher {
     /// Creates a new `Dispatcher` for a given `StreamPool`.
     pub(crate) fn new(pool: Arc<StreamPool>) -> Self {
+        // TODO(#6355): plumb the policies from the client
+        Self::with_policies(
+            pool,
+            Arc::new(RetryableErrors.with_attempt_limit(3)),
+            Arc::new(ExponentialBackoff::default()),
+        )
+    }
+
+    /// Creates a new `Dispatcher` with the given retry and backoff policies.
+    pub(super) fn with_policies(
+        pool: Arc<StreamPool>,
+        retry_policy: Arc<dyn RetryPolicy>,
+        backoff_policy: Arc<dyn BackoffPolicy>,
+    ) -> Self {
         let stream = pool.get();
         Self {
             pool,
             entry: ArcSwap::from_pointee(stream),
+            retry_policy,
+            backoff_policy,
         }
     }
 
     /// Send the write and process the response.
     ///
-    /// Evicts and updates its cached stream on transient errors.
+    /// Evicts and updates its cached stream on terminal stream errors.
     pub(crate) async fn send(&self, req: AppendRowsRequest) -> AppendResult<AppendResponse> {
         let req = req.to_proto().map_err(Error::ser)?;
 
+        // The default stream has at-least-once semantics, so all writes are
+        // idempotent.
+        let mut state = RetryState::new(true);
+        loop {
+            state.attempt_count += 1;
+            let err = match self.send_one_attempt(req.clone()).await {
+                Ok(resp) => return Ok(resp),
+                Err(err) => err,
+            };
+            match err {
+                // RowErrors are always permanent.
+                AppendError::RowErrors(_) => return Err(err),
+
+                // Adapt the error into a `gax::Error::io()`. This lets us reuse
+                // the standard gax retry and backoff policy interfaces.
+                //
+                // We could always retry these requests, but that may be
+                // surprising to an application that supplies a policy with an
+                // attempt limit.
+                AppendError::UnexpectedEndOfStream => {
+                    let err = Error::io(AppendError::UnexpectedEndOfStream);
+                    match self.retry_policy.on_error(&state, err) {
+                        RetryResult::Continue(_) => {}
+                        RetryResult::Exhausted(_) | RetryResult::Permanent(_) => {
+                            // Return the original error.
+                            return Err(AppendError::UnexpectedEndOfStream);
+                        }
+                    }
+                }
+
+                AppendError::Rpc { source } => match self.retry_policy.on_error(&state, source) {
+                    RetryResult::Continue(_) => {}
+                    RetryResult::Exhausted(e) | RetryResult::Permanent(e) => {
+                        return Err(e.into());
+                    }
+                },
+            }
+            tokio::time::sleep(self.backoff_policy.on_failure(&state)).await;
+        }
+    }
+
+    /// Makes one attempt to send the write and process the response.
+    ///
+    /// Evicts the cached stream if the attempt fails.
+    async fn send_one_attempt(&self, req: AppendRowsRequestProto) -> AppendResult<AppendResponse> {
         let stream = self.entry.load_full();
         let stream_id = stream.id;
 
         let resp = match stream.send(req).await {
-            Ok(resp) => Ok(resp),
+            Ok(resp) => resp,
             Err(err) => {
                 // Any error here means the stream is dead. Either the runner
                 // task exited (`UnexpectedEndOfStream`), or it forwarded a
@@ -74,10 +144,9 @@ impl Dispatcher {
                 // Only one `send()` will update the cached stream.
                 let _ = self.entry.compare_and_swap(&stream, Arc::new(new_stream));
 
-                // TODO(#6355): implement retries
-                Err(err)
+                return Err(err);
             }
-        }?;
+        };
 
         let resp = resp.cnv().map_err(Error::deser)?;
         to_result(resp)
@@ -269,5 +338,42 @@ mod tests {
         drop(release_lock_tx);
 
         Ok(())
+    }
+
+    /// The write is retried when the stream closes before responding.
+    #[tokio::test]
+    async fn retry_after_stream_closed() -> anyhow::Result<()> {
+        todo!()
+    }
+
+    /// A policy that stops the loop is honored on a closed stream, and the
+    /// original `UnexpectedEndOfStream` is reported.
+    #[tokio::test]
+    async fn stream_closed_respects_retry_policy() -> anyhow::Result<()> {
+        todo!()
+    }
+
+    /// The write is retried when the policy classifies the error as transient.
+    #[tokio::test]
+    async fn retry_after_transient_rpc_error() -> anyhow::Result<()> {
+        todo!()
+    }
+
+    /// Row errors are returned immediately, and the stream is not evicted.
+    #[tokio::test]
+    async fn row_errors_not_retried() -> anyhow::Result<()> {
+        todo!()
+    }
+
+    /// The last error is reported once the policy stops the loop.
+    #[tokio::test]
+    async fn retry_exhausted() -> anyhow::Result<()> {
+        todo!()
+    }
+
+    /// The backoff policy is consulted between attempts.
+    #[tokio::test]
+    async fn backoff_between_attempts() -> anyhow::Result<()> {
+        todo!()
     }
 }
