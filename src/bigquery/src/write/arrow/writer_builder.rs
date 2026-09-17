@@ -16,7 +16,7 @@ use super::super::generated::gapic_storage::client::BigQueryWrite;
 use super::super::pool::{StreamPool, StreamPoolOptions};
 use super::super::transport::Transport;
 use super::super::validate::{validate_stream, validate_table};
-use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
+use super::{Arrow, BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
 use crate::Result;
 use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, WriteStream};
@@ -76,7 +76,11 @@ impl WriterBuilder {
             };
             Arc::new(StreamPool::new(self.inner, options))
         };
-        Ok(DefaultWriter::new(pool, write_stream, self.schema))
+        Ok(DefaultWriter::new(
+            pool,
+            write_stream,
+            Arrow::new(self.schema),
+        ))
     }
 
     /// Creates a pending writer for the given table.
@@ -112,7 +116,7 @@ impl WriterBuilder {
         Ok(PendingWriter::new(
             self.inner,
             write_stream.name,
-            self.schema,
+            Arrow::new(self.schema),
         ))
     }
 
@@ -149,7 +153,7 @@ impl WriterBuilder {
         Ok(CommittedWriter::new(
             self.inner,
             write_stream.name,
-            self.schema,
+            Arrow::new(self.schema),
         ))
     }
 
@@ -186,7 +190,7 @@ impl WriterBuilder {
         Ok(BufferedWriter::new(
             self.inner,
             write_stream.name,
-            self.schema,
+            Arrow::new(self.schema),
         ))
     }
 
@@ -289,7 +293,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, schema());
+        assert_eq!(writer.inner.format.schema, schema());
         Ok(())
     }
 
@@ -329,7 +333,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, schema());
+        assert_eq!(writer.inner.format.schema, schema());
         Ok(())
     }
 
@@ -357,7 +361,7 @@ mod tests {
             writer.write_stream,
             "projects/p/datasets/d/tables/t/streams/_default"
         );
-        assert_eq!(writer.schema, schema());
+        assert_eq!(writer.format.schema, schema());
         Ok(())
     }
 
@@ -399,7 +403,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, schema());
+        assert_eq!(writer.inner.format.schema, schema());
         Ok(())
     }
 
@@ -445,7 +449,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, schema());
+        assert_eq!(writer.inner.format.schema, schema());
         Ok(())
     }
 
@@ -460,7 +464,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, schema());
+        assert_eq!(writer.inner.format.schema, schema());
         Ok(())
     }
 
@@ -475,7 +479,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, schema());
+        assert_eq!(writer.inner.format.schema, schema());
         Ok(())
     }
 

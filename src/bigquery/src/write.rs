@@ -19,14 +19,26 @@ pub mod arrow;
 #[allow(dead_code)]
 pub(crate) mod proto;
 
+/// Data format markers and traits for stream writers.
+pub mod format;
+
 pub use append_future::AppendFuture;
+pub use buffered::BufferedWriter;
+pub use committed::CommittedWriter;
+pub use default::DefaultWriter;
+pub use pending::PendingWriter;
 
 pub(super) mod append_future;
 pub(super) mod append_response;
+pub(super) mod base;
+pub(super) mod buffered;
 pub(super) mod builder;
 pub(super) mod client;
 pub(super) mod client_builder;
+pub(super) mod committed;
+pub(super) mod default;
 pub(super) mod error;
+pub(super) mod pending;
 
 mod dispatcher;
 mod entry;

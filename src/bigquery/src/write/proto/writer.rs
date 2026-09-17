@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::{BufferedWriter, CommittedWriter, PendingWriter};
+use super::{BufferedWriter, CommittedWriter, PendingWriter, Proto};
 use crate::model::ProtoSchema;
 use crate::model::write_stream::Type;
 use crate::write::transport::Transport;
@@ -30,7 +30,7 @@ pub(crate) mod sealed {
         const STREAM_TYPE: Type = Type::Pending;
 
         fn build(inner: Arc<Transport>, write_stream: String, schema: ProtoSchema) -> Self {
-            Self::new(inner, write_stream, schema)
+            Self::new(inner, write_stream, Proto::new(schema))
         }
     }
 
@@ -38,7 +38,7 @@ pub(crate) mod sealed {
         const STREAM_TYPE: Type = Type::Committed;
 
         fn build(inner: Arc<Transport>, write_stream: String, schema: ProtoSchema) -> Self {
-            Self::new(inner, write_stream, schema)
+            Self::new(inner, write_stream, Proto::new(schema))
         }
     }
 
@@ -46,7 +46,7 @@ pub(crate) mod sealed {
         const STREAM_TYPE: Type = Type::Buffered;
 
         fn build(inner: Arc<Transport>, write_stream: String, schema: ProtoSchema) -> Self {
-            Self::new(inner, write_stream, schema)
+            Self::new(inner, write_stream, Proto::new(schema))
         }
     }
 }
