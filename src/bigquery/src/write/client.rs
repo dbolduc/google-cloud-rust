@@ -12,14 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::arrow::WriterBuilder as ArrowWriterBuilder;
 use super::client_builder::ClientBuilder;
 use super::pool::StreamPool;
-use super::proto::WriterBuilder as ProtoWriterBuilder;
 use super::transport::Transport;
 use super::{CreatedStreamType, DefaultStream, WriterBuilder};
 use crate::ClientBuilderResult as BuilderResult;
-use crate::model::{ArrowSchema, ProtoSchema};
 use std::sync::Arc;
 
 /// A client for BigQuery Storage Write API.
@@ -39,34 +36,6 @@ impl Write {
         let inner = Arc::new(Transport::new(builder.config).await?);
         let pool = Arc::new(StreamPool::new(inner.clone(), builder.pool_options));
         Ok(Self { inner, pool })
-    }
-
-    /// Creates a writer using [Arrow] as the data format.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery::client::Write;
-    /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer = client
-    ///   .arrow(schema())
-    ///   .default("projects/my-project/datasets/my-dataset/tables/my-table")
-    ///   .await?;
-    /// # Ok(()) }
-    ///
-    /// use google_cloud_bigquery::model::ArrowSchema;
-    /// fn schema() -> ArrowSchema {
-    ///   todo!("Define your table's schema...")
-    /// }
-    /// ```
-    ///
-    /// [arrow]: https://arrow.apache.org/
-    pub fn arrow(&self, schema: ArrowSchema) -> ArrowWriterBuilder {
-        ArrowWriterBuilder::new(self.inner.clone(), self.pool.clone(), schema)
-    }
-
-    #[allow(dead_code)]
-    pub(crate) fn proto(&self, schema: ProtoSchema) -> ProtoWriterBuilder {
-        ProtoWriterBuilder::new(self.inner.clone(), schema)
     }
 
     /// Opens the [default stream] for the given table.

@@ -12,13 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Types to write data in [Arrow] format.
-///
-/// [arrow]: https://arrow.apache.org/
-pub mod arrow;
-#[allow(dead_code)]
-pub(crate) mod proto;
-
 /// Data format markers and traits for stream writers.
 pub mod format;
 

@@ -70,10 +70,6 @@ pub enum WriterBuilderError {
 
 pub(crate) type WriterBuilderResult<T> = std::result::Result<T, WriterBuilderError>;
 
-/// Legacy alias for [`WriterBuilderError`].
-pub type AttachError = WriterBuilderError;
-pub(crate) type AttachResult<T> = WriterBuilderResult<T>;
-
 #[cfg(test)]
 mod tests {
     use super::*;
