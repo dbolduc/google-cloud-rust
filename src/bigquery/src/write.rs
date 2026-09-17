@@ -20,13 +20,24 @@ pub mod arrow;
 pub(crate) mod proto;
 
 pub use append_future::AppendFuture;
+pub use buffered::BufferedWriter;
+pub use committed::CommittedWriter;
+pub use default::DefaultWriter;
+pub use pending::PendingWriter;
+pub use writer::{ArrowFormat, Format, ProtoFormat};
 
 pub(super) mod append_future;
 pub(super) mod append_response;
+pub(super) mod base;
+pub(super) mod buffered;
 pub(super) mod builder;
 pub(super) mod client;
 pub(super) mod client_builder;
+pub(super) mod committed;
+pub(super) mod default;
 pub(super) mod error;
+pub(super) mod pending;
+pub(super) mod writer;
 
 mod dispatcher;
 mod entry;

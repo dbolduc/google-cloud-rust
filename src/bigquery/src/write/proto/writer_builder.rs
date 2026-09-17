@@ -16,7 +16,7 @@ use super::super::generated::gapic_storage::client::BigQueryWrite;
 use super::super::pool::{StreamPool, StreamPoolOptions};
 use super::super::transport::Transport;
 use super::super::validate::{validate_stream, validate_table};
-use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
+use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, ProtoFormat, Writer};
 use crate::Result;
 use crate::model::write_stream::Type;
 use crate::model::{ProtoSchema, WriteStream};
@@ -49,7 +49,11 @@ impl WriterBuilder {
             ..Default::default()
         };
         let pool = Arc::new(StreamPool::new(self.inner, options));
-        Ok(DefaultWriter::new(pool, write_stream, self.schema))
+        Ok(DefaultWriter::new(
+            pool,
+            write_stream,
+            ProtoFormat::new(self.schema),
+        ))
     }
 
     /// Creates a writer for a [pending stream] for the given table.
@@ -70,7 +74,7 @@ impl WriterBuilder {
         Ok(PendingWriter::new(
             self.inner,
             write_stream.name,
-            self.schema,
+            ProtoFormat::new(self.schema),
         ))
     }
 
@@ -92,7 +96,7 @@ impl WriterBuilder {
         Ok(CommittedWriter::new(
             self.inner,
             write_stream.name,
-            self.schema,
+            ProtoFormat::new(self.schema),
         ))
     }
 
@@ -114,7 +118,7 @@ impl WriterBuilder {
         Ok(BufferedWriter::new(
             self.inner,
             write_stream.name,
-            self.schema,
+            ProtoFormat::new(self.schema),
         ))
     }
 
@@ -171,7 +175,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, proto_schema());
+        assert_eq!(writer.inner.format.schema, proto_schema());
         Ok(())
     }
 
@@ -211,7 +215,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, proto_schema());
+        assert_eq!(writer.inner.format.schema, proto_schema());
         Ok(())
     }
 
@@ -239,7 +243,7 @@ mod tests {
             writer.write_stream,
             "projects/p/datasets/d/tables/t/streams/_default"
         );
-        assert_eq!(writer.schema, proto_schema());
+        assert_eq!(writer.format.schema, proto_schema());
         Ok(())
     }
 
@@ -282,7 +286,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, proto_schema());
+        assert_eq!(writer.inner.format.schema, proto_schema());
         Ok(())
     }
 
@@ -328,7 +332,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, proto_schema());
+        assert_eq!(writer.inner.format.schema, proto_schema());
         Ok(())
     }
 
@@ -343,7 +347,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, proto_schema());
+        assert_eq!(writer.inner.format.schema, proto_schema());
         Ok(())
     }
 
@@ -358,7 +362,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, proto_schema());
+        assert_eq!(writer.inner.format.schema, proto_schema());
         Ok(())
     }
 
