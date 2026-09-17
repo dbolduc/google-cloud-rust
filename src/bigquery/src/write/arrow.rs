@@ -12,12 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod writer;
-mod writer_builder;
-
 pub use super::writer::ArrowFormat;
-pub use writer::Writer;
-pub use writer_builder::WriterBuilder;
 
 /// A writer for a [buffered stream] using Arrow as the data format.
 ///

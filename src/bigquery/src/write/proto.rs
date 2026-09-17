@@ -12,12 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod writer;
-mod writer_builder;
-
 pub(crate) use super::writer::ProtoFormat;
-pub(crate) use writer::Writer;
-pub(crate) use writer_builder::WriterBuilder;
 
 pub(crate) type BufferedWriter = super::BufferedWriter<ProtoFormat>;
 pub(crate) type CommittedWriter = super::CommittedWriter<ProtoFormat>;
