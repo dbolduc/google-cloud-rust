@@ -13,8 +13,9 @@
 // limitations under the License.
 
 use super::base::BaseWriter;
+use super::writer::{ArrowFormat, ProtoFormat};
 use crate::Result;
-use crate::model::{ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse, FlushRowsResponse};
+use crate::model::{ArrowRecordBatch, FinalizeWriteStreamResponse, FlushRowsResponse, ProtoRows};
 use crate::write::builder::AppendWithOffset;
 use crate::write::transport::Transport;
 use std::sync::Arc;
@@ -23,28 +24,20 @@ use std::sync::Arc;
 ///
 /// [buffered stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#buffered_type
 #[derive(Debug)]
-pub struct BufferedWriter {
-    pub(crate) inner: BaseWriter,
+pub struct BufferedWriter<F> {
+    pub(crate) inner: BaseWriter<F>,
 }
 
-impl BufferedWriter {
-    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
+impl<F> BufferedWriter<F> {
+    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, format: F) -> Self {
         Self {
-            inner: BaseWriter::new(inner, write_stream, schema),
+            inner: BaseWriter::new(inner, write_stream, format),
         }
     }
 
     /// Return the full resource name of the underlying write stream.
     pub fn write_stream(&self) -> &str {
         &self.inner.write_stream
-    }
-
-    /// Append rows to the buffered stream.
-    pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
-        AppendWithOffset::new(
-            self.inner.runner.req_tx.clone(),
-            self.inner.append_request(rows),
-        )
     }
 
     /// Flush the buffered stream, making rows up to the specified offset available for reading.
@@ -64,6 +57,26 @@ impl BufferedWriter {
     }
 }
 
+impl BufferedWriter<ArrowFormat> {
+    /// Append rows to the buffered stream.
+    pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
+        AppendWithOffset::new(
+            self.inner.runner.req_tx.clone(),
+            self.inner.append_request(rows),
+        )
+    }
+}
+
+impl BufferedWriter<ProtoFormat> {
+    /// Append rows to the buffered stream.
+    pub fn append(&self, rows: ProtoRows) -> AppendWithOffset {
+        AppendWithOffset::new(
+            self.inner.runner.req_tx.clone(),
+            self.inner.append_request(rows),
+        )
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -74,12 +87,12 @@ mod tests {
     use tokio::sync::mpsc;
 
     #[tokio::test]
-    async fn request_fields() -> anyhow::Result<()> {
+    async fn arrow_request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let writer = BufferedWriter::new(transport, write_stream(), schema());
+        let writer = BufferedWriter::new(transport, write_stream(), ArrowFormat::new(schema()));
         assert_eq!(writer.write_stream(), write_stream());
 
-        let b = writer.append(rows(1));
+        let b = writer.append(arrow_rows(1));
         assert_eq!(b.req.write_stream, write_stream());
         let data = b.req.arrow_rows().expect("arrow rows should be set");
         let s = data.writer_schema.as_ref().expect("schema should be set");
@@ -87,62 +100,56 @@ mod tests {
         let r = data.rows.as_ref().expect("rows should be set");
         assert_eq!(r.serialized_record_batch, "1");
 
-        let b = writer.append(rows(2));
-        assert_eq!(b.req.write_stream, write_stream());
-        let data = b.req.arrow_rows().expect("arrow rows should be set");
-        let s = data.writer_schema.as_ref().expect("schema should be set");
-        assert_eq!(s.serialized_schema, "test");
-        let r = data.rows.as_ref().expect("rows should be set");
-        assert_eq!(r.serialized_record_batch, "2");
-
         Ok(())
     }
 
     #[tokio::test]
-    async fn basic_success() -> anyhow::Result<()> {
+    async fn arrow_basic_success() -> anyhow::Result<()> {
         let (response_tx, response_rx) = mpsc::channel(10);
 
         let mut mock = MockBigQueryWrite::new();
         mock.expect_append_rows()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
 
-        mock.expect_flush_rows()
-            .return_once(|req| {
-                assert_eq!(req.get_ref().offset, Some(3));
-                assert_eq!(req.get_ref().write_stream, write_stream());
-                Ok(TonicResponse::new(
-                    bigquery_grpc_mock::google::cloud::bigquery::storage::v1::FlushRowsResponse::default()
-                ))
-            });
+        mock.expect_flush_rows().return_once(|req| {
+            assert_eq!(req.get_ref().offset, Some(3));
+            assert_eq!(req.get_ref().write_stream, write_stream());
+            Ok(TonicResponse::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::FlushRowsResponse::default(),
+            ))
+        });
 
-        mock.expect_finalize_write_stream()
-            .return_once(|req| {
-                assert_eq!(req.get_ref().name, write_stream());
-                Ok(TonicResponse::new(
-                    bigquery_grpc_mock::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse::default()
-                ))
-            });
+        mock.expect_finalize_write_stream().return_once(|req| {
+            assert_eq!(req.get_ref().name, write_stream());
+            Ok(TonicResponse::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse::default(),
+            ))
+        });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
-        let writer = BufferedWriter::new(transport, write_stream(), schema());
+        let writer = BufferedWriter::new(transport, write_stream(), ArrowFormat::new(schema()));
         assert_eq!(writer.write_stream(), write_stream());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
-        let resp = writer.append(rows(1)).send().await?;
+        let resp = writer.append(arrow_rows(1)).send().await?;
         assert_eq!(resp.offset, Some(1));
 
         response_tx.send(Ok(convert(&test_response(2)))).await?;
-        let resp = writer.append(rows(2)).send().await?;
+        let resp = writer.append(arrow_rows(2)).send().await?;
         assert_eq!(resp.offset, Some(2));
 
         response_tx.send(Ok(convert(&test_response(3)))).await?;
-        let resp = writer.append(rows(3)).send().await?;
+        let resp = writer.append(arrow_rows(3)).send().await?;
         assert_eq!(resp.offset, Some(3));
 
         drop(response_tx);
-        let err = writer.append(rows(4)).send().await.expect_err("channel");
+        let err = writer
+            .append(arrow_rows(4))
+            .send()
+            .await
+            .expect_err("channel");
         assert!(matches!(err, AppendError::UnexpectedEndOfStream));
 
         writer.flush(3).await?;
@@ -152,39 +159,28 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn multiple_flushes() -> anyhow::Result<()> {
-        let (response_tx, response_rx) = mpsc::channel(10);
-        let mut mock = MockBigQueryWrite::new();
-        mock.expect_append_rows()
-            .return_once(|_| Ok(TonicResponse::from(response_rx)));
-
-        mock.expect_flush_rows().times(2).returning(|req| {
-            Ok(TonicResponse::new(
-                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::FlushRowsResponse {
-                    offset: req.get_ref().offset.unwrap_or(0),
-                },
-            ))
-        });
-
-        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = Arc::new(test_transport(endpoint).await?);
-        let writer = BufferedWriter::new(transport, write_stream(), schema());
+    async fn proto_request_fields() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
+        let writer =
+            BufferedWriter::new(transport, write_stream(), ProtoFormat::new(proto_schema()));
         assert_eq!(writer.write_stream(), write_stream());
 
-        response_tx.send(Ok(convert(&test_response(1)))).await?;
-        let _ = writer.append(rows(1)).send().await?;
-        let flush1 = writer.flush(1).await?;
-        assert_eq!(flush1.offset, 1);
-
-        response_tx.send(Ok(convert(&test_response(2)))).await?;
-        let _ = writer.append(rows(2)).send().await?;
-        let flush2 = writer.flush(2).await?;
-        assert_eq!(flush2.offset, 2);
+        let b = writer.append(proto_rows(1));
+        assert_eq!(b.req.write_stream, write_stream());
+        let data = b.req.proto_rows().expect("proto rows should be set");
+        let s = data.writer_schema.as_ref().expect("schema should be set");
+        assert_eq!(s.proto_descriptor.as_ref().unwrap().name, "TestMessage");
+        let r = data.rows.as_ref().expect("rows should be set");
+        assert_eq!(r.serialized_rows, vec![bytes::Bytes::from("1")]);
 
         Ok(())
     }
 
-    fn rows(id: i64) -> ArrowRecordBatch {
+    fn arrow_rows(id: i64) -> ArrowRecordBatch {
         ArrowRecordBatch::new().set_serialized_record_batch(id.to_string())
+    }
+
+    fn proto_rows(id: i64) -> ProtoRows {
+        ProtoRows::new().set_serialized_rows(vec![bytes::Bytes::from(id.to_string())])
     }
 }

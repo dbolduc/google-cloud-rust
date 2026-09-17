@@ -100,7 +100,7 @@
 //! let writer = client
 //!     .open_default_stream("projects/my-project/datasets/my-dataset/tables/my-table")
 //!     .await?
-//!     .with_arrow_format(schema());
+//!     .build_arrow(schema());
 //!
 //! let f1 = writer.append(rows()).send();
 //! let f2 = writer.append(rows()).send();

@@ -12,15 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod base;
-mod buffered;
-mod committed;
-mod default;
-mod pending;
-mod writer;
-mod writer_builder;
+pub(crate) use super::writer::ProtoFormat;
 
-pub(crate) use buffered::BufferedWriter;
-pub(crate) use committed::CommittedWriter;
-pub(crate) use default::DefaultWriter;
-pub(crate) use pending::PendingWriter;
+pub(crate) type BufferedWriter = super::BufferedWriter<ProtoFormat>;
+pub(crate) type CommittedWriter = super::CommittedWriter<ProtoFormat>;
+pub(crate) type DefaultWriter = super::DefaultWriter<ProtoFormat>;
+pub(crate) type PendingWriter = super::PendingWriter<ProtoFormat>;

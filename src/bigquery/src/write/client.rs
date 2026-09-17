@@ -12,15 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::arrow::{
-    BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer, WriterBuilder,
-};
 use super::client_builder::ClientBuilder;
 use super::error::{AttachError, AttachResult};
 use super::generated::gapic_storage::client::BigQueryWrite;
 use super::pool::StreamPool;
 use super::transport::Transport;
 use super::validate::{validate_stream, validate_table};
+use super::{BufferedStream, CommittedStream, DefaultStream, PendingStream, Writer, WriterBuilder};
 use crate::model::WriteStream;
 use crate::model::write_stream::Type;
 use crate::{ClientBuilderResult as BuilderResult, Result};
@@ -54,7 +52,7 @@ impl Write {
     /// let writer = client
     ///     .open_default_stream("projects/my-project/datasets/my-dataset/tables/my-table")
     ///     .await?
-    ///     .with_arrow_format(schema());
+    ///     .build_arrow(schema());
     /// # Ok(()) }
     ///
     /// use google_cloud_bigquery::model::ArrowSchema;
@@ -67,7 +65,7 @@ impl Write {
     pub async fn open_default_stream<T: Into<String>>(
         &self,
         table: T,
-    ) -> Result<WriterBuilder<DefaultWriter>> {
+    ) -> Result<WriterBuilder<DefaultStream>> {
         let table = table.into();
         validate_table(table.as_str())?;
         let mut write_stream = table;
@@ -88,7 +86,7 @@ impl Write {
     /// let writer = client
     ///     .create_pending_stream("projects/my-project/datasets/my-dataset/tables/my-table")
     ///     .await?
-    ///     .with_arrow_format(schema());
+    ///     .build_arrow(schema());
     /// # Ok(()) }
     ///
     /// use google_cloud_bigquery::model::ArrowSchema;
@@ -101,7 +99,7 @@ impl Write {
     pub async fn create_pending_stream<T: Into<String>>(
         &self,
         table: T,
-    ) -> Result<WriterBuilder<PendingWriter>> {
+    ) -> Result<WriterBuilder<PendingStream>> {
         let table = table.into();
         validate_table(table.as_str())?;
 
@@ -129,7 +127,7 @@ impl Write {
     /// let writer = client
     ///     .create_committed_stream("projects/my-project/datasets/my-dataset/tables/my-table")
     ///     .await?
-    ///     .with_arrow_format(schema());
+    ///     .build_arrow(schema());
     /// # Ok(()) }
     ///
     /// use google_cloud_bigquery::model::ArrowSchema;
@@ -142,7 +140,7 @@ impl Write {
     pub async fn create_committed_stream<T: Into<String>>(
         &self,
         table: T,
-    ) -> Result<WriterBuilder<CommittedWriter>> {
+    ) -> Result<WriterBuilder<CommittedStream>> {
         let table = table.into();
         validate_table(table.as_str())?;
 
@@ -170,7 +168,7 @@ impl Write {
     /// let writer = client
     ///     .create_buffered_stream("projects/my-project/datasets/my-dataset/tables/my-table")
     ///     .await?
-    ///     .with_arrow_format(schema());
+    ///     .build_arrow(schema());
     /// # Ok(()) }
     ///
     /// use google_cloud_bigquery::model::ArrowSchema;
@@ -183,7 +181,7 @@ impl Write {
     pub async fn create_buffered_stream<T: Into<String>>(
         &self,
         table: T,
-    ) -> Result<WriterBuilder<BufferedWriter>> {
+    ) -> Result<WriterBuilder<BufferedStream>> {
         let table = table.into();
         validate_table(table.as_str())?;
 
@@ -206,13 +204,13 @@ impl Write {
     ///
     /// # Example
     /// ```
-    /// use google_cloud_bigquery::write::arrow::CommittedWriter;
+    /// use google_cloud_bigquery::write::CommittedStream;
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer: CommittedWriter = client
-    ///     .attach("projects/my-project/datasets/my_dataset/tables/my_table/streams/my_stream")
+    /// let writer = client
+    ///     .attach::<CommittedStream>("projects/my-project/datasets/my_dataset/tables/my_table/streams/my_stream")
     ///     .await?
-    ///     .with_arrow_format(schema());
+    ///     .build_arrow(schema());
     /// # Ok(())
     /// # }
     /// #
@@ -221,31 +219,30 @@ impl Write {
     /// #   todo!("Define your table's schema...")
     /// # }
     /// ```
-    pub async fn attach<U: Writer, S: Into<String>>(
+    pub async fn attach<Mode: Writer>(
         &self,
-        write_stream: S,
-    ) -> AttachResult<WriterBuilder<U>> {
-        let write_stream = write_stream.into();
-        validate_stream(write_stream.as_str())?;
+        write_stream: &str,
+    ) -> AttachResult<WriterBuilder<Mode>> {
+        validate_stream(write_stream)?;
 
         let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
         let stream = client
             .get_write_stream()
-            .set_name(&write_stream)
+            .set_name(write_stream)
             .send()
             .await?;
 
         let stream_type = stream.r#type.clone();
-        if stream_type != U::STREAM_TYPE {
+        if stream_type != Mode::STREAM_TYPE {
             return Err(AttachError::TypeMismatch {
-                expected: U::STREAM_TYPE,
+                expected: Mode::STREAM_TYPE,
                 actual: stream_type,
             });
         }
         Ok(WriterBuilder::new(
             self.inner.clone(),
             self.pool.clone(),
-            write_stream,
+            write_stream.to_string(),
         ))
     }
 }
@@ -273,7 +270,7 @@ mod tests {
         let writer = client
             .open_default_stream("projects/p/datasets/d/tables/t")
             .await?
-            .with_arrow_format(ArrowSchema::new());
+            .build_arrow(ArrowSchema::new());
         let err = writer
             .append(ArrowRecordBatch::new())
             .send()
@@ -298,7 +295,7 @@ mod tests {
         let writer = client
             .open_default_stream("projects/p/datasets/d/tables/t")
             .await?
-            .with_proto_format(ProtoSchema::new());
+            .build_proto(ProtoSchema::new());
         let err = writer
             .append(ProtoRows::new())
             .send()
@@ -319,14 +316,14 @@ mod tests {
             .open_default_stream("projects/p/datasets/d/tables/t")
             .await?
             .with_multiplexing(true)
-            .with_arrow_format(ArrowSchema::new());
+            .build_arrow(ArrowSchema::new());
         assert!(Arc::ptr_eq(&client.pool, &multiplexed_writer.inner.pool));
 
         let standalone_writer = client
             .open_default_stream("projects/p/datasets/d/tables/t")
             .await?
             .with_multiplexing(false)
-            .with_arrow_format(ArrowSchema::new());
+            .build_arrow(ArrowSchema::new());
         assert!(!Arc::ptr_eq(&client.pool, &standalone_writer.inner.pool));
 
         Ok(())

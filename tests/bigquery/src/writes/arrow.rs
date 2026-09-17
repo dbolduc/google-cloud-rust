@@ -20,7 +20,7 @@ use ::arrow::record_batch::RecordBatch;
 use anyhow::Result;
 use google_cloud_bigquery::client::Write;
 use google_cloud_bigquery::model::{ArrowRecordBatch, ArrowSchema};
-use google_cloud_bigquery::write::arrow::CommittedWriter;
+use google_cloud_bigquery::write::CommittedStream;
 use std::sync::Arc;
 
 pub async fn basic(
@@ -36,7 +36,7 @@ pub async fn basic(
     let writer = client
         .open_default_stream(table)
         .await?
-        .with_arrow_format(serializer.schema());
+        .build_arrow(serializer.schema());
 
     // Write the batches
     let batch1 = serializer.batch(vec!["Alice", "Bob"], vec![25, 28])?;
@@ -84,7 +84,7 @@ pub async fn pending(
     let writer = client
         .create_pending_stream(table)
         .await?
-        .with_arrow_format(serializer.schema());
+        .build_arrow(serializer.schema());
 
     // Write the batches
     let batch1 = serializer.batch(vec!["David", "Eve"], vec![42, 38])?;
@@ -152,7 +152,7 @@ pub async fn committed(
     let writer = client
         .create_committed_stream(table)
         .await?
-        .with_arrow_format(serializer.schema());
+        .build_arrow(serializer.schema());
 
     // Write the batches
     let batch1 = serializer.batch(vec!["Gerald", "Hannah"], vec![20, 22])?;
@@ -213,7 +213,7 @@ pub async fn buffered(
     let writer = client
         .create_buffered_stream(table)
         .await?
-        .with_arrow_format(serializer.schema());
+        .build_arrow(serializer.schema());
 
     // Write the batches
     let batch1 = serializer.batch(vec!["Kelly", "Liam"], vec![30, 32])?;
@@ -306,7 +306,7 @@ pub async fn attach(
         let writer = client
             .create_committed_stream(table)
             .await?
-            .with_arrow_format(schema.clone());
+            .build_arrow(schema.clone());
 
         // Write the first batch
         let batch1 = serializer.batch(vec!["Attached1", "Attached2"], vec![80, 81])?;
@@ -317,8 +317,10 @@ pub async fn attach(
     };
 
     // Attach to the previously created write stream from a new writer.
-    let attached_writer: CommittedWriter =
-        client.attach(write_stream).await?.with_arrow_format(schema);
+    let attached_writer = client
+        .attach::<CommittedStream>(&write_stream)
+        .await?
+        .build_arrow(schema);
 
     let batch2 = serializer.batch(vec!["Attached3"], vec![82])?;
     let _ = attached_writer.append(batch2).set_offset(2).send().await?;
@@ -368,12 +370,12 @@ pub async fn multiplex(
         .open_default_stream(table1)
         .await?
         .with_multiplexing(true)
-        .with_arrow_format(schema.clone());
+        .build_arrow(schema.clone());
     let writer2 = client
         .open_default_stream(table2)
         .await?
         .with_multiplexing(true)
-        .with_arrow_format(schema);
+        .build_arrow(schema);
 
     // Write the batches
     let batch1 = serializer.batch(vec!["Alice", "Bob"], vec![25, 28])?;

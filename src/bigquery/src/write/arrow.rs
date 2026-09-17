@@ -12,17 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod base;
-mod buffered;
-mod committed;
-mod default;
-mod pending;
-mod writer;
-mod writer_builder;
+pub use super::writer::ArrowFormat;
 
-pub use buffered::BufferedWriter;
-pub use committed::CommittedWriter;
-pub use default::DefaultWriter;
-pub use pending::PendingWriter;
-pub use writer::Writer;
-pub use writer_builder::WriterBuilder;
+/// A writer for a [buffered stream] using Arrow as the data format.
+///
+/// [buffered stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#buffered_type
+pub type BufferedWriter = super::BufferedWriter<ArrowFormat>;
+
+/// A writer for a [committed stream] using Arrow as the data format.
+///
+/// [committed stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#committed_type
+pub type CommittedWriter = super::CommittedWriter<ArrowFormat>;
+
+/// A writer for the [default stream] using Arrow as the data format.
+///
+/// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
+pub type DefaultWriter = super::DefaultWriter<ArrowFormat>;
+
+/// A writer for a [pending stream] using Arrow as the data format.
+///
+/// [pending stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#pending_type
+pub type PendingWriter = super::PendingWriter<ArrowFormat>;

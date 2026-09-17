@@ -179,7 +179,7 @@ async fn run_stream_task(ctx: StreamTaskContext) -> anyhow::Result<()> {
         client
             .open_default_stream(table_path)
             .await?
-            .with_arrow_format(arrow_schema),
+            .build_arrow(arrow_schema),
     );
 
     let mut seq = 0usize;
