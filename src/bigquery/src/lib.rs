@@ -152,6 +152,7 @@ pub mod builder {
     }
     /// Request and client builders for the [Write][crate::client::Write] client.
     pub mod write {
+        pub use crate::write::WriterBuilder;
         pub use crate::write::builder::{Append, AppendWithOffset};
         pub use crate::write::client_builder::ClientBuilder;
     }
