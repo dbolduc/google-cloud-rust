@@ -14,15 +14,14 @@
 
 /// Data format markers and traits for stream writers.
 pub mod format;
+/// Stream type markers and traits for stream writers.
+pub mod stream_type;
 
 pub use append_future::AppendFuture;
 pub use buffered::BufferedWriter;
 pub use committed::CommittedWriter;
 pub use default::DefaultWriter;
 pub use pending::PendingWriter;
-pub use writer::{
-    BufferedStream, CommittedStream, CreatedStreamType, DefaultStream, PendingStream, StreamType,
-};
 pub use writer_builder::WriterBuilder;
 
 pub(super) mod append_future;
@@ -36,7 +35,6 @@ pub(super) mod committed;
 pub(super) mod default;
 pub(super) mod error;
 pub(super) mod pending;
-pub(super) mod writer;
 pub(super) mod writer_builder;
 
 mod dispatcher;

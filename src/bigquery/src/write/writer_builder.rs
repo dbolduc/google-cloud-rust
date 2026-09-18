@@ -16,9 +16,9 @@ use super::error::{WriterBuilderError, WriterBuilderResult};
 use super::format::{Arrow, Proto};
 use super::generated::gapic_storage::client::BigQueryWrite;
 use super::pool::{StreamPool, StreamPoolOptions};
+use super::stream_type::{CreatedStreamType, DefaultStream, StreamType};
 use super::transport::Transport;
 use super::validate::{validate_stream, validate_table};
-use super::{CreatedStreamType, DefaultStream, StreamType};
 use crate::model::{ArrowSchema, ProtoSchema, WriteStream};
 use std::marker::PhantomData;
 use std::sync::Arc;
@@ -167,9 +167,9 @@ impl<S: StreamType> WriterBuilder<S> {
     ///
     /// Returns the writer corresponding to the stream type `S`:
     /// - [`DefaultStream`] -> [`DefaultWriter<Arrow>`][crate::write::DefaultWriter]
-    /// - [`PendingStream`][crate::write::PendingStream] -> [`PendingWriter<Arrow>`][crate::write::PendingWriter]
-    /// - [`CommittedStream`][crate::write::CommittedStream] -> [`CommittedWriter<Arrow>`][crate::write::CommittedWriter]
-    /// - [`BufferedStream`][crate::write::BufferedStream] -> [`BufferedWriter<Arrow>`][crate::write::BufferedWriter]
+    /// - [`PendingStream`][crate::write::stream_type::PendingStream] -> [`PendingWriter<Arrow>`][crate::write::PendingWriter]
+    /// - [`CommittedStream`][crate::write::stream_type::CommittedStream] -> [`CommittedWriter<Arrow>`][crate::write::CommittedWriter]
+    /// - [`BufferedStream`][crate::write::stream_type::BufferedStream] -> [`BufferedWriter<Arrow>`][crate::write::BufferedWriter]
     ///
     /// # Example
     /// ```
@@ -204,8 +204,8 @@ mod tests {
     use crate::client::Write;
     use crate::model::write_stream::Type;
     use crate::write::error::WriterBuilderError;
+    use crate::write::stream_type::{BufferedStream, CommittedStream, PendingStream};
     use crate::write::test::*;
-    use crate::write::{BufferedStream, CommittedStream, PendingStream};
     use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;

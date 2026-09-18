@@ -20,7 +20,7 @@ use ::arrow::record_batch::RecordBatch;
 use anyhow::Result;
 use google_cloud_bigquery::client::Write;
 use google_cloud_bigquery::model::{ArrowRecordBatch, ArrowSchema};
-use google_cloud_bigquery::write::{BufferedStream, CommittedStream, PendingStream};
+use google_cloud_bigquery::write::stream_type::{BufferedStream, CommittedStream, PendingStream};
 use std::sync::Arc;
 
 pub async fn basic(

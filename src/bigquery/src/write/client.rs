@@ -14,8 +14,9 @@
 
 use super::client_builder::ClientBuilder;
 use super::pool::StreamPool;
+use super::stream_type::{CreatedStreamType, DefaultStream};
 use super::transport::Transport;
-use super::{CreatedStreamType, DefaultStream, WriterBuilder};
+use super::writer_builder::WriterBuilder;
 use crate::ClientBuilderResult as BuilderResult;
 use std::sync::Arc;
 
@@ -61,13 +62,14 @@ impl Write {
         WriterBuilder::open_default(self.inner.clone(), self.pool.clone(), table.to_string())
     }
 
-    /// Creates a new [application-created stream] of type `S` ([`PendingStream`][crate::write::PendingStream],
-    /// [`CommittedStream`][crate::write::CommittedStream], or [`BufferedStream`][crate::write::BufferedStream])
-    /// for the given table.
+    /// Creates a new [application-created stream] of type `S`
+    /// ([`PendingStream`][crate::write::stream_type::PendingStream],
+    /// [`CommittedStream`][crate::write::stream_type::CommittedStream], or
+    /// [`BufferedStream`][crate::write::stream_type::BufferedStream]) for the given table.
     ///
     /// # Example
     /// ```
-    /// use google_cloud_bigquery::write::PendingStream;
+    /// use google_cloud_bigquery::write::stream_type::PendingStream;
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
     /// let writer = client
@@ -88,12 +90,13 @@ impl Write {
     }
 
     /// Attaches to an existing [application-created stream] of type `S`
-    /// ([`PendingStream`][crate::write::PendingStream], [`CommittedStream`][crate::write::CommittedStream],
-    /// or [`BufferedStream`][crate::write::BufferedStream]).
+    /// ([`PendingStream`][crate::write::stream_type::PendingStream],
+    /// [`CommittedStream`][crate::write::stream_type::CommittedStream], or
+    /// [`BufferedStream`][crate::write::stream_type::BufferedStream]).
     ///
     /// # Example
     /// ```
-    /// use google_cloud_bigquery::write::CommittedStream;
+    /// use google_cloud_bigquery::write::stream_type::CommittedStream;
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
     /// let writer = client

@@ -19,7 +19,7 @@ use arrow::ipc::writer::StreamWriter;
 use arrow_json::ReaderBuilder;
 use google_cloud_bigquery::client::Write;
 use google_cloud_bigquery::model::{ArrowRecordBatch, ArrowSchema};
-use google_cloud_bigquery::write::CommittedStream;
+use google_cloud_bigquery::write::stream_type::CommittedStream;
 use std::sync::Arc;
 use tokio::task::JoinSet;
 
