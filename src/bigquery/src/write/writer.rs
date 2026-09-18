@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::model::append_rows_request::{ArrowData, ProtoData};
+use crate::model::write_stream::Type;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema, ProtoRows, ProtoSchema};
 
 /// Format marker and schema configuration for [Arrow] streams.
@@ -41,14 +42,47 @@ impl ProtoFormat {
     }
 }
 
+/// Marker type representing a default write stream.
+#[derive(Clone, Copy, Debug)]
+pub struct DefaultStream;
+
+/// Marker type representing a pending write stream.
+#[derive(Clone, Copy, Debug)]
+pub struct PendingStream;
+
+/// Marker type representing a committed write stream.
+#[derive(Clone, Copy, Debug)]
+pub struct CommittedStream;
+
+/// Marker type representing a buffered write stream.
+#[derive(Clone, Copy, Debug)]
+pub struct BufferedStream;
+
 pub(crate) mod sealed {
-    use crate::model::AppendRowsRequest;
+    use super::*;
 
     /// Sealed trait for stream data formats.
     pub trait Format {
         fn append_request(&self, write_stream: &str, rows: Self::Row) -> AppendRowsRequest
         where
             Self: super::Format;
+    }
+
+    /// Sealed trait for stream modes that can be attached to an existing stream.
+    pub trait Attachable {
+        const STREAM_TYPE: Type;
+    }
+
+    impl Attachable for PendingStream {
+        const STREAM_TYPE: Type = Type::Pending;
+    }
+
+    impl Attachable for CommittedStream {
+        const STREAM_TYPE: Type = Type::Committed;
+    }
+
+    impl Attachable for BufferedStream {
+        const STREAM_TYPE: Type = Type::Buffered;
     }
 }
 
@@ -91,6 +125,15 @@ impl sealed::Format for ProtoFormat {
 impl Format for ProtoFormat {
     type Row = ProtoRows;
 }
+
+/// Marker trait for stream modes that can be attached to an existing write stream.
+///
+/// This trait is sealed and cannot be implemented for types outside this crate.
+pub trait Writer: sealed::Attachable {}
+
+impl Writer for PendingStream {}
+impl Writer for CommittedStream {}
+impl Writer for BufferedStream {}
 
 #[cfg(test)]
 mod tests {

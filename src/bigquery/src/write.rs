@@ -24,7 +24,11 @@ pub use buffered::BufferedWriter;
 pub use committed::CommittedWriter;
 pub use default::DefaultWriter;
 pub use pending::PendingWriter;
-pub use writer::{ArrowFormat, Format, ProtoFormat};
+pub use writer::{
+    ArrowFormat, BufferedStream, CommittedStream, DefaultStream, Format, PendingStream,
+    ProtoFormat, Writer,
+};
+pub use writer_builder::WriterBuilder;
 
 pub(super) mod append_future;
 pub(super) mod append_response;
@@ -38,6 +42,7 @@ pub(super) mod default;
 pub(super) mod error;
 pub(super) mod pending;
 pub(super) mod writer;
+pub(super) mod writer_builder;
 
 mod dispatcher;
 mod entry;
