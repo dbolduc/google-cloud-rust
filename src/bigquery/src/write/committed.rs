@@ -22,6 +22,21 @@ use std::sync::Arc;
 
 /// A writer for a [committed stream].
 ///
+/// # Example
+/// ```
+/// use google_cloud_bigquery::write::CommittedWriter;
+/// use google_cloud_bigquery::write::format::Arrow;
+/// # use google_cloud_bigquery::client::Write;
+/// # use google_cloud_bigquery::model::ArrowSchema;
+/// # async fn sample(client: Write, schema: ArrowSchema) -> anyhow::Result<()> {
+/// let writer: CommittedWriter<Arrow> = client
+///     .create_stream("projects/my-project/datasets/my-dataset/tables/my-table")
+///     .build_arrow(schema)
+///     .await?;
+/// # Ok(())
+/// # }
+/// ```
+///
 /// [committed stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#committed_type
 #[derive(Debug)]
 pub struct CommittedWriter<F> {

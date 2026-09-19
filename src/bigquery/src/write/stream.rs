@@ -12,178 +12,222 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::transport::Transport;
-use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};
-use crate::{Error, Result};
-use gaxi::grpc::tonic::Streaming;
-use google_cloud_gax::options::RequestOptions;
-use std::sync::Arc;
-use tokio::sync::mpsc::{Sender, channel};
+use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, WriterBuilder};
+use crate::model::write_stream::Type;
 
-#[derive(Debug)]
-pub(crate) struct Stream {
-    pub(crate) stream: Streaming<AppendRowsResponse>,
-    pub(crate) request_tx: Sender<AppendRowsRequest>,
-}
+/// Marker type representing a [default stream].
+///
+/// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#default_stream
+#[derive(Clone, Copy, Debug)]
+pub struct DefaultStream;
 
-impl Stream {
-    /// Open a stream for the `AppendRows` RPC.
-    pub(crate) async fn new(inner: Arc<Transport>, initial_req: AppendRowsRequest) -> Result<Self> {
-        // TODO(#5743) - retry on transient errors
-        open_stream(inner, initial_req).await
+/// Marker type representing a [pending type] write stream.
+///
+/// [pending type]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#pending_type
+#[derive(Clone, Copy, Debug)]
+pub struct PendingStream;
+
+/// Marker type representing a [committed type] write stream.
+///
+/// [committed type]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#committed_type
+#[derive(Clone, Copy, Debug)]
+pub struct CommittedStream;
+
+/// Marker type representing a [buffered type] write stream.
+///
+/// [buffered type]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#buffered_type
+#[derive(Clone, Copy, Debug)]
+pub struct BufferedStream;
+
+pub(crate) mod sealed {
+    use super::*;
+
+    /// Sealed trait for all write stream types.
+    pub trait Stream: Sized {
+        const STREAM_TYPE: Option<Type>;
+
+        fn construct<F>(
+            builder: WriterBuilder<Self>,
+            write_stream: String,
+            format: F,
+        ) -> Self::Writer<F>
+        where
+            Self: super::Stream;
     }
+
+    impl Stream for DefaultStream {
+        const STREAM_TYPE: Option<Type> = None;
+
+        fn construct<F>(
+            builder: WriterBuilder<Self>,
+            write_stream: String,
+            format: F,
+        ) -> DefaultWriter<F> {
+            DefaultWriter::new(builder.stream_pool(), write_stream, format)
+        }
+    }
+
+    impl Stream for PendingStream {
+        const STREAM_TYPE: Option<Type> = Some(Type::Pending);
+
+        fn construct<F>(
+            builder: WriterBuilder<Self>,
+            write_stream: String,
+            format: F,
+        ) -> PendingWriter<F> {
+            PendingWriter::new(builder.inner, write_stream, format)
+        }
+    }
+
+    impl Stream for CommittedStream {
+        const STREAM_TYPE: Option<Type> = Some(Type::Committed);
+
+        fn construct<F>(
+            builder: WriterBuilder<Self>,
+            write_stream: String,
+            format: F,
+        ) -> CommittedWriter<F> {
+            CommittedWriter::new(builder.inner, write_stream, format)
+        }
+    }
+
+    impl Stream for BufferedStream {
+        const STREAM_TYPE: Option<Type> = Some(Type::Buffered);
+
+        fn construct<F>(
+            builder: WriterBuilder<Self>,
+            write_stream: String,
+            format: F,
+        ) -> BufferedWriter<F> {
+            BufferedWriter::new(builder.inner, write_stream, format)
+        }
+    }
+
+    /// Sealed trait for application-created write stream types.
+    pub trait ApplicationCreatedStream {}
+
+    impl ApplicationCreatedStream for PendingStream {}
+    impl ApplicationCreatedStream for CommittedStream {}
+    impl ApplicationCreatedStream for BufferedStream {}
+
+    /// Sealed trait for mapping a writer back to its stream type.
+    pub trait HasStream {}
+
+    impl<F> HasStream for DefaultWriter<F> {}
+    impl<F> HasStream for PendingWriter<F> {}
+    impl<F> HasStream for CommittedWriter<F> {}
+    impl<F> HasStream for BufferedWriter<F> {}
 }
 
-/// One attempt to open a stream for the `AppendRows` RPC.
-async fn open_stream(inner: Arc<Transport>, initial_req: AppendRowsRequest) -> Result<Stream> {
-    // TODO(#6122) - configure flow control settings
-    let (request_tx, request_rx) = channel(100);
-    let request_params = format!("write_stream={}", initial_req.write_stream);
+/// Trait mapping a write stream marker ([`DefaultStream`], [`PendingStream`], [`CommittedStream`],
+/// [`BufferedStream`]) to its corresponding writer type.
+///
+/// This trait is sealed and cannot be implemented for types outside this crate.
+pub trait Stream: sealed::Stream {
+    /// The writer type constructed for this stream type and data format `F`.
+    type Writer<F>;
+}
 
-    request_tx.send(initial_req).await.map_err(Error::io)?;
+impl Stream for DefaultStream {
+    type Writer<F> = DefaultWriter<F>;
+}
 
-    let stream = inner
-        .append_rows(&request_params, request_rx, RequestOptions::default())
-        .await?
-        .into_inner();
+impl Stream for PendingStream {
+    type Writer<F> = PendingWriter<F>;
+}
 
-    Ok(Stream { stream, request_tx })
+impl Stream for CommittedStream {
+    type Writer<F> = CommittedWriter<F>;
+}
+
+impl Stream for BufferedStream {
+    type Writer<F> = BufferedWriter<F>;
+}
+
+/// Marker trait for [application-created stream] types ([`PendingStream`], [`CommittedStream`],
+/// [`BufferedStream`]) that can be created via [`Write::create_stream`][crate::client::Write::create_stream]
+/// or attached to via [`Write::attach_to_stream`][crate::client::Write::attach_to_stream].
+///
+/// This trait is sealed and cannot be implemented for types outside this crate.
+///
+/// [`DefaultStream`] does not implement this trait:
+/// ```compile_fail
+/// use google_cloud_bigquery::write::stream::{ApplicationCreatedStream, DefaultStream};
+/// fn assert_created<S: ApplicationCreatedStream>() {}
+/// assert_created::<DefaultStream>();
+/// ```
+///
+/// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
+#[diagnostic::on_unimplemented(
+    message = "`{Self}` is not an application-created stream type",
+    label = "expected `PendingStream`, `CommittedStream`, or `BufferedStream`",
+    note = "default streams are managed by BigQuery and cannot be created via `create_stream`; use `Write::open_default_stream` instead"
+)]
+pub trait ApplicationCreatedStream: Stream + sealed::ApplicationCreatedStream {}
+
+impl ApplicationCreatedStream for PendingStream {}
+impl ApplicationCreatedStream for CommittedStream {}
+impl ApplicationCreatedStream for BufferedStream {}
+
+/// Trait mapping a writer type ([`DefaultWriter`], [`PendingWriter`], [`CommittedWriter`],
+/// [`BufferedWriter`]) back to its corresponding [`Stream`].
+///
+/// This trait is sealed and cannot be implemented for types outside this crate.
+#[diagnostic::on_unimplemented(
+    message = "cannot infer the writer or stream type",
+    label = "type annotations needed for this writer",
+    note = "annotate the variable type (e.g. `let writer: PendingWriter<Arrow> = ...`) or specify a stream type via turbofish (e.g. `client.create_stream::<PendingStream>(...)`)"
+)]
+pub trait HasStream: sealed::HasStream {
+    /// The stream marker corresponding to this writer.
+    type Stream: Stream;
+}
+
+impl<F> HasStream for DefaultWriter<F> {
+    type Stream = DefaultStream;
+}
+
+impl<F> HasStream for PendingWriter<F> {
+    type Stream = PendingStream;
+}
+
+impl<F> HasStream for CommittedWriter<F> {
+    type Stream = CommittedStream;
+}
+
+impl<F> HasStream for BufferedWriter<F> {
+    type Stream = BufferedStream;
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
-        AppendResult, Response,
-    };
-    use crate::write::test::*;
-    use bigquery_grpc_mock::{MockBigQueryWrite, start};
-    use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
-    use google_cloud_gax::error::rpc::Code;
+    use crate::write::format::{Arrow, Proto};
+    use std::fmt::Debug;
 
-    #[tokio::test]
-    async fn routing_header() -> anyhow::Result<()> {
-        let mut mock = MockBigQueryWrite::new();
-        mock.expect_append_rows().return_once(|request| {
-            let metadata = request.metadata();
-            assert_eq!(
-                metadata
-                    .get("x-goog-request-params")
-                    .expect("routing header missing"),
-                "write_stream=projects/p/datasets/d/tables/t/streams/s"
-            );
-            Err(TonicStatus::failed_precondition("fail"))
-        });
-        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = Arc::new(test_transport(endpoint).await?);
-        let initial = AppendRowsRequest {
-            write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
-            ..Default::default()
-        };
-        let _ = Stream::new(transport, initial).await;
-
-        Ok(())
+    fn assert_stream<S, F, W>()
+    where
+        S: Stream<Writer<F> = W> + Debug + Send + Sync + 'static,
+        W: HasStream<Stream = S> + Debug + Send + Sync + 'static,
+    {
     }
 
-    #[tokio::test]
-    async fn basic_success() -> anyhow::Result<()> {
-        let (response_tx, response_rx) = channel(1);
-        let expected = AppendRowsResponse {
-            response: Some(Response::AppendResult(AppendResult { offset: Some(1024) })),
-            write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
-            ..Default::default()
-        };
-        response_tx.send(Ok(convert(&expected))).await?;
+    fn assert_application_created_stream<S: ApplicationCreatedStream>() {}
 
-        // We use this channel to surface writes (requests) from outside our
-        // mock expectation.
-        let (recover_writes_tx, mut recover_writes_rx) = channel(1);
+    #[test]
+    fn stream_and_writer_mappings() {
+        assert_stream::<DefaultStream, Arrow, DefaultWriter<Arrow>>();
+        assert_stream::<PendingStream, Arrow, PendingWriter<Arrow>>();
+        assert_stream::<CommittedStream, Arrow, CommittedWriter<Arrow>>();
+        assert_stream::<BufferedStream, Arrow, BufferedWriter<Arrow>>();
 
-        let mut mock = MockBigQueryWrite::new();
-        mock.expect_append_rows().return_once(|request| {
-            tokio::spawn(async move {
-                let mut request_rx = request.into_inner();
-                while let Some(request) = request_rx.recv().await {
-                    recover_writes_tx
-                        .send(request)
-                        .await
-                        .expect("forwarding writes always succeeds");
-                }
-            });
-            Ok(TonicResponse::from(response_rx))
-        });
-        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = Arc::new(test_transport(endpoint).await?);
-        let initial = AppendRowsRequest {
-            write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
-            offset: Some(0),
-            ..Default::default()
-        };
-        let Stream {
-            mut stream,
-            request_tx,
-        } = Stream::new(transport, initial).await?;
+        assert_stream::<DefaultStream, Proto, DefaultWriter<Proto>>();
+        assert_stream::<PendingStream, Proto, PendingWriter<Proto>>();
+        assert_stream::<CommittedStream, Proto, CommittedWriter<Proto>>();
+        assert_stream::<BufferedStream, Proto, BufferedWriter<Proto>>();
 
-        // Send a write.
-        let write = AppendRowsRequest {
-            write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
-            offset: Some(1),
-            ..Default::default()
-        };
-        request_tx.send(write).await?;
-
-        // Read from the stream.
-        assert_eq!(stream.message().await?, Some(expected));
-
-        // Close the stream.
-        drop(response_tx);
-        assert_eq!(stream.message().await?, None);
-
-        // Verify the initial request.
-        let initial_req = recover_writes_rx
-            .recv()
-            .await
-            .expect("should receive an initial request")?;
-        assert_eq!(
-            initial_req.write_stream,
-            "projects/p/datasets/d/tables/t/streams/s"
-        );
-        assert_eq!(initial_req.offset, Some(0));
-
-        // Verify the write.
-        let write_req = recover_writes_rx
-            .recv()
-            .await
-            .expect("should receive a write")?;
-        assert_eq!(
-            write_req.write_stream,
-            "projects/p/datasets/d/tables/t/streams/s"
-        );
-        assert_eq!(write_req.offset, Some(1));
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn permanent_error_opening_stream() -> anyhow::Result<()> {
-        let mut mock = MockBigQueryWrite::new();
-        mock.expect_append_rows()
-            .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
-        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = Arc::new(test_transport(endpoint).await?);
-        let initial = AppendRowsRequest {
-            write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
-            ..Default::default()
-        };
-        let err = Stream::new(transport, initial)
-            .await
-            .expect_err("open_stream should fail");
-        let Some(status) = err.status() else {
-            anyhow::bail!("expected a status, got: {err:?}");
-        };
-        assert_eq!(status.code, Code::FailedPrecondition);
-        assert_eq!(status.message, "fail");
-
-        Ok(())
+        assert_application_created_stream::<PendingStream>();
+        assert_application_created_stream::<CommittedStream>();
+        assert_application_created_stream::<BufferedStream>();
     }
 }

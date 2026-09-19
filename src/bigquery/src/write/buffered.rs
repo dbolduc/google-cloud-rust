@@ -22,6 +22,21 @@ use std::sync::Arc;
 
 /// A writer for a [buffered stream].
 ///
+/// # Example
+/// ```
+/// use google_cloud_bigquery::write::BufferedWriter;
+/// use google_cloud_bigquery::write::format::Arrow;
+/// # use google_cloud_bigquery::client::Write;
+/// # use google_cloud_bigquery::model::ArrowSchema;
+/// # async fn sample(client: Write, schema: ArrowSchema) -> anyhow::Result<()> {
+/// let writer: BufferedWriter<Arrow> = client
+///     .create_stream("projects/my-project/datasets/my-dataset/tables/my-table")
+///     .build_arrow(schema)
+///     .await?;
+/// # Ok(())
+/// # }
+/// ```
+///
 /// [buffered stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#buffered_type
 #[derive(Debug)]
 pub struct BufferedWriter<F> {

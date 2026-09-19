@@ -20,7 +20,8 @@ use ::arrow::record_batch::RecordBatch;
 use anyhow::Result;
 use google_cloud_bigquery::client::Write;
 use google_cloud_bigquery::model::{ArrowRecordBatch, ArrowSchema};
-use google_cloud_bigquery::write::stream_type::{BufferedStream, CommittedStream, PendingStream};
+use google_cloud_bigquery::write::format::Arrow;
+use google_cloud_bigquery::write::{BufferedWriter, CommittedWriter, PendingWriter};
 use std::sync::Arc;
 
 pub async fn basic(
@@ -81,8 +82,8 @@ pub async fn pending(
     let mut serializer = ArrowSerializer::new("pending")?;
 
     // Create a writer for a pending stream
-    let writer = client
-        .create_stream::<PendingStream>(&table)
+    let writer: PendingWriter<Arrow> = client
+        .create_stream(&table)
         .build_arrow(serializer.schema())
         .await?;
 
@@ -149,8 +150,8 @@ pub async fn committed(
     let mut serializer = ArrowSerializer::new("committed")?;
 
     // Create a writer for a committed stream
-    let writer = client
-        .create_stream::<CommittedStream>(&table)
+    let writer: CommittedWriter<Arrow> = client
+        .create_stream(&table)
         .build_arrow(serializer.schema())
         .await?;
 
@@ -210,8 +211,8 @@ pub async fn buffered(
     let mut serializer = ArrowSerializer::new("buffered")?;
 
     // Create a writer for a buffered stream
-    let writer = client
-        .create_stream::<BufferedStream>(&table)
+    let writer: BufferedWriter<Arrow> = client
+        .create_stream(&table)
         .build_arrow(serializer.schema())
         .await?;
 
@@ -303,8 +304,8 @@ pub async fn attach(
 
     let write_stream = {
         // Create a writer for a committed stream
-        let writer = client
-            .create_stream::<CommittedStream>(&table)
+        let writer: CommittedWriter<Arrow> = client
+            .create_stream(&table)
             .build_arrow(schema.clone())
             .await?;
 
@@ -317,8 +318,8 @@ pub async fn attach(
     };
 
     // Attach to the previously created write stream from a new writer.
-    let attached_writer = client
-        .attach_to_stream::<CommittedStream>(&write_stream)
+    let attached_writer: CommittedWriter<Arrow> = client
+        .attach_to_stream(&write_stream)
         .build_arrow(schema)
         .await?;
 

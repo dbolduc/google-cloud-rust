@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::error::{AppendError, AppendResult};
-use super::stream::Stream;
+use super::grpc_stream::Stream;
 use super::transport::Transport;
 use crate::Result;
 use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};

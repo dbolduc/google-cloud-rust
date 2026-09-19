@@ -14,7 +14,7 @@
 
 use super::client_builder::ClientBuilder;
 use super::pool::StreamPool;
-use super::stream_type::{CreatedStreamType, DefaultStream};
+use super::stream::{ApplicationCreatedStream, DefaultStream};
 use super::transport::Transport;
 use super::writer_builder::WriterBuilder;
 use crate::ClientBuilderResult as BuilderResult;
@@ -63,17 +63,24 @@ impl Write {
     }
 
     /// Creates a new [application-created stream] of type `S`
-    /// ([`PendingStream`][crate::write::stream_type::PendingStream],
-    /// [`CommittedStream`][crate::write::stream_type::CommittedStream], or
-    /// [`BufferedStream`][crate::write::stream_type::BufferedStream]) for the given table.
+    /// ([`PendingStream`][crate::write::stream::PendingStream],
+    /// [`CommittedStream`][crate::write::stream::CommittedStream], or
+    /// [`BufferedStream`][crate::write::stream::BufferedStream]) for the given table.
+    ///
+    /// The stream type `S` can be inferred from the variable's writer type annotation
+    /// ([`PendingWriter`][crate::write::PendingWriter],
+    /// [`CommittedWriter`][crate::write::CommittedWriter], or
+    /// [`BufferedWriter`][crate::write::BufferedWriter]) or specified explicitly via turbofish
+    /// (`create_stream::<PendingStream>(...)`).
     ///
     /// # Example
     /// ```
-    /// use google_cloud_bigquery::write::stream_type::PendingStream;
+    /// use google_cloud_bigquery::write::PendingWriter;
+    /// use google_cloud_bigquery::write::format::Arrow;
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer = client
-    ///     .create_stream::<PendingStream>("projects/my-project/datasets/my-dataset/tables/my-table")
+    /// let writer: PendingWriter<Arrow> = client
+    ///     .create_stream("projects/my-project/datasets/my-dataset/tables/my-table")
     ///     .build_arrow(schema())
     ///     .await?;
     /// # Ok(()) }
@@ -85,22 +92,29 @@ impl Write {
     /// ```
     ///
     /// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
-    pub fn create_stream<S: CreatedStreamType>(&self, table: &str) -> WriterBuilder<S> {
+    pub fn create_stream<S: ApplicationCreatedStream>(&self, table: &str) -> WriterBuilder<S> {
         WriterBuilder::create(self.inner.clone(), self.pool.clone(), table.to_string())
     }
 
     /// Attaches to an existing [application-created stream] of type `S`
-    /// ([`PendingStream`][crate::write::stream_type::PendingStream],
-    /// [`CommittedStream`][crate::write::stream_type::CommittedStream], or
-    /// [`BufferedStream`][crate::write::stream_type::BufferedStream]).
+    /// ([`PendingStream`][crate::write::stream::PendingStream],
+    /// [`CommittedStream`][crate::write::stream::CommittedStream], or
+    /// [`BufferedStream`][crate::write::stream::BufferedStream]).
+    ///
+    /// The stream type `S` can be inferred from the variable's writer type annotation
+    /// ([`PendingWriter`][crate::write::PendingWriter],
+    /// [`CommittedWriter`][crate::write::CommittedWriter], or
+    /// [`BufferedWriter`][crate::write::BufferedWriter]) or specified explicitly via turbofish
+    /// (`attach_to_stream::<CommittedStream>(...)`).
     ///
     /// # Example
     /// ```
-    /// use google_cloud_bigquery::write::stream_type::CommittedStream;
+    /// use google_cloud_bigquery::write::CommittedWriter;
+    /// use google_cloud_bigquery::write::format::Arrow;
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer = client
-    ///     .attach_to_stream::<CommittedStream>("projects/my-project/datasets/my_dataset/tables/my_table/streams/my_stream")
+    /// let writer: CommittedWriter<Arrow> = client
+    ///     .attach_to_stream("projects/my-project/datasets/my_dataset/tables/my_table/streams/my_stream")
     ///     .build_arrow(schema())
     ///     .await?;
     /// # Ok(())
@@ -113,7 +127,10 @@ impl Write {
     /// ```
     ///
     /// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
-    pub fn attach_to_stream<S: CreatedStreamType>(&self, write_stream: &str) -> WriterBuilder<S> {
+    pub fn attach_to_stream<S: ApplicationCreatedStream>(
+        &self,
+        write_stream: &str,
+    ) -> WriterBuilder<S> {
         WriterBuilder::attach(
             self.inner.clone(),
             self.pool.clone(),

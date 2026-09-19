@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Data format markers and traits for stream writers.
+/// Data format configuration and traits for stream writers.
 pub mod format;
 /// Stream type markers and traits for stream writers.
-pub mod stream_type;
+pub mod stream;
 
 pub use append_future::AppendFuture;
 pub use buffered::BufferedWriter;
@@ -39,12 +39,12 @@ pub(super) mod writer_builder;
 
 mod dispatcher;
 mod entry;
+mod grpc_stream;
 mod pool;
 mod proto_schema;
 #[allow(dead_code)]
 mod retry_policy;
 mod runner;
-mod stream;
 mod transport;
 mod validate;
 

@@ -15,7 +15,7 @@
 use crate::model::append_rows_request::{ArrowData, ProtoData};
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema, ProtoRows, ProtoSchema};
 
-/// Format marker and schema configuration for [Arrow] streams.
+/// Schema configuration and data format for [Arrow] streams.
 ///
 /// [Arrow]: https://arrow.apache.org/
 #[derive(Clone, Debug, PartialEq)]
