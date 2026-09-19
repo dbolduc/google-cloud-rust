@@ -198,37 +198,28 @@ mod tests {
     use crate::write::format::{Arrow, Proto};
     use static_assertions::{assert_impl_all, assert_not_impl_any};
 
+    macro_rules! assert_format_mappings {
+        ($F:ty) => {
+            assert_impl_all!(DefaultStream: Stream<Writer<$F> = DefaultWriter<$F>>);
+            assert_impl_all!(PendingStream: Stream<Writer<$F> = PendingWriter<$F>>);
+            assert_impl_all!(CommittedStream: Stream<Writer<$F> = CommittedWriter<$F>>);
+            assert_impl_all!(BufferedStream: Stream<Writer<$F> = BufferedWriter<$F>>);
+
+            assert_impl_all!(DefaultWriter<$F>: HasStream<Stream = DefaultStream>);
+            assert_impl_all!(PendingWriter<$F>: HasStream<Stream = PendingStream>);
+            assert_impl_all!(CommittedWriter<$F>: HasStream<Stream = CommittedStream>);
+            assert_impl_all!(BufferedWriter<$F>: HasStream<Stream = BufferedStream>);
+        };
+    }
+
     #[test]
     fn stream_and_writer_mappings() {
-        assert_impl_all!(
-            DefaultStream: Stream<Writer<Arrow> = DefaultWriter<Arrow>>,
-            Stream<Writer<Proto> = DefaultWriter<Proto>>,
-        );
-        assert_impl_all!(
-            PendingStream: Stream<Writer<Arrow> = PendingWriter<Arrow>>,
-            Stream<Writer<Proto> = PendingWriter<Proto>>,
-            ApplicationCreatedStream,
-        );
-        assert_impl_all!(
-            CommittedStream: Stream<Writer<Arrow> = CommittedWriter<Arrow>>,
-            Stream<Writer<Proto> = CommittedWriter<Proto>>,
-            ApplicationCreatedStream,
-        );
-        assert_impl_all!(
-            BufferedStream: Stream<Writer<Arrow> = BufferedWriter<Arrow>>,
-            Stream<Writer<Proto> = BufferedWriter<Proto>>,
-            ApplicationCreatedStream,
-        );
+        assert_format_mappings!(Arrow);
+        assert_format_mappings!(Proto);
+
+        assert_impl_all!(PendingStream: ApplicationCreatedStream);
+        assert_impl_all!(CommittedStream: ApplicationCreatedStream);
+        assert_impl_all!(BufferedStream: ApplicationCreatedStream);
         assert_not_impl_any!(DefaultStream: ApplicationCreatedStream);
-
-        assert_impl_all!(DefaultWriter<Arrow>: HasStream<Stream = DefaultStream>);
-        assert_impl_all!(PendingWriter<Arrow>: HasStream<Stream = PendingStream>);
-        assert_impl_all!(CommittedWriter<Arrow>: HasStream<Stream = CommittedStream>);
-        assert_impl_all!(BufferedWriter<Arrow>: HasStream<Stream = BufferedStream>);
-
-        assert_impl_all!(DefaultWriter<Proto>: HasStream<Stream = DefaultStream>);
-        assert_impl_all!(PendingWriter<Proto>: HasStream<Stream = PendingStream>);
-        assert_impl_all!(CommittedWriter<Proto>: HasStream<Stream = CommittedStream>);
-        assert_impl_all!(BufferedWriter<Proto>: HasStream<Stream = BufferedStream>);
     }
 }
