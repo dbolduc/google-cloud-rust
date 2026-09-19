@@ -44,8 +44,6 @@ pub(crate) mod sealed {
 
     /// Sealed trait for all write stream types.
     pub trait Stream: Sized {
-        const STREAM_TYPE: Option<Type>;
-
         fn construct<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
@@ -56,8 +54,6 @@ pub(crate) mod sealed {
     }
 
     impl Stream for DefaultStream {
-        const STREAM_TYPE: Option<Type> = None;
-
         fn construct<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
@@ -68,8 +64,6 @@ pub(crate) mod sealed {
     }
 
     impl Stream for PendingStream {
-        const STREAM_TYPE: Option<Type> = Some(Type::Pending);
-
         fn construct<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
@@ -80,8 +74,6 @@ pub(crate) mod sealed {
     }
 
     impl Stream for CommittedStream {
-        const STREAM_TYPE: Option<Type> = Some(Type::Committed);
-
         fn construct<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
@@ -92,8 +84,6 @@ pub(crate) mod sealed {
     }
 
     impl Stream for BufferedStream {
-        const STREAM_TYPE: Option<Type> = Some(Type::Buffered);
-
         fn construct<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
@@ -104,11 +94,21 @@ pub(crate) mod sealed {
     }
 
     /// Sealed trait for application-created write stream types.
-    pub trait ApplicationCreatedStream {}
+    pub trait ApplicationCreatedStream {
+        const STREAM_TYPE: Type;
+    }
 
-    impl ApplicationCreatedStream for PendingStream {}
-    impl ApplicationCreatedStream for CommittedStream {}
-    impl ApplicationCreatedStream for BufferedStream {}
+    impl ApplicationCreatedStream for PendingStream {
+        const STREAM_TYPE: Type = Type::Pending;
+    }
+
+    impl ApplicationCreatedStream for CommittedStream {
+        const STREAM_TYPE: Type = Type::Committed;
+    }
+
+    impl ApplicationCreatedStream for BufferedStream {
+        const STREAM_TYPE: Type = Type::Buffered;
+    }
 
     /// Sealed trait for mapping a writer back to its stream type.
     pub trait HasStream {}

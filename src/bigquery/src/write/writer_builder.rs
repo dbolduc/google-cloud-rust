@@ -19,15 +19,24 @@ use super::pool::{StreamPool, StreamPoolOptions};
 use super::stream::{ApplicationCreatedStream, DefaultStream, HasStream, Stream};
 use super::transport::Transport;
 use super::validate::{validate_stream, validate_table};
+use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, ProtoSchema, WriteStream};
 use std::marker::PhantomData;
 use std::sync::Arc;
 
 #[derive(Clone, Debug)]
 enum StreamAction {
-    OpenDefault { table: String },
-    Create { table: String },
-    Attach { write_stream: String },
+    OpenDefault {
+        table: String,
+    },
+    Create {
+        table: String,
+        stream_type: Type,
+    },
+    Attach {
+        write_stream: String,
+        expected: Type,
+    },
 }
 
 /// A builder for configuring and constructing a stream writer.
@@ -89,7 +98,10 @@ impl<S: ApplicationCreatedStream> WriterBuilder<S> {
         Self {
             inner,
             pool,
-            action: StreamAction::Create { table },
+            action: StreamAction::Create {
+                table,
+                stream_type: S::STREAM_TYPE,
+            },
             multiplexing: false,
             _stream_type: PhantomData,
         }
@@ -103,7 +115,10 @@ impl<S: ApplicationCreatedStream> WriterBuilder<S> {
         Self {
             inner,
             pool,
-            action: StreamAction::Attach { write_stream },
+            action: StreamAction::Attach {
+                write_stream,
+                expected: S::STREAM_TYPE,
+            },
             multiplexing: false,
             _stream_type: PhantomData,
         }
@@ -129,23 +144,22 @@ impl<S: Stream> WriterBuilder<S> {
                 validate_table(table)?;
                 format!("{table}/streams/_default")
             }
-            StreamAction::Create { table } => {
+            StreamAction::Create { table, stream_type } => {
                 validate_table(table)?;
-                let stream_type =
-                    S::STREAM_TYPE.expect("Create only used with ApplicationCreatedStream modes");
                 let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
                 let ws = client
                     .create_write_stream()
                     .set_parent(table)
-                    .set_write_stream(WriteStream::new().set_type(stream_type))
+                    .set_write_stream(WriteStream::new().set_type(stream_type.clone()))
                     .send()
                     .await?;
                 ws.name
             }
-            StreamAction::Attach { write_stream } => {
+            StreamAction::Attach {
+                write_stream,
+                expected,
+            } => {
                 validate_stream(write_stream)?;
-                let expected =
-                    S::STREAM_TYPE.expect("Attach only used with ApplicationCreatedStream modes");
                 let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
                 let stream = client
                     .get_write_stream()
@@ -153,8 +167,11 @@ impl<S: Stream> WriterBuilder<S> {
                     .send()
                     .await?;
                 let actual = stream.r#type.clone();
-                if actual != expected {
-                    return Err(WriterBuilderError::TypeMismatch { expected, actual });
+                if &actual != expected {
+                    return Err(WriterBuilderError::TypeMismatch {
+                        expected: expected.clone(),
+                        actual,
+                    });
                 }
                 stream.name
             }
