@@ -21,6 +21,27 @@ use google_cloud_test_utils::runtime_config::project_id;
 use google_cloud_type::model::Decimal;
 use rust_decimal::Decimal as RustDecimal;
 
+pub mod issue_1_1_until_done_and_fetch_page_panics;
+pub mod issue_1_2_unbounded_default_retry_policy;
+pub mod issue_1_3_row_iterator_infinite_loop;
+pub mod issue_1_4_derive_macro_variable_shadowing;
+pub mod issue_1_5_derive_macro_generics;
+pub mod issue_2_1_page_size_zero_data_loss;
+pub mod issue_2_2_dry_run_and_job_metadata_loss;
+pub mod issue_2_3_complete_query_metadata_loss;
+pub mod issue_2_4_timestamp_and_datetime_formats;
+pub mod issue_2_5_json_column_deserialization;
+pub mod issue_2_6_anonymous_and_duplicate_struct_fields;
+pub mod issue_2_7_invalid_bigquery_attribute_ignored;
+pub mod issue_3_1_poll_query_results_backoff_and_timeout;
+pub mod issue_3_2_attach_job_ignores_error_result;
+pub mod issue_3_3_fetch_page_ignores_errors;
+pub mod issue_3_4_retry_context_off_by_one;
+pub mod issue_4_1_raw_identifier_field_names;
+pub mod issue_4_2_derive_from_sql_null_error_variant;
+pub mod issue_4_3_case_sensitive_and_duplicate_columns;
+pub mod issue_4_4_broken_rustdoc_example_sql;
+
 pub async fn query_client() -> Result<()> {
     let project_id = project_id()?;
     let bq = BigQuery::builder().build().await?;

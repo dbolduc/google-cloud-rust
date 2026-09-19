@@ -7192,8 +7192,10 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-type",
  "google-cloud-wkt",
+ "httptest",
  "rand 0.10.2",
  "rust_decimal",
+ "serde_json",
  "tokio",
 ]
 

@@ -14,7 +14,7 @@
 
 mod dataset;
 mod job;
-mod query;
+pub mod query;
 mod reads;
 mod writes;
 
