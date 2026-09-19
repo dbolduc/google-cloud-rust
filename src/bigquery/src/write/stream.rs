@@ -150,13 +150,6 @@ impl Stream for BufferedStream {
 ///
 /// This trait is sealed and cannot be implemented for types outside this crate.
 ///
-/// [`DefaultStream`] does not implement this trait:
-/// ```compile_fail
-/// use google_cloud_bigquery::write::stream::{ApplicationCreatedStream, DefaultStream};
-/// fn assert_created<S: ApplicationCreatedStream>() {}
-/// assert_created::<DefaultStream>();
-/// ```
-///
 /// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
 #[diagnostic::on_unimplemented(
     message = "`{Self}` is not an application-created stream type",
@@ -214,6 +207,23 @@ mod tests {
 
     fn assert_application_created_stream<S: ApplicationCreatedStream>() {}
 
+    // Standard Rust trick (used by `static_assertions::assert_not_impl_any!`) to verify at
+    // compile time inside `cargo test --lib` that a type does NOT implement a trait:
+    // if `T` ever implements `ApplicationCreatedStream`, `<T as AmbiguousIfImpl<_>>::check`
+    // becomes ambiguous between `AmbiguousIfImpl<()>` and `AmbiguousIfImpl<Invalid>`.
+    trait AmbiguousIfImpl<A> {
+        fn check() {}
+    }
+    struct Invalid;
+    impl<T> AmbiguousIfImpl<()> for T {}
+    impl<T: ApplicationCreatedStream> AmbiguousIfImpl<Invalid> for T {}
+
+    macro_rules! assert_not_application_created_stream {
+        ($t:ty) => {
+            let _ = <$t as AmbiguousIfImpl<_>>::check;
+        };
+    }
+
     #[test]
     fn stream_and_writer_mappings() {
         assert_stream::<DefaultStream, Arrow, DefaultWriter<Arrow>>();
@@ -229,5 +239,6 @@ mod tests {
         assert_application_created_stream::<PendingStream>();
         assert_application_created_stream::<CommittedStream>();
         assert_application_created_stream::<BufferedStream>();
+        assert_not_application_created_stream!(DefaultStream);
     }
 }
