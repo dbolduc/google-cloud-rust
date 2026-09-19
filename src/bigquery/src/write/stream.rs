@@ -196,49 +196,39 @@ impl<F> HasStream for BufferedWriter<F> {
 mod tests {
     use super::*;
     use crate::write::format::{Arrow, Proto};
-    use std::fmt::Debug;
-
-    fn assert_stream<S, F, W>()
-    where
-        S: Stream<Writer<F> = W> + Debug + Send + Sync + 'static,
-        W: HasStream<Stream = S> + Debug + Send + Sync + 'static,
-    {
-    }
-
-    fn assert_application_created_stream<S: ApplicationCreatedStream>() {}
-
-    // Standard Rust trick (used by `static_assertions::assert_not_impl_any!`) to verify at
-    // compile time inside `cargo test --lib` that a type does NOT implement a trait:
-    // if `T` ever implements `ApplicationCreatedStream`, `<T as AmbiguousIfImpl<_>>::check`
-    // becomes ambiguous between `AmbiguousIfImpl<()>` and `AmbiguousIfImpl<Invalid>`.
-    trait AmbiguousIfImpl<A> {
-        fn check() {}
-    }
-    struct Invalid;
-    impl<T> AmbiguousIfImpl<()> for T {}
-    impl<T: ApplicationCreatedStream> AmbiguousIfImpl<Invalid> for T {}
-
-    macro_rules! assert_not_application_created_stream {
-        ($t:ty) => {
-            let _ = <$t as AmbiguousIfImpl<_>>::check;
-        };
-    }
+    use static_assertions::{assert_impl_all, assert_not_impl_any};
 
     #[test]
     fn stream_and_writer_mappings() {
-        assert_stream::<DefaultStream, Arrow, DefaultWriter<Arrow>>();
-        assert_stream::<PendingStream, Arrow, PendingWriter<Arrow>>();
-        assert_stream::<CommittedStream, Arrow, CommittedWriter<Arrow>>();
-        assert_stream::<BufferedStream, Arrow, BufferedWriter<Arrow>>();
+        assert_impl_all!(
+            DefaultStream: Stream<Writer<Arrow> = DefaultWriter<Arrow>>,
+            Stream<Writer<Proto> = DefaultWriter<Proto>>,
+        );
+        assert_impl_all!(
+            PendingStream: Stream<Writer<Arrow> = PendingWriter<Arrow>>,
+            Stream<Writer<Proto> = PendingWriter<Proto>>,
+            ApplicationCreatedStream,
+        );
+        assert_impl_all!(
+            CommittedStream: Stream<Writer<Arrow> = CommittedWriter<Arrow>>,
+            Stream<Writer<Proto> = CommittedWriter<Proto>>,
+            ApplicationCreatedStream,
+        );
+        assert_impl_all!(
+            BufferedStream: Stream<Writer<Arrow> = BufferedWriter<Arrow>>,
+            Stream<Writer<Proto> = BufferedWriter<Proto>>,
+            ApplicationCreatedStream,
+        );
+        assert_not_impl_any!(DefaultStream: ApplicationCreatedStream);
 
-        assert_stream::<DefaultStream, Proto, DefaultWriter<Proto>>();
-        assert_stream::<PendingStream, Proto, PendingWriter<Proto>>();
-        assert_stream::<CommittedStream, Proto, CommittedWriter<Proto>>();
-        assert_stream::<BufferedStream, Proto, BufferedWriter<Proto>>();
+        assert_impl_all!(DefaultWriter<Arrow>: HasStream<Stream = DefaultStream>);
+        assert_impl_all!(PendingWriter<Arrow>: HasStream<Stream = PendingStream>);
+        assert_impl_all!(CommittedWriter<Arrow>: HasStream<Stream = CommittedStream>);
+        assert_impl_all!(BufferedWriter<Arrow>: HasStream<Stream = BufferedStream>);
 
-        assert_application_created_stream::<PendingStream>();
-        assert_application_created_stream::<CommittedStream>();
-        assert_application_created_stream::<BufferedStream>();
-        assert_not_application_created_stream!(DefaultStream);
+        assert_impl_all!(DefaultWriter<Proto>: HasStream<Stream = DefaultStream>);
+        assert_impl_all!(PendingWriter<Proto>: HasStream<Stream = PendingStream>);
+        assert_impl_all!(CommittedWriter<Proto>: HasStream<Stream = CommittedStream>);
+        assert_impl_all!(BufferedWriter<Proto>: HasStream<Stream = BufferedStream>);
     }
 }
