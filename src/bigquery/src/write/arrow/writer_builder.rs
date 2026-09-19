@@ -18,7 +18,8 @@ use super::super::pool::{StreamPool, StreamPoolOptions};
 use super::super::retry_policy::RetryOptions;
 use super::super::transport::Transport;
 use super::super::validate::{validate_stream, validate_table};
-use super::{DefaultWriter, Writer};
+use super::super::writer::Writer;
+use super::DefaultWriter;
 use crate::model::{ArrowSchema, WriteStream};
 use crate::write::error::WriterBuilderError;
 use std::sync::Arc;
@@ -116,7 +117,7 @@ impl WriterBuilder {
     /// #   todo!("Define your table's schema...")
     /// # }
     /// ```
-    pub async fn create<U: Writer, T: Into<String>>(
+    pub async fn create<U: Writer<Arrow>, T: Into<String>>(
         self,
         table: T,
     ) -> std::result::Result<U, WriterBuilderError> {
@@ -131,7 +132,10 @@ impl WriterBuilder {
             .send()
             .await?;
 
-        Ok(U::build(self.inner, stream.name, self.schema))
+        let format = Arrow {
+            schema: self.schema,
+        };
+        Ok(U::build(self.inner, stream.name, format))
     }
 
     /// Attaches a writer to an existing stream.
@@ -153,7 +157,7 @@ impl WriterBuilder {
     /// #   todo!("Define your table's schema...")
     /// # }
     /// ```
-    pub async fn attach<U: Writer, S: Into<String>>(
+    pub async fn attach<U: Writer<Arrow>, S: Into<String>>(
         self,
         write_stream: S,
     ) -> std::result::Result<U, WriterBuilderError> {
@@ -174,7 +178,10 @@ impl WriterBuilder {
                 actual: stream_type,
             });
         }
-        Ok(U::build(self.inner, write_stream, self.schema))
+        let format = Arrow {
+            schema: self.schema,
+        };
+        Ok(U::build(self.inner, stream.name, format))
     }
 
     /// Enable multiplexing

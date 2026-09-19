@@ -12,12 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod writer;
 mod writer_builder;
 
 use super::format::Arrow;
 
-pub use writer::Writer;
 pub use writer_builder::WriterBuilder;
 
 /// DEPRECATED - do not use.
