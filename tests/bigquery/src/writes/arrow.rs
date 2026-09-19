@@ -35,7 +35,7 @@ pub async fn basic(
 
     // Create a writer for the default stream
     let writer = client
-        .open_default_stream(&table)
+        .open_default_stream(table)
         .build_arrow(serializer.schema())
         .await?;
 
@@ -83,7 +83,7 @@ pub async fn pending(
 
     // Create a writer for a pending stream
     let writer: PendingWriter<Arrow> = client
-        .create_stream(&table)
+        .create_stream(table)
         .build_arrow(serializer.schema())
         .await?;
 
@@ -151,7 +151,7 @@ pub async fn committed(
 
     // Create a writer for a committed stream
     let writer: CommittedWriter<Arrow> = client
-        .create_stream(&table)
+        .create_stream(table)
         .build_arrow(serializer.schema())
         .await?;
 
@@ -212,7 +212,7 @@ pub async fn buffered(
 
     // Create a writer for a buffered stream
     let writer: BufferedWriter<Arrow> = client
-        .create_stream(&table)
+        .create_stream(table)
         .build_arrow(serializer.schema())
         .await?;
 
@@ -305,7 +305,7 @@ pub async fn attach(
     let write_stream = {
         // Create a writer for a committed stream
         let writer: CommittedWriter<Arrow> = client
-            .create_stream(&table)
+            .create_stream(table)
             .build_arrow(schema.clone())
             .await?;
 
@@ -319,7 +319,7 @@ pub async fn attach(
 
     // Attach to the previously created write stream from a new writer.
     let attached_writer: CommittedWriter<Arrow> = client
-        .attach_to_stream(&write_stream)
+        .attach_to_stream(write_stream)
         .build_arrow(schema)
         .await?;
 

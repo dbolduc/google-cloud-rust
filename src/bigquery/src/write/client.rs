@@ -58,8 +58,8 @@ impl Write {
     /// ```
     ///
     /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
-    pub fn open_default_stream(&self, table: &str) -> WriterBuilder<DefaultStream> {
-        WriterBuilder::open_default(self.inner.clone(), self.pool.clone(), table.to_string())
+    pub fn open_default_stream<T: Into<String>>(&self, table: T) -> WriterBuilder<DefaultStream> {
+        WriterBuilder::open_default(self.inner.clone(), self.pool.clone(), table.into())
     }
 
     /// Creates a new [application-created stream] of type `S`
@@ -71,7 +71,7 @@ impl Write {
     /// ([`PendingWriter`][crate::write::PendingWriter],
     /// [`CommittedWriter`][crate::write::CommittedWriter], or
     /// [`BufferedWriter`][crate::write::BufferedWriter]) or specified explicitly via turbofish
-    /// (`create_stream::<PendingStream>(...)`).
+    /// (`create_stream::<PendingStream, _>(...)`).
     ///
     /// # Example
     /// ```
@@ -92,8 +92,11 @@ impl Write {
     /// ```
     ///
     /// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
-    pub fn create_stream<S: ApplicationCreatedStream>(&self, table: &str) -> WriterBuilder<S> {
-        WriterBuilder::create(self.inner.clone(), self.pool.clone(), table.to_string())
+    pub fn create_stream<S: ApplicationCreatedStream, T: Into<String>>(
+        &self,
+        table: T,
+    ) -> WriterBuilder<S> {
+        WriterBuilder::create(self.inner.clone(), self.pool.clone(), table.into())
     }
 
     /// Attaches to an existing [application-created stream] of type `S`
@@ -105,7 +108,7 @@ impl Write {
     /// ([`PendingWriter`][crate::write::PendingWriter],
     /// [`CommittedWriter`][crate::write::CommittedWriter], or
     /// [`BufferedWriter`][crate::write::BufferedWriter]) or specified explicitly via turbofish
-    /// (`attach_to_stream::<CommittedStream>(...)`).
+    /// (`attach_to_stream::<CommittedStream, _>(...)`).
     ///
     /// # Example
     /// ```
@@ -127,15 +130,11 @@ impl Write {
     /// ```
     ///
     /// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
-    pub fn attach_to_stream<S: ApplicationCreatedStream>(
+    pub fn attach_to_stream<S: ApplicationCreatedStream, T: Into<String>>(
         &self,
-        write_stream: &str,
+        write_stream: T,
     ) -> WriterBuilder<S> {
-        WriterBuilder::attach(
-            self.inner.clone(),
-            self.pool.clone(),
-            write_stream.to_string(),
-        )
+        WriterBuilder::attach(self.inner.clone(), self.pool.clone(), write_stream.into())
     }
 }
 

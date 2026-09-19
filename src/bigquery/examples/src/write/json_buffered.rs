@@ -45,7 +45,7 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
     // Create a writer for a buffered stream
     let writer: BufferedWriter<Arrow> = client
-        .create_stream(&table)
+        .create_stream(table)
         .build_arrow(ArrowSchema::new().set_serialized_schema(schema_buf))
         .await?;
 

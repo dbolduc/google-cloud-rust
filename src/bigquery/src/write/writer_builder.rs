@@ -191,7 +191,7 @@ impl<S: Stream> WriterBuilder<S> {
     /// For application-created streams (`create_stream` / `attach_to_stream`), the writer type `W`
     /// and stream type `S` infer bidirectionally: you can either annotate the variable type
     /// (`let writer: PendingWriter<Arrow> = ...`) or specify the stream type via turbofish
-    /// (`client.create_stream::<PendingStream>(...)`).
+    /// (`client.create_stream::<PendingStream, _>(...)`).
     ///
     /// # Example
     /// ```
@@ -294,7 +294,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let writer = client
-            .create_stream::<PendingStream>("projects/p/datasets/d/tables/t")
+            .create_stream::<PendingStream, _>("projects/p/datasets/d/tables/t")
             .build_arrow(schema())
             .await?;
         assert_eq!(
