@@ -22,7 +22,7 @@ pub use buffered::BufferedWriter;
 pub use committed::CommittedWriter;
 pub use default::DefaultWriter;
 pub use pending::PendingWriter;
-pub use writer_builder::WriterBuilder;
+pub(super) use writer_builder::WriterBuilder;
 
 pub(super) mod append_future;
 pub(super) mod append_response;

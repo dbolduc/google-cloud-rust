@@ -37,6 +37,11 @@ impl<F> DefaultWriter<F> {
             format,
         }
     }
+
+    /// Returns the full resource name of the underlying write stream.
+    pub fn write_stream(&self) -> &str {
+        &self.write_stream
+    }
 }
 
 impl<F: DataFormat> DefaultWriter<F> {
@@ -74,6 +79,7 @@ mod tests {
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
 
         let writer = DefaultWriter::new(pool, write_stream(), Arrow::new(schema()));
+        assert_eq!(writer.write_stream(), write_stream());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(arrow_rows(1)).send().await?;
