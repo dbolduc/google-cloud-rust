@@ -166,7 +166,6 @@ impl ApplicationCreatedStream for BufferedStream {}
 /// [`BufferedWriter`]) back to its corresponding [`Stream`].
 ///
 /// This trait is sealed and cannot be implemented for types outside this crate.
-#[doc(hidden)]
 #[diagnostic::on_unimplemented(
     message = "cannot infer the writer or stream type",
     label = "type annotations needed for this writer",
