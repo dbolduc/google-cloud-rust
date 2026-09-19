@@ -109,6 +109,14 @@ pub(crate) mod sealed {
     impl CreatedStreamType for PendingStream {}
     impl CreatedStreamType for CommittedStream {}
     impl CreatedStreamType for BufferedStream {}
+
+    /// Sealed trait for mapping a writer back to its stream type.
+    pub trait HasStreamType {}
+
+    impl<F> HasStreamType for DefaultWriter<F> {}
+    impl<F> HasStreamType for PendingWriter<F> {}
+    impl<F> HasStreamType for CommittedWriter<F> {}
+    impl<F> HasStreamType for BufferedWriter<F> {}
 }
 
 /// Trait mapping a write stream type ([`DefaultStream`], [`PendingStream`], [`CommittedStream`],
@@ -143,8 +151,43 @@ impl StreamType for BufferedStream {
 /// This trait is sealed and cannot be implemented for types outside this crate.
 ///
 /// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
+#[diagnostic::on_unimplemented(
+    message = "`{Self}` is not an application-created stream type",
+    label = "expected `PendingStream`, `CommittedStream`, or `BufferedStream`",
+    note = "default streams are managed by BigQuery and cannot be created via `create_stream`; use `Write::open_default_stream` instead"
+)]
 pub trait CreatedStreamType: StreamType + sealed::CreatedStreamType {}
 
 impl CreatedStreamType for PendingStream {}
 impl CreatedStreamType for CommittedStream {}
 impl CreatedStreamType for BufferedStream {}
+
+/// Trait mapping a writer type ([`DefaultWriter`], [`PendingWriter`], [`CommittedWriter`],
+/// [`BufferedWriter`]) back to its corresponding [`StreamType`].
+///
+/// This trait is sealed and cannot be implemented for types outside this crate.
+#[diagnostic::on_unimplemented(
+    message = "cannot infer the writer or stream type",
+    label = "type annotations needed for this writer",
+    note = "annotate the variable type (e.g. `let writer: PendingWriter<Arrow> = ...`) or specify a stream type via turbofish (e.g. `client.create_stream::<PendingStream>(...)`)"
+)]
+pub trait HasStreamType: sealed::HasStreamType {
+    /// The stream type marker corresponding to this writer.
+    type Stream: StreamType;
+}
+
+impl<F> HasStreamType for DefaultWriter<F> {
+    type Stream = DefaultStream;
+}
+
+impl<F> HasStreamType for PendingWriter<F> {
+    type Stream = PendingStream;
+}
+
+impl<F> HasStreamType for CommittedWriter<F> {
+    type Stream = CommittedStream;
+}
+
+impl<F> HasStreamType for BufferedWriter<F> {
+    type Stream = BufferedStream;
+}

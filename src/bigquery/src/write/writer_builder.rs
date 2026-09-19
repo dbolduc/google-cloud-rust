@@ -16,7 +16,7 @@ use super::error::{WriterBuilderError, WriterBuilderResult};
 use super::format::{Arrow, Proto};
 use super::generated::gapic_storage::client::BigQueryWrite;
 use super::pool::{StreamPool, StreamPoolOptions};
-use super::stream_type::{CreatedStreamType, DefaultStream, StreamType};
+use super::stream_type::{CreatedStreamType, DefaultStream, HasStreamType, StreamType};
 use super::transport::Transport;
 use super::validate::{validate_stream, validate_table};
 use crate::model::{ArrowSchema, ProtoSchema, WriteStream};
@@ -185,16 +185,21 @@ impl<S: StreamType> WriterBuilder<S> {
     /// ```
     ///
     /// [Arrow]: https://arrow.apache.org/
-    pub async fn build_arrow(self, schema: ArrowSchema) -> WriterBuilderResult<S::Writer<Arrow>> {
+    pub async fn build_arrow<W>(self, schema: ArrowSchema) -> WriterBuilderResult<W>
+    where
+        S: StreamType<Writer<Arrow> = W>,
+        W: HasStreamType<Stream = S>,
+    {
         self.build_with_format(Arrow::new(schema)).await
     }
 
     /// Consumes the builder and creates a writer using Protobuf as the data format.
     #[allow(dead_code)]
-    pub(crate) async fn build_proto(
-        self,
-        schema: ProtoSchema,
-    ) -> WriterBuilderResult<S::Writer<Proto>> {
+    pub(crate) async fn build_proto<W>(self, schema: ProtoSchema) -> WriterBuilderResult<W>
+    where
+        S: StreamType<Writer<Proto> = W>,
+        W: HasStreamType<Stream = S>,
+    {
         self.build_with_format(Proto::new(schema)).await
     }
 }
@@ -203,7 +208,9 @@ impl<S: StreamType> WriterBuilder<S> {
 mod tests {
     use crate::client::Write;
     use crate::model::write_stream::Type;
+    use crate::write::PendingWriter;
     use crate::write::error::WriterBuilderError;
+    use crate::write::format::Arrow;
     use crate::write::stream_type::{BufferedStream, CommittedStream, PendingStream};
     use crate::write::test::*;
     use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
@@ -218,6 +225,33 @@ mod tests {
             .with_credentials(Anonymous::new().build())
             .build()
             .await?)
+    }
+
+    #[tokio::test]
+    async fn pending_return_type_inference_success() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_create_write_stream().return_once(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.parent, "projects/p/datasets/d/tables/t");
+            let ws = req.write_stream.expect("write_stream populated");
+            assert_eq!(Type::from(ws.r#type), Type::Pending);
+            Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
+                name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
+                ..Default::default()
+            }))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let writer: PendingWriter<Arrow> = client
+            .create_stream("projects/p/datasets/d/tables/t")
+            .build_arrow(schema())
+            .await?;
+        assert_eq!(
+            writer.inner.write_stream,
+            "projects/p/datasets/d/tables/t/streams/s"
+        );
+        assert_eq!(writer.inner.format.schema, schema());
+        Ok(())
     }
 
     #[tokio::test]
