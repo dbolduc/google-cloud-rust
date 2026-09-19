@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::super::format::Proto;
 use super::{BufferedWriter, CommittedWriter, PendingWriter};
 use crate::model::ProtoSchema;
 use crate::model::write_stream::Type;
 use crate::write::transport::Transport;
 use std::sync::Arc;
-use super::super::format::Proto;
 
 pub(crate) mod sealed {
     use super::*;
@@ -39,7 +39,8 @@ pub(crate) mod sealed {
         const STREAM_TYPE: Type = Type::Committed;
 
         fn build(inner: Arc<Transport>, write_stream: String, schema: ProtoSchema) -> Self {
-            Self::new(inner, write_stream, schema)
+            let format = Proto { schema };
+            Self::new(inner, write_stream, format)
         }
     }
 
