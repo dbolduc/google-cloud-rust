@@ -33,11 +33,12 @@ pub(crate) const BIGQUERY_DATETIME_SUBSEC_FORMAT: &[time::format_description::Fo
     'static,
 >] = time::macros::format_description!("[year]-[month]-[day]T[hour]:[minute]:[second].[subsecond]");
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub(crate) enum SqlValueInner {
     Null,
     Bool(bool),
-    Number(serde_json::Number),
+    Int64(i64),
+    Float64(f64),
     String(String),
     Array(Vec<SqlValueInner>),
     Struct(Vec<(String, SqlValueInner)>),
@@ -48,7 +49,7 @@ impl SqlValueInner {
         match self {
             Self::Null => "null",
             Self::Bool(_) => "bool",
-            Self::Number(_) => "number",
+            Self::Int64(_) | Self::Float64(_) => "number",
             Self::String(_) => "string",
             Self::Array(_) => "array",
             Self::Struct(_) => "object",
@@ -59,7 +60,18 @@ impl SqlValueInner {
         match value {
             wkt::Value::Null => Self::Null,
             wkt::Value::Bool(b) => Self::Bool(b),
-            wkt::Value::Number(n) => Self::Number(n),
+            wkt::Value::Number(n) => {
+                if let Some(i) = n.as_i64() {
+                    Self::Int64(i)
+                } else if let Some(u) = n.as_u64() {
+                    Self::String(u.to_string())
+                } else {
+                    let f = n
+                        .as_f64()
+                        .expect("serde_json::Number must be i64, u64, or f64");
+                    Self::Float64(f)
+                }
+            }
             wkt::Value::String(s) => Self::String(s),
             wkt::Value::Array(arr) => Self::Array(arr.into_iter().map(Self::from_wkt).collect()),
             wkt::Value::Object(obj) => Self::Struct(
@@ -164,7 +176,11 @@ impl FromSql for wkt::Value {
         Ok(match value.inner {
             SqlValueInner::Null => wkt::Value::Null,
             SqlValueInner::Bool(b) => wkt::Value::Bool(b),
-            SqlValueInner::Number(n) => wkt::Value::Number(n),
+            SqlValueInner::Int64(n) => wkt::Value::Number(serde_json::Number::from(n)),
+            SqlValueInner::Float64(f) => match serde_json::Number::from_f64(f) {
+                Some(n) => wkt::Value::Number(n),
+                None => wkt::Value::String(f.to_string()),
+            },
             SqlValueInner::String(s) => wkt::Value::String(s),
             SqlValueInner::Array(arr) => wkt::Value::Array(
                 arr.into_iter()
@@ -194,10 +210,8 @@ impl FromSql for String {
 impl FromSql for i32 {
     fn from_value(value: SqlValue) -> Result<Self, ConvertError> {
         match value.inner {
-            SqlValueInner::Number(n) => n
-                .as_i64()
-                .and_then(|v| i32::try_from(v).ok())
-                .ok_or_else(|| ConvertError::Convert("number is not a valid i32".into())),
+            SqlValueInner::Int64(n) => i32::try_from(n)
+                .map_err(|_| ConvertError::Convert("number is not a valid i32".into())),
             SqlValueInner::String(s) => s
                 .parse::<i32>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
@@ -210,9 +224,7 @@ impl FromSql for i32 {
 impl FromSql for i64 {
     fn from_value(value: SqlValue) -> Result<Self, ConvertError> {
         match value.inner {
-            SqlValueInner::Number(n) => n
-                .as_i64()
-                .ok_or_else(|| ConvertError::Convert("number is not a valid i64".into())),
+            SqlValueInner::Int64(n) => Ok(n),
             SqlValueInner::String(s) => s
                 .parse::<i64>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
@@ -225,10 +237,8 @@ impl FromSql for i64 {
 impl FromSql for f32 {
     fn from_value(value: SqlValue) -> Result<Self, ConvertError> {
         match value.inner {
-            SqlValueInner::Number(n) => n
-                .as_f64()
-                .map(|v| v as f32)
-                .ok_or_else(|| ConvertError::Convert("number is not a valid f32".into())),
+            SqlValueInner::Float64(f) => Ok(f as f32),
+            SqlValueInner::Int64(n) => Ok(n as f32),
             SqlValueInner::String(s) => s
                 .parse::<f32>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
@@ -241,9 +251,8 @@ impl FromSql for f32 {
 impl FromSql for f64 {
     fn from_value(value: SqlValue) -> Result<Self, ConvertError> {
         match value.inner {
-            SqlValueInner::Number(n) => n
-                .as_f64()
-                .ok_or_else(|| ConvertError::Convert("number is not a valid f64".into())),
+            SqlValueInner::Float64(f) => Ok(f),
+            SqlValueInner::Int64(n) => Ok(n as f64),
             SqlValueInner::String(s) => s
                 .parse::<f64>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
@@ -313,12 +322,10 @@ impl FromSql for wkt::Timestamp {
                     .map_err(|e| ConvertError::Convert(Box::new(e)))?;
                 timestamp_from_micros(micros)
             }
-            SqlValueInner::Number(n) => {
-                let micros = n.as_i64().ok_or_else(|| {
-                    ConvertError::Convert("timestamp number is not valid i64".into())
-                })?;
-                timestamp_from_micros(micros)
-            }
+            SqlValueInner::Int64(micros) => timestamp_from_micros(micros),
+            SqlValueInner::Float64(_) => Err(ConvertError::Convert(
+                "timestamp number is not valid i64".into(),
+            )),
             SqlValueInner::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::type_mismatch("string or number", &other)),
         }
@@ -406,8 +413,11 @@ impl FromSql for google_cloud_type::model::Decimal {
     fn from_value(value: SqlValue) -> Result<Self, ConvertError> {
         match value.inner {
             SqlValueInner::String(s) => Ok(google_cloud_type::model::Decimal::new().set_value(s)),
-            SqlValueInner::Number(n) => {
+            SqlValueInner::Int64(n) => {
                 Ok(google_cloud_type::model::Decimal::new().set_value(n.to_string()))
+            }
+            SqlValueInner::Float64(f) => {
+                Ok(google_cloud_type::model::Decimal::new().set_value(f.to_string()))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::type_mismatch("string or number", &other)),
@@ -422,16 +432,9 @@ impl FromSql for rust_decimal::Decimal {
                 .trim()
                 .parse::<rust_decimal::Decimal>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
-            SqlValueInner::Number(n) => {
-                if let Some(i) = n.as_i64() {
-                    Ok(rust_decimal::Decimal::from(i))
-                } else if let Some(u) = n.as_u64() {
-                    Ok(rust_decimal::Decimal::from(u))
-                } else {
-                    let f = n.as_f64().expect("Number must be i64, u64, or f64");
-                    rust_decimal::Decimal::try_from(f)
-                        .map_err(|e| ConvertError::Convert(Box::new(e)))
-                }
+            SqlValueInner::Int64(n) => Ok(rust_decimal::Decimal::from(n)),
+            SqlValueInner::Float64(f) => {
+                rust_decimal::Decimal::try_from(f).map_err(|e| ConvertError::Convert(Box::new(e)))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::type_mismatch("string or number", &other)),
@@ -469,6 +472,20 @@ mod tests {
     use rust_decimal::Decimal as RustDecimal;
     use test_case::test_case;
 
+    impl PartialEq for SqlValueInner {
+        fn eq(&self, other: &Self) -> bool {
+            match (self, other) {
+                (Self::Null, Self::Null) => true,
+                (Self::Bool(a), Self::Bool(b)) => a == b,
+                (Self::Int64(a), Self::Int64(b)) => a == b,
+                (Self::Float64(a), Self::Float64(b)) => a.to_bits() == b.to_bits(),
+                (Self::String(a), Self::String(b)) => a == b,
+                (Self::Array(a), Self::Array(b)) => a == b,
+                (Self::Struct(a), Self::Struct(b)) => a == b,
+                _ => false,
+            }
+        }
+    }
     impl SqlValue {
         pub(crate) fn new(value: wkt::Value) -> Self {
             Self::from_inner(SqlValueInner::from_wkt(value))
@@ -666,7 +683,8 @@ mod tests {
     }
 
     #[test_case(wkt::Value::String("123.456".to_string()) => Ok(Decimal::new().set_value("123.456")) ; "decimal from string")]
-    #[test_case(wkt::Value::Number(serde_json::Number::from_f64(123.456).unwrap()) => Ok(Decimal::new().set_value("123.456")) ; "decimal from number")]
+    #[test_case(wkt::Value::Number(123i64.into()) => Ok(Decimal::new().set_value("123")) ; "decimal from i64 number")]
+    #[test_case(wkt::Value::Number(serde_json::Number::from_f64(123.456).unwrap()) => Ok(Decimal::new().set_value("123.456")) ; "decimal from f64 number")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null decimal")]
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::type_mismatch("string or number")) ; "try bool as decimal")]
     fn test_from_sql_decimal(value: wkt::Value) -> Result<Decimal, TestConvertError> {
@@ -776,7 +794,7 @@ mod tests {
         // Taking "foo" (at index 0) must replace slot 0 with Null in-place
         // without shifting index 1 ("bar") down to index 0.
         let mut struct_val = SqlValue::from_inner(SqlValueInner::Struct(vec![
-            ("foo".to_string(), SqlValueInner::Number(10.into())),
+            ("foo".to_string(), SqlValueInner::Int64(10)),
             (
                 "bar".to_string(),
                 SqlValueInner::String("twenty".to_string()),

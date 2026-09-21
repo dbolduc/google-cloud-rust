@@ -381,7 +381,7 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
                 sql_type: field_type.to_string(),
                 source: ConvertError::Convert(Box::new(e)),
             })?;
-            Ok(SqlValueInner::Number(serde_json::Number::from(num)))
+            Ok(SqlValueInner::Int64(num))
         }
         "FLOAT" | "FLOAT64" => {
             let num = value.parse::<f64>().map_err(|e| RowError::TypeConversion {
@@ -389,10 +389,7 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
                 sql_type: field_type.to_string(),
                 source: ConvertError::Convert(Box::new(e)),
             })?;
-            match serde_json::Number::from_f64(num) {
-                Some(n) => Ok(SqlValueInner::Number(n)),
-                None => Ok(SqlValueInner::String(value)),
-            }
+            Ok(SqlValueInner::Float64(num))
         }
         "BOOLEAN" | "BOOL" => {
             let b = if value.eq_ignore_ascii_case("true") {
@@ -827,24 +824,21 @@ mod tests {
         Ok(())
     }
 
-    #[test_case("INTEGER", "123", Value::Number(123.into()); "integer positive")]
-    #[test_case("INTEGER", "-456", Value::Number((-456).into()); "integer negative")]
-    #[test_case("INT64", "9223372036854775807", Value::Number(9223372036854775807_i64.into()); "int64 max")]
-    #[test_case("FLOAT", "123.45", Value::Number(serde_json::Number::from_f64(123.45).unwrap()); "float success")]
-    #[test_case("FLOAT64", "NaN", Value::String("NaN".to_string()); "float NaN")]
-    #[test_case("FLOAT64", "+inf", Value::String("+inf".to_string()); "float positive infinity")]
-    #[test_case("FLOAT64", "-inf", Value::String("-inf".to_string()); "float negative infinity")]
-    #[test_case("BOOLEAN", "true", Value::Bool(true); "boolean true lowercase")]
-    #[test_case("BOOLEAN", "TRUE", Value::Bool(true); "boolean true uppercase")]
-    #[test_case("BOOL", "false", Value::Bool(false); "bool false")]
-    #[test_case("JSON", r#"{"a":1}"#, Value::String(r#"{"a":1}"#.to_string()); "json string")]
-    fn convert_basic_type_cases_success(field_type: &str, value: &str, expected: Value) {
+    #[test_case("INTEGER", "123", SqlValueInner::Int64(123); "integer positive")]
+    #[test_case("INTEGER", "-456", SqlValueInner::Int64(-456); "integer negative")]
+    #[test_case("INT64", "9223372036854775807", SqlValueInner::Int64(9223372036854775807); "int64 max")]
+    #[test_case("FLOAT", "123.45", SqlValueInner::Float64(123.45); "float success")]
+    #[test_case("FLOAT64", "NaN", SqlValueInner::Float64(f64::NAN); "float NaN")]
+    #[test_case("FLOAT64", "+inf", SqlValueInner::Float64(f64::INFINITY); "float positive infinity")]
+    #[test_case("FLOAT64", "-inf", SqlValueInner::Float64(f64::NEG_INFINITY); "float negative infinity")]
+    #[test_case("BOOLEAN", "true", SqlValueInner::Bool(true); "boolean true lowercase")]
+    #[test_case("BOOLEAN", "TRUE", SqlValueInner::Bool(true); "boolean true uppercase")]
+    #[test_case("BOOL", "false", SqlValueInner::Bool(false); "bool false")]
+    #[test_case("JSON", r#"{"a":1}"#, SqlValueInner::String(r#"{"a":1}"#.to_string()); "json string")]
+    fn convert_basic_type_cases_success(field_type: &str, value: &str, expected: SqlValueInner) {
         let res = convert_basic_type(value.to_string(), "test_col", field_type);
         let value = res.expect("should succeed");
-        assert_eq!(
-            value,
-            crate::query::from_sql::SqlValueInner::from_wkt(expected)
-        );
+        assert_eq!(value, expected);
     }
 
     #[test_case("INTEGER", "abc"; "integer invalid")]
