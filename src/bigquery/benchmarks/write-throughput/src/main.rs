@@ -12,12 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use args::Format;
 use arrow::array::StringArray;
 use arrow::datatypes::{DataType, Field, Schema};
 use arrow::ipc::writer::StreamWriter;
 use arrow::record_batch::RecordBatch;
 use google_cloud_bigquery::client::Write;
-use google_cloud_bigquery::model::{ArrowRecordBatch, ArrowSchema};
+use google_cloud_bigquery::model::{ArrowRecordBatch, ArrowSchema, ProtoRows, ProtoSchema};
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicI64, Ordering};
 use std::time::{Duration, Instant};
@@ -29,6 +30,12 @@ use table::BenchmarkEnvironment;
 
 const CSV_HEADER: &str =
     "timestamp,elapsed(s),op,iteration,count,batches/s,bytes,MB/s,errors,errors/s";
+
+#[derive(Clone, PartialEq, ::prost::Message)]
+struct BenchmarkRowProto {
+    #[prost(string, tag = "1")]
+    payload: String,
+}
 
 #[derive(Default)]
 struct Stats {
@@ -43,6 +50,10 @@ struct Stats {
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
     let config = crate::args::parse_args();
+    if !config.dump_arrow_dir.is_empty() {
+        dump_arrow_files(&config)?;
+        return Ok(());
+    }
     if config.project.is_empty() {
         anyhow::bail!(
             "GOOGLE_CLOUD_PROJECT environment variable or --project argument must be set"
@@ -64,6 +75,37 @@ async fn main() -> Result<(), anyhow::Error> {
     Ok(())
 }
 
+fn dump_arrow_files(config: &crate::args::Config) -> anyhow::Result<()> {
+    std::fs::create_dir_all(&config.dump_arrow_dir)?;
+    let schema = Arc::new(Schema::new(vec![Field::new(
+        "payload",
+        DataType::Utf8,
+        false,
+    )]));
+    let pool_size = 16;
+    let raw_batches = generate_batches(&schema, config.rows_per_batch, config.row_size, pool_size)?;
+    let mut ipc_writer = StreamWriter::try_new(Vec::new(), &schema)?;
+    let schema_buf = std::mem::take(ipc_writer.get_mut());
+    std::fs::write(
+        format!("{}/schema.ipc", config.dump_arrow_dir),
+        &schema_buf,
+    )?;
+    for (i, batch) in raw_batches.iter().enumerate() {
+        ipc_writer.write(batch)?;
+        let batch_buf = std::mem::take(ipc_writer.get_mut());
+        std::fs::write(
+            format!("{}/batch_{}.ipc", config.dump_arrow_dir, i),
+            &batch_buf,
+        )?;
+    }
+    println!(
+        "# Dumped {} Arrow batches to {}",
+        raw_batches.len(),
+        config.dump_arrow_dir
+    );
+    Ok(())
+}
+
 async fn run_benchmark(config: crate::args::Config) -> anyhow::Result<()> {
     let env =
         BenchmarkEnvironment::setup(&config.project, &config.dataset_id, config.num_tables).await?;
@@ -72,6 +114,7 @@ async fn run_benchmark(config: crate::args::Config) -> anyhow::Result<()> {
         let client = Arc::new(
             Write::builder()
                 .with_grpc_subchannel_count(config.grpc_channels)
+                .with_pool_size_limit(config.pool_size_limit)
                 .build()
                 .await?,
         );
@@ -97,11 +140,18 @@ async fn run_benchmark(config: crate::args::Config) -> anyhow::Result<()> {
             ipc_writer.write(batch)?;
             serialized_batches.push(bytes::Bytes::from(std::mem::take(ipc_writer.get_mut())));
         }
-        let batches = Arc::new(serialized_batches);
+        let arrow_batches = Arc::new(serialized_batches);
+        let proto_batches = Arc::new(generate_proto_batches(
+            config.rows_per_batch,
+            config.row_size,
+            pool_size,
+        ));
 
         let logical_bytes_per_batch = (config.row_size * config.rows_per_batch) as i64;
         println!(
-            "# Setup complete. Row size: {} bytes, Rows per batch: {}, Logical batch size: {} bytes, Pool size: {}",
+            "# Setup complete. Format: {:?}, Multiplex: {}, Row size: {} bytes, Rows per batch: {}, Logical batch size: {} bytes, Pool size: {}",
+            config.format,
+            config.multiplex,
             config.row_size,
             config.rows_per_batch,
             logical_bytes_per_batch,
@@ -125,8 +175,11 @@ async fn run_benchmark(config: crate::args::Config) -> anyhow::Result<()> {
                 task_id: w,
                 client: client.clone(),
                 table_path,
+                multiplex: config.multiplex,
+                format: config.format,
                 schema_buf: schema_buf.clone(),
-                batches: batches.clone(),
+                arrow_batches: arrow_batches.clone(),
+                proto_batches: proto_batches.clone(),
                 stats: stats.clone(),
                 semaphore: semaphore.clone(),
                 logical_bytes_per_batch,
@@ -154,11 +207,27 @@ struct StreamTaskContext {
     task_id: usize,
     client: Arc<Write>,
     table_path: String,
+    multiplex: bool,
+    format: Format,
     schema_buf: Vec<u8>,
-    batches: Arc<Vec<bytes::Bytes>>,
+    arrow_batches: Arc<Vec<bytes::Bytes>>,
+    proto_batches: Arc<Vec<Vec<bytes::Bytes>>>,
     stats: Arc<Stats>,
     semaphore: Arc<tokio::sync::Semaphore>,
     logical_bytes_per_batch: i64,
+}
+
+fn make_proto_schema() -> ProtoSchema {
+    use wkt::field_descriptor_proto::{Label, Type};
+    let field = wkt::FieldDescriptorProto::new()
+        .set_name("payload")
+        .set_number(1)
+        .set_label(Label::Optional)
+        .set_type(Type::String);
+    let descriptor = wkt::DescriptorProto::new()
+        .set_name("BenchmarkRowProto")
+        .set_field(vec![field]);
+    ProtoSchema::new().set_proto_descriptor(descriptor)
 }
 
 /// Represents an individual stream worker task.
@@ -167,62 +236,143 @@ async fn run_stream_task(ctx: StreamTaskContext) -> anyhow::Result<()> {
         task_id,
         client,
         table_path,
+        multiplex,
+        format,
         schema_buf,
-        batches,
+        arrow_batches,
+        proto_batches,
         stats,
         semaphore,
         logical_bytes_per_batch,
     } = ctx;
 
-    let arrow_schema = ArrowSchema::new().set_serialized_schema(schema_buf);
-    let writer = Arc::new(
-        client
-            .open_default_stream(table_path)
-            .build_arrow(arrow_schema)
-            .await?,
-    );
+    match format {
+        Format::Arrow => {
+            let arrow_schema = ArrowSchema::new().set_serialized_schema(schema_buf);
+            let writer = Arc::new(
+                client
+                    .open_default_stream(table_path)
+                    .with_multiplexing(multiplex)
+                    .build_arrow(arrow_schema)
+                    .await?,
+            );
 
-    let mut seq = 0usize;
-    loop {
-        if stats.stop_flag.load(Ordering::Relaxed) {
-            break;
-        }
-
-        let permit = match semaphore.clone().acquire_owned().await {
-            Ok(p) => p,
-            Err(_) => break,
-        };
-
-        let batch_bytes = batches[seq % batches.len()].clone();
-        seq = seq.wrapping_add(1);
-
-        let rows = ArrowRecordBatch::new().set_serialized_record_batch(batch_bytes);
-        let append = writer.append(rows);
-
-        stats.send_count.fetch_add(1, Ordering::Relaxed);
-        stats
-            .send_bytes
-            .fetch_add(logical_bytes_per_batch, Ordering::Relaxed);
-
-        let stats = stats.clone();
-        tokio::spawn(async move {
-            let _permit = permit;
-            match append.send().await {
-                Ok(_) => {
-                    stats.recv_count.fetch_add(1, Ordering::Relaxed);
-                    stats
-                        .recv_bytes
-                        .fetch_add(logical_bytes_per_batch, Ordering::Relaxed);
+            let mut seq = 0usize;
+            loop {
+                if stats.stop_flag.load(Ordering::Relaxed) {
+                    break;
                 }
-                Err(e) => {
-                    eprintln!("Write error on writer {}: {:?}", task_id, e);
-                    stats.error_count.fetch_add(1, Ordering::Relaxed);
-                }
+
+                let permit = match semaphore.clone().acquire_owned().await {
+                    Ok(p) => p,
+                    Err(_) => break,
+                };
+
+                let batch_bytes = arrow_batches[seq % arrow_batches.len()].clone();
+                seq = seq.wrapping_add(1);
+
+                let rows = ArrowRecordBatch::new().set_serialized_record_batch(batch_bytes);
+                let append = writer.append(rows);
+
+                stats.send_count.fetch_add(1, Ordering::Relaxed);
+                stats
+                    .send_bytes
+                    .fetch_add(logical_bytes_per_batch, Ordering::Relaxed);
+
+                let stats = stats.clone();
+                tokio::spawn(async move {
+                    let _permit = permit;
+                    match append.send().await {
+                        Ok(_) => {
+                            stats.recv_count.fetch_add(1, Ordering::Relaxed);
+                            stats
+                                .recv_bytes
+                                .fetch_add(logical_bytes_per_batch, Ordering::Relaxed);
+                        }
+                        Err(e) => {
+                            eprintln!("Write error on writer {}: {:?}", task_id, e);
+                            stats.error_count.fetch_add(1, Ordering::Relaxed);
+                        }
+                    }
+                });
             }
-        });
+        }
+        Format::Proto => {
+            let proto_schema = make_proto_schema();
+            let writer = Arc::new(
+                client
+                    .open_default_stream(table_path)
+                    .with_multiplexing(multiplex)
+                    .build_proto(proto_schema)
+                    .await?,
+            );
+
+            let mut seq = 0usize;
+            loop {
+                if stats.stop_flag.load(Ordering::Relaxed) {
+                    break;
+                }
+
+                let permit = match semaphore.clone().acquire_owned().await {
+                    Ok(p) => p,
+                    Err(_) => break,
+                };
+
+                let batch_rows = proto_batches[seq % proto_batches.len()].clone();
+                seq = seq.wrapping_add(1);
+
+                let rows = ProtoRows::new().set_serialized_rows(batch_rows);
+                let append = writer.append(rows);
+
+                stats.send_count.fetch_add(1, Ordering::Relaxed);
+                stats
+                    .send_bytes
+                    .fetch_add(logical_bytes_per_batch, Ordering::Relaxed);
+
+                let stats = stats.clone();
+                tokio::spawn(async move {
+                    let _permit = permit;
+                    match append.send().await {
+                        Ok(_) => {
+                            stats.recv_count.fetch_add(1, Ordering::Relaxed);
+                            stats
+                                .recv_bytes
+                                .fetch_add(logical_bytes_per_batch, Ordering::Relaxed);
+                        }
+                        Err(e) => {
+                            eprintln!("Write error on writer {}: {:?}", task_id, e);
+                            stats.error_count.fetch_add(1, Ordering::Relaxed);
+                        }
+                    }
+                });
+            }
+        }
     }
 
     Ok(())
+}
+
+fn generate_proto_batches(
+    rows_per_batch: usize,
+    row_size: usize,
+    pool_size: usize,
+) -> Vec<Vec<bytes::Bytes>> {
+    use prost::Message;
+    let mut batches = Vec::with_capacity(pool_size);
+    for b in 0..pool_size {
+        let mut rows = Vec::with_capacity(rows_per_batch);
+        for r in 0..rows_per_batch {
+            let id = b * rows_per_batch + r;
+            let mut payload = format!("{:0width$}", id, width = row_size);
+            if payload.len() > row_size {
+                payload.truncate(row_size);
+            }
+            let msg = BenchmarkRowProto { payload };
+            rows.push(bytes::Bytes::from(msg.encode_to_vec()));
+        }
+        batches.push(rows);
+    }
+    batches
 }
 
 fn generate_batches(

@@ -478,7 +478,9 @@ dependencies = [
  "clap",
  "google-cloud-bigquery",
  "google-cloud-bigquery-v2",
+ "google-cloud-wkt",
  "humantime",
+ "prost",
  "rand 0.10.2",
  "tokio",
 ]

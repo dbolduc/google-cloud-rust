@@ -175,8 +175,7 @@ impl<S: Stream> WriterBuilder<S> {
     }
 
     /// Consumes the builder and creates a writer using Protobuf as the data format.
-    #[allow(dead_code)]
-    pub(crate) async fn build_proto<W>(
+    pub async fn build_proto<W>(
         self,
         schema: ProtoSchema,
     ) -> std::result::Result<W, WriterBuilderError>

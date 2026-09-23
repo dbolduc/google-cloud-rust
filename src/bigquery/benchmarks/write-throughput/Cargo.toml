@@ -33,5 +33,7 @@ clap                     = { workspace = true, features = ["derive", "env", "hel
 google-cloud-bigquery    = { workspace = true, features = ["default-rustls-provider"] }
 google-cloud-bigquery-v2 = { workspace = true, features = ["default"] }
 humantime.workspace      = true
+prost                    = { workspace = true }
 rand                     = { workspace = true }
 tokio                    = { workspace = true, features = ["full"] }
+wkt.workspace            = true

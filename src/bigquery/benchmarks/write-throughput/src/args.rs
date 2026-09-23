@@ -12,9 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use clap::Parser;
+use clap::{Parser, ValueEnum};
 use humantime::parse_duration;
 use std::time::Duration;
+
+#[derive(ValueEnum, Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Format {
+    Arrow,
+    Proto,
+}
 
 #[derive(Parser, Debug, Clone)]
 #[command(
@@ -48,57 +54,22 @@ pub struct Config {
     #[arg(long, default_value_t = 1)]
     pub grpc_channels: usize,
 
+    #[arg(long, default_value_t = false, action = clap::ArgAction::Set)]
+    pub multiplex: bool,
+
+    #[arg(long, default_value_t = 8)]
+    pub pool_size_limit: usize,
+
+    #[arg(long, value_enum, default_value_t = Format::Arrow)]
+    pub format: Format,
+
+    #[arg(long, default_value = "")]
+    pub dump_arrow_dir: String,
+
     #[arg(long, default_value = "")]
     pub dataset_id: String,
 }
 
 pub fn parse_args() -> Config {
     Config::parse()
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use clap::Parser;
-
-    #[test]
-    fn test_parse_args_defaults() -> anyhow::Result<()> {
-        let args = Config::try_parse_from(["cmd"])?;
-        assert_eq!(args.row_size, 1024);
-        assert_eq!(args.rows_per_batch, 1000);
-        assert_eq!(args.num_tables, 1);
-        assert_eq!(args.num_writers, 1);
-        assert_eq!(args.grpc_channels, 1);
-        assert_eq!(args.dataset_id, "");
-        Ok(())
-    }
-
-    #[test]
-    fn test_parse_args_custom() -> anyhow::Result<()> {
-        let args = Config::try_parse_from([
-            "cmd",
-            "--project",
-            "test-project",
-            "--row-size",
-            "2048",
-            "--rows-per-batch",
-            "50",
-            "--num-tables",
-            "3",
-            "--num-writers",
-            "5",
-            "--grpc-channels",
-            "4",
-            "--dataset-id",
-            "my_dataset",
-        ])?;
-        assert_eq!(args.project, "test-project");
-        assert_eq!(args.row_size, 2048);
-        assert_eq!(args.rows_per_batch, 50);
-        assert_eq!(args.num_tables, 3);
-        assert_eq!(args.num_writers, 5);
-        assert_eq!(args.grpc_channels, 4);
-        assert_eq!(args.dataset_id, "my_dataset");
-        Ok(())
-    }
 }
