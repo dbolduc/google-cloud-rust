@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::error::{AppendError, AppendResult};
+use super::optimizer::SendOptimizer;
 use super::stream::Stream;
 use super::transport::{Transport, info::VERSION};
 use crate::Result;
@@ -74,6 +75,8 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::UnboundedRecei
     let mut req = initial_req.req;
     req.trace_id = format!("rust-writer:{VERSION}");
 
+    let mut optimizer = SendOptimizer::new(&req);
+
     // A queue of responses we need to satisfy
     let mut resp_txs = VecDeque::new();
     resp_txs.push_back(initial_req.resp_tx);
@@ -94,7 +97,9 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::UnboundedRecei
         tokio::select! {
             req = req_rx.recv() => {
                 match req {
-                    Some(r) => {
+                    Some(mut r) => {
+                        optimizer.optimize(&mut r.req);
+
                         // Keep track of the response channel.
                         resp_txs.push_back(r.resp_tx);
 
@@ -568,6 +573,254 @@ mod tests {
             .await
             .expect("should receive a second request")?;
         assert_eq!(second_req.trace_id, "");
+
+        drop(response_tx);
+        handle.await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn send_optimization_arrow() -> anyhow::Result<()> {
+        use crate::google::cloud::bigquery::storage::v1::{
+            ArrowRecordBatch, ArrowSchema,
+            append_rows_request::{ArrowData, Rows},
+        };
+        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1 as mock_v1;
+
+        let (recover_writes_tx, mut recover_writes_rx) = mpsc::channel(10);
+        let (response_tx, response_rx) = mpsc::channel(10);
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows().return_once(move |request| {
+            tokio::spawn(async move {
+                let mut request_rx = request.into_inner();
+                while let Some(request) = request_rx.recv().await {
+                    recover_writes_tx
+                        .send(request)
+                        .await
+                        .expect("forwarding writes always succeeds");
+                }
+            });
+            Ok(TonicResponse::from(response_rx))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+
+        let Runner { req_tx, handle } = Runner::new(transport);
+
+        let make_arrow_req =
+            |stream: &str, schema_bytes: &'static [u8], batch_bytes: &'static [u8]| {
+                let (resp_tx, _) = oneshot::channel();
+                WriteRequest {
+                    req: AppendRowsRequest {
+                        write_stream: stream.to_string(),
+                        rows: Some(Rows::ArrowRows(ArrowData {
+                            writer_schema: Some(ArrowSchema {
+                                serialized_schema: schema_bytes.into(),
+                            }),
+                            rows: Some(ArrowRecordBatch {
+                                serialized_record_batch: batch_bytes.into(),
+                                ..Default::default()
+                            }),
+                        })),
+                        ..Default::default()
+                    },
+                    resp_tx,
+                }
+            };
+
+        // 1. Initial request (r1): sends write_stream and writer_schema.
+        req_tx.send(make_arrow_req("stream_1", b"schema_1", b"batch_1"))?;
+        // 2. Same stream and schema (r2): omits both write_stream and writer_schema.
+        req_tx.send(make_arrow_req("stream_1", b"schema_1", b"batch_2"))?;
+        // 3. Same stream and schema (r3): omits both write_stream and writer_schema.
+        req_tx.send(make_arrow_req("stream_1", b"schema_1", b"batch_3"))?;
+        // 4. Different write_stream (r4): sends both write_stream and writer_schema again.
+        req_tx.send(make_arrow_req("stream_2", b"schema_1", b"batch_4"))?;
+        // 5. Same stream (stream_2) and schema (r5): destination changed in r4, so
+        //    write_stream must remain populated ("stream_2"), while writer_schema is omitted.
+        req_tx.send(make_arrow_req("stream_2", b"schema_1", b"batch_5"))?;
+        // 6. Different schema (r6): sends both write_stream and writer_schema again.
+        req_tx.send(make_arrow_req("stream_2", b"schema_2", b"batch_6"))?;
+        // 7. Same stream (stream_2) and schema (schema_2) (r7): keeps write_stream
+        //    ("stream_2") and omits writer_schema.
+        req_tx.send(make_arrow_req("stream_2", b"schema_2", b"batch_7"))?;
+
+        let extract_mock_arrow = |r: mock_v1::AppendRowsRequest| {
+            let Some(mock_v1::append_rows_request::Rows::ArrowRows(data)) = r.rows else {
+                panic!("expected ArrowRows, got: {:?}", r.rows);
+            };
+            (
+                r.write_stream,
+                data.writer_schema.map(|s| s.serialized_schema),
+                data.rows.map(|b| b.serialized_record_batch),
+            )
+        };
+
+        let r1 = recover_writes_rx.recv().await.expect("r1")?;
+        assert_eq!(
+            extract_mock_arrow(r1),
+            (
+                "stream_1".to_string(),
+                Some(b"schema_1".to_vec()),
+                Some(b"batch_1".to_vec())
+            )
+        );
+
+        let r2 = recover_writes_rx.recv().await.expect("r2")?;
+        assert_eq!(
+            extract_mock_arrow(r2),
+            ("".to_string(), None, Some(b"batch_2".to_vec()))
+        );
+
+        let r3 = recover_writes_rx.recv().await.expect("r3")?;
+        assert_eq!(
+            extract_mock_arrow(r3),
+            ("".to_string(), None, Some(b"batch_3".to_vec()))
+        );
+
+        let r4 = recover_writes_rx.recv().await.expect("r4")?;
+        assert_eq!(
+            extract_mock_arrow(r4),
+            (
+                "stream_2".to_string(),
+                Some(b"schema_1".to_vec()),
+                Some(b"batch_4".to_vec())
+            )
+        );
+
+        let r5 = recover_writes_rx.recv().await.expect("r5")?;
+        assert_eq!(
+            extract_mock_arrow(r5),
+            ("stream_2".to_string(), None, Some(b"batch_5".to_vec()))
+        );
+
+        let r6 = recover_writes_rx.recv().await.expect("r6")?;
+        assert_eq!(
+            extract_mock_arrow(r6),
+            (
+                "stream_2".to_string(),
+                Some(b"schema_2".to_vec()),
+                Some(b"batch_6".to_vec())
+            )
+        );
+
+        let r7 = recover_writes_rx.recv().await.expect("r7")?;
+        assert_eq!(
+            extract_mock_arrow(r7),
+            ("stream_2".to_string(), None, Some(b"batch_7".to_vec()))
+        );
+
+        drop(response_tx);
+        handle.await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn send_optimization_proto() -> anyhow::Result<()> {
+        use crate::google::cloud::bigquery::storage::v1::{
+            ProtoRows, ProtoSchema,
+            append_rows_request::{ProtoData, Rows},
+        };
+        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1 as mock_v1;
+
+        let (recover_writes_tx, mut recover_writes_rx) = mpsc::channel(10);
+        let (response_tx, response_rx) = mpsc::channel(10);
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows().return_once(move |request| {
+            tokio::spawn(async move {
+                let mut request_rx = request.into_inner();
+                while let Some(request) = request_rx.recv().await {
+                    recover_writes_tx
+                        .send(request)
+                        .await
+                        .expect("forwarding writes always succeeds");
+                }
+            });
+            Ok(TonicResponse::from(response_rx))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+
+        let Runner { req_tx, handle } = Runner::new(transport);
+
+        let make_proto_req = |stream: &str, msg_name: &str, row_bytes: &'static [u8]| {
+            let (resp_tx, _) = oneshot::channel();
+            WriteRequest {
+                req: AppendRowsRequest {
+                    write_stream: stream.to_string(),
+                    rows: Some(Rows::ProtoRows(ProtoData {
+                        writer_schema: Some(ProtoSchema {
+                            proto_descriptor: Some(prost_types::DescriptorProto {
+                                name: Some(msg_name.to_string()),
+                                ..Default::default()
+                            }),
+                        }),
+                        rows: Some(ProtoRows {
+                            serialized_rows: vec![row_bytes.into()],
+                        }),
+                    })),
+                    ..Default::default()
+                },
+                resp_tx,
+            }
+        };
+
+        // 1. Initial request: sends write_stream and writer_schema.
+        req_tx.send(make_proto_req("stream_1", "Msg1", b"row_1"))?;
+        // 2. Same stream and schema: omits both write_stream and writer_schema.
+        req_tx.send(make_proto_req("stream_1", "Msg1", b"row_2"))?;
+        // 3. Different schema on same default stream: sends both write_stream and writer_schema.
+        req_tx.send(make_proto_req("stream_1", "Msg2", b"row_3"))?;
+        // 4. Subsequent request after schema change: keeps write_stream ("stream_1")
+        //    and omits writer_schema.
+        req_tx.send(make_proto_req("stream_1", "Msg2", b"row_4"))?;
+
+        let extract_mock_proto = |r: mock_v1::AppendRowsRequest| {
+            let Some(mock_v1::append_rows_request::Rows::ProtoRows(data)) = r.rows else {
+                panic!("expected ProtoRows, got: {:?}", r.rows);
+            };
+            (
+                r.write_stream,
+                data.writer_schema
+                    .and_then(|s| s.proto_descriptor)
+                    .and_then(|d| d.name),
+                data.rows.map(|b| b.serialized_rows),
+            )
+        };
+
+        let r1 = recover_writes_rx.recv().await.expect("r1")?;
+        assert_eq!(
+            extract_mock_proto(r1),
+            (
+                "stream_1".to_string(),
+                Some("Msg1".to_string()),
+                Some(vec![b"row_1".to_vec()])
+            )
+        );
+
+        let r2 = recover_writes_rx.recv().await.expect("r2")?;
+        assert_eq!(
+            extract_mock_proto(r2),
+            ("".to_string(), None, Some(vec![b"row_2".to_vec()]))
+        );
+
+        let r3 = recover_writes_rx.recv().await.expect("r3")?;
+        assert_eq!(
+            extract_mock_proto(r3),
+            (
+                "stream_1".to_string(),
+                Some("Msg2".to_string()),
+                Some(vec![b"row_3".to_vec()])
+            )
+        );
+
+        let r4 = recover_writes_rx.recv().await.expect("r4")?;
+        assert_eq!(
+            extract_mock_proto(r4),
+            ("stream_1".to_string(), None, Some(vec![b"row_4".to_vec()]))
+        );
 
         drop(response_tx);
         handle.await?;
