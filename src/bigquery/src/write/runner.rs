@@ -16,11 +16,9 @@ use super::error::{AppendError, AppendResult};
 use super::optimizer::SendOptimizer;
 use super::stream::Stream;
 use super::transport::{Transport, info::VERSION};
-use crate::Result;
 use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};
 use gaxi::grpc::from_status::to_gax_error;
-use gaxi::grpc::tonic::{Status as TonicStatus, Streaming};
-use std::collections::VecDeque;
+use gaxi::grpc::tonic::Status as TonicStatus;
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot};
 use tokio::task::JoinHandle;
@@ -77,10 +75,6 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::UnboundedRecei
 
     let mut optimizer = SendOptimizer::new(&req);
 
-    // A queue of responses we need to satisfy
-    let mut resp_txs = VecDeque::new();
-    resp_txs.push_back(initial_req.resp_tx);
-
     // Open the stream.
     let Stream {
         mut stream,
@@ -88,70 +82,72 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::UnboundedRecei
     } = match Stream::new(inner, req).await {
         Ok(s) => s,
         Err(e) => {
-            process_gax_response(&mut resp_txs, Err(e));
+            let _ = initial_req.resp_tx.send(Err(AppendError::from(e)));
             return;
         }
     };
 
-    loop {
-        tokio::select! {
-            req = req_rx.recv() => {
-                match req {
-                    Some(mut r) => {
-                        optimizer.optimize(&mut r.req);
+    // A FIFO queue of response channels shared between the sender task
+    // (producer) and the receiver loop (consumer).
+    let (pending_resp_tx, mut pending_resp_rx) = mpsc::unbounded_channel();
+    let _ = pending_resp_tx.send(initial_req.resp_tx);
 
-                        // Keep track of the response channel.
-                        resp_txs.push_back(r.resp_tx);
+    // Spawn a dedicated sender task so outbound send optimization and HTTP/2
+    // flow-control backpressure on `request_tx.send()` never block inbound
+    // response processing (`stream.message()`).
+    let send_handle = tokio::spawn(async move {
+        while let Some(mut r) = req_rx.recv().await {
+            optimizer.optimize(&mut r.req);
 
-                        // Forward the request to the stream.
-                        let _ = request_tx.send(r.req).await;
-                    }
-                    None => {
-                        drop(request_tx);
-                        break drain_stream(stream, resp_txs).await;
-                    }
-                }
+            // Register the response channel before forwarding the request to the
+            // stream so it is always queued before the server's response arrives.
+            if pending_resp_tx.send(r.resp_tx).is_err() {
+                break;
             }
-            resp = stream.message() => {
-                match resp.transpose() {
-                    Some(r) => process_response(&mut resp_txs, r),
-                    // Note that tonic yields `None` after an `Err(e)`.
-                    None => break,
-                }
+
+            // Forward the request to the stream.
+            if request_tx.send(r.req).await.is_err() {
+                break;
             }
         }
-    }
-}
+    });
 
-async fn drain_stream(
-    mut stream: Streaming<AppendRowsResponse>,
-    mut resp_txs: VecDeque<oneshot::Sender<AppendResult<AppendRowsResponse>>>,
-) {
     while let Some(r) = stream.message().await.transpose() {
-        process_response(&mut resp_txs, r);
+        process_response(&mut pending_resp_rx, r).await;
     }
+
+    send_handle.abort();
+    let _ = send_handle.await;
 }
 
-fn process_response(
-    resp_txs: &mut VecDeque<oneshot::Sender<AppendResult<AppendRowsResponse>>>,
+async fn process_response(
+    pending_resp_rx: &mut mpsc::UnboundedReceiver<
+        oneshot::Sender<AppendResult<AppendRowsResponse>>,
+    >,
     resp: TonicResult<AppendRowsResponse>,
 ) {
-    process_gax_response(resp_txs, resp.map_err(to_gax_error))
-}
-
-fn process_gax_response(
-    resp_txs: &mut VecDeque<oneshot::Sender<AppendResult<AppendRowsResponse>>>,
-    resp: Result<AppendRowsResponse>,
-) {
     // Pop the response channel associated with this response.
-    let Some(resp_tx) = resp_txs.pop_front() else {
-        // Note that the server may close an idle stream that has no requests
-        // queued up. If so, the runner task will terminate gracefully.
-        return;
+    // In production, `pending_resp_tx.send()` always precedes `request_tx.send()`,
+    // so `try_recv()` succeeds immediately in O(1) without awaiting. If `try_recv()`
+    // is empty (e.g. in mock unit tests where a response is injected before the
+    // spawned sender task is polled), yield once before concluding the stream has
+    // no pending requests.
+    let resp_tx = match pending_resp_rx.try_recv() {
+        Ok(tx) => tx,
+        Err(mpsc::error::TryRecvError::Empty) => {
+            tokio::task::yield_now().await;
+            let Ok(tx) = pending_resp_rx.try_recv() else {
+                // Note that the server may close an idle stream that has no requests
+                // queued up. If so, the runner task will terminate gracefully.
+                return;
+            };
+            tx
+        }
+        Err(mpsc::error::TryRecvError::Disconnected) => return,
     };
 
     // Forward the result.
-    let _ = resp_tx.send(resp.map_err(AppendError::from));
+    let _ = resp_tx.send(resp.map_err(|e| AppendError::from(to_gax_error(e))));
 }
 
 #[cfg(test)]

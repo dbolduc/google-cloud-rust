@@ -39,7 +39,7 @@ use std::time::Duration;
 #[derive(Debug)]
 pub(crate) struct Dispatcher {
     pub(crate) pool: Arc<StreamPool>,
-    pub(crate) entry: ArcSwap<StreamEntry>,
+    pub(crate) entry: Arc<ArcSwap<StreamEntry>>,
     pub(crate) options: RetryOptions,
 }
 
@@ -47,9 +47,11 @@ impl Dispatcher {
     /// Creates a new `Dispatcher` for a given `StreamPool`.
     pub(crate) fn new(pool: Arc<StreamPool>, options: RetryOptions) -> Self {
         let stream = pool.get();
+        let entry = Arc::new(ArcSwap::from_pointee(stream));
+        pool.register_writer(Arc::downgrade(&entry));
         Self {
             pool,
-            entry: ArcSwap::from_pointee(stream),
+            entry,
             options,
         }
     }
@@ -129,7 +131,10 @@ impl Dispatcher {
         req: AppendRowsRequestProto,
         timeout: Option<Duration>,
     ) -> AppendResult<AppendResponse> {
-        let stream = self.entry.load_full();
+        let mut stream = self.entry.load_full();
+        if self.pool.maybe_scale_up(&stream) {
+            stream = self.entry.load_full();
+        }
         let stream_id = stream.id;
 
         // A timeout abandons the write, but does not remove it from the
