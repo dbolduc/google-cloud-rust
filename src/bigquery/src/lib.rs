@@ -128,28 +128,47 @@
 //! # Example: Writing to BigQuery
 //!
 //! ```
+//! use arrow::array::{Int64Array, StringArray};
+//! use arrow::datatypes::{DataType, Field, Schema};
+//! use arrow::ipc::writer::StreamWriter;
+//! use arrow::record_batch::RecordBatch;
 //! use google_cloud_bigquery::client::Write;
-//! use google_cloud_bigquery::model::{ArrowSchema, ArrowRecordBatch};
+//! use google_cloud_bigquery::model::{ArrowRecordBatch, ArrowSchema};
+//! use std::sync::Arc;
 //! # async fn sample() -> anyhow::Result<()> {
 //! let client = Write::builder().build().await?;
+//!
+//! // Define the table schema and initialize an Arrow IPC stream writer.
+//! let schema = Arc::new(Schema::new(vec![
+//!     Field::new("string", DataType::Utf8, false),
+//!     Field::new("int", DataType::Int64, false),
+//! ]));
+//! let mut ipc_writer = StreamWriter::try_new(Vec::new(), &schema)?;
+//! let schema_bytes = std::mem::take(ipc_writer.get_mut());
+//!
 //! let writer = client
 //!     .open_default_stream("projects/my-project/datasets/my-dataset/tables/my-table")
-//!     .build_arrow(schema())
+//!     .build_arrow(ArrowSchema::new().set_serialized_schema(schema_bytes))
 //!     .await?;
 //!
-//! let f1 = writer.append(rows()).send();
-//! let f2 = writer.append(rows()).send();
+//! // Build and serialize a record batch.
+//! let batch = RecordBatch::try_new(
+//!     schema.clone(),
+//!     vec![
+//!         Arc::new(StringArray::from(vec!["a", "b"])),
+//!         Arc::new(Int64Array::from(vec![1, 2])),
+//!     ],
+//! )?;
+//! ipc_writer.write(&batch)?;
+//! let batch_bytes = std::mem::take(ipc_writer.get_mut());
+//! let rows = ArrowRecordBatch::new().set_serialized_record_batch(batch_bytes);
+//!
+//! let f1 = writer.append(rows.clone()).send();
+//! let f2 = writer.append(rows).send();
 //!
 //! let _ = f1.await?;
 //! let _ = f2.await?;
 //! # Ok(()) }
-//!
-//! fn schema() -> ArrowSchema {
-//!     todo!("Define your table's schema...")
-//! }
-//! fn rows() -> ArrowRecordBatch {
-//!     todo!("Serialize your rows...")
-//! }
 //! ```
 
 pub use google_cloud_gax::Result;

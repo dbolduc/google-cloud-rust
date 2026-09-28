@@ -54,6 +54,7 @@ uuid.workspace               = true
 
 [dev-dependencies]
 anyhow.workspace            = true
+arrow                       = { workspace = true, features = ["ipc"] }
 httptest.workspace          = true
 mockall.workspace           = true
 static_assertions.workspace = true
@@ -62,6 +63,9 @@ tokio                       = { workspace = true, features = ["macros", "rt-mult
 bigquery-grpc-mock          = { path = "../bigquery/grpc-mock" }
 google-cloud-auth.workspace = true
 google-cloud-rpc.workspace  = true
+
+[package.metadata.cargo-machete]
+ignored = ["arrow"]
 
 [features]
 default = ["default-rustls-provider"]
