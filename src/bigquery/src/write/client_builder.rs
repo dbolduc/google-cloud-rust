@@ -180,8 +180,8 @@ impl ClientBuilder {
 
     // TODO(#6866) - expose when we have rebalancing
     #[cfg_attr(not(test), expect(dead_code))]
-    /// Configure the maximum outstanding requests in the client's multiplexed
-    /// stream pool.
+    /// Configure the maximum outstanding requests per stream in the client's
+    /// multiplexed stream pool.
     ///
     /// # Example
     /// ```no_rust
@@ -206,8 +206,8 @@ impl ClientBuilder {
 
     // TODO(#6866) - expose when we have rebalancing
     #[cfg_attr(not(test), expect(dead_code))]
-    /// Configure the maximum outstanding bytes in the client's multiplexed
-    /// stream pool.
+    /// Configure the maximum outstanding bytes per stream in the client's
+    /// multiplexed stream pool.
     ///
     /// # Example
     /// ```no_rust
