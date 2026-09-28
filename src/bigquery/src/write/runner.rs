@@ -43,9 +43,11 @@ pub(crate) struct WriteRequest {
 /// they were received, the client can queue multiple requests concurrently
 /// before receiving a response.
 ///
-/// If the stream terminates for any reason, the background task exits. Any
-/// unsatisfied requests are dropped, which surfaces to the client as a
-/// `oneshot::error::RecvError` on their response channel.
+/// If the stream terminates with a gRPC status error, the error is forwarded to
+/// all pending requests. If the stream closes without an error while requests
+/// are still pending, the unsatisfied response channels are dropped, which
+/// surfaces to the client as a `oneshot::error::RecvError` on their response
+/// channel.
 #[derive(Debug)]
 pub(crate) struct Runner {
     pub(crate) req_tx: mpsc::UnboundedSender<WriteRequest>,
@@ -82,7 +84,16 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::UnboundedRecei
     let Stream { stream, request_tx } = match Stream::new(inner, req).await {
         Ok(s) => s,
         Err(e) => {
+            req_rx.close();
+            let status = find_tonic_status(&e).cloned();
             let _ = initial_req.resp_tx.send(Err(AppendError::from(e)));
+            if let Some(status) = status {
+                while let Ok(r) = req_rx.try_recv() {
+                    let _ = r
+                        .resp_tx
+                        .send(Err(AppendError::from(to_gax_error(status.clone()))));
+                }
+            }
             return;
         }
     };
@@ -107,6 +118,17 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::UnboundedRecei
     // Once the response stream is closed, there is no need to keep the task
     // pushing writes to the stream alive.
     write_handle.abort();
+}
+
+fn find_tonic_status(err: &crate::Error) -> Option<&TonicStatus> {
+    let mut source = std::error::Error::source(err);
+    while let Some(err) = source {
+        if let Some(status) = err.downcast_ref::<TonicStatus>() {
+            return Some(status);
+        }
+        source = err.source();
+    }
+    None
 }
 
 async fn run_write_task(
@@ -146,15 +168,23 @@ fn process_response(
     pending_resp_rx: &mut mpsc::UnboundedReceiver<ResponseSender>,
     resp: TonicResult<AppendRowsResponse>,
 ) {
-    // Pop the response channel associated with this response.
-    let Ok(resp_tx) = pending_resp_rx.try_recv() else {
-        // Note that the server may close an idle stream that has no requests
-        // queued up. If so, the runner task will terminate gracefully.
-        return;
-    };
-
-    // Forward the result.
-    let _ = resp_tx.send(resp.map_err(|e| AppendError::from(to_gax_error(e))));
+    match resp {
+        Ok(resp) => {
+            // Pop the response channel associated with this response.
+            let Ok(resp_tx) = pending_resp_rx.try_recv() else {
+                // Note that the server may close an idle stream that has no
+                // requests queued up. If so, the runner task will terminate
+                // gracefully.
+                return;
+            };
+            let _ = resp_tx.send(Ok(resp));
+        }
+        Err(status) => {
+            while let Ok(resp_tx) = pending_resp_rx.try_recv() {
+                let _ = resp_tx.send(Err(AppendError::from(to_gax_error(status.clone()))));
+            }
+        }
+    }
 }
 
 #[cfg(test)]
@@ -270,22 +300,33 @@ mod tests {
 
         let Runner { req_tx, handle } = Runner::new(transport);
 
-        let (resp_tx, resp_rx) = oneshot::channel();
-        let write = WriteRequest {
+        // write 1
+        let (resp_tx1, resp_rx1) = oneshot::channel();
+        let write1 = WriteRequest {
             req: test_request(1),
-            resp_tx,
+            resp_tx: resp_tx1,
         };
-        req_tx.send(write)?;
+        req_tx.send(write1)?;
 
-        let resp = resp_rx.await?;
-        let Err(AppendError::Rpc { source: err }) = resp else {
-            anyhow::bail!("expected an RPC error, got: {resp:?}");
+        // write 2
+        let (resp_tx2, resp_rx2) = oneshot::channel();
+        let write2 = WriteRequest {
+            req: test_request(2),
+            resp_tx: resp_tx2,
         };
-        let Some(status) = err.status() else {
-            anyhow::bail!("expected a status, got: {err:?}");
-        };
-        assert_eq!(status.code, Code::FailedPrecondition);
-        assert_eq!(status.message, "fail");
+        req_tx.send(write2)?;
+
+        for resp_rx in [resp_rx1, resp_rx2] {
+            let resp = resp_rx.await?;
+            let Err(AppendError::Rpc { source: err }) = resp else {
+                anyhow::bail!("expected an RPC error, got: {resp:?}");
+            };
+            let Some(status) = err.status() else {
+                anyhow::bail!("expected a status, got: {err:?}");
+            };
+            assert_eq!(status.code, Code::FailedPrecondition);
+            assert_eq!(status.message, "fail");
+        }
 
         drop(req_tx);
         handle.await?;
@@ -331,22 +372,22 @@ mod tests {
         let resp1 = resp_rx1.await??;
         assert_eq!(resp1, test_response(1));
 
-        // resp 2 - error
+        // Stream fails with an error. All remaining pending writes (2 and 3)
+        // should receive the RPC error.
         response_tx
             .send(Err(TonicStatus::failed_precondition("fail")))
             .await?;
-        let resp2 = resp_rx2.await?;
-        let Err(AppendError::Rpc { source: err }) = resp2 else {
-            anyhow::bail!("expected an RPC error, got: {resp2:?}");
-        };
-        let Some(status) = err.status() else {
-            anyhow::bail!("expected a status, got: {err:?}");
-        };
-        assert_eq!(status.code, Code::FailedPrecondition);
-        assert_eq!(status.message, "fail");
-
-        // resp 3 - channel closed error
-        let _resp3 = resp_rx3.await.expect_err("channel should be closed");
+        for resp_rx in [resp_rx2, resp_rx3] {
+            let resp = resp_rx.await?;
+            let Err(AppendError::Rpc { source: err }) = resp else {
+                anyhow::bail!("expected an RPC error, got: {resp:?}");
+            };
+            let Some(status) = err.status() else {
+                anyhow::bail!("expected a status, got: {err:?}");
+            };
+            assert_eq!(status.code, Code::FailedPrecondition);
+            assert_eq!(status.message, "fail");
+        }
 
         drop(req_tx);
         drop(response_tx);

@@ -319,7 +319,20 @@ mod tests {
         let (response_tx, response_rx) = mpsc::channel(10);
         let mut mock = MockBigQueryWrite::new();
         mock.expect_append_rows()
-            .return_once(move |_| Ok(TonicResponse::from(response_rx)));
+            .once()
+            .return_once(move |request| {
+                let mut request_rx = request.into_inner();
+                tokio::spawn(async move {
+                    // Wait for both pipelined writes to arrive on the stream,
+                    // then fail the stream with a permanent error.
+                    let _ = request_rx.recv().await;
+                    let _ = request_rx.recv().await;
+                    let _ = response_tx
+                        .send(Err(TonicStatus::failed_precondition("fail")))
+                        .await;
+                });
+                Ok(TonicResponse::from(response_rx))
+            });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
@@ -327,19 +340,27 @@ mod tests {
         let dispatcher = Arc::new(Dispatcher::new(pool.clone(), RetryOptions::default()));
         assert_eq!(dispatcher.entry.load().id, 1);
 
-        let write = {
+        let write1 = {
+            let d = dispatcher.clone();
+            tokio::spawn(async move { d.send(test_req()).await })
+        };
+        let write2 = {
             let d = dispatcher.clone();
             tokio::spawn(async move { d.send(test_req()).await })
         };
 
-        // Simulate a stream-level error. The error is not retryable, but the
-        // stream is still dead.
-        response_tx
-            .send(Err(TonicStatus::failed_precondition("fail")))
-            .await?;
-
-        let err = write.await?.expect_err("should return an error");
-        assert!(matches!(err, AppendError::Rpc { source: _ }));
+        // Simulate a stream-level permanent error with multiple pipelined
+        // writes. Neither write should retry, and both should surface the RPC
+        // error rather than `UnexpectedEndOfStream`.
+        for write in [write1, write2] {
+            let err = write.await?.expect_err("should return an error");
+            let AppendError::Rpc { source } = err else {
+                anyhow::bail!("expected an RPC error, got: {err:?}");
+            };
+            let status = source.status().expect("the error should have a status");
+            assert_eq!(status.code, Code::FailedPrecondition);
+            assert_eq!(status.message, "fail");
+        }
 
         // The stream terminated, so it should not remain in the pool.
         assert_eq!(dispatcher.entry.load().id, 2);
