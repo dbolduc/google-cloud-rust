@@ -198,6 +198,10 @@ impl ClientBuilder {
     /// dynamically adds more streams to the stream pool, up to the limit
     /// configured by `with_pool_size_limit`.
     ///
+    /// Note that this is not a hard maximum. When the pool reaches the stream
+    /// limit, the streams will continue accepting requests. Consider using a
+    /// semaphore locally for flow control.
+    ///
     /// The default is 1000 requests.
     pub(crate) fn with_max_outstanding_requests(mut self, v: u64) -> Self {
         self.pool_options.max_outstanding_requests = Some(v.max(1));
@@ -223,6 +227,10 @@ impl ClientBuilder {
     /// As streams in the stream pool approach this limit, the client
     /// dynamically adds more streams to the stream pool, up to the limit
     /// configured by `with_pool_size_limit`.
+    ///
+    /// Note that this is not a hard maximum. When the pool reaches the stream
+    /// limit, the streams will continue accepting requests. Consider using a
+    /// semaphore locally for flow control.
     pub(crate) fn with_max_outstanding_bytes(mut self, v: u64) -> Self {
         self.pool_options.max_outstanding_bytes = Some(v.max(1));
         self
