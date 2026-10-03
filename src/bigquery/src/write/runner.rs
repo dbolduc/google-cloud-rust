@@ -63,12 +63,71 @@ impl Runner {
     }
 }
 
+#[derive(Clone, PartialEq)]
+enum ActiveSchema {
+    Proto(Box<crate::google::cloud::bigquery::storage::v1::ProtoSchema>),
+    Arrow(crate::google::cloud::bigquery::storage::v1::ArrowSchema),
+}
+
+fn extract_schema(req: &AppendRowsRequest) -> Option<ActiveSchema> {
+    use crate::google::cloud::bigquery::storage::v1::append_rows_request::Rows;
+    match &req.rows {
+        Some(Rows::ProtoRows(data)) => data
+            .writer_schema
+            .as_ref()
+            .map(|s| ActiveSchema::Proto(Box::new(s.clone()))),
+        Some(Rows::ArrowRows(data)) => data.writer_schema.clone().map(ActiveSchema::Arrow),
+        None => None,
+    }
+}
+
+fn schema_matches(req: &AppendRowsRequest, last_schema: &Option<ActiveSchema>) -> bool {
+    use crate::google::cloud::bigquery::storage::v1::append_rows_request::Rows;
+    match (&req.rows, last_schema) {
+        (Some(Rows::ProtoRows(data)), Some(ActiveSchema::Proto(last))) => {
+            data.writer_schema.as_ref() == Some(last.as_ref())
+        }
+        (Some(Rows::ArrowRows(data)), Some(ActiveSchema::Arrow(last))) => {
+            data.writer_schema.as_ref() == Some(last)
+        }
+        _ => false,
+    }
+}
+
+fn clear_redundant_schema(
+    req: &mut AppendRowsRequest,
+    last_write_stream: &mut String,
+    last_schema: &mut Option<ActiveSchema>,
+) {
+    use crate::google::cloud::bigquery::storage::v1::append_rows_request::Rows;
+    let same_target = !req.write_stream.is_empty() && req.write_stream == *last_write_stream;
+    let same_schema = schema_matches(req, last_schema);
+
+    if same_target && same_schema {
+        match &mut req.rows {
+            Some(Rows::ProtoRows(data)) => data.writer_schema = None,
+            Some(Rows::ArrowRows(data)) => data.writer_schema = None,
+            None => {}
+        }
+    } else {
+        if !req.write_stream.is_empty() {
+            *last_write_stream = req.write_stream.clone();
+        }
+        if let Some(current_schema) = extract_schema(req) {
+            *last_schema = Some(current_schema);
+        }
+    }
+}
+
 async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::UnboundedReceiver<WriteRequest>) {
     // Wait for the first write before opening the stream. Tonic will not yield
     // us a stream until we have performed the first write.
     let Some(initial_req) = req_rx.recv().await else {
         return;
     };
+
+    let mut last_write_stream = initial_req.req.write_stream.clone();
+    let mut last_schema = extract_schema(&initial_req.req);
 
     // A queue of responses we need to satisfy
     let mut resp_txs = VecDeque::new();
@@ -93,9 +152,13 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::UnboundedRecei
         tokio::select! {
             req = req_rx.recv() => {
                 match req {
-                    Some(r) => {
+                    Some(mut r) => {
                         // Keep track of the response channel.
                         resp_txs.push_back(r.resp_tx);
+
+                        // Elide redundant `writer_schema` when consecutive requests on the
+                        // same open stream target the same `write_stream` with the same schema.
+                        clear_redundant_schema(&mut r.req, &mut last_write_stream, &mut last_schema);
 
                         // Forward the request to the stream.
                         let _ = request_tx.send(r.req).await;
@@ -504,6 +567,110 @@ mod tests {
 
         // The runner detects that all receivers are closed and exits promptly
         // without waiting for the hung stream to send a message.
+        handle.await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn elides_redundant_writer_schema_and_resends_on_table_switch() -> anyhow::Result<()> {
+        use crate::google::cloud::bigquery::storage::v1::ArrowSchema;
+        use crate::google::cloud::bigquery::storage::v1::append_rows_request::{ArrowData, Rows};
+
+        let (response_tx, response_rx) = mpsc::channel(10);
+        let (received_tx, mut received_rx) = mpsc::unbounded_channel();
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows().return_once(move |request| {
+            let mut req_stream = request.into_inner();
+            tokio::spawn(async move {
+                let mut offset = 0;
+                while let Some(Ok(req)) = req_stream.recv().await {
+                    offset += 1;
+                    let _ = received_tx.send(req);
+                    let _ = response_tx.send(Ok(convert(&test_response(offset)))).await;
+                }
+            });
+            Ok(TonicResponse::from(response_rx))
+        });
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let Runner { req_tx, handle } = Runner::new(transport);
+
+        let make_arrow_req = |table: &str, schema_str: &str| AppendRowsRequest {
+            write_stream: format!("projects/p/datasets/d/tables/{table}/streams/_default"),
+            rows: Some(Rows::ArrowRows(ArrowData {
+                writer_schema: Some(ArrowSchema {
+                    serialized_schema: schema_str.as_bytes().to_vec().into(),
+                }),
+                rows: None,
+            })),
+            ..Default::default()
+        };
+
+        // 1. First request to t1: must include writer_schema.
+        let (tx1, rx1) = oneshot::channel();
+        req_tx.send(WriteRequest {
+            req: make_arrow_req("t1", "schema_1"),
+            resp_tx: tx1,
+        })?;
+        // 2. Second request to t1 with same schema: writer_schema must be elided.
+        let (tx2, rx2) = oneshot::channel();
+        req_tx.send(WriteRequest {
+            req: make_arrow_req("t1", "schema_1"),
+            resp_tx: tx2,
+        })?;
+        // 3. Request switching to t2: writer_schema must be sent again.
+        let (tx3, rx3) = oneshot::channel();
+        req_tx.send(WriteRequest {
+            req: make_arrow_req("t2", "schema_2"),
+            resp_tx: tx3,
+        })?;
+        // 4. Subsequent request to t2 with same schema: writer_schema must be elided.
+        let (tx4, rx4) = oneshot::channel();
+        req_tx.send(WriteRequest {
+            req: make_arrow_req("t2", "schema_2"),
+            resp_tx: tx4,
+        })?;
+
+        rx1.await??;
+        rx2.await??;
+        rx3.await??;
+        rx4.await??;
+
+        let wire1 = received_rx.recv().await.expect("req 1");
+        let wire2 = received_rx.recv().await.expect("req 2");
+        let wire3 = received_rx.recv().await.expect("req 3");
+        let wire4 = received_rx.recv().await.expect("req 4");
+
+        let has_schema =
+            |r: &bigquery_grpc_mock::google::cloud::bigquery::storage::v1::AppendRowsRequest| {
+                match &r.rows {
+                Some(bigquery_grpc_mock::google::cloud::bigquery::storage::v1::append_rows_request::Rows::ArrowRows(d)) => {
+                    d.writer_schema.is_some()
+                }
+                _ => false,
+            }
+            };
+
+        assert!(
+            has_schema(&wire1),
+            "first request on stream must carry writer_schema"
+        );
+        assert!(
+            !has_schema(&wire2),
+            "consecutive request to same table must elide writer_schema"
+        );
+        assert!(
+            has_schema(&wire3),
+            "request switching write_stream must carry writer_schema"
+        );
+        assert!(
+            !has_schema(&wire4),
+            "consecutive request after table switch must elide writer_schema"
+        );
+
+        drop(req_tx);
         handle.await?;
 
         Ok(())
