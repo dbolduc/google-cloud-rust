@@ -54,28 +54,6 @@ struct StreamTracker {
     dispatchers: Vec<Arc<Dispatcher>>,
 }
 
-impl StreamTracker {
-    fn distinct_tables(&self) -> usize {
-        let mut tables: Vec<&str> = self
-            .dispatchers
-            .iter()
-            .map(|d| d.write_stream.as_str())
-            .filter(|s| !s.is_empty())
-            .collect();
-        tables.sort_unstable();
-        tables.dedup();
-        tables.len()
-    }
-
-    fn has_table(&self, write_stream: &str) -> bool {
-        !write_stream.is_empty()
-            && self
-                .dispatchers
-                .iter()
-                .any(|d| d.write_stream == write_stream)
-    }
-}
-
 #[derive(Debug)]
 pub(crate) struct StreamPoolInner {
     inner: Arc<Transport>,
@@ -293,41 +271,13 @@ impl StreamPoolInner {
             {
                 tracker.dispatchers.push(dispatcher.clone());
             } else {
-                // Reassign dispatchers pointing to an evicted stream, preferring a non-loaded
-                // stream that already serves the same table, or the least-loaded active stream.
-                let same_table_idx = tracked_streams
-                    .iter()
-                    .enumerate()
-                    .filter(|(_, t)| {
-                        t.has_table(&dispatcher.write_stream)
-                            && t.effective_load <= self.load_threshold
-                    })
-                    .min_by(|(_, a), (_, b)| {
-                        a.effective_load
-                            .total_cmp(&b.effective_load)
-                            .then_with(|| a.dispatchers.len().cmp(&b.dispatchers.len()))
-                    })
-                    .map(|(idx, _)| idx);
-
-                let target_idx = same_table_idx.unwrap_or_else(|| {
-                    tracked_streams
-                        .iter()
-                        .enumerate()
-                        .min_by(|(_, a), (_, b)| {
-                            a.effective_load
-                                .total_cmp(&b.effective_load)
-                                .then_with(|| a.distinct_tables().cmp(&b.distinct_tables()))
-                                .then_with(|| a.dispatchers.len().cmp(&b.dispatchers.len()))
-                        })
-                        .map(|(idx, _)| idx)
-                        .expect("tracked_streams is non-empty")
-                });
-
-                let target_tracker = &mut tracked_streams[target_idx];
-                dispatcher
-                    .entry
-                    .store(Arc::new(target_tracker.entry.clone()));
-                target_tracker.dispatchers.push(dispatcher.clone());
+                // Reassign dispatchers pointing to an evicted stream to the least-loaded active stream.
+                let min_tracker = tracked_streams
+                    .iter_mut()
+                    .min_by(|a, b| a.effective_load.total_cmp(&b.effective_load))
+                    .expect("tracked_streams is non-empty");
+                dispatcher.entry.store(Arc::new(min_tracker.entry.clone()));
+                min_tracker.dispatchers.push(dispatcher.clone());
             }
         }
 
@@ -338,56 +288,26 @@ impl StreamPoolInner {
                 .iter()
                 .enumerate()
                 .filter(|(_, s)| s.dispatchers.len() > 1)
-                .max_by(|(_, a), (_, b)| {
-                    a.effective_load
-                        .total_cmp(&b.effective_load)
-                        .then_with(|| a.distinct_tables().cmp(&b.distinct_tables()))
-                        .then_with(|| a.dispatchers.len().cmp(&b.dispatchers.len()))
-                })
+                .max_by(|(_, a), (_, b)| a.effective_load.total_cmp(&b.effective_load))
             else {
                 break;
             };
 
-            let max_distinct_tables = tracked_streams[max_idx].distinct_tables();
-            let candidate_stream = tracked_streams[max_idx]
-                .dispatchers
-                .last()
-                .map(|d| d.write_stream.clone())
-                .unwrap_or_default();
+            if tracked_streams[max_idx].effective_load <= self.load_threshold {
+                break;
+            }
 
-            let group_len = if max_distinct_tables > 1 && !candidate_stream.is_empty() {
-                tracked_streams[max_idx]
-                    .dispatchers
-                    .iter()
-                    .filter(|d| d.write_stream == candidate_stream)
-                    .count()
-            } else {
-                1
-            };
-
-            // Find the best target stream to receive the moved dispatcher(s).
+            // Find the least-loaded stream overall.
             let (mut min_idx, _) = tracked_streams
                 .iter()
                 .enumerate()
-                .min_by(|(_, a), (_, b)| {
-                    a.effective_load
-                        .total_cmp(&b.effective_load)
-                        .then_with(|| a.distinct_tables().cmp(&b.distinct_tables()))
-                        .then_with(|| a.dispatchers.len().cmp(&b.dispatchers.len()))
-                })
+                .min_by(|(_, a), (_, b)| a.effective_load.total_cmp(&b.effective_load))
                 .expect("tracked_streams is non-empty");
 
-            let min_has_different_table = !candidate_stream.is_empty()
-                && tracked_streams[min_idx].distinct_tables() > 0
-                && !tracked_streams[min_idx].has_table(&candidate_stream);
-
-            // If the target stream is loaded (or already serves a different table) and we can grow,
-            // spawn a new stream.
-            if tracked_streams[max_idx].effective_load > self.load_threshold
+            // If the least-loaded stream is loaded and we can grow, spawn a new stream.
+            if tracked_streams[min_idx].effective_load > self.load_threshold
                 && tracked_streams.len() < self.max_streams
-                && (tracked_streams[min_idx].effective_load > self.load_threshold
-                    || min_idx == max_idx
-                    || min_has_different_table)
+                && tracked_streams[max_idx].effective_load > self.load_threshold
             {
                 let new_entry = self.new_stream_entry();
                 state.streams.push(new_entry.clone());
@@ -406,38 +326,20 @@ impl StreamPoolInner {
             let max_load = tracked_streams[max_idx].effective_load;
             let min_load = tracked_streams[min_idx].effective_load;
             let max_dispatchers_count = tracked_streams[max_idx].dispatchers.len();
-            let delta = max_load * (group_len as f64) / (max_dispatchers_count as f64);
+            let delta = max_load / (max_dispatchers_count as f64);
             let new_max_load = max_load - delta;
             let new_min_load = min_load + delta;
             let strictly_reduces_peak =
                 f64::max(new_max_load, new_min_load) < max_load * (1.0 - 1e-9);
 
             if max_load >= min_load * LOAD_DELTA_THRESHOLD && strictly_reduces_peak {
-                let target_entry = Arc::new(tracked_streams[min_idx].entry.clone());
-                let moved: Vec<Arc<Dispatcher>> = if group_len > 1 {
-                    let mut extracted = Vec::with_capacity(group_len);
-                    tracked_streams[max_idx].dispatchers.retain(|d| {
-                        if d.write_stream == candidate_stream {
-                            extracted.push(d.clone());
-                            false
-                        } else {
-                            true
-                        }
-                    });
-                    extracted
-                } else {
-                    vec![
-                        tracked_streams[max_idx]
-                            .dispatchers
-                            .pop()
-                            .expect("max_idx has > 1 dispatcher"),
-                    ]
-                };
-
-                for dispatcher in moved {
-                    dispatcher.entry.store(target_entry.clone());
-                    tracked_streams[min_idx].dispatchers.push(dispatcher);
-                }
+                let dispatcher = tracked_streams[max_idx]
+                    .dispatchers
+                    .pop()
+                    .expect("max_idx has > 1 dispatcher");
+                let target_entry = tracked_streams[min_idx].entry.clone();
+                dispatcher.entry.store(Arc::new(target_entry));
+                tracked_streams[min_idx].dispatchers.push(dispatcher);
                 tracked_streams[max_idx].effective_load = new_max_load;
                 tracked_streams[min_idx].effective_load = new_min_load;
             } else {
@@ -451,12 +353,10 @@ impl StreamPoolInner {
     /// When `write_stream` is non-empty:
     /// 1. **Table Affinity**: Reuses an existing non-overloaded stream already serving
     ///    `write_stream`, keeping all writers for the same table colocated on one stream.
-    /// 2. **Unclaimed Idle Stream**: Reuses an existing non-overloaded stream that has no
-    ///    assigned table yet.
-    /// 3. **Scale Out**: If the pool has not reached `max_streams`, provisions a new stream
-    ///    so distinct tables get dedicated streams rather than thrashing on a shared stream.
-    /// 4. **Balanced Sharding**: When `max_streams` is reached, assigns the table to the
-    ///    stream with the fewest distinct tables and lowest load.
+    /// 2. **Scale Out**: If no unclaimed non-overloaded stream exists and the pool has not
+    ///    reached `max_streams`, provisions a new stream so distinct tables get dedicated streams.
+    /// 3. **Balanced Sharding**: Otherwise assigns the table to the stream minimizing
+    ///    `(is_loaded, distinct_tables, load, dispatcher_count)`.
     fn get_for_stream_impl(&self, state: &mut PoolState, write_stream: &str) -> StreamEntry {
         if write_stream.is_empty() {
             return self.get_impl(&mut state.streams);
@@ -528,42 +428,25 @@ impl StreamPoolInner {
             return state.streams[best.index].clone();
         }
 
-        // 2. Prefer an existing non-overloaded stream that is not yet serving any table.
-        if let Some(best) = candidates
+        // 2. Grow the pool if capacity permits and no unclaimed idle stream exists.
+        let has_unclaimed = candidates
             .iter()
-            .filter(|c| c.distinct_tables == 0 && !c.is_loaded)
-            .min_by(|a, b| {
-                a.load
-                    .total_cmp(&b.load)
-                    .then_with(|| a.dispatcher_count.cmp(&b.dispatcher_count))
-            })
-        {
-            return state.streams[best.index].clone();
-        }
-
-        // 3. Grow the pool if capacity permits so this table gets a dedicated stream.
-        if state.streams.len() < self.max_streams {
+            .any(|c| c.distinct_tables == 0 && !c.is_loaded);
+        if !has_unclaimed && state.streams.len() < self.max_streams {
             let stream = self.new_stream_entry();
             state.streams.push(stream.clone());
             return stream;
         }
 
-        // 4. Pool is at `max_streams`; shard evenly across streams by table count and load.
+        // 3. Otherwise pick an unclaimed stream or shard evenly by table count and load.
         let best = candidates
             .iter()
-            .min_by(|a, b| match (a.is_loaded, b.is_loaded) {
-                (false, false) => a
-                    .distinct_tables
-                    .cmp(&b.distinct_tables)
-                    .then_with(|| a.load.total_cmp(&b.load))
-                    .then_with(|| a.dispatcher_count.cmp(&b.dispatcher_count)),
-                (true, true) => a
-                    .load
-                    .total_cmp(&b.load)
+            .min_by(|a, b| {
+                a.is_loaded
+                    .cmp(&b.is_loaded)
                     .then_with(|| a.distinct_tables.cmp(&b.distinct_tables))
-                    .then_with(|| a.dispatcher_count.cmp(&b.dispatcher_count)),
-                (false, true) => std::cmp::Ordering::Less,
-                (true, false) => std::cmp::Ordering::Greater,
+                    .then_with(|| a.load.total_cmp(&b.load))
+                    .then_with(|| a.dispatcher_count.cmp(&b.dispatcher_count))
             })
             .expect("streams is non-empty when max_streams >= 1");
 
@@ -1148,48 +1031,30 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn watchdog_preserves_table_group_cohesion_when_splitting_multi_table_stream()
-    -> anyhow::Result<()> {
+    async fn watchdog_does_not_break_table_affinity_when_below_threshold() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("ignored").await?);
         let pool = Arc::new(StreamPool::with_limits(transport, 4, Some(100), None));
 
-        // Create 8 writers across 4 tables (2 writers per table), and force them all onto
-        // stream 1 initially (simulating post-eviction or pre-existing colocated state).
+        // Create 8 writers across 4 tables (2 writers per table -> 4 dedicated streams).
         let writers: Vec<_> = (0..8)
             .map(|i| test_pool_table_dispatcher(&pool, i % 4))
             .collect();
-        let stream_1 = writers[0].entry.load_full();
-        for w in &writers {
-            w.entry.store(stream_1.clone());
-        }
-        pool.inner.state.lock().unwrap().streams.truncate(1);
-        assert_eq!(pool.stream_ids(), [1]);
+        assert_eq!(pool.stream_ids(), [1, 2, 3, 4]);
 
-        // Simulate heavy load on stream 1 (80 outstanding requests -> 0.8 load > 0.2 threshold).
-        stream_1.outstanding_requests.store(80, Ordering::Relaxed);
+        // Simulate skewed but non-overloaded traffic (stream 1 has 10 requests = 0.10 <= 0.20,
+        // while streams 2..4 have 0 requests).
+        writers[0]
+            .entry
+            .load()
+            .outstanding_requests
+            .store(10, Ordering::Relaxed);
 
         pool.watchdog_pulse();
 
-        // Watchdog should scale out to 4 streams and move whole table groups together
-        // so that each table's 2 writers remain on the same stream.
-        assert_eq!(pool.stream_ids().len(), 4);
+        // Both writers of each table must remain on their dedicated stream.
         for t in 0..4 {
-            assert_eq!(
-                writers[t].entry.load().id,
-                writers[t + 4].entry.load().id,
-                "both writers for table_{t} should stay colocated on the same stream"
-            );
-        }
-        for stream_id in pool.stream_ids() {
-            let mut tables: Vec<_> = writers
-                .iter()
-                .filter(|w| w.entry.load().id == stream_id)
-                .map(|w| w.write_stream.as_str())
-                .collect();
-            assert_eq!(tables.len(), 2);
-            tables.sort_unstable();
-            tables.dedup();
-            assert_eq!(tables.len(), 1);
+            assert_eq!(writers[t].entry.load().id, (t + 1) as u64);
+            assert_eq!(writers[t + 4].entry.load().id, (t + 1) as u64);
         }
 
         Ok(())
