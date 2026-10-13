@@ -144,9 +144,9 @@ fn process_gax_response(
     resp: Result<AppendRowsResponse>,
 ) {
     // Pop the response channel associated with this response.
-    let resp_tx = resp_txs
-        .pop_front()
-        .expect("the service sends one response per request");
+    let Some(resp_tx) = resp_txs.pop_front() else {
+        return;
+    };
 
     // Forward the result.
     let _ = resp_tx.send(resp.map_err(AppendError::from));

@@ -326,6 +326,23 @@ impl StreamPoolInner {
             let max_load = tracked_streams[max_idx].effective_load;
             let min_load = tracked_streams[min_idx].effective_load;
             let max_dispatchers_count = tracked_streams[max_idx].dispatchers.len();
+            let candidate_stream = tracked_streams[max_idx]
+                .dispatchers
+                .last()
+                .map(|d| d.write_stream.as_str())
+                .unwrap_or("");
+
+            // Never move a table's writer onto a stream already serving a different table,
+            // as mixing tables on a stream forces per-batch server table switches.
+            if !candidate_stream.is_empty()
+                && tracked_streams[min_idx]
+                    .dispatchers
+                    .iter()
+                    .any(|d| !d.write_stream.is_empty() && d.write_stream != candidate_stream)
+            {
+                break;
+            }
+
             let delta = max_load / (max_dispatchers_count as f64);
             let new_max_load = max_load - delta;
             let new_min_load = min_load + delta;
@@ -415,13 +432,15 @@ impl StreamPoolInner {
             })
             .collect();
 
-        // 1. Prefer an existing non-overloaded stream that already serves `write_stream`.
+        // 1. Prefer an existing stream that already serves `write_stream` so a single active
+        //    table cannot exhaust `max_streams` before other tables are registered.
         if let Some(best) = candidates
             .iter()
-            .filter(|c| c.has_same_table && !c.is_loaded)
+            .filter(|c| c.has_same_table)
             .min_by(|a, b| {
-                a.load
-                    .total_cmp(&b.load)
+                a.is_loaded
+                    .cmp(&b.is_loaded)
+                    .then_with(|| a.load.total_cmp(&b.load))
                     .then_with(|| a.dispatcher_count.cmp(&b.dispatcher_count))
             })
         {
@@ -1031,7 +1050,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn watchdog_does_not_break_table_affinity_when_below_threshold() -> anyhow::Result<()> {
+    async fn watchdog_does_not_contaminate_other_table_streams() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("ignored").await?);
         let pool = Arc::new(StreamPool::with_limits(transport, 4, Some(100), None));
 
@@ -1041,13 +1060,17 @@ mod tests {
             .collect();
         assert_eq!(pool.stream_ids(), [1, 2, 3, 4]);
 
-        // Simulate skewed but non-overloaded traffic (stream 1 has 10 requests = 0.10 <= 0.20,
-        // while streams 2..4 have 0 requests).
+        // Simulate a burst on stream 1 (50 requests = 0.50 > 0.20 threshold) while streams 2..4
+        // have 10 requests (0.10). Because streams 2..4 serve different tables, the watchdog must
+        // not move stream 1's writers onto streams 2..4.
         writers[0]
             .entry
             .load()
             .outstanding_requests
-            .store(10, Ordering::Relaxed);
+            .store(50, Ordering::Relaxed);
+        for w in &writers[1..4] {
+            w.entry.load().outstanding_requests.store(10, Ordering::Relaxed);
+        }
 
         pool.watchdog_pulse();
 
