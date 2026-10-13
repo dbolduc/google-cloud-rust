@@ -41,6 +41,7 @@ use std::time::Duration;
 pub(crate) struct Dispatcher {
     pub(crate) pool: Arc<StreamPool>,
     pub(crate) entry: ArcSwap<StreamEntry>,
+    pub(crate) write_stream: String,
     pub(crate) retry_policy: Arc<dyn RetryPolicy>,
     pub(crate) backoff_policy: Arc<dyn BackoffPolicy>,
     pub(crate) attempt_timeout: Option<Duration>,
@@ -48,22 +49,31 @@ pub(crate) struct Dispatcher {
 
 impl Dispatcher {
     /// Creates a new `Dispatcher` for a given `StreamPool`.
+    #[cfg_attr(not(test), allow(dead_code))]
     pub(crate) fn new(
         pool: Arc<StreamPool>,
         retry_policy: Arc<dyn RetryPolicy>,
         backoff_policy: Arc<dyn BackoffPolicy>,
         attempt_timeout: Option<Duration>,
     ) -> Arc<Self> {
-        let stream = pool.get();
-        let dispatcher = Arc::new(Self {
-            pool: pool.clone(),
-            entry: ArcSwap::from_pointee(stream),
+        Self::new_with_stream(
+            pool,
+            String::new(),
             retry_policy,
             backoff_policy,
             attempt_timeout,
-        });
-        pool.register_dispatcher(Arc::downgrade(&dispatcher));
-        dispatcher
+        )
+    }
+
+    /// Creates a new `Dispatcher` bound to a target `write_stream` for table-aware stream affinity.
+    pub(crate) fn new_with_stream(
+        pool: Arc<StreamPool>,
+        write_stream: String,
+        retry_policy: Arc<dyn RetryPolicy>,
+        backoff_policy: Arc<dyn BackoffPolicy>,
+        attempt_timeout: Option<Duration>,
+    ) -> Arc<Self> {
+        pool.create_dispatcher(write_stream, retry_policy, backoff_policy, attempt_timeout)
     }
 
     /// Send the write and process the response.

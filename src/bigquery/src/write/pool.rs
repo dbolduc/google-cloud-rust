@@ -16,6 +16,9 @@ use super::dispatcher::Dispatcher;
 use super::entry::StreamEntry;
 use super::runner::Runner;
 use super::transport::Transport;
+use arc_swap::ArcSwap;
+use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::retry_policy::RetryPolicy;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex, Weak};
 use std::time::Duration;
@@ -154,13 +157,31 @@ impl StreamPool {
         }))
     }
 
-    /// Registers a `Dispatcher` with the pool so the background watchdog can
-    /// rebalance its stream assignment without keeping dropped dispatchers alive.
-    pub(crate) fn register_dispatcher(&self, dispatcher: Weak<Dispatcher>) {
-        self.inner.register_dispatcher(dispatcher);
+    /// Atomically selects a stream for `write_stream`, creates a `Dispatcher`,
+    /// and registers it with the pool.
+    pub(crate) fn create_dispatcher(
+        self: &Arc<Self>,
+        write_stream: String,
+        retry_policy: Arc<dyn RetryPolicy>,
+        backoff_policy: Arc<dyn BackoffPolicy>,
+        attempt_timeout: Option<Duration>,
+    ) -> Arc<Dispatcher> {
+        let mut state = self.inner.state.lock().unwrap();
+        let stream = self.inner.get_for_stream_impl(&mut state, &write_stream);
+        let dispatcher = Arc::new(Dispatcher {
+            pool: self.clone(),
+            entry: ArcSwap::from_pointee(stream),
+            write_stream,
+            retry_policy,
+            backoff_policy,
+            attempt_timeout,
+        });
+        state.dispatchers.push(Arc::downgrade(&dispatcher));
+        dispatcher
     }
 
     /// Returns a stream.
+    #[cfg_attr(not(test), allow(dead_code))]
     pub(crate) fn get(&self) -> StreamEntry {
         self.inner.get()
     }
@@ -181,11 +202,6 @@ impl StreamPool {
 }
 
 impl StreamPoolInner {
-    fn register_dispatcher(&self, dispatcher: Weak<Dispatcher>) {
-        let mut state = self.state.lock().unwrap();
-        state.dispatchers.push(dispatcher);
-    }
-
     fn get(&self) -> StreamEntry {
         let mut state = self.state.lock().unwrap();
         self.get_impl(&mut state.streams)
@@ -277,6 +293,10 @@ impl StreamPoolInner {
                 break;
             };
 
+            if tracked_streams[max_idx].effective_load <= self.load_threshold {
+                break;
+            }
+
             // Find the least-loaded stream overall.
             let (mut min_idx, _) = tracked_streams
                 .iter()
@@ -306,6 +326,23 @@ impl StreamPoolInner {
             let max_load = tracked_streams[max_idx].effective_load;
             let min_load = tracked_streams[min_idx].effective_load;
             let max_dispatchers_count = tracked_streams[max_idx].dispatchers.len();
+            let candidate_stream = tracked_streams[max_idx]
+                .dispatchers
+                .last()
+                .map(|d| d.write_stream.as_str())
+                .unwrap_or("");
+
+            // Never move a table's writer onto a stream already serving a different table,
+            // as mixing tables on a stream forces per-batch server table switches.
+            if !candidate_stream.is_empty()
+                && tracked_streams[min_idx]
+                    .dispatchers
+                    .iter()
+                    .any(|d| !d.write_stream.is_empty() && d.write_stream != candidate_stream)
+            {
+                break;
+            }
+
             let delta = max_load / (max_dispatchers_count as f64);
             let new_max_load = max_load - delta;
             let new_min_load = min_load + delta;
@@ -326,6 +363,113 @@ impl StreamPoolInner {
                 break;
             }
         }
+    }
+
+    /// Selects a stream for a new `Dispatcher` targeting `write_stream`.
+    ///
+    /// When `write_stream` is non-empty:
+    /// 1. **Table Affinity**: Reuses an existing non-overloaded stream already serving
+    ///    `write_stream`, keeping all writers for the same table colocated on one stream.
+    /// 2. **Scale Out**: If no unclaimed non-overloaded stream exists and the pool has not
+    ///    reached `max_streams`, provisions a new stream so distinct tables get dedicated streams.
+    /// 3. **Balanced Sharding**: Otherwise assigns the table to the stream minimizing
+    ///    `(is_loaded, distinct_tables, load, dispatcher_count)`.
+    fn get_for_stream_impl(&self, state: &mut PoolState, write_stream: &str) -> StreamEntry {
+        if write_stream.is_empty() {
+            return self.get_impl(&mut state.streams);
+        }
+
+        let mut live_dispatchers = Vec::with_capacity(state.dispatchers.len());
+        state.dispatchers.retain(|weak| {
+            if let Some(strong) = weak.upgrade() {
+                live_dispatchers.push(strong);
+                true
+            } else {
+                false
+            }
+        });
+
+        struct StreamCandidate {
+            index: usize,
+            load: f64,
+            is_loaded: bool,
+            has_same_table: bool,
+            distinct_tables: usize,
+            dispatcher_count: usize,
+        }
+
+        let candidates: Vec<StreamCandidate> = state
+            .streams
+            .iter()
+            .enumerate()
+            .map(|(index, entry)| {
+                let load = self.normalize_load(entry);
+                let is_loaded = self.is_loaded(entry);
+                let mut tables: Vec<&str> = Vec::new();
+                let mut dispatcher_count = 0usize;
+                let mut has_same_table = false;
+                for d in &live_dispatchers {
+                    if d.entry.load().id == entry.id {
+                        dispatcher_count += 1;
+                        if !d.write_stream.is_empty() {
+                            if d.write_stream == write_stream {
+                                has_same_table = true;
+                            }
+                            tables.push(d.write_stream.as_str());
+                        }
+                    }
+                }
+                tables.sort_unstable();
+                tables.dedup();
+                StreamCandidate {
+                    index,
+                    load,
+                    is_loaded,
+                    has_same_table,
+                    distinct_tables: tables.len(),
+                    dispatcher_count,
+                }
+            })
+            .collect();
+
+        // 1. Prefer an existing stream that already serves `write_stream` so a single active
+        //    table cannot exhaust `max_streams` before other tables are registered.
+        if let Some(best) = candidates
+            .iter()
+            .filter(|c| c.has_same_table)
+            .min_by(|a, b| {
+                a.is_loaded
+                    .cmp(&b.is_loaded)
+                    .then_with(|| a.load.total_cmp(&b.load))
+                    .then_with(|| a.dispatcher_count.cmp(&b.dispatcher_count))
+            })
+        {
+            return state.streams[best.index].clone();
+        }
+
+        // 2. Grow the pool if capacity permits and no unclaimed idle stream exists.
+        let has_unclaimed = candidates
+            .iter()
+            .any(|c| c.distinct_tables == 0 && !c.is_loaded);
+        if !has_unclaimed && state.streams.len() < self.max_streams {
+            let stream = self.new_stream_entry();
+            state.streams.push(stream.clone());
+            return stream;
+        }
+
+        // 3. Otherwise pick an unclaimed stream or shard evenly by table count and load.
+        let best = candidates
+            .iter()
+            .min_by(|a, b| {
+                a.is_loaded
+                    .cmp(&b.is_loaded)
+                    .then_with(|| a.distinct_tables.cmp(&b.distinct_tables))
+                    .then_with(|| a.load.total_cmp(&b.load))
+                    .then_with(|| a.dispatcher_count.cmp(&b.dispatcher_count))
+            })
+            .expect("streams is non-empty when max_streams >= 1");
+
+        state.streams[best.index].clone()
     }
 
     /// Selects the stream connection with the least load.
@@ -784,6 +928,156 @@ mod tests {
                 .filter(|w| w.entry.load().id == stream_id)
                 .count();
             assert_eq!(count, 1);
+        }
+
+        Ok(())
+    }
+
+    fn test_pool_table_dispatcher(pool: &Arc<StreamPool>, table_idx: usize) -> Arc<Dispatcher> {
+        let write_stream =
+            format!("projects/p/datasets/d/tables/table_{table_idx}/streams/_default");
+        Dispatcher::new_with_stream(
+            pool.clone(),
+            write_stream,
+            test_retry_policy(),
+            test_backoff_policy(),
+            None,
+        )
+    }
+
+    #[tokio::test]
+    async fn table_affinity_scales_to_dedicated_streams_per_table() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("ignored").await?);
+        // Simulate b/561726629: 256 writers across 64 tables with multiplex_pool_size = 64.
+        let num_tables = 64;
+        let num_writers = 256;
+        let pool = Arc::new(StreamPool::with_limits(
+            transport,
+            num_tables,
+            Some(200),
+            None,
+        ));
+
+        let writers: Vec<_> = (0..num_writers)
+            .map(|i| test_pool_table_dispatcher(&pool, i % num_tables))
+            .collect();
+
+        // Pool must immediately scale out to all 64 streams (1 dedicated stream per table).
+        assert_eq!(pool.stream_ids().len(), num_tables);
+
+        // All 4 writers for any given table must be colocated on the exact same stream.
+        for t in 0..num_tables {
+            let expected_stream = writers[t].entry.load().id;
+            assert_eq!(expected_stream, (t + 1) as u64);
+            for w_idx in (t..num_writers).step_by(num_tables) {
+                assert_eq!(
+                    writers[w_idx].entry.load().id,
+                    expected_stream,
+                    "writer {w_idx} for table_{t} should share stream {expected_stream}"
+                );
+            }
+        }
+
+        // Each stream must serve exclusively 1 table (4 writers).
+        for stream_id in 1..=(num_tables as u64) {
+            let mut tables: Vec<_> = writers
+                .iter()
+                .filter(|w| w.entry.load().id == stream_id)
+                .map(|w| w.write_stream.as_str())
+                .collect();
+            assert_eq!(tables.len(), 4);
+            tables.sort_unstable();
+            tables.dedup();
+            assert_eq!(
+                tables.len(),
+                1,
+                "stream {stream_id} should serve exactly 1 table"
+            );
+        }
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn table_affinity_shards_evenly_when_tables_exceed_max_streams() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("ignored").await?);
+        let max_streams = 16;
+        let num_tables = 64;
+        let num_writers = 256;
+        let pool = Arc::new(StreamPool::with_limits(
+            transport,
+            max_streams,
+            Some(200),
+            None,
+        ));
+
+        let writers: Vec<_> = (0..num_writers)
+            .map(|i| test_pool_table_dispatcher(&pool, i % num_tables))
+            .collect();
+
+        assert_eq!(pool.stream_ids().len(), max_streams);
+
+        // Every table's 4 writers must still be colocated on the same stream.
+        for t in 0..num_tables {
+            let expected_stream = writers[t].entry.load().id;
+            for w_idx in (t..num_writers).step_by(num_tables) {
+                assert_eq!(writers[w_idx].entry.load().id, expected_stream);
+            }
+        }
+
+        // The 64 tables must be evenly sharded across the 16 streams (4 tables / 16 writers per stream).
+        for stream_id in 1..=(max_streams as u64) {
+            let mut tables: Vec<_> = writers
+                .iter()
+                .filter(|w| w.entry.load().id == stream_id)
+                .map(|w| w.write_stream.as_str())
+                .collect();
+            assert_eq!(
+                tables.len(),
+                16,
+                "stream {stream_id} should have 16 writers"
+            );
+            tables.sort_unstable();
+            tables.dedup();
+            assert_eq!(
+                tables.len(),
+                4,
+                "stream {stream_id} should have 4 distinct tables"
+            );
+        }
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn watchdog_does_not_contaminate_other_table_streams() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("ignored").await?);
+        let pool = Arc::new(StreamPool::with_limits(transport, 4, Some(100), None));
+
+        // Create 8 writers across 4 tables (2 writers per table -> 4 dedicated streams).
+        let writers: Vec<_> = (0..8)
+            .map(|i| test_pool_table_dispatcher(&pool, i % 4))
+            .collect();
+        assert_eq!(pool.stream_ids(), [1, 2, 3, 4]);
+
+        // Simulate a burst on stream 1 (50 requests = 0.50 > 0.20 threshold) while streams 2..4
+        // have 10 requests (0.10). Because streams 2..4 serve different tables, the watchdog must
+        // not move stream 1's writers onto streams 2..4.
+        writers[0]
+            .entry
+            .load()
+            .outstanding_requests
+            .store(50, Ordering::Relaxed);
+        for w in &writers[1..4] {
+            w.entry.load().outstanding_requests.store(10, Ordering::Relaxed);
+        }
+
+        pool.watchdog_pulse();
+
+        // Both writers of each table must remain on their dedicated stream.
+        for t in 0..4 {
+            assert_eq!(writers[t].entry.load().id, (t + 1) as u64);
+            assert_eq!(writers[t + 4].entry.load().id, (t + 1) as u64);
         }
 
         Ok(())
