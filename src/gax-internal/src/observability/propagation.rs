@@ -120,6 +120,7 @@ mod tests {
     }
 
     fn set_up_otel_and_tracing() -> Dispatch {
+        let _ = google_cloud_test_utils::test_layer::TestLayer::initialize();
         let tracer_provider = SdkTracerProvider::builder().build();
         let tracer = tracer_provider.tracer("test");
 
@@ -128,7 +129,6 @@ mod tests {
         Dispatch::new(subscriber)
     }
 
-    #[ignore = "TODO(#6077) - disabled because it was flaky"]
     #[test]
     fn inject_context_success() {
         let dispatcher = set_up_otel_and_tracing();

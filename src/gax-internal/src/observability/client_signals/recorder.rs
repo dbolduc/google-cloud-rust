@@ -542,7 +542,7 @@ mod tests {
         simulate_http_client_gaxi(url).await
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio::test]
     async fn http_full_cycle() {
         let server = Server::run();
         server.expect(
@@ -553,6 +553,7 @@ mod tests {
         let url = server.url_str("/v1/test-only");
 
         let recorder = RequestRecorder::new(TEST_INFO);
+        let start = recorder.client_snapshot().start;
         let scoped = recorder.clone();
         // Normally this code would be in the `tracing.rs` layer. Inline it here so we can examine the
         // effects on the `RequestRecorder`.
@@ -565,7 +566,7 @@ mod tests {
         );
         let snap = recorder.client_snapshot();
 
-        assert_eq!(snap.start, Instant::now(), "{snap:?}");
+        assert_eq!(snap.start, start, "{snap:?}");
         assert_eq!(snap.rpc_method(), Some(TEST_METHOD_NAME), "{snap:?}");
         assert_eq!(snap.url_template(), Some(TEST_PATH_TEMPLATE), "{snap:?}");
         assert_eq!(snap.resource_name(), Some(TEST_RESOURCE_NAME), "{snap:?}");
@@ -579,12 +580,12 @@ mod tests {
         assert_eq!(snap.server_port(), addr.port(), "{snap:?}");
     }
 
-    #[tokio::test(start_paused = true)]
-    #[ignore = "TODO(#6077) - disabled because it is flaky"]
+    #[tokio::test]
     async fn http_cannot_send() {
         const BAD_URL: &str = "https://127.0.0.1:1/v1/test-only";
 
         let recorder = RequestRecorder::new(TEST_INFO);
+        let start = recorder.client_snapshot().start;
         let scoped = recorder.clone();
         // Normally this code would be in the `tracing.rs` layer. Inline it here so we can examine the
         // effects on the `RequestRecorder`.
@@ -594,7 +595,7 @@ mod tests {
         assert!(matches!(got, Err(ref e) if e.is_io()), "{got:?}");
         let snap = recorder.client_snapshot();
 
-        assert_eq!(snap.start, Instant::now(), "{snap:?}");
+        assert_eq!(snap.start, start, "{snap:?}");
         assert_eq!(snap.rpc_method(), Some(TEST_METHOD_NAME), "{snap:?}");
         assert_eq!(snap.url_template(), Some(TEST_PATH_TEMPLATE), "{snap:?}");
         assert_eq!(snap.rpc_system(), Some("http"), "{snap:?}");
@@ -606,11 +607,12 @@ mod tests {
         assert_eq!(snap.server_port(), 1, "{snap:?}");
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio::test]
     async fn http_bad_url() {
         const BAD_URL: &str = "bad-url";
 
         let recorder = RequestRecorder::new(TEST_INFO);
+        let start = recorder.client_snapshot().start;
         let scoped = recorder.clone();
         // Normally this code would be in the `tracing.rs` layer. Inline it here so we can examine the
         // effects on the `RequestRecorder`.
@@ -620,7 +622,7 @@ mod tests {
         assert!(matches!(got, Err(ref e) if e.is_io()), "{got:?}");
         let snap = recorder.client_snapshot();
 
-        assert_eq!(snap.start, Instant::now(), "{snap:?}");
+        assert_eq!(snap.start, start, "{snap:?}");
         assert_eq!(snap.rpc_method(), Some(TEST_METHOD_NAME), "{snap:?}");
         assert_eq!(snap.url_template(), Some(TEST_PATH_TEMPLATE), "{snap:?}");
         assert!(snap.rpc_system().is_none(), "{snap:?}");
@@ -645,7 +647,7 @@ mod tests {
         simulate_http_client_gaxi(url).await
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio::test]
     async fn storage_full_cycle() {
         const PATH: &str = "/v1/storage/b/my-bucket/o/my-object";
         let server = Server::run();
@@ -657,6 +659,7 @@ mod tests {
         let url = server.url_str(PATH);
 
         let recorder = RequestRecorder::new(TEST_INFO);
+        let start = recorder.client_snapshot().start;
         let scoped = recorder.clone();
         // Normally this code would be in the `storage/src/transport.rs` file. Inline it here so we can examine the
         // effects on the `RequestRecorder`.
@@ -669,7 +672,7 @@ mod tests {
         );
         let snap = recorder.client_snapshot();
 
-        assert_eq!(snap.start, Instant::now(), "{snap:?}");
+        assert_eq!(snap.start, start, "{snap:?}");
         assert!(snap.rpc_method().is_none(), "{snap:?}");
         assert_eq!(snap.url_template(), Some(STORAGE_PATH_TEMPLATE), "{snap:?}");
         assert_eq!(snap.rpc_system(), Some("http"), "{snap:?}");
