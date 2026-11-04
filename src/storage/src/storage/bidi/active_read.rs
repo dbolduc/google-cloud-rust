@@ -105,6 +105,7 @@ mod tests {
     use super::super::tests::{permanent_error, proto_range};
     use super::*;
     use crate::model_ext::ReadRange;
+    use serial_test::serial;
     use std::sync::Mutex;
     use tracing::Subscriber;
 
@@ -227,7 +228,8 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(flavor = "current_thread")]
+    #[serial]
     async fn interrupted() {
         let (tx, mut rx) = tokio::sync::mpsc::channel(1);
         let requested = ReadRange::all().0;

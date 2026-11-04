@@ -730,7 +730,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "flaky test, see #5290"]
     async fn open_object_success() -> anyhow::Result<()> {
         // TODO(#4772) - Move these `use` declarations and constants once the tracing APIs are stable.
         use crate::model_ext::ReadRange;
@@ -740,6 +739,7 @@ mod tests {
             ReadRange as ProtoRange,
         };
         use storage_grpc_mock::{MockStorage, start};
+        use tracing::Instrument;
         const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
         const OBJECT_NAME: &str = "test-object";
         const BIND_ADDRESS: &str = "0.0.0.0:0";
@@ -747,107 +747,115 @@ mod tests {
 
         let guard = TestLayer::initialize();
 
-        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(10);
-        let response = BidiReadObjectResponse {
-            metadata: Some(ProtoObject {
-                bucket: BUCKET_NAME.to_string(),
-                name: OBJECT_NAME.to_string(),
-                generation: 123456,
-                ..ProtoObject::default()
-            }),
-            object_data_ranges: vec![ObjectRangeData {
-                read_range: Some(ProtoRange {
-                    read_id: 0_i64,
-                    ..ProtoRange::default()
+        async {
+            let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(10);
+            let response = BidiReadObjectResponse {
+                metadata: Some(ProtoObject {
+                    bucket: BUCKET_NAME.to_string(),
+                    name: OBJECT_NAME.to_string(),
+                    generation: 123456,
+                    ..ProtoObject::default()
                 }),
-                range_end: true,
-                checksummed_data: Some(ChecksummedData {
-                    content: PAYLOAD.as_bytes().to_vec(),
-                    crc32c: None,
-                }),
-            }],
-            ..BidiReadObjectResponse::default()
-        };
-        // This is the initial response.
-        tx.send(Ok(response.clone())).await?;
-        // These simulate the calls to ObjectDescriptor::read_range(). The data is wrong, but this
-        // test is about the spans.
-        tx.send(Ok(response.clone())).await?;
-        tx.send(Ok(response.clone())).await?;
+                object_data_ranges: vec![ObjectRangeData {
+                    read_range: Some(ProtoRange {
+                        read_id: 0_i64,
+                        ..ProtoRange::default()
+                    }),
+                    range_end: true,
+                    checksummed_data: Some(ChecksummedData {
+                        content: PAYLOAD.as_bytes().to_vec(),
+                        crc32c: None,
+                    }),
+                }],
+                ..BidiReadObjectResponse::default()
+            };
+            // This is the initial response.
+            tx.send(Ok(response.clone())).await?;
+            // These simulate the calls to ObjectDescriptor::read_range(). The data is wrong, but this
+            // test is about the spans.
+            tx.send(Ok(response.clone())).await?;
+            tx.send(Ok(response.clone())).await?;
 
-        let mut mock = MockStorage::new();
-        mock.expect_bidi_read_object()
-            .return_once(|_| Ok(TonicResponse::from(rx)));
-        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+            let mut mock = MockStorage::new();
+            mock.expect_bidi_read_object()
+                .return_once(|_| Ok(TonicResponse::from(rx)));
+            let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
-        let client = crate::client::Storage::builder()
-            .with_credentials(Anonymous::new().build())
-            .with_endpoint(endpoint.clone())
-            .with_tracing()
-            .build()
-            .await?;
-        let (descriptor, _reader0) = client
-            .open_object(BUCKET_NAME, OBJECT_NAME)
-            .send_and_read(ReadRange::all())
-            .await?;
-        let _reader1 = descriptor.read_range(ReadRange::offset(5)).await;
-        let _reader2 = descriptor.read_range(ReadRange::segment(10, 10)).await;
-        let _reader3 = descriptor.read_range(ReadRange::tail(15)).await;
+            let client = crate::client::Storage::builder()
+                .with_credentials(Anonymous::new().build())
+                .with_endpoint(endpoint.clone())
+                .with_tracing()
+                .build()
+                .await?;
+            let (descriptor, _reader0) = client
+                .open_object(BUCKET_NAME, OBJECT_NAME)
+                .send_and_read(ReadRange::all())
+                .await?;
+            let _reader1 = descriptor.read_range(ReadRange::offset(5)).await;
+            let _reader2 = descriptor.read_range(ReadRange::segment(10, 10)).await;
+            let _reader3 = descriptor.read_range(ReadRange::tail(15)).await;
 
-        let captured = TestLayer::capture(&guard);
-        let _span = captured
-            .iter()
-            .find(|s| s.name == "client_request")
-            .unwrap_or_else(|| panic!("missing `client_request` span in capture: {captured:#?}"));
+            let captured = TestLayer::capture(&guard);
+            let _span = captured
+                .iter()
+                .find(|s| s.name == "client_request")
+                .unwrap_or_else(|| {
+                    panic!("missing `client_request` span in capture: {captured:#?}")
+                });
 
-        let range_spans = captured
-            .iter()
-            .filter(|s| s.name == "read_range")
-            .collect::<Vec<_>>();
+            let range_spans = captured
+                .iter()
+                .filter(|s| s.name == "read_range")
+                .collect::<Vec<_>>();
 
-        let _span_reader1 = range_spans
-            .clone()
-            .into_iter()
-            .find(|s| {
-                s.attributes
-                    .get("read_range.start")
-                    .and_then(|v| v.as_i64())
-                    == Some(5)
-            })
-            .unwrap_or_else(|| {
-                panic!("missing `read_range` span for ReadRange::offset(5): {range_spans:#?}")
-            });
+            let _span_reader1 = range_spans
+                .clone()
+                .into_iter()
+                .find(|s| {
+                    s.attributes
+                        .get("read_range.start")
+                        .and_then(|v| v.as_i64())
+                        == Some(5)
+                })
+                .unwrap_or_else(|| {
+                    panic!("missing `read_range` span for ReadRange::offset(5): {range_spans:#?}")
+                });
 
-        let _span_reader2 = range_spans
-            .clone()
-            .into_iter()
-            .find(|s| {
-                s.attributes
-                    .get("read_range.start")
-                    .and_then(|v| v.as_i64())
-                    == Some(10)
-                    && s.attributes
-                        .get("read_range.limit")
+            let _span_reader2 = range_spans
+                .clone()
+                .into_iter()
+                .find(|s| {
+                    s.attributes
+                        .get("read_range.start")
                         .and_then(|v| v.as_i64())
                         == Some(10)
-            })
-            .unwrap_or_else(|| {
-                panic!("missing `read_range` span for ReadRange::segment(10, 10): {range_spans:#?}")
-            });
+                        && s.attributes
+                            .get("read_range.limit")
+                            .and_then(|v| v.as_i64())
+                            == Some(10)
+                })
+                .unwrap_or_else(|| {
+                    panic!(
+                        "missing `read_range` span for ReadRange::segment(10, 10): {range_spans:#?}"
+                    )
+                });
 
-        let _span_reader3 = range_spans
-            .clone()
-            .into_iter()
-            .find(|s| {
-                s.attributes
-                    .get("read_range.start")
-                    .and_then(|v| v.as_i64())
-                    == Some(-15)
-            })
-            .unwrap_or_else(|| {
-                panic!("missing `read_range` span for ReadRange::tail(15): {range_spans:#?}")
-            });
-        Ok(())
+            let _span_reader3 = range_spans
+                .clone()
+                .into_iter()
+                .find(|s| {
+                    s.attributes
+                        .get("read_range.start")
+                        .and_then(|v| v.as_i64())
+                        == Some(-15)
+                })
+                .unwrap_or_else(|| {
+                    panic!("missing `read_range` span for ReadRange::tail(15): {range_spans:#?}")
+                });
+            Ok(())
+        }
+        .instrument(guard.span())
+        .await
     }
 
     #[cfg(google_cloud_unstable_storage_bidi)]
