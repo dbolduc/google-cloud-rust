@@ -70,6 +70,7 @@ pub struct TracingAttributes {
 #[derive(Clone, Debug)]
 pub struct Client {
     inner: InnerClient,
+    channel: Channel,
     metric: crate::observability::TransportMetric,
     tracing_attributes: Option<TracingAttributes>,
     credentials: Credentials,
@@ -107,7 +108,7 @@ impl Client {
             crate::universe_domain::resolve(config.universe_domain.as_deref(), &credentials)
                 .await?;
 
-        let (inner, tracing_attributes) = Self::make_inner(
+        let (inner, channel, tracing_attributes) = Self::make_inner(
             &config,
             default_endpoint,
             tracing_enabled,
@@ -118,6 +119,7 @@ impl Client {
 
         Ok(Self {
             inner,
+            channel,
             metric: crate::observability::TransportMetric::new(instrumentation),
             tracing_attributes,
             credentials,
@@ -201,6 +203,8 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         use ::tonic::IntoStreamingRequest;
+        let span =
+            grpc_helpers::streaming_make_request_span(self.tracing_attributes.as_ref(), &path);
         let headers = make_headers(
             &self.extensions,
             api_client_header,
@@ -209,12 +213,26 @@ impl Client {
         )?;
         let mut headers = add_auth_headers(headers, &self.credentials).await?;
         self.intercept(&mut headers, 1);
-        crate::observability::propagation::inject_context(&tracing::Span::current(), &mut headers);
+        if span.is_none() {
+            crate::observability::propagation::inject_context(
+                &tracing::Span::current(),
+                &mut headers,
+            );
+        } else {
+            crate::observability::propagation::inject_context(&span, &mut headers);
+        }
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
-        let mut inner = self.inner.clone();
-        inner.ready().await.map_err(Error::io)?;
+        let service = crate::observability::grpc_tracing::SpanTowerService::new(
+            self.channel.clone(),
+            span.clone(),
+        );
+        let mut inner = Grpc::new(service).max_decoding_message_size(usize::MAX);
+        inner.ready().await.map_err(|e| {
+            crate::observability::grpc_tracing::record_error_status(&span, &e);
+            Error::io(e)
+        })?;
         if let Some(recorder) = crate::observability::RequestRecorder::current() {
             recorder.on_grpc_request(&path);
         }
@@ -611,7 +629,7 @@ impl Client {
         tracing_enabled: bool,
         universe_domain: &str,
         instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
-    ) -> ClientBuilderResult<(InnerClient, Option<TracingAttributes>)> {
+    ) -> ClientBuilderResult<(InnerClient, Channel, Option<TracingAttributes>)> {
         use ::tonic::transport::{Channel, channel::Change};
         let endpoint = Self::make_endpoint(
             config.endpoint.clone(),
@@ -654,11 +672,11 @@ impl Client {
             instrumentation,
         };
 
-        let inner_client = InnerClient::new(channel).max_decoding_message_size(usize::MAX);
+        let inner_client = InnerClient::new(channel.clone()).max_decoding_message_size(usize::MAX);
         if tracing_enabled {
-            Ok((inner_client, Some(attrs)))
+            Ok((inner_client, channel, Some(attrs)))
         } else {
-            Ok((inner_client, None))
+            Ok((inner_client, channel, None))
         }
     }
 

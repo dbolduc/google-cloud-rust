@@ -105,6 +105,45 @@ impl<B> InstrumentedBody<B> {
     }
 }
 
+/// A Tower service that attaches a pre-created tracing span to a gRPC request
+/// and wraps the response body in [`InstrumentedBody`] to track streaming status.
+#[derive(Clone, Debug)]
+pub(crate) struct SpanTowerService<S> {
+    inner: S,
+    span: tracing::Span,
+}
+
+impl<S> SpanTowerService<S> {
+    pub(crate) fn new(inner: S, span: tracing::Span) -> Self {
+        Self { inner, span }
+    }
+}
+
+impl<S, B, ResBody> Service<http::Request<B>> for SpanTowerService<S>
+where
+    S: Service<http::Request<B>, Response = http::Response<ResBody>> + Clone + Send + 'static,
+    S::Future: Send + 'static,
+    S::Error: std::fmt::Display,
+    ResBody: http_body::Body<Data = bytes::Bytes, Error = tonic::Status> + Send + 'static,
+{
+    type Response = http::Response<OptionallyTracedBody<ResBody>>;
+    type Error = S::Error;
+    type Future = ResponseFuture<S::Future>;
+
+    fn poll_ready(&mut self, cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
+        self.inner.poll_ready(cx)
+    }
+
+    fn call(&mut self, req: http::Request<B>) -> Self::Future {
+        let future = self.inner.call(req);
+        ResponseFuture {
+            inner: future,
+            span: self.span.clone(),
+            completed: false,
+        }
+    }
+}
+
 /// A Tower layer that adds structured tracing to gRPC requests that is compatible with OpenTelemetry.
 ///
 /// This layer is responsible for wrapping the inner service with a
@@ -390,7 +429,7 @@ fn record_status_from_headers(span: &tracing::Span, headers: &http::HeaderMap) {
     }
 }
 
-fn record_error_status<Error: std::fmt::Display>(span: &tracing::Span, error: &Error) {
+pub(crate) fn record_error_status<Error: std::fmt::Display>(span: &tracing::Span, error: &Error) {
     span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
     let gax_error = google_cloud_gax::error::Error::io(error.to_string());
     span.record(

@@ -348,7 +348,6 @@ mod tests {
         Ok(())
     }
 
-    #[ignore]
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_grpc_streaming_span() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
@@ -374,15 +373,23 @@ mod tests {
         let (tx, rx) = tokio::sync::mpsc::channel(4);
         let request_stream = tokio_stream::wrappers::ReceiverStream::new(rx);
 
-        let mut response_stream = client
-            .bidi_stream::<_, google::test::v1::EchoResponse>(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
-                request_stream,
-                RequestOptions::default(),
-                "test-only-api-client/1.0",
-                "name=test-only",
-            )
+        let recorder = RequestRecorder::new(*TEST_INFO);
+        recorder.on_client_request(
+            ClientRequestAttributes::default().set_url_template("/google.test.v1.EchoService/Chat"),
+        );
+        let mut response_stream = recorder
+            .scope(async {
+                client
+                    .bidi_stream::<_, google::test::v1::EchoResponse>(
+                        extensions,
+                        http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                        request_stream,
+                        RequestOptions::default(),
+                        "test-only-api-client/1.0",
+                        "name=test-only",
+                    )
+                    .await
+            })
             .await?
             .into_inner();
 
@@ -429,7 +436,6 @@ mod tests {
         Ok(())
     }
 
-    #[ignore]
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn streaming_error() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
@@ -453,15 +459,23 @@ mod tests {
         let (tx, rx) = tokio::sync::mpsc::channel(4);
         let request_stream = tokio_stream::wrappers::ReceiverStream::new(rx);
 
-        let mut response_stream = client
-            .bidi_stream::<_, google::test::v1::EchoResponse>(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
-                request_stream,
-                RequestOptions::default(),
-                "test-only-api-client/1.0",
-                "name=test-only",
-            )
+        let recorder = RequestRecorder::new(*TEST_INFO);
+        recorder.on_client_request(
+            ClientRequestAttributes::default().set_url_template("/google.test.v1.EchoService/Chat"),
+        );
+        let mut response_stream = recorder
+            .scope(async {
+                client
+                    .bidi_stream::<_, google::test::v1::EchoResponse>(
+                        extensions,
+                        http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                        request_stream,
+                        RequestOptions::default(),
+                        "test-only-api-client/1.0",
+                        "name=test-only",
+                    )
+                    .await
+            })
             .await?
             .into_inner();
 

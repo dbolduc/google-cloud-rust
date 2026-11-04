@@ -186,6 +186,24 @@ pub(crate) fn unary_make_request_span(
     )
 }
 
+/// Creates an OpenTelemetry tracing span for a streaming gRPC request.
+///
+/// If `attrs` is `Some`, returns an info-level span named `grpc.request`;
+/// otherwise, returns an empty (disabled) span.
+pub(crate) fn streaming_make_request_span(
+    attrs: Option<&super::TracingAttributes>,
+    path: &http::uri::PathAndQuery,
+) -> tracing::Span {
+    let span = unary_make_request_span(attrs, path, 0);
+    if let Some(rn) = crate::observability::RequestRecorder::current()
+        .map(|r| r.client_snapshot())
+        .and_then(|s| s.resource_name().map(str::to_string))
+    {
+        span.record(GCP_RESOURCE_DESTINATION_ID, rn.as_str());
+    }
+    span
+}
+
 /// Wraps a unary gRPC request future with observability instrumentation.
 ///
 /// * `metric` - The [`TransportMetric`] instance used to record transport-level duration metrics.
@@ -701,6 +719,58 @@ mod tests {
             ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
             ("gcp.client.artifact", "test-artifact".into()),
             ("gcp.grpc.resend_count", 2_i64.into()),
+            ("otel.status_code", "UNSET".into()),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
+        .collect();
+        assert_eq!(span.attributes, expected_attributes);
+    }
+
+    #[test]
+    fn test_streaming_make_request_span() {
+        const TEST_INFO: crate::options::InstrumentationClientInfo =
+            crate::options::InstrumentationClientInfo {
+                service_name: "test-service",
+                client_version: "1.2.3",
+                client_artifact: "test-artifact",
+                default_host: "test-service.googleapis.com",
+            };
+        let guard = TestLayer::initialize();
+        let attrs = super::super::TracingAttributes {
+            server_address: "pubsub.googleapis.com".to_string(),
+            server_port: Some(443),
+            url_domain: "pubsub.googleapis.com".to_string(),
+            instrumentation: Some(&TEST_INFO),
+        };
+
+        let path =
+            http::uri::PathAndQuery::from_static("/google.pubsub.v1.Subscriber/StreamingPull");
+
+        let _span = streaming_make_request_span(Some(&attrs), &path);
+
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1);
+
+        let span = &captured[0];
+        let expected_attributes: HashMap<String, AttributeValue> = [
+            (
+                "otel.name",
+                "google.pubsub.v1.Subscriber/StreamingPull".into(),
+            ),
+            ("rpc.system.name", attributes::RPC_SYSTEM_GRPC.into()),
+            ("otel.kind", "Client".into()),
+            (
+                "rpc.method",
+                "google.pubsub.v1.Subscriber/StreamingPull".into(),
+            ),
+            ("server.address", "pubsub.googleapis.com".into()),
+            ("server.port", 443_i64.into()),
+            ("url.domain", "pubsub.googleapis.com".into()),
+            ("gcp.client.service", "test-service".into()),
+            ("gcp.client.version", "1.2.3".into()),
+            ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+            ("gcp.client.artifact", "test-artifact".into()),
             ("otel.status_code", "UNSET".into()),
         ]
         .into_iter()
