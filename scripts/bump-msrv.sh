@@ -33,40 +33,28 @@ if [[ $# -ge 1 && "${1}" != "--force" ]]; then
   if [[ "${TARGET_MSRV}" =~ ^[0-9]+\.[0-9]+$ ]]; then
     TARGET_MSRV="${TARGET_MSRV}.0"
   fi
-  if [[ ! "${TARGET_MSRV}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  if [[ ! "${TARGET_MSRV}" =~ ^[0-9]+\.[0-9]+\.0$ ]]; then
     echo "Error: Invalid version format '${TARGET_MSRV}'. Expected 1.XX.0 or 1.XX." >&2
     exit 1
   fi
-  ELIGIBLE_LINE=$(echo "${RELEASES}" | grep -E "^Version ${TARGET_MSRV//./\\.} \([0-9]{4}-[0-9]{2}-[0-9]{2}\)" | head -n 1 || true)
+  RELEASE_DATE=$(echo "${RELEASES}" | sed -nE "s/^Version ${TARGET_MSRV//./\\.} \(([0-9]{4}-[0-9]{2}-[0-9]{2})\).*/\1/p" | sed -n '1p')
 else
-  # Find the oldest 1.XX.0 release within the past year (dropping support for releases older than 1 year).
+  # Collect `X.Y.0` minor releases from the past year (ignoring patch releases) and take the min.
   CUTOFF=$(date -u -d '1 year ago' +%F 2>/dev/null || date -u -v-1y +%F || true)
   if [[ ! "${CUTOFF}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
     echo "Error: Failed to calculate a valid 1-year cutoff date." >&2
     exit 1
   fi
-  ELIGIBLE_LINE=$(echo "${RELEASES}" | \
-    grep -E '^Version 1\.[0-9]+\.0 \([0-9]{4}-[0-9]{2}-[0-9]{2}\)' | \
-    awk -v cutoff="${CUTOFF}" '
-      match($0, /[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/) {
-        d = substr($0, RSTART, RLENGTH)
-        if (d >= cutoff) {
-          last = $0
-        } else {
-          print last
-          found = 1
-          exit
-        }
-      }
-      END {
-        if (!found && last) print last
-      }
-    ')
-  TARGET_MSRV=$(echo "${ELIGIBLE_LINE}" | sed -nE 's/^Version ([0-9]+\.[0-9]+\.[0-9]+).*/\1/p')
+  ELIGIBLE_ENTRY=$(echo "${RELEASES}" | \
+    sed -nE 's/^Version ([0-9]+\.[0-9]+\.0) \(([0-9]{4}-[0-9]{2}-[0-9]{2})\).*/\1 \2/p' | \
+    awk -v cutoff="${CUTOFF}" '$2 >= cutoff { print $1, $2 }' | \
+    sort -t. -k1,1n -k2,2n | \
+    sed -n '1p')
+  TARGET_MSRV="${ELIGIBLE_ENTRY%% *}"
+  RELEASE_DATE="${ELIGIBLE_ENTRY#* }"
 fi
 
 TARGET_MINOR="${TARGET_MSRV%.*}"
-RELEASE_DATE=$(echo "${ELIGIBLE_LINE}" | sed -nE 's/.*\(([0-9]{4}-[0-9]{2}-[0-9]{2})\).*/\1/p')
 
 if [[ -z "${TARGET_MSRV}" || -z "${RELEASE_DATE}" ]]; then
   echo "Error: Could not find release date for Rust ${TARGET_MSRV:-unknown} in RELEASES.md." >&2

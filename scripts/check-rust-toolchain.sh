@@ -26,8 +26,15 @@ fi
 CURRENT_VERSION=$(sed -nE 's/^channel *= *"([0-9]+\.[0-9]+).*"/\1/p' "${TOOLCHAIN_FILE}")
 echo "Current configured Rust toolchain version: ${CURRENT_VERSION}"
 
-LATEST_MINOR=$(curl -sSL https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md | sed -nE 's/^Version 1\.([0-9]+)\..*/\1/p' | sed -n '1p')
-LATEST_VERSION="1.${LATEST_MINOR}"
+# Extract `X.Y` from `X.Y.0` releases (ignoring patch releases) and take the max.
+LATEST_VERSION=$(curl -sSL https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md | \
+  sed -nE 's/^Version ([0-9]+\.[0-9]+)\.0 \([0-9]{4}-[0-9]{2}-[0-9]{2}\).*/\1/p' | \
+  sort -t. -k1,1rn -k2,2rn | \
+  sed -n '1p')
+if [[ ! "${LATEST_VERSION}" =~ ^[0-9]+\.[0-9]+$ ]]; then
+  echo "Error: Failed to determine latest stable Rust version from RELEASES.md." >&2
+  exit 1
+fi
 echo "Latest stable Rust release:               ${LATEST_VERSION}"
 
 if [[ "${CURRENT_VERSION}" == "${LATEST_VERSION}" && "${1:-}" != "--force" ]]; then

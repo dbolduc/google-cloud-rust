@@ -38,8 +38,11 @@ jobs:
         run: |
           # The `1.XX` part of the version pinned in `rust-toolchain.toml`.
           CURRENT_RUST_VERSION=$(sed -nE 's/^channel *= *"([0-9]+\.[0-9]+).*"/\1/p' rust-toolchain.toml)
-          LATEST_MINOR=$(curl -sSL https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md | grep -oP '(?<=Version 1\.)[0-9]+' | head -n 1)
-          LATEST_VERSION="1.${LATEST_MINOR}"
+          # Extract `X.Y` from `X.Y.0` releases (ignoring patch releases) and take the max.
+          LATEST_VERSION=$(curl -sSL https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md | \
+            sed -nE 's/^Version ([0-9]+\.[0-9]+)\.0 \([0-9]{4}-[0-9]{2}-[0-9]{2}\).*/\1/p' | \
+            sort -t. -k1,1rn -k2,2rn | \
+            sed -n '1p')
 
           echo "Current configured version: ${CURRENT_RUST_VERSION}"
           echo "Latest stable release:      ${LATEST_VERSION}"
@@ -86,29 +89,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
         run: |
-          CURRENT_MSRV=$(grep -oP '(?<=rust-version = ")[0-9.]+' Cargo.toml)
+          CURRENT_MSRV=$(sed -nE 's/^rust-version *= *"([0-9]+\.[0-9]+\.[0-9]+)"/\1/p' Cargo.toml)
           CURRENT_MINOR=$(echo "${CURRENT_MSRV}" | cut -d. -f2)
 
-          ELIGIBLE_LINE=$(curl -sSL https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md | \
-            grep -E 'Version 1\.[0-9]+\.[0-9]+ \([0-9]{4}-[0-9]{2}-[0-9]{2}\)' | \
-            awk -v cutoff="$(date -d '1 year ago' +%F)" '
-              match($0, /[0-9]{4}-[0-9]{2}-[0-9]{2}/) {
-                d = substr($0, RSTART, RLENGTH)
-                if (d >= cutoff) {
-                  last = $0
-                } else {
-                  print last
-                  found = 1
-                  exit
-                }
-              }
-              END {
-                if (!found && last) print last
-              }
-            ')
-          ELIGIBLE_MSRV=$(echo "${ELIGIBLE_LINE}" | grep -oP '(?<=Version )[0-9]+\.[0-9]+(\.[0-9]+)?')
+          # Collect `X.Y.0` minor releases from the past year (ignoring patch releases) and take the min.
+          ELIGIBLE_MSRV=$(curl -sSL https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md | \
+            sed -nE 's/^Version ([0-9]+\.[0-9]+\.0) \(([0-9]{4}-[0-9]{2}-[0-9]{2})\).*/\1 \2/p' | \
+            awk -v cutoff="$(date -u -d '1 year ago' +%F)" '$2 >= cutoff { print $1 }' | \
+            sort -t. -k1,1n -k2,2n | \
+            sed -n '1p')
           ELIGIBLE_MINOR=$(echo "${ELIGIBLE_MSRV}" | cut -d. -f2)
-          ELIGIBLE_MAJOR_MINOR="1.${ELIGIBLE_MINOR}"
 
           echo "Current configured MSRV: ${CURRENT_MSRV}"
           echo "Eligible 1-year MSRV:    ${ELIGIBLE_MSRV}"
