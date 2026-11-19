@@ -51,9 +51,9 @@ pub mod product_inputs_service {
     /// Common implementation for [crate::client::ProductInputsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductInputsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductInputsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod product_inputs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InsertProductInput(RequestBuilder<crate::model::InsertProductInputRequest>);
+    pub struct InsertProductInput(
+        pub(crate) RequestBuilder<crate::model::InsertProductInputRequest>,
+    );
 
     impl InsertProductInput {
         pub(crate) fn new(
@@ -183,7 +185,9 @@ pub mod product_inputs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateProductInput(RequestBuilder<crate::model::UpdateProductInputRequest>);
+    pub struct UpdateProductInput(
+        pub(crate) RequestBuilder<crate::model::UpdateProductInputRequest>,
+    );
 
     impl UpdateProductInput {
         pub(crate) fn new(
@@ -288,7 +292,9 @@ pub mod product_inputs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteProductInput(RequestBuilder<crate::model::DeleteProductInputRequest>);
+    pub struct DeleteProductInput(
+        pub(crate) RequestBuilder<crate::model::DeleteProductInputRequest>,
+    );
 
     impl DeleteProductInput {
         pub(crate) fn new(
@@ -382,9 +388,9 @@ pub mod products_service {
     /// Common implementation for [crate::client::ProductsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -419,7 +425,7 @@ pub mod products_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProduct(RequestBuilder<crate::model::GetProductRequest>);
+    pub struct GetProduct(pub(crate) RequestBuilder<crate::model::GetProductRequest>);
 
     impl GetProduct {
         pub(crate) fn new(
@@ -485,7 +491,7 @@ pub mod products_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProducts(RequestBuilder<crate::model::ListProductsRequest>);
+    pub struct ListProducts(pub(crate) RequestBuilder<crate::model::ListProductsRequest>);
 
     impl ListProducts {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod vpc_access_service {
     /// Common implementation for [crate::client::VpcAccessService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod vpc_access_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateConnector(RequestBuilder<crate::model::CreateConnectorRequest>);
+    pub struct CreateConnector(pub(crate) RequestBuilder<crate::model::CreateConnectorRequest>);
 
     impl CreateConnector {
         pub(crate) fn new(
@@ -235,7 +235,7 @@ pub mod vpc_access_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConnector(RequestBuilder<crate::model::GetConnectorRequest>);
+    pub struct GetConnector(pub(crate) RequestBuilder<crate::model::GetConnectorRequest>);
 
     impl GetConnector {
         pub(crate) fn new(
@@ -301,7 +301,7 @@ pub mod vpc_access_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConnectors(RequestBuilder<crate::model::ListConnectorsRequest>);
+    pub struct ListConnectors(pub(crate) RequestBuilder<crate::model::ListConnectorsRequest>);
 
     impl ListConnectors {
         pub(crate) fn new(
@@ -404,7 +404,7 @@ pub mod vpc_access_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteConnector(RequestBuilder<crate::model::DeleteConnectorRequest>);
+    pub struct DeleteConnector(pub(crate) RequestBuilder<crate::model::DeleteConnectorRequest>);
 
     impl DeleteConnector {
         pub(crate) fn new(
@@ -519,7 +519,9 @@ pub mod vpc_access_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -633,7 +635,7 @@ pub mod vpc_access_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -749,7 +751,9 @@ pub mod vpc_access_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

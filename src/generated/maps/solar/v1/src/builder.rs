@@ -51,9 +51,9 @@ pub mod solar {
     /// Common implementation for [crate::client::Solar] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Solar>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Solar>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -87,7 +87,7 @@ pub mod solar {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FindClosestBuildingInsights(
-        RequestBuilder<crate::model::FindClosestBuildingInsightsRequest>,
+        pub(crate) RequestBuilder<crate::model::FindClosestBuildingInsightsRequest>,
     );
 
     impl FindClosestBuildingInsights {
@@ -199,7 +199,7 @@ pub mod solar {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDataLayers(RequestBuilder<crate::model::GetDataLayersRequest>);
+    pub struct GetDataLayers(pub(crate) RequestBuilder<crate::model::GetDataLayersRequest>);
 
     impl GetDataLayers {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Solar>) -> Self {
@@ -316,7 +316,7 @@ pub mod solar {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetGeoTiff(RequestBuilder<crate::model::GetGeoTiffRequest>);
+    pub struct GetGeoTiff(pub(crate) RequestBuilder<crate::model::GetGeoTiffRequest>);
 
     impl GetGeoTiff {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Solar>) -> Self {

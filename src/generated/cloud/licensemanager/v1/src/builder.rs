@@ -51,9 +51,9 @@ pub mod license_manager {
     /// Common implementation for [crate::client::LicenseManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,9 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConfigurations(RequestBuilder<crate::model::ListConfigurationsRequest>);
+    pub struct ListConfigurations(
+        pub(crate) RequestBuilder<crate::model::ListConfigurationsRequest>,
+    );
 
     impl ListConfigurations {
         pub(crate) fn new(
@@ -209,7 +211,7 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConfiguration(RequestBuilder<crate::model::GetConfigurationRequest>);
+    pub struct GetConfiguration(pub(crate) RequestBuilder<crate::model::GetConfigurationRequest>);
 
     impl GetConfiguration {
         pub(crate) fn new(
@@ -275,7 +277,9 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateConfiguration(RequestBuilder<crate::model::CreateConfigurationRequest>);
+    pub struct CreateConfiguration(
+        pub(crate) RequestBuilder<crate::model::CreateConfigurationRequest>,
+    );
 
     impl CreateConfiguration {
         pub(crate) fn new(
@@ -431,7 +435,9 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConfiguration(RequestBuilder<crate::model::UpdateConfigurationRequest>);
+    pub struct UpdateConfiguration(
+        pub(crate) RequestBuilder<crate::model::UpdateConfigurationRequest>,
+    );
 
     impl UpdateConfiguration {
         pub(crate) fn new(
@@ -589,7 +595,9 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteConfiguration(RequestBuilder<crate::model::DeleteConfigurationRequest>);
+    pub struct DeleteConfiguration(
+        pub(crate) RequestBuilder<crate::model::DeleteConfigurationRequest>,
+    );
 
     impl DeleteConfiguration {
         pub(crate) fn new(
@@ -713,7 +721,7 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
+    pub struct ListInstances(pub(crate) RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(
@@ -825,7 +833,7 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
+    pub struct GetInstance(pub(crate) RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(
@@ -889,7 +897,7 @@ pub mod license_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeactivateConfiguration(
-        RequestBuilder<crate::model::DeactivateConfigurationRequest>,
+        pub(crate) RequestBuilder<crate::model::DeactivateConfigurationRequest>,
     );
 
     impl DeactivateConfiguration {
@@ -1017,7 +1025,7 @@ pub mod license_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ReactivateConfiguration(
-        RequestBuilder<crate::model::ReactivateConfigurationRequest>,
+        pub(crate) RequestBuilder<crate::model::ReactivateConfigurationRequest>,
     );
 
     impl ReactivateConfiguration {
@@ -1144,7 +1152,7 @@ pub mod license_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct QueryConfigurationLicenseUsage(
-        RequestBuilder<crate::model::QueryConfigurationLicenseUsageRequest>,
+        pub(crate) RequestBuilder<crate::model::QueryConfigurationLicenseUsageRequest>,
     );
 
     impl QueryConfigurationLicenseUsage {
@@ -1258,7 +1266,7 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregateUsage(RequestBuilder<crate::model::AggregateUsageRequest>);
+    pub struct AggregateUsage(pub(crate) RequestBuilder<crate::model::AggregateUsageRequest>);
 
     impl AggregateUsage {
         pub(crate) fn new(
@@ -1420,7 +1428,7 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProducts(RequestBuilder<crate::model::ListProductsRequest>);
+    pub struct ListProducts(pub(crate) RequestBuilder<crate::model::ListProductsRequest>);
 
     impl ListProducts {
         pub(crate) fn new(
@@ -1532,7 +1540,7 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProduct(RequestBuilder<crate::model::GetProductRequest>);
+    pub struct GetProduct(pub(crate) RequestBuilder<crate::model::GetProductRequest>);
 
     impl GetProduct {
         pub(crate) fn new(
@@ -1598,7 +1606,9 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1707,7 +1717,9 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -1775,7 +1787,7 @@ pub mod license_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1891,7 +1903,9 @@ pub mod license_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1955,7 +1969,7 @@ pub mod license_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2020,7 +2034,7 @@ pub mod license_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

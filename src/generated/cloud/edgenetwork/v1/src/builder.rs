@@ -51,9 +51,9 @@ pub mod edge_network {
     /// Common implementation for [crate::client::EdgeNetwork] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InitializeZone(RequestBuilder<crate::model::InitializeZoneRequest>);
+    pub struct InitializeZone(pub(crate) RequestBuilder<crate::model::InitializeZoneRequest>);
 
     impl InitializeZone {
         pub(crate) fn new(
@@ -154,7 +154,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListZones(RequestBuilder<crate::model::ListZonesRequest>);
+    pub struct ListZones(pub(crate) RequestBuilder<crate::model::ListZonesRequest>);
 
     impl ListZones {
         pub(crate) fn new(
@@ -264,7 +264,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetZone(RequestBuilder<crate::model::GetZoneRequest>);
+    pub struct GetZone(pub(crate) RequestBuilder<crate::model::GetZoneRequest>);
 
     impl GetZone {
         pub(crate) fn new(
@@ -330,7 +330,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNetworks(RequestBuilder<crate::model::ListNetworksRequest>);
+    pub struct ListNetworks(pub(crate) RequestBuilder<crate::model::ListNetworksRequest>);
 
     impl ListNetworks {
         pub(crate) fn new(
@@ -442,7 +442,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNetwork(RequestBuilder<crate::model::GetNetworkRequest>);
+    pub struct GetNetwork(pub(crate) RequestBuilder<crate::model::GetNetworkRequest>);
 
     impl GetNetwork {
         pub(crate) fn new(
@@ -504,7 +504,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DiagnoseNetwork(RequestBuilder<crate::model::DiagnoseNetworkRequest>);
+    pub struct DiagnoseNetwork(pub(crate) RequestBuilder<crate::model::DiagnoseNetworkRequest>);
 
     impl DiagnoseNetwork {
         pub(crate) fn new(
@@ -567,7 +567,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateNetwork(RequestBuilder<crate::model::CreateNetworkRequest>);
+    pub struct CreateNetwork(pub(crate) RequestBuilder<crate::model::CreateNetworkRequest>);
 
     impl CreateNetwork {
         pub(crate) fn new(
@@ -721,7 +721,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteNetwork(RequestBuilder<crate::model::DeleteNetworkRequest>);
+    pub struct DeleteNetwork(pub(crate) RequestBuilder<crate::model::DeleteNetworkRequest>);
 
     impl DeleteNetwork {
         pub(crate) fn new(
@@ -843,7 +843,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSubnets(RequestBuilder<crate::model::ListSubnetsRequest>);
+    pub struct ListSubnets(pub(crate) RequestBuilder<crate::model::ListSubnetsRequest>);
 
     impl ListSubnets {
         pub(crate) fn new(
@@ -955,7 +955,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSubnet(RequestBuilder<crate::model::GetSubnetRequest>);
+    pub struct GetSubnet(pub(crate) RequestBuilder<crate::model::GetSubnetRequest>);
 
     impl GetSubnet {
         pub(crate) fn new(
@@ -1018,7 +1018,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSubnet(RequestBuilder<crate::model::CreateSubnetRequest>);
+    pub struct CreateSubnet(pub(crate) RequestBuilder<crate::model::CreateSubnetRequest>);
 
     impl CreateSubnet {
         pub(crate) fn new(
@@ -1172,7 +1172,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSubnet(RequestBuilder<crate::model::UpdateSubnetRequest>);
+    pub struct UpdateSubnet(pub(crate) RequestBuilder<crate::model::UpdateSubnetRequest>);
 
     impl UpdateSubnet {
         pub(crate) fn new(
@@ -1332,7 +1332,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSubnet(RequestBuilder<crate::model::DeleteSubnetRequest>);
+    pub struct DeleteSubnet(pub(crate) RequestBuilder<crate::model::DeleteSubnetRequest>);
 
     impl DeleteSubnet {
         pub(crate) fn new(
@@ -1454,7 +1454,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInterconnects(RequestBuilder<crate::model::ListInterconnectsRequest>);
+    pub struct ListInterconnects(pub(crate) RequestBuilder<crate::model::ListInterconnectsRequest>);
 
     impl ListInterconnects {
         pub(crate) fn new(
@@ -1571,7 +1571,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInterconnect(RequestBuilder<crate::model::GetInterconnectRequest>);
+    pub struct GetInterconnect(pub(crate) RequestBuilder<crate::model::GetInterconnectRequest>);
 
     impl GetInterconnect {
         pub(crate) fn new(
@@ -1633,7 +1633,9 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DiagnoseInterconnect(RequestBuilder<crate::model::DiagnoseInterconnectRequest>);
+    pub struct DiagnoseInterconnect(
+        pub(crate) RequestBuilder<crate::model::DiagnoseInterconnectRequest>,
+    );
 
     impl DiagnoseInterconnect {
         pub(crate) fn new(
@@ -1703,7 +1705,7 @@ pub mod edge_network {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListInterconnectAttachments(
-        RequestBuilder<crate::model::ListInterconnectAttachmentsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListInterconnectAttachmentsRequest>,
     );
 
     impl ListInterconnectAttachments {
@@ -1822,7 +1824,7 @@ pub mod edge_network {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetInterconnectAttachment(
-        RequestBuilder<crate::model::GetInterconnectAttachmentRequest>,
+        pub(crate) RequestBuilder<crate::model::GetInterconnectAttachmentRequest>,
     );
 
     impl GetInterconnectAttachment {
@@ -1890,7 +1892,7 @@ pub mod edge_network {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInterconnectAttachment(
-        RequestBuilder<crate::model::CreateInterconnectAttachmentRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateInterconnectAttachmentRequest>,
     );
 
     impl CreateInterconnectAttachment {
@@ -2053,7 +2055,7 @@ pub mod edge_network {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInterconnectAttachment(
-        RequestBuilder<crate::model::DeleteInterconnectAttachmentRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteInterconnectAttachmentRequest>,
     );
 
     impl DeleteInterconnectAttachment {
@@ -2178,7 +2180,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRouters(RequestBuilder<crate::model::ListRoutersRequest>);
+    pub struct ListRouters(pub(crate) RequestBuilder<crate::model::ListRoutersRequest>);
 
     impl ListRouters {
         pub(crate) fn new(
@@ -2290,7 +2292,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRouter(RequestBuilder<crate::model::GetRouterRequest>);
+    pub struct GetRouter(pub(crate) RequestBuilder<crate::model::GetRouterRequest>);
 
     impl GetRouter {
         pub(crate) fn new(
@@ -2352,7 +2354,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DiagnoseRouter(RequestBuilder<crate::model::DiagnoseRouterRequest>);
+    pub struct DiagnoseRouter(pub(crate) RequestBuilder<crate::model::DiagnoseRouterRequest>);
 
     impl DiagnoseRouter {
         pub(crate) fn new(
@@ -2415,7 +2417,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRouter(RequestBuilder<crate::model::CreateRouterRequest>);
+    pub struct CreateRouter(pub(crate) RequestBuilder<crate::model::CreateRouterRequest>);
 
     impl CreateRouter {
         pub(crate) fn new(
@@ -2569,7 +2571,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRouter(RequestBuilder<crate::model::UpdateRouterRequest>);
+    pub struct UpdateRouter(pub(crate) RequestBuilder<crate::model::UpdateRouterRequest>);
 
     impl UpdateRouter {
         pub(crate) fn new(
@@ -2729,7 +2731,7 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRouter(RequestBuilder<crate::model::DeleteRouterRequest>);
+    pub struct DeleteRouter(pub(crate) RequestBuilder<crate::model::DeleteRouterRequest>);
 
     impl DeleteRouter {
         pub(crate) fn new(
@@ -2851,7 +2853,9 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2960,7 +2964,9 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -3028,7 +3034,7 @@ pub mod edge_network {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3144,7 +3150,9 @@ pub mod edge_network {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3208,7 +3216,7 @@ pub mod edge_network {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3273,7 +3281,7 @@ pub mod edge_network {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

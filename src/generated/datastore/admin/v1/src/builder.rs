@@ -51,9 +51,9 @@ pub mod datastore_admin {
     /// Common implementation for [crate::client::DatastoreAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod datastore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportEntities(RequestBuilder<crate::model::ExportEntitiesRequest>);
+    pub struct ExportEntities(pub(crate) RequestBuilder<crate::model::ExportEntitiesRequest>);
 
     impl ExportEntities {
         pub(crate) fn new(
@@ -245,7 +245,7 @@ pub mod datastore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportEntities(RequestBuilder<crate::model::ImportEntitiesRequest>);
+    pub struct ImportEntities(pub(crate) RequestBuilder<crate::model::ImportEntitiesRequest>);
 
     impl ImportEntities {
         pub(crate) fn new(
@@ -398,7 +398,7 @@ pub mod datastore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
+    pub struct CreateIndex(pub(crate) RequestBuilder<crate::model::CreateIndexRequest>);
 
     impl CreateIndex {
         pub(crate) fn new(
@@ -531,7 +531,7 @@ pub mod datastore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
+    pub struct DeleteIndex(pub(crate) RequestBuilder<crate::model::DeleteIndexRequest>);
 
     impl DeleteIndex {
         pub(crate) fn new(
@@ -651,7 +651,7 @@ pub mod datastore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
+    pub struct GetIndex(pub(crate) RequestBuilder<crate::model::GetIndexRequest>);
 
     impl GetIndex {
         pub(crate) fn new(
@@ -721,7 +721,7 @@ pub mod datastore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
+    pub struct ListIndexes(pub(crate) RequestBuilder<crate::model::ListIndexesRequest>);
 
     impl ListIndexes {
         pub(crate) fn new(
@@ -830,7 +830,7 @@ pub mod datastore_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -946,7 +946,9 @@ pub mod datastore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1010,7 +1012,7 @@ pub mod datastore_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -1075,7 +1077,7 @@ pub mod datastore_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

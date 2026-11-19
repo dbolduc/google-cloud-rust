@@ -51,9 +51,9 @@ pub mod dashboards_service {
     /// Common implementation for [crate::client::DashboardsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod dashboards_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDashboard(RequestBuilder<crate::model::CreateDashboardRequest>);
+    pub struct CreateDashboard(pub(crate) RequestBuilder<crate::model::CreateDashboardRequest>);
 
     impl CreateDashboard {
         pub(crate) fn new(
@@ -182,7 +182,7 @@ pub mod dashboards_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDashboards(RequestBuilder<crate::model::ListDashboardsRequest>);
+    pub struct ListDashboards(pub(crate) RequestBuilder<crate::model::ListDashboardsRequest>);
 
     impl ListDashboards {
         pub(crate) fn new(
@@ -284,7 +284,7 @@ pub mod dashboards_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDashboard(RequestBuilder<crate::model::GetDashboardRequest>);
+    pub struct GetDashboard(pub(crate) RequestBuilder<crate::model::GetDashboardRequest>);
 
     impl GetDashboard {
         pub(crate) fn new(
@@ -346,7 +346,7 @@ pub mod dashboards_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDashboard(RequestBuilder<crate::model::DeleteDashboardRequest>);
+    pub struct DeleteDashboard(pub(crate) RequestBuilder<crate::model::DeleteDashboardRequest>);
 
     impl DeleteDashboard {
         pub(crate) fn new(
@@ -408,7 +408,7 @@ pub mod dashboards_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDashboard(RequestBuilder<crate::model::UpdateDashboardRequest>);
+    pub struct UpdateDashboard(pub(crate) RequestBuilder<crate::model::UpdateDashboardRequest>);
 
     impl UpdateDashboard {
         pub(crate) fn new(

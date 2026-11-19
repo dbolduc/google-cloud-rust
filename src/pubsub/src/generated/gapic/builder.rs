@@ -51,9 +51,9 @@ pub mod topic_admin {
     /// Common implementation for [crate::client::TopicAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TopicAdmin>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TopicAdmin>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod topic_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTopic(RequestBuilder<crate::model::Topic>);
+    pub struct CreateTopic(pub(crate) RequestBuilder<crate::model::Topic>);
 
     impl CreateTopic {
         pub(crate) fn new(
@@ -279,7 +279,7 @@ pub mod topic_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTopic(RequestBuilder<crate::model::UpdateTopicRequest>);
+    pub struct UpdateTopic(pub(crate) RequestBuilder<crate::model::UpdateTopicRequest>);
 
     impl UpdateTopic {
         pub(crate) fn new(
@@ -377,7 +377,7 @@ pub mod topic_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTopic(RequestBuilder<crate::model::GetTopicRequest>);
+    pub struct GetTopic(pub(crate) RequestBuilder<crate::model::GetTopicRequest>);
 
     impl GetTopic {
         pub(crate) fn new(
@@ -443,7 +443,7 @@ pub mod topic_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTopics(RequestBuilder<crate::model::ListTopicsRequest>);
+    pub struct ListTopics(pub(crate) RequestBuilder<crate::model::ListTopicsRequest>);
 
     impl ListTopics {
         pub(crate) fn new(
@@ -547,7 +547,9 @@ pub mod topic_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTopicSubscriptions(RequestBuilder<crate::model::ListTopicSubscriptionsRequest>);
+    pub struct ListTopicSubscriptions(
+        pub(crate) RequestBuilder<crate::model::ListTopicSubscriptionsRequest>,
+    );
 
     impl ListTopicSubscriptions {
         pub(crate) fn new(
@@ -652,7 +654,9 @@ pub mod topic_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTopicSnapshots(RequestBuilder<crate::model::ListTopicSnapshotsRequest>);
+    pub struct ListTopicSnapshots(
+        pub(crate) RequestBuilder<crate::model::ListTopicSnapshotsRequest>,
+    );
 
     impl ListTopicSnapshots {
         pub(crate) fn new(
@@ -729,7 +733,7 @@ pub mod topic_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTopic(RequestBuilder<crate::model::DeleteTopicRequest>);
+    pub struct DeleteTopic(pub(crate) RequestBuilder<crate::model::DeleteTopicRequest>);
 
     impl DeleteTopic {
         pub(crate) fn new(
@@ -791,7 +795,9 @@ pub mod topic_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DetachSubscription(RequestBuilder<crate::model::DetachSubscriptionRequest>);
+    pub struct DetachSubscription(
+        pub(crate) RequestBuilder<crate::model::DetachSubscriptionRequest>,
+    );
 
     impl DetachSubscription {
         pub(crate) fn new(
@@ -877,9 +883,9 @@ pub mod subscription_admin {
     /// Common implementation for [crate::client::SubscriptionAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SubscriptionAdmin>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SubscriptionAdmin>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -914,7 +920,7 @@ pub mod subscription_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSubscription(RequestBuilder<crate::model::Subscription>);
+    pub struct CreateSubscription(pub(crate) RequestBuilder<crate::model::Subscription>);
 
     impl CreateSubscription {
         pub(crate) fn new(
@@ -1248,7 +1254,7 @@ pub mod subscription_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSubscription(RequestBuilder<crate::model::GetSubscriptionRequest>);
+    pub struct GetSubscription(pub(crate) RequestBuilder<crate::model::GetSubscriptionRequest>);
 
     impl GetSubscription {
         pub(crate) fn new(
@@ -1310,7 +1316,9 @@ pub mod subscription_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSubscription(RequestBuilder<crate::model::UpdateSubscriptionRequest>);
+    pub struct UpdateSubscription(
+        pub(crate) RequestBuilder<crate::model::UpdateSubscriptionRequest>,
+    );
 
     impl UpdateSubscription {
         pub(crate) fn new(
@@ -1415,7 +1423,7 @@ pub mod subscription_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSubscriptions(RequestBuilder<crate::model::ListSubscriptionsRequest>);
+    pub struct ListSubscriptions(pub(crate) RequestBuilder<crate::model::ListSubscriptionsRequest>);
 
     impl ListSubscriptions {
         pub(crate) fn new(
@@ -1520,7 +1528,9 @@ pub mod subscription_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSubscription(RequestBuilder<crate::model::DeleteSubscriptionRequest>);
+    pub struct DeleteSubscription(
+        pub(crate) RequestBuilder<crate::model::DeleteSubscriptionRequest>,
+    );
 
     impl DeleteSubscription {
         pub(crate) fn new(
@@ -1585,7 +1595,7 @@ pub mod subscription_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ModifyPushConfig(RequestBuilder<crate::model::ModifyPushConfigRequest>);
+    pub struct ModifyPushConfig(pub(crate) RequestBuilder<crate::model::ModifyPushConfigRequest>);
 
     impl ModifyPushConfig {
         pub(crate) fn new(
@@ -1672,7 +1682,7 @@ pub mod subscription_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
+    pub struct GetSnapshot(pub(crate) RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
         pub(crate) fn new(
@@ -1738,7 +1748,7 @@ pub mod subscription_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
+    pub struct ListSnapshots(pub(crate) RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
         pub(crate) fn new(
@@ -1838,7 +1848,7 @@ pub mod subscription_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSnapshot(RequestBuilder<crate::model::CreateSnapshotRequest>);
+    pub struct CreateSnapshot(pub(crate) RequestBuilder<crate::model::CreateSnapshotRequest>);
 
     impl CreateSnapshot {
         pub(crate) fn new(
@@ -1930,7 +1940,7 @@ pub mod subscription_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSnapshot(RequestBuilder<crate::model::UpdateSnapshotRequest>);
+    pub struct UpdateSnapshot(pub(crate) RequestBuilder<crate::model::UpdateSnapshotRequest>);
 
     impl UpdateSnapshot {
         pub(crate) fn new(
@@ -2028,7 +2038,7 @@ pub mod subscription_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
+    pub struct DeleteSnapshot(pub(crate) RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
         pub(crate) fn new(
@@ -2090,7 +2100,7 @@ pub mod subscription_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Seek(RequestBuilder<crate::model::SeekRequest>);
+    pub struct Seek(pub(crate) RequestBuilder<crate::model::SeekRequest>);
 
     impl Seek {
         pub(crate) fn new(
@@ -2208,9 +2218,9 @@ pub mod schema_service {
     /// Common implementation for [crate::client::SchemaService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2245,7 +2255,7 @@ pub mod schema_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSchema(RequestBuilder<crate::model::CreateSchemaRequest>);
+    pub struct CreateSchema(pub(crate) RequestBuilder<crate::model::CreateSchemaRequest>);
 
     impl CreateSchema {
         pub(crate) fn new(
@@ -2335,7 +2345,7 @@ pub mod schema_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSchema(RequestBuilder<crate::model::GetSchemaRequest>);
+    pub struct GetSchema(pub(crate) RequestBuilder<crate::model::GetSchemaRequest>);
 
     impl GetSchema {
         pub(crate) fn new(
@@ -2407,7 +2417,7 @@ pub mod schema_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSchemas(RequestBuilder<crate::model::ListSchemasRequest>);
+    pub struct ListSchemas(pub(crate) RequestBuilder<crate::model::ListSchemasRequest>);
 
     impl ListSchemas {
         pub(crate) fn new(
@@ -2517,7 +2527,9 @@ pub mod schema_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSchemaRevisions(RequestBuilder<crate::model::ListSchemaRevisionsRequest>);
+    pub struct ListSchemaRevisions(
+        pub(crate) RequestBuilder<crate::model::ListSchemaRevisionsRequest>,
+    );
 
     impl ListSchemaRevisions {
         pub(crate) fn new(
@@ -2628,7 +2640,7 @@ pub mod schema_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CommitSchema(RequestBuilder<crate::model::CommitSchemaRequest>);
+    pub struct CommitSchema(pub(crate) RequestBuilder<crate::model::CommitSchemaRequest>);
 
     impl CommitSchema {
         pub(crate) fn new(
@@ -2712,7 +2724,7 @@ pub mod schema_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RollbackSchema(RequestBuilder<crate::model::RollbackSchemaRequest>);
+    pub struct RollbackSchema(pub(crate) RequestBuilder<crate::model::RollbackSchemaRequest>);
 
     impl RollbackSchema {
         pub(crate) fn new(
@@ -2782,7 +2794,9 @@ pub mod schema_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSchemaRevision(RequestBuilder<crate::model::DeleteSchemaRevisionRequest>);
+    pub struct DeleteSchemaRevision(
+        pub(crate) RequestBuilder<crate::model::DeleteSchemaRevisionRequest>,
+    );
 
     impl DeleteSchemaRevision {
         pub(crate) fn new(
@@ -2854,7 +2868,7 @@ pub mod schema_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSchema(RequestBuilder<crate::model::DeleteSchemaRequest>);
+    pub struct DeleteSchema(pub(crate) RequestBuilder<crate::model::DeleteSchemaRequest>);
 
     impl DeleteSchema {
         pub(crate) fn new(
@@ -2916,7 +2930,7 @@ pub mod schema_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ValidateSchema(RequestBuilder<crate::model::ValidateSchemaRequest>);
+    pub struct ValidateSchema(pub(crate) RequestBuilder<crate::model::ValidateSchemaRequest>);
 
     impl ValidateSchema {
         pub(crate) fn new(
@@ -3000,7 +3014,7 @@ pub mod schema_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ValidateMessage(RequestBuilder<crate::model::ValidateMessageRequest>);
+    pub struct ValidateMessage(pub(crate) RequestBuilder<crate::model::ValidateMessageRequest>);
 
     impl ValidateMessage {
         pub(crate) fn new(
@@ -3111,7 +3125,9 @@ pub mod schema_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -3216,7 +3232,9 @@ pub mod schema_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -3300,7 +3318,7 @@ pub mod schema_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {

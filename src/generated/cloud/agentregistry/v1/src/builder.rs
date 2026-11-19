@@ -51,9 +51,9 @@ pub mod agent_registry {
     /// Common implementation for [crate::client::AgentRegistry] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AgentRegistry>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AgentRegistry>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAgents(RequestBuilder<crate::model::ListAgentsRequest>);
+    pub struct ListAgents(pub(crate) RequestBuilder<crate::model::ListAgentsRequest>);
 
     impl ListAgents {
         pub(crate) fn new(
@@ -208,7 +208,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchAgents(RequestBuilder<crate::model::SearchAgentsRequest>);
+    pub struct SearchAgents(pub(crate) RequestBuilder<crate::model::SearchAgentsRequest>);
 
     impl SearchAgents {
         pub(crate) fn new(
@@ -314,7 +314,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAgent(RequestBuilder<crate::model::GetAgentRequest>);
+    pub struct GetAgent(pub(crate) RequestBuilder<crate::model::GetAgentRequest>);
 
     impl GetAgent {
         pub(crate) fn new(
@@ -380,7 +380,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEndpoints(RequestBuilder<crate::model::ListEndpointsRequest>);
+    pub struct ListEndpoints(pub(crate) RequestBuilder<crate::model::ListEndpointsRequest>);
 
     impl ListEndpoints {
         pub(crate) fn new(
@@ -486,7 +486,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEndpoint(RequestBuilder<crate::model::GetEndpointRequest>);
+    pub struct GetEndpoint(pub(crate) RequestBuilder<crate::model::GetEndpointRequest>);
 
     impl GetEndpoint {
         pub(crate) fn new(
@@ -552,7 +552,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMcpServers(RequestBuilder<crate::model::ListMcpServersRequest>);
+    pub struct ListMcpServers(pub(crate) RequestBuilder<crate::model::ListMcpServersRequest>);
 
     impl ListMcpServers {
         pub(crate) fn new(
@@ -670,7 +670,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchMcpServers(RequestBuilder<crate::model::SearchMcpServersRequest>);
+    pub struct SearchMcpServers(pub(crate) RequestBuilder<crate::model::SearchMcpServersRequest>);
 
     impl SearchMcpServers {
         pub(crate) fn new(
@@ -781,7 +781,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMcpServer(RequestBuilder<crate::model::GetMcpServerRequest>);
+    pub struct GetMcpServer(pub(crate) RequestBuilder<crate::model::GetMcpServerRequest>);
 
     impl GetMcpServer {
         pub(crate) fn new(
@@ -847,7 +847,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
+    pub struct ListServices(pub(crate) RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
         pub(crate) fn new(
@@ -953,7 +953,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
+    pub struct GetService(pub(crate) RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
         pub(crate) fn new(
@@ -1016,7 +1016,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
+    pub struct CreateService(pub(crate) RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
         pub(crate) fn new(
@@ -1169,7 +1169,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
+    pub struct UpdateService(pub(crate) RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
         pub(crate) fn new(
@@ -1324,7 +1324,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
+    pub struct DeleteService(pub(crate) RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
         pub(crate) fn new(
@@ -1445,7 +1445,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBindings(RequestBuilder<crate::model::ListBindingsRequest>);
+    pub struct ListBindings(pub(crate) RequestBuilder<crate::model::ListBindingsRequest>);
 
     impl ListBindings {
         pub(crate) fn new(
@@ -1557,7 +1557,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBinding(RequestBuilder<crate::model::GetBindingRequest>);
+    pub struct GetBinding(pub(crate) RequestBuilder<crate::model::GetBindingRequest>);
 
     impl GetBinding {
         pub(crate) fn new(
@@ -1620,7 +1620,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBinding(RequestBuilder<crate::model::CreateBindingRequest>);
+    pub struct CreateBinding(pub(crate) RequestBuilder<crate::model::CreateBindingRequest>);
 
     impl CreateBinding {
         pub(crate) fn new(
@@ -1773,7 +1773,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBinding(RequestBuilder<crate::model::UpdateBindingRequest>);
+    pub struct UpdateBinding(pub(crate) RequestBuilder<crate::model::UpdateBindingRequest>);
 
     impl UpdateBinding {
         pub(crate) fn new(
@@ -1928,7 +1928,7 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBinding(RequestBuilder<crate::model::DeleteBindingRequest>);
+    pub struct DeleteBinding(pub(crate) RequestBuilder<crate::model::DeleteBindingRequest>);
 
     impl DeleteBinding {
         pub(crate) fn new(
@@ -2049,7 +2049,9 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchAvailableBindings(RequestBuilder<crate::model::FetchAvailableBindingsRequest>);
+    pub struct FetchAvailableBindings(
+        pub(crate) RequestBuilder<crate::model::FetchAvailableBindingsRequest>,
+    );
 
     impl FetchAvailableBindings {
         pub(crate) fn new(
@@ -2212,7 +2214,9 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2321,7 +2325,9 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -2389,7 +2395,7 @@ pub mod agent_registry {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2505,7 +2511,9 @@ pub mod agent_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2569,7 +2577,7 @@ pub mod agent_registry {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2634,7 +2642,7 @@ pub mod agent_registry {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

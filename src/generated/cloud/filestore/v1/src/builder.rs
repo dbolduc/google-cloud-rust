@@ -51,9 +51,9 @@ pub mod cloud_filestore_manager {
     /// Common implementation for [crate::client::CloudFilestoreManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
+    pub struct ListInstances(pub(crate) RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(
@@ -204,7 +204,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
+    pub struct GetInstance(pub(crate) RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(
@@ -267,7 +267,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
+    pub struct CreateInstance(pub(crate) RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
         pub(crate) fn new(
@@ -416,7 +416,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
+    pub struct UpdateInstance(pub(crate) RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
         pub(crate) fn new(
@@ -563,7 +563,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreInstance(RequestBuilder<crate::model::RestoreInstanceRequest>);
+    pub struct RestoreInstance(pub(crate) RequestBuilder<crate::model::RestoreInstanceRequest>);
 
     impl RestoreInstance {
         pub(crate) fn new(
@@ -715,7 +715,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RevertInstance(RequestBuilder<crate::model::RevertInstanceRequest>);
+    pub struct RevertInstance(pub(crate) RequestBuilder<crate::model::RevertInstanceRequest>);
 
     impl RevertInstance {
         pub(crate) fn new(
@@ -842,7 +842,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
+    pub struct DeleteInstance(pub(crate) RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
         pub(crate) fn new(
@@ -968,7 +968,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
+    pub struct ListSnapshots(pub(crate) RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
         pub(crate) fn new(
@@ -1086,7 +1086,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
+    pub struct GetSnapshot(pub(crate) RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
         pub(crate) fn new(
@@ -1149,7 +1149,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSnapshot(RequestBuilder<crate::model::CreateSnapshotRequest>);
+    pub struct CreateSnapshot(pub(crate) RequestBuilder<crate::model::CreateSnapshotRequest>);
 
     impl CreateSnapshot {
         pub(crate) fn new(
@@ -1298,7 +1298,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
+    pub struct DeleteSnapshot(pub(crate) RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
         pub(crate) fn new(
@@ -1415,7 +1415,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSnapshot(RequestBuilder<crate::model::UpdateSnapshotRequest>);
+    pub struct UpdateSnapshot(pub(crate) RequestBuilder<crate::model::UpdateSnapshotRequest>);
 
     impl UpdateSnapshot {
         pub(crate) fn new(
@@ -1573,7 +1573,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
+    pub struct ListBackups(pub(crate) RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
         pub(crate) fn new(
@@ -1685,7 +1685,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
+    pub struct GetBackup(pub(crate) RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
         pub(crate) fn new(
@@ -1748,7 +1748,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
+    pub struct CreateBackup(pub(crate) RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
         pub(crate) fn new(
@@ -1897,7 +1897,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
+    pub struct DeleteBackup(pub(crate) RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
         pub(crate) fn new(
@@ -2014,7 +2014,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
+    pub struct UpdateBackup(pub(crate) RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
         pub(crate) fn new(
@@ -2169,7 +2169,7 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PromoteReplica(RequestBuilder<crate::model::PromoteReplicaRequest>);
+    pub struct PromoteReplica(pub(crate) RequestBuilder<crate::model::PromoteReplicaRequest>);
 
     impl PromoteReplica {
         pub(crate) fn new(
@@ -2297,7 +2297,9 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2406,7 +2408,9 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -2474,7 +2478,7 @@ pub mod cloud_filestore_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2590,7 +2594,9 @@ pub mod cloud_filestore_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2654,7 +2660,7 @@ pub mod cloud_filestore_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2719,7 +2725,7 @@ pub mod cloud_filestore_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

@@ -51,9 +51,9 @@ pub mod autokey {
     /// Common implementation for [crate::client::Autokey] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -87,7 +87,7 @@ pub mod autokey {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateKeyHandle(RequestBuilder<crate::model::CreateKeyHandleRequest>);
+    pub struct CreateKeyHandle(pub(crate) RequestBuilder<crate::model::CreateKeyHandleRequest>);
 
     impl CreateKeyHandle {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
@@ -230,7 +230,7 @@ pub mod autokey {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetKeyHandle(RequestBuilder<crate::model::GetKeyHandleRequest>);
+    pub struct GetKeyHandle(pub(crate) RequestBuilder<crate::model::GetKeyHandleRequest>);
 
     impl GetKeyHandle {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
@@ -294,7 +294,7 @@ pub mod autokey {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListKeyHandles(RequestBuilder<crate::model::ListKeyHandlesRequest>);
+    pub struct ListKeyHandles(pub(crate) RequestBuilder<crate::model::ListKeyHandlesRequest>);
 
     impl ListKeyHandles {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
@@ -404,7 +404,9 @@ pub mod autokey {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
@@ -511,7 +513,9 @@ pub mod autokey {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
@@ -572,7 +576,9 @@ pub mod autokey {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
@@ -675,7 +681,9 @@ pub mod autokey {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
@@ -757,7 +765,7 @@ pub mod autokey {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -834,7 +842,9 @@ pub mod autokey {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
@@ -916,9 +926,9 @@ pub mod autokey_admin {
     /// Common implementation for [crate::client::AutokeyAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -953,7 +963,9 @@ pub mod autokey_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAutokeyConfig(RequestBuilder<crate::model::UpdateAutokeyConfigRequest>);
+    pub struct UpdateAutokeyConfig(
+        pub(crate) RequestBuilder<crate::model::UpdateAutokeyConfigRequest>,
+    );
 
     impl UpdateAutokeyConfig {
         pub(crate) fn new(
@@ -1054,7 +1066,7 @@ pub mod autokey_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAutokeyConfig(RequestBuilder<crate::model::GetAutokeyConfigRequest>);
+    pub struct GetAutokeyConfig(pub(crate) RequestBuilder<crate::model::GetAutokeyConfigRequest>);
 
     impl GetAutokeyConfig {
         pub(crate) fn new(
@@ -1120,7 +1132,7 @@ pub mod autokey_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ShowEffectiveAutokeyConfig(
-        RequestBuilder<crate::model::ShowEffectiveAutokeyConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::ShowEffectiveAutokeyConfigRequest>,
     );
 
     impl ShowEffectiveAutokeyConfig {
@@ -1190,7 +1202,9 @@ pub mod autokey_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1299,7 +1313,9 @@ pub mod autokey_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -1362,7 +1378,9 @@ pub mod autokey_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -1467,7 +1485,9 @@ pub mod autokey_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1551,7 +1571,7 @@ pub mod autokey_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1630,7 +1650,9 @@ pub mod autokey_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1714,9 +1736,9 @@ pub mod ekm_service {
     /// Common implementation for [crate::client::EkmService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1755,7 +1777,9 @@ pub mod ekm_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEkmConnections(RequestBuilder<crate::model::ListEkmConnectionsRequest>);
+    pub struct ListEkmConnections(
+        pub(crate) RequestBuilder<crate::model::ListEkmConnectionsRequest>,
+    );
 
     impl ListEkmConnections {
         pub(crate) fn new(
@@ -1872,7 +1896,7 @@ pub mod ekm_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEkmConnection(RequestBuilder<crate::model::GetEkmConnectionRequest>);
+    pub struct GetEkmConnection(pub(crate) RequestBuilder<crate::model::GetEkmConnectionRequest>);
 
     impl GetEkmConnection {
         pub(crate) fn new(
@@ -1937,7 +1961,9 @@ pub mod ekm_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateEkmConnection(RequestBuilder<crate::model::CreateEkmConnectionRequest>);
+    pub struct CreateEkmConnection(
+        pub(crate) RequestBuilder<crate::model::CreateEkmConnectionRequest>,
+    );
 
     impl CreateEkmConnection {
         pub(crate) fn new(
@@ -2032,7 +2058,9 @@ pub mod ekm_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateEkmConnection(RequestBuilder<crate::model::UpdateEkmConnectionRequest>);
+    pub struct UpdateEkmConnection(
+        pub(crate) RequestBuilder<crate::model::UpdateEkmConnectionRequest>,
+    );
 
     impl UpdateEkmConnection {
         pub(crate) fn new(
@@ -2133,7 +2161,7 @@ pub mod ekm_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEkmConfig(RequestBuilder<crate::model::GetEkmConfigRequest>);
+    pub struct GetEkmConfig(pub(crate) RequestBuilder<crate::model::GetEkmConfigRequest>);
 
     impl GetEkmConfig {
         pub(crate) fn new(
@@ -2195,7 +2223,7 @@ pub mod ekm_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateEkmConfig(RequestBuilder<crate::model::UpdateEkmConfigRequest>);
+    pub struct UpdateEkmConfig(pub(crate) RequestBuilder<crate::model::UpdateEkmConfigRequest>);
 
     impl UpdateEkmConfig {
         pub(crate) fn new(
@@ -2293,7 +2321,9 @@ pub mod ekm_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct VerifyConnectivity(RequestBuilder<crate::model::VerifyConnectivityRequest>);
+    pub struct VerifyConnectivity(
+        pub(crate) RequestBuilder<crate::model::VerifyConnectivityRequest>,
+    );
 
     impl VerifyConnectivity {
         pub(crate) fn new(
@@ -2362,7 +2392,9 @@ pub mod ekm_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2471,7 +2503,9 @@ pub mod ekm_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -2534,7 +2568,9 @@ pub mod ekm_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -2639,7 +2675,9 @@ pub mod ekm_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -2723,7 +2761,7 @@ pub mod ekm_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -2802,7 +2840,9 @@ pub mod ekm_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2886,9 +2926,9 @@ pub mod hsm_management {
     /// Common implementation for [crate::client::HsmManagement] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::HsmManagement>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::HsmManagement>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2928,7 +2968,7 @@ pub mod hsm_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListSingleTenantHsmInstances(
-        RequestBuilder<crate::model::ListSingleTenantHsmInstancesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListSingleTenantHsmInstancesRequest>,
     );
 
     impl ListSingleTenantHsmInstances {
@@ -3053,7 +3093,7 @@ pub mod hsm_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetSingleTenantHsmInstance(
-        RequestBuilder<crate::model::GetSingleTenantHsmInstanceRequest>,
+        pub(crate) RequestBuilder<crate::model::GetSingleTenantHsmInstanceRequest>,
     );
 
     impl GetSingleTenantHsmInstance {
@@ -3121,7 +3161,7 @@ pub mod hsm_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSingleTenantHsmInstance(
-        RequestBuilder<crate::model::CreateSingleTenantHsmInstanceRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateSingleTenantHsmInstanceRequest>,
     );
 
     impl CreateSingleTenantHsmInstance {
@@ -3279,7 +3319,7 @@ pub mod hsm_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSingleTenantHsmInstanceProposal(
-        RequestBuilder<crate::model::CreateSingleTenantHsmInstanceProposalRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateSingleTenantHsmInstanceProposalRequest>,
     );
 
     impl CreateSingleTenantHsmInstanceProposal {
@@ -3437,7 +3477,7 @@ pub mod hsm_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ApproveSingleTenantHsmInstanceProposal(
-        RequestBuilder<crate::model::ApproveSingleTenantHsmInstanceProposalRequest>,
+        pub(crate) RequestBuilder<crate::model::ApproveSingleTenantHsmInstanceProposalRequest>,
     );
 
     impl ApproveSingleTenantHsmInstanceProposal {
@@ -3538,7 +3578,7 @@ pub mod hsm_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ExecuteSingleTenantHsmInstanceProposal(
-        RequestBuilder<crate::model::ExecuteSingleTenantHsmInstanceProposalRequest>,
+        pub(crate) RequestBuilder<crate::model::ExecuteSingleTenantHsmInstanceProposalRequest>,
     );
 
     impl ExecuteSingleTenantHsmInstanceProposal {
@@ -3663,7 +3703,7 @@ pub mod hsm_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetSingleTenantHsmInstanceProposal(
-        RequestBuilder<crate::model::GetSingleTenantHsmInstanceProposalRequest>,
+        pub(crate) RequestBuilder<crate::model::GetSingleTenantHsmInstanceProposalRequest>,
     );
 
     impl GetSingleTenantHsmInstanceProposal {
@@ -3734,7 +3774,7 @@ pub mod hsm_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListSingleTenantHsmInstanceProposals(
-        RequestBuilder<crate::model::ListSingleTenantHsmInstanceProposalsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListSingleTenantHsmInstanceProposalsRequest>,
     );
 
     impl ListSingleTenantHsmInstanceProposals {
@@ -3861,7 +3901,7 @@ pub mod hsm_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSingleTenantHsmInstanceProposal(
-        RequestBuilder<crate::model::DeleteSingleTenantHsmInstanceProposalRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteSingleTenantHsmInstanceProposalRequest>,
     );
 
     impl DeleteSingleTenantHsmInstanceProposal {
@@ -3931,7 +3971,9 @@ pub mod hsm_management {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -4040,7 +4082,9 @@ pub mod hsm_management {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -4103,7 +4147,9 @@ pub mod hsm_management {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -4208,7 +4254,9 @@ pub mod hsm_management {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -4292,7 +4340,7 @@ pub mod hsm_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -4371,7 +4419,9 @@ pub mod hsm_management {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4455,9 +4505,9 @@ pub mod key_management_service {
     /// Common implementation for [crate::client::KeyManagementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -4496,7 +4546,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListKeyRings(RequestBuilder<crate::model::ListKeyRingsRequest>);
+    pub struct ListKeyRings(pub(crate) RequestBuilder<crate::model::ListKeyRingsRequest>);
 
     impl ListKeyRings {
         pub(crate) fn new(
@@ -4612,7 +4662,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCryptoKeys(RequestBuilder<crate::model::ListCryptoKeysRequest>);
+    pub struct ListCryptoKeys(pub(crate) RequestBuilder<crate::model::ListCryptoKeysRequest>);
 
     impl ListCryptoKeys {
         pub(crate) fn new(
@@ -4739,7 +4789,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCryptoKeyVersions(RequestBuilder<crate::model::ListCryptoKeyVersionsRequest>);
+    pub struct ListCryptoKeyVersions(
+        pub(crate) RequestBuilder<crate::model::ListCryptoKeyVersionsRequest>,
+    );
 
     impl ListCryptoKeyVersions {
         pub(crate) fn new(
@@ -4869,7 +4921,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListImportJobs(RequestBuilder<crate::model::ListImportJobsRequest>);
+    pub struct ListImportJobs(pub(crate) RequestBuilder<crate::model::ListImportJobsRequest>);
 
     impl ListImportJobs {
         pub(crate) fn new(
@@ -4987,7 +5039,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRetiredResources(RequestBuilder<crate::model::ListRetiredResourcesRequest>);
+    pub struct ListRetiredResources(
+        pub(crate) RequestBuilder<crate::model::ListRetiredResourcesRequest>,
+    );
 
     impl ListRetiredResources {
         pub(crate) fn new(
@@ -5092,7 +5146,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetKeyRing(RequestBuilder<crate::model::GetKeyRingRequest>);
+    pub struct GetKeyRing(pub(crate) RequestBuilder<crate::model::GetKeyRingRequest>);
 
     impl GetKeyRing {
         pub(crate) fn new(
@@ -5154,7 +5208,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCryptoKey(RequestBuilder<crate::model::GetCryptoKeyRequest>);
+    pub struct GetCryptoKey(pub(crate) RequestBuilder<crate::model::GetCryptoKeyRequest>);
 
     impl GetCryptoKey {
         pub(crate) fn new(
@@ -5216,7 +5270,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCryptoKeyVersion(RequestBuilder<crate::model::GetCryptoKeyVersionRequest>);
+    pub struct GetCryptoKeyVersion(
+        pub(crate) RequestBuilder<crate::model::GetCryptoKeyVersionRequest>,
+    );
 
     impl GetCryptoKeyVersion {
         pub(crate) fn new(
@@ -5281,7 +5337,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPublicKey(RequestBuilder<crate::model::GetPublicKeyRequest>);
+    pub struct GetPublicKey(pub(crate) RequestBuilder<crate::model::GetPublicKeyRequest>);
 
     impl GetPublicKey {
         pub(crate) fn new(
@@ -5352,7 +5408,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetImportJob(RequestBuilder<crate::model::GetImportJobRequest>);
+    pub struct GetImportJob(pub(crate) RequestBuilder<crate::model::GetImportJobRequest>);
 
     impl GetImportJob {
         pub(crate) fn new(
@@ -5423,7 +5479,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRetiredResource(RequestBuilder<crate::model::GetRetiredResourceRequest>);
+    pub struct GetRetiredResource(
+        pub(crate) RequestBuilder<crate::model::GetRetiredResourceRequest>,
+    );
 
     impl GetRetiredResource {
         pub(crate) fn new(
@@ -5488,7 +5546,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateKeyRing(RequestBuilder<crate::model::CreateKeyRingRequest>);
+    pub struct CreateKeyRing(pub(crate) RequestBuilder<crate::model::CreateKeyRingRequest>);
 
     impl CreateKeyRing {
         pub(crate) fn new(
@@ -5580,7 +5638,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCryptoKey(RequestBuilder<crate::model::CreateCryptoKeyRequest>);
+    pub struct CreateCryptoKey(pub(crate) RequestBuilder<crate::model::CreateCryptoKeyRequest>);
 
     impl CreateCryptoKey {
         pub(crate) fn new(
@@ -5684,7 +5742,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCryptoKeyVersion(RequestBuilder<crate::model::CreateCryptoKeyVersionRequest>);
+    pub struct CreateCryptoKeyVersion(
+        pub(crate) RequestBuilder<crate::model::CreateCryptoKeyVersionRequest>,
+    );
 
     impl CreateCryptoKeyVersion {
         pub(crate) fn new(
@@ -5772,7 +5832,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCryptoKey(RequestBuilder<crate::model::DeleteCryptoKeyRequest>);
+    pub struct DeleteCryptoKey(pub(crate) RequestBuilder<crate::model::DeleteCryptoKeyRequest>);
 
     impl DeleteCryptoKey {
         pub(crate) fn new(
@@ -5888,7 +5948,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCryptoKeyVersion(RequestBuilder<crate::model::DeleteCryptoKeyVersionRequest>);
+    pub struct DeleteCryptoKeyVersion(
+        pub(crate) RequestBuilder<crate::model::DeleteCryptoKeyVersionRequest>,
+    );
 
     impl DeleteCryptoKeyVersion {
         pub(crate) fn new(
@@ -6007,7 +6069,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportCryptoKeyVersion(RequestBuilder<crate::model::ImportCryptoKeyVersionRequest>);
+    pub struct ImportCryptoKeyVersion(
+        pub(crate) RequestBuilder<crate::model::ImportCryptoKeyVersionRequest>,
+    );
 
     impl ImportCryptoKeyVersion {
         pub(crate) fn new(
@@ -6139,7 +6203,7 @@ pub mod key_management_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ImportTrustedKeyWrappedCryptoKeyVersion(
-        RequestBuilder<crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest>,
+        pub(crate) RequestBuilder<crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest>,
     );
 
     impl ImportTrustedKeyWrappedCryptoKeyVersion {
@@ -6243,7 +6307,7 @@ pub mod key_management_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ExportTrustedKeyWrappedCryptoKeyVersion(
-        RequestBuilder<crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest>,
+        pub(crate) RequestBuilder<crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest>,
     );
 
     impl ExportTrustedKeyWrappedCryptoKeyVersion {
@@ -6321,7 +6385,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateImportJob(RequestBuilder<crate::model::CreateImportJobRequest>);
+    pub struct CreateImportJob(pub(crate) RequestBuilder<crate::model::CreateImportJobRequest>);
 
     impl CreateImportJob {
         pub(crate) fn new(
@@ -6413,7 +6477,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCryptoKey(RequestBuilder<crate::model::UpdateCryptoKeyRequest>);
+    pub struct UpdateCryptoKey(pub(crate) RequestBuilder<crate::model::UpdateCryptoKeyRequest>);
 
     impl UpdateCryptoKey {
         pub(crate) fn new(
@@ -6511,7 +6575,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCryptoKeyVersion(RequestBuilder<crate::model::UpdateCryptoKeyVersionRequest>);
+    pub struct UpdateCryptoKeyVersion(
+        pub(crate) RequestBuilder<crate::model::UpdateCryptoKeyVersionRequest>,
+    );
 
     impl UpdateCryptoKeyVersion {
         pub(crate) fn new(
@@ -6613,7 +6679,7 @@ pub mod key_management_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCryptoKeyPrimaryVersion(
-        RequestBuilder<crate::model::UpdateCryptoKeyPrimaryVersionRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateCryptoKeyPrimaryVersionRequest>,
     );
 
     impl UpdateCryptoKeyPrimaryVersion {
@@ -6688,7 +6754,7 @@ pub mod key_management_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DestroyCryptoKeyVersion(
-        RequestBuilder<crate::model::DestroyCryptoKeyVersionRequest>,
+        pub(crate) RequestBuilder<crate::model::DestroyCryptoKeyVersionRequest>,
     );
 
     impl DestroyCryptoKeyVersion {
@@ -6755,7 +6821,7 @@ pub mod key_management_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreCryptoKeyVersion(
-        RequestBuilder<crate::model::RestoreCryptoKeyVersionRequest>,
+        pub(crate) RequestBuilder<crate::model::RestoreCryptoKeyVersionRequest>,
     );
 
     impl RestoreCryptoKeyVersion {
@@ -6821,7 +6887,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Encrypt(RequestBuilder<crate::model::EncryptRequest>);
+    pub struct Encrypt(pub(crate) RequestBuilder<crate::model::EncryptRequest>);
 
     impl Encrypt {
         pub(crate) fn new(
@@ -6937,7 +7003,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Decrypt(RequestBuilder<crate::model::DecryptRequest>);
+    pub struct Decrypt(pub(crate) RequestBuilder<crate::model::DecryptRequest>);
 
     impl Decrypt {
         pub(crate) fn new(
@@ -7053,7 +7119,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RawEncrypt(RequestBuilder<crate::model::RawEncryptRequest>);
+    pub struct RawEncrypt(pub(crate) RequestBuilder<crate::model::RawEncryptRequest>);
 
     impl RawEncrypt {
         pub(crate) fn new(
@@ -7196,7 +7262,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RawDecrypt(RequestBuilder<crate::model::RawDecryptRequest>);
+    pub struct RawDecrypt(pub(crate) RequestBuilder<crate::model::RawDecryptRequest>);
 
     impl RawDecrypt {
         pub(crate) fn new(
@@ -7347,7 +7413,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AsymmetricSign(RequestBuilder<crate::model::AsymmetricSignRequest>);
+    pub struct AsymmetricSign(pub(crate) RequestBuilder<crate::model::AsymmetricSignRequest>);
 
     impl AsymmetricSign {
         pub(crate) fn new(
@@ -7469,7 +7535,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AsymmetricDecrypt(RequestBuilder<crate::model::AsymmetricDecryptRequest>);
+    pub struct AsymmetricDecrypt(pub(crate) RequestBuilder<crate::model::AsymmetricDecryptRequest>);
 
     impl AsymmetricDecrypt {
         pub(crate) fn new(
@@ -7560,7 +7626,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MacSign(RequestBuilder<crate::model::MacSignRequest>);
+    pub struct MacSign(pub(crate) RequestBuilder<crate::model::MacSignRequest>);
 
     impl MacSign {
         pub(crate) fn new(
@@ -7648,7 +7714,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MacVerify(RequestBuilder<crate::model::MacVerifyRequest>);
+    pub struct MacVerify(pub(crate) RequestBuilder<crate::model::MacVerifyRequest>);
 
     impl MacVerify {
         pub(crate) fn new(
@@ -7762,7 +7828,7 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Decapsulate(RequestBuilder<crate::model::DecapsulateRequest>);
+    pub struct Decapsulate(pub(crate) RequestBuilder<crate::model::DecapsulateRequest>);
 
     impl Decapsulate {
         pub(crate) fn new(
@@ -7850,7 +7916,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateRandomBytes(RequestBuilder<crate::model::GenerateRandomBytesRequest>);
+    pub struct GenerateRandomBytes(
+        pub(crate) RequestBuilder<crate::model::GenerateRandomBytesRequest>,
+    );
 
     impl GenerateRandomBytes {
         pub(crate) fn new(
@@ -7932,7 +8000,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -8041,7 +8111,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -8104,7 +8176,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -8209,7 +8283,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -8293,7 +8369,7 @@ pub mod key_management_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -8372,7 +8448,9 @@ pub mod key_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

@@ -21,9 +21,9 @@ pub mod storage_control {
     /// Common implementation for [crate::client::StorageControl] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -58,7 +58,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBucket(RequestBuilder<crate::model::DeleteBucketRequest>);
+    pub struct DeleteBucket(pub(crate) RequestBuilder<crate::model::DeleteBucketRequest>);
 
     impl DeleteBucket {
         pub(crate) fn new(
@@ -159,7 +159,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBucket(RequestBuilder<crate::model::GetBucketRequest>);
+    pub struct GetBucket(pub(crate) RequestBuilder<crate::model::GetBucketRequest>);
 
     impl GetBucket {
         pub(crate) fn new(
@@ -278,7 +278,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBucket(RequestBuilder<crate::model::CreateBucketRequest>);
+    pub struct CreateBucket(pub(crate) RequestBuilder<crate::model::CreateBucketRequest>);
 
     impl CreateBucket {
         pub(crate) fn new(
@@ -391,7 +391,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBuckets(RequestBuilder<crate::model::ListBucketsRequest>);
+    pub struct ListBuckets(pub(crate) RequestBuilder<crate::model::ListBucketsRequest>);
 
     impl ListBuckets {
         pub(crate) fn new(
@@ -522,7 +522,7 @@ pub mod storage_control {
     /// ```
     #[derive(Clone, Debug)]
     pub struct LockBucketRetentionPolicy(
-        RequestBuilder<crate::model::LockBucketRetentionPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::LockBucketRetentionPolicyRequest>,
     );
 
     impl LockBucketRetentionPolicy {
@@ -596,7 +596,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBucket(RequestBuilder<crate::model::UpdateBucketRequest>);
+    pub struct UpdateBucket(pub(crate) RequestBuilder<crate::model::UpdateBucketRequest>);
 
     impl UpdateBucket {
         pub(crate) fn new(
@@ -748,7 +748,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ComposeObject(RequestBuilder<crate::model::ComposeObjectRequest>);
+    pub struct ComposeObject(pub(crate) RequestBuilder<crate::model::ComposeObjectRequest>);
 
     impl ComposeObject {
         pub(crate) fn new(
@@ -943,7 +943,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteObject(RequestBuilder<crate::model::DeleteObjectRequest>);
+    pub struct DeleteObject(pub(crate) RequestBuilder<crate::model::DeleteObjectRequest>);
 
     impl DeleteObject {
         pub(crate) fn new(
@@ -1115,7 +1115,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreObject(RequestBuilder<crate::model::RestoreObjectRequest>);
+    pub struct RestoreObject(pub(crate) RequestBuilder<crate::model::RestoreObjectRequest>);
 
     impl RestoreObject {
         pub(crate) fn new(
@@ -1313,7 +1313,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetObject(RequestBuilder<crate::model::GetObjectRequest>);
+    pub struct GetObject(pub(crate) RequestBuilder<crate::model::GetObjectRequest>);
 
     impl GetObject {
         pub(crate) fn new(
@@ -1527,7 +1527,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateObject(RequestBuilder<crate::model::UpdateObjectRequest>);
+    pub struct UpdateObject(pub(crate) RequestBuilder<crate::model::UpdateObjectRequest>);
 
     impl UpdateObject {
         pub(crate) fn new(
@@ -1737,7 +1737,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListObjects(RequestBuilder<crate::model::ListObjectsRequest>);
+    pub struct ListObjects(pub(crate) RequestBuilder<crate::model::ListObjectsRequest>);
 
     impl ListObjects {
         pub(crate) fn new(
@@ -1915,7 +1915,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RewriteObject(RequestBuilder<crate::model::RewriteObjectRequest>);
+    pub struct RewriteObject(pub(crate) RequestBuilder<crate::model::RewriteObjectRequest>);
 
     impl RewriteObject {
         pub(crate) fn new(
@@ -2277,7 +2277,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveObject(RequestBuilder<crate::model::MoveObjectRequest>);
+    pub struct MoveObject(pub(crate) RequestBuilder<crate::model::MoveObjectRequest>);
 
     impl MoveObject {
         pub(crate) fn new(

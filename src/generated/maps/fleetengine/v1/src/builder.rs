@@ -51,9 +51,9 @@ pub mod trip_service {
     /// Common implementation for [crate::client::TripService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TripService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TripService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod trip_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTrip(RequestBuilder<crate::model::CreateTripRequest>);
+    pub struct CreateTrip(pub(crate) RequestBuilder<crate::model::CreateTripRequest>);
 
     impl CreateTrip {
         pub(crate) fn new(
@@ -198,7 +198,7 @@ pub mod trip_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTrip(RequestBuilder<crate::model::GetTripRequest>);
+    pub struct GetTrip(pub(crate) RequestBuilder<crate::model::GetTripRequest>);
 
     impl GetTrip {
         pub(crate) fn new(
@@ -380,7 +380,7 @@ pub mod trip_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTrip(RequestBuilder<crate::model::DeleteTripRequest>);
+    pub struct DeleteTrip(pub(crate) RequestBuilder<crate::model::DeleteTripRequest>);
 
     impl DeleteTrip {
         pub(crate) fn new(
@@ -460,7 +460,9 @@ pub mod trip_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReportBillableTrip(RequestBuilder<crate::model::ReportBillableTripRequest>);
+    pub struct ReportBillableTrip(
+        pub(crate) RequestBuilder<crate::model::ReportBillableTripRequest>,
+    );
 
     impl ReportBillableTrip {
         pub(crate) fn new(
@@ -568,7 +570,7 @@ pub mod trip_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchTrips(RequestBuilder<crate::model::SearchTripsRequest>);
+    pub struct SearchTrips(pub(crate) RequestBuilder<crate::model::SearchTripsRequest>);
 
     impl SearchTrips {
         pub(crate) fn new(
@@ -716,7 +718,7 @@ pub mod trip_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTrip(RequestBuilder<crate::model::UpdateTripRequest>);
+    pub struct UpdateTrip(pub(crate) RequestBuilder<crate::model::UpdateTripRequest>);
 
     impl UpdateTrip {
         pub(crate) fn new(
@@ -861,9 +863,9 @@ pub mod vehicle_service {
     /// Common implementation for [crate::client::VehicleService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::VehicleService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::VehicleService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -898,7 +900,7 @@ pub mod vehicle_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateVehicle(RequestBuilder<crate::model::CreateVehicleRequest>);
+    pub struct CreateVehicle(pub(crate) RequestBuilder<crate::model::CreateVehicleRequest>);
 
     impl CreateVehicle {
         pub(crate) fn new(
@@ -1008,7 +1010,7 @@ pub mod vehicle_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVehicle(RequestBuilder<crate::model::GetVehicleRequest>);
+    pub struct GetVehicle(pub(crate) RequestBuilder<crate::model::GetVehicleRequest>);
 
     impl GetVehicle {
         pub(crate) fn new(
@@ -1127,7 +1129,7 @@ pub mod vehicle_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteVehicle(RequestBuilder<crate::model::DeleteVehicleRequest>);
+    pub struct DeleteVehicle(pub(crate) RequestBuilder<crate::model::DeleteVehicleRequest>);
 
     impl DeleteVehicle {
         pub(crate) fn new(
@@ -1207,7 +1209,7 @@ pub mod vehicle_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateVehicle(RequestBuilder<crate::model::UpdateVehicleRequest>);
+    pub struct UpdateVehicle(pub(crate) RequestBuilder<crate::model::UpdateVehicleRequest>);
 
     impl UpdateVehicle {
         pub(crate) fn new(
@@ -1332,7 +1334,7 @@ pub mod vehicle_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateVehicleAttributes(
-        RequestBuilder<crate::model::UpdateVehicleAttributesRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateVehicleAttributesRequest>,
     );
 
     impl UpdateVehicleAttributes {
@@ -1433,7 +1435,7 @@ pub mod vehicle_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVehicles(RequestBuilder<crate::model::ListVehiclesRequest>);
+    pub struct ListVehicles(pub(crate) RequestBuilder<crate::model::ListVehiclesRequest>);
 
     impl ListVehicles {
         pub(crate) fn new(
@@ -1681,7 +1683,7 @@ pub mod vehicle_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchVehicles(RequestBuilder<crate::model::SearchVehiclesRequest>);
+    pub struct SearchVehicles(pub(crate) RequestBuilder<crate::model::SearchVehiclesRequest>);
 
     impl SearchVehicles {
         pub(crate) fn new(

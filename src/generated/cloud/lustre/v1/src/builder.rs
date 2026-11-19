@@ -51,9 +51,9 @@ pub mod lustre {
     /// Common implementation for [crate::client::Lustre] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -90,7 +90,7 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
+    pub struct ListInstances(pub(crate) RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -200,7 +200,7 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
+    pub struct GetInstance(pub(crate) RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -261,7 +261,7 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
+    pub struct CreateInstance(pub(crate) RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -413,7 +413,7 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
+    pub struct UpdateInstance(pub(crate) RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -567,7 +567,7 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
+    pub struct DeleteInstance(pub(crate) RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -690,7 +690,9 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RescheduleMaintenance(RequestBuilder<crate::model::RescheduleMaintenanceRequest>);
+    pub struct RescheduleMaintenance(
+        pub(crate) RequestBuilder<crate::model::RescheduleMaintenanceRequest>,
+    );
 
     impl RescheduleMaintenance {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -837,7 +839,7 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportData(RequestBuilder<crate::model::ImportDataRequest>);
+    pub struct ImportData(pub(crate) RequestBuilder<crate::model::ImportDataRequest>);
 
     impl ImportData {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -1017,7 +1019,7 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportData(RequestBuilder<crate::model::ExportDataRequest>);
+    pub struct ExportData(pub(crate) RequestBuilder<crate::model::ExportDataRequest>);
 
     impl ExportData {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -1197,7 +1199,7 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateMirror(RequestBuilder<crate::model::CreateMirrorRequest>);
+    pub struct CreateMirror(pub(crate) RequestBuilder<crate::model::CreateMirrorRequest>);
 
     impl CreateMirror {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -1349,7 +1351,7 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateMirror(RequestBuilder<crate::model::UpdateMirrorRequest>);
+    pub struct UpdateMirror(pub(crate) RequestBuilder<crate::model::UpdateMirrorRequest>);
 
     impl UpdateMirror {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -1503,7 +1505,7 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteMirror(RequestBuilder<crate::model::DeleteMirrorRequest>);
+    pub struct DeleteMirror(pub(crate) RequestBuilder<crate::model::DeleteMirrorRequest>);
 
     impl DeleteMirror {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -1619,7 +1621,7 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMirror(RequestBuilder<crate::model::GetMirrorRequest>);
+    pub struct GetMirror(pub(crate) RequestBuilder<crate::model::GetMirrorRequest>);
 
     impl GetMirror {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -1683,7 +1685,7 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMirrors(RequestBuilder<crate::model::ListMirrorsRequest>);
+    pub struct ListMirrors(pub(crate) RequestBuilder<crate::model::ListMirrorsRequest>);
 
     impl ListMirrors {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -1794,7 +1796,9 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDirectoryPolicy(RequestBuilder<crate::model::CreateDirectoryPolicyRequest>);
+    pub struct CreateDirectoryPolicy(
+        pub(crate) RequestBuilder<crate::model::CreateDirectoryPolicyRequest>,
+    );
 
     impl CreateDirectoryPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -1943,7 +1947,9 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDirectoryPolicy(RequestBuilder<crate::model::DeleteDirectoryPolicyRequest>);
+    pub struct DeleteDirectoryPolicy(
+        pub(crate) RequestBuilder<crate::model::DeleteDirectoryPolicyRequest>,
+    );
 
     impl DeleteDirectoryPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -2056,7 +2062,9 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDirectoryPolicy(RequestBuilder<crate::model::GetDirectoryPolicyRequest>);
+    pub struct GetDirectoryPolicy(
+        pub(crate) RequestBuilder<crate::model::GetDirectoryPolicyRequest>,
+    );
 
     impl GetDirectoryPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -2123,7 +2131,9 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDirectoryPolicies(RequestBuilder<crate::model::ListDirectoryPoliciesRequest>);
+    pub struct ListDirectoryPolicies(
+        pub(crate) RequestBuilder<crate::model::ListDirectoryPoliciesRequest>,
+    );
 
     impl ListDirectoryPolicies {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -2230,7 +2240,9 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -2337,7 +2349,9 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -2398,7 +2412,9 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -2501,7 +2517,9 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -2583,7 +2601,7 @@ pub mod lustre {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -2665,7 +2683,7 @@ pub mod lustre {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2779,7 +2797,9 @@ pub mod lustre {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
@@ -2841,7 +2861,7 @@ pub mod lustre {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2904,7 +2924,7 @@ pub mod lustre {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

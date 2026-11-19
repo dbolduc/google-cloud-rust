@@ -51,9 +51,9 @@ pub mod backup_dr {
     /// Common implementation for [crate::client::BackupDR] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -90,7 +90,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListManagementServers(RequestBuilder<crate::model::ListManagementServersRequest>);
+    pub struct ListManagementServers(
+        pub(crate) RequestBuilder<crate::model::ListManagementServersRequest>,
+    );
 
     impl ListManagementServers {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -229,7 +231,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetManagementServer(RequestBuilder<crate::model::GetManagementServerRequest>);
+    pub struct GetManagementServer(
+        pub(crate) RequestBuilder<crate::model::GetManagementServerRequest>,
+    );
 
     impl GetManagementServer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -293,7 +297,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateManagementServer(RequestBuilder<crate::model::CreateManagementServerRequest>);
+    pub struct CreateManagementServer(
+        pub(crate) RequestBuilder<crate::model::CreateManagementServerRequest>,
+    );
 
     impl CreateManagementServer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -447,7 +453,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteManagementServer(RequestBuilder<crate::model::DeleteManagementServerRequest>);
+    pub struct DeleteManagementServer(
+        pub(crate) RequestBuilder<crate::model::DeleteManagementServerRequest>,
+    );
 
     impl DeleteManagementServer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -566,7 +574,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackupVault(RequestBuilder<crate::model::CreateBackupVaultRequest>);
+    pub struct CreateBackupVault(pub(crate) RequestBuilder<crate::model::CreateBackupVaultRequest>);
 
     impl CreateBackupVault {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -730,7 +738,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackupVaults(RequestBuilder<crate::model::ListBackupVaultsRequest>);
+    pub struct ListBackupVaults(pub(crate) RequestBuilder<crate::model::ListBackupVaultsRequest>);
 
     impl ListBackupVaults {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -856,7 +864,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchUsableBackupVaults(
-        RequestBuilder<crate::model::FetchUsableBackupVaultsRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchUsableBackupVaultsRequest>,
     );
 
     impl FetchUsableBackupVaults {
@@ -972,7 +980,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackupVault(RequestBuilder<crate::model::GetBackupVaultRequest>);
+    pub struct GetBackupVault(pub(crate) RequestBuilder<crate::model::GetBackupVaultRequest>);
 
     impl GetBackupVault {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -1039,7 +1047,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackupVault(RequestBuilder<crate::model::UpdateBackupVaultRequest>);
+    pub struct UpdateBackupVault(pub(crate) RequestBuilder<crate::model::UpdateBackupVaultRequest>);
 
     impl UpdateBackupVault {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -1218,7 +1226,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackupVault(RequestBuilder<crate::model::DeleteBackupVaultRequest>);
+    pub struct DeleteBackupVault(pub(crate) RequestBuilder<crate::model::DeleteBackupVaultRequest>);
 
     impl DeleteBackupVault {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -1371,7 +1379,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDataSources(RequestBuilder<crate::model::ListDataSourcesRequest>);
+    pub struct ListDataSources(pub(crate) RequestBuilder<crate::model::ListDataSourcesRequest>);
 
     impl ListDataSources {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -1483,7 +1491,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDataSource(RequestBuilder<crate::model::GetDataSourceRequest>);
+    pub struct GetDataSource(pub(crate) RequestBuilder<crate::model::GetDataSourceRequest>);
 
     impl GetDataSource {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -1544,7 +1552,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDataSource(RequestBuilder<crate::model::UpdateDataSourceRequest>);
+    pub struct UpdateDataSource(pub(crate) RequestBuilder<crate::model::UpdateDataSourceRequest>);
 
     impl UpdateDataSource {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -1714,7 +1722,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
+    pub struct ListBackups(pub(crate) RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -1835,7 +1843,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchBackupsForResourceType(
-        RequestBuilder<crate::model::FetchBackupsForResourceTypeRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchBackupsForResourceTypeRequest>,
     );
 
     impl FetchBackupsForResourceType {
@@ -1965,7 +1973,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
+    pub struct GetBackup(pub(crate) RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -2032,7 +2040,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
+    pub struct UpdateBackup(pub(crate) RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -2190,7 +2198,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
+    pub struct DeleteBackup(pub(crate) RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -2312,7 +2320,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreBackup(RequestBuilder<crate::model::RestoreBackupRequest>);
+    pub struct RestoreBackup(pub(crate) RequestBuilder<crate::model::RestoreBackupRequest>);
 
     impl RestoreBackup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -2560,7 +2568,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackupPlan(RequestBuilder<crate::model::CreateBackupPlanRequest>);
+    pub struct CreateBackupPlan(pub(crate) RequestBuilder<crate::model::CreateBackupPlanRequest>);
 
     impl CreateBackupPlan {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -2715,7 +2723,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackupPlan(RequestBuilder<crate::model::UpdateBackupPlanRequest>);
+    pub struct UpdateBackupPlan(pub(crate) RequestBuilder<crate::model::UpdateBackupPlanRequest>);
 
     impl UpdateBackupPlan {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -2875,7 +2883,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackupPlan(RequestBuilder<crate::model::GetBackupPlanRequest>);
+    pub struct GetBackupPlan(pub(crate) RequestBuilder<crate::model::GetBackupPlanRequest>);
 
     impl GetBackupPlan {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -2939,7 +2947,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackupPlans(RequestBuilder<crate::model::ListBackupPlansRequest>);
+    pub struct ListBackupPlans(pub(crate) RequestBuilder<crate::model::ListBackupPlansRequest>);
 
     impl ListBackupPlans {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -3052,7 +3060,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackupPlan(RequestBuilder<crate::model::DeleteBackupPlanRequest>);
+    pub struct DeleteBackupPlan(pub(crate) RequestBuilder<crate::model::DeleteBackupPlanRequest>);
 
     impl DeleteBackupPlan {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -3171,7 +3179,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackupPlanRevision(RequestBuilder<crate::model::GetBackupPlanRevisionRequest>);
+    pub struct GetBackupPlanRevision(
+        pub(crate) RequestBuilder<crate::model::GetBackupPlanRevisionRequest>,
+    );
 
     impl GetBackupPlanRevision {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -3239,7 +3249,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackupPlanRevisions(
-        RequestBuilder<crate::model::ListBackupPlanRevisionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListBackupPlanRevisionsRequest>,
     );
 
     impl ListBackupPlanRevisions {
@@ -3345,7 +3355,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackupPlanAssociation(
-        RequestBuilder<crate::model::CreateBackupPlanAssociationRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateBackupPlanAssociationRequest>,
     );
 
     impl CreateBackupPlanAssociation {
@@ -3506,7 +3516,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBackupPlanAssociation(
-        RequestBuilder<crate::model::UpdateBackupPlanAssociationRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateBackupPlanAssociationRequest>,
     );
 
     impl UpdateBackupPlanAssociation {
@@ -3669,7 +3679,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackupPlanAssociation(
-        RequestBuilder<crate::model::GetBackupPlanAssociationRequest>,
+        pub(crate) RequestBuilder<crate::model::GetBackupPlanAssociationRequest>,
     );
 
     impl GetBackupPlanAssociation {
@@ -3738,7 +3748,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackupPlanAssociations(
-        RequestBuilder<crate::model::ListBackupPlanAssociationsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListBackupPlanAssociationsRequest>,
     );
 
     impl ListBackupPlanAssociations {
@@ -3853,7 +3863,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchBackupPlanAssociationsForResourceType(
-        RequestBuilder<crate::model::FetchBackupPlanAssociationsForResourceTypeRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchBackupPlanAssociationsForResourceTypeRequest>,
     );
 
     impl FetchBackupPlanAssociationsForResourceType {
@@ -3983,7 +3993,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackupPlanAssociation(
-        RequestBuilder<crate::model::DeleteBackupPlanAssociationRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteBackupPlanAssociationRequest>,
     );
 
     impl DeleteBackupPlanAssociation {
@@ -4112,7 +4122,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TriggerBackup(RequestBuilder<crate::model::TriggerBackupRequest>);
+    pub struct TriggerBackup(pub(crate) RequestBuilder<crate::model::TriggerBackupRequest>);
 
     impl TriggerBackup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -4243,7 +4253,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDataSourceReference(RequestBuilder<crate::model::GetDataSourceReferenceRequest>);
+    pub struct GetDataSourceReference(
+        pub(crate) RequestBuilder<crate::model::GetDataSourceReferenceRequest>,
+    );
 
     impl GetDataSourceReference {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -4311,7 +4323,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataSourceReferences(
-        RequestBuilder<crate::model::ListDataSourceReferencesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListDataSourceReferencesRequest>,
     );
 
     impl ListDataSourceReferences {
@@ -4432,7 +4444,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchDataSourceReferencesForResourceType(
-        RequestBuilder<crate::model::FetchDataSourceReferencesForResourceTypeRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchDataSourceReferencesForResourceTypeRequest>,
     );
 
     impl FetchDataSourceReferencesForResourceType {
@@ -4561,7 +4573,7 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InitializeService(RequestBuilder<crate::model::InitializeServiceRequest>);
+    pub struct InitializeService(pub(crate) RequestBuilder<crate::model::InitializeServiceRequest>);
 
     impl InitializeService {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -4729,7 +4741,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAutoProtectionPolicy(
-        RequestBuilder<crate::model::CreateAutoProtectionPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateAutoProtectionPolicyRequest>,
     );
 
     impl CreateAutoProtectionPolicy {
@@ -4890,7 +4902,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAutoProtectionPolicies(
-        RequestBuilder<crate::model::ListAutoProtectionPoliciesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListAutoProtectionPoliciesRequest>,
     );
 
     impl ListAutoProtectionPolicies {
@@ -5007,7 +5019,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetAutoProtectionPolicy(
-        RequestBuilder<crate::model::GetAutoProtectionPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::GetAutoProtectionPolicyRequest>,
     );
 
     impl GetAutoProtectionPolicy {
@@ -5073,7 +5085,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAutoProtectionPolicy(
-        RequestBuilder<crate::model::UpdateAutoProtectionPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateAutoProtectionPolicyRequest>,
     );
 
     impl UpdateAutoProtectionPolicy {
@@ -5233,7 +5245,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAutoProtectionPolicy(
-        RequestBuilder<crate::model::DeleteAutoProtectionPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteAutoProtectionPolicyRequest>,
     );
 
     impl DeleteAutoProtectionPolicy {
@@ -5360,7 +5372,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAutoProtectionPolicyBinding(
-        RequestBuilder<crate::model::CreateAutoProtectionPolicyBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateAutoProtectionPolicyBindingRequest>,
     );
 
     impl CreateAutoProtectionPolicyBinding {
@@ -5523,7 +5535,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetAutoProtectionPolicyBinding(
-        RequestBuilder<crate::model::GetAutoProtectionPolicyBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::GetAutoProtectionPolicyBindingRequest>,
     );
 
     impl GetAutoProtectionPolicyBinding {
@@ -5592,7 +5604,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAutoProtectionPolicyBindings(
-        RequestBuilder<crate::model::ListAutoProtectionPolicyBindingsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListAutoProtectionPolicyBindingsRequest>,
     );
 
     impl ListAutoProtectionPolicyBindings {
@@ -5713,7 +5725,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAppliedAutoProtectionPolicies(
-        RequestBuilder<crate::model::ListAppliedAutoProtectionPoliciesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListAppliedAutoProtectionPoliciesRequest>,
     );
 
     impl ListAppliedAutoProtectionPolicies {
@@ -5831,7 +5843,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct InitiateDeleteAutoProtectionPolicyBinding(
-        RequestBuilder<crate::model::InitiateDeleteAutoProtectionPolicyBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::InitiateDeleteAutoProtectionPolicyBindingRequest>,
     );
 
     impl InitiateDeleteAutoProtectionPolicyBinding {
@@ -5970,7 +5982,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListBindingMatchingResources(
-        RequestBuilder<crate::model::ListBindingMatchingResourcesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListBindingMatchingResourcesRequest>,
     );
 
     impl ListBindingMatchingResources {
@@ -6087,7 +6099,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRestoreTemplate(RequestBuilder<crate::model::CreateRestoreTemplateRequest>);
+    pub struct CreateRestoreTemplate(
+        pub(crate) RequestBuilder<crate::model::CreateRestoreTemplateRequest>,
+    );
 
     impl CreateRestoreTemplate {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -6240,7 +6254,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRestoreTemplate(RequestBuilder<crate::model::GetRestoreTemplateRequest>);
+    pub struct GetRestoreTemplate(
+        pub(crate) RequestBuilder<crate::model::GetRestoreTemplateRequest>,
+    );
 
     impl GetRestoreTemplate {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -6307,7 +6323,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRestoreTemplates(RequestBuilder<crate::model::ListRestoreTemplatesRequest>);
+    pub struct ListRestoreTemplates(
+        pub(crate) RequestBuilder<crate::model::ListRestoreTemplatesRequest>,
+    );
 
     impl ListRestoreTemplates {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -6423,7 +6441,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRestoreTemplate(RequestBuilder<crate::model::UpdateRestoreTemplateRequest>);
+    pub struct UpdateRestoreTemplate(
+        pub(crate) RequestBuilder<crate::model::UpdateRestoreTemplateRequest>,
+    );
 
     impl UpdateRestoreTemplate {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -6585,7 +6605,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRestoreTemplate(RequestBuilder<crate::model::DeleteRestoreTemplateRequest>);
+    pub struct DeleteRestoreTemplate(
+        pub(crate) RequestBuilder<crate::model::DeleteRestoreTemplateRequest>,
+    );
 
     impl DeleteRestoreTemplate {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -6710,7 +6732,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RunRestoreTemplate(RequestBuilder<crate::model::RunRestoreTemplateRequest>);
+    pub struct RunRestoreTemplate(
+        pub(crate) RequestBuilder<crate::model::RunRestoreTemplateRequest>,
+    );
 
     impl RunRestoreTemplate {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -6843,7 +6867,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetRestoreTemplateExecution(
-        RequestBuilder<crate::model::GetRestoreTemplateExecutionRequest>,
+        pub(crate) RequestBuilder<crate::model::GetRestoreTemplateExecutionRequest>,
     );
 
     impl GetRestoreTemplateExecution {
@@ -6912,7 +6936,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListRestoreTemplateExecutions(
-        RequestBuilder<crate::model::ListRestoreTemplateExecutionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListRestoreTemplateExecutionsRequest>,
     );
 
     impl ListRestoreTemplateExecutions {
@@ -7029,7 +7053,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TriggerRestoreCleanup(RequestBuilder<crate::model::TriggerRestoreCleanupRequest>);
+    pub struct TriggerRestoreCleanup(
+        pub(crate) RequestBuilder<crate::model::TriggerRestoreCleanupRequest>,
+    );
 
     impl TriggerRestoreCleanup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -7156,7 +7182,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRestoreVerificationPlan(
-        RequestBuilder<crate::model::CreateRestoreVerificationPlanRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateRestoreVerificationPlanRequest>,
     );
 
     impl CreateRestoreVerificationPlan {
@@ -7320,7 +7346,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRestoreVerificationPlanAssociation(
-        RequestBuilder<crate::model::CreateRestoreVerificationPlanAssociationRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateRestoreVerificationPlanAssociationRequest>,
     );
 
     impl CreateRestoreVerificationPlanAssociation {
@@ -7486,7 +7512,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetRestoreVerificationPlanAssociation(
-        RequestBuilder<crate::model::GetRestoreVerificationPlanAssociationRequest>,
+        pub(crate) RequestBuilder<crate::model::GetRestoreVerificationPlanAssociationRequest>,
     );
 
     impl GetRestoreVerificationPlanAssociation {
@@ -7555,7 +7581,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListRestoreVerificationPlanAssociations(
-        RequestBuilder<crate::model::ListRestoreVerificationPlanAssociationsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListRestoreVerificationPlanAssociationsRequest>,
     );
 
     impl ListRestoreVerificationPlanAssociations {
@@ -7677,7 +7703,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRestoreVerificationPlanAssociation(
-        RequestBuilder<crate::model::DeleteRestoreVerificationPlanAssociationRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteRestoreVerificationPlanAssociationRequest>,
     );
 
     impl DeleteRestoreVerificationPlanAssociation {
@@ -7800,7 +7826,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TriggerRestoreVerification(
-        RequestBuilder<crate::model::TriggerRestoreVerificationRequest>,
+        pub(crate) RequestBuilder<crate::model::TriggerRestoreVerificationRequest>,
     );
 
     impl TriggerRestoreVerification {
@@ -7927,7 +7953,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetRestoreVerificationPlan(
-        RequestBuilder<crate::model::GetRestoreVerificationPlanRequest>,
+        pub(crate) RequestBuilder<crate::model::GetRestoreVerificationPlanRequest>,
     );
 
     impl GetRestoreVerificationPlan {
@@ -7996,7 +8022,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListRestoreVerificationPlans(
-        RequestBuilder<crate::model::ListRestoreVerificationPlansRequest>,
+        pub(crate) RequestBuilder<crate::model::ListRestoreVerificationPlansRequest>,
     );
 
     impl ListRestoreVerificationPlans {
@@ -8114,7 +8140,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRestoreVerificationPlan(
-        RequestBuilder<crate::model::DeleteRestoreVerificationPlanRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteRestoreVerificationPlanRequest>,
     );
 
     impl DeleteRestoreVerificationPlan {
@@ -8243,7 +8269,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -8350,7 +8378,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -8411,7 +8441,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -8514,7 +8546,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -8596,7 +8630,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -8678,7 +8712,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -8792,7 +8826,9 @@ pub mod backup_dr {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
@@ -8854,7 +8890,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -8917,7 +8953,7 @@ pub mod backup_dr {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -9000,9 +9036,9 @@ pub mod backup_dr_protection_summary {
     /// Common implementation for [crate::client::BackupDrProtectionSummary] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDrProtectionSummary>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDrProtectionSummary>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -9042,7 +9078,7 @@ pub mod backup_dr_protection_summary {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListResourceBackupConfigs(
-        RequestBuilder<crate::model::ListResourceBackupConfigsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListResourceBackupConfigsRequest>,
     );
 
     impl ListResourceBackupConfigs {
@@ -9164,7 +9200,9 @@ pub mod backup_dr_protection_summary {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -9273,7 +9311,9 @@ pub mod backup_dr_protection_summary {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -9336,7 +9376,9 @@ pub mod backup_dr_protection_summary {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -9441,7 +9483,9 @@ pub mod backup_dr_protection_summary {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -9525,7 +9569,7 @@ pub mod backup_dr_protection_summary {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -9609,7 +9653,7 @@ pub mod backup_dr_protection_summary {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -9725,7 +9769,9 @@ pub mod backup_dr_protection_summary {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -9789,7 +9835,7 @@ pub mod backup_dr_protection_summary {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -9854,7 +9900,7 @@ pub mod backup_dr_protection_summary {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

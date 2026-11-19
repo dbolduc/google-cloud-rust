@@ -51,9 +51,9 @@ pub mod asset_service {
     /// Common implementation for [crate::client::AssetService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportAssets(RequestBuilder<crate::model::ExportAssetsRequest>);
+    pub struct ExportAssets(pub(crate) RequestBuilder<crate::model::ExportAssetsRequest>);
 
     impl ExportAssets {
         pub(crate) fn new(
@@ -280,7 +280,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
+    pub struct ListAssets(pub(crate) RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
         pub(crate) fn new(
@@ -426,7 +426,9 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchGetAssetsHistory(RequestBuilder<crate::model::BatchGetAssetsHistoryRequest>);
+    pub struct BatchGetAssetsHistory(
+        pub(crate) RequestBuilder<crate::model::BatchGetAssetsHistoryRequest>,
+    );
 
     impl BatchGetAssetsHistory {
         pub(crate) fn new(
@@ -537,7 +539,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateFeed(RequestBuilder<crate::model::CreateFeedRequest>);
+    pub struct CreateFeed(pub(crate) RequestBuilder<crate::model::CreateFeedRequest>);
 
     impl CreateFeed {
         pub(crate) fn new(
@@ -629,7 +631,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFeed(RequestBuilder<crate::model::GetFeedRequest>);
+    pub struct GetFeed(pub(crate) RequestBuilder<crate::model::GetFeedRequest>);
 
     impl GetFeed {
         pub(crate) fn new(
@@ -691,7 +693,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFeeds(RequestBuilder<crate::model::ListFeedsRequest>);
+    pub struct ListFeeds(pub(crate) RequestBuilder<crate::model::ListFeedsRequest>);
 
     impl ListFeeds {
         pub(crate) fn new(
@@ -753,7 +755,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFeed(RequestBuilder<crate::model::UpdateFeedRequest>);
+    pub struct UpdateFeed(pub(crate) RequestBuilder<crate::model::UpdateFeedRequest>);
 
     impl UpdateFeed {
         pub(crate) fn new(
@@ -851,7 +853,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFeed(RequestBuilder<crate::model::DeleteFeedRequest>);
+    pub struct DeleteFeed(pub(crate) RequestBuilder<crate::model::DeleteFeedRequest>);
 
     impl DeleteFeed {
         pub(crate) fn new(
@@ -917,7 +919,9 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchAllResources(RequestBuilder<crate::model::SearchAllResourcesRequest>);
+    pub struct SearchAllResources(
+        pub(crate) RequestBuilder<crate::model::SearchAllResourcesRequest>,
+    );
 
     impl SearchAllResources {
         pub(crate) fn new(
@@ -1067,7 +1071,9 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchAllIamPolicies(RequestBuilder<crate::model::SearchAllIamPoliciesRequest>);
+    pub struct SearchAllIamPolicies(
+        pub(crate) RequestBuilder<crate::model::SearchAllIamPoliciesRequest>,
+    );
 
     impl SearchAllIamPolicies {
         pub(crate) fn new(
@@ -1195,7 +1201,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AnalyzeIamPolicy(RequestBuilder<crate::model::AnalyzeIamPolicyRequest>);
+    pub struct AnalyzeIamPolicy(pub(crate) RequestBuilder<crate::model::AnalyzeIamPolicyRequest>);
 
     impl AnalyzeIamPolicy {
         pub(crate) fn new(
@@ -1300,7 +1306,7 @@ pub mod asset_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AnalyzeIamPolicyLongrunning(
-        RequestBuilder<crate::model::AnalyzeIamPolicyLongrunningRequest>,
+        pub(crate) RequestBuilder<crate::model::AnalyzeIamPolicyLongrunningRequest>,
     );
 
     impl AnalyzeIamPolicyLongrunning {
@@ -1464,7 +1470,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AnalyzeMove(RequestBuilder<crate::model::AnalyzeMoveRequest>);
+    pub struct AnalyzeMove(pub(crate) RequestBuilder<crate::model::AnalyzeMoveRequest>);
 
     impl AnalyzeMove {
         pub(crate) fn new(
@@ -1543,7 +1549,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryAssets(RequestBuilder<crate::model::QueryAssetsRequest>);
+    pub struct QueryAssets(pub(crate) RequestBuilder<crate::model::QueryAssetsRequest>);
 
     impl QueryAssets {
         pub(crate) fn new(
@@ -1728,7 +1734,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSavedQuery(RequestBuilder<crate::model::CreateSavedQueryRequest>);
+    pub struct CreateSavedQuery(pub(crate) RequestBuilder<crate::model::CreateSavedQueryRequest>);
 
     impl CreateSavedQuery {
         pub(crate) fn new(
@@ -1823,7 +1829,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSavedQuery(RequestBuilder<crate::model::GetSavedQueryRequest>);
+    pub struct GetSavedQuery(pub(crate) RequestBuilder<crate::model::GetSavedQueryRequest>);
 
     impl GetSavedQuery {
         pub(crate) fn new(
@@ -1889,7 +1895,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSavedQueries(RequestBuilder<crate::model::ListSavedQueriesRequest>);
+    pub struct ListSavedQueries(pub(crate) RequestBuilder<crate::model::ListSavedQueriesRequest>);
 
     impl ListSavedQueries {
         pub(crate) fn new(
@@ -2000,7 +2006,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSavedQuery(RequestBuilder<crate::model::UpdateSavedQueryRequest>);
+    pub struct UpdateSavedQuery(pub(crate) RequestBuilder<crate::model::UpdateSavedQueryRequest>);
 
     impl UpdateSavedQuery {
         pub(crate) fn new(
@@ -2101,7 +2107,7 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSavedQuery(RequestBuilder<crate::model::DeleteSavedQueryRequest>);
+    pub struct DeleteSavedQuery(pub(crate) RequestBuilder<crate::model::DeleteSavedQueryRequest>);
 
     impl DeleteSavedQuery {
         pub(crate) fn new(
@@ -2167,7 +2173,7 @@ pub mod asset_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct BatchGetEffectiveIamPolicies(
-        RequestBuilder<crate::model::BatchGetEffectiveIamPoliciesRequest>,
+        pub(crate) RequestBuilder<crate::model::BatchGetEffectiveIamPoliciesRequest>,
     );
 
     impl BatchGetEffectiveIamPolicies {
@@ -2250,7 +2256,9 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AnalyzeOrgPolicies(RequestBuilder<crate::model::AnalyzeOrgPoliciesRequest>);
+    pub struct AnalyzeOrgPolicies(
+        pub(crate) RequestBuilder<crate::model::AnalyzeOrgPoliciesRequest>,
+    );
 
     impl AnalyzeOrgPolicies {
         pub(crate) fn new(
@@ -2386,7 +2394,7 @@ pub mod asset_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AnalyzeOrgPolicyGovernedContainers(
-        RequestBuilder<crate::model::AnalyzeOrgPolicyGovernedContainersRequest>,
+        pub(crate) RequestBuilder<crate::model::AnalyzeOrgPolicyGovernedContainersRequest>,
     );
 
     impl AnalyzeOrgPolicyGovernedContainers {
@@ -2525,7 +2533,7 @@ pub mod asset_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AnalyzeOrgPolicyGovernedAssets(
-        RequestBuilder<crate::model::AnalyzeOrgPolicyGovernedAssetsRequest>,
+        pub(crate) RequestBuilder<crate::model::AnalyzeOrgPolicyGovernedAssetsRequest>,
     );
 
     impl AnalyzeOrgPolicyGovernedAssets {
@@ -2657,7 +2665,9 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

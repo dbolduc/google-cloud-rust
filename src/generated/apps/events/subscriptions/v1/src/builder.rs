@@ -51,9 +51,9 @@ pub mod subscriptions_service {
     /// Common implementation for [crate::client::SubscriptionsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SubscriptionsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SubscriptionsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,9 @@ pub mod subscriptions_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSubscription(RequestBuilder<crate::model::CreateSubscriptionRequest>);
+    pub struct CreateSubscription(
+        pub(crate) RequestBuilder<crate::model::CreateSubscriptionRequest>,
+    );
 
     impl CreateSubscription {
         pub(crate) fn new(
@@ -231,7 +233,9 @@ pub mod subscriptions_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSubscription(RequestBuilder<crate::model::DeleteSubscriptionRequest>);
+    pub struct DeleteSubscription(
+        pub(crate) RequestBuilder<crate::model::DeleteSubscriptionRequest>,
+    );
 
     impl DeleteSubscription {
         pub(crate) fn new(
@@ -367,7 +371,7 @@ pub mod subscriptions_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSubscription(RequestBuilder<crate::model::GetSubscriptionRequest>);
+    pub struct GetSubscription(pub(crate) RequestBuilder<crate::model::GetSubscriptionRequest>);
 
     impl GetSubscription {
         pub(crate) fn new(
@@ -433,7 +437,7 @@ pub mod subscriptions_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSubscriptions(RequestBuilder<crate::model::ListSubscriptionsRequest>);
+    pub struct ListSubscriptions(pub(crate) RequestBuilder<crate::model::ListSubscriptionsRequest>);
 
     impl ListSubscriptions {
         pub(crate) fn new(
@@ -539,7 +543,9 @@ pub mod subscriptions_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSubscription(RequestBuilder<crate::model::UpdateSubscriptionRequest>);
+    pub struct UpdateSubscription(
+        pub(crate) RequestBuilder<crate::model::UpdateSubscriptionRequest>,
+    );
 
     impl UpdateSubscription {
         pub(crate) fn new(
@@ -699,7 +705,9 @@ pub mod subscriptions_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReactivateSubscription(RequestBuilder<crate::model::ReactivateSubscriptionRequest>);
+    pub struct ReactivateSubscription(
+        pub(crate) RequestBuilder<crate::model::ReactivateSubscriptionRequest>,
+    );
 
     impl ReactivateSubscription {
         pub(crate) fn new(
@@ -820,7 +828,9 @@ pub mod subscriptions_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

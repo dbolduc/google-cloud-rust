@@ -51,9 +51,9 @@ pub mod access_context_manager {
     /// Common implementation for [crate::client::AccessContextManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,9 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAccessPolicies(RequestBuilder<crate::model::ListAccessPoliciesRequest>);
+    pub struct ListAccessPolicies(
+        pub(crate) RequestBuilder<crate::model::ListAccessPoliciesRequest>,
+    );
 
     impl ListAccessPolicies {
         pub(crate) fn new(
@@ -197,7 +199,7 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAccessPolicy(RequestBuilder<crate::model::GetAccessPolicyRequest>);
+    pub struct GetAccessPolicy(pub(crate) RequestBuilder<crate::model::GetAccessPolicyRequest>);
 
     impl GetAccessPolicy {
         pub(crate) fn new(
@@ -260,7 +262,7 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAccessPolicy(RequestBuilder<crate::model::AccessPolicy>);
+    pub struct CreateAccessPolicy(pub(crate) RequestBuilder<crate::model::AccessPolicy>);
 
     impl CreateAccessPolicy {
         pub(crate) fn new(
@@ -442,7 +444,9 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAccessPolicy(RequestBuilder<crate::model::UpdateAccessPolicyRequest>);
+    pub struct UpdateAccessPolicy(
+        pub(crate) RequestBuilder<crate::model::UpdateAccessPolicyRequest>,
+    );
 
     impl UpdateAccessPolicy {
         pub(crate) fn new(
@@ -600,7 +604,9 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAccessPolicy(RequestBuilder<crate::model::DeleteAccessPolicyRequest>);
+    pub struct DeleteAccessPolicy(
+        pub(crate) RequestBuilder<crate::model::DeleteAccessPolicyRequest>,
+    );
 
     impl DeleteAccessPolicy {
         pub(crate) fn new(
@@ -723,7 +729,7 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAccessLevels(RequestBuilder<crate::model::ListAccessLevelsRequest>);
+    pub struct ListAccessLevels(pub(crate) RequestBuilder<crate::model::ListAccessLevelsRequest>);
 
     impl ListAccessLevels {
         pub(crate) fn new(
@@ -834,7 +840,7 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAccessLevel(RequestBuilder<crate::model::GetAccessLevelRequest>);
+    pub struct GetAccessLevel(pub(crate) RequestBuilder<crate::model::GetAccessLevelRequest>);
 
     impl GetAccessLevel {
         pub(crate) fn new(
@@ -903,7 +909,7 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAccessLevel(RequestBuilder<crate::model::CreateAccessLevelRequest>);
+    pub struct CreateAccessLevel(pub(crate) RequestBuilder<crate::model::CreateAccessLevelRequest>);
 
     impl CreateAccessLevel {
         pub(crate) fn new(
@@ -1047,7 +1053,7 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAccessLevel(RequestBuilder<crate::model::UpdateAccessLevelRequest>);
+    pub struct UpdateAccessLevel(pub(crate) RequestBuilder<crate::model::UpdateAccessLevelRequest>);
 
     impl UpdateAccessLevel {
         pub(crate) fn new(
@@ -1205,7 +1211,7 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAccessLevel(RequestBuilder<crate::model::DeleteAccessLevelRequest>);
+    pub struct DeleteAccessLevel(pub(crate) RequestBuilder<crate::model::DeleteAccessLevelRequest>);
 
     impl DeleteAccessLevel {
         pub(crate) fn new(
@@ -1325,7 +1331,9 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReplaceAccessLevels(RequestBuilder<crate::model::ReplaceAccessLevelsRequest>);
+    pub struct ReplaceAccessLevels(
+        pub(crate) RequestBuilder<crate::model::ReplaceAccessLevelsRequest>,
+    );
 
     impl ReplaceAccessLevels {
         pub(crate) fn new(
@@ -1469,7 +1477,9 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServicePerimeters(RequestBuilder<crate::model::ListServicePerimetersRequest>);
+    pub struct ListServicePerimeters(
+        pub(crate) RequestBuilder<crate::model::ListServicePerimetersRequest>,
+    );
 
     impl ListServicePerimeters {
         pub(crate) fn new(
@@ -1574,7 +1584,9 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetServicePerimeter(RequestBuilder<crate::model::GetServicePerimeterRequest>);
+    pub struct GetServicePerimeter(
+        pub(crate) RequestBuilder<crate::model::GetServicePerimeterRequest>,
+    );
 
     impl GetServicePerimeter {
         pub(crate) fn new(
@@ -1640,7 +1652,9 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateServicePerimeter(RequestBuilder<crate::model::CreateServicePerimeterRequest>);
+    pub struct CreateServicePerimeter(
+        pub(crate) RequestBuilder<crate::model::CreateServicePerimeterRequest>,
+    );
 
     impl CreateServicePerimeter {
         pub(crate) fn new(
@@ -1784,7 +1798,9 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateServicePerimeter(RequestBuilder<crate::model::UpdateServicePerimeterRequest>);
+    pub struct UpdateServicePerimeter(
+        pub(crate) RequestBuilder<crate::model::UpdateServicePerimeterRequest>,
+    );
 
     impl UpdateServicePerimeter {
         pub(crate) fn new(
@@ -1942,7 +1958,9 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteServicePerimeter(RequestBuilder<crate::model::DeleteServicePerimeterRequest>);
+    pub struct DeleteServicePerimeter(
+        pub(crate) RequestBuilder<crate::model::DeleteServicePerimeterRequest>,
+    );
 
     impl DeleteServicePerimeter {
         pub(crate) fn new(
@@ -2063,7 +2081,7 @@ pub mod access_context_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ReplaceServicePerimeters(
-        RequestBuilder<crate::model::ReplaceServicePerimetersRequest>,
+        pub(crate) RequestBuilder<crate::model::ReplaceServicePerimetersRequest>,
     );
 
     impl ReplaceServicePerimeters {
@@ -2206,7 +2224,7 @@ pub mod access_context_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CommitServicePerimeters(
-        RequestBuilder<crate::model::CommitServicePerimetersRequest>,
+        pub(crate) RequestBuilder<crate::model::CommitServicePerimetersRequest>,
     );
 
     impl CommitServicePerimeters {
@@ -2339,7 +2357,7 @@ pub mod access_context_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListGcpUserAccessBindings(
-        RequestBuilder<crate::model::ListGcpUserAccessBindingsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListGcpUserAccessBindingsRequest>,
     );
 
     impl ListGcpUserAccessBindings {
@@ -2446,7 +2464,7 @@ pub mod access_context_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetGcpUserAccessBinding(
-        RequestBuilder<crate::model::GetGcpUserAccessBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::GetGcpUserAccessBindingRequest>,
     );
 
     impl GetGcpUserAccessBinding {
@@ -2514,7 +2532,7 @@ pub mod access_context_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGcpUserAccessBinding(
-        RequestBuilder<crate::model::CreateGcpUserAccessBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateGcpUserAccessBindingRequest>,
     );
 
     impl CreateGcpUserAccessBinding {
@@ -2660,7 +2678,7 @@ pub mod access_context_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGcpUserAccessBinding(
-        RequestBuilder<crate::model::UpdateGcpUserAccessBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateGcpUserAccessBindingRequest>,
     );
 
     impl UpdateGcpUserAccessBinding {
@@ -2820,7 +2838,7 @@ pub mod access_context_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGcpUserAccessBinding(
-        RequestBuilder<crate::model::DeleteGcpUserAccessBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteGcpUserAccessBindingRequest>,
     );
 
     impl DeleteGcpUserAccessBinding {
@@ -2940,7 +2958,9 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -3045,7 +3065,9 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -3129,7 +3151,7 @@ pub mod access_context_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -3208,7 +3230,9 @@ pub mod access_context_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

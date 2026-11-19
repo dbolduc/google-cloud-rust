@@ -51,9 +51,9 @@ pub mod service_health {
     /// Common implementation for [crate::client::ServiceHealth] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod service_health {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
+    pub struct ListEvents(pub(crate) RequestBuilder<crate::model::ListEventsRequest>);
 
     impl ListEvents {
         pub(crate) fn new(
@@ -204,7 +204,7 @@ pub mod service_health {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
+    pub struct GetEvent(pub(crate) RequestBuilder<crate::model::GetEventRequest>);
 
     impl GetEvent {
         pub(crate) fn new(
@@ -270,7 +270,9 @@ pub mod service_health {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOrganizationEvents(RequestBuilder<crate::model::ListOrganizationEventsRequest>);
+    pub struct ListOrganizationEvents(
+        pub(crate) RequestBuilder<crate::model::ListOrganizationEventsRequest>,
+    );
 
     impl ListOrganizationEvents {
         pub(crate) fn new(
@@ -387,7 +389,9 @@ pub mod service_health {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOrganizationEvent(RequestBuilder<crate::model::GetOrganizationEventRequest>);
+    pub struct GetOrganizationEvent(
+        pub(crate) RequestBuilder<crate::model::GetOrganizationEventRequest>,
+    );
 
     impl GetOrganizationEvent {
         pub(crate) fn new(
@@ -457,7 +461,7 @@ pub mod service_health {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOrganizationImpacts(
-        RequestBuilder<crate::model::ListOrganizationImpactsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListOrganizationImpactsRequest>,
     );
 
     impl ListOrganizationImpacts {
@@ -569,7 +573,9 @@ pub mod service_health {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOrganizationImpact(RequestBuilder<crate::model::GetOrganizationImpactRequest>);
+    pub struct GetOrganizationImpact(
+        pub(crate) RequestBuilder<crate::model::GetOrganizationImpactRequest>,
+    );
 
     impl GetOrganizationImpact {
         pub(crate) fn new(
@@ -638,7 +644,9 @@ pub mod service_health {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -747,7 +755,9 @@ pub mod service_health {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(

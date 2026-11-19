@@ -51,9 +51,9 @@ pub mod managed_identities_service {
     /// Common implementation for [crate::client::ManagedIdentitiesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -90,7 +90,7 @@ pub mod managed_identities_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMicrosoftAdDomain(
-        RequestBuilder<crate::model::CreateMicrosoftAdDomainRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateMicrosoftAdDomainRequest>,
     );
 
     impl CreateMicrosoftAdDomain {
@@ -239,7 +239,9 @@ pub mod managed_identities_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResetAdminPassword(RequestBuilder<crate::model::ResetAdminPasswordRequest>);
+    pub struct ResetAdminPassword(
+        pub(crate) RequestBuilder<crate::model::ResetAdminPasswordRequest>,
+    );
 
     impl ResetAdminPassword {
         pub(crate) fn new(
@@ -308,7 +310,7 @@ pub mod managed_identities_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDomains(RequestBuilder<crate::model::ListDomainsRequest>);
+    pub struct ListDomains(pub(crate) RequestBuilder<crate::model::ListDomainsRequest>);
 
     impl ListDomains {
         pub(crate) fn new(
@@ -420,7 +422,7 @@ pub mod managed_identities_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDomain(RequestBuilder<crate::model::GetDomainRequest>);
+    pub struct GetDomain(pub(crate) RequestBuilder<crate::model::GetDomainRequest>);
 
     impl GetDomain {
         pub(crate) fn new(
@@ -483,7 +485,7 @@ pub mod managed_identities_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDomain(RequestBuilder<crate::model::UpdateDomainRequest>);
+    pub struct UpdateDomain(pub(crate) RequestBuilder<crate::model::UpdateDomainRequest>);
 
     impl UpdateDomain {
         pub(crate) fn new(
@@ -635,7 +637,7 @@ pub mod managed_identities_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDomain(RequestBuilder<crate::model::DeleteDomainRequest>);
+    pub struct DeleteDomain(pub(crate) RequestBuilder<crate::model::DeleteDomainRequest>);
 
     impl DeleteDomain {
         pub(crate) fn new(
@@ -747,7 +749,7 @@ pub mod managed_identities_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AttachTrust(RequestBuilder<crate::model::AttachTrustRequest>);
+    pub struct AttachTrust(pub(crate) RequestBuilder<crate::model::AttachTrustRequest>);
 
     impl AttachTrust {
         pub(crate) fn new(
@@ -885,7 +887,7 @@ pub mod managed_identities_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReconfigureTrust(RequestBuilder<crate::model::ReconfigureTrustRequest>);
+    pub struct ReconfigureTrust(pub(crate) RequestBuilder<crate::model::ReconfigureTrustRequest>);
 
     impl ReconfigureTrust {
         pub(crate) fn new(
@@ -1025,7 +1027,7 @@ pub mod managed_identities_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DetachTrust(RequestBuilder<crate::model::DetachTrustRequest>);
+    pub struct DetachTrust(pub(crate) RequestBuilder<crate::model::DetachTrustRequest>);
 
     impl DetachTrust {
         pub(crate) fn new(
@@ -1163,7 +1165,7 @@ pub mod managed_identities_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ValidateTrust(RequestBuilder<crate::model::ValidateTrustRequest>);
+    pub struct ValidateTrust(pub(crate) RequestBuilder<crate::model::ValidateTrustRequest>);
 
     impl ValidateTrust {
         pub(crate) fn new(
@@ -1305,7 +1307,7 @@ pub mod managed_identities_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1421,7 +1423,9 @@ pub mod managed_identities_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1485,7 +1489,7 @@ pub mod managed_identities_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -1550,7 +1554,7 @@ pub mod managed_identities_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

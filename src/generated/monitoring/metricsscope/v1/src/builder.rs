@@ -51,9 +51,9 @@ pub mod metrics_scopes {
     /// Common implementation for [crate::client::MetricsScopes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod metrics_scopes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMetricsScope(RequestBuilder<crate::model::GetMetricsScopeRequest>);
+    pub struct GetMetricsScope(pub(crate) RequestBuilder<crate::model::GetMetricsScopeRequest>);
 
     impl GetMetricsScope {
         pub(crate) fn new(
@@ -151,7 +151,7 @@ pub mod metrics_scopes {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListMetricsScopesByMonitoredProject(
-        RequestBuilder<crate::model::ListMetricsScopesByMonitoredProjectRequest>,
+        pub(crate) RequestBuilder<crate::model::ListMetricsScopesByMonitoredProjectRequest>,
     );
 
     impl ListMetricsScopesByMonitoredProject {
@@ -223,7 +223,9 @@ pub mod metrics_scopes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateMonitoredProject(RequestBuilder<crate::model::CreateMonitoredProjectRequest>);
+    pub struct CreateMonitoredProject(
+        pub(crate) RequestBuilder<crate::model::CreateMonitoredProjectRequest>,
+    );
 
     impl CreateMonitoredProject {
         pub(crate) fn new(
@@ -365,7 +367,9 @@ pub mod metrics_scopes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteMonitoredProject(RequestBuilder<crate::model::DeleteMonitoredProjectRequest>);
+    pub struct DeleteMonitoredProject(
+        pub(crate) RequestBuilder<crate::model::DeleteMonitoredProjectRequest>,
+    );
 
     impl DeleteMonitoredProject {
         pub(crate) fn new(
@@ -479,7 +483,9 @@ pub mod metrics_scopes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod cloud_billing {
     /// Common implementation for [crate::client::CloudBilling] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod cloud_billing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBillingAccount(RequestBuilder<crate::model::GetBillingAccountRequest>);
+    pub struct GetBillingAccount(pub(crate) RequestBuilder<crate::model::GetBillingAccountRequest>);
 
     impl GetBillingAccount {
         pub(crate) fn new(
@@ -157,7 +157,9 @@ pub mod cloud_billing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBillingAccounts(RequestBuilder<crate::model::ListBillingAccountsRequest>);
+    pub struct ListBillingAccounts(
+        pub(crate) RequestBuilder<crate::model::ListBillingAccountsRequest>,
+    );
 
     impl ListBillingAccounts {
         pub(crate) fn new(
@@ -266,7 +268,9 @@ pub mod cloud_billing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBillingAccount(RequestBuilder<crate::model::UpdateBillingAccountRequest>);
+    pub struct UpdateBillingAccount(
+        pub(crate) RequestBuilder<crate::model::UpdateBillingAccountRequest>,
+    );
 
     impl UpdateBillingAccount {
         pub(crate) fn new(
@@ -371,7 +375,9 @@ pub mod cloud_billing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBillingAccount(RequestBuilder<crate::model::CreateBillingAccountRequest>);
+    pub struct CreateBillingAccount(
+        pub(crate) RequestBuilder<crate::model::CreateBillingAccountRequest>,
+    );
 
     impl CreateBillingAccount {
         pub(crate) fn new(
@@ -460,7 +466,9 @@ pub mod cloud_billing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProjectBillingInfo(RequestBuilder<crate::model::ListProjectBillingInfoRequest>);
+    pub struct ListProjectBillingInfo(
+        pub(crate) RequestBuilder<crate::model::ListProjectBillingInfoRequest>,
+    );
 
     impl ListProjectBillingInfo {
         pub(crate) fn new(
@@ -565,7 +573,9 @@ pub mod cloud_billing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProjectBillingInfo(RequestBuilder<crate::model::GetProjectBillingInfoRequest>);
+    pub struct GetProjectBillingInfo(
+        pub(crate) RequestBuilder<crate::model::GetProjectBillingInfoRequest>,
+    );
 
     impl GetProjectBillingInfo {
         pub(crate) fn new(
@@ -631,7 +641,7 @@ pub mod cloud_billing {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProjectBillingInfo(
-        RequestBuilder<crate::model::UpdateProjectBillingInfoRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateProjectBillingInfoRequest>,
     );
 
     impl UpdateProjectBillingInfo {
@@ -715,7 +725,9 @@ pub mod cloud_billing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -798,7 +810,9 @@ pub mod cloud_billing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -904,7 +918,7 @@ pub mod cloud_billing {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -983,7 +997,9 @@ pub mod cloud_billing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveBillingAccount(RequestBuilder<crate::model::MoveBillingAccountRequest>);
+    pub struct MoveBillingAccount(
+        pub(crate) RequestBuilder<crate::model::MoveBillingAccountRequest>,
+    );
 
     impl MoveBillingAccount {
         pub(crate) fn new(
@@ -1077,9 +1093,9 @@ pub mod cloud_catalog {
     /// Common implementation for [crate::client::CloudCatalog] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudCatalog>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudCatalog>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1118,7 +1134,7 @@ pub mod cloud_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
+    pub struct ListServices(pub(crate) RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
         pub(crate) fn new(
@@ -1214,7 +1230,7 @@ pub mod cloud_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSkus(RequestBuilder<crate::model::ListSkusRequest>);
+    pub struct ListSkus(pub(crate) RequestBuilder<crate::model::ListSkusRequest>);
 
     impl ListSkus {
         pub(crate) fn new(

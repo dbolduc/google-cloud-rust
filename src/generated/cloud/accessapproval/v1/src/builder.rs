@@ -51,9 +51,9 @@ pub mod access_approval {
     /// Common implementation for [crate::client::AccessApproval] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,9 @@ pub mod access_approval {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListApprovalRequests(RequestBuilder<crate::model::ListApprovalRequestsMessage>);
+    pub struct ListApprovalRequests(
+        pub(crate) RequestBuilder<crate::model::ListApprovalRequestsMessage>,
+    );
 
     impl ListApprovalRequests {
         pub(crate) fn new(
@@ -201,7 +203,9 @@ pub mod access_approval {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetApprovalRequest(RequestBuilder<crate::model::GetApprovalRequestMessage>);
+    pub struct GetApprovalRequest(
+        pub(crate) RequestBuilder<crate::model::GetApprovalRequestMessage>,
+    );
 
     impl GetApprovalRequest {
         pub(crate) fn new(
@@ -264,7 +268,9 @@ pub mod access_approval {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ApproveApprovalRequest(RequestBuilder<crate::model::ApproveApprovalRequestMessage>);
+    pub struct ApproveApprovalRequest(
+        pub(crate) RequestBuilder<crate::model::ApproveApprovalRequestMessage>,
+    );
 
     impl ApproveApprovalRequest {
         pub(crate) fn new(
@@ -345,7 +351,9 @@ pub mod access_approval {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DismissApprovalRequest(RequestBuilder<crate::model::DismissApprovalRequestMessage>);
+    pub struct DismissApprovalRequest(
+        pub(crate) RequestBuilder<crate::model::DismissApprovalRequestMessage>,
+    );
 
     impl DismissApprovalRequest {
         pub(crate) fn new(
@@ -409,7 +417,7 @@ pub mod access_approval {
     /// ```
     #[derive(Clone, Debug)]
     pub struct InvalidateApprovalRequest(
-        RequestBuilder<crate::model::InvalidateApprovalRequestMessage>,
+        pub(crate) RequestBuilder<crate::model::InvalidateApprovalRequestMessage>,
     );
 
     impl InvalidateApprovalRequest {
@@ -474,7 +482,7 @@ pub mod access_approval {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetAccessApprovalSettings(
-        RequestBuilder<crate::model::GetAccessApprovalSettingsMessage>,
+        pub(crate) RequestBuilder<crate::model::GetAccessApprovalSettingsMessage>,
     );
 
     impl GetAccessApprovalSettings {
@@ -539,7 +547,7 @@ pub mod access_approval {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAccessApprovalSettings(
-        RequestBuilder<crate::model::UpdateAccessApprovalSettingsMessage>,
+        pub(crate) RequestBuilder<crate::model::UpdateAccessApprovalSettingsMessage>,
     );
 
     impl UpdateAccessApprovalSettings {
@@ -634,7 +642,7 @@ pub mod access_approval {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAccessApprovalSettings(
-        RequestBuilder<crate::model::DeleteAccessApprovalSettingsMessage>,
+        pub(crate) RequestBuilder<crate::model::DeleteAccessApprovalSettingsMessage>,
     );
 
     impl DeleteAccessApprovalSettings {
@@ -699,7 +707,7 @@ pub mod access_approval {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetAccessApprovalServiceAccount(
-        RequestBuilder<crate::model::GetAccessApprovalServiceAccountMessage>,
+        pub(crate) RequestBuilder<crate::model::GetAccessApprovalServiceAccountMessage>,
     );
 
     impl GetAccessApprovalServiceAccount {

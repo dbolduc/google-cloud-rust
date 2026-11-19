@@ -51,9 +51,9 @@ pub mod data_catalog {
     /// Common implementation for [crate::client::DataCatalog] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchCatalog(RequestBuilder<crate::model::SearchCatalogRequest>);
+    pub struct SearchCatalog(pub(crate) RequestBuilder<crate::model::SearchCatalogRequest>);
 
     impl SearchCatalog {
         pub(crate) fn new(
@@ -224,7 +224,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateEntryGroup(RequestBuilder<crate::model::CreateEntryGroupRequest>);
+    pub struct CreateEntryGroup(pub(crate) RequestBuilder<crate::model::CreateEntryGroupRequest>);
 
     impl CreateEntryGroup {
         pub(crate) fn new(
@@ -315,7 +315,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEntryGroup(RequestBuilder<crate::model::GetEntryGroupRequest>);
+    pub struct GetEntryGroup(pub(crate) RequestBuilder<crate::model::GetEntryGroupRequest>);
 
     impl GetEntryGroup {
         pub(crate) fn new(
@@ -395,7 +395,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateEntryGroup(RequestBuilder<crate::model::UpdateEntryGroupRequest>);
+    pub struct UpdateEntryGroup(pub(crate) RequestBuilder<crate::model::UpdateEntryGroupRequest>);
 
     impl UpdateEntryGroup {
         pub(crate) fn new(
@@ -492,7 +492,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteEntryGroup(RequestBuilder<crate::model::DeleteEntryGroupRequest>);
+    pub struct DeleteEntryGroup(pub(crate) RequestBuilder<crate::model::DeleteEntryGroupRequest>);
 
     impl DeleteEntryGroup {
         pub(crate) fn new(
@@ -567,7 +567,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEntryGroups(RequestBuilder<crate::model::ListEntryGroupsRequest>);
+    pub struct ListEntryGroups(pub(crate) RequestBuilder<crate::model::ListEntryGroupsRequest>);
 
     impl ListEntryGroups {
         pub(crate) fn new(
@@ -669,7 +669,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateEntry(RequestBuilder<crate::model::CreateEntryRequest>);
+    pub struct CreateEntry(pub(crate) RequestBuilder<crate::model::CreateEntryRequest>);
 
     impl CreateEntry {
         pub(crate) fn new(
@@ -761,7 +761,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateEntry(RequestBuilder<crate::model::UpdateEntryRequest>);
+    pub struct UpdateEntry(pub(crate) RequestBuilder<crate::model::UpdateEntryRequest>);
 
     impl UpdateEntry {
         pub(crate) fn new(
@@ -855,7 +855,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteEntry(RequestBuilder<crate::model::DeleteEntryRequest>);
+    pub struct DeleteEntry(pub(crate) RequestBuilder<crate::model::DeleteEntryRequest>);
 
     impl DeleteEntry {
         pub(crate) fn new(
@@ -917,7 +917,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEntry(RequestBuilder<crate::model::GetEntryRequest>);
+    pub struct GetEntry(pub(crate) RequestBuilder<crate::model::GetEntryRequest>);
 
     impl GetEntry {
         pub(crate) fn new(
@@ -979,7 +979,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LookupEntry(RequestBuilder<crate::model::LookupEntryRequest>);
+    pub struct LookupEntry(pub(crate) RequestBuilder<crate::model::LookupEntryRequest>);
 
     impl LookupEntry {
         pub(crate) fn new(
@@ -1100,7 +1100,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEntries(RequestBuilder<crate::model::ListEntriesRequest>);
+    pub struct ListEntries(pub(crate) RequestBuilder<crate::model::ListEntriesRequest>);
 
     impl ListEntries {
         pub(crate) fn new(
@@ -1218,7 +1218,9 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ModifyEntryOverview(RequestBuilder<crate::model::ModifyEntryOverviewRequest>);
+    pub struct ModifyEntryOverview(
+        pub(crate) RequestBuilder<crate::model::ModifyEntryOverviewRequest>,
+    );
 
     impl ModifyEntryOverview {
         pub(crate) fn new(
@@ -1305,7 +1307,9 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ModifyEntryContacts(RequestBuilder<crate::model::ModifyEntryContactsRequest>);
+    pub struct ModifyEntryContacts(
+        pub(crate) RequestBuilder<crate::model::ModifyEntryContactsRequest>,
+    );
 
     impl ModifyEntryContacts {
         pub(crate) fn new(
@@ -1392,7 +1396,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTagTemplate(RequestBuilder<crate::model::CreateTagTemplateRequest>);
+    pub struct CreateTagTemplate(pub(crate) RequestBuilder<crate::model::CreateTagTemplateRequest>);
 
     impl CreateTagTemplate {
         pub(crate) fn new(
@@ -1487,7 +1491,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTagTemplate(RequestBuilder<crate::model::GetTagTemplateRequest>);
+    pub struct GetTagTemplate(pub(crate) RequestBuilder<crate::model::GetTagTemplateRequest>);
 
     impl GetTagTemplate {
         pub(crate) fn new(
@@ -1549,7 +1553,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTagTemplate(RequestBuilder<crate::model::UpdateTagTemplateRequest>);
+    pub struct UpdateTagTemplate(pub(crate) RequestBuilder<crate::model::UpdateTagTemplateRequest>);
 
     impl UpdateTagTemplate {
         pub(crate) fn new(
@@ -1646,7 +1650,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTagTemplate(RequestBuilder<crate::model::DeleteTagTemplateRequest>);
+    pub struct DeleteTagTemplate(pub(crate) RequestBuilder<crate::model::DeleteTagTemplateRequest>);
 
     impl DeleteTagTemplate {
         pub(crate) fn new(
@@ -1719,7 +1723,9 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTagTemplateField(RequestBuilder<crate::model::CreateTagTemplateFieldRequest>);
+    pub struct CreateTagTemplateField(
+        pub(crate) RequestBuilder<crate::model::CreateTagTemplateFieldRequest>,
+    );
 
     impl CreateTagTemplateField {
         pub(crate) fn new(
@@ -1814,7 +1820,9 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTagTemplateField(RequestBuilder<crate::model::UpdateTagTemplateFieldRequest>);
+    pub struct UpdateTagTemplateField(
+        pub(crate) RequestBuilder<crate::model::UpdateTagTemplateFieldRequest>,
+    );
 
     impl UpdateTagTemplateField {
         pub(crate) fn new(
@@ -1919,7 +1927,9 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RenameTagTemplateField(RequestBuilder<crate::model::RenameTagTemplateFieldRequest>);
+    pub struct RenameTagTemplateField(
+        pub(crate) RequestBuilder<crate::model::RenameTagTemplateFieldRequest>,
+    );
 
     impl RenameTagTemplateField {
         pub(crate) fn new(
@@ -1993,7 +2003,7 @@ pub mod data_catalog {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RenameTagTemplateFieldEnumValue(
-        RequestBuilder<crate::model::RenameTagTemplateFieldEnumValueRequest>,
+        pub(crate) RequestBuilder<crate::model::RenameTagTemplateFieldEnumValueRequest>,
     );
 
     impl RenameTagTemplateFieldEnumValue {
@@ -2070,7 +2080,9 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTagTemplateField(RequestBuilder<crate::model::DeleteTagTemplateFieldRequest>);
+    pub struct DeleteTagTemplateField(
+        pub(crate) RequestBuilder<crate::model::DeleteTagTemplateFieldRequest>,
+    );
 
     impl DeleteTagTemplateField {
         pub(crate) fn new(
@@ -2143,7 +2155,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTag(RequestBuilder<crate::model::CreateTagRequest>);
+    pub struct CreateTag(pub(crate) RequestBuilder<crate::model::CreateTagRequest>);
 
     impl CreateTag {
         pub(crate) fn new(
@@ -2227,7 +2239,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTag(RequestBuilder<crate::model::UpdateTagRequest>);
+    pub struct UpdateTag(pub(crate) RequestBuilder<crate::model::UpdateTagRequest>);
 
     impl UpdateTag {
         pub(crate) fn new(
@@ -2321,7 +2333,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTag(RequestBuilder<crate::model::DeleteTagRequest>);
+    pub struct DeleteTag(pub(crate) RequestBuilder<crate::model::DeleteTagRequest>);
 
     impl DeleteTag {
         pub(crate) fn new(
@@ -2387,7 +2399,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTags(RequestBuilder<crate::model::ListTagsRequest>);
+    pub struct ListTags(pub(crate) RequestBuilder<crate::model::ListTagsRequest>);
 
     impl ListTags {
         pub(crate) fn new(
@@ -2486,7 +2498,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReconcileTags(RequestBuilder<crate::model::ReconcileTagsRequest>);
+    pub struct ReconcileTags(pub(crate) RequestBuilder<crate::model::ReconcileTagsRequest>);
 
     impl ReconcileTags {
         pub(crate) fn new(
@@ -2630,7 +2642,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StarEntry(RequestBuilder<crate::model::StarEntryRequest>);
+    pub struct StarEntry(pub(crate) RequestBuilder<crate::model::StarEntryRequest>);
 
     impl StarEntry {
         pub(crate) fn new(
@@ -2692,7 +2704,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UnstarEntry(RequestBuilder<crate::model::UnstarEntryRequest>);
+    pub struct UnstarEntry(pub(crate) RequestBuilder<crate::model::UnstarEntryRequest>);
 
     impl UnstarEntry {
         pub(crate) fn new(
@@ -2754,7 +2766,9 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -2859,7 +2873,9 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -2943,7 +2959,7 @@ pub mod data_catalog {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -3023,7 +3039,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportEntries(RequestBuilder<crate::model::ImportEntriesRequest>);
+    pub struct ImportEntries(pub(crate) RequestBuilder<crate::model::ImportEntriesRequest>);
 
     impl ImportEntries {
         pub(crate) fn new(
@@ -3173,7 +3189,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetConfig(RequestBuilder<crate::model::SetConfigRequest>);
+    pub struct SetConfig(pub(crate) RequestBuilder<crate::model::SetConfigRequest>);
 
     impl SetConfig {
         pub(crate) fn new(
@@ -3279,7 +3295,7 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RetrieveConfig(RequestBuilder<crate::model::RetrieveConfigRequest>);
+    pub struct RetrieveConfig(pub(crate) RequestBuilder<crate::model::RetrieveConfigRequest>);
 
     impl RetrieveConfig {
         pub(crate) fn new(
@@ -3342,7 +3358,7 @@ pub mod data_catalog {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveEffectiveConfig(
-        RequestBuilder<crate::model::RetrieveEffectiveConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::RetrieveEffectiveConfigRequest>,
     );
 
     impl RetrieveEffectiveConfig {
@@ -3413,7 +3429,7 @@ pub mod data_catalog {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3529,7 +3545,9 @@ pub mod data_catalog {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3593,7 +3611,7 @@ pub mod data_catalog {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3658,7 +3676,7 @@ pub mod data_catalog {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -3743,9 +3761,9 @@ pub mod policy_tag_manager {
     /// Common implementation for [crate::client::PolicyTagManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3780,7 +3798,7 @@ pub mod policy_tag_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTaxonomy(RequestBuilder<crate::model::CreateTaxonomyRequest>);
+    pub struct CreateTaxonomy(pub(crate) RequestBuilder<crate::model::CreateTaxonomyRequest>);
 
     impl CreateTaxonomy {
         pub(crate) fn new(
@@ -3860,7 +3878,7 @@ pub mod policy_tag_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTaxonomy(RequestBuilder<crate::model::DeleteTaxonomyRequest>);
+    pub struct DeleteTaxonomy(pub(crate) RequestBuilder<crate::model::DeleteTaxonomyRequest>);
 
     impl DeleteTaxonomy {
         pub(crate) fn new(
@@ -3922,7 +3940,7 @@ pub mod policy_tag_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTaxonomy(RequestBuilder<crate::model::UpdateTaxonomyRequest>);
+    pub struct UpdateTaxonomy(pub(crate) RequestBuilder<crate::model::UpdateTaxonomyRequest>);
 
     impl UpdateTaxonomy {
         pub(crate) fn new(
@@ -4016,7 +4034,7 @@ pub mod policy_tag_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTaxonomies(RequestBuilder<crate::model::ListTaxonomiesRequest>);
+    pub struct ListTaxonomies(pub(crate) RequestBuilder<crate::model::ListTaxonomiesRequest>);
 
     impl ListTaxonomies {
         pub(crate) fn new(
@@ -4124,7 +4142,7 @@ pub mod policy_tag_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTaxonomy(RequestBuilder<crate::model::GetTaxonomyRequest>);
+    pub struct GetTaxonomy(pub(crate) RequestBuilder<crate::model::GetTaxonomyRequest>);
 
     impl GetTaxonomy {
         pub(crate) fn new(
@@ -4186,7 +4204,7 @@ pub mod policy_tag_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePolicyTag(RequestBuilder<crate::model::CreatePolicyTagRequest>);
+    pub struct CreatePolicyTag(pub(crate) RequestBuilder<crate::model::CreatePolicyTagRequest>);
 
     impl CreatePolicyTag {
         pub(crate) fn new(
@@ -4266,7 +4284,7 @@ pub mod policy_tag_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePolicyTag(RequestBuilder<crate::model::DeletePolicyTagRequest>);
+    pub struct DeletePolicyTag(pub(crate) RequestBuilder<crate::model::DeletePolicyTagRequest>);
 
     impl DeletePolicyTag {
         pub(crate) fn new(
@@ -4328,7 +4346,7 @@ pub mod policy_tag_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePolicyTag(RequestBuilder<crate::model::UpdatePolicyTagRequest>);
+    pub struct UpdatePolicyTag(pub(crate) RequestBuilder<crate::model::UpdatePolicyTagRequest>);
 
     impl UpdatePolicyTag {
         pub(crate) fn new(
@@ -4422,7 +4440,7 @@ pub mod policy_tag_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPolicyTags(RequestBuilder<crate::model::ListPolicyTagsRequest>);
+    pub struct ListPolicyTags(pub(crate) RequestBuilder<crate::model::ListPolicyTagsRequest>);
 
     impl ListPolicyTags {
         pub(crate) fn new(
@@ -4524,7 +4542,7 @@ pub mod policy_tag_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPolicyTag(RequestBuilder<crate::model::GetPolicyTagRequest>);
+    pub struct GetPolicyTag(pub(crate) RequestBuilder<crate::model::GetPolicyTagRequest>);
 
     impl GetPolicyTag {
         pub(crate) fn new(
@@ -4586,7 +4604,9 @@ pub mod policy_tag_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -4669,7 +4689,9 @@ pub mod policy_tag_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -4775,7 +4797,7 @@ pub mod policy_tag_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -4859,7 +4881,7 @@ pub mod policy_tag_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4975,7 +4997,9 @@ pub mod policy_tag_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -5039,7 +5063,7 @@ pub mod policy_tag_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -5104,7 +5128,7 @@ pub mod policy_tag_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -5189,9 +5213,10 @@ pub mod policy_tag_manager_serialization {
     /// Common implementation for [crate::client::PolicyTagManagerSerialization] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -5226,7 +5251,7 @@ pub mod policy_tag_manager_serialization {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReplaceTaxonomy(RequestBuilder<crate::model::ReplaceTaxonomyRequest>);
+    pub struct ReplaceTaxonomy(pub(crate) RequestBuilder<crate::model::ReplaceTaxonomyRequest>);
 
     impl ReplaceTaxonomy {
         pub(crate) fn new(
@@ -5310,7 +5335,7 @@ pub mod policy_tag_manager_serialization {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportTaxonomies(RequestBuilder<crate::model::ImportTaxonomiesRequest>);
+    pub struct ImportTaxonomies(pub(crate) RequestBuilder<crate::model::ImportTaxonomiesRequest>);
 
     impl ImportTaxonomies {
         pub(crate) fn new(
@@ -5417,7 +5442,7 @@ pub mod policy_tag_manager_serialization {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportTaxonomies(RequestBuilder<crate::model::ExportTaxonomiesRequest>);
+    pub struct ExportTaxonomies(pub(crate) RequestBuilder<crate::model::ExportTaxonomiesRequest>);
 
     impl ExportTaxonomies {
         pub(crate) fn new(
@@ -5524,7 +5549,7 @@ pub mod policy_tag_manager_serialization {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -5640,7 +5665,9 @@ pub mod policy_tag_manager_serialization {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -5704,7 +5731,7 @@ pub mod policy_tag_manager_serialization {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -5769,7 +5796,7 @@ pub mod policy_tag_manager_serialization {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

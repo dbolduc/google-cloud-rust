@@ -51,9 +51,9 @@ pub mod developer_connect {
     /// Common implementation for [crate::client::DeveloperConnect] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
+    pub struct ListConnections(pub(crate) RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
         pub(crate) fn new(
@@ -206,7 +206,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
+    pub struct GetConnection(pub(crate) RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
         pub(crate) fn new(
@@ -269,7 +269,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
+    pub struct CreateConnection(pub(crate) RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
         pub(crate) fn new(
@@ -431,7 +431,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
+    pub struct UpdateConnection(pub(crate) RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
         pub(crate) fn new(
@@ -605,7 +605,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
+    pub struct DeleteConnection(pub(crate) RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
         pub(crate) fn new(
@@ -739,7 +739,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGitRepositoryLink(
-        RequestBuilder<crate::model::CreateGitRepositoryLinkRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateGitRepositoryLinkRequest>,
     );
 
     impl CreateGitRepositoryLink {
@@ -905,7 +905,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGitRepositoryLink(
-        RequestBuilder<crate::model::DeleteGitRepositoryLinkRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteGitRepositoryLinkRequest>,
     );
 
     impl DeleteGitRepositoryLink {
@@ -1042,7 +1042,9 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListGitRepositoryLinks(RequestBuilder<crate::model::ListGitRepositoryLinksRequest>);
+    pub struct ListGitRepositoryLinks(
+        pub(crate) RequestBuilder<crate::model::ListGitRepositoryLinksRequest>,
+    );
 
     impl ListGitRepositoryLinks {
         pub(crate) fn new(
@@ -1159,7 +1161,9 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetGitRepositoryLink(RequestBuilder<crate::model::GetGitRepositoryLinkRequest>);
+    pub struct GetGitRepositoryLink(
+        pub(crate) RequestBuilder<crate::model::GetGitRepositoryLinkRequest>,
+    );
 
     impl GetGitRepositoryLink {
         pub(crate) fn new(
@@ -1224,7 +1228,9 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchReadWriteToken(RequestBuilder<crate::model::FetchReadWriteTokenRequest>);
+    pub struct FetchReadWriteToken(
+        pub(crate) RequestBuilder<crate::model::FetchReadWriteTokenRequest>,
+    );
 
     impl FetchReadWriteToken {
         pub(crate) fn new(
@@ -1289,7 +1295,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchReadToken(RequestBuilder<crate::model::FetchReadTokenRequest>);
+    pub struct FetchReadToken(pub(crate) RequestBuilder<crate::model::FetchReadTokenRequest>);
 
     impl FetchReadToken {
         pub(crate) fn new(
@@ -1352,7 +1358,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct OpenGitRepositoryLinkPullRequest(
-        RequestBuilder<crate::model::OpenGitRepositoryLinkPullRequestRequest>,
+        pub(crate) RequestBuilder<crate::model::OpenGitRepositoryLinkPullRequestRequest>,
     );
 
     impl OpenGitRepositoryLinkPullRequest {
@@ -1445,7 +1451,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchLinkableGitRepositories(
-        RequestBuilder<crate::model::FetchLinkableGitRepositoriesRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchLinkableGitRepositoriesRequest>,
     );
 
     impl FetchLinkableGitRepositories {
@@ -1552,7 +1558,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchGitHubInstallations(
-        RequestBuilder<crate::model::FetchGitHubInstallationsRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchGitHubInstallationsRequest>,
     );
 
     impl FetchGitHubInstallations {
@@ -1618,7 +1624,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchGitRefs(RequestBuilder<crate::model::FetchGitRefsRequest>);
+    pub struct FetchGitRefs(pub(crate) RequestBuilder<crate::model::FetchGitRefsRequest>);
 
     impl FetchGitRefs {
         pub(crate) fn new(
@@ -1704,7 +1710,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DiffGitRepositoryLinkCommit(
-        RequestBuilder<crate::model::DiffGitRepositoryLinkCommitRequest>,
+        pub(crate) RequestBuilder<crate::model::DiffGitRepositoryLinkCommitRequest>,
     );
 
     impl DiffGitRepositoryLinkCommit {
@@ -1798,7 +1804,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchGitRepositoryLinkCommit(
-        RequestBuilder<crate::model::FetchGitRepositoryLinkCommitRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchGitRepositoryLinkCommitRequest>,
     );
 
     impl FetchGitRepositoryLinkCommit {
@@ -1894,7 +1900,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchGitRepositoryLinkCommitList(
-        RequestBuilder<crate::model::FetchGitRepositoryLinkCommitListRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchGitRepositoryLinkCommitListRequest>,
     );
 
     impl FetchGitRepositoryLinkCommitList {
@@ -2013,7 +2019,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchGitRepositoryLinkFileBlame(
-        RequestBuilder<crate::model::FetchGitRepositoryLinkFileBlameRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchGitRepositoryLinkFileBlameRequest>,
     );
 
     impl FetchGitRepositoryLinkFileBlame {
@@ -2108,7 +2114,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchGitRepositoryLinkPullRequest(
-        RequestBuilder<crate::model::FetchGitRepositoryLinkPullRequestRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchGitRepositoryLinkPullRequestRequest>,
     );
 
     impl FetchGitRepositoryLinkPullRequest {
@@ -2183,7 +2189,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddGitRepositoryLinkPullRequestComment(
-        RequestBuilder<crate::model::AddGitRepositoryLinkPullRequestCommentRequest>,
+        pub(crate) RequestBuilder<crate::model::AddGitRepositoryLinkPullRequestCommentRequest>,
     );
 
     impl AddGitRepositoryLinkPullRequestComment {
@@ -2282,7 +2288,8 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddGitRepositoryLinkPullRequestReviewComment(
-        RequestBuilder<crate::model::AddGitRepositoryLinkPullRequestReviewCommentRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::AddGitRepositoryLinkPullRequestReviewCommentRequest>,
     );
 
     impl AddGitRepositoryLinkPullRequestReviewComment {
@@ -2387,7 +2394,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ModifyGitRepositoryLinkPullRequest(
-        RequestBuilder<crate::model::ModifyGitRepositoryLinkPullRequestRequest>,
+        pub(crate) RequestBuilder<crate::model::ModifyGitRepositoryLinkPullRequestRequest>,
     );
 
     impl ModifyGitRepositoryLinkPullRequest {
@@ -2495,7 +2502,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchGitRepositoryLinkPullRequestList(
-        RequestBuilder<crate::model::FetchGitRepositoryLinkPullRequestListRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchGitRepositoryLinkPullRequestListRequest>,
     );
 
     impl FetchGitRepositoryLinkPullRequestList {
@@ -2613,7 +2620,9 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAccountConnectors(RequestBuilder<crate::model::ListAccountConnectorsRequest>);
+    pub struct ListAccountConnectors(
+        pub(crate) RequestBuilder<crate::model::ListAccountConnectorsRequest>,
+    );
 
     impl ListAccountConnectors {
         pub(crate) fn new(
@@ -2730,7 +2739,9 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAccountConnector(RequestBuilder<crate::model::GetAccountConnectorRequest>);
+    pub struct GetAccountConnector(
+        pub(crate) RequestBuilder<crate::model::GetAccountConnectorRequest>,
+    );
 
     impl GetAccountConnector {
         pub(crate) fn new(
@@ -2796,7 +2807,9 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAccountConnector(RequestBuilder<crate::model::CreateAccountConnectorRequest>);
+    pub struct CreateAccountConnector(
+        pub(crate) RequestBuilder<crate::model::CreateAccountConnectorRequest>,
+    );
 
     impl CreateAccountConnector {
         pub(crate) fn new(
@@ -2958,7 +2971,9 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAccountConnector(RequestBuilder<crate::model::UpdateAccountConnectorRequest>);
+    pub struct UpdateAccountConnector(
+        pub(crate) RequestBuilder<crate::model::UpdateAccountConnectorRequest>,
+    );
 
     impl UpdateAccountConnector {
         pub(crate) fn new(
@@ -3128,7 +3143,9 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAccountConnector(RequestBuilder<crate::model::DeleteAccountConnectorRequest>);
+    pub struct DeleteAccountConnector(
+        pub(crate) RequestBuilder<crate::model::DeleteAccountConnectorRequest>,
+    );
 
     impl DeleteAccountConnector {
         pub(crate) fn new(
@@ -3266,7 +3283,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchAccessToken(RequestBuilder<crate::model::FetchAccessTokenRequest>);
+    pub struct FetchAccessToken(pub(crate) RequestBuilder<crate::model::FetchAccessTokenRequest>);
 
     impl FetchAccessToken {
         pub(crate) fn new(
@@ -3335,7 +3352,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUsers(RequestBuilder<crate::model::ListUsersRequest>);
+    pub struct ListUsers(pub(crate) RequestBuilder<crate::model::ListUsersRequest>);
 
     impl ListUsers {
         pub(crate) fn new(
@@ -3446,7 +3463,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteUser(RequestBuilder<crate::model::DeleteUserRequest>);
+    pub struct DeleteUser(pub(crate) RequestBuilder<crate::model::DeleteUserRequest>);
 
     impl DeleteUser {
         pub(crate) fn new(
@@ -3575,7 +3592,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchSelf(RequestBuilder<crate::model::FetchSelfRequest>);
+    pub struct FetchSelf(pub(crate) RequestBuilder<crate::model::FetchSelfRequest>);
 
     impl FetchSelf {
         pub(crate) fn new(
@@ -3638,7 +3655,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSelf(RequestBuilder<crate::model::DeleteSelfRequest>);
+    pub struct DeleteSelf(pub(crate) RequestBuilder<crate::model::DeleteSelfRequest>);
 
     impl DeleteSelf {
         pub(crate) fn new(
@@ -3749,7 +3766,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartOAuth(RequestBuilder<crate::model::StartOAuthRequest>);
+    pub struct StartOAuth(pub(crate) RequestBuilder<crate::model::StartOAuthRequest>);
 
     impl StartOAuth {
         pub(crate) fn new(
@@ -3811,7 +3828,7 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FinishOAuth(RequestBuilder<crate::model::FinishOAuthRequest>);
+    pub struct FinishOAuth(pub(crate) RequestBuilder<crate::model::FinishOAuthRequest>);
 
     impl FinishOAuth {
         pub(crate) fn new(
@@ -3921,7 +3938,9 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -4030,7 +4049,9 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -4098,7 +4119,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4214,7 +4235,9 @@ pub mod developer_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4278,7 +4301,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4343,7 +4366,7 @@ pub mod developer_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -4428,9 +4451,9 @@ pub mod insights_config_service {
     /// Common implementation for [crate::client::InsightsConfigService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InsightsConfigService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::InsightsConfigService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -4469,7 +4492,9 @@ pub mod insights_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInsightsConfigs(RequestBuilder<crate::model::ListInsightsConfigsRequest>);
+    pub struct ListInsightsConfigs(
+        pub(crate) RequestBuilder<crate::model::ListInsightsConfigsRequest>,
+    );
 
     impl ListInsightsConfigs {
         pub(crate) fn new(
@@ -4587,7 +4612,9 @@ pub mod insights_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInsightsConfig(RequestBuilder<crate::model::CreateInsightsConfigRequest>);
+    pub struct CreateInsightsConfig(
+        pub(crate) RequestBuilder<crate::model::CreateInsightsConfigRequest>,
+    );
 
     impl CreateInsightsConfig {
         pub(crate) fn new(
@@ -4742,7 +4769,7 @@ pub mod insights_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInsightsConfig(RequestBuilder<crate::model::GetInsightsConfigRequest>);
+    pub struct GetInsightsConfig(pub(crate) RequestBuilder<crate::model::GetInsightsConfigRequest>);
 
     impl GetInsightsConfig {
         pub(crate) fn new(
@@ -4808,7 +4835,9 @@ pub mod insights_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInsightsConfig(RequestBuilder<crate::model::UpdateInsightsConfigRequest>);
+    pub struct UpdateInsightsConfig(
+        pub(crate) RequestBuilder<crate::model::UpdateInsightsConfigRequest>,
+    );
 
     impl UpdateInsightsConfig {
         pub(crate) fn new(
@@ -4960,7 +4989,9 @@ pub mod insights_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInsightsConfig(RequestBuilder<crate::model::DeleteInsightsConfigRequest>);
+    pub struct DeleteInsightsConfig(
+        pub(crate) RequestBuilder<crate::model::DeleteInsightsConfigRequest>,
+    );
 
     impl DeleteInsightsConfig {
         pub(crate) fn new(
@@ -5092,7 +5123,9 @@ pub mod insights_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDeploymentEvent(RequestBuilder<crate::model::GetDeploymentEventRequest>);
+    pub struct GetDeploymentEvent(
+        pub(crate) RequestBuilder<crate::model::GetDeploymentEventRequest>,
+    );
 
     impl GetDeploymentEvent {
         pub(crate) fn new(
@@ -5161,7 +5194,9 @@ pub mod insights_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDeploymentEvents(RequestBuilder<crate::model::ListDeploymentEventsRequest>);
+    pub struct ListDeploymentEvents(
+        pub(crate) RequestBuilder<crate::model::ListDeploymentEventsRequest>,
+    );
 
     impl ListDeploymentEvents {
         pub(crate) fn new(
@@ -5276,7 +5311,9 @@ pub mod insights_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -5385,7 +5422,9 @@ pub mod insights_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -5453,7 +5492,7 @@ pub mod insights_config_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -5569,7 +5608,9 @@ pub mod insights_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -5633,7 +5674,7 @@ pub mod insights_config_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -5698,7 +5739,7 @@ pub mod insights_config_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

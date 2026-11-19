@@ -51,9 +51,9 @@ pub mod translation_service {
     /// Common implementation for [crate::client::TranslationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TranslateText(RequestBuilder<crate::model::TranslateTextRequest>);
+    pub struct TranslateText(pub(crate) RequestBuilder<crate::model::TranslateTextRequest>);
 
     impl TranslateText {
         pub(crate) fn new(
@@ -236,7 +236,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RomanizeText(RequestBuilder<crate::model::RomanizeTextRequest>);
+    pub struct RomanizeText(pub(crate) RequestBuilder<crate::model::RomanizeTextRequest>);
 
     impl RomanizeText {
         pub(crate) fn new(
@@ -317,7 +317,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DetectLanguage(RequestBuilder<crate::model::DetectLanguageRequest>);
+    pub struct DetectLanguage(pub(crate) RequestBuilder<crate::model::DetectLanguageRequest>);
 
     impl DetectLanguage {
         pub(crate) fn new(
@@ -424,7 +424,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSupportedLanguages(RequestBuilder<crate::model::GetSupportedLanguagesRequest>);
+    pub struct GetSupportedLanguages(
+        pub(crate) RequestBuilder<crate::model::GetSupportedLanguagesRequest>,
+    );
 
     impl GetSupportedLanguages {
         pub(crate) fn new(
@@ -501,7 +503,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TranslateDocument(RequestBuilder<crate::model::TranslateDocumentRequest>);
+    pub struct TranslateDocument(pub(crate) RequestBuilder<crate::model::TranslateDocumentRequest>);
 
     impl TranslateDocument {
         pub(crate) fn new(
@@ -680,7 +682,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchTranslateText(RequestBuilder<crate::model::BatchTranslateTextRequest>);
+    pub struct BatchTranslateText(
+        pub(crate) RequestBuilder<crate::model::BatchTranslateTextRequest>,
+    );
 
     impl BatchTranslateText {
         pub(crate) fn new(
@@ -891,7 +895,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchTranslateDocument(RequestBuilder<crate::model::BatchTranslateDocumentRequest>);
+    pub struct BatchTranslateDocument(
+        pub(crate) RequestBuilder<crate::model::BatchTranslateDocumentRequest>,
+    );
 
     impl BatchTranslateDocument {
         pub(crate) fn new(
@@ -1121,7 +1127,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateGlossary(RequestBuilder<crate::model::CreateGlossaryRequest>);
+    pub struct CreateGlossary(pub(crate) RequestBuilder<crate::model::CreateGlossaryRequest>);
 
     impl CreateGlossary {
         pub(crate) fn new(
@@ -1260,7 +1266,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateGlossary(RequestBuilder<crate::model::UpdateGlossaryRequest>);
+    pub struct UpdateGlossary(pub(crate) RequestBuilder<crate::model::UpdateGlossaryRequest>);
 
     impl UpdateGlossary {
         pub(crate) fn new(
@@ -1412,7 +1418,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListGlossaries(RequestBuilder<crate::model::ListGlossariesRequest>);
+    pub struct ListGlossaries(pub(crate) RequestBuilder<crate::model::ListGlossariesRequest>);
 
     impl ListGlossaries {
         pub(crate) fn new(
@@ -1520,7 +1526,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetGlossary(RequestBuilder<crate::model::GetGlossaryRequest>);
+    pub struct GetGlossary(pub(crate) RequestBuilder<crate::model::GetGlossaryRequest>);
 
     impl GetGlossary {
         pub(crate) fn new(
@@ -1583,7 +1589,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteGlossary(RequestBuilder<crate::model::DeleteGlossaryRequest>);
+    pub struct DeleteGlossary(pub(crate) RequestBuilder<crate::model::DeleteGlossaryRequest>);
 
     impl DeleteGlossary {
         pub(crate) fn new(
@@ -1701,7 +1707,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetGlossaryEntry(RequestBuilder<crate::model::GetGlossaryEntryRequest>);
+    pub struct GetGlossaryEntry(pub(crate) RequestBuilder<crate::model::GetGlossaryEntryRequest>);
 
     impl GetGlossaryEntry {
         pub(crate) fn new(
@@ -1770,7 +1776,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListGlossaryEntries(RequestBuilder<crate::model::ListGlossaryEntriesRequest>);
+    pub struct ListGlossaryEntries(
+        pub(crate) RequestBuilder<crate::model::ListGlossaryEntriesRequest>,
+    );
 
     impl ListGlossaryEntries {
         pub(crate) fn new(
@@ -1875,7 +1883,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateGlossaryEntry(RequestBuilder<crate::model::CreateGlossaryEntryRequest>);
+    pub struct CreateGlossaryEntry(
+        pub(crate) RequestBuilder<crate::model::CreateGlossaryEntryRequest>,
+    );
 
     impl CreateGlossaryEntry {
         pub(crate) fn new(
@@ -1962,7 +1972,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateGlossaryEntry(RequestBuilder<crate::model::UpdateGlossaryEntryRequest>);
+    pub struct UpdateGlossaryEntry(
+        pub(crate) RequestBuilder<crate::model::UpdateGlossaryEntryRequest>,
+    );
 
     impl UpdateGlossaryEntry {
         pub(crate) fn new(
@@ -2041,7 +2053,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteGlossaryEntry(RequestBuilder<crate::model::DeleteGlossaryEntryRequest>);
+    pub struct DeleteGlossaryEntry(
+        pub(crate) RequestBuilder<crate::model::DeleteGlossaryEntryRequest>,
+    );
 
     impl DeleteGlossaryEntry {
         pub(crate) fn new(
@@ -2107,7 +2121,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDataset(RequestBuilder<crate::model::CreateDatasetRequest>);
+    pub struct CreateDataset(pub(crate) RequestBuilder<crate::model::CreateDatasetRequest>);
 
     impl CreateDataset {
         pub(crate) fn new(
@@ -2245,7 +2259,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
+    pub struct GetDataset(pub(crate) RequestBuilder<crate::model::GetDatasetRequest>);
 
     impl GetDataset {
         pub(crate) fn new(
@@ -2311,7 +2325,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
+    pub struct ListDatasets(pub(crate) RequestBuilder<crate::model::ListDatasetsRequest>);
 
     impl ListDatasets {
         pub(crate) fn new(
@@ -2412,7 +2426,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
+    pub struct DeleteDataset(pub(crate) RequestBuilder<crate::model::DeleteDatasetRequest>);
 
     impl DeleteDataset {
         pub(crate) fn new(
@@ -2528,7 +2542,7 @@ pub mod translation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAdaptiveMtDataset(
-        RequestBuilder<crate::model::CreateAdaptiveMtDatasetRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateAdaptiveMtDatasetRequest>,
     );
 
     impl CreateAdaptiveMtDataset {
@@ -2617,7 +2631,7 @@ pub mod translation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAdaptiveMtDataset(
-        RequestBuilder<crate::model::DeleteAdaptiveMtDatasetRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteAdaptiveMtDatasetRequest>,
     );
 
     impl DeleteAdaptiveMtDataset {
@@ -2683,7 +2697,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAdaptiveMtDataset(RequestBuilder<crate::model::GetAdaptiveMtDatasetRequest>);
+    pub struct GetAdaptiveMtDataset(
+        pub(crate) RequestBuilder<crate::model::GetAdaptiveMtDatasetRequest>,
+    );
 
     impl GetAdaptiveMtDataset {
         pub(crate) fn new(
@@ -2752,7 +2768,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAdaptiveMtDatasets(RequestBuilder<crate::model::ListAdaptiveMtDatasetsRequest>);
+    pub struct ListAdaptiveMtDatasets(
+        pub(crate) RequestBuilder<crate::model::ListAdaptiveMtDatasetsRequest>,
+    );
 
     impl ListAdaptiveMtDatasets {
         pub(crate) fn new(
@@ -2863,7 +2881,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AdaptiveMtTranslate(RequestBuilder<crate::model::AdaptiveMtTranslateRequest>);
+    pub struct AdaptiveMtTranslate(
+        pub(crate) RequestBuilder<crate::model::AdaptiveMtTranslateRequest>,
+    );
 
     impl AdaptiveMtTranslate {
         pub(crate) fn new(
@@ -2998,7 +3018,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAdaptiveMtFile(RequestBuilder<crate::model::GetAdaptiveMtFileRequest>);
+    pub struct GetAdaptiveMtFile(pub(crate) RequestBuilder<crate::model::GetAdaptiveMtFileRequest>);
 
     impl GetAdaptiveMtFile {
         pub(crate) fn new(
@@ -3063,7 +3083,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAdaptiveMtFile(RequestBuilder<crate::model::DeleteAdaptiveMtFileRequest>);
+    pub struct DeleteAdaptiveMtFile(
+        pub(crate) RequestBuilder<crate::model::DeleteAdaptiveMtFileRequest>,
+    );
 
     impl DeleteAdaptiveMtFile {
         pub(crate) fn new(
@@ -3128,7 +3150,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportAdaptiveMtFile(RequestBuilder<crate::model::ImportAdaptiveMtFileRequest>);
+    pub struct ImportAdaptiveMtFile(
+        pub(crate) RequestBuilder<crate::model::ImportAdaptiveMtFileRequest>,
+    );
 
     impl ImportAdaptiveMtFile {
         pub(crate) fn new(
@@ -3241,7 +3265,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAdaptiveMtFiles(RequestBuilder<crate::model::ListAdaptiveMtFilesRequest>);
+    pub struct ListAdaptiveMtFiles(
+        pub(crate) RequestBuilder<crate::model::ListAdaptiveMtFilesRequest>,
+    );
 
     impl ListAdaptiveMtFiles {
         pub(crate) fn new(
@@ -3351,7 +3377,7 @@ pub mod translation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAdaptiveMtSentences(
-        RequestBuilder<crate::model::ListAdaptiveMtSentencesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListAdaptiveMtSentencesRequest>,
     );
 
     impl ListAdaptiveMtSentences {
@@ -3458,7 +3484,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportData(RequestBuilder<crate::model::ImportDataRequest>);
+    pub struct ImportData(pub(crate) RequestBuilder<crate::model::ImportDataRequest>);
 
     impl ImportData {
         pub(crate) fn new(
@@ -3592,7 +3618,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportData(RequestBuilder<crate::model::ExportDataRequest>);
+    pub struct ExportData(pub(crate) RequestBuilder<crate::model::ExportDataRequest>);
 
     impl ExportData {
         pub(crate) fn new(
@@ -3729,7 +3755,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListExamples(RequestBuilder<crate::model::ListExamplesRequest>);
+    pub struct ListExamples(pub(crate) RequestBuilder<crate::model::ListExamplesRequest>);
 
     impl ListExamples {
         pub(crate) fn new(
@@ -3836,7 +3862,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateModel(RequestBuilder<crate::model::CreateModelRequest>);
+    pub struct CreateModel(pub(crate) RequestBuilder<crate::model::CreateModelRequest>);
 
     impl CreateModel {
         pub(crate) fn new(
@@ -3978,7 +4004,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
+    pub struct ListModels(pub(crate) RequestBuilder<crate::model::ListModelsRequest>);
 
     impl ListModels {
         pub(crate) fn new(
@@ -4084,7 +4110,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
+    pub struct GetModel(pub(crate) RequestBuilder<crate::model::GetModelRequest>);
 
     impl GetModel {
         pub(crate) fn new(
@@ -4147,7 +4173,7 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
+    pub struct DeleteModel(pub(crate) RequestBuilder<crate::model::DeleteModelRequest>);
 
     impl DeleteModel {
         pub(crate) fn new(
@@ -4266,7 +4292,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -4375,7 +4403,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -4443,7 +4473,7 @@ pub mod translation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4559,7 +4589,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4623,7 +4655,7 @@ pub mod translation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4688,7 +4720,7 @@ pub mod translation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -4752,7 +4784,9 @@ pub mod translation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct WaitOperation(RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>);
+    pub struct WaitOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>,
+    );
 
     impl WaitOperation {
         pub(crate) fn new(

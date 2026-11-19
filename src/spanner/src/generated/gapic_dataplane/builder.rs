@@ -21,9 +21,9 @@ pub mod spanner {
     /// Common implementation for [crate::client::Spanner] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -41,7 +41,7 @@ pub mod spanner {
 
     /// The request builder for [Spanner::create_session][crate::client::Spanner::create_session] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct CreateSession(RequestBuilder<crate::model::CreateSessionRequest>);
+    pub(crate) struct CreateSession(pub(crate) RequestBuilder<crate::model::CreateSessionRequest>);
 
     impl CreateSession {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -108,7 +108,9 @@ pub mod spanner {
 
     /// The request builder for [Spanner::batch_create_sessions][crate::client::Spanner::batch_create_sessions] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct BatchCreateSessions(RequestBuilder<crate::model::BatchCreateSessionsRequest>);
+    pub(crate) struct BatchCreateSessions(
+        pub(crate) RequestBuilder<crate::model::BatchCreateSessionsRequest>,
+    );
 
     impl BatchCreateSessions {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -182,7 +184,7 @@ pub mod spanner {
 
     /// The request builder for [Spanner::get_session][crate::client::Spanner::get_session] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct GetSession(RequestBuilder<crate::model::GetSessionRequest>);
+    pub(crate) struct GetSession(pub(crate) RequestBuilder<crate::model::GetSessionRequest>);
 
     impl GetSession {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -227,7 +229,7 @@ pub mod spanner {
 
     /// The request builder for [Spanner::list_sessions][crate::client::Spanner::list_sessions] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct ListSessions(RequestBuilder<crate::model::ListSessionsRequest>);
+    pub(crate) struct ListSessions(pub(crate) RequestBuilder<crate::model::ListSessionsRequest>);
 
     impl ListSessions {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -316,7 +318,7 @@ pub mod spanner {
 
     /// The request builder for [Spanner::delete_session][crate::client::Spanner::delete_session] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct DeleteSession(RequestBuilder<crate::model::DeleteSessionRequest>);
+    pub(crate) struct DeleteSession(pub(crate) RequestBuilder<crate::model::DeleteSessionRequest>);
 
     impl DeleteSession {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -361,7 +363,7 @@ pub mod spanner {
 
     /// The request builder for [Spanner::execute_sql][crate::client::Spanner::execute_sql] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct ExecuteSql(RequestBuilder<crate::model::ExecuteSqlRequest>);
+    pub(crate) struct ExecuteSql(pub(crate) RequestBuilder<crate::model::ExecuteSqlRequest>);
 
     impl ExecuteSql {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -572,7 +574,9 @@ pub mod spanner {
 
     /// The request builder for [Spanner::execute_streaming_sql][crate::client::Spanner::execute_streaming_sql] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct ExecuteStreamingSql(RequestBuilder<crate::model::ExecuteSqlRequest>);
+    pub(crate) struct ExecuteStreamingSql(
+        pub(crate) RequestBuilder<crate::model::ExecuteSqlRequest>,
+    );
 
     impl ExecuteStreamingSql {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -785,7 +789,9 @@ pub mod spanner {
 
     /// The request builder for [Spanner::execute_batch_dml][crate::client::Spanner::execute_batch_dml] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct ExecuteBatchDml(RequestBuilder<crate::model::ExecuteBatchDmlRequest>);
+    pub(crate) struct ExecuteBatchDml(
+        pub(crate) RequestBuilder<crate::model::ExecuteBatchDmlRequest>,
+    );
 
     impl ExecuteBatchDml {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -897,7 +903,7 @@ pub mod spanner {
 
     /// The request builder for [Spanner::read][crate::client::Spanner::read] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct Read(RequestBuilder<crate::model::ReadRequest>);
+    pub(crate) struct Read(pub(crate) RequestBuilder<crate::model::ReadRequest>);
 
     impl Read {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -1102,7 +1108,7 @@ pub mod spanner {
 
     /// The request builder for [Spanner::streaming_read][crate::client::Spanner::streaming_read] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct StreamingRead(RequestBuilder<crate::model::ReadRequest>);
+    pub(crate) struct StreamingRead(pub(crate) RequestBuilder<crate::model::ReadRequest>);
 
     impl StreamingRead {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -1309,7 +1315,9 @@ pub mod spanner {
 
     /// The request builder for [Spanner::begin_transaction][crate::client::Spanner::begin_transaction] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct BeginTransaction(RequestBuilder<crate::model::BeginTransactionRequest>);
+    pub(crate) struct BeginTransaction(
+        pub(crate) RequestBuilder<crate::model::BeginTransactionRequest>,
+    );
 
     impl BeginTransaction {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -1433,7 +1441,7 @@ pub mod spanner {
 
     /// The request builder for [Spanner::commit][crate::client::Spanner::commit] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct Commit(RequestBuilder<crate::model::CommitRequest>);
+    pub(crate) struct Commit(pub(crate) RequestBuilder<crate::model::CommitRequest>);
 
     impl Commit {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -1604,7 +1612,7 @@ pub mod spanner {
 
     /// The request builder for [Spanner::rollback][crate::client::Spanner::rollback] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct Rollback(RequestBuilder<crate::model::RollbackRequest>);
+    pub(crate) struct Rollback(pub(crate) RequestBuilder<crate::model::RollbackRequest>);
 
     impl Rollback {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -1657,7 +1665,9 @@ pub mod spanner {
 
     /// The request builder for [Spanner::partition_query][crate::client::Spanner::partition_query] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct PartitionQuery(RequestBuilder<crate::model::PartitionQueryRequest>);
+    pub(crate) struct PartitionQuery(
+        pub(crate) RequestBuilder<crate::model::PartitionQueryRequest>,
+    );
 
     impl PartitionQuery {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -1775,7 +1785,7 @@ pub mod spanner {
 
     /// The request builder for [Spanner::partition_read][crate::client::Spanner::partition_read] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct PartitionRead(RequestBuilder<crate::model::PartitionReadRequest>);
+    pub(crate) struct PartitionRead(pub(crate) RequestBuilder<crate::model::PartitionReadRequest>);
 
     impl PartitionRead {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -1903,7 +1913,7 @@ pub mod spanner {
 
     /// The request builder for [Spanner::batch_write][crate::client::Spanner::batch_write] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct BatchWrite(RequestBuilder<crate::model::BatchWriteRequest>);
+    pub(crate) struct BatchWrite(pub(crate) RequestBuilder<crate::model::BatchWriteRequest>);
 
     impl BatchWrite {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
@@ -1987,7 +1997,9 @@ pub mod spanner {
 
     /// The request builder for [Spanner::fetch_cache_update][crate::client::Spanner::fetch_cache_update] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct FetchCacheUpdate(RequestBuilder<crate::model::FetchCacheUpdateRequest>);
+    pub(crate) struct FetchCacheUpdate(
+        pub(crate) RequestBuilder<crate::model::FetchCacheUpdateRequest>,
+    );
 
     impl FetchCacheUpdate {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {

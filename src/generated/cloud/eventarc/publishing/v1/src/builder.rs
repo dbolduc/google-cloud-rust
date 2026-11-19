@@ -51,9 +51,9 @@ pub mod publisher {
     /// Common implementation for [crate::client::Publisher] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod publisher {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PublishChannelConnectionEvents(
-        RequestBuilder<crate::model::PublishChannelConnectionEventsRequest>,
+        pub(crate) RequestBuilder<crate::model::PublishChannelConnectionEventsRequest>,
     );
 
     impl PublishChannelConnectionEvents {
@@ -175,7 +175,7 @@ pub mod publisher {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PublishEvents(RequestBuilder<crate::model::PublishEventsRequest>);
+    pub struct PublishEvents(pub(crate) RequestBuilder<crate::model::PublishEventsRequest>);
 
     impl PublishEvents {
         pub(crate) fn new(
@@ -257,7 +257,7 @@ pub mod publisher {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Publish(RequestBuilder<crate::model::PublishRequest>);
+    pub struct Publish(pub(crate) RequestBuilder<crate::model::PublishRequest>);
 
     impl Publish {
         pub(crate) fn new(

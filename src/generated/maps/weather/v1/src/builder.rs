@@ -51,9 +51,9 @@ pub mod weather {
     /// Common implementation for [crate::client::Weather] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Weather>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Weather>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -87,7 +87,7 @@ pub mod weather {
     /// ```
     #[derive(Clone, Debug)]
     pub struct LookupCurrentConditions(
-        RequestBuilder<crate::model::LookupCurrentConditionsRequest>,
+        pub(crate) RequestBuilder<crate::model::LookupCurrentConditionsRequest>,
     );
 
     impl LookupCurrentConditions {
@@ -193,7 +193,9 @@ pub mod weather {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LookupForecastHours(RequestBuilder<crate::model::LookupForecastHoursRequest>);
+    pub struct LookupForecastHours(
+        pub(crate) RequestBuilder<crate::model::LookupForecastHoursRequest>,
+    );
 
     impl LookupForecastHours {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Weather>) -> Self {
@@ -356,7 +358,9 @@ pub mod weather {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LookupForecastDays(RequestBuilder<crate::model::LookupForecastDaysRequest>);
+    pub struct LookupForecastDays(
+        pub(crate) RequestBuilder<crate::model::LookupForecastDaysRequest>,
+    );
 
     impl LookupForecastDays {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Weather>) -> Self {
@@ -519,7 +523,9 @@ pub mod weather {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LookupHistoryHours(RequestBuilder<crate::model::LookupHistoryHoursRequest>);
+    pub struct LookupHistoryHours(
+        pub(crate) RequestBuilder<crate::model::LookupHistoryHoursRequest>,
+    );
 
     impl LookupHistoryHours {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Weather>) -> Self {
@@ -682,7 +688,9 @@ pub mod weather {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LookupPublicAlerts(RequestBuilder<crate::model::LookupPublicAlertsRequest>);
+    pub struct LookupPublicAlerts(
+        pub(crate) RequestBuilder<crate::model::LookupPublicAlertsRequest>,
+    );
 
     impl LookupPublicAlerts {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Weather>) -> Self {
@@ -821,7 +829,9 @@ pub mod weather {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LookupForecastMinutes(RequestBuilder<crate::model::LookupForecastMinutesRequest>);
+    pub struct LookupForecastMinutes(
+        pub(crate) RequestBuilder<crate::model::LookupForecastMinutesRequest>,
+    );
 
     impl LookupForecastMinutes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Weather>) -> Self {

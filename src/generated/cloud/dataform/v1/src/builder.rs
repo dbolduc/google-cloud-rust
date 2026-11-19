@@ -51,9 +51,9 @@ pub mod dataform {
     /// Common implementation for [crate::client::Dataform] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -86,7 +86,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTeamFolder(RequestBuilder<crate::model::GetTeamFolderRequest>);
+    pub struct GetTeamFolder(pub(crate) RequestBuilder<crate::model::GetTeamFolderRequest>);
 
     impl GetTeamFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -146,7 +146,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTeamFolder(RequestBuilder<crate::model::CreateTeamFolderRequest>);
+    pub struct CreateTeamFolder(pub(crate) RequestBuilder<crate::model::CreateTeamFolderRequest>);
 
     impl CreateTeamFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -231,7 +231,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTeamFolder(RequestBuilder<crate::model::UpdateTeamFolderRequest>);
+    pub struct UpdateTeamFolder(pub(crate) RequestBuilder<crate::model::UpdateTeamFolderRequest>);
 
     impl UpdateTeamFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -326,7 +326,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTeamFolder(RequestBuilder<crate::model::DeleteTeamFolderRequest>);
+    pub struct DeleteTeamFolder(pub(crate) RequestBuilder<crate::model::DeleteTeamFolderRequest>);
 
     impl DeleteTeamFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -390,7 +390,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTeamFolderTree(RequestBuilder<crate::model::DeleteTeamFolderTreeRequest>);
+    pub struct DeleteTeamFolderTree(
+        pub(crate) RequestBuilder<crate::model::DeleteTeamFolderTreeRequest>,
+    );
 
     impl DeleteTeamFolderTree {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -517,7 +519,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct QueryTeamFolderContents(
-        RequestBuilder<crate::model::QueryTeamFolderContentsRequest>,
+        pub(crate) RequestBuilder<crate::model::QueryTeamFolderContentsRequest>,
     );
 
     impl QueryTeamFolderContents {
@@ -637,7 +639,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchTeamFolders(RequestBuilder<crate::model::SearchTeamFoldersRequest>);
+    pub struct SearchTeamFolders(pub(crate) RequestBuilder<crate::model::SearchTeamFoldersRequest>);
 
     impl SearchTeamFolders {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -752,7 +754,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFolder(RequestBuilder<crate::model::GetFolderRequest>);
+    pub struct GetFolder(pub(crate) RequestBuilder<crate::model::GetFolderRequest>);
 
     impl GetFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -812,7 +814,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateFolder(RequestBuilder<crate::model::CreateFolderRequest>);
+    pub struct CreateFolder(pub(crate) RequestBuilder<crate::model::CreateFolderRequest>);
 
     impl CreateFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -894,7 +896,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFolder(RequestBuilder<crate::model::UpdateFolderRequest>);
+    pub struct UpdateFolder(pub(crate) RequestBuilder<crate::model::UpdateFolderRequest>);
 
     impl UpdateFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -986,7 +988,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFolder(RequestBuilder<crate::model::DeleteFolderRequest>);
+    pub struct DeleteFolder(pub(crate) RequestBuilder<crate::model::DeleteFolderRequest>);
 
     impl DeleteFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -1047,7 +1049,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFolderTree(RequestBuilder<crate::model::DeleteFolderTreeRequest>);
+    pub struct DeleteFolderTree(pub(crate) RequestBuilder<crate::model::DeleteFolderTreeRequest>);
 
     impl DeleteFolderTree {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -1174,7 +1176,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryFolderContents(RequestBuilder<crate::model::QueryFolderContentsRequest>);
+    pub struct QueryFolderContents(
+        pub(crate) RequestBuilder<crate::model::QueryFolderContentsRequest>,
+    );
 
     impl QueryFolderContents {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -1293,7 +1297,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryUserRootContents(RequestBuilder<crate::model::QueryUserRootContentsRequest>);
+    pub struct QueryUserRootContents(
+        pub(crate) RequestBuilder<crate::model::QueryUserRootContentsRequest>,
+    );
 
     impl QueryUserRootContents {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -1409,7 +1415,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveFolder(RequestBuilder<crate::model::MoveFolderRequest>);
+    pub struct MoveFolder(pub(crate) RequestBuilder<crate::model::MoveFolderRequest>);
 
     impl MoveFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -1544,7 +1550,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
+    pub struct ListRepositories(pub(crate) RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -1659,7 +1665,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
+    pub struct GetRepository(pub(crate) RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -1719,7 +1725,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
+    pub struct CreateRepository(pub(crate) RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -1812,7 +1818,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRepository(RequestBuilder<crate::model::UpdateRepositoryRequest>);
+    pub struct UpdateRepository(pub(crate) RequestBuilder<crate::model::UpdateRepositoryRequest>);
 
     impl UpdateRepository {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -1907,7 +1913,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
+    pub struct DeleteRepository(pub(crate) RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -1977,7 +1983,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveRepository(RequestBuilder<crate::model::MoveRepositoryRequest>);
+    pub struct MoveRepository(pub(crate) RequestBuilder<crate::model::MoveRepositoryRequest>);
 
     impl MoveRepository {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -2113,7 +2119,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CommitRepositoryChanges(
-        RequestBuilder<crate::model::CommitRepositoryChangesRequest>,
+        pub(crate) RequestBuilder<crate::model::CommitRepositoryChangesRequest>,
     );
 
     impl CommitRepositoryChanges {
@@ -2217,7 +2223,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReadRepositoryFile(RequestBuilder<crate::model::ReadRepositoryFileRequest>);
+    pub struct ReadRepositoryFile(
+        pub(crate) RequestBuilder<crate::model::ReadRepositoryFileRequest>,
+    );
 
     impl ReadRepositoryFile {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -2299,7 +2307,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct QueryRepositoryDirectoryContents(
-        RequestBuilder<crate::model::QueryRepositoryDirectoryContentsRequest>,
+        pub(crate) RequestBuilder<crate::model::QueryRepositoryDirectoryContentsRequest>,
     );
 
     impl QueryRepositoryDirectoryContents {
@@ -2419,7 +2427,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchRepositoryHistory(RequestBuilder<crate::model::FetchRepositoryHistoryRequest>);
+    pub struct FetchRepositoryHistory(
+        pub(crate) RequestBuilder<crate::model::FetchRepositoryHistoryRequest>,
+    );
 
     impl FetchRepositoryHistory {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -2523,7 +2533,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ComputeRepositoryAccessTokenStatus(
-        RequestBuilder<crate::model::ComputeRepositoryAccessTokenStatusRequest>,
+        pub(crate) RequestBuilder<crate::model::ComputeRepositoryAccessTokenStatusRequest>,
     );
 
     impl ComputeRepositoryAccessTokenStatus {
@@ -2589,7 +2599,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchRemoteBranches(RequestBuilder<crate::model::FetchRemoteBranchesRequest>);
+    pub struct FetchRemoteBranches(
+        pub(crate) RequestBuilder<crate::model::FetchRemoteBranchesRequest>,
+    );
 
     impl FetchRemoteBranches {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -2656,7 +2668,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListWorkspaces(RequestBuilder<crate::model::ListWorkspacesRequest>);
+    pub struct ListWorkspaces(pub(crate) RequestBuilder<crate::model::ListWorkspacesRequest>);
 
     impl ListWorkspaces {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -2768,7 +2780,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetWorkspace(RequestBuilder<crate::model::GetWorkspaceRequest>);
+    pub struct GetWorkspace(pub(crate) RequestBuilder<crate::model::GetWorkspaceRequest>);
 
     impl GetWorkspace {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -2828,7 +2840,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateWorkspace(RequestBuilder<crate::model::CreateWorkspaceRequest>);
+    pub struct CreateWorkspace(pub(crate) RequestBuilder<crate::model::CreateWorkspaceRequest>);
 
     impl CreateWorkspace {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -2918,7 +2930,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteWorkspace(RequestBuilder<crate::model::DeleteWorkspaceRequest>);
+    pub struct DeleteWorkspace(pub(crate) RequestBuilder<crate::model::DeleteWorkspaceRequest>);
 
     impl DeleteWorkspace {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -2978,7 +2990,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InstallNpmPackages(RequestBuilder<crate::model::InstallNpmPackagesRequest>);
+    pub struct InstallNpmPackages(
+        pub(crate) RequestBuilder<crate::model::InstallNpmPackagesRequest>,
+    );
 
     impl InstallNpmPackages {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -3059,7 +3073,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PullGitCommits(RequestBuilder<crate::model::PullGitCommitsRequest>);
+    pub struct PullGitCommits(pub(crate) RequestBuilder<crate::model::PullGitCommitsRequest>);
 
     impl PullGitCommits {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -3147,7 +3161,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PushGitCommits(RequestBuilder<crate::model::PushGitCommitsRequest>);
+    pub struct PushGitCommits(pub(crate) RequestBuilder<crate::model::PushGitCommitsRequest>);
 
     impl PushGitCommits {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -3213,7 +3227,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchFileGitStatuses(RequestBuilder<crate::model::FetchFileGitStatusesRequest>);
+    pub struct FetchFileGitStatuses(
+        pub(crate) RequestBuilder<crate::model::FetchFileGitStatusesRequest>,
+    );
 
     impl FetchFileGitStatuses {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -3276,7 +3292,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchGitAheadBehind(RequestBuilder<crate::model::FetchGitAheadBehindRequest>);
+    pub struct FetchGitAheadBehind(
+        pub(crate) RequestBuilder<crate::model::FetchGitAheadBehindRequest>,
+    );
 
     impl FetchGitAheadBehind {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -3345,7 +3363,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CommitWorkspaceChanges(RequestBuilder<crate::model::CommitWorkspaceChangesRequest>);
+    pub struct CommitWorkspaceChanges(
+        pub(crate) RequestBuilder<crate::model::CommitWorkspaceChangesRequest>,
+    );
 
     impl CommitWorkspaceChanges {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -3447,7 +3467,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResetWorkspaceChanges(RequestBuilder<crate::model::ResetWorkspaceChangesRequest>);
+    pub struct ResetWorkspaceChanges(
+        pub(crate) RequestBuilder<crate::model::ResetWorkspaceChangesRequest>,
+    );
 
     impl ResetWorkspaceChanges {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -3527,7 +3549,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchFileDiff(RequestBuilder<crate::model::FetchFileDiffRequest>);
+    pub struct FetchFileDiff(pub(crate) RequestBuilder<crate::model::FetchFileDiffRequest>);
 
     impl FetchFileDiff {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -3599,7 +3621,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryDirectoryContents(RequestBuilder<crate::model::QueryDirectoryContentsRequest>);
+    pub struct QueryDirectoryContents(
+        pub(crate) RequestBuilder<crate::model::QueryDirectoryContentsRequest>,
+    );
 
     impl QueryDirectoryContents {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -3718,7 +3742,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchFiles(RequestBuilder<crate::model::SearchFilesRequest>);
+    pub struct SearchFiles(pub(crate) RequestBuilder<crate::model::SearchFilesRequest>);
 
     impl SearchFiles {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -3822,7 +3846,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MakeDirectory(RequestBuilder<crate::model::MakeDirectoryRequest>);
+    pub struct MakeDirectory(pub(crate) RequestBuilder<crate::model::MakeDirectoryRequest>);
 
     impl MakeDirectory {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -3890,7 +3914,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveDirectory(RequestBuilder<crate::model::RemoveDirectoryRequest>);
+    pub struct RemoveDirectory(pub(crate) RequestBuilder<crate::model::RemoveDirectoryRequest>);
 
     impl RemoveDirectory {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -3958,7 +3982,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveDirectory(RequestBuilder<crate::model::MoveDirectoryRequest>);
+    pub struct MoveDirectory(pub(crate) RequestBuilder<crate::model::MoveDirectoryRequest>);
 
     impl MoveDirectory {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -4034,7 +4058,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReadFile(RequestBuilder<crate::model::ReadFileRequest>);
+    pub struct ReadFile(pub(crate) RequestBuilder<crate::model::ReadFileRequest>);
 
     impl ReadFile {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -4108,7 +4132,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveFile(RequestBuilder<crate::model::RemoveFileRequest>);
+    pub struct RemoveFile(pub(crate) RequestBuilder<crate::model::RemoveFileRequest>);
 
     impl RemoveFile {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -4176,7 +4200,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveFile(RequestBuilder<crate::model::MoveFileRequest>);
+    pub struct MoveFile(pub(crate) RequestBuilder<crate::model::MoveFileRequest>);
 
     impl MoveFile {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -4252,7 +4276,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct WriteFile(RequestBuilder<crate::model::WriteFileRequest>);
+    pub struct WriteFile(pub(crate) RequestBuilder<crate::model::WriteFileRequest>);
 
     impl WriteFile {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -4332,7 +4356,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReleaseConfigs(RequestBuilder<crate::model::ListReleaseConfigsRequest>);
+    pub struct ListReleaseConfigs(
+        pub(crate) RequestBuilder<crate::model::ListReleaseConfigsRequest>,
+    );
 
     impl ListReleaseConfigs {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -4435,7 +4461,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetReleaseConfig(RequestBuilder<crate::model::GetReleaseConfigRequest>);
+    pub struct GetReleaseConfig(pub(crate) RequestBuilder<crate::model::GetReleaseConfigRequest>);
 
     impl GetReleaseConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -4498,7 +4524,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateReleaseConfig(RequestBuilder<crate::model::CreateReleaseConfigRequest>);
+    pub struct CreateReleaseConfig(
+        pub(crate) RequestBuilder<crate::model::CreateReleaseConfigRequest>,
+    );
 
     impl CreateReleaseConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -4591,7 +4619,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateReleaseConfig(RequestBuilder<crate::model::UpdateReleaseConfigRequest>);
+    pub struct UpdateReleaseConfig(
+        pub(crate) RequestBuilder<crate::model::UpdateReleaseConfigRequest>,
+    );
 
     impl UpdateReleaseConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -4686,7 +4716,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteReleaseConfig(RequestBuilder<crate::model::DeleteReleaseConfigRequest>);
+    pub struct DeleteReleaseConfig(
+        pub(crate) RequestBuilder<crate::model::DeleteReleaseConfigRequest>,
+    );
 
     impl DeleteReleaseConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -4753,7 +4785,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCompilationResults(RequestBuilder<crate::model::ListCompilationResultsRequest>);
+    pub struct ListCompilationResults(
+        pub(crate) RequestBuilder<crate::model::ListCompilationResultsRequest>,
+    );
 
     impl ListCompilationResults {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -4868,7 +4902,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCompilationResult(RequestBuilder<crate::model::GetCompilationResultRequest>);
+    pub struct GetCompilationResult(
+        pub(crate) RequestBuilder<crate::model::GetCompilationResultRequest>,
+    );
 
     impl GetCompilationResult {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -4932,7 +4968,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCompilationResult(
-        RequestBuilder<crate::model::CreateCompilationResultRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateCompilationResultRequest>,
     );
 
     impl CreateCompilationResult {
@@ -5020,7 +5056,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCompilationResultLongRunning(
-        RequestBuilder<crate::model::CreateCompilationResultRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateCompilationResultRequest>,
     );
 
     impl CreateCompilationResultLongRunning {
@@ -5167,7 +5203,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct QueryCompilationResultActions(
-        RequestBuilder<crate::model::QueryCompilationResultActionsRequest>,
+        pub(crate) RequestBuilder<crate::model::QueryCompilationResultActionsRequest>,
     );
 
     impl QueryCompilationResultActions {
@@ -5281,7 +5317,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListWorkflowConfigs(RequestBuilder<crate::model::ListWorkflowConfigsRequest>);
+    pub struct ListWorkflowConfigs(
+        pub(crate) RequestBuilder<crate::model::ListWorkflowConfigsRequest>,
+    );
 
     impl ListWorkflowConfigs {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -5384,7 +5422,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetWorkflowConfig(RequestBuilder<crate::model::GetWorkflowConfigRequest>);
+    pub struct GetWorkflowConfig(pub(crate) RequestBuilder<crate::model::GetWorkflowConfigRequest>);
 
     impl GetWorkflowConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -5447,7 +5485,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateWorkflowConfig(RequestBuilder<crate::model::CreateWorkflowConfigRequest>);
+    pub struct CreateWorkflowConfig(
+        pub(crate) RequestBuilder<crate::model::CreateWorkflowConfigRequest>,
+    );
 
     impl CreateWorkflowConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -5540,7 +5580,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateWorkflowConfig(RequestBuilder<crate::model::UpdateWorkflowConfigRequest>);
+    pub struct UpdateWorkflowConfig(
+        pub(crate) RequestBuilder<crate::model::UpdateWorkflowConfigRequest>,
+    );
 
     impl UpdateWorkflowConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -5635,7 +5677,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteWorkflowConfig(RequestBuilder<crate::model::DeleteWorkflowConfigRequest>);
+    pub struct DeleteWorkflowConfig(
+        pub(crate) RequestBuilder<crate::model::DeleteWorkflowConfigRequest>,
+    );
 
     impl DeleteWorkflowConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -5703,7 +5747,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkflowInvocations(
-        RequestBuilder<crate::model::ListWorkflowInvocationsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListWorkflowInvocationsRequest>,
     );
 
     impl ListWorkflowInvocations {
@@ -5819,7 +5863,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetWorkflowInvocation(RequestBuilder<crate::model::GetWorkflowInvocationRequest>);
+    pub struct GetWorkflowInvocation(
+        pub(crate) RequestBuilder<crate::model::GetWorkflowInvocationRequest>,
+    );
 
     impl GetWorkflowInvocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -5883,7 +5929,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkflowInvocation(
-        RequestBuilder<crate::model::CreateWorkflowInvocationRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateWorkflowInvocationRequest>,
     );
 
     impl CreateWorkflowInvocation {
@@ -5970,7 +6016,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkflowInvocation(
-        RequestBuilder<crate::model::DeleteWorkflowInvocationRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteWorkflowInvocationRequest>,
     );
 
     impl DeleteWorkflowInvocation {
@@ -6035,7 +6081,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelWorkflowInvocation(
-        RequestBuilder<crate::model::CancelWorkflowInvocationRequest>,
+        pub(crate) RequestBuilder<crate::model::CancelWorkflowInvocationRequest>,
     );
 
     impl CancelWorkflowInvocation {
@@ -6104,7 +6150,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct QueryWorkflowInvocationActions(
-        RequestBuilder<crate::model::QueryWorkflowInvocationActionsRequest>,
+        pub(crate) RequestBuilder<crate::model::QueryWorkflowInvocationActionsRequest>,
     );
 
     impl QueryWorkflowInvocationActions {
@@ -6208,7 +6254,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConfig(RequestBuilder<crate::model::GetConfigRequest>);
+    pub struct GetConfig(pub(crate) RequestBuilder<crate::model::GetConfigRequest>);
 
     impl GetConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -6268,7 +6314,7 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConfig(RequestBuilder<crate::model::UpdateConfigRequest>);
+    pub struct UpdateConfig(pub(crate) RequestBuilder<crate::model::UpdateConfigRequest>);
 
     impl UpdateConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -6360,7 +6406,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -6441,7 +6489,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -6545,7 +6595,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -6626,7 +6676,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -6733,7 +6785,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -6799,7 +6853,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -6913,7 +6967,9 @@ pub mod dataform {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Dataform>) -> Self {
@@ -6975,7 +7031,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -7038,7 +7094,7 @@ pub mod dataform {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

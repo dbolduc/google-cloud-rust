@@ -51,9 +51,9 @@ pub mod cloud_api_registry {
     /// Common implementation for [crate::client::CloudApiRegistry] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudApiRegistry>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudApiRegistry>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod cloud_api_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMcpServer(RequestBuilder<crate::model::GetMcpServerRequest>);
+    pub struct GetMcpServer(pub(crate) RequestBuilder<crate::model::GetMcpServerRequest>);
 
     impl GetMcpServer {
         pub(crate) fn new(
@@ -154,7 +154,7 @@ pub mod cloud_api_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMcpServers(RequestBuilder<crate::model::ListMcpServersRequest>);
+    pub struct ListMcpServers(pub(crate) RequestBuilder<crate::model::ListMcpServersRequest>);
 
     impl ListMcpServers {
         pub(crate) fn new(
@@ -268,7 +268,7 @@ pub mod cloud_api_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMcpTool(RequestBuilder<crate::model::GetMcpToolRequest>);
+    pub struct GetMcpTool(pub(crate) RequestBuilder<crate::model::GetMcpToolRequest>);
 
     impl GetMcpTool {
         pub(crate) fn new(
@@ -334,7 +334,7 @@ pub mod cloud_api_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMcpTools(RequestBuilder<crate::model::ListMcpToolsRequest>);
+    pub struct ListMcpTools(pub(crate) RequestBuilder<crate::model::ListMcpToolsRequest>);
 
     impl ListMcpTools {
         pub(crate) fn new(
@@ -450,7 +450,9 @@ pub mod cloud_api_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -559,7 +561,9 @@ pub mod cloud_api_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod oracle_database {
     /// Common implementation for [crate::client::OracleDatabase] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -93,7 +93,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListCloudExadataInfrastructures(
-        RequestBuilder<crate::model::ListCloudExadataInfrastructuresRequest>,
+        pub(crate) RequestBuilder<crate::model::ListCloudExadataInfrastructuresRequest>,
     );
 
     impl ListCloudExadataInfrastructures {
@@ -212,7 +212,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetCloudExadataInfrastructure(
-        RequestBuilder<crate::model::GetCloudExadataInfrastructureRequest>,
+        pub(crate) RequestBuilder<crate::model::GetCloudExadataInfrastructureRequest>,
     );
 
     impl GetCloudExadataInfrastructure {
@@ -280,7 +280,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCloudExadataInfrastructure(
-        RequestBuilder<crate::model::CreateCloudExadataInfrastructureRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateCloudExadataInfrastructureRequest>,
     );
 
     impl CreateCloudExadataInfrastructure {
@@ -446,7 +446,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCloudExadataInfrastructure(
-        RequestBuilder<crate::model::UpdateCloudExadataInfrastructureRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateCloudExadataInfrastructureRequest>,
     );
 
     impl UpdateCloudExadataInfrastructure {
@@ -611,7 +611,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCloudExadataInfrastructure(
-        RequestBuilder<crate::model::DeleteCloudExadataInfrastructureRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteCloudExadataInfrastructureRequest>,
     );
 
     impl DeleteCloudExadataInfrastructure {
@@ -740,7 +740,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ConfigureExascaleCloudExadataInfrastructure(
-        RequestBuilder<crate::model::ConfigureExascaleCloudExadataInfrastructureRequest>,
+        pub(crate) RequestBuilder<crate::model::ConfigureExascaleCloudExadataInfrastructureRequest>,
     );
 
     impl ConfigureExascaleCloudExadataInfrastructure {
@@ -888,7 +888,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCloudVmClusters(RequestBuilder<crate::model::ListCloudVmClustersRequest>);
+    pub struct ListCloudVmClusters(
+        pub(crate) RequestBuilder<crate::model::ListCloudVmClustersRequest>,
+    );
 
     impl ListCloudVmClusters {
         pub(crate) fn new(
@@ -999,7 +1001,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCloudVmCluster(RequestBuilder<crate::model::GetCloudVmClusterRequest>);
+    pub struct GetCloudVmCluster(pub(crate) RequestBuilder<crate::model::GetCloudVmClusterRequest>);
 
     impl GetCloudVmCluster {
         pub(crate) fn new(
@@ -1065,7 +1067,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCloudVmCluster(RequestBuilder<crate::model::CreateCloudVmClusterRequest>);
+    pub struct CreateCloudVmCluster(
+        pub(crate) RequestBuilder<crate::model::CreateCloudVmClusterRequest>,
+    );
 
     impl CreateCloudVmCluster {
         pub(crate) fn new(
@@ -1221,7 +1225,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCloudVmCluster(RequestBuilder<crate::model::UpdateCloudVmClusterRequest>);
+    pub struct UpdateCloudVmCluster(
+        pub(crate) RequestBuilder<crate::model::UpdateCloudVmClusterRequest>,
+    );
 
     impl UpdateCloudVmCluster {
         pub(crate) fn new(
@@ -1379,7 +1385,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCloudVmCluster(RequestBuilder<crate::model::DeleteCloudVmClusterRequest>);
+    pub struct DeleteCloudVmCluster(
+        pub(crate) RequestBuilder<crate::model::DeleteCloudVmClusterRequest>,
+    );
 
     impl DeleteCloudVmCluster {
         pub(crate) fn new(
@@ -1507,7 +1515,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct EnableCloudVmClusterIdentityConnector(
-        RequestBuilder<crate::model::EnableCloudVmClusterIdentityConnectorRequest>,
+        pub(crate) RequestBuilder<crate::model::EnableCloudVmClusterIdentityConnectorRequest>,
     );
 
     impl EnableCloudVmClusterIdentityConnector {
@@ -1629,7 +1637,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DisableCloudVmClusterIdentityConnector(
-        RequestBuilder<crate::model::DisableCloudVmClusterIdentityConnectorRequest>,
+        pub(crate) RequestBuilder<crate::model::DisableCloudVmClusterIdentityConnectorRequest>,
     );
 
     impl DisableCloudVmClusterIdentityConnector {
@@ -1753,7 +1761,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct EnableExadbVmClusterIdentityConnector(
-        RequestBuilder<crate::model::EnableExadbVmClusterIdentityConnectorRequest>,
+        pub(crate) RequestBuilder<crate::model::EnableExadbVmClusterIdentityConnectorRequest>,
     );
 
     impl EnableExadbVmClusterIdentityConnector {
@@ -1875,7 +1883,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DisableExadbVmClusterIdentityConnector(
-        RequestBuilder<crate::model::DisableExadbVmClusterIdentityConnectorRequest>,
+        pub(crate) RequestBuilder<crate::model::DisableExadbVmClusterIdentityConnectorRequest>,
     );
 
     impl DisableExadbVmClusterIdentityConnector {
@@ -2001,7 +2009,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEntitlements(RequestBuilder<crate::model::ListEntitlementsRequest>);
+    pub struct ListEntitlements(pub(crate) RequestBuilder<crate::model::ListEntitlementsRequest>);
 
     impl ListEntitlements {
         pub(crate) fn new(
@@ -2110,7 +2118,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFlexComponents(RequestBuilder<crate::model::ListFlexComponentsRequest>);
+    pub struct ListFlexComponents(
+        pub(crate) RequestBuilder<crate::model::ListFlexComponentsRequest>,
+    );
 
     impl ListFlexComponents {
         pub(crate) fn new(
@@ -2225,7 +2235,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDbServers(RequestBuilder<crate::model::ListDbServersRequest>);
+    pub struct ListDbServers(pub(crate) RequestBuilder<crate::model::ListDbServersRequest>);
 
     impl ListDbServers {
         pub(crate) fn new(
@@ -2329,7 +2339,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDbNodes(RequestBuilder<crate::model::ListDbNodesRequest>);
+    pub struct ListDbNodes(pub(crate) RequestBuilder<crate::model::ListDbNodesRequest>);
 
     impl ListDbNodes {
         pub(crate) fn new(
@@ -2433,7 +2443,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListGiVersions(RequestBuilder<crate::model::ListGiVersionsRequest>);
+    pub struct ListGiVersions(pub(crate) RequestBuilder<crate::model::ListGiVersionsRequest>);
 
     impl ListGiVersions {
         pub(crate) fn new(
@@ -2545,7 +2555,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMinorVersions(RequestBuilder<crate::model::ListMinorVersionsRequest>);
+    pub struct ListMinorVersions(pub(crate) RequestBuilder<crate::model::ListMinorVersionsRequest>);
 
     impl ListMinorVersions {
         pub(crate) fn new(
@@ -2660,7 +2670,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDbSystemShapes(RequestBuilder<crate::model::ListDbSystemShapesRequest>);
+    pub struct ListDbSystemShapes(
+        pub(crate) RequestBuilder<crate::model::ListDbSystemShapesRequest>,
+    );
 
     impl ListDbSystemShapes {
         pub(crate) fn new(
@@ -2776,7 +2788,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAutonomousDatabases(
-        RequestBuilder<crate::model::ListAutonomousDatabasesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListAutonomousDatabasesRequest>,
     );
 
     impl ListAutonomousDatabases {
@@ -2894,7 +2906,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAutonomousDatabase(RequestBuilder<crate::model::GetAutonomousDatabaseRequest>);
+    pub struct GetAutonomousDatabase(
+        pub(crate) RequestBuilder<crate::model::GetAutonomousDatabaseRequest>,
+    );
 
     impl GetAutonomousDatabase {
         pub(crate) fn new(
@@ -2961,7 +2975,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAutonomousDatabase(
-        RequestBuilder<crate::model::CreateAutonomousDatabaseRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateAutonomousDatabaseRequest>,
     );
 
     impl CreateAutonomousDatabase {
@@ -3121,7 +3135,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAutonomousDatabase(
-        RequestBuilder<crate::model::UpdateAutonomousDatabaseRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateAutonomousDatabaseRequest>,
     );
 
     impl UpdateAutonomousDatabase {
@@ -3283,7 +3297,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAutonomousDatabase(
-        RequestBuilder<crate::model::DeleteAutonomousDatabaseRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteAutonomousDatabaseRequest>,
     );
 
     impl DeleteAutonomousDatabase {
@@ -3406,7 +3420,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreAutonomousDatabase(
-        RequestBuilder<crate::model::RestoreAutonomousDatabaseRequest>,
+        pub(crate) RequestBuilder<crate::model::RestoreAutonomousDatabaseRequest>,
     );
 
     impl RestoreAutonomousDatabase {
@@ -3551,7 +3565,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAutonomousDatabaseWallet(
-        RequestBuilder<crate::model::GenerateAutonomousDatabaseWalletRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateAutonomousDatabaseWalletRequest>,
     );
 
     impl GenerateAutonomousDatabaseWallet {
@@ -3642,7 +3656,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAutonomousDbVersions(
-        RequestBuilder<crate::model::ListAutonomousDbVersionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListAutonomousDbVersionsRequest>,
     );
 
     impl ListAutonomousDbVersions {
@@ -3753,7 +3767,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAutonomousDatabaseCharacterSets(
-        RequestBuilder<crate::model::ListAutonomousDatabaseCharacterSetsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListAutonomousDatabaseCharacterSetsRequest>,
     );
 
     impl ListAutonomousDatabaseCharacterSets {
@@ -3872,7 +3886,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAutonomousDatabaseBackups(
-        RequestBuilder<crate::model::ListAutonomousDatabaseBackupsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListAutonomousDatabaseBackupsRequest>,
     );
 
     impl ListAutonomousDatabaseBackups {
@@ -3985,7 +3999,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopAutonomousDatabase(RequestBuilder<crate::model::StopAutonomousDatabaseRequest>);
+    pub struct StopAutonomousDatabase(
+        pub(crate) RequestBuilder<crate::model::StopAutonomousDatabaseRequest>,
+    );
 
     impl StopAutonomousDatabase {
         pub(crate) fn new(
@@ -4108,7 +4124,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StartAutonomousDatabase(
-        RequestBuilder<crate::model::StartAutonomousDatabaseRequest>,
+        pub(crate) RequestBuilder<crate::model::StartAutonomousDatabaseRequest>,
     );
 
     impl StartAutonomousDatabase {
@@ -4232,7 +4248,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RestartAutonomousDatabase(
-        RequestBuilder<crate::model::RestartAutonomousDatabaseRequest>,
+        pub(crate) RequestBuilder<crate::model::RestartAutonomousDatabaseRequest>,
     );
 
     impl RestartAutonomousDatabase {
@@ -4356,7 +4372,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SwitchoverAutonomousDatabase(
-        RequestBuilder<crate::model::SwitchoverAutonomousDatabaseRequest>,
+        pub(crate) RequestBuilder<crate::model::SwitchoverAutonomousDatabaseRequest>,
     );
 
     impl SwitchoverAutonomousDatabase {
@@ -4486,7 +4502,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FailoverAutonomousDatabase(
-        RequestBuilder<crate::model::FailoverAutonomousDatabaseRequest>,
+        pub(crate) RequestBuilder<crate::model::FailoverAutonomousDatabaseRequest>,
     );
 
     impl FailoverAutonomousDatabase {
@@ -4616,7 +4632,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RefreshAutonomousDatabase(
-        RequestBuilder<crate::model::RefreshAutonomousDatabaseRequest>,
+        pub(crate) RequestBuilder<crate::model::RefreshAutonomousDatabaseRequest>,
     );
 
     impl RefreshAutonomousDatabase {
@@ -4761,7 +4777,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetAutonomousDatabaseRefreshableClones(
-        RequestBuilder<crate::model::GetAutonomousDatabaseRefreshableClonesRequest>,
+        pub(crate) RequestBuilder<crate::model::GetAutonomousDatabaseRefreshableClonesRequest>,
     );
 
     impl GetAutonomousDatabaseRefreshableClones {
@@ -4833,7 +4849,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOdbNetworks(RequestBuilder<crate::model::ListOdbNetworksRequest>);
+    pub struct ListOdbNetworks(pub(crate) RequestBuilder<crate::model::ListOdbNetworksRequest>);
 
     impl ListOdbNetworks {
         pub(crate) fn new(
@@ -4947,7 +4963,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOdbNetwork(RequestBuilder<crate::model::GetOdbNetworkRequest>);
+    pub struct GetOdbNetwork(pub(crate) RequestBuilder<crate::model::GetOdbNetworkRequest>);
 
     impl GetOdbNetwork {
         pub(crate) fn new(
@@ -5010,7 +5026,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateOdbNetwork(RequestBuilder<crate::model::CreateOdbNetworkRequest>);
+    pub struct CreateOdbNetwork(pub(crate) RequestBuilder<crate::model::CreateOdbNetworkRequest>);
 
     impl CreateOdbNetwork {
         pub(crate) fn new(
@@ -5166,7 +5182,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateOdbNetwork(RequestBuilder<crate::model::UpdateOdbNetworkRequest>);
+    pub struct UpdateOdbNetwork(pub(crate) RequestBuilder<crate::model::UpdateOdbNetworkRequest>);
 
     impl UpdateOdbNetwork {
         pub(crate) fn new(
@@ -5324,7 +5340,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOdbNetwork(RequestBuilder<crate::model::DeleteOdbNetworkRequest>);
+    pub struct DeleteOdbNetwork(pub(crate) RequestBuilder<crate::model::DeleteOdbNetworkRequest>);
 
     impl DeleteOdbNetwork {
         pub(crate) fn new(
@@ -5448,7 +5464,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOdbSubnets(RequestBuilder<crate::model::ListOdbSubnetsRequest>);
+    pub struct ListOdbSubnets(pub(crate) RequestBuilder<crate::model::ListOdbSubnetsRequest>);
 
     impl ListOdbSubnets {
         pub(crate) fn new(
@@ -5562,7 +5578,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOdbSubnet(RequestBuilder<crate::model::GetOdbSubnetRequest>);
+    pub struct GetOdbSubnet(pub(crate) RequestBuilder<crate::model::GetOdbSubnetRequest>);
 
     impl GetOdbSubnet {
         pub(crate) fn new(
@@ -5625,7 +5641,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateOdbSubnet(RequestBuilder<crate::model::CreateOdbSubnetRequest>);
+    pub struct CreateOdbSubnet(pub(crate) RequestBuilder<crate::model::CreateOdbSubnetRequest>);
 
     impl CreateOdbSubnet {
         pub(crate) fn new(
@@ -5778,7 +5794,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateOdbSubnet(RequestBuilder<crate::model::UpdateOdbSubnetRequest>);
+    pub struct UpdateOdbSubnet(pub(crate) RequestBuilder<crate::model::UpdateOdbSubnetRequest>);
 
     impl UpdateOdbSubnet {
         pub(crate) fn new(
@@ -5933,7 +5949,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOdbSubnet(RequestBuilder<crate::model::DeleteOdbSubnetRequest>);
+    pub struct DeleteOdbSubnet(pub(crate) RequestBuilder<crate::model::DeleteOdbSubnetRequest>);
 
     impl DeleteOdbSubnet {
         pub(crate) fn new(
@@ -6054,7 +6070,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOdbDnsZones(RequestBuilder<crate::model::ListOdbDnsZonesRequest>);
+    pub struct ListOdbDnsZones(pub(crate) RequestBuilder<crate::model::ListOdbDnsZonesRequest>);
 
     impl ListOdbDnsZones {
         pub(crate) fn new(
@@ -6168,7 +6184,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOdbDnsZone(RequestBuilder<crate::model::GetOdbDnsZoneRequest>);
+    pub struct GetOdbDnsZone(pub(crate) RequestBuilder<crate::model::GetOdbDnsZoneRequest>);
 
     impl GetOdbDnsZone {
         pub(crate) fn new(
@@ -6231,7 +6247,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateOdbDnsZone(RequestBuilder<crate::model::CreateOdbDnsZoneRequest>);
+    pub struct CreateOdbDnsZone(pub(crate) RequestBuilder<crate::model::CreateOdbDnsZoneRequest>);
 
     impl CreateOdbDnsZone {
         pub(crate) fn new(
@@ -6387,7 +6403,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOdbDnsZone(RequestBuilder<crate::model::DeleteOdbDnsZoneRequest>);
+    pub struct DeleteOdbDnsZone(pub(crate) RequestBuilder<crate::model::DeleteOdbDnsZoneRequest>);
 
     impl DeleteOdbDnsZone {
         pub(crate) fn new(
@@ -6511,7 +6527,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListExadbVmClusters(RequestBuilder<crate::model::ListExadbVmClustersRequest>);
+    pub struct ListExadbVmClusters(
+        pub(crate) RequestBuilder<crate::model::ListExadbVmClustersRequest>,
+    );
 
     impl ListExadbVmClusters {
         pub(crate) fn new(
@@ -6628,7 +6646,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetExadbVmCluster(RequestBuilder<crate::model::GetExadbVmClusterRequest>);
+    pub struct GetExadbVmCluster(pub(crate) RequestBuilder<crate::model::GetExadbVmClusterRequest>);
 
     impl GetExadbVmCluster {
         pub(crate) fn new(
@@ -6694,7 +6712,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateExadbVmCluster(RequestBuilder<crate::model::CreateExadbVmClusterRequest>);
+    pub struct CreateExadbVmCluster(
+        pub(crate) RequestBuilder<crate::model::CreateExadbVmClusterRequest>,
+    );
 
     impl CreateExadbVmCluster {
         pub(crate) fn new(
@@ -6850,7 +6870,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteExadbVmCluster(RequestBuilder<crate::model::DeleteExadbVmClusterRequest>);
+    pub struct DeleteExadbVmCluster(
+        pub(crate) RequestBuilder<crate::model::DeleteExadbVmClusterRequest>,
+    );
 
     impl DeleteExadbVmCluster {
         pub(crate) fn new(
@@ -6971,7 +6993,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateExadbVmCluster(RequestBuilder<crate::model::UpdateExadbVmClusterRequest>);
+    pub struct UpdateExadbVmCluster(
+        pub(crate) RequestBuilder<crate::model::UpdateExadbVmClusterRequest>,
+    );
 
     impl UpdateExadbVmCluster {
         pub(crate) fn new(
@@ -7130,7 +7154,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveVirtualMachineExadbVmCluster(
-        RequestBuilder<crate::model::RemoveVirtualMachineExadbVmClusterRequest>,
+        pub(crate) RequestBuilder<crate::model::RemoveVirtualMachineExadbVmClusterRequest>,
     );
 
     impl RemoveVirtualMachineExadbVmCluster {
@@ -7274,7 +7298,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListExascaleDbStorageVaults(
-        RequestBuilder<crate::model::ListExascaleDbStorageVaultsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListExascaleDbStorageVaultsRequest>,
     );
 
     impl ListExascaleDbStorageVaults {
@@ -7393,7 +7417,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetExascaleDbStorageVault(
-        RequestBuilder<crate::model::GetExascaleDbStorageVaultRequest>,
+        pub(crate) RequestBuilder<crate::model::GetExascaleDbStorageVaultRequest>,
     );
 
     impl GetExascaleDbStorageVault {
@@ -7461,7 +7485,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateExascaleDbStorageVault(
-        RequestBuilder<crate::model::CreateExascaleDbStorageVaultRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateExascaleDbStorageVaultRequest>,
     );
 
     impl CreateExascaleDbStorageVault {
@@ -7627,7 +7651,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateExascaleDbStorageVault(
-        RequestBuilder<crate::model::UpdateExascaleDbStorageVaultRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateExascaleDbStorageVaultRequest>,
     );
 
     impl UpdateExascaleDbStorageVault {
@@ -7792,7 +7816,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteExascaleDbStorageVault(
-        RequestBuilder<crate::model::DeleteExascaleDbStorageVaultRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteExascaleDbStorageVaultRequest>,
     );
 
     impl DeleteExascaleDbStorageVault {
@@ -7918,7 +7942,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListDbSystemInitialStorageSizes(
-        RequestBuilder<crate::model::ListDbSystemInitialStorageSizesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListDbSystemInitialStorageSizesRequest>,
     );
 
     impl ListDbSystemInitialStorageSizes {
@@ -8029,7 +8053,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListDbSystemComputePerformances(
-        RequestBuilder<crate::model::ListDbSystemComputePerformancesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListDbSystemComputePerformancesRequest>,
     );
 
     impl ListDbSystemComputePerformances {
@@ -8145,7 +8169,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
+    pub struct ListDatabases(pub(crate) RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
         pub(crate) fn new(
@@ -8251,7 +8275,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
+    pub struct GetDatabase(pub(crate) RequestBuilder<crate::model::GetDatabaseRequest>);
 
     impl GetDatabase {
         pub(crate) fn new(
@@ -8317,7 +8341,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPluggableDatabases(RequestBuilder<crate::model::ListPluggableDatabasesRequest>);
+    pub struct ListPluggableDatabases(
+        pub(crate) RequestBuilder<crate::model::ListPluggableDatabasesRequest>,
+    );
 
     impl ListPluggableDatabases {
         pub(crate) fn new(
@@ -8428,7 +8454,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPluggableDatabase(RequestBuilder<crate::model::GetPluggableDatabaseRequest>);
+    pub struct GetPluggableDatabase(
+        pub(crate) RequestBuilder<crate::model::GetPluggableDatabaseRequest>,
+    );
 
     impl GetPluggableDatabase {
         pub(crate) fn new(
@@ -8497,7 +8525,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDbSystems(RequestBuilder<crate::model::ListDbSystemsRequest>);
+    pub struct ListDbSystems(pub(crate) RequestBuilder<crate::model::ListDbSystemsRequest>);
 
     impl ListDbSystems {
         pub(crate) fn new(
@@ -8609,7 +8637,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDbSystem(RequestBuilder<crate::model::GetDbSystemRequest>);
+    pub struct GetDbSystem(pub(crate) RequestBuilder<crate::model::GetDbSystemRequest>);
 
     impl GetDbSystem {
         pub(crate) fn new(
@@ -8672,7 +8700,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDbSystem(RequestBuilder<crate::model::CreateDbSystemRequest>);
+    pub struct CreateDbSystem(pub(crate) RequestBuilder<crate::model::CreateDbSystemRequest>);
 
     impl CreateDbSystem {
         pub(crate) fn new(
@@ -8825,7 +8853,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDbSystem(RequestBuilder<crate::model::UpdateDbSystemRequest>);
+    pub struct UpdateDbSystem(pub(crate) RequestBuilder<crate::model::UpdateDbSystemRequest>);
 
     impl UpdateDbSystem {
         pub(crate) fn new(
@@ -8980,7 +9008,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDbSystem(RequestBuilder<crate::model::DeleteDbSystemRequest>);
+    pub struct DeleteDbSystem(pub(crate) RequestBuilder<crate::model::DeleteDbSystemRequest>);
 
     impl DeleteDbSystem {
         pub(crate) fn new(
@@ -9102,7 +9130,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListGoldengateDeployments(
-        RequestBuilder<crate::model::ListGoldengateDeploymentsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListGoldengateDeploymentsRequest>,
     );
 
     impl ListGoldengateDeployments {
@@ -9221,7 +9249,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetGoldengateDeployment(
-        RequestBuilder<crate::model::GetGoldengateDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::GetGoldengateDeploymentRequest>,
     );
 
     impl GetGoldengateDeployment {
@@ -9289,7 +9317,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGoldengateDeployment(
-        RequestBuilder<crate::model::CreateGoldengateDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateGoldengateDeploymentRequest>,
     );
 
     impl CreateGoldengateDeployment {
@@ -9449,7 +9477,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGoldengateDeployment(
-        RequestBuilder<crate::model::UpdateGoldengateDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateGoldengateDeploymentRequest>,
     );
 
     impl UpdateGoldengateDeployment {
@@ -9611,7 +9639,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGoldengateDeployment(
-        RequestBuilder<crate::model::DeleteGoldengateDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteGoldengateDeploymentRequest>,
     );
 
     impl DeleteGoldengateDeployment {
@@ -9734,7 +9762,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StopGoldengateDeployment(
-        RequestBuilder<crate::model::StopGoldengateDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::StopGoldengateDeploymentRequest>,
     );
 
     impl StopGoldengateDeployment {
@@ -9858,7 +9886,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StartGoldengateDeployment(
-        RequestBuilder<crate::model::StartGoldengateDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::StartGoldengateDeploymentRequest>,
     );
 
     impl StartGoldengateDeployment {
@@ -9985,7 +10013,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListGoldengateConnections(
-        RequestBuilder<crate::model::ListGoldengateConnectionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListGoldengateConnectionsRequest>,
     );
 
     impl ListGoldengateConnections {
@@ -10104,7 +10132,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetGoldengateConnection(
-        RequestBuilder<crate::model::GetGoldengateConnectionRequest>,
+        pub(crate) RequestBuilder<crate::model::GetGoldengateConnectionRequest>,
     );
 
     impl GetGoldengateConnection {
@@ -10172,7 +10200,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGoldengateConnection(
-        RequestBuilder<crate::model::CreateGoldengateConnectionRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateGoldengateConnectionRequest>,
     );
 
     impl CreateGoldengateConnection {
@@ -10332,7 +10360,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGoldengateConnection(
-        RequestBuilder<crate::model::UpdateGoldengateConnectionRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateGoldengateConnectionRequest>,
     );
 
     impl UpdateGoldengateConnection {
@@ -10494,7 +10522,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGoldengateConnection(
-        RequestBuilder<crate::model::DeleteGoldengateConnectionRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteGoldengateConnectionRequest>,
     );
 
     impl DeleteGoldengateConnection {
@@ -10620,7 +10648,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListGoldengateDeploymentVersions(
-        RequestBuilder<crate::model::ListGoldengateDeploymentVersionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListGoldengateDeploymentVersionsRequest>,
     );
 
     impl ListGoldengateDeploymentVersions {
@@ -10737,7 +10765,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListGoldengateDeploymentTypes(
-        RequestBuilder<crate::model::ListGoldengateDeploymentTypesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListGoldengateDeploymentTypesRequest>,
     );
 
     impl ListGoldengateDeploymentTypes {
@@ -10860,7 +10888,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListGoldengateDeploymentEnvironments(
-        RequestBuilder<crate::model::ListGoldengateDeploymentEnvironmentsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListGoldengateDeploymentEnvironmentsRequest>,
     );
 
     impl ListGoldengateDeploymentEnvironments {
@@ -10973,7 +11001,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListGoldengateConnectionTypes(
-        RequestBuilder<crate::model::ListGoldengateConnectionTypesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListGoldengateConnectionTypesRequest>,
     );
 
     impl ListGoldengateConnectionTypes {
@@ -11089,7 +11117,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDbVersions(RequestBuilder<crate::model::ListDbVersionsRequest>);
+    pub struct ListDbVersions(pub(crate) RequestBuilder<crate::model::ListDbVersionsRequest>);
 
     impl ListDbVersions {
         pub(crate) fn new(
@@ -11202,7 +11230,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListDatabaseCharacterSets(
-        RequestBuilder<crate::model::ListDatabaseCharacterSetsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListDatabaseCharacterSetsRequest>,
     );
 
     impl ListDatabaseCharacterSets {
@@ -11319,7 +11347,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListGoldengateConnectionAssignments(
-        RequestBuilder<crate::model::ListGoldengateConnectionAssignmentsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListGoldengateConnectionAssignmentsRequest>,
     );
 
     impl ListGoldengateConnectionAssignments {
@@ -11440,7 +11468,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetGoldengateConnectionAssignment(
-        RequestBuilder<crate::model::GetGoldengateConnectionAssignmentRequest>,
+        pub(crate) RequestBuilder<crate::model::GetGoldengateConnectionAssignmentRequest>,
     );
 
     impl GetGoldengateConnectionAssignment {
@@ -11508,7 +11536,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGoldengateConnectionAssignment(
-        RequestBuilder<crate::model::CreateGoldengateConnectionAssignmentRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateGoldengateConnectionAssignmentRequest>,
     );
 
     impl CreateGoldengateConnectionAssignment {
@@ -11674,7 +11702,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGoldengateConnectionAssignment(
-        RequestBuilder<crate::model::UpdateGoldengateConnectionAssignmentRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateGoldengateConnectionAssignmentRequest>,
     );
 
     impl UpdateGoldengateConnectionAssignment {
@@ -11839,7 +11867,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGoldengateConnectionAssignment(
-        RequestBuilder<crate::model::DeleteGoldengateConnectionAssignmentRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteGoldengateConnectionAssignmentRequest>,
     );
 
     impl DeleteGoldengateConnectionAssignment {
@@ -11961,7 +11989,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestGoldengateConnectionAssignment(
-        RequestBuilder<crate::model::TestGoldengateConnectionAssignmentRequest>,
+        pub(crate) RequestBuilder<crate::model::TestGoldengateConnectionAssignmentRequest>,
     );
 
     impl TestGoldengateConnectionAssignment {
@@ -12045,7 +12073,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListDatabaseConnections(
-        RequestBuilder<crate::model::ListDatabaseConnectionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListDatabaseConnectionsRequest>,
     );
 
     impl ListDatabaseConnections {
@@ -12163,7 +12191,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDatabaseConnection(RequestBuilder<crate::model::GetDatabaseConnectionRequest>);
+    pub struct GetDatabaseConnection(
+        pub(crate) RequestBuilder<crate::model::GetDatabaseConnectionRequest>,
+    );
 
     impl GetDatabaseConnection {
         pub(crate) fn new(
@@ -12230,7 +12260,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDatabaseConnection(
-        RequestBuilder<crate::model::CreateDatabaseConnectionRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateDatabaseConnectionRequest>,
     );
 
     impl CreateDatabaseConnection {
@@ -12390,7 +12420,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDatabaseConnection(
-        RequestBuilder<crate::model::UpdateDatabaseConnectionRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateDatabaseConnectionRequest>,
     );
 
     impl UpdateDatabaseConnection {
@@ -12552,7 +12582,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDatabaseConnection(
-        RequestBuilder<crate::model::DeleteDatabaseConnectionRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteDatabaseConnectionRequest>,
     );
 
     impl DeleteDatabaseConnection {
@@ -12673,7 +12703,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestDatabaseConnection(RequestBuilder<crate::model::TestDatabaseConnectionRequest>);
+    pub struct TestDatabaseConnection(
+        pub(crate) RequestBuilder<crate::model::TestDatabaseConnectionRequest>,
+    );
 
     impl TestDatabaseConnection {
         pub(crate) fn new(
@@ -12738,7 +12770,7 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExecuteSql(RequestBuilder<crate::model::ExecuteSqlRequest>);
+    pub struct ExecuteSql(pub(crate) RequestBuilder<crate::model::ExecuteSqlRequest>);
 
     impl ExecuteSql {
         pub(crate) fn new(
@@ -12823,7 +12855,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -12932,7 +12966,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -13000,7 +13036,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -13116,7 +13152,9 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -13180,7 +13218,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -13245,7 +13283,7 @@ pub mod oracle_database {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

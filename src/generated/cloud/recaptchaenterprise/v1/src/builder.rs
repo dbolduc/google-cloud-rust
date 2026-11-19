@@ -51,9 +51,10 @@ pub mod recaptcha_enterprise_service {
     /// Common implementation for [crate::client::RecaptchaEnterpriseService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +89,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAssessment(RequestBuilder<crate::model::CreateAssessmentRequest>);
+    pub struct CreateAssessment(pub(crate) RequestBuilder<crate::model::CreateAssessmentRequest>);
 
     impl CreateAssessment {
         pub(crate) fn new(
@@ -175,7 +176,9 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AnnotateAssessment(RequestBuilder<crate::model::AnnotateAssessmentRequest>);
+    pub struct AnnotateAssessment(
+        pub(crate) RequestBuilder<crate::model::AnnotateAssessmentRequest>,
+    );
 
     impl AnnotateAssessment {
         pub(crate) fn new(
@@ -311,7 +314,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateKey(RequestBuilder<crate::model::CreateKeyRequest>);
+    pub struct CreateKey(pub(crate) RequestBuilder<crate::model::CreateKeyRequest>);
 
     impl CreateKey {
         pub(crate) fn new(
@@ -399,7 +402,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListKeys(RequestBuilder<crate::model::ListKeysRequest>);
+    pub struct ListKeys(pub(crate) RequestBuilder<crate::model::ListKeysRequest>);
 
     impl ListKeys {
         pub(crate) fn new(
@@ -498,7 +501,7 @@ pub mod recaptcha_enterprise_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveLegacySecretKey(
-        RequestBuilder<crate::model::RetrieveLegacySecretKeyRequest>,
+        pub(crate) RequestBuilder<crate::model::RetrieveLegacySecretKeyRequest>,
     );
 
     impl RetrieveLegacySecretKey {
@@ -564,7 +567,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetKey(RequestBuilder<crate::model::GetKeyRequest>);
+    pub struct GetKey(pub(crate) RequestBuilder<crate::model::GetKeyRequest>);
 
     impl GetKey {
         pub(crate) fn new(
@@ -626,7 +629,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateKey(RequestBuilder<crate::model::UpdateKeyRequest>);
+    pub struct UpdateKey(pub(crate) RequestBuilder<crate::model::UpdateKeyRequest>);
 
     impl UpdateKey {
         pub(crate) fn new(
@@ -720,7 +723,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteKey(RequestBuilder<crate::model::DeleteKeyRequest>);
+    pub struct DeleteKey(pub(crate) RequestBuilder<crate::model::DeleteKeyRequest>);
 
     impl DeleteKey {
         pub(crate) fn new(
@@ -782,7 +785,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MigrateKey(RequestBuilder<crate::model::MigrateKeyRequest>);
+    pub struct MigrateKey(pub(crate) RequestBuilder<crate::model::MigrateKeyRequest>);
 
     impl MigrateKey {
         pub(crate) fn new(
@@ -850,7 +853,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddIpOverride(RequestBuilder<crate::model::AddIpOverrideRequest>);
+    pub struct AddIpOverride(pub(crate) RequestBuilder<crate::model::AddIpOverrideRequest>);
 
     impl AddIpOverride {
         pub(crate) fn new(
@@ -934,7 +937,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveIpOverride(RequestBuilder<crate::model::RemoveIpOverrideRequest>);
+    pub struct RemoveIpOverride(pub(crate) RequestBuilder<crate::model::RemoveIpOverrideRequest>);
 
     impl RemoveIpOverride {
         pub(crate) fn new(
@@ -1025,7 +1028,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListIpOverrides(RequestBuilder<crate::model::ListIpOverridesRequest>);
+    pub struct ListIpOverrides(pub(crate) RequestBuilder<crate::model::ListIpOverridesRequest>);
 
     impl ListIpOverrides {
         pub(crate) fn new(
@@ -1127,7 +1130,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMetrics(RequestBuilder<crate::model::GetMetricsRequest>);
+    pub struct GetMetrics(pub(crate) RequestBuilder<crate::model::GetMetricsRequest>);
 
     impl GetMetrics {
         pub(crate) fn new(
@@ -1189,7 +1192,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
+    pub struct GetPolicy(pub(crate) RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
         pub(crate) fn new(
@@ -1251,7 +1254,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
+    pub struct UpdatePolicy(pub(crate) RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
         pub(crate) fn new(
@@ -1345,7 +1348,9 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateFirewallPolicy(RequestBuilder<crate::model::CreateFirewallPolicyRequest>);
+    pub struct CreateFirewallPolicy(
+        pub(crate) RequestBuilder<crate::model::CreateFirewallPolicyRequest>,
+    );
 
     impl CreateFirewallPolicy {
         pub(crate) fn new(
@@ -1436,7 +1441,9 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFirewallPolicies(RequestBuilder<crate::model::ListFirewallPoliciesRequest>);
+    pub struct ListFirewallPolicies(
+        pub(crate) RequestBuilder<crate::model::ListFirewallPoliciesRequest>,
+    );
 
     impl ListFirewallPolicies {
         pub(crate) fn new(
@@ -1541,7 +1548,7 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFirewallPolicy(RequestBuilder<crate::model::GetFirewallPolicyRequest>);
+    pub struct GetFirewallPolicy(pub(crate) RequestBuilder<crate::model::GetFirewallPolicyRequest>);
 
     impl GetFirewallPolicy {
         pub(crate) fn new(
@@ -1606,7 +1613,9 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFirewallPolicy(RequestBuilder<crate::model::UpdateFirewallPolicyRequest>);
+    pub struct UpdateFirewallPolicy(
+        pub(crate) RequestBuilder<crate::model::UpdateFirewallPolicyRequest>,
+    );
 
     impl UpdateFirewallPolicy {
         pub(crate) fn new(
@@ -1703,7 +1712,9 @@ pub mod recaptcha_enterprise_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFirewallPolicy(RequestBuilder<crate::model::DeleteFirewallPolicyRequest>);
+    pub struct DeleteFirewallPolicy(
+        pub(crate) RequestBuilder<crate::model::DeleteFirewallPolicyRequest>,
+    );
 
     impl DeleteFirewallPolicy {
         pub(crate) fn new(
@@ -1769,7 +1780,7 @@ pub mod recaptcha_enterprise_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ReorderFirewallPolicies(
-        RequestBuilder<crate::model::ReorderFirewallPoliciesRequest>,
+        pub(crate) RequestBuilder<crate::model::ReorderFirewallPoliciesRequest>,
     );
 
     impl ReorderFirewallPolicies {
@@ -1853,7 +1864,7 @@ pub mod recaptcha_enterprise_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListRelatedAccountGroups(
-        RequestBuilder<crate::model::ListRelatedAccountGroupsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListRelatedAccountGroupsRequest>,
     );
 
     impl ListRelatedAccountGroups {
@@ -1964,7 +1975,7 @@ pub mod recaptcha_enterprise_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListRelatedAccountGroupMemberships(
-        RequestBuilder<crate::model::ListRelatedAccountGroupMembershipsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListRelatedAccountGroupMembershipsRequest>,
     );
 
     impl ListRelatedAccountGroupMemberships {
@@ -2077,7 +2088,7 @@ pub mod recaptcha_enterprise_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SearchRelatedAccountGroupMemberships(
-        RequestBuilder<crate::model::SearchRelatedAccountGroupMembershipsRequest>,
+        pub(crate) RequestBuilder<crate::model::SearchRelatedAccountGroupMembershipsRequest>,
     );
 
     impl SearchRelatedAccountGroupMemberships {

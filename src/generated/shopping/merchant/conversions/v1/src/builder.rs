@@ -51,9 +51,9 @@ pub mod conversion_sources_service {
     /// Common implementation for [crate::client::ConversionSourcesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConversionSourcesService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ConversionSourcesService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod conversion_sources_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateConversionSource(RequestBuilder<crate::model::CreateConversionSourceRequest>);
+    pub struct CreateConversionSource(
+        pub(crate) RequestBuilder<crate::model::CreateConversionSourceRequest>,
+    );
 
     impl CreateConversionSource {
         pub(crate) fn new(
@@ -175,7 +177,9 @@ pub mod conversion_sources_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConversionSource(RequestBuilder<crate::model::UpdateConversionSourceRequest>);
+    pub struct UpdateConversionSource(
+        pub(crate) RequestBuilder<crate::model::UpdateConversionSourceRequest>,
+    );
 
     impl UpdateConversionSource {
         pub(crate) fn new(
@@ -272,7 +276,9 @@ pub mod conversion_sources_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteConversionSource(RequestBuilder<crate::model::DeleteConversionSourceRequest>);
+    pub struct DeleteConversionSource(
+        pub(crate) RequestBuilder<crate::model::DeleteConversionSourceRequest>,
+    );
 
     impl DeleteConversionSource {
         pub(crate) fn new(
@@ -338,7 +344,7 @@ pub mod conversion_sources_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteConversionSource(
-        RequestBuilder<crate::model::UndeleteConversionSourceRequest>,
+        pub(crate) RequestBuilder<crate::model::UndeleteConversionSourceRequest>,
     );
 
     impl UndeleteConversionSource {
@@ -404,7 +410,9 @@ pub mod conversion_sources_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConversionSource(RequestBuilder<crate::model::GetConversionSourceRequest>);
+    pub struct GetConversionSource(
+        pub(crate) RequestBuilder<crate::model::GetConversionSourceRequest>,
+    );
 
     impl GetConversionSource {
         pub(crate) fn new(
@@ -473,7 +481,9 @@ pub mod conversion_sources_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConversionSources(RequestBuilder<crate::model::ListConversionSourcesRequest>);
+    pub struct ListConversionSources(
+        pub(crate) RequestBuilder<crate::model::ListConversionSourcesRequest>,
+    );
 
     impl ListConversionSources {
         pub(crate) fn new(

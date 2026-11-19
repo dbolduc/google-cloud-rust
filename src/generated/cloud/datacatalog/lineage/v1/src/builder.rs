@@ -51,9 +51,9 @@ pub mod lineage {
     /// Common implementation for [crate::client::Lineage] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -87,7 +87,7 @@ pub mod lineage {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ProcessOpenLineageRunEvent(
-        RequestBuilder<crate::model::ProcessOpenLineageRunEventRequest>,
+        pub(crate) RequestBuilder<crate::model::ProcessOpenLineageRunEventRequest>,
     );
 
     impl ProcessOpenLineageRunEvent {
@@ -190,7 +190,7 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateProcess(RequestBuilder<crate::model::CreateProcessRequest>);
+    pub struct CreateProcess(pub(crate) RequestBuilder<crate::model::CreateProcessRequest>);
 
     impl CreateProcess {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -289,7 +289,7 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateProcess(RequestBuilder<crate::model::UpdateProcessRequest>);
+    pub struct UpdateProcess(pub(crate) RequestBuilder<crate::model::UpdateProcessRequest>);
 
     impl UpdateProcess {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -404,7 +404,7 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProcess(RequestBuilder<crate::model::GetProcessRequest>);
+    pub struct GetProcess(pub(crate) RequestBuilder<crate::model::GetProcessRequest>);
 
     impl GetProcess {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -468,7 +468,7 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProcesses(RequestBuilder<crate::model::ListProcessesRequest>);
+    pub struct ListProcesses(pub(crate) RequestBuilder<crate::model::ListProcessesRequest>);
 
     impl ListProcesses {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -567,7 +567,7 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteProcess(RequestBuilder<crate::model::DeleteProcessRequest>);
+    pub struct DeleteProcess(pub(crate) RequestBuilder<crate::model::DeleteProcessRequest>);
 
     impl DeleteProcess {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -682,7 +682,7 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRun(RequestBuilder<crate::model::CreateRunRequest>);
+    pub struct CreateRun(pub(crate) RequestBuilder<crate::model::CreateRunRequest>);
 
     impl CreateRun {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -781,7 +781,7 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRun(RequestBuilder<crate::model::UpdateRunRequest>);
+    pub struct UpdateRun(pub(crate) RequestBuilder<crate::model::UpdateRunRequest>);
 
     impl UpdateRun {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -879,7 +879,7 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRun(RequestBuilder<crate::model::GetRunRequest>);
+    pub struct GetRun(pub(crate) RequestBuilder<crate::model::GetRunRequest>);
 
     impl GetRun {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -943,7 +943,7 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRuns(RequestBuilder<crate::model::ListRunsRequest>);
+    pub struct ListRuns(pub(crate) RequestBuilder<crate::model::ListRunsRequest>);
 
     impl ListRuns {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -1040,7 +1040,7 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRun(RequestBuilder<crate::model::DeleteRunRequest>);
+    pub struct DeleteRun(pub(crate) RequestBuilder<crate::model::DeleteRunRequest>);
 
     impl DeleteRun {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -1156,7 +1156,9 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateLineageEvent(RequestBuilder<crate::model::CreateLineageEventRequest>);
+    pub struct CreateLineageEvent(
+        pub(crate) RequestBuilder<crate::model::CreateLineageEventRequest>,
+    );
 
     impl CreateLineageEvent {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -1258,7 +1260,7 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLineageEvent(RequestBuilder<crate::model::GetLineageEventRequest>);
+    pub struct GetLineageEvent(pub(crate) RequestBuilder<crate::model::GetLineageEventRequest>);
 
     impl GetLineageEvent {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -1322,7 +1324,7 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLineageEvents(RequestBuilder<crate::model::ListLineageEventsRequest>);
+    pub struct ListLineageEvents(pub(crate) RequestBuilder<crate::model::ListLineageEventsRequest>);
 
     impl ListLineageEvents {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -1425,7 +1427,9 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteLineageEvent(RequestBuilder<crate::model::DeleteLineageEventRequest>);
+    pub struct DeleteLineageEvent(
+        pub(crate) RequestBuilder<crate::model::DeleteLineageEventRequest>,
+    );
 
     impl DeleteLineageEvent {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -1498,7 +1502,7 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchLinks(RequestBuilder<crate::model::SearchLinksRequest>);
+    pub struct SearchLinks(pub(crate) RequestBuilder<crate::model::SearchLinksRequest>);
 
     impl SearchLinks {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -1669,7 +1673,7 @@ pub mod lineage {
     /// ```
     #[derive(Clone, Debug)]
     pub struct BatchSearchLinkProcesses(
-        RequestBuilder<crate::model::BatchSearchLinkProcessesRequest>,
+        pub(crate) RequestBuilder<crate::model::BatchSearchLinkProcessesRequest>,
     );
 
     impl BatchSearchLinkProcesses {
@@ -1789,7 +1793,9 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchLineageStreaming(RequestBuilder<crate::model::SearchLineageStreamingRequest>);
+    pub struct SearchLineageStreaming(
+        pub(crate) RequestBuilder<crate::model::SearchLineageStreamingRequest>,
+    );
 
     impl SearchLineageStreaming {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -1946,7 +1952,7 @@ pub mod lineage {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2060,7 +2066,9 @@ pub mod lineage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
@@ -2122,7 +2130,7 @@ pub mod lineage {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2185,7 +2193,7 @@ pub mod lineage {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

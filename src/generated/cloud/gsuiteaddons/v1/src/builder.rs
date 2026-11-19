@@ -51,9 +51,9 @@ pub mod g_suite_add_ons {
     /// Common implementation for [crate::client::GSuiteAddOns] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod g_suite_add_ons {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAuthorization(RequestBuilder<crate::model::GetAuthorizationRequest>);
+    pub struct GetAuthorization(pub(crate) RequestBuilder<crate::model::GetAuthorizationRequest>);
 
     impl GetAuthorization {
         pub(crate) fn new(
@@ -153,7 +153,7 @@ pub mod g_suite_add_ons {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
+    pub struct CreateDeployment(pub(crate) RequestBuilder<crate::model::CreateDeploymentRequest>);
 
     impl CreateDeployment {
         pub(crate) fn new(
@@ -248,7 +248,7 @@ pub mod g_suite_add_ons {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReplaceDeployment(RequestBuilder<crate::model::ReplaceDeploymentRequest>);
+    pub struct ReplaceDeployment(pub(crate) RequestBuilder<crate::model::ReplaceDeploymentRequest>);
 
     impl ReplaceDeployment {
         pub(crate) fn new(
@@ -327,7 +327,7 @@ pub mod g_suite_add_ons {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
+    pub struct GetDeployment(pub(crate) RequestBuilder<crate::model::GetDeploymentRequest>);
 
     impl GetDeployment {
         pub(crate) fn new(
@@ -393,7 +393,7 @@ pub mod g_suite_add_ons {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
+    pub struct ListDeployments(pub(crate) RequestBuilder<crate::model::ListDeploymentsRequest>);
 
     impl ListDeployments {
         pub(crate) fn new(
@@ -495,7 +495,7 @@ pub mod g_suite_add_ons {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDeployment(RequestBuilder<crate::model::DeleteDeploymentRequest>);
+    pub struct DeleteDeployment(pub(crate) RequestBuilder<crate::model::DeleteDeploymentRequest>);
 
     impl DeleteDeployment {
         pub(crate) fn new(
@@ -566,7 +566,7 @@ pub mod g_suite_add_ons {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InstallDeployment(RequestBuilder<crate::model::InstallDeploymentRequest>);
+    pub struct InstallDeployment(pub(crate) RequestBuilder<crate::model::InstallDeploymentRequest>);
 
     impl InstallDeployment {
         pub(crate) fn new(
@@ -631,7 +631,9 @@ pub mod g_suite_add_ons {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UninstallDeployment(RequestBuilder<crate::model::UninstallDeploymentRequest>);
+    pub struct UninstallDeployment(
+        pub(crate) RequestBuilder<crate::model::UninstallDeploymentRequest>,
+    );
 
     impl UninstallDeployment {
         pub(crate) fn new(
@@ -696,7 +698,7 @@ pub mod g_suite_add_ons {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstallStatus(RequestBuilder<crate::model::GetInstallStatusRequest>);
+    pub struct GetInstallStatus(pub(crate) RequestBuilder<crate::model::GetInstallStatusRequest>);
 
     impl GetInstallStatus {
         pub(crate) fn new(

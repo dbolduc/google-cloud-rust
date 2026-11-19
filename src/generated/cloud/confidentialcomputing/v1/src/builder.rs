@@ -51,9 +51,9 @@ pub mod confidential_computing {
     /// Common implementation for [crate::client::ConfidentialComputing] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod confidential_computing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateChallenge(RequestBuilder<crate::model::CreateChallengeRequest>);
+    pub struct CreateChallenge(pub(crate) RequestBuilder<crate::model::CreateChallengeRequest>);
 
     impl CreateChallenge {
         pub(crate) fn new(
@@ -172,7 +172,7 @@ pub mod confidential_computing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct VerifyAttestation(RequestBuilder<crate::model::VerifyAttestationRequest>);
+    pub struct VerifyAttestation(pub(crate) RequestBuilder<crate::model::VerifyAttestationRequest>);
 
     impl VerifyAttestation {
         pub(crate) fn new(
@@ -399,7 +399,7 @@ pub mod confidential_computing {
     /// ```
     #[derive(Clone, Debug)]
     pub struct VerifyConfidentialSpace(
-        RequestBuilder<crate::model::VerifyConfidentialSpaceRequest>,
+        pub(crate) RequestBuilder<crate::model::VerifyConfidentialSpaceRequest>,
     );
 
     impl VerifyConfidentialSpace {
@@ -596,7 +596,9 @@ pub mod confidential_computing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct VerifyConfidentialGke(RequestBuilder<crate::model::VerifyConfidentialGkeRequest>);
+    pub struct VerifyConfidentialGke(
+        pub(crate) RequestBuilder<crate::model::VerifyConfidentialGkeRequest>,
+    );
 
     impl VerifyConfidentialGke {
         pub(crate) fn new(
@@ -727,7 +729,9 @@ pub mod confidential_computing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -836,7 +840,9 @@ pub mod confidential_computing {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(

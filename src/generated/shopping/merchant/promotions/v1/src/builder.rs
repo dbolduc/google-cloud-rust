@@ -51,9 +51,9 @@ pub mod promotions_service {
     /// Common implementation for [crate::client::PromotionsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PromotionsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::PromotionsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod promotions_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InsertPromotion(RequestBuilder<crate::model::InsertPromotionRequest>);
+    pub struct InsertPromotion(pub(crate) RequestBuilder<crate::model::InsertPromotionRequest>);
 
     impl InsertPromotion {
         pub(crate) fn new(
@@ -180,7 +180,7 @@ pub mod promotions_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPromotion(RequestBuilder<crate::model::GetPromotionRequest>);
+    pub struct GetPromotion(pub(crate) RequestBuilder<crate::model::GetPromotionRequest>);
 
     impl GetPromotion {
         pub(crate) fn new(
@@ -246,7 +246,7 @@ pub mod promotions_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPromotions(RequestBuilder<crate::model::ListPromotionsRequest>);
+    pub struct ListPromotions(pub(crate) RequestBuilder<crate::model::ListPromotionsRequest>);
 
     impl ListPromotions {
         pub(crate) fn new(

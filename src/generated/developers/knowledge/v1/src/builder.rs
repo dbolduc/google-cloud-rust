@@ -51,9 +51,9 @@ pub mod developer_knowledge {
     /// Common implementation for [crate::client::DeveloperKnowledge] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperKnowledge>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperKnowledge>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,9 @@ pub mod developer_knowledge {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchDocumentChunks(RequestBuilder<crate::model::SearchDocumentChunksRequest>);
+    pub struct SearchDocumentChunks(
+        pub(crate) RequestBuilder<crate::model::SearchDocumentChunksRequest>,
+    );
 
     impl SearchDocumentChunks {
         pub(crate) fn new(
@@ -203,7 +205,7 @@ pub mod developer_knowledge {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDocument(RequestBuilder<crate::model::GetDocumentRequest>);
+    pub struct GetDocument(pub(crate) RequestBuilder<crate::model::GetDocumentRequest>);
 
     impl GetDocument {
         pub(crate) fn new(
@@ -271,7 +273,7 @@ pub mod developer_knowledge {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchGetDocuments(RequestBuilder<crate::model::BatchGetDocumentsRequest>);
+    pub struct BatchGetDocuments(pub(crate) RequestBuilder<crate::model::BatchGetDocumentsRequest>);
 
     impl BatchGetDocuments {
         pub(crate) fn new(
@@ -347,7 +349,7 @@ pub mod developer_knowledge {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AnswerQuery(RequestBuilder<crate::model::AnswerQueryRequest>);
+    pub struct AnswerQuery(pub(crate) RequestBuilder<crate::model::AnswerQueryRequest>);
 
     impl AnswerQuery {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod account_limits_service {
     /// Common implementation for [crate::client::AccountLimitsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AccountLimitsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AccountLimitsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod account_limits_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAccountLimit(RequestBuilder<crate::model::GetAccountLimitRequest>);
+    pub struct GetAccountLimit(pub(crate) RequestBuilder<crate::model::GetAccountLimitRequest>);
 
     impl GetAccountLimit {
         pub(crate) fn new(
@@ -154,7 +154,7 @@ pub mod account_limits_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAccountLimits(RequestBuilder<crate::model::ListAccountLimitsRequest>);
+    pub struct ListAccountLimits(pub(crate) RequestBuilder<crate::model::ListAccountLimitsRequest>);
 
     impl ListAccountLimits {
         pub(crate) fn new(
@@ -288,9 +288,9 @@ pub mod quota_service {
     /// Common implementation for [crate::client::QuotaService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -329,7 +329,7 @@ pub mod quota_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListQuotaGroups(RequestBuilder<crate::model::ListQuotaGroupsRequest>);
+    pub struct ListQuotaGroups(pub(crate) RequestBuilder<crate::model::ListQuotaGroupsRequest>);
 
     impl ListQuotaGroups {
         pub(crate) fn new(

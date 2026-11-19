@@ -51,9 +51,9 @@ pub mod memorystore {
     /// Common implementation for [crate::client::Memorystore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Memorystore>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Memorystore>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAclPolicies(RequestBuilder<crate::model::ListAclPoliciesRequest>);
+    pub struct ListAclPolicies(pub(crate) RequestBuilder<crate::model::ListAclPoliciesRequest>);
 
     impl ListAclPolicies {
         pub(crate) fn new(
@@ -198,7 +198,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
+    pub struct ListInstances(pub(crate) RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(
@@ -310,7 +310,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAclPolicy(RequestBuilder<crate::model::GetAclPolicyRequest>);
+    pub struct GetAclPolicy(pub(crate) RequestBuilder<crate::model::GetAclPolicyRequest>);
 
     impl GetAclPolicy {
         pub(crate) fn new(
@@ -372,7 +372,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
+    pub struct GetInstance(pub(crate) RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(
@@ -434,7 +434,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAclPolicy(RequestBuilder<crate::model::CreateAclPolicyRequest>);
+    pub struct CreateAclPolicy(pub(crate) RequestBuilder<crate::model::CreateAclPolicyRequest>);
 
     impl CreateAclPolicy {
         pub(crate) fn new(
@@ -533,7 +533,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
+    pub struct CreateInstance(pub(crate) RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
         pub(crate) fn new(
@@ -687,7 +687,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAclPolicy(RequestBuilder<crate::model::UpdateAclPolicyRequest>);
+    pub struct UpdateAclPolicy(pub(crate) RequestBuilder<crate::model::UpdateAclPolicyRequest>);
 
     impl UpdateAclPolicy {
         pub(crate) fn new(
@@ -842,7 +842,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
+    pub struct UpdateInstance(pub(crate) RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
         pub(crate) fn new(
@@ -998,7 +998,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAclPolicy(RequestBuilder<crate::model::DeleteAclPolicyRequest>);
+    pub struct DeleteAclPolicy(pub(crate) RequestBuilder<crate::model::DeleteAclPolicyRequest>);
 
     impl DeleteAclPolicy {
         pub(crate) fn new(
@@ -1121,7 +1121,9 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAclPolicyRevision(RequestBuilder<crate::model::GetAclPolicyRevisionRequest>);
+    pub struct GetAclPolicyRevision(
+        pub(crate) RequestBuilder<crate::model::GetAclPolicyRevisionRequest>,
+    );
 
     impl GetAclPolicyRevision {
         pub(crate) fn new(
@@ -1190,7 +1192,9 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAclPolicyRevisions(RequestBuilder<crate::model::ListAclPolicyRevisionsRequest>);
+    pub struct ListAclPolicyRevisions(
+        pub(crate) RequestBuilder<crate::model::ListAclPolicyRevisionsRequest>,
+    );
 
     impl ListAclPolicyRevisions {
         pub(crate) fn new(
@@ -1296,7 +1300,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
+    pub struct DeleteInstance(pub(crate) RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
         pub(crate) fn new(
@@ -1415,7 +1419,7 @@ pub mod memorystore {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateAuthority(
-        RequestBuilder<crate::model::GetCertificateAuthorityRequest>,
+        pub(crate) RequestBuilder<crate::model::GetCertificateAuthorityRequest>,
     );
 
     impl GetCertificateAuthority {
@@ -1482,7 +1486,7 @@ pub mod memorystore {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetSharedRegionalCertificateAuthority(
-        RequestBuilder<crate::model::GetSharedRegionalCertificateAuthorityRequest>,
+        pub(crate) RequestBuilder<crate::model::GetSharedRegionalCertificateAuthorityRequest>,
     );
 
     impl GetSharedRegionalCertificateAuthority {
@@ -1549,7 +1553,9 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RescheduleMaintenance(RequestBuilder<crate::model::RescheduleMaintenanceRequest>);
+    pub struct RescheduleMaintenance(
+        pub(crate) RequestBuilder<crate::model::RescheduleMaintenanceRequest>,
+    );
 
     impl RescheduleMaintenance {
         pub(crate) fn new(
@@ -1703,7 +1709,9 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackupCollections(RequestBuilder<crate::model::ListBackupCollectionsRequest>);
+    pub struct ListBackupCollections(
+        pub(crate) RequestBuilder<crate::model::ListBackupCollectionsRequest>,
+    );
 
     impl ListBackupCollections {
         pub(crate) fn new(
@@ -1808,7 +1816,9 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackupCollection(RequestBuilder<crate::model::GetBackupCollectionRequest>);
+    pub struct GetBackupCollection(
+        pub(crate) RequestBuilder<crate::model::GetBackupCollectionRequest>,
+    );
 
     impl GetBackupCollection {
         pub(crate) fn new(
@@ -1877,7 +1887,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
+    pub struct ListBackups(pub(crate) RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
         pub(crate) fn new(
@@ -1977,7 +1987,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
+    pub struct GetBackup(pub(crate) RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
         pub(crate) fn new(
@@ -2040,7 +2050,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
+    pub struct DeleteBackup(pub(crate) RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
         pub(crate) fn new(
@@ -2159,7 +2169,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportBackup(RequestBuilder<crate::model::ExportBackupRequest>);
+    pub struct ExportBackup(pub(crate) RequestBuilder<crate::model::ExportBackupRequest>);
 
     impl ExportBackup {
         pub(crate) fn new(
@@ -2301,7 +2311,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BackupInstance(RequestBuilder<crate::model::BackupInstanceRequest>);
+    pub struct BackupInstance(pub(crate) RequestBuilder<crate::model::BackupInstanceRequest>);
 
     impl BackupInstance {
         pub(crate) fn new(
@@ -2455,7 +2465,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartMigration(RequestBuilder<crate::model::StartMigrationRequest>);
+    pub struct StartMigration(pub(crate) RequestBuilder<crate::model::StartMigrationRequest>);
 
     impl StartMigration {
         pub(crate) fn new(
@@ -2600,7 +2610,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FinishMigration(RequestBuilder<crate::model::FinishMigrationRequest>);
+    pub struct FinishMigration(pub(crate) RequestBuilder<crate::model::FinishMigrationRequest>);
 
     impl FinishMigration {
         pub(crate) fn new(
@@ -2726,7 +2736,9 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTokenAuthUsers(RequestBuilder<crate::model::ListTokenAuthUsersRequest>);
+    pub struct ListTokenAuthUsers(
+        pub(crate) RequestBuilder<crate::model::ListTokenAuthUsersRequest>,
+    );
 
     impl ListTokenAuthUsers {
         pub(crate) fn new(
@@ -2843,7 +2855,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTokenAuthUser(RequestBuilder<crate::model::GetTokenAuthUserRequest>);
+    pub struct GetTokenAuthUser(pub(crate) RequestBuilder<crate::model::GetTokenAuthUserRequest>);
 
     impl GetTokenAuthUser {
         pub(crate) fn new(
@@ -2912,7 +2924,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAuthTokens(RequestBuilder<crate::model::ListAuthTokensRequest>);
+    pub struct ListAuthTokens(pub(crate) RequestBuilder<crate::model::ListAuthTokensRequest>);
 
     impl ListAuthTokens {
         pub(crate) fn new(
@@ -3026,7 +3038,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAuthToken(RequestBuilder<crate::model::GetAuthTokenRequest>);
+    pub struct GetAuthToken(pub(crate) RequestBuilder<crate::model::GetAuthTokenRequest>);
 
     impl GetAuthToken {
         pub(crate) fn new(
@@ -3089,7 +3101,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddTokenAuthUser(RequestBuilder<crate::model::AddTokenAuthUserRequest>);
+    pub struct AddTokenAuthUser(pub(crate) RequestBuilder<crate::model::AddTokenAuthUserRequest>);
 
     impl AddTokenAuthUser {
         pub(crate) fn new(
@@ -3217,7 +3229,9 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTokenAuthUser(RequestBuilder<crate::model::DeleteTokenAuthUserRequest>);
+    pub struct DeleteTokenAuthUser(
+        pub(crate) RequestBuilder<crate::model::DeleteTokenAuthUserRequest>,
+    );
 
     impl DeleteTokenAuthUser {
         pub(crate) fn new(
@@ -3344,7 +3358,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddAuthToken(RequestBuilder<crate::model::AddAuthTokenRequest>);
+    pub struct AddAuthToken(pub(crate) RequestBuilder<crate::model::AddAuthTokenRequest>);
 
     impl AddAuthToken {
         pub(crate) fn new(
@@ -3484,7 +3498,7 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAuthToken(RequestBuilder<crate::model::DeleteAuthTokenRequest>);
+    pub struct DeleteAuthToken(pub(crate) RequestBuilder<crate::model::DeleteAuthTokenRequest>);
 
     impl DeleteAuthToken {
         pub(crate) fn new(
@@ -3599,7 +3613,9 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -3708,7 +3724,9 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -3776,7 +3794,7 @@ pub mod memorystore {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3892,7 +3910,9 @@ pub mod memorystore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3956,7 +3976,7 @@ pub mod memorystore {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4021,7 +4041,7 @@ pub mod memorystore {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

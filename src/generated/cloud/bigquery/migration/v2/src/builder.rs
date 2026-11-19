@@ -51,9 +51,9 @@ pub mod migration_service {
     /// Common implementation for [crate::client::MigrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod migration_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMigrationWorkflow(
-        RequestBuilder<crate::model::CreateMigrationWorkflowRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateMigrationWorkflowRequest>,
     );
 
     impl CreateMigrationWorkflow {
@@ -177,7 +177,9 @@ pub mod migration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMigrationWorkflow(RequestBuilder<crate::model::GetMigrationWorkflowRequest>);
+    pub struct GetMigrationWorkflow(
+        pub(crate) RequestBuilder<crate::model::GetMigrationWorkflowRequest>,
+    );
 
     impl GetMigrationWorkflow {
         pub(crate) fn new(
@@ -264,7 +266,9 @@ pub mod migration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMigrationWorkflows(RequestBuilder<crate::model::ListMigrationWorkflowsRequest>);
+    pub struct ListMigrationWorkflows(
+        pub(crate) RequestBuilder<crate::model::ListMigrationWorkflowsRequest>,
+    );
 
     impl ListMigrationWorkflows {
         pub(crate) fn new(
@@ -388,7 +392,7 @@ pub mod migration_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMigrationWorkflow(
-        RequestBuilder<crate::model::DeleteMigrationWorkflowRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteMigrationWorkflowRequest>,
     );
 
     impl DeleteMigrationWorkflow {
@@ -454,7 +458,9 @@ pub mod migration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartMigrationWorkflow(RequestBuilder<crate::model::StartMigrationWorkflowRequest>);
+    pub struct StartMigrationWorkflow(
+        pub(crate) RequestBuilder<crate::model::StartMigrationWorkflowRequest>,
+    );
 
     impl StartMigrationWorkflow {
         pub(crate) fn new(
@@ -519,7 +525,9 @@ pub mod migration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMigrationSubtask(RequestBuilder<crate::model::GetMigrationSubtaskRequest>);
+    pub struct GetMigrationSubtask(
+        pub(crate) RequestBuilder<crate::model::GetMigrationSubtaskRequest>,
+    );
 
     impl GetMigrationSubtask {
         pub(crate) fn new(
@@ -606,7 +614,9 @@ pub mod migration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMigrationSubtasks(RequestBuilder<crate::model::ListMigrationSubtasksRequest>);
+    pub struct ListMigrationSubtasks(
+        pub(crate) RequestBuilder<crate::model::ListMigrationSubtasksRequest>,
+    );
 
     impl ListMigrationSubtasks {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod video_stitcher_service {
     /// Common implementation for [crate::client::VideoStitcherService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCdnKey(RequestBuilder<crate::model::CreateCdnKeyRequest>);
+    pub struct CreateCdnKey(pub(crate) RequestBuilder<crate::model::CreateCdnKeyRequest>);
 
     impl CreateCdnKey {
         pub(crate) fn new(
@@ -239,7 +239,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCdnKeys(RequestBuilder<crate::model::ListCdnKeysRequest>);
+    pub struct ListCdnKeys(pub(crate) RequestBuilder<crate::model::ListCdnKeysRequest>);
 
     impl ListCdnKeys {
         pub(crate) fn new(
@@ -351,7 +351,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCdnKey(RequestBuilder<crate::model::GetCdnKeyRequest>);
+    pub struct GetCdnKey(pub(crate) RequestBuilder<crate::model::GetCdnKeyRequest>);
 
     impl GetCdnKey {
         pub(crate) fn new(
@@ -414,7 +414,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCdnKey(RequestBuilder<crate::model::DeleteCdnKeyRequest>);
+    pub struct DeleteCdnKey(pub(crate) RequestBuilder<crate::model::DeleteCdnKeyRequest>);
 
     impl DeleteCdnKey {
         pub(crate) fn new(
@@ -526,7 +526,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCdnKey(RequestBuilder<crate::model::UpdateCdnKeyRequest>);
+    pub struct UpdateCdnKey(pub(crate) RequestBuilder<crate::model::UpdateCdnKeyRequest>);
 
     impl UpdateCdnKey {
         pub(crate) fn new(
@@ -678,7 +678,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateVodSession(RequestBuilder<crate::model::CreateVodSessionRequest>);
+    pub struct CreateVodSession(pub(crate) RequestBuilder<crate::model::CreateVodSessionRequest>);
 
     impl CreateVodSession {
         pub(crate) fn new(
@@ -765,7 +765,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVodSession(RequestBuilder<crate::model::GetVodSessionRequest>);
+    pub struct GetVodSession(pub(crate) RequestBuilder<crate::model::GetVodSessionRequest>);
 
     impl GetVodSession {
         pub(crate) fn new(
@@ -831,7 +831,9 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVodStitchDetails(RequestBuilder<crate::model::ListVodStitchDetailsRequest>);
+    pub struct ListVodStitchDetails(
+        pub(crate) RequestBuilder<crate::model::ListVodStitchDetailsRequest>,
+    );
 
     impl ListVodStitchDetails {
         pub(crate) fn new(
@@ -936,7 +938,9 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVodStitchDetail(RequestBuilder<crate::model::GetVodStitchDetailRequest>);
+    pub struct GetVodStitchDetail(
+        pub(crate) RequestBuilder<crate::model::GetVodStitchDetailRequest>,
+    );
 
     impl GetVodStitchDetail {
         pub(crate) fn new(
@@ -1005,7 +1009,9 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVodAdTagDetails(RequestBuilder<crate::model::ListVodAdTagDetailsRequest>);
+    pub struct ListVodAdTagDetails(
+        pub(crate) RequestBuilder<crate::model::ListVodAdTagDetailsRequest>,
+    );
 
     impl ListVodAdTagDetails {
         pub(crate) fn new(
@@ -1110,7 +1116,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVodAdTagDetail(RequestBuilder<crate::model::GetVodAdTagDetailRequest>);
+    pub struct GetVodAdTagDetail(pub(crate) RequestBuilder<crate::model::GetVodAdTagDetailRequest>);
 
     impl GetVodAdTagDetail {
         pub(crate) fn new(
@@ -1179,7 +1185,9 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLiveAdTagDetails(RequestBuilder<crate::model::ListLiveAdTagDetailsRequest>);
+    pub struct ListLiveAdTagDetails(
+        pub(crate) RequestBuilder<crate::model::ListLiveAdTagDetailsRequest>,
+    );
 
     impl ListLiveAdTagDetails {
         pub(crate) fn new(
@@ -1284,7 +1292,9 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLiveAdTagDetail(RequestBuilder<crate::model::GetLiveAdTagDetailRequest>);
+    pub struct GetLiveAdTagDetail(
+        pub(crate) RequestBuilder<crate::model::GetLiveAdTagDetailRequest>,
+    );
 
     impl GetLiveAdTagDetail {
         pub(crate) fn new(
@@ -1350,7 +1360,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSlate(RequestBuilder<crate::model::CreateSlateRequest>);
+    pub struct CreateSlate(pub(crate) RequestBuilder<crate::model::CreateSlateRequest>);
 
     impl CreateSlate {
         pub(crate) fn new(
@@ -1506,7 +1516,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSlates(RequestBuilder<crate::model::ListSlatesRequest>);
+    pub struct ListSlates(pub(crate) RequestBuilder<crate::model::ListSlatesRequest>);
 
     impl ListSlates {
         pub(crate) fn new(
@@ -1618,7 +1628,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSlate(RequestBuilder<crate::model::GetSlateRequest>);
+    pub struct GetSlate(pub(crate) RequestBuilder<crate::model::GetSlateRequest>);
 
     impl GetSlate {
         pub(crate) fn new(
@@ -1681,7 +1691,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSlate(RequestBuilder<crate::model::UpdateSlateRequest>);
+    pub struct UpdateSlate(pub(crate) RequestBuilder<crate::model::UpdateSlateRequest>);
 
     impl UpdateSlate {
         pub(crate) fn new(
@@ -1834,7 +1844,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSlate(RequestBuilder<crate::model::DeleteSlateRequest>);
+    pub struct DeleteSlate(pub(crate) RequestBuilder<crate::model::DeleteSlateRequest>);
 
     impl DeleteSlate {
         pub(crate) fn new(
@@ -1945,7 +1955,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateLiveSession(RequestBuilder<crate::model::CreateLiveSessionRequest>);
+    pub struct CreateLiveSession(pub(crate) RequestBuilder<crate::model::CreateLiveSessionRequest>);
 
     impl CreateLiveSession {
         pub(crate) fn new(
@@ -2032,7 +2042,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLiveSession(RequestBuilder<crate::model::GetLiveSessionRequest>);
+    pub struct GetLiveSession(pub(crate) RequestBuilder<crate::model::GetLiveSessionRequest>);
 
     impl GetLiveSession {
         pub(crate) fn new(
@@ -2095,7 +2105,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateLiveConfig(RequestBuilder<crate::model::CreateLiveConfigRequest>);
+    pub struct CreateLiveConfig(pub(crate) RequestBuilder<crate::model::CreateLiveConfigRequest>);
 
     impl CreateLiveConfig {
         pub(crate) fn new(
@@ -2254,7 +2264,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLiveConfigs(RequestBuilder<crate::model::ListLiveConfigsRequest>);
+    pub struct ListLiveConfigs(pub(crate) RequestBuilder<crate::model::ListLiveConfigsRequest>);
 
     impl ListLiveConfigs {
         pub(crate) fn new(
@@ -2368,7 +2378,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLiveConfig(RequestBuilder<crate::model::GetLiveConfigRequest>);
+    pub struct GetLiveConfig(pub(crate) RequestBuilder<crate::model::GetLiveConfigRequest>);
 
     impl GetLiveConfig {
         pub(crate) fn new(
@@ -2431,7 +2441,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteLiveConfig(RequestBuilder<crate::model::DeleteLiveConfigRequest>);
+    pub struct DeleteLiveConfig(pub(crate) RequestBuilder<crate::model::DeleteLiveConfigRequest>);
 
     impl DeleteLiveConfig {
         pub(crate) fn new(
@@ -2546,7 +2556,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateLiveConfig(RequestBuilder<crate::model::UpdateLiveConfigRequest>);
+    pub struct UpdateLiveConfig(pub(crate) RequestBuilder<crate::model::UpdateLiveConfigRequest>);
 
     impl UpdateLiveConfig {
         pub(crate) fn new(
@@ -2702,7 +2712,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateVodConfig(RequestBuilder<crate::model::CreateVodConfigRequest>);
+    pub struct CreateVodConfig(pub(crate) RequestBuilder<crate::model::CreateVodConfigRequest>);
 
     impl CreateVodConfig {
         pub(crate) fn new(
@@ -2858,7 +2868,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVodConfigs(RequestBuilder<crate::model::ListVodConfigsRequest>);
+    pub struct ListVodConfigs(pub(crate) RequestBuilder<crate::model::ListVodConfigsRequest>);
 
     impl ListVodConfigs {
         pub(crate) fn new(
@@ -2972,7 +2982,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVodConfig(RequestBuilder<crate::model::GetVodConfigRequest>);
+    pub struct GetVodConfig(pub(crate) RequestBuilder<crate::model::GetVodConfigRequest>);
 
     impl GetVodConfig {
         pub(crate) fn new(
@@ -3035,7 +3045,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteVodConfig(RequestBuilder<crate::model::DeleteVodConfigRequest>);
+    pub struct DeleteVodConfig(pub(crate) RequestBuilder<crate::model::DeleteVodConfigRequest>);
 
     impl DeleteVodConfig {
         pub(crate) fn new(
@@ -3147,7 +3157,7 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateVodConfig(RequestBuilder<crate::model::UpdateVodConfigRequest>);
+    pub struct UpdateVodConfig(pub(crate) RequestBuilder<crate::model::UpdateVodConfigRequest>);
 
     impl UpdateVodConfig {
         pub(crate) fn new(
@@ -3304,7 +3314,7 @@ pub mod video_stitcher_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3420,7 +3430,9 @@ pub mod video_stitcher_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3484,7 +3496,7 @@ pub mod video_stitcher_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3549,7 +3561,7 @@ pub mod video_stitcher_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

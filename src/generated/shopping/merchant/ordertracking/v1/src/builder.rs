@@ -51,9 +51,10 @@ pub mod order_tracking_signals_service {
     /// Common implementation for [crate::client::OrderTrackingSignalsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::OrderTrackingSignalsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::OrderTrackingSignalsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +90,7 @@ pub mod order_tracking_signals_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateOrderTrackingSignal(
-        RequestBuilder<crate::model::CreateOrderTrackingSignalRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateOrderTrackingSignalRequest>,
     );
 
     impl CreateOrderTrackingSignal {

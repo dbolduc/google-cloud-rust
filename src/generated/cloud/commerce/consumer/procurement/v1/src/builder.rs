@@ -51,9 +51,9 @@ pub mod license_management_service {
     /// Common implementation for [crate::client::LicenseManagementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod license_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLicensePool(RequestBuilder<crate::model::GetLicensePoolRequest>);
+    pub struct GetLicensePool(pub(crate) RequestBuilder<crate::model::GetLicensePoolRequest>);
 
     impl GetLicensePool {
         pub(crate) fn new(
@@ -150,7 +150,7 @@ pub mod license_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateLicensePool(RequestBuilder<crate::model::UpdateLicensePoolRequest>);
+    pub struct UpdateLicensePool(pub(crate) RequestBuilder<crate::model::UpdateLicensePoolRequest>);
 
     impl UpdateLicensePool {
         pub(crate) fn new(
@@ -251,7 +251,7 @@ pub mod license_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Assign(RequestBuilder<crate::model::AssignRequest>);
+    pub struct Assign(pub(crate) RequestBuilder<crate::model::AssignRequest>);
 
     impl Assign {
         pub(crate) fn new(
@@ -326,7 +326,7 @@ pub mod license_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Unassign(RequestBuilder<crate::model::UnassignRequest>);
+    pub struct Unassign(pub(crate) RequestBuilder<crate::model::UnassignRequest>);
 
     impl Unassign {
         pub(crate) fn new(
@@ -405,7 +405,9 @@ pub mod license_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnumerateLicensedUsers(RequestBuilder<crate::model::EnumerateLicensedUsersRequest>);
+    pub struct EnumerateLicensedUsers(
+        pub(crate) RequestBuilder<crate::model::EnumerateLicensedUsersRequest>,
+    );
 
     impl EnumerateLicensedUsers {
         pub(crate) fn new(
@@ -510,7 +512,9 @@ pub mod license_management_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -594,9 +598,10 @@ pub mod consumer_procurement_service {
     /// Common implementation for [crate::client::ConsumerProcurementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -632,7 +637,7 @@ pub mod consumer_procurement_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PlaceOrder(RequestBuilder<crate::model::PlaceOrderRequest>);
+    pub struct PlaceOrder(pub(crate) RequestBuilder<crate::model::PlaceOrderRequest>);
 
     impl PlaceOrder {
         pub(crate) fn new(
@@ -773,7 +778,7 @@ pub mod consumer_procurement_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOrder(RequestBuilder<crate::model::GetOrderRequest>);
+    pub struct GetOrder(pub(crate) RequestBuilder<crate::model::GetOrderRequest>);
 
     impl GetOrder {
         pub(crate) fn new(
@@ -839,7 +844,7 @@ pub mod consumer_procurement_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOrders(RequestBuilder<crate::model::ListOrdersRequest>);
+    pub struct ListOrders(pub(crate) RequestBuilder<crate::model::ListOrdersRequest>);
 
     impl ListOrders {
         pub(crate) fn new(
@@ -946,7 +951,7 @@ pub mod consumer_procurement_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ModifyOrder(RequestBuilder<crate::model::ModifyOrderRequest>);
+    pub struct ModifyOrder(pub(crate) RequestBuilder<crate::model::ModifyOrderRequest>);
 
     impl ModifyOrder {
         pub(crate) fn new(
@@ -1086,7 +1091,7 @@ pub mod consumer_procurement_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOrder(RequestBuilder<crate::model::CancelOrderRequest>);
+    pub struct CancelOrder(pub(crate) RequestBuilder<crate::model::CancelOrderRequest>);
 
     impl CancelOrder {
         pub(crate) fn new(
@@ -1219,7 +1224,9 @@ pub mod consumer_procurement_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod aml {
     /// Common implementation for [crate::client::Aml] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -90,7 +90,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
+    pub struct ListInstances(pub(crate) RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -200,7 +200,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
+    pub struct GetInstance(pub(crate) RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -261,7 +261,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
+    pub struct CreateInstance(pub(crate) RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -413,7 +413,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
+    pub struct UpdateInstance(pub(crate) RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -567,7 +567,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
+    pub struct DeleteInstance(pub(crate) RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -685,7 +685,7 @@ pub mod aml {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ImportRegisteredParties(
-        RequestBuilder<crate::model::ImportRegisteredPartiesRequest>,
+        pub(crate) RequestBuilder<crate::model::ImportRegisteredPartiesRequest>,
     );
 
     impl ImportRegisteredParties {
@@ -843,7 +843,7 @@ pub mod aml {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ExportRegisteredParties(
-        RequestBuilder<crate::model::ExportRegisteredPartiesRequest>,
+        pub(crate) RequestBuilder<crate::model::ExportRegisteredPartiesRequest>,
     );
 
     impl ExportRegisteredParties {
@@ -997,7 +997,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
+    pub struct ListDatasets(pub(crate) RequestBuilder<crate::model::ListDatasetsRequest>);
 
     impl ListDatasets {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -1107,7 +1107,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
+    pub struct GetDataset(pub(crate) RequestBuilder<crate::model::GetDatasetRequest>);
 
     impl GetDataset {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -1168,7 +1168,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDataset(RequestBuilder<crate::model::CreateDatasetRequest>);
+    pub struct CreateDataset(pub(crate) RequestBuilder<crate::model::CreateDatasetRequest>);
 
     impl CreateDataset {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -1320,7 +1320,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDataset(RequestBuilder<crate::model::UpdateDatasetRequest>);
+    pub struct UpdateDataset(pub(crate) RequestBuilder<crate::model::UpdateDatasetRequest>);
 
     impl UpdateDataset {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -1474,7 +1474,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
+    pub struct DeleteDataset(pub(crate) RequestBuilder<crate::model::DeleteDatasetRequest>);
 
     impl DeleteDataset {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -1594,7 +1594,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
+    pub struct ListModels(pub(crate) RequestBuilder<crate::model::ListModelsRequest>);
 
     impl ListModels {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -1704,7 +1704,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
+    pub struct GetModel(pub(crate) RequestBuilder<crate::model::GetModelRequest>);
 
     impl GetModel {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -1765,7 +1765,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateModel(RequestBuilder<crate::model::CreateModelRequest>);
+    pub struct CreateModel(pub(crate) RequestBuilder<crate::model::CreateModelRequest>);
 
     impl CreateModel {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -1917,7 +1917,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateModel(RequestBuilder<crate::model::UpdateModelRequest>);
+    pub struct UpdateModel(pub(crate) RequestBuilder<crate::model::UpdateModelRequest>);
 
     impl UpdateModel {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -2071,7 +2071,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportModelMetadata(RequestBuilder<crate::model::ExportModelMetadataRequest>);
+    pub struct ExportModelMetadata(
+        pub(crate) RequestBuilder<crate::model::ExportModelMetadataRequest>,
+    );
 
     impl ExportModelMetadata {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -2216,7 +2218,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
+    pub struct DeleteModel(pub(crate) RequestBuilder<crate::model::DeleteModelRequest>);
 
     impl DeleteModel {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -2336,7 +2338,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEngineConfigs(RequestBuilder<crate::model::ListEngineConfigsRequest>);
+    pub struct ListEngineConfigs(pub(crate) RequestBuilder<crate::model::ListEngineConfigsRequest>);
 
     impl ListEngineConfigs {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -2451,7 +2453,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEngineConfig(RequestBuilder<crate::model::GetEngineConfigRequest>);
+    pub struct GetEngineConfig(pub(crate) RequestBuilder<crate::model::GetEngineConfigRequest>);
 
     impl GetEngineConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -2512,7 +2514,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateEngineConfig(RequestBuilder<crate::model::CreateEngineConfigRequest>);
+    pub struct CreateEngineConfig(
+        pub(crate) RequestBuilder<crate::model::CreateEngineConfigRequest>,
+    );
 
     impl CreateEngineConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -2666,7 +2670,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateEngineConfig(RequestBuilder<crate::model::UpdateEngineConfigRequest>);
+    pub struct UpdateEngineConfig(
+        pub(crate) RequestBuilder<crate::model::UpdateEngineConfigRequest>,
+    );
 
     impl UpdateEngineConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -2823,7 +2829,7 @@ pub mod aml {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ExportEngineConfigMetadata(
-        RequestBuilder<crate::model::ExportEngineConfigMetadataRequest>,
+        pub(crate) RequestBuilder<crate::model::ExportEngineConfigMetadataRequest>,
     );
 
     impl ExportEngineConfigMetadata {
@@ -2969,7 +2975,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteEngineConfig(RequestBuilder<crate::model::DeleteEngineConfigRequest>);
+    pub struct DeleteEngineConfig(
+        pub(crate) RequestBuilder<crate::model::DeleteEngineConfigRequest>,
+    );
 
     impl DeleteEngineConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -3087,7 +3095,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEngineVersion(RequestBuilder<crate::model::GetEngineVersionRequest>);
+    pub struct GetEngineVersion(pub(crate) RequestBuilder<crate::model::GetEngineVersionRequest>);
 
     impl GetEngineVersion {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -3154,7 +3162,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEngineVersions(RequestBuilder<crate::model::ListEngineVersionsRequest>);
+    pub struct ListEngineVersions(
+        pub(crate) RequestBuilder<crate::model::ListEngineVersionsRequest>,
+    );
 
     impl ListEngineVersions {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -3273,7 +3283,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPredictionResults(RequestBuilder<crate::model::ListPredictionResultsRequest>);
+    pub struct ListPredictionResults(
+        pub(crate) RequestBuilder<crate::model::ListPredictionResultsRequest>,
+    );
 
     impl ListPredictionResults {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -3388,7 +3400,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPredictionResult(RequestBuilder<crate::model::GetPredictionResultRequest>);
+    pub struct GetPredictionResult(
+        pub(crate) RequestBuilder<crate::model::GetPredictionResultRequest>,
+    );
 
     impl GetPredictionResult {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -3452,7 +3466,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePredictionResult(RequestBuilder<crate::model::CreatePredictionResultRequest>);
+    pub struct CreatePredictionResult(
+        pub(crate) RequestBuilder<crate::model::CreatePredictionResultRequest>,
+    );
 
     impl CreatePredictionResult {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -3606,7 +3622,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePredictionResult(RequestBuilder<crate::model::UpdatePredictionResultRequest>);
+    pub struct UpdatePredictionResult(
+        pub(crate) RequestBuilder<crate::model::UpdatePredictionResultRequest>,
+    );
 
     impl UpdatePredictionResult {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -3763,7 +3781,7 @@ pub mod aml {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ExportPredictionResultMetadata(
-        RequestBuilder<crate::model::ExportPredictionResultMetadataRequest>,
+        pub(crate) RequestBuilder<crate::model::ExportPredictionResultMetadataRequest>,
     );
 
     impl ExportPredictionResultMetadata {
@@ -3909,7 +3927,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePredictionResult(RequestBuilder<crate::model::DeletePredictionResultRequest>);
+    pub struct DeletePredictionResult(
+        pub(crate) RequestBuilder<crate::model::DeletePredictionResultRequest>,
+    );
 
     impl DeletePredictionResult {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -4031,7 +4051,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBacktestResults(RequestBuilder<crate::model::ListBacktestResultsRequest>);
+    pub struct ListBacktestResults(
+        pub(crate) RequestBuilder<crate::model::ListBacktestResultsRequest>,
+    );
 
     impl ListBacktestResults {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -4146,7 +4168,7 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBacktestResult(RequestBuilder<crate::model::GetBacktestResultRequest>);
+    pub struct GetBacktestResult(pub(crate) RequestBuilder<crate::model::GetBacktestResultRequest>);
 
     impl GetBacktestResult {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -4210,7 +4232,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBacktestResult(RequestBuilder<crate::model::CreateBacktestResultRequest>);
+    pub struct CreateBacktestResult(
+        pub(crate) RequestBuilder<crate::model::CreateBacktestResultRequest>,
+    );
 
     impl CreateBacktestResult {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -4364,7 +4388,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBacktestResult(RequestBuilder<crate::model::UpdateBacktestResultRequest>);
+    pub struct UpdateBacktestResult(
+        pub(crate) RequestBuilder<crate::model::UpdateBacktestResultRequest>,
+    );
 
     impl UpdateBacktestResult {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -4521,7 +4547,7 @@ pub mod aml {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ExportBacktestResultMetadata(
-        RequestBuilder<crate::model::ExportBacktestResultMetadataRequest>,
+        pub(crate) RequestBuilder<crate::model::ExportBacktestResultMetadataRequest>,
     );
 
     impl ExportBacktestResultMetadata {
@@ -4667,7 +4693,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBacktestResult(RequestBuilder<crate::model::DeleteBacktestResultRequest>);
+    pub struct DeleteBacktestResult(
+        pub(crate) RequestBuilder<crate::model::DeleteBacktestResultRequest>,
+    );
 
     impl DeleteBacktestResult {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -4789,7 +4817,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -4896,7 +4926,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -4962,7 +4994,7 @@ pub mod aml {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -5076,7 +5108,9 @@ pub mod aml {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
@@ -5138,7 +5172,7 @@ pub mod aml {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -5201,7 +5235,7 @@ pub mod aml {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

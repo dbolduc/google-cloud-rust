@@ -51,9 +51,9 @@ pub mod cloud_tasks {
     /// Common implementation for [crate::client::CloudTasks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListQueues(RequestBuilder<crate::model::ListQueuesRequest>);
+    pub struct ListQueues(pub(crate) RequestBuilder<crate::model::ListQueuesRequest>);
 
     impl ListQueues {
         pub(crate) fn new(
@@ -198,7 +198,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetQueue(RequestBuilder<crate::model::GetQueueRequest>);
+    pub struct GetQueue(pub(crate) RequestBuilder<crate::model::GetQueueRequest>);
 
     impl GetQueue {
         pub(crate) fn new(
@@ -260,7 +260,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateQueue(RequestBuilder<crate::model::CreateQueueRequest>);
+    pub struct CreateQueue(pub(crate) RequestBuilder<crate::model::CreateQueueRequest>);
 
     impl CreateQueue {
         pub(crate) fn new(
@@ -344,7 +344,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateQueue(RequestBuilder<crate::model::UpdateQueueRequest>);
+    pub struct UpdateQueue(pub(crate) RequestBuilder<crate::model::UpdateQueueRequest>);
 
     impl UpdateQueue {
         pub(crate) fn new(
@@ -438,7 +438,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteQueue(RequestBuilder<crate::model::DeleteQueueRequest>);
+    pub struct DeleteQueue(pub(crate) RequestBuilder<crate::model::DeleteQueueRequest>);
 
     impl DeleteQueue {
         pub(crate) fn new(
@@ -500,7 +500,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PurgeQueue(RequestBuilder<crate::model::PurgeQueueRequest>);
+    pub struct PurgeQueue(pub(crate) RequestBuilder<crate::model::PurgeQueueRequest>);
 
     impl PurgeQueue {
         pub(crate) fn new(
@@ -562,7 +562,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PauseQueue(RequestBuilder<crate::model::PauseQueueRequest>);
+    pub struct PauseQueue(pub(crate) RequestBuilder<crate::model::PauseQueueRequest>);
 
     impl PauseQueue {
         pub(crate) fn new(
@@ -624,7 +624,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResumeQueue(RequestBuilder<crate::model::ResumeQueueRequest>);
+    pub struct ResumeQueue(pub(crate) RequestBuilder<crate::model::ResumeQueueRequest>);
 
     impl ResumeQueue {
         pub(crate) fn new(
@@ -686,7 +686,9 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -769,7 +771,9 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -875,7 +879,7 @@ pub mod cloud_tasks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -958,7 +962,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTasks(RequestBuilder<crate::model::ListTasksRequest>);
+    pub struct ListTasks(pub(crate) RequestBuilder<crate::model::ListTasksRequest>);
 
     impl ListTasks {
         pub(crate) fn new(
@@ -1062,7 +1066,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTask(RequestBuilder<crate::model::GetTaskRequest>);
+    pub struct GetTask(pub(crate) RequestBuilder<crate::model::GetTaskRequest>);
 
     impl GetTask {
         pub(crate) fn new(
@@ -1130,7 +1134,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTask(RequestBuilder<crate::model::CreateTaskRequest>);
+    pub struct CreateTask(pub(crate) RequestBuilder<crate::model::CreateTaskRequest>);
 
     impl CreateTask {
         pub(crate) fn new(
@@ -1221,7 +1225,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchCreateTasks(RequestBuilder<crate::model::BatchCreateTasksRequest>);
+    pub struct BatchCreateTasks(pub(crate) RequestBuilder<crate::model::BatchCreateTasksRequest>);
 
     impl BatchCreateTasks {
         pub(crate) fn new(
@@ -1362,7 +1366,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTask(RequestBuilder<crate::model::DeleteTaskRequest>);
+    pub struct DeleteTask(pub(crate) RequestBuilder<crate::model::DeleteTaskRequest>);
 
     impl DeleteTask {
         pub(crate) fn new(
@@ -1425,7 +1429,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchDeleteTasks(RequestBuilder<crate::model::BatchDeleteTasksRequest>);
+    pub struct BatchDeleteTasks(pub(crate) RequestBuilder<crate::model::BatchDeleteTasksRequest>);
 
     impl BatchDeleteTasks {
         pub(crate) fn new(
@@ -1563,7 +1567,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RunTask(RequestBuilder<crate::model::RunTaskRequest>);
+    pub struct RunTask(pub(crate) RequestBuilder<crate::model::RunTaskRequest>);
 
     impl RunTask {
         pub(crate) fn new(
@@ -1631,7 +1635,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCmekConfig(RequestBuilder<crate::model::UpdateCmekConfigRequest>);
+    pub struct UpdateCmekConfig(pub(crate) RequestBuilder<crate::model::UpdateCmekConfigRequest>);
 
     impl UpdateCmekConfig {
         pub(crate) fn new(
@@ -1728,7 +1732,7 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCmekConfig(RequestBuilder<crate::model::GetCmekConfigRequest>);
+    pub struct GetCmekConfig(pub(crate) RequestBuilder<crate::model::GetCmekConfigRequest>);
 
     impl GetCmekConfig {
         pub(crate) fn new(
@@ -1794,7 +1798,9 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1903,7 +1909,9 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -1966,7 +1974,9 @@ pub mod cloud_tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod org_policy {
     /// Common implementation for [crate::client::OrgPolicy] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod org_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConstraints(RequestBuilder<crate::model::ListConstraintsRequest>);
+    pub struct ListConstraints(pub(crate) RequestBuilder<crate::model::ListConstraintsRequest>);
 
     impl ListConstraints {
         pub(crate) fn new(
@@ -198,7 +198,7 @@ pub mod org_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
+    pub struct ListPolicies(pub(crate) RequestBuilder<crate::model::ListPoliciesRequest>);
 
     impl ListPolicies {
         pub(crate) fn new(
@@ -298,7 +298,7 @@ pub mod org_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
+    pub struct GetPolicy(pub(crate) RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
         pub(crate) fn new(
@@ -360,7 +360,9 @@ pub mod org_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEffectivePolicy(RequestBuilder<crate::model::GetEffectivePolicyRequest>);
+    pub struct GetEffectivePolicy(
+        pub(crate) RequestBuilder<crate::model::GetEffectivePolicyRequest>,
+    );
 
     impl GetEffectivePolicy {
         pub(crate) fn new(
@@ -425,7 +427,7 @@ pub mod org_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
+    pub struct CreatePolicy(pub(crate) RequestBuilder<crate::model::CreatePolicyRequest>);
 
     impl CreatePolicy {
         pub(crate) fn new(
@@ -509,7 +511,7 @@ pub mod org_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
+    pub struct UpdatePolicy(pub(crate) RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
         pub(crate) fn new(
@@ -603,7 +605,7 @@ pub mod org_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
+    pub struct DeletePolicy(pub(crate) RequestBuilder<crate::model::DeletePolicyRequest>);
 
     impl DeletePolicy {
         pub(crate) fn new(
@@ -671,7 +673,9 @@ pub mod org_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCustomConstraint(RequestBuilder<crate::model::CreateCustomConstraintRequest>);
+    pub struct CreateCustomConstraint(
+        pub(crate) RequestBuilder<crate::model::CreateCustomConstraintRequest>,
+    );
 
     impl CreateCustomConstraint {
         pub(crate) fn new(
@@ -758,7 +762,9 @@ pub mod org_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCustomConstraint(RequestBuilder<crate::model::UpdateCustomConstraintRequest>);
+    pub struct UpdateCustomConstraint(
+        pub(crate) RequestBuilder<crate::model::UpdateCustomConstraintRequest>,
+    );
 
     impl UpdateCustomConstraint {
         pub(crate) fn new(
@@ -837,7 +843,9 @@ pub mod org_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCustomConstraint(RequestBuilder<crate::model::GetCustomConstraintRequest>);
+    pub struct GetCustomConstraint(
+        pub(crate) RequestBuilder<crate::model::GetCustomConstraintRequest>,
+    );
 
     impl GetCustomConstraint {
         pub(crate) fn new(
@@ -906,7 +914,9 @@ pub mod org_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCustomConstraints(RequestBuilder<crate::model::ListCustomConstraintsRequest>);
+    pub struct ListCustomConstraints(
+        pub(crate) RequestBuilder<crate::model::ListCustomConstraintsRequest>,
+    );
 
     impl ListCustomConstraints {
         pub(crate) fn new(
@@ -1011,7 +1021,9 @@ pub mod org_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCustomConstraint(RequestBuilder<crate::model::DeleteCustomConstraintRequest>);
+    pub struct DeleteCustomConstraint(
+        pub(crate) RequestBuilder<crate::model::DeleteCustomConstraintRequest>,
+    );
 
     impl DeleteCustomConstraint {
         pub(crate) fn new(

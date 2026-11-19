@@ -51,9 +51,9 @@ pub mod trace_service {
     /// Common implementation for [crate::client::TraceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod trace_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTraces(RequestBuilder<crate::model::ListTracesRequest>);
+    pub struct ListTraces(pub(crate) RequestBuilder<crate::model::ListTracesRequest>);
 
     impl ListTraces {
         pub(crate) fn new(
@@ -249,7 +249,7 @@ pub mod trace_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTrace(RequestBuilder<crate::model::GetTraceRequest>);
+    pub struct GetTrace(pub(crate) RequestBuilder<crate::model::GetTraceRequest>);
 
     impl GetTrace {
         pub(crate) fn new(
@@ -319,7 +319,7 @@ pub mod trace_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PatchTraces(RequestBuilder<crate::model::PatchTracesRequest>);
+    pub struct PatchTraces(pub(crate) RequestBuilder<crate::model::PatchTracesRequest>);
 
     impl PatchTraces {
         pub(crate) fn new(

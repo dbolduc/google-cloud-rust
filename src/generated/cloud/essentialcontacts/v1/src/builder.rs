@@ -51,9 +51,9 @@ pub mod essential_contacts_service {
     /// Common implementation for [crate::client::EssentialContactsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod essential_contacts_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateContact(RequestBuilder<crate::model::CreateContactRequest>);
+    pub struct CreateContact(pub(crate) RequestBuilder<crate::model::CreateContactRequest>);
 
     impl CreateContact {
         pub(crate) fn new(
@@ -172,7 +172,7 @@ pub mod essential_contacts_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateContact(RequestBuilder<crate::model::UpdateContactRequest>);
+    pub struct UpdateContact(pub(crate) RequestBuilder<crate::model::UpdateContactRequest>);
 
     impl UpdateContact {
         pub(crate) fn new(
@@ -270,7 +270,7 @@ pub mod essential_contacts_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListContacts(RequestBuilder<crate::model::ListContactsRequest>);
+    pub struct ListContacts(pub(crate) RequestBuilder<crate::model::ListContactsRequest>);
 
     impl ListContacts {
         pub(crate) fn new(
@@ -370,7 +370,7 @@ pub mod essential_contacts_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetContact(RequestBuilder<crate::model::GetContactRequest>);
+    pub struct GetContact(pub(crate) RequestBuilder<crate::model::GetContactRequest>);
 
     impl GetContact {
         pub(crate) fn new(
@@ -432,7 +432,7 @@ pub mod essential_contacts_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteContact(RequestBuilder<crate::model::DeleteContactRequest>);
+    pub struct DeleteContact(pub(crate) RequestBuilder<crate::model::DeleteContactRequest>);
 
     impl DeleteContact {
         pub(crate) fn new(
@@ -498,7 +498,7 @@ pub mod essential_contacts_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ComputeContacts(RequestBuilder<crate::model::ComputeContactsRequest>);
+    pub struct ComputeContacts(pub(crate) RequestBuilder<crate::model::ComputeContactsRequest>);
 
     impl ComputeContacts {
         pub(crate) fn new(
@@ -611,7 +611,7 @@ pub mod essential_contacts_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SendTestMessage(RequestBuilder<crate::model::SendTestMessageRequest>);
+    pub struct SendTestMessage(pub(crate) RequestBuilder<crate::model::SendTestMessageRequest>);
 
     impl SendTestMessage {
         pub(crate) fn new(

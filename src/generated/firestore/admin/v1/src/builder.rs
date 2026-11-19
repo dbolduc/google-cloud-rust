@@ -51,9 +51,9 @@ pub mod firestore_admin {
     /// Common implementation for [crate::client::FirestoreAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
+    pub struct CreateIndex(pub(crate) RequestBuilder<crate::model::CreateIndexRequest>);
 
     impl CreateIndex {
         pub(crate) fn new(
@@ -231,7 +231,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
+    pub struct ListIndexes(pub(crate) RequestBuilder<crate::model::ListIndexesRequest>);
 
     impl ListIndexes {
         pub(crate) fn new(
@@ -337,7 +337,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
+    pub struct GetIndex(pub(crate) RequestBuilder<crate::model::GetIndexRequest>);
 
     impl GetIndex {
         pub(crate) fn new(
@@ -399,7 +399,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
+    pub struct DeleteIndex(pub(crate) RequestBuilder<crate::model::DeleteIndexRequest>);
 
     impl DeleteIndex {
         pub(crate) fn new(
@@ -461,7 +461,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetField(RequestBuilder<crate::model::GetFieldRequest>);
+    pub struct GetField(pub(crate) RequestBuilder<crate::model::GetFieldRequest>);
 
     impl GetField {
         pub(crate) fn new(
@@ -524,7 +524,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateField(RequestBuilder<crate::model::UpdateFieldRequest>);
+    pub struct UpdateField(pub(crate) RequestBuilder<crate::model::UpdateFieldRequest>);
 
     impl UpdateField {
         pub(crate) fn new(
@@ -676,7 +676,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFields(RequestBuilder<crate::model::ListFieldsRequest>);
+    pub struct ListFields(pub(crate) RequestBuilder<crate::model::ListFieldsRequest>);
 
     impl ListFields {
         pub(crate) fn new(
@@ -783,7 +783,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportDocuments(RequestBuilder<crate::model::ExportDocumentsRequest>);
+    pub struct ExportDocuments(pub(crate) RequestBuilder<crate::model::ExportDocumentsRequest>);
 
     impl ExportDocuments {
         pub(crate) fn new(
@@ -948,7 +948,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportDocuments(RequestBuilder<crate::model::ImportDocumentsRequest>);
+    pub struct ImportDocuments(pub(crate) RequestBuilder<crate::model::ImportDocumentsRequest>);
 
     impl ImportDocuments {
         pub(crate) fn new(
@@ -1092,7 +1092,9 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BulkDeleteDocuments(RequestBuilder<crate::model::BulkDeleteDocumentsRequest>);
+    pub struct BulkDeleteDocuments(
+        pub(crate) RequestBuilder<crate::model::BulkDeleteDocumentsRequest>,
+    );
 
     impl BulkDeleteDocuments {
         pub(crate) fn new(
@@ -1236,7 +1238,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDatabase(RequestBuilder<crate::model::CreateDatabaseRequest>);
+    pub struct CreateDatabase(pub(crate) RequestBuilder<crate::model::CreateDatabaseRequest>);
 
     impl CreateDatabase {
         pub(crate) fn new(
@@ -1382,7 +1384,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
+    pub struct GetDatabase(pub(crate) RequestBuilder<crate::model::GetDatabaseRequest>);
 
     impl GetDatabase {
         pub(crate) fn new(
@@ -1444,7 +1446,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
+    pub struct ListDatabases(pub(crate) RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
         pub(crate) fn new(
@@ -1513,7 +1515,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDatabase(RequestBuilder<crate::model::UpdateDatabaseRequest>);
+    pub struct UpdateDatabase(pub(crate) RequestBuilder<crate::model::UpdateDatabaseRequest>);
 
     impl UpdateDatabase {
         pub(crate) fn new(
@@ -1662,7 +1664,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDatabase(RequestBuilder<crate::model::DeleteDatabaseRequest>);
+    pub struct DeleteDatabase(pub(crate) RequestBuilder<crate::model::DeleteDatabaseRequest>);
 
     impl DeleteDatabase {
         pub(crate) fn new(
@@ -1784,7 +1786,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateUserCreds(RequestBuilder<crate::model::CreateUserCredsRequest>);
+    pub struct CreateUserCreds(pub(crate) RequestBuilder<crate::model::CreateUserCredsRequest>);
 
     impl CreateUserCreds {
         pub(crate) fn new(
@@ -1876,7 +1878,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetUserCreds(RequestBuilder<crate::model::GetUserCredsRequest>);
+    pub struct GetUserCreds(pub(crate) RequestBuilder<crate::model::GetUserCredsRequest>);
 
     impl GetUserCreds {
         pub(crate) fn new(
@@ -1938,7 +1940,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUserCreds(RequestBuilder<crate::model::ListUserCredsRequest>);
+    pub struct ListUserCreds(pub(crate) RequestBuilder<crate::model::ListUserCredsRequest>);
 
     impl ListUserCreds {
         pub(crate) fn new(
@@ -2000,7 +2002,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnableUserCreds(RequestBuilder<crate::model::EnableUserCredsRequest>);
+    pub struct EnableUserCreds(pub(crate) RequestBuilder<crate::model::EnableUserCredsRequest>);
 
     impl EnableUserCreds {
         pub(crate) fn new(
@@ -2062,7 +2064,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DisableUserCreds(RequestBuilder<crate::model::DisableUserCredsRequest>);
+    pub struct DisableUserCreds(pub(crate) RequestBuilder<crate::model::DisableUserCredsRequest>);
 
     impl DisableUserCreds {
         pub(crate) fn new(
@@ -2127,7 +2129,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResetUserPassword(RequestBuilder<crate::model::ResetUserPasswordRequest>);
+    pub struct ResetUserPassword(pub(crate) RequestBuilder<crate::model::ResetUserPasswordRequest>);
 
     impl ResetUserPassword {
         pub(crate) fn new(
@@ -2192,7 +2194,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteUserCreds(RequestBuilder<crate::model::DeleteUserCredsRequest>);
+    pub struct DeleteUserCreds(pub(crate) RequestBuilder<crate::model::DeleteUserCredsRequest>);
 
     impl DeleteUserCreds {
         pub(crate) fn new(
@@ -2254,7 +2256,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
+    pub struct GetBackup(pub(crate) RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
         pub(crate) fn new(
@@ -2316,7 +2318,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
+    pub struct ListBackups(pub(crate) RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
         pub(crate) fn new(
@@ -2384,7 +2386,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
+    pub struct DeleteBackup(pub(crate) RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
         pub(crate) fn new(
@@ -2447,7 +2449,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreDatabase(RequestBuilder<crate::model::RestoreDatabaseRequest>);
+    pub struct RestoreDatabase(pub(crate) RequestBuilder<crate::model::RestoreDatabaseRequest>);
 
     impl RestoreDatabase {
         pub(crate) fn new(
@@ -2608,7 +2610,9 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackupSchedule(RequestBuilder<crate::model::CreateBackupScheduleRequest>);
+    pub struct CreateBackupSchedule(
+        pub(crate) RequestBuilder<crate::model::CreateBackupScheduleRequest>,
+    );
 
     impl CreateBackupSchedule {
         pub(crate) fn new(
@@ -2695,7 +2699,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackupSchedule(RequestBuilder<crate::model::GetBackupScheduleRequest>);
+    pub struct GetBackupSchedule(pub(crate) RequestBuilder<crate::model::GetBackupScheduleRequest>);
 
     impl GetBackupSchedule {
         pub(crate) fn new(
@@ -2760,7 +2764,9 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackupSchedules(RequestBuilder<crate::model::ListBackupSchedulesRequest>);
+    pub struct ListBackupSchedules(
+        pub(crate) RequestBuilder<crate::model::ListBackupSchedulesRequest>,
+    );
 
     impl ListBackupSchedules {
         pub(crate) fn new(
@@ -2825,7 +2831,9 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackupSchedule(RequestBuilder<crate::model::UpdateBackupScheduleRequest>);
+    pub struct UpdateBackupSchedule(
+        pub(crate) RequestBuilder<crate::model::UpdateBackupScheduleRequest>,
+    );
 
     impl UpdateBackupSchedule {
         pub(crate) fn new(
@@ -2922,7 +2930,9 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackupSchedule(RequestBuilder<crate::model::DeleteBackupScheduleRequest>);
+    pub struct DeleteBackupSchedule(
+        pub(crate) RequestBuilder<crate::model::DeleteBackupScheduleRequest>,
+    );
 
     impl DeleteBackupSchedule {
         pub(crate) fn new(
@@ -2988,7 +2998,7 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CloneDatabase(RequestBuilder<crate::model::CloneDatabaseRequest>);
+    pub struct CloneDatabase(pub(crate) RequestBuilder<crate::model::CloneDatabaseRequest>);
 
     impl CloneDatabase {
         pub(crate) fn new(
@@ -3168,7 +3178,7 @@ pub mod firestore_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3284,7 +3294,9 @@ pub mod firestore_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3348,7 +3360,7 @@ pub mod firestore_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3413,7 +3425,7 @@ pub mod firestore_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

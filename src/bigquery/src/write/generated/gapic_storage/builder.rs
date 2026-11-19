@@ -87,7 +87,8 @@ pub mod read {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateReadSession(
-        RequestBuilder<crate::write::generated::gapic_storage::model::CreateReadSessionRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::write::generated::gapic_storage::model::CreateReadSessionRequest>,
     );
 
     impl CreateReadSession {
@@ -299,7 +300,8 @@ pub mod read {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SplitReadStream(
-        RequestBuilder<crate::write::generated::gapic_storage::model::SplitReadStreamRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::write::generated::gapic_storage::model::SplitReadStreamRequest>,
     );
 
     impl SplitReadStream {
@@ -365,9 +367,9 @@ pub mod big_query_write {
     /// Common implementation for [crate::client::BigQueryWrite] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::BigQueryWrite>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::BigQueryWrite>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -388,8 +390,8 @@ pub mod big_query_write {
     /// Common implementation for [crate::client::BigQueryWrite] bidi stream builders.
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::BigQueryWrite>,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::BigQueryWrite>,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl BidiStreamBuilder {
@@ -406,7 +408,8 @@ pub mod big_query_write {
     /// The request builder for [BigQueryWrite::create_write_stream][crate::client::BigQueryWrite::create_write_stream] calls.
     #[derive(Clone, Debug)]
     pub(crate) struct CreateWriteStream(
-        RequestBuilder<crate::write::generated::gapic_storage::model::CreateWriteStreamRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::write::generated::gapic_storage::model::CreateWriteStreamRequest>,
     );
 
     impl CreateWriteStream {
@@ -483,7 +486,7 @@ pub mod big_query_write {
 
     /// The request builder for [BigQueryWrite::append_rows][crate::client::BigQueryWrite::append_rows] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct AppendRows(BidiStreamBuilder);
+    pub(crate) struct AppendRows(pub(crate) BidiStreamBuilder);
 
     impl AppendRows {
         pub(crate) fn new(
@@ -523,7 +526,8 @@ pub mod big_query_write {
     /// The request builder for [BigQueryWrite::get_write_stream][crate::client::BigQueryWrite::get_write_stream] calls.
     #[derive(Clone, Debug)]
     pub(crate) struct GetWriteStream(
-        RequestBuilder<crate::write::generated::gapic_storage::model::GetWriteStreamRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::write::generated::gapic_storage::model::GetWriteStreamRequest>,
     );
 
     impl GetWriteStream {
@@ -588,7 +592,8 @@ pub mod big_query_write {
     /// The request builder for [BigQueryWrite::finalize_write_stream][crate::client::BigQueryWrite::finalize_write_stream] calls.
     #[derive(Clone, Debug)]
     pub(crate) struct FinalizeWriteStream(
-        RequestBuilder<crate::write::generated::gapic_storage::model::FinalizeWriteStreamRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::write::generated::gapic_storage::model::FinalizeWriteStreamRequest>,
     );
 
     impl FinalizeWriteStream {
@@ -645,9 +650,8 @@ pub mod big_query_write {
     /// The request builder for [BigQueryWrite::batch_commit_write_streams][crate::client::BigQueryWrite::batch_commit_write_streams] calls.
     #[derive(Clone, Debug)]
     pub(crate) struct BatchCommitWriteStreams(
-        RequestBuilder<
-            crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest>,
     );
 
     impl BatchCommitWriteStreams {
@@ -717,7 +721,7 @@ pub mod big_query_write {
     /// The request builder for [BigQueryWrite::flush_rows][crate::client::BigQueryWrite::flush_rows] calls.
     #[derive(Clone, Debug)]
     pub(crate) struct FlushRows(
-        RequestBuilder<crate::write::generated::gapic_storage::model::FlushRowsRequest>,
+        pub(crate) RequestBuilder<crate::write::generated::gapic_storage::model::FlushRowsRequest>,
     );
 
     impl FlushRows {

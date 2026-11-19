@@ -51,9 +51,9 @@ pub mod recommender {
     /// Common implementation for [crate::client::Recommender] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod recommender {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInsights(RequestBuilder<crate::model::ListInsightsRequest>);
+    pub struct ListInsights(pub(crate) RequestBuilder<crate::model::ListInsightsRequest>);
 
     impl ListInsights {
         pub(crate) fn new(
@@ -198,7 +198,7 @@ pub mod recommender {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInsight(RequestBuilder<crate::model::GetInsightRequest>);
+    pub struct GetInsight(pub(crate) RequestBuilder<crate::model::GetInsightRequest>);
 
     impl GetInsight {
         pub(crate) fn new(
@@ -260,7 +260,9 @@ pub mod recommender {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MarkInsightAccepted(RequestBuilder<crate::model::MarkInsightAcceptedRequest>);
+    pub struct MarkInsightAccepted(
+        pub(crate) RequestBuilder<crate::model::MarkInsightAcceptedRequest>,
+    );
 
     impl MarkInsightAccepted {
         pub(crate) fn new(
@@ -349,7 +351,9 @@ pub mod recommender {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRecommendations(RequestBuilder<crate::model::ListRecommendationsRequest>);
+    pub struct ListRecommendations(
+        pub(crate) RequestBuilder<crate::model::ListRecommendationsRequest>,
+    );
 
     impl ListRecommendations {
         pub(crate) fn new(
@@ -460,7 +464,7 @@ pub mod recommender {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRecommendation(RequestBuilder<crate::model::GetRecommendationRequest>);
+    pub struct GetRecommendation(pub(crate) RequestBuilder<crate::model::GetRecommendationRequest>);
 
     impl GetRecommendation {
         pub(crate) fn new(
@@ -526,7 +530,7 @@ pub mod recommender {
     /// ```
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationDismissed(
-        RequestBuilder<crate::model::MarkRecommendationDismissedRequest>,
+        pub(crate) RequestBuilder<crate::model::MarkRecommendationDismissedRequest>,
     );
 
     impl MarkRecommendationDismissed {
@@ -599,7 +603,7 @@ pub mod recommender {
     /// ```
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationClaimed(
-        RequestBuilder<crate::model::MarkRecommendationClaimedRequest>,
+        pub(crate) RequestBuilder<crate::model::MarkRecommendationClaimedRequest>,
     );
 
     impl MarkRecommendationClaimed {
@@ -686,7 +690,7 @@ pub mod recommender {
     /// ```
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationSucceeded(
-        RequestBuilder<crate::model::MarkRecommendationSucceededRequest>,
+        pub(crate) RequestBuilder<crate::model::MarkRecommendationSucceededRequest>,
     );
 
     impl MarkRecommendationSucceeded {
@@ -773,7 +777,7 @@ pub mod recommender {
     /// ```
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationFailed(
-        RequestBuilder<crate::model::MarkRecommendationFailedRequest>,
+        pub(crate) RequestBuilder<crate::model::MarkRecommendationFailedRequest>,
     );
 
     impl MarkRecommendationFailed {
@@ -859,7 +863,9 @@ pub mod recommender {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRecommenderConfig(RequestBuilder<crate::model::GetRecommenderConfigRequest>);
+    pub struct GetRecommenderConfig(
+        pub(crate) RequestBuilder<crate::model::GetRecommenderConfigRequest>,
+    );
 
     impl GetRecommenderConfig {
         pub(crate) fn new(
@@ -925,7 +931,7 @@ pub mod recommender {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRecommenderConfig(
-        RequestBuilder<crate::model::UpdateRecommenderConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateRecommenderConfigRequest>,
     );
 
     impl UpdateRecommenderConfig {
@@ -1029,7 +1035,9 @@ pub mod recommender {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInsightTypeConfig(RequestBuilder<crate::model::GetInsightTypeConfigRequest>);
+    pub struct GetInsightTypeConfig(
+        pub(crate) RequestBuilder<crate::model::GetInsightTypeConfigRequest>,
+    );
 
     impl GetInsightTypeConfig {
         pub(crate) fn new(
@@ -1095,7 +1103,7 @@ pub mod recommender {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInsightTypeConfig(
-        RequestBuilder<crate::model::UpdateInsightTypeConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateInsightTypeConfigRequest>,
     );
 
     impl UpdateInsightTypeConfig {

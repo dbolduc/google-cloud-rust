@@ -51,9 +51,9 @@ pub mod vm_migration {
     /// Common implementation for [crate::client::VmMigration] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
+    pub struct ListSources(pub(crate) RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
         pub(crate) fn new(
@@ -206,7 +206,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
+    pub struct GetSource(pub(crate) RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
         pub(crate) fn new(
@@ -269,7 +269,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
+    pub struct CreateSource(pub(crate) RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
         pub(crate) fn new(
@@ -423,7 +423,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
+    pub struct UpdateSource(pub(crate) RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
         pub(crate) fn new(
@@ -579,7 +579,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSource(RequestBuilder<crate::model::DeleteSourceRequest>);
+    pub struct DeleteSource(pub(crate) RequestBuilder<crate::model::DeleteSourceRequest>);
 
     impl DeleteSource {
         pub(crate) fn new(
@@ -697,7 +697,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchInventory(RequestBuilder<crate::model::FetchInventoryRequest>);
+    pub struct FetchInventory(pub(crate) RequestBuilder<crate::model::FetchInventoryRequest>);
 
     impl FetchInventory {
         pub(crate) fn new(
@@ -769,7 +769,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchStorageInventory(RequestBuilder<crate::model::FetchStorageInventoryRequest>);
+    pub struct FetchStorageInventory(
+        pub(crate) RequestBuilder<crate::model::FetchStorageInventoryRequest>,
+    );
 
     impl FetchStorageInventory {
         pub(crate) fn new(
@@ -895,7 +897,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUtilizationReports(RequestBuilder<crate::model::ListUtilizationReportsRequest>);
+    pub struct ListUtilizationReports(
+        pub(crate) RequestBuilder<crate::model::ListUtilizationReportsRequest>,
+    );
 
     impl ListUtilizationReports {
         pub(crate) fn new(
@@ -1020,7 +1024,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetUtilizationReport(RequestBuilder<crate::model::GetUtilizationReportRequest>);
+    pub struct GetUtilizationReport(
+        pub(crate) RequestBuilder<crate::model::GetUtilizationReportRequest>,
+    );
 
     impl GetUtilizationReport {
         pub(crate) fn new(
@@ -1093,7 +1099,7 @@ pub mod vm_migration {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateUtilizationReport(
-        RequestBuilder<crate::model::CreateUtilizationReportRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateUtilizationReportRequest>,
     );
 
     impl CreateUtilizationReport {
@@ -1253,7 +1259,7 @@ pub mod vm_migration {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteUtilizationReport(
-        RequestBuilder<crate::model::DeleteUtilizationReportRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteUtilizationReportRequest>,
     );
 
     impl DeleteUtilizationReport {
@@ -1379,7 +1385,7 @@ pub mod vm_migration {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListDatacenterConnectors(
-        RequestBuilder<crate::model::ListDatacenterConnectorsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListDatacenterConnectorsRequest>,
     );
 
     impl ListDatacenterConnectors {
@@ -1499,7 +1505,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDatacenterConnector(RequestBuilder<crate::model::GetDatacenterConnectorRequest>);
+    pub struct GetDatacenterConnector(
+        pub(crate) RequestBuilder<crate::model::GetDatacenterConnectorRequest>,
+    );
 
     impl GetDatacenterConnector {
         pub(crate) fn new(
@@ -1566,7 +1574,7 @@ pub mod vm_migration {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDatacenterConnector(
-        RequestBuilder<crate::model::CreateDatacenterConnectorRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateDatacenterConnectorRequest>,
     );
 
     impl CreateDatacenterConnector {
@@ -1726,7 +1734,7 @@ pub mod vm_migration {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDatacenterConnector(
-        RequestBuilder<crate::model::DeleteDatacenterConnectorRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteDatacenterConnectorRequest>,
     );
 
     impl DeleteDatacenterConnector {
@@ -1848,7 +1856,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpgradeAppliance(RequestBuilder<crate::model::UpgradeApplianceRequest>);
+    pub struct UpgradeAppliance(pub(crate) RequestBuilder<crate::model::UpgradeApplianceRequest>);
 
     impl UpgradeAppliance {
         pub(crate) fn new(
@@ -1976,7 +1984,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateMigratingVm(RequestBuilder<crate::model::CreateMigratingVmRequest>);
+    pub struct CreateMigratingVm(pub(crate) RequestBuilder<crate::model::CreateMigratingVmRequest>);
 
     impl CreateMigratingVm {
         pub(crate) fn new(
@@ -2135,7 +2143,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMigratingVms(RequestBuilder<crate::model::ListMigratingVmsRequest>);
+    pub struct ListMigratingVms(pub(crate) RequestBuilder<crate::model::ListMigratingVmsRequest>);
 
     impl ListMigratingVms {
         pub(crate) fn new(
@@ -2260,7 +2268,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMigratingVm(RequestBuilder<crate::model::GetMigratingVmRequest>);
+    pub struct GetMigratingVm(pub(crate) RequestBuilder<crate::model::GetMigratingVmRequest>);
 
     impl GetMigratingVm {
         pub(crate) fn new(
@@ -2329,7 +2337,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateMigratingVm(RequestBuilder<crate::model::UpdateMigratingVmRequest>);
+    pub struct UpdateMigratingVm(pub(crate) RequestBuilder<crate::model::UpdateMigratingVmRequest>);
 
     impl UpdateMigratingVm {
         pub(crate) fn new(
@@ -2487,7 +2495,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteMigratingVm(RequestBuilder<crate::model::DeleteMigratingVmRequest>);
+    pub struct DeleteMigratingVm(pub(crate) RequestBuilder<crate::model::DeleteMigratingVmRequest>);
 
     impl DeleteMigratingVm {
         pub(crate) fn new(
@@ -2602,7 +2610,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartMigration(RequestBuilder<crate::model::StartMigrationRequest>);
+    pub struct StartMigration(pub(crate) RequestBuilder<crate::model::StartMigrationRequest>);
 
     impl StartMigration {
         pub(crate) fn new(
@@ -2722,7 +2730,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResumeMigration(RequestBuilder<crate::model::ResumeMigrationRequest>);
+    pub struct ResumeMigration(pub(crate) RequestBuilder<crate::model::ResumeMigrationRequest>);
 
     impl ResumeMigration {
         pub(crate) fn new(
@@ -2841,7 +2849,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PauseMigration(RequestBuilder<crate::model::PauseMigrationRequest>);
+    pub struct PauseMigration(pub(crate) RequestBuilder<crate::model::PauseMigrationRequest>);
 
     impl PauseMigration {
         pub(crate) fn new(
@@ -2961,7 +2969,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FinalizeMigration(RequestBuilder<crate::model::FinalizeMigrationRequest>);
+    pub struct FinalizeMigration(pub(crate) RequestBuilder<crate::model::FinalizeMigrationRequest>);
 
     impl FinalizeMigration {
         pub(crate) fn new(
@@ -3083,7 +3091,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExtendMigration(RequestBuilder<crate::model::ExtendMigrationRequest>);
+    pub struct ExtendMigration(pub(crate) RequestBuilder<crate::model::ExtendMigrationRequest>);
 
     impl ExtendMigration {
         pub(crate) fn new(
@@ -3202,7 +3210,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCloneJob(RequestBuilder<crate::model::CreateCloneJobRequest>);
+    pub struct CreateCloneJob(pub(crate) RequestBuilder<crate::model::CreateCloneJobRequest>);
 
     impl CreateCloneJob {
         pub(crate) fn new(
@@ -3355,7 +3363,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelCloneJob(RequestBuilder<crate::model::CancelCloneJobRequest>);
+    pub struct CancelCloneJob(pub(crate) RequestBuilder<crate::model::CancelCloneJobRequest>);
 
     impl CancelCloneJob {
         pub(crate) fn new(
@@ -3477,7 +3485,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCloneJobs(RequestBuilder<crate::model::ListCloneJobsRequest>);
+    pub struct ListCloneJobs(pub(crate) RequestBuilder<crate::model::ListCloneJobsRequest>);
 
     impl ListCloneJobs {
         pub(crate) fn new(
@@ -3591,7 +3599,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCloneJob(RequestBuilder<crate::model::GetCloneJobRequest>);
+    pub struct GetCloneJob(pub(crate) RequestBuilder<crate::model::GetCloneJobRequest>);
 
     impl GetCloneJob {
         pub(crate) fn new(
@@ -3654,7 +3662,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCutoverJob(RequestBuilder<crate::model::CreateCutoverJobRequest>);
+    pub struct CreateCutoverJob(pub(crate) RequestBuilder<crate::model::CreateCutoverJobRequest>);
 
     impl CreateCutoverJob {
         pub(crate) fn new(
@@ -3810,7 +3818,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelCutoverJob(RequestBuilder<crate::model::CancelCutoverJobRequest>);
+    pub struct CancelCutoverJob(pub(crate) RequestBuilder<crate::model::CancelCutoverJobRequest>);
 
     impl CancelCutoverJob {
         pub(crate) fn new(
@@ -3935,7 +3943,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCutoverJobs(RequestBuilder<crate::model::ListCutoverJobsRequest>);
+    pub struct ListCutoverJobs(pub(crate) RequestBuilder<crate::model::ListCutoverJobsRequest>);
 
     impl ListCutoverJobs {
         pub(crate) fn new(
@@ -4051,7 +4059,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCutoverJob(RequestBuilder<crate::model::GetCutoverJobRequest>);
+    pub struct GetCutoverJob(pub(crate) RequestBuilder<crate::model::GetCutoverJobRequest>);
 
     impl GetCutoverJob {
         pub(crate) fn new(
@@ -4117,7 +4125,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
+    pub struct ListGroups(pub(crate) RequestBuilder<crate::model::ListGroupsRequest>);
 
     impl ListGroups {
         pub(crate) fn new(
@@ -4231,7 +4239,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
+    pub struct GetGroup(pub(crate) RequestBuilder<crate::model::GetGroupRequest>);
 
     impl GetGroup {
         pub(crate) fn new(
@@ -4294,7 +4302,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
+    pub struct CreateGroup(pub(crate) RequestBuilder<crate::model::CreateGroupRequest>);
 
     impl CreateGroup {
         pub(crate) fn new(
@@ -4448,7 +4456,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
+    pub struct UpdateGroup(pub(crate) RequestBuilder<crate::model::UpdateGroupRequest>);
 
     impl UpdateGroup {
         pub(crate) fn new(
@@ -4604,7 +4612,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
+    pub struct DeleteGroup(pub(crate) RequestBuilder<crate::model::DeleteGroupRequest>);
 
     impl DeleteGroup {
         pub(crate) fn new(
@@ -4723,7 +4731,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddGroupMigration(RequestBuilder<crate::model::AddGroupMigrationRequest>);
+    pub struct AddGroupMigration(pub(crate) RequestBuilder<crate::model::AddGroupMigrationRequest>);
 
     impl AddGroupMigration {
         pub(crate) fn new(
@@ -4851,7 +4859,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveGroupMigration(RequestBuilder<crate::model::RemoveGroupMigrationRequest>);
+    pub struct RemoveGroupMigration(
+        pub(crate) RequestBuilder<crate::model::RemoveGroupMigrationRequest>,
+    );
 
     impl RemoveGroupMigration {
         pub(crate) fn new(
@@ -4982,7 +4992,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTargetProjects(RequestBuilder<crate::model::ListTargetProjectsRequest>);
+    pub struct ListTargetProjects(
+        pub(crate) RequestBuilder<crate::model::ListTargetProjectsRequest>,
+    );
 
     impl ListTargetProjects {
         pub(crate) fn new(
@@ -5101,7 +5113,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTargetProject(RequestBuilder<crate::model::GetTargetProjectRequest>);
+    pub struct GetTargetProject(pub(crate) RequestBuilder<crate::model::GetTargetProjectRequest>);
 
     impl GetTargetProject {
         pub(crate) fn new(
@@ -5167,7 +5179,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTargetProject(RequestBuilder<crate::model::CreateTargetProjectRequest>);
+    pub struct CreateTargetProject(
+        pub(crate) RequestBuilder<crate::model::CreateTargetProjectRequest>,
+    );
 
     impl CreateTargetProject {
         pub(crate) fn new(
@@ -5323,7 +5337,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTargetProject(RequestBuilder<crate::model::UpdateTargetProjectRequest>);
+    pub struct UpdateTargetProject(
+        pub(crate) RequestBuilder<crate::model::UpdateTargetProjectRequest>,
+    );
 
     impl UpdateTargetProject {
         pub(crate) fn new(
@@ -5481,7 +5497,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTargetProject(RequestBuilder<crate::model::DeleteTargetProjectRequest>);
+    pub struct DeleteTargetProject(
+        pub(crate) RequestBuilder<crate::model::DeleteTargetProjectRequest>,
+    );
 
     impl DeleteTargetProject {
         pub(crate) fn new(
@@ -5605,7 +5623,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReplicationCycles(RequestBuilder<crate::model::ListReplicationCyclesRequest>);
+    pub struct ListReplicationCycles(
+        pub(crate) RequestBuilder<crate::model::ListReplicationCyclesRequest>,
+    );
 
     impl ListReplicationCycles {
         pub(crate) fn new(
@@ -5724,7 +5744,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetReplicationCycle(RequestBuilder<crate::model::GetReplicationCycleRequest>);
+    pub struct GetReplicationCycle(
+        pub(crate) RequestBuilder<crate::model::GetReplicationCycleRequest>,
+    );
 
     impl GetReplicationCycle {
         pub(crate) fn new(
@@ -5793,7 +5815,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListImageImports(RequestBuilder<crate::model::ListImageImportsRequest>);
+    pub struct ListImageImports(pub(crate) RequestBuilder<crate::model::ListImageImportsRequest>);
 
     impl ListImageImports {
         pub(crate) fn new(
@@ -5910,7 +5932,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetImageImport(RequestBuilder<crate::model::GetImageImportRequest>);
+    pub struct GetImageImport(pub(crate) RequestBuilder<crate::model::GetImageImportRequest>);
 
     impl GetImageImport {
         pub(crate) fn new(
@@ -5973,7 +5995,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateImageImport(RequestBuilder<crate::model::CreateImageImportRequest>);
+    pub struct CreateImageImport(pub(crate) RequestBuilder<crate::model::CreateImageImportRequest>);
 
     impl CreateImageImport {
         pub(crate) fn new(
@@ -6129,7 +6151,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteImageImport(RequestBuilder<crate::model::DeleteImageImportRequest>);
+    pub struct DeleteImageImport(pub(crate) RequestBuilder<crate::model::DeleteImageImportRequest>);
 
     impl DeleteImageImport {
         pub(crate) fn new(
@@ -6253,7 +6275,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListImageImportJobs(RequestBuilder<crate::model::ListImageImportJobsRequest>);
+    pub struct ListImageImportJobs(
+        pub(crate) RequestBuilder<crate::model::ListImageImportJobsRequest>,
+    );
 
     impl ListImageImportJobs {
         pub(crate) fn new(
@@ -6370,7 +6394,7 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetImageImportJob(RequestBuilder<crate::model::GetImageImportJobRequest>);
+    pub struct GetImageImportJob(pub(crate) RequestBuilder<crate::model::GetImageImportJobRequest>);
 
     impl GetImageImportJob {
         pub(crate) fn new(
@@ -6436,7 +6460,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelImageImportJob(RequestBuilder<crate::model::CancelImageImportJobRequest>);
+    pub struct CancelImageImportJob(
+        pub(crate) RequestBuilder<crate::model::CancelImageImportJobRequest>,
+    );
 
     impl CancelImageImportJob {
         pub(crate) fn new(
@@ -6558,7 +6584,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDiskMigrationJob(RequestBuilder<crate::model::CreateDiskMigrationJobRequest>);
+    pub struct CreateDiskMigrationJob(
+        pub(crate) RequestBuilder<crate::model::CreateDiskMigrationJobRequest>,
+    );
 
     impl CreateDiskMigrationJob {
         pub(crate) fn new(
@@ -6717,7 +6745,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDiskMigrationJobs(RequestBuilder<crate::model::ListDiskMigrationJobsRequest>);
+    pub struct ListDiskMigrationJobs(
+        pub(crate) RequestBuilder<crate::model::ListDiskMigrationJobsRequest>,
+    );
 
     impl ListDiskMigrationJobs {
         pub(crate) fn new(
@@ -6834,7 +6864,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDiskMigrationJob(RequestBuilder<crate::model::GetDiskMigrationJobRequest>);
+    pub struct GetDiskMigrationJob(
+        pub(crate) RequestBuilder<crate::model::GetDiskMigrationJobRequest>,
+    );
 
     impl GetDiskMigrationJob {
         pub(crate) fn new(
@@ -6900,7 +6932,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDiskMigrationJob(RequestBuilder<crate::model::UpdateDiskMigrationJobRequest>);
+    pub struct UpdateDiskMigrationJob(
+        pub(crate) RequestBuilder<crate::model::UpdateDiskMigrationJobRequest>,
+    );
 
     impl UpdateDiskMigrationJob {
         pub(crate) fn new(
@@ -7058,7 +7092,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDiskMigrationJob(RequestBuilder<crate::model::DeleteDiskMigrationJobRequest>);
+    pub struct DeleteDiskMigrationJob(
+        pub(crate) RequestBuilder<crate::model::DeleteDiskMigrationJobRequest>,
+    );
 
     impl DeleteDiskMigrationJob {
         pub(crate) fn new(
@@ -7173,7 +7209,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RunDiskMigrationJob(RequestBuilder<crate::model::RunDiskMigrationJobRequest>);
+    pub struct RunDiskMigrationJob(
+        pub(crate) RequestBuilder<crate::model::RunDiskMigrationJobRequest>,
+    );
 
     impl RunDiskMigrationJob {
         pub(crate) fn new(
@@ -7295,7 +7333,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelDiskMigrationJob(RequestBuilder<crate::model::CancelDiskMigrationJobRequest>);
+    pub struct CancelDiskMigrationJob(
+        pub(crate) RequestBuilder<crate::model::CancelDiskMigrationJobRequest>,
+    );
 
     impl CancelDiskMigrationJob {
         pub(crate) fn new(
@@ -7420,7 +7460,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -7529,7 +7571,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -7597,7 +7641,7 @@ pub mod vm_migration {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -7713,7 +7757,9 @@ pub mod vm_migration {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -7777,7 +7823,7 @@ pub mod vm_migration {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -7842,7 +7888,7 @@ pub mod vm_migration {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

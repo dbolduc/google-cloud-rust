@@ -51,9 +51,9 @@ pub mod maintenance {
     /// Common implementation for [crate::client::Maintenance] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Maintenance>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Maintenance>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,9 @@ pub mod maintenance {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SummarizeMaintenances(RequestBuilder<crate::model::SummarizeMaintenancesRequest>);
+    pub struct SummarizeMaintenances(
+        pub(crate) RequestBuilder<crate::model::SummarizeMaintenancesRequest>,
+    );
 
     impl SummarizeMaintenances {
         pub(crate) fn new(
@@ -214,7 +216,7 @@ pub mod maintenance {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListResourceMaintenances(
-        RequestBuilder<crate::model::ListResourceMaintenancesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListResourceMaintenancesRequest>,
     );
 
     impl ListResourceMaintenances {
@@ -332,7 +334,9 @@ pub mod maintenance {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetResourceMaintenance(RequestBuilder<crate::model::GetResourceMaintenanceRequest>);
+    pub struct GetResourceMaintenance(
+        pub(crate) RequestBuilder<crate::model::GetResourceMaintenanceRequest>,
+    );
 
     impl GetResourceMaintenance {
         pub(crate) fn new(
@@ -401,7 +405,9 @@ pub mod maintenance {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -510,7 +516,9 @@ pub mod maintenance {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod accounts_service {
     /// Common implementation for [crate::client::AccountsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AccountsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AccountsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod accounts_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListChildAccounts(RequestBuilder<crate::model::ListChildAccountsRequest>);
+    pub struct ListChildAccounts(pub(crate) RequestBuilder<crate::model::ListChildAccountsRequest>);
 
     impl ListChildAccounts {
         pub(crate) fn new(
@@ -233,7 +233,7 @@ pub mod accounts_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAccount(RequestBuilder<crate::model::GetAccountRequest>);
+    pub struct GetAccount(pub(crate) RequestBuilder<crate::model::GetAccountRequest>);
 
     impl GetAccount {
         pub(crate) fn new(
@@ -313,7 +313,7 @@ pub mod accounts_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateLabels(RequestBuilder<crate::model::UpdateAccountLabelsRequest>);
+    pub struct UpdateLabels(pub(crate) RequestBuilder<crate::model::UpdateAccountLabelsRequest>);
 
     impl UpdateLabels {
         pub(crate) fn new(
@@ -428,9 +428,9 @@ pub mod account_labels_service {
     /// Common implementation for [crate::client::AccountLabelsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AccountLabelsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AccountLabelsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -469,7 +469,7 @@ pub mod account_labels_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAccountLabels(RequestBuilder<crate::model::ListAccountLabelsRequest>);
+    pub struct ListAccountLabels(pub(crate) RequestBuilder<crate::model::ListAccountLabelsRequest>);
 
     impl ListAccountLabels {
         pub(crate) fn new(
@@ -574,7 +574,9 @@ pub mod account_labels_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAccountLabel(RequestBuilder<crate::model::CreateAccountLabelRequest>);
+    pub struct CreateAccountLabel(
+        pub(crate) RequestBuilder<crate::model::CreateAccountLabelRequest>,
+    );
 
     impl CreateAccountLabel {
         pub(crate) fn new(
@@ -661,7 +663,9 @@ pub mod account_labels_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAccountLabel(RequestBuilder<crate::model::UpdateAccountLabelRequest>);
+    pub struct UpdateAccountLabel(
+        pub(crate) RequestBuilder<crate::model::UpdateAccountLabelRequest>,
+    );
 
     impl UpdateAccountLabel {
         pub(crate) fn new(
@@ -740,7 +744,9 @@ pub mod account_labels_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAccountLabel(RequestBuilder<crate::model::DeleteAccountLabelRequest>);
+    pub struct DeleteAccountLabel(
+        pub(crate) RequestBuilder<crate::model::DeleteAccountLabelRequest>,
+    );
 
     impl DeleteAccountLabel {
         pub(crate) fn new(
@@ -826,9 +832,9 @@ pub mod css_product_inputs_service {
     /// Common implementation for [crate::client::CssProductInputsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CssProductInputsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CssProductInputsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -863,7 +869,9 @@ pub mod css_product_inputs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InsertCssProductInput(RequestBuilder<crate::model::InsertCssProductInputRequest>);
+    pub struct InsertCssProductInput(
+        pub(crate) RequestBuilder<crate::model::InsertCssProductInputRequest>,
+    );
 
     impl InsertCssProductInput {
         pub(crate) fn new(
@@ -957,7 +965,9 @@ pub mod css_product_inputs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCssProductInput(RequestBuilder<crate::model::UpdateCssProductInputRequest>);
+    pub struct UpdateCssProductInput(
+        pub(crate) RequestBuilder<crate::model::UpdateCssProductInputRequest>,
+    );
 
     impl UpdateCssProductInput {
         pub(crate) fn new(
@@ -1054,7 +1064,9 @@ pub mod css_product_inputs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCssProductInput(RequestBuilder<crate::model::DeleteCssProductInputRequest>);
+    pub struct DeleteCssProductInput(
+        pub(crate) RequestBuilder<crate::model::DeleteCssProductInputRequest>,
+    );
 
     impl DeleteCssProductInput {
         pub(crate) fn new(
@@ -1158,9 +1170,9 @@ pub mod css_products_service {
     /// Common implementation for [crate::client::CssProductsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CssProductsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CssProductsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1195,7 +1207,7 @@ pub mod css_products_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCssProduct(RequestBuilder<crate::model::GetCssProductRequest>);
+    pub struct GetCssProduct(pub(crate) RequestBuilder<crate::model::GetCssProductRequest>);
 
     impl GetCssProduct {
         pub(crate) fn new(
@@ -1261,7 +1273,7 @@ pub mod css_products_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCssProducts(RequestBuilder<crate::model::ListCssProductsRequest>);
+    pub struct ListCssProducts(pub(crate) RequestBuilder<crate::model::ListCssProductsRequest>);
 
     impl ListCssProducts {
         pub(crate) fn new(
@@ -1384,9 +1396,9 @@ pub mod quota_service {
     /// Common implementation for [crate::client::QuotaService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1425,7 +1437,7 @@ pub mod quota_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListQuotaGroups(RequestBuilder<crate::model::ListQuotaGroupsRequest>);
+    pub struct ListQuotaGroups(pub(crate) RequestBuilder<crate::model::ListQuotaGroupsRequest>);
 
     impl ListQuotaGroups {
         pub(crate) fn new(

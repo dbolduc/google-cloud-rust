@@ -51,9 +51,9 @@ pub mod service_usage {
     /// Common implementation for [crate::client::ServiceUsage] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod service_usage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnableService(RequestBuilder<crate::model::EnableServiceRequest>);
+    pub struct EnableService(pub(crate) RequestBuilder<crate::model::EnableServiceRequest>);
 
     impl EnableService {
         pub(crate) fn new(
@@ -206,7 +206,7 @@ pub mod service_usage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DisableService(RequestBuilder<crate::model::DisableServiceRequest>);
+    pub struct DisableService(pub(crate) RequestBuilder<crate::model::DisableServiceRequest>);
 
     impl DisableService {
         pub(crate) fn new(
@@ -339,7 +339,7 @@ pub mod service_usage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
+    pub struct GetService(pub(crate) RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
         pub(crate) fn new(
@@ -403,7 +403,7 @@ pub mod service_usage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
+    pub struct ListServices(pub(crate) RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
         pub(crate) fn new(
@@ -508,7 +508,9 @@ pub mod service_usage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchEnableServices(RequestBuilder<crate::model::BatchEnableServicesRequest>);
+    pub struct BatchEnableServices(
+        pub(crate) RequestBuilder<crate::model::BatchEnableServicesRequest>,
+    );
 
     impl BatchEnableServices {
         pub(crate) fn new(
@@ -638,7 +640,7 @@ pub mod service_usage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchGetServices(RequestBuilder<crate::model::BatchGetServicesRequest>);
+    pub struct BatchGetServices(pub(crate) RequestBuilder<crate::model::BatchGetServicesRequest>);
 
     impl BatchGetServices {
         pub(crate) fn new(
@@ -717,7 +719,7 @@ pub mod service_usage {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -833,7 +835,9 @@ pub mod service_usage {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

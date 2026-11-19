@@ -51,9 +51,9 @@ pub mod case_attachment_service {
     /// Common implementation for [crate::client::CaseAttachmentService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod case_attachment_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAttachments(RequestBuilder<crate::model::ListAttachmentsRequest>);
+    pub struct ListAttachments(pub(crate) RequestBuilder<crate::model::ListAttachmentsRequest>);
 
     impl ListAttachments {
         pub(crate) fn new(
@@ -194,7 +194,7 @@ pub mod case_attachment_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAttachment(RequestBuilder<crate::model::GetAttachmentRequest>);
+    pub struct GetAttachment(pub(crate) RequestBuilder<crate::model::GetAttachmentRequest>);
 
     impl GetAttachment {
         pub(crate) fn new(
@@ -277,9 +277,9 @@ pub mod case_service {
     /// Common implementation for [crate::client::CaseService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -314,7 +314,7 @@ pub mod case_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCase(RequestBuilder<crate::model::GetCaseRequest>);
+    pub struct GetCase(pub(crate) RequestBuilder<crate::model::GetCaseRequest>);
 
     impl GetCase {
         pub(crate) fn new(
@@ -380,7 +380,7 @@ pub mod case_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCases(RequestBuilder<crate::model::ListCasesRequest>);
+    pub struct ListCases(pub(crate) RequestBuilder<crate::model::ListCasesRequest>);
 
     impl ListCases {
         pub(crate) fn new(
@@ -488,7 +488,7 @@ pub mod case_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchCases(RequestBuilder<crate::model::SearchCasesRequest>);
+    pub struct SearchCases(pub(crate) RequestBuilder<crate::model::SearchCasesRequest>);
 
     impl SearchCases {
         pub(crate) fn new(
@@ -592,7 +592,7 @@ pub mod case_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCase(RequestBuilder<crate::model::CreateCaseRequest>);
+    pub struct CreateCase(pub(crate) RequestBuilder<crate::model::CreateCaseRequest>);
 
     impl CreateCase {
         pub(crate) fn new(
@@ -676,7 +676,7 @@ pub mod case_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCase(RequestBuilder<crate::model::UpdateCaseRequest>);
+    pub struct UpdateCase(pub(crate) RequestBuilder<crate::model::UpdateCaseRequest>);
 
     impl UpdateCase {
         pub(crate) fn new(
@@ -770,7 +770,7 @@ pub mod case_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EscalateCase(RequestBuilder<crate::model::EscalateCaseRequest>);
+    pub struct EscalateCase(pub(crate) RequestBuilder<crate::model::EscalateCaseRequest>);
 
     impl EscalateCase {
         pub(crate) fn new(
@@ -850,7 +850,7 @@ pub mod case_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CloseCase(RequestBuilder<crate::model::CloseCaseRequest>);
+    pub struct CloseCase(pub(crate) RequestBuilder<crate::model::CloseCaseRequest>);
 
     impl CloseCase {
         pub(crate) fn new(
@@ -917,7 +917,7 @@ pub mod case_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SearchCaseClassifications(
-        RequestBuilder<crate::model::SearchCaseClassificationsRequest>,
+        pub(crate) RequestBuilder<crate::model::SearchCaseClassificationsRequest>,
     );
 
     impl SearchCaseClassifications {
@@ -1042,9 +1042,9 @@ pub mod comment_service {
     /// Common implementation for [crate::client::CommentService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1083,7 +1083,7 @@ pub mod comment_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListComments(RequestBuilder<crate::model::ListCommentsRequest>);
+    pub struct ListComments(pub(crate) RequestBuilder<crate::model::ListCommentsRequest>);
 
     impl ListComments {
         pub(crate) fn new(
@@ -1183,7 +1183,7 @@ pub mod comment_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateComment(RequestBuilder<crate::model::CreateCommentRequest>);
+    pub struct CreateComment(pub(crate) RequestBuilder<crate::model::CreateCommentRequest>);
 
     impl CreateComment {
         pub(crate) fn new(
@@ -1267,7 +1267,7 @@ pub mod comment_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetComment(RequestBuilder<crate::model::GetCommentRequest>);
+    pub struct GetComment(pub(crate) RequestBuilder<crate::model::GetCommentRequest>);
 
     impl GetComment {
         pub(crate) fn new(
@@ -1350,9 +1350,10 @@ pub mod support_event_subscription_service {
     /// Common implementation for [crate::client::SupportEventSubscriptionService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SupportEventSubscriptionService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::SupportEventSubscriptionService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1388,7 +1389,7 @@ pub mod support_event_subscription_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSupportEventSubscription(
-        RequestBuilder<crate::model::CreateSupportEventSubscriptionRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateSupportEventSubscriptionRequest>,
     );
 
     impl CreateSupportEventSubscription {
@@ -1480,7 +1481,7 @@ pub mod support_event_subscription_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetSupportEventSubscription(
-        RequestBuilder<crate::model::GetSupportEventSubscriptionRequest>,
+        pub(crate) RequestBuilder<crate::model::GetSupportEventSubscriptionRequest>,
     );
 
     impl GetSupportEventSubscription {
@@ -1551,7 +1552,7 @@ pub mod support_event_subscription_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListSupportEventSubscriptions(
-        RequestBuilder<crate::model::ListSupportEventSubscriptionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListSupportEventSubscriptionsRequest>,
     );
 
     impl ListSupportEventSubscriptions {
@@ -1670,7 +1671,7 @@ pub mod support_event_subscription_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSupportEventSubscription(
-        RequestBuilder<crate::model::UpdateSupportEventSubscriptionRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateSupportEventSubscriptionRequest>,
     );
 
     impl UpdateSupportEventSubscription {
@@ -1772,7 +1773,7 @@ pub mod support_event_subscription_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSupportEventSubscription(
-        RequestBuilder<crate::model::DeleteSupportEventSubscriptionRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteSupportEventSubscriptionRequest>,
     );
 
     impl DeleteSupportEventSubscription {
@@ -1839,7 +1840,7 @@ pub mod support_event_subscription_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteSupportEventSubscription(
-        RequestBuilder<crate::model::UndeleteSupportEventSubscriptionRequest>,
+        pub(crate) RequestBuilder<crate::model::UndeleteSupportEventSubscriptionRequest>,
     );
 
     impl UndeleteSupportEventSubscription {
@@ -1906,7 +1907,7 @@ pub mod support_event_subscription_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ExpungeSupportEventSubscription(
-        RequestBuilder<crate::model::ExpungeSupportEventSubscriptionRequest>,
+        pub(crate) RequestBuilder<crate::model::ExpungeSupportEventSubscriptionRequest>,
     );
 
     impl ExpungeSupportEventSubscription {

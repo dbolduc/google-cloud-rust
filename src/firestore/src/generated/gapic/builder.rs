@@ -51,9 +51,9 @@ pub mod firestore {
     /// Common implementation for [crate::client::Firestore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -74,8 +74,8 @@ pub mod firestore {
     /// Common implementation for [crate::client::Firestore] bidi stream builders.
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl BidiStreamBuilder {
@@ -106,7 +106,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDocument(RequestBuilder<crate::model::GetDocumentRequest>);
+    pub struct GetDocument(pub(crate) RequestBuilder<crate::model::GetDocumentRequest>);
 
     impl GetDocument {
         pub(crate) fn new(
@@ -245,7 +245,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDocuments(RequestBuilder<crate::model::ListDocumentsRequest>);
+    pub struct ListDocuments(pub(crate) RequestBuilder<crate::model::ListDocumentsRequest>);
 
     impl ListDocuments {
         pub(crate) fn new(
@@ -436,7 +436,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDocument(RequestBuilder<crate::model::UpdateDocumentRequest>);
+    pub struct UpdateDocument(pub(crate) RequestBuilder<crate::model::UpdateDocumentRequest>);
 
     impl UpdateDocument {
         pub(crate) fn new(
@@ -584,7 +584,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDocument(RequestBuilder<crate::model::DeleteDocumentRequest>);
+    pub struct DeleteDocument(pub(crate) RequestBuilder<crate::model::DeleteDocumentRequest>);
 
     impl DeleteDocument {
         pub(crate) fn new(
@@ -685,7 +685,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchGetDocuments(RequestBuilder<crate::model::BatchGetDocumentsRequest>);
+    pub struct BatchGetDocuments(pub(crate) RequestBuilder<crate::model::BatchGetDocumentsRequest>);
 
     impl BatchGetDocuments {
         pub(crate) fn new(
@@ -852,7 +852,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BeginTransaction(RequestBuilder<crate::model::BeginTransactionRequest>);
+    pub struct BeginTransaction(pub(crate) RequestBuilder<crate::model::BeginTransactionRequest>);
 
     impl BeginTransaction {
         pub(crate) fn new(
@@ -953,7 +953,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Commit(RequestBuilder<crate::model::CommitRequest>);
+    pub struct Commit(pub(crate) RequestBuilder<crate::model::CommitRequest>);
 
     impl Commit {
         pub(crate) fn new(
@@ -1050,7 +1050,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Rollback(RequestBuilder<crate::model::RollbackRequest>);
+    pub struct Rollback(pub(crate) RequestBuilder<crate::model::RollbackRequest>);
 
     impl Rollback {
         pub(crate) fn new(
@@ -1141,7 +1141,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RunQuery(RequestBuilder<crate::model::RunQueryRequest>);
+    pub struct RunQuery(pub(crate) RequestBuilder<crate::model::RunQueryRequest>);
 
     impl RunQuery {
         pub(crate) fn new(
@@ -1323,7 +1323,9 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RunAggregationQuery(RequestBuilder<crate::model::RunAggregationQueryRequest>);
+    pub struct RunAggregationQuery(
+        pub(crate) RequestBuilder<crate::model::RunAggregationQueryRequest>,
+    );
 
     impl RunAggregationQuery {
         pub(crate) fn new(
@@ -1512,7 +1514,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PartitionQuery(RequestBuilder<crate::model::PartitionQueryRequest>);
+    pub struct PartitionQuery(pub(crate) RequestBuilder<crate::model::PartitionQueryRequest>);
 
     impl PartitionQuery {
         pub(crate) fn new(
@@ -1700,7 +1702,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Write(BidiStreamBuilder);
+    pub struct Write(pub(crate) BidiStreamBuilder);
 
     impl Write {
         pub(crate) fn new(
@@ -1758,7 +1760,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Listen(BidiStreamBuilder);
+    pub struct Listen(pub(crate) BidiStreamBuilder);
 
     impl Listen {
         pub(crate) fn new(
@@ -1808,7 +1810,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCollectionIds(RequestBuilder<crate::model::ListCollectionIdsRequest>);
+    pub struct ListCollectionIds(pub(crate) RequestBuilder<crate::model::ListCollectionIdsRequest>);
 
     impl ListCollectionIds {
         pub(crate) fn new(
@@ -1930,7 +1932,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchWrite(RequestBuilder<crate::model::BatchWriteRequest>);
+    pub struct BatchWrite(pub(crate) RequestBuilder<crate::model::BatchWriteRequest>);
 
     impl BatchWrite {
         pub(crate) fn new(
@@ -2032,7 +2034,7 @@ pub mod firestore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDocument(RequestBuilder<crate::model::CreateDocumentRequest>);
+    pub struct CreateDocument(pub(crate) RequestBuilder<crate::model::CreateDocumentRequest>);
 
     impl CreateDocument {
         pub(crate) fn new(

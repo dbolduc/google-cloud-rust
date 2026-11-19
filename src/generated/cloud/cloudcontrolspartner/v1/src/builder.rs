@@ -51,9 +51,9 @@ pub mod cloud_controls_partner_core {
     /// Common implementation for [crate::client::CloudControlsPartnerCore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod cloud_controls_partner_core {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
+    pub struct GetWorkload(pub(crate) RequestBuilder<crate::model::GetWorkloadRequest>);
 
     impl GetWorkload {
         pub(crate) fn new(
@@ -154,7 +154,7 @@ pub mod cloud_controls_partner_core {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
+    pub struct ListWorkloads(pub(crate) RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
         pub(crate) fn new(
@@ -266,7 +266,7 @@ pub mod cloud_controls_partner_core {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCustomer(RequestBuilder<crate::model::GetCustomerRequest>);
+    pub struct GetCustomer(pub(crate) RequestBuilder<crate::model::GetCustomerRequest>);
 
     impl GetCustomer {
         pub(crate) fn new(
@@ -332,7 +332,7 @@ pub mod cloud_controls_partner_core {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCustomers(RequestBuilder<crate::model::ListCustomersRequest>);
+    pub struct ListCustomers(pub(crate) RequestBuilder<crate::model::ListCustomersRequest>);
 
     impl ListCustomers {
         pub(crate) fn new(
@@ -444,7 +444,7 @@ pub mod cloud_controls_partner_core {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEkmConnections(RequestBuilder<crate::model::GetEkmConnectionsRequest>);
+    pub struct GetEkmConnections(pub(crate) RequestBuilder<crate::model::GetEkmConnectionsRequest>);
 
     impl GetEkmConnections {
         pub(crate) fn new(
@@ -509,7 +509,9 @@ pub mod cloud_controls_partner_core {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPartnerPermissions(RequestBuilder<crate::model::GetPartnerPermissionsRequest>);
+    pub struct GetPartnerPermissions(
+        pub(crate) RequestBuilder<crate::model::GetPartnerPermissionsRequest>,
+    );
 
     impl GetPartnerPermissions {
         pub(crate) fn new(
@@ -579,7 +581,7 @@ pub mod cloud_controls_partner_core {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAccessApprovalRequests(
-        RequestBuilder<crate::model::ListAccessApprovalRequestsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListAccessApprovalRequestsRequest>,
     );
 
     impl ListAccessApprovalRequests {
@@ -697,7 +699,7 @@ pub mod cloud_controls_partner_core {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPartner(RequestBuilder<crate::model::GetPartnerRequest>);
+    pub struct GetPartner(pub(crate) RequestBuilder<crate::model::GetPartnerRequest>);
 
     impl GetPartner {
         pub(crate) fn new(
@@ -759,7 +761,7 @@ pub mod cloud_controls_partner_core {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCustomer(RequestBuilder<crate::model::CreateCustomerRequest>);
+    pub struct CreateCustomer(pub(crate) RequestBuilder<crate::model::CreateCustomerRequest>);
 
     impl CreateCustomer {
         pub(crate) fn new(
@@ -851,7 +853,7 @@ pub mod cloud_controls_partner_core {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCustomer(RequestBuilder<crate::model::UpdateCustomerRequest>);
+    pub struct UpdateCustomer(pub(crate) RequestBuilder<crate::model::UpdateCustomerRequest>);
 
     impl UpdateCustomer {
         pub(crate) fn new(
@@ -945,7 +947,7 @@ pub mod cloud_controls_partner_core {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCustomer(RequestBuilder<crate::model::DeleteCustomerRequest>);
+    pub struct DeleteCustomer(pub(crate) RequestBuilder<crate::model::DeleteCustomerRequest>);
 
     impl DeleteCustomer {
         pub(crate) fn new(
@@ -1028,9 +1030,10 @@ pub mod cloud_controls_partner_monitoring {
     /// Common implementation for [crate::client::CloudControlsPartnerMonitoring] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1069,7 +1072,7 @@ pub mod cloud_controls_partner_monitoring {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListViolations(RequestBuilder<crate::model::ListViolationsRequest>);
+    pub struct ListViolations(pub(crate) RequestBuilder<crate::model::ListViolationsRequest>);
 
     impl ListViolations {
         pub(crate) fn new(
@@ -1201,7 +1204,7 @@ pub mod cloud_controls_partner_monitoring {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetViolation(RequestBuilder<crate::model::GetViolationRequest>);
+    pub struct GetViolation(pub(crate) RequestBuilder<crate::model::GetViolationRequest>);
 
     impl GetViolation {
         pub(crate) fn new(

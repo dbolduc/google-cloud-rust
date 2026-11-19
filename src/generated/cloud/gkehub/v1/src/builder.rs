@@ -51,9 +51,9 @@ pub mod gke_hub {
     /// Common implementation for [crate::client::GkeHub] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -90,7 +90,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMemberships(RequestBuilder<crate::model::ListMembershipsRequest>);
+    pub struct ListMemberships(pub(crate) RequestBuilder<crate::model::ListMembershipsRequest>);
 
     impl ListMemberships {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -206,7 +206,9 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBoundMemberships(RequestBuilder<crate::model::ListBoundMembershipsRequest>);
+    pub struct ListBoundMemberships(
+        pub(crate) RequestBuilder<crate::model::ListBoundMembershipsRequest>,
+    );
 
     impl ListBoundMemberships {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -319,7 +321,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFeatures(RequestBuilder<crate::model::ListFeaturesRequest>);
+    pub struct ListFeatures(pub(crate) RequestBuilder<crate::model::ListFeaturesRequest>);
 
     impl ListFeatures {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -433,7 +435,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMembership(RequestBuilder<crate::model::GetMembershipRequest>);
+    pub struct GetMembership(pub(crate) RequestBuilder<crate::model::GetMembershipRequest>);
 
     impl GetMembership {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -493,7 +495,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFeature(RequestBuilder<crate::model::GetFeatureRequest>);
+    pub struct GetFeature(pub(crate) RequestBuilder<crate::model::GetFeatureRequest>);
 
     impl GetFeature {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -558,7 +560,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateMembership(RequestBuilder<crate::model::CreateMembershipRequest>);
+    pub struct CreateMembership(pub(crate) RequestBuilder<crate::model::CreateMembershipRequest>);
 
     impl CreateMembership {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -713,7 +715,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateFeature(RequestBuilder<crate::model::CreateFeatureRequest>);
+    pub struct CreateFeature(pub(crate) RequestBuilder<crate::model::CreateFeatureRequest>);
 
     impl CreateFeature {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -857,7 +859,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteMembership(RequestBuilder<crate::model::DeleteMembershipRequest>);
+    pub struct DeleteMembership(pub(crate) RequestBuilder<crate::model::DeleteMembershipRequest>);
 
     impl DeleteMembership {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -983,7 +985,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFeature(RequestBuilder<crate::model::DeleteFeatureRequest>);
+    pub struct DeleteFeature(pub(crate) RequestBuilder<crate::model::DeleteFeatureRequest>);
 
     impl DeleteFeature {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -1104,7 +1106,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateMembership(RequestBuilder<crate::model::UpdateMembershipRequest>);
+    pub struct UpdateMembership(pub(crate) RequestBuilder<crate::model::UpdateMembershipRequest>);
 
     impl UpdateMembership {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -1273,7 +1275,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFeature(RequestBuilder<crate::model::UpdateFeatureRequest>);
+    pub struct UpdateFeature(pub(crate) RequestBuilder<crate::model::UpdateFeatureRequest>);
 
     impl UpdateFeature {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -1429,7 +1431,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateConnectManifest(
-        RequestBuilder<crate::model::GenerateConnectManifestRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateConnectManifestRequest>,
     );
 
     impl GenerateConnectManifest {
@@ -1530,7 +1532,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateFleet(RequestBuilder<crate::model::CreateFleetRequest>);
+    pub struct CreateFleet(pub(crate) RequestBuilder<crate::model::CreateFleetRequest>);
 
     impl CreateFleet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -1667,7 +1669,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFleet(RequestBuilder<crate::model::GetFleetRequest>);
+    pub struct GetFleet(pub(crate) RequestBuilder<crate::model::GetFleetRequest>);
 
     impl GetFleet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -1728,7 +1730,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFleet(RequestBuilder<crate::model::UpdateFleetRequest>);
+    pub struct UpdateFleet(pub(crate) RequestBuilder<crate::model::UpdateFleetRequest>);
 
     impl UpdateFleet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -1880,7 +1882,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFleet(RequestBuilder<crate::model::DeleteFleetRequest>);
+    pub struct DeleteFleet(pub(crate) RequestBuilder<crate::model::DeleteFleetRequest>);
 
     impl DeleteFleet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -1994,7 +1996,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFleets(RequestBuilder<crate::model::ListFleetsRequest>);
+    pub struct ListFleets(pub(crate) RequestBuilder<crate::model::ListFleetsRequest>);
 
     impl ListFleets {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -2092,7 +2094,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetScopeNamespace(RequestBuilder<crate::model::GetScopeNamespaceRequest>);
+    pub struct GetScopeNamespace(pub(crate) RequestBuilder<crate::model::GetScopeNamespaceRequest>);
 
     impl GetScopeNamespace {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -2156,7 +2158,9 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateScopeNamespace(RequestBuilder<crate::model::CreateScopeNamespaceRequest>);
+    pub struct CreateScopeNamespace(
+        pub(crate) RequestBuilder<crate::model::CreateScopeNamespaceRequest>,
+    );
 
     impl CreateScopeNamespace {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -2305,7 +2309,9 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateScopeNamespace(RequestBuilder<crate::model::UpdateScopeNamespaceRequest>);
+    pub struct UpdateScopeNamespace(
+        pub(crate) RequestBuilder<crate::model::UpdateScopeNamespaceRequest>,
+    );
 
     impl UpdateScopeNamespace {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -2460,7 +2466,9 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteScopeNamespace(RequestBuilder<crate::model::DeleteScopeNamespaceRequest>);
+    pub struct DeleteScopeNamespace(
+        pub(crate) RequestBuilder<crate::model::DeleteScopeNamespaceRequest>,
+    );
 
     impl DeleteScopeNamespace {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -2577,7 +2585,9 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListScopeNamespaces(RequestBuilder<crate::model::ListScopeNamespacesRequest>);
+    pub struct ListScopeNamespaces(
+        pub(crate) RequestBuilder<crate::model::ListScopeNamespacesRequest>,
+    );
 
     impl ListScopeNamespaces {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -2681,7 +2691,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetScopeRBACRoleBinding(
-        RequestBuilder<crate::model::GetScopeRBACRoleBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::GetScopeRBACRoleBindingRequest>,
     );
 
     impl GetScopeRBACRoleBinding {
@@ -2747,7 +2757,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateScopeRBACRoleBinding(
-        RequestBuilder<crate::model::CreateScopeRBACRoleBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateScopeRBACRoleBindingRequest>,
     );
 
     impl CreateScopeRBACRoleBinding {
@@ -2897,7 +2907,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateScopeRBACRoleBinding(
-        RequestBuilder<crate::model::UpdateScopeRBACRoleBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateScopeRBACRoleBindingRequest>,
     );
 
     impl UpdateScopeRBACRoleBinding {
@@ -3053,7 +3063,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteScopeRBACRoleBinding(
-        RequestBuilder<crate::model::DeleteScopeRBACRoleBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteScopeRBACRoleBindingRequest>,
     );
 
     impl DeleteScopeRBACRoleBinding {
@@ -3171,7 +3181,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListScopeRBACRoleBindings(
-        RequestBuilder<crate::model::ListScopeRBACRoleBindingsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListScopeRBACRoleBindingsRequest>,
     );
 
     impl ListScopeRBACRoleBindings {
@@ -3275,7 +3285,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetScope(RequestBuilder<crate::model::GetScopeRequest>);
+    pub struct GetScope(pub(crate) RequestBuilder<crate::model::GetScopeRequest>);
 
     impl GetScope {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -3336,7 +3346,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateScope(RequestBuilder<crate::model::CreateScopeRequest>);
+    pub struct CreateScope(pub(crate) RequestBuilder<crate::model::CreateScopeRequest>);
 
     impl CreateScope {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -3482,7 +3492,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateScope(RequestBuilder<crate::model::UpdateScopeRequest>);
+    pub struct UpdateScope(pub(crate) RequestBuilder<crate::model::UpdateScopeRequest>);
 
     impl UpdateScope {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -3634,7 +3644,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteScope(RequestBuilder<crate::model::DeleteScopeRequest>);
+    pub struct DeleteScope(pub(crate) RequestBuilder<crate::model::DeleteScopeRequest>);
 
     impl DeleteScope {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -3748,7 +3758,7 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListScopes(RequestBuilder<crate::model::ListScopesRequest>);
+    pub struct ListScopes(pub(crate) RequestBuilder<crate::model::ListScopesRequest>);
 
     impl ListScopes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -3850,7 +3860,9 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPermittedScopes(RequestBuilder<crate::model::ListPermittedScopesRequest>);
+    pub struct ListPermittedScopes(
+        pub(crate) RequestBuilder<crate::model::ListPermittedScopesRequest>,
+    );
 
     impl ListPermittedScopes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -3953,7 +3965,9 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMembershipBinding(RequestBuilder<crate::model::GetMembershipBindingRequest>);
+    pub struct GetMembershipBinding(
+        pub(crate) RequestBuilder<crate::model::GetMembershipBindingRequest>,
+    );
 
     impl GetMembershipBinding {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -4018,7 +4032,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMembershipBinding(
-        RequestBuilder<crate::model::CreateMembershipBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateMembershipBindingRequest>,
     );
 
     impl CreateMembershipBinding {
@@ -4171,7 +4185,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateMembershipBinding(
-        RequestBuilder<crate::model::UpdateMembershipBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateMembershipBindingRequest>,
     );
 
     impl UpdateMembershipBinding {
@@ -4330,7 +4344,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMembershipBinding(
-        RequestBuilder<crate::model::DeleteMembershipBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteMembershipBindingRequest>,
     );
 
     impl DeleteMembershipBinding {
@@ -4448,7 +4462,9 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMembershipBindings(RequestBuilder<crate::model::ListMembershipBindingsRequest>);
+    pub struct ListMembershipBindings(
+        pub(crate) RequestBuilder<crate::model::ListMembershipBindingsRequest>,
+    );
 
     impl ListMembershipBindings {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -4558,7 +4574,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetMembershipRBACRoleBinding(
-        RequestBuilder<crate::model::GetMembershipRBACRoleBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::GetMembershipRBACRoleBindingRequest>,
     );
 
     impl GetMembershipRBACRoleBinding {
@@ -4624,7 +4640,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMembershipRBACRoleBinding(
-        RequestBuilder<crate::model::CreateMembershipRBACRoleBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateMembershipRBACRoleBindingRequest>,
     );
 
     impl CreateMembershipRBACRoleBinding {
@@ -4774,7 +4790,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateMembershipRBACRoleBinding(
-        RequestBuilder<crate::model::UpdateMembershipRBACRoleBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateMembershipRBACRoleBindingRequest>,
     );
 
     impl UpdateMembershipRBACRoleBinding {
@@ -4930,7 +4946,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMembershipRBACRoleBinding(
-        RequestBuilder<crate::model::DeleteMembershipRBACRoleBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteMembershipRBACRoleBindingRequest>,
     );
 
     impl DeleteMembershipRBACRoleBinding {
@@ -5048,7 +5064,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListMembershipRBACRoleBindings(
-        RequestBuilder<crate::model::ListMembershipRBACRoleBindingsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListMembershipRBACRoleBindingsRequest>,
     );
 
     impl ListMembershipRBACRoleBindings {
@@ -5153,7 +5169,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateMembershipRBACRoleBindingYAML(
-        RequestBuilder<crate::model::GenerateMembershipRBACRoleBindingYAMLRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateMembershipRBACRoleBindingYAMLRequest>,
     );
 
     impl GenerateMembershipRBACRoleBindingYAML {
@@ -5254,7 +5270,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -5368,7 +5384,9 @@ pub mod gke_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
@@ -5430,7 +5448,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -5493,7 +5511,7 @@ pub mod gke_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

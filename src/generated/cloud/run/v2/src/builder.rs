@@ -51,9 +51,9 @@ pub mod builds {
     /// Common implementation for [crate::client::Builds] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Builds>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Builds>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -86,7 +86,7 @@ pub mod builds {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SubmitBuild(RequestBuilder<crate::model::SubmitBuildRequest>);
+    pub struct SubmitBuild(pub(crate) RequestBuilder<crate::model::SubmitBuildRequest>);
 
     impl SubmitBuild {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Builds>) -> Self {
@@ -274,7 +274,7 @@ pub mod builds {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -388,7 +388,9 @@ pub mod builds {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Builds>) -> Self {
@@ -450,7 +452,7 @@ pub mod builds {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -512,7 +514,9 @@ pub mod builds {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct WaitOperation(RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>);
+    pub struct WaitOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>,
+    );
 
     impl WaitOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Builds>) -> Self {
@@ -612,9 +616,9 @@ pub mod executions {
     /// Common implementation for [crate::client::Executions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -649,7 +653,7 @@ pub mod executions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetExecution(RequestBuilder<crate::model::GetExecutionRequest>);
+    pub struct GetExecution(pub(crate) RequestBuilder<crate::model::GetExecutionRequest>);
 
     impl GetExecution {
         pub(crate) fn new(
@@ -715,7 +719,7 @@ pub mod executions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListExecutions(RequestBuilder<crate::model::ListExecutionsRequest>);
+    pub struct ListExecutions(pub(crate) RequestBuilder<crate::model::ListExecutionsRequest>);
 
     impl ListExecutions {
         pub(crate) fn new(
@@ -824,7 +828,7 @@ pub mod executions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteExecution(RequestBuilder<crate::model::DeleteExecutionRequest>);
+    pub struct DeleteExecution(pub(crate) RequestBuilder<crate::model::DeleteExecutionRequest>);
 
     impl DeleteExecution {
         pub(crate) fn new(
@@ -954,7 +958,7 @@ pub mod executions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelExecution(RequestBuilder<crate::model::CancelExecutionRequest>);
+    pub struct CancelExecution(pub(crate) RequestBuilder<crate::model::CancelExecutionRequest>);
 
     impl CancelExecution {
         pub(crate) fn new(
@@ -1088,7 +1092,7 @@ pub mod executions {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1204,7 +1208,9 @@ pub mod executions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1268,7 +1274,7 @@ pub mod executions {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -1332,7 +1338,9 @@ pub mod executions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct WaitOperation(RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>);
+    pub struct WaitOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>,
+    );
 
     impl WaitOperation {
         pub(crate) fn new(
@@ -1434,9 +1442,9 @@ pub mod instances {
     /// Common implementation for [crate::client::Instances] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Instances>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Instances>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1472,7 +1480,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
+    pub struct CreateInstance(pub(crate) RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
         pub(crate) fn new(
@@ -1623,7 +1631,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
+    pub struct UpdateInstance(pub(crate) RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
         pub(crate) fn new(
@@ -1784,7 +1792,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
+    pub struct DeleteInstance(pub(crate) RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
         pub(crate) fn new(
@@ -1912,7 +1920,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
+    pub struct GetInstance(pub(crate) RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(
@@ -1978,7 +1986,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
+    pub struct ListInstances(pub(crate) RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(
@@ -2085,7 +2093,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopInstance(RequestBuilder<crate::model::StopInstanceRequest>);
+    pub struct StopInstance(pub(crate) RequestBuilder<crate::model::StopInstanceRequest>);
 
     impl StopInstance {
         pub(crate) fn new(
@@ -2214,7 +2222,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartInstance(RequestBuilder<crate::model::StartInstanceRequest>);
+    pub struct StartInstance(pub(crate) RequestBuilder<crate::model::StartInstanceRequest>);
 
     impl StartInstance {
         pub(crate) fn new(
@@ -2342,7 +2350,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -2425,7 +2435,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -2531,7 +2543,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -2615,7 +2627,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2731,7 +2743,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2795,7 +2809,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2859,7 +2873,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct WaitOperation(RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>);
+    pub struct WaitOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>,
+    );
 
     impl WaitOperation {
         pub(crate) fn new(
@@ -2961,9 +2977,9 @@ pub mod jobs {
     /// Common implementation for [crate::client::Jobs] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Jobs>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Jobs>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2997,7 +3013,7 @@ pub mod jobs {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
+    pub struct CreateJob(pub(crate) RequestBuilder<crate::model::CreateJobRequest>);
 
     impl CreateJob {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Jobs>) -> Self {
@@ -3140,7 +3156,7 @@ pub mod jobs {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
+    pub struct GetJob(pub(crate) RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Jobs>) -> Self {
@@ -3204,7 +3220,7 @@ pub mod jobs {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
+    pub struct ListJobs(pub(crate) RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Jobs>) -> Self {
@@ -3307,7 +3323,7 @@ pub mod jobs {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateJob(RequestBuilder<crate::model::UpdateJobRequest>);
+    pub struct UpdateJob(pub(crate) RequestBuilder<crate::model::UpdateJobRequest>);
 
     impl UpdateJob {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Jobs>) -> Self {
@@ -3443,7 +3459,7 @@ pub mod jobs {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
+    pub struct DeleteJob(pub(crate) RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Jobs>) -> Self {
@@ -3565,7 +3581,7 @@ pub mod jobs {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RunJob(RequestBuilder<crate::model::RunJobRequest>);
+    pub struct RunJob(pub(crate) RequestBuilder<crate::model::RunJobRequest>);
 
     impl RunJob {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Jobs>) -> Self {
@@ -3709,7 +3725,9 @@ pub mod jobs {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Jobs>) -> Self {
@@ -3790,7 +3808,9 @@ pub mod jobs {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Jobs>) -> Self {
@@ -3894,7 +3914,7 @@ pub mod jobs {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -3976,7 +3996,7 @@ pub mod jobs {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4090,7 +4110,9 @@ pub mod jobs {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Jobs>) -> Self {
@@ -4152,7 +4174,7 @@ pub mod jobs {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4214,7 +4236,9 @@ pub mod jobs {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct WaitOperation(RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>);
+    pub struct WaitOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>,
+    );
 
     impl WaitOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Jobs>) -> Self {
@@ -4314,9 +4338,9 @@ pub mod revisions {
     /// Common implementation for [crate::client::Revisions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Revisions>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Revisions>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -4351,7 +4375,7 @@ pub mod revisions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRevision(RequestBuilder<crate::model::GetRevisionRequest>);
+    pub struct GetRevision(pub(crate) RequestBuilder<crate::model::GetRevisionRequest>);
 
     impl GetRevision {
         pub(crate) fn new(
@@ -4417,7 +4441,7 @@ pub mod revisions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRevisions(RequestBuilder<crate::model::ListRevisionsRequest>);
+    pub struct ListRevisions(pub(crate) RequestBuilder<crate::model::ListRevisionsRequest>);
 
     impl ListRevisions {
         pub(crate) fn new(
@@ -4524,7 +4548,7 @@ pub mod revisions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRevision(RequestBuilder<crate::model::DeleteRevisionRequest>);
+    pub struct DeleteRevision(pub(crate) RequestBuilder<crate::model::DeleteRevisionRequest>);
 
     impl DeleteRevision {
         pub(crate) fn new(
@@ -4657,7 +4681,7 @@ pub mod revisions {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4773,7 +4797,9 @@ pub mod revisions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4837,7 +4863,7 @@ pub mod revisions {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4901,7 +4927,9 @@ pub mod revisions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct WaitOperation(RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>);
+    pub struct WaitOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>,
+    );
 
     impl WaitOperation {
         pub(crate) fn new(
@@ -5003,9 +5031,9 @@ pub mod services {
     /// Common implementation for [crate::client::Services] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Services>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Services>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -5039,7 +5067,7 @@ pub mod services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
+    pub struct CreateService(pub(crate) RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Services>) -> Self {
@@ -5185,7 +5213,7 @@ pub mod services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
+    pub struct GetService(pub(crate) RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Services>) -> Self {
@@ -5249,7 +5277,7 @@ pub mod services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
+    pub struct ListServices(pub(crate) RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Services>) -> Self {
@@ -5354,7 +5382,7 @@ pub mod services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
+    pub struct UpdateService(pub(crate) RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Services>) -> Self {
@@ -5517,7 +5545,7 @@ pub mod services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
+    pub struct DeleteService(pub(crate) RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Services>) -> Self {
@@ -5641,7 +5669,9 @@ pub mod services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Services>) -> Self {
@@ -5722,7 +5752,9 @@ pub mod services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Services>) -> Self {
@@ -5826,7 +5858,7 @@ pub mod services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -5908,7 +5940,7 @@ pub mod services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -6022,7 +6054,9 @@ pub mod services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Services>) -> Self {
@@ -6084,7 +6118,7 @@ pub mod services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -6146,7 +6180,9 @@ pub mod services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct WaitOperation(RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>);
+    pub struct WaitOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>,
+    );
 
     impl WaitOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Services>) -> Self {
@@ -6246,9 +6282,9 @@ pub mod source_upload {
     /// Common implementation for [crate::client::SourceUpload] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SourceUpload>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SourceUpload>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -6283,7 +6319,7 @@ pub mod source_upload {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UploadSource(RequestBuilder<crate::model::UploadSourceRequest>);
+    pub struct UploadSource(pub(crate) RequestBuilder<crate::model::UploadSourceRequest>);
 
     impl UploadSource {
         pub(crate) fn new(
@@ -6372,7 +6408,7 @@ pub mod source_upload {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -6488,7 +6524,9 @@ pub mod source_upload {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -6552,7 +6590,7 @@ pub mod source_upload {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -6616,7 +6654,9 @@ pub mod source_upload {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct WaitOperation(RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>);
+    pub struct WaitOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>,
+    );
 
     impl WaitOperation {
         pub(crate) fn new(
@@ -6718,9 +6758,9 @@ pub mod tasks {
     /// Common implementation for [crate::client::Tasks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Tasks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Tasks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -6753,7 +6793,7 @@ pub mod tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTask(RequestBuilder<crate::model::GetTaskRequest>);
+    pub struct GetTask(pub(crate) RequestBuilder<crate::model::GetTaskRequest>);
 
     impl GetTask {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tasks>) -> Self {
@@ -6817,7 +6857,7 @@ pub mod tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTasks(RequestBuilder<crate::model::ListTasksRequest>);
+    pub struct ListTasks(pub(crate) RequestBuilder<crate::model::ListTasksRequest>);
 
     impl ListTasks {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tasks>) -> Self {
@@ -6924,7 +6964,7 @@ pub mod tasks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -7038,7 +7078,9 @@ pub mod tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tasks>) -> Self {
@@ -7100,7 +7142,7 @@ pub mod tasks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -7162,7 +7204,9 @@ pub mod tasks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct WaitOperation(RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>);
+    pub struct WaitOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>,
+    );
 
     impl WaitOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tasks>) -> Self {
@@ -7262,9 +7306,9 @@ pub mod worker_pools {
     /// Common implementation for [crate::client::WorkerPools] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkerPools>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkerPools>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -7300,7 +7344,7 @@ pub mod worker_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateWorkerPool(RequestBuilder<crate::model::CreateWorkerPoolRequest>);
+    pub struct CreateWorkerPool(pub(crate) RequestBuilder<crate::model::CreateWorkerPoolRequest>);
 
     impl CreateWorkerPool {
         pub(crate) fn new(
@@ -7454,7 +7498,7 @@ pub mod worker_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetWorkerPool(RequestBuilder<crate::model::GetWorkerPoolRequest>);
+    pub struct GetWorkerPool(pub(crate) RequestBuilder<crate::model::GetWorkerPoolRequest>);
 
     impl GetWorkerPool {
         pub(crate) fn new(
@@ -7520,7 +7564,7 @@ pub mod worker_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListWorkerPools(RequestBuilder<crate::model::ListWorkerPoolsRequest>);
+    pub struct ListWorkerPools(pub(crate) RequestBuilder<crate::model::ListWorkerPoolsRequest>);
 
     impl ListWorkerPools {
         pub(crate) fn new(
@@ -7629,7 +7673,7 @@ pub mod worker_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateWorkerPool(RequestBuilder<crate::model::UpdateWorkerPoolRequest>);
+    pub struct UpdateWorkerPool(pub(crate) RequestBuilder<crate::model::UpdateWorkerPoolRequest>);
 
     impl UpdateWorkerPool {
         pub(crate) fn new(
@@ -7800,7 +7844,7 @@ pub mod worker_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteWorkerPool(RequestBuilder<crate::model::DeleteWorkerPoolRequest>);
+    pub struct DeleteWorkerPool(pub(crate) RequestBuilder<crate::model::DeleteWorkerPoolRequest>);
 
     impl DeleteWorkerPool {
         pub(crate) fn new(
@@ -7932,7 +7976,9 @@ pub mod worker_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -8015,7 +8061,9 @@ pub mod worker_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -8121,7 +8169,7 @@ pub mod worker_pools {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -8205,7 +8253,7 @@ pub mod worker_pools {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -8321,7 +8369,9 @@ pub mod worker_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -8385,7 +8435,7 @@ pub mod worker_pools {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -8449,7 +8499,9 @@ pub mod worker_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct WaitOperation(RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>);
+    pub struct WaitOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::WaitOperationRequest>,
+    );
 
     impl WaitOperation {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod iam_credentials {
     /// Common implementation for [crate::client::IAMCredentials] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod iam_credentials {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
+    pub struct GenerateAccessToken(
+        pub(crate) RequestBuilder<crate::model::GenerateAccessTokenRequest>,
+    );
 
     impl GenerateAccessToken {
         pub(crate) fn new(
@@ -195,7 +197,7 @@ pub mod iam_credentials {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateIdToken(RequestBuilder<crate::model::GenerateIdTokenRequest>);
+    pub struct GenerateIdToken(pub(crate) RequestBuilder<crate::model::GenerateIdTokenRequest>);
 
     impl GenerateIdToken {
         pub(crate) fn new(
@@ -282,7 +284,7 @@ pub mod iam_credentials {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SignBlob(RequestBuilder<crate::model::SignBlobRequest>);
+    pub struct SignBlob(pub(crate) RequestBuilder<crate::model::SignBlobRequest>);
 
     impl SignBlob {
         pub(crate) fn new(
@@ -363,7 +365,7 @@ pub mod iam_credentials {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SignJwt(RequestBuilder<crate::model::SignJwtRequest>);
+    pub struct SignJwt(pub(crate) RequestBuilder<crate::model::SignJwtRequest>);
 
     impl SignJwt {
         pub(crate) fn new(

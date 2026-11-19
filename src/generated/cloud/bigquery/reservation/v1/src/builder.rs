@@ -51,9 +51,9 @@ pub mod reservation_service {
     /// Common implementation for [crate::client::ReservationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateReservation(RequestBuilder<crate::model::CreateReservationRequest>);
+    pub struct CreateReservation(pub(crate) RequestBuilder<crate::model::CreateReservationRequest>);
 
     impl CreateReservation {
         pub(crate) fn new(
@@ -181,7 +181,7 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReservations(RequestBuilder<crate::model::ListReservationsRequest>);
+    pub struct ListReservations(pub(crate) RequestBuilder<crate::model::ListReservationsRequest>);
 
     impl ListReservations {
         pub(crate) fn new(
@@ -286,7 +286,7 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetReservation(RequestBuilder<crate::model::GetReservationRequest>);
+    pub struct GetReservation(pub(crate) RequestBuilder<crate::model::GetReservationRequest>);
 
     impl GetReservation {
         pub(crate) fn new(
@@ -348,7 +348,7 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteReservation(RequestBuilder<crate::model::DeleteReservationRequest>);
+    pub struct DeleteReservation(pub(crate) RequestBuilder<crate::model::DeleteReservationRequest>);
 
     impl DeleteReservation {
         pub(crate) fn new(
@@ -413,7 +413,7 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateReservation(RequestBuilder<crate::model::UpdateReservationRequest>);
+    pub struct UpdateReservation(pub(crate) RequestBuilder<crate::model::UpdateReservationRequest>);
 
     impl UpdateReservation {
         pub(crate) fn new(
@@ -506,7 +506,9 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FailoverReservation(RequestBuilder<crate::model::FailoverReservationRequest>);
+    pub struct FailoverReservation(
+        pub(crate) RequestBuilder<crate::model::FailoverReservationRequest>,
+    );
 
     impl FailoverReservation {
         pub(crate) fn new(
@@ -578,7 +580,7 @@ pub mod reservation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCapacityCommitment(
-        RequestBuilder<crate::model::CreateCapacityCommitmentRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateCapacityCommitmentRequest>,
     );
 
     impl CreateCapacityCommitment {
@@ -679,7 +681,7 @@ pub mod reservation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListCapacityCommitments(
-        RequestBuilder<crate::model::ListCapacityCommitmentsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListCapacityCommitmentsRequest>,
     );
 
     impl ListCapacityCommitments {
@@ -785,7 +787,9 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCapacityCommitment(RequestBuilder<crate::model::GetCapacityCommitmentRequest>);
+    pub struct GetCapacityCommitment(
+        pub(crate) RequestBuilder<crate::model::GetCapacityCommitmentRequest>,
+    );
 
     impl GetCapacityCommitment {
         pub(crate) fn new(
@@ -851,7 +855,7 @@ pub mod reservation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCapacityCommitment(
-        RequestBuilder<crate::model::DeleteCapacityCommitmentRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteCapacityCommitmentRequest>,
     );
 
     impl DeleteCapacityCommitment {
@@ -924,7 +928,7 @@ pub mod reservation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCapacityCommitment(
-        RequestBuilder<crate::model::UpdateCapacityCommitmentRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateCapacityCommitmentRequest>,
     );
 
     impl UpdateCapacityCommitment {
@@ -1019,7 +1023,7 @@ pub mod reservation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SplitCapacityCommitment(
-        RequestBuilder<crate::model::SplitCapacityCommitmentRequest>,
+        pub(crate) RequestBuilder<crate::model::SplitCapacityCommitmentRequest>,
     );
 
     impl SplitCapacityCommitment {
@@ -1092,7 +1096,7 @@ pub mod reservation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct MergeCapacityCommitments(
-        RequestBuilder<crate::model::MergeCapacityCommitmentsRequest>,
+        pub(crate) RequestBuilder<crate::model::MergeCapacityCommitmentsRequest>,
     );
 
     impl MergeCapacityCommitments {
@@ -1173,7 +1177,7 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAssignment(RequestBuilder<crate::model::CreateAssignmentRequest>);
+    pub struct CreateAssignment(pub(crate) RequestBuilder<crate::model::CreateAssignmentRequest>);
 
     impl CreateAssignment {
         pub(crate) fn new(
@@ -1266,7 +1270,7 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAssignments(RequestBuilder<crate::model::ListAssignmentsRequest>);
+    pub struct ListAssignments(pub(crate) RequestBuilder<crate::model::ListAssignmentsRequest>);
 
     impl ListAssignments {
         pub(crate) fn new(
@@ -1368,7 +1372,7 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAssignment(RequestBuilder<crate::model::DeleteAssignmentRequest>);
+    pub struct DeleteAssignment(pub(crate) RequestBuilder<crate::model::DeleteAssignmentRequest>);
 
     impl DeleteAssignment {
         pub(crate) fn new(
@@ -1437,7 +1441,7 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchAssignments(RequestBuilder<crate::model::SearchAssignmentsRequest>);
+    pub struct SearchAssignments(pub(crate) RequestBuilder<crate::model::SearchAssignmentsRequest>);
 
     impl SearchAssignments {
         pub(crate) fn new(
@@ -1552,7 +1556,9 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchAllAssignments(RequestBuilder<crate::model::SearchAllAssignmentsRequest>);
+    pub struct SearchAllAssignments(
+        pub(crate) RequestBuilder<crate::model::SearchAllAssignmentsRequest>,
+    );
 
     impl SearchAllAssignments {
         pub(crate) fn new(
@@ -1663,7 +1669,7 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveAssignment(RequestBuilder<crate::model::MoveAssignmentRequest>);
+    pub struct MoveAssignment(pub(crate) RequestBuilder<crate::model::MoveAssignmentRequest>);
 
     impl MoveAssignment {
         pub(crate) fn new(
@@ -1737,7 +1743,7 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAssignment(RequestBuilder<crate::model::UpdateAssignmentRequest>);
+    pub struct UpdateAssignment(pub(crate) RequestBuilder<crate::model::UpdateAssignmentRequest>);
 
     impl UpdateAssignment {
         pub(crate) fn new(
@@ -1830,7 +1836,7 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBiReservation(RequestBuilder<crate::model::GetBiReservationRequest>);
+    pub struct GetBiReservation(pub(crate) RequestBuilder<crate::model::GetBiReservationRequest>);
 
     impl GetBiReservation {
         pub(crate) fn new(
@@ -1895,7 +1901,9 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBiReservation(RequestBuilder<crate::model::UpdateBiReservationRequest>);
+    pub struct UpdateBiReservation(
+        pub(crate) RequestBuilder<crate::model::UpdateBiReservationRequest>,
+    );
 
     impl UpdateBiReservation {
         pub(crate) fn new(
@@ -1988,7 +1996,9 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -2071,7 +2081,9 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -2177,7 +2189,7 @@ pub mod reservation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -2256,7 +2268,9 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateReservationGroup(RequestBuilder<crate::model::CreateReservationGroupRequest>);
+    pub struct CreateReservationGroup(
+        pub(crate) RequestBuilder<crate::model::CreateReservationGroupRequest>,
+    );
 
     impl CreateReservationGroup {
         pub(crate) fn new(
@@ -2351,7 +2365,9 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetReservationGroup(RequestBuilder<crate::model::GetReservationGroupRequest>);
+    pub struct GetReservationGroup(
+        pub(crate) RequestBuilder<crate::model::GetReservationGroupRequest>,
+    );
 
     impl GetReservationGroup {
         pub(crate) fn new(
@@ -2416,7 +2432,9 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteReservationGroup(RequestBuilder<crate::model::DeleteReservationGroupRequest>);
+    pub struct DeleteReservationGroup(
+        pub(crate) RequestBuilder<crate::model::DeleteReservationGroupRequest>,
+    );
 
     impl DeleteReservationGroup {
         pub(crate) fn new(
@@ -2485,7 +2503,9 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReservationGroups(RequestBuilder<crate::model::ListReservationGroupsRequest>);
+    pub struct ListReservationGroups(
+        pub(crate) RequestBuilder<crate::model::ListReservationGroupsRequest>,
+    );
 
     impl ListReservationGroups {
         pub(crate) fn new(
@@ -2590,7 +2610,9 @@ pub mod reservation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateReservationGroup(RequestBuilder<crate::model::UpdateReservationGroupRequest>);
+    pub struct UpdateReservationGroup(
+        pub(crate) RequestBuilder<crate::model::UpdateReservationGroupRequest>,
+    );
 
     impl UpdateReservationGroup {
         pub(crate) fn new(

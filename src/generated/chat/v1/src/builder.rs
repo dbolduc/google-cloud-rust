@@ -51,9 +51,9 @@ pub mod chat_service {
     /// Common implementation for [crate::client::ChatService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ChatService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ChatService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateMessage(RequestBuilder<crate::model::CreateMessageRequest>);
+    pub struct CreateMessage(pub(crate) RequestBuilder<crate::model::CreateMessageRequest>);
 
     impl CreateMessage {
         pub(crate) fn new(
@@ -228,7 +228,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMessages(RequestBuilder<crate::model::ListMessagesRequest>);
+    pub struct ListMessages(pub(crate) RequestBuilder<crate::model::ListMessagesRequest>);
 
     impl ListMessages {
         pub(crate) fn new(
@@ -356,7 +356,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMemberships(RequestBuilder<crate::model::ListMembershipsRequest>);
+    pub struct ListMemberships(pub(crate) RequestBuilder<crate::model::ListMembershipsRequest>);
 
     impl ListMemberships {
         pub(crate) fn new(
@@ -482,7 +482,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMembership(RequestBuilder<crate::model::GetMembershipRequest>);
+    pub struct GetMembership(pub(crate) RequestBuilder<crate::model::GetMembershipRequest>);
 
     impl GetMembership {
         pub(crate) fn new(
@@ -550,7 +550,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMessage(RequestBuilder<crate::model::GetMessageRequest>);
+    pub struct GetMessage(pub(crate) RequestBuilder<crate::model::GetMessageRequest>);
 
     impl GetMessage {
         pub(crate) fn new(
@@ -618,7 +618,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateMessage(RequestBuilder<crate::model::UpdateMessageRequest>);
+    pub struct UpdateMessage(pub(crate) RequestBuilder<crate::model::UpdateMessageRequest>);
 
     impl UpdateMessage {
         pub(crate) fn new(
@@ -722,7 +722,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteMessage(RequestBuilder<crate::model::DeleteMessageRequest>);
+    pub struct DeleteMessage(pub(crate) RequestBuilder<crate::model::DeleteMessageRequest>);
 
     impl DeleteMessage {
         pub(crate) fn new(
@@ -794,7 +794,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchMessages(RequestBuilder<crate::model::SearchMessagesRequest>);
+    pub struct SearchMessages(pub(crate) RequestBuilder<crate::model::SearchMessagesRequest>);
 
     impl SearchMessages {
         pub(crate) fn new(
@@ -925,7 +925,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAttachment(RequestBuilder<crate::model::GetAttachmentRequest>);
+    pub struct GetAttachment(pub(crate) RequestBuilder<crate::model::GetAttachmentRequest>);
 
     impl GetAttachment {
         pub(crate) fn new(
@@ -987,7 +987,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UploadAttachment(RequestBuilder<crate::model::UploadAttachmentRequest>);
+    pub struct UploadAttachment(pub(crate) RequestBuilder<crate::model::UploadAttachmentRequest>);
 
     impl UploadAttachment {
         pub(crate) fn new(
@@ -1064,7 +1064,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSpaces(RequestBuilder<crate::model::ListSpacesRequest>);
+    pub struct ListSpaces(pub(crate) RequestBuilder<crate::model::ListSpacesRequest>);
 
     impl ListSpaces {
         pub(crate) fn new(
@@ -1166,7 +1166,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchSpaces(RequestBuilder<crate::model::SearchSpacesRequest>);
+    pub struct SearchSpaces(pub(crate) RequestBuilder<crate::model::SearchSpacesRequest>);
 
     impl SearchSpaces {
         pub(crate) fn new(
@@ -1278,7 +1278,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSpace(RequestBuilder<crate::model::GetSpaceRequest>);
+    pub struct GetSpace(pub(crate) RequestBuilder<crate::model::GetSpaceRequest>);
 
     impl GetSpace {
         pub(crate) fn new(
@@ -1346,7 +1346,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSpace(RequestBuilder<crate::model::CreateSpaceRequest>);
+    pub struct CreateSpace(pub(crate) RequestBuilder<crate::model::CreateSpaceRequest>);
 
     impl CreateSpace {
         pub(crate) fn new(
@@ -1428,7 +1428,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetUpSpace(RequestBuilder<crate::model::SetUpSpaceRequest>);
+    pub struct SetUpSpace(pub(crate) RequestBuilder<crate::model::SetUpSpaceRequest>);
 
     impl SetUpSpace {
         pub(crate) fn new(
@@ -1521,7 +1521,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSpace(RequestBuilder<crate::model::UpdateSpaceRequest>);
+    pub struct UpdateSpace(pub(crate) RequestBuilder<crate::model::UpdateSpaceRequest>);
 
     impl UpdateSpace {
         pub(crate) fn new(
@@ -1625,7 +1625,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSpace(RequestBuilder<crate::model::DeleteSpaceRequest>);
+    pub struct DeleteSpace(pub(crate) RequestBuilder<crate::model::DeleteSpaceRequest>);
 
     impl DeleteSpace {
         pub(crate) fn new(
@@ -1693,7 +1693,9 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CompleteImportSpace(RequestBuilder<crate::model::CompleteImportSpaceRequest>);
+    pub struct CompleteImportSpace(
+        pub(crate) RequestBuilder<crate::model::CompleteImportSpaceRequest>,
+    );
 
     impl CompleteImportSpace {
         pub(crate) fn new(
@@ -1758,7 +1760,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FindDirectMessage(RequestBuilder<crate::model::FindDirectMessageRequest>);
+    pub struct FindDirectMessage(pub(crate) RequestBuilder<crate::model::FindDirectMessageRequest>);
 
     impl FindDirectMessage {
         pub(crate) fn new(
@@ -1827,7 +1829,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FindGroupChats(RequestBuilder<crate::model::FindGroupChatsRequest>);
+    pub struct FindGroupChats(pub(crate) RequestBuilder<crate::model::FindGroupChatsRequest>);
 
     impl FindGroupChats {
         pub(crate) fn new(
@@ -1938,7 +1940,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateMembership(RequestBuilder<crate::model::CreateMembershipRequest>);
+    pub struct CreateMembership(pub(crate) RequestBuilder<crate::model::CreateMembershipRequest>);
 
     impl CreateMembership {
         pub(crate) fn new(
@@ -2031,7 +2033,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateMembership(RequestBuilder<crate::model::UpdateMembershipRequest>);
+    pub struct UpdateMembership(pub(crate) RequestBuilder<crate::model::UpdateMembershipRequest>);
 
     impl UpdateMembership {
         pub(crate) fn new(
@@ -2138,7 +2140,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteMembership(RequestBuilder<crate::model::DeleteMembershipRequest>);
+    pub struct DeleteMembership(pub(crate) RequestBuilder<crate::model::DeleteMembershipRequest>);
 
     impl DeleteMembership {
         pub(crate) fn new(
@@ -2209,7 +2211,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateReaction(RequestBuilder<crate::model::CreateReactionRequest>);
+    pub struct CreateReaction(pub(crate) RequestBuilder<crate::model::CreateReactionRequest>);
 
     impl CreateReaction {
         pub(crate) fn new(
@@ -2297,7 +2299,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReactions(RequestBuilder<crate::model::ListReactionsRequest>);
+    pub struct ListReactions(pub(crate) RequestBuilder<crate::model::ListReactionsRequest>);
 
     impl ListReactions {
         pub(crate) fn new(
@@ -2403,7 +2405,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteReaction(RequestBuilder<crate::model::DeleteReactionRequest>);
+    pub struct DeleteReaction(pub(crate) RequestBuilder<crate::model::DeleteReactionRequest>);
 
     impl DeleteReaction {
         pub(crate) fn new(
@@ -2469,7 +2471,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMessagePins(RequestBuilder<crate::model::ListMessagePinsRequest>);
+    pub struct ListMessagePins(pub(crate) RequestBuilder<crate::model::ListMessagePinsRequest>);
 
     impl ListMessagePins {
         pub(crate) fn new(
@@ -2571,7 +2573,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateMessagePin(RequestBuilder<crate::model::CreateMessagePinRequest>);
+    pub struct CreateMessagePin(pub(crate) RequestBuilder<crate::model::CreateMessagePinRequest>);
 
     impl CreateMessagePin {
         pub(crate) fn new(
@@ -2658,7 +2660,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteMessagePin(RequestBuilder<crate::model::DeleteMessagePinRequest>);
+    pub struct DeleteMessagePin(pub(crate) RequestBuilder<crate::model::DeleteMessagePinRequest>);
 
     impl DeleteMessagePin {
         pub(crate) fn new(
@@ -2723,7 +2725,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCustomEmoji(RequestBuilder<crate::model::CreateCustomEmojiRequest>);
+    pub struct CreateCustomEmoji(pub(crate) RequestBuilder<crate::model::CreateCustomEmojiRequest>);
 
     impl CreateCustomEmoji {
         pub(crate) fn new(
@@ -2802,7 +2804,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCustomEmoji(RequestBuilder<crate::model::GetCustomEmojiRequest>);
+    pub struct GetCustomEmoji(pub(crate) RequestBuilder<crate::model::GetCustomEmojiRequest>);
 
     impl GetCustomEmoji {
         pub(crate) fn new(
@@ -2868,7 +2870,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCustomEmojis(RequestBuilder<crate::model::ListCustomEmojisRequest>);
+    pub struct ListCustomEmojis(pub(crate) RequestBuilder<crate::model::ListCustomEmojisRequest>);
 
     impl ListCustomEmojis {
         pub(crate) fn new(
@@ -2971,7 +2973,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCustomEmoji(RequestBuilder<crate::model::DeleteCustomEmojiRequest>);
+    pub struct DeleteCustomEmoji(pub(crate) RequestBuilder<crate::model::DeleteCustomEmojiRequest>);
 
     impl DeleteCustomEmoji {
         pub(crate) fn new(
@@ -3036,7 +3038,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSpaceReadState(RequestBuilder<crate::model::GetSpaceReadStateRequest>);
+    pub struct GetSpaceReadState(pub(crate) RequestBuilder<crate::model::GetSpaceReadStateRequest>);
 
     impl GetSpaceReadState {
         pub(crate) fn new(
@@ -3101,7 +3103,9 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSpaceReadState(RequestBuilder<crate::model::UpdateSpaceReadStateRequest>);
+    pub struct UpdateSpaceReadState(
+        pub(crate) RequestBuilder<crate::model::UpdateSpaceReadStateRequest>,
+    );
 
     impl UpdateSpaceReadState {
         pub(crate) fn new(
@@ -3202,7 +3206,9 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetThreadReadState(RequestBuilder<crate::model::GetThreadReadStateRequest>);
+    pub struct GetThreadReadState(
+        pub(crate) RequestBuilder<crate::model::GetThreadReadStateRequest>,
+    );
 
     impl GetThreadReadState {
         pub(crate) fn new(
@@ -3267,7 +3273,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAvailability(RequestBuilder<crate::model::GetAvailabilityRequest>);
+    pub struct GetAvailability(pub(crate) RequestBuilder<crate::model::GetAvailabilityRequest>);
 
     impl GetAvailability {
         pub(crate) fn new(
@@ -3329,7 +3335,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MarkAsActive(RequestBuilder<crate::model::MarkAsActiveRequest>);
+    pub struct MarkAsActive(pub(crate) RequestBuilder<crate::model::MarkAsActiveRequest>);
 
     impl MarkAsActive {
         pub(crate) fn new(
@@ -3429,7 +3435,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MarkAsAway(RequestBuilder<crate::model::MarkAsAwayRequest>);
+    pub struct MarkAsAway(pub(crate) RequestBuilder<crate::model::MarkAsAwayRequest>);
 
     impl MarkAsAway {
         pub(crate) fn new(
@@ -3491,7 +3497,9 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MarkAsDoNotDisturb(RequestBuilder<crate::model::MarkAsDoNotDisturbRequest>);
+    pub struct MarkAsDoNotDisturb(
+        pub(crate) RequestBuilder<crate::model::MarkAsDoNotDisturbRequest>,
+    );
 
     impl MarkAsDoNotDisturb {
         pub(crate) fn new(
@@ -3596,7 +3604,9 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAvailability(RequestBuilder<crate::model::UpdateAvailabilityRequest>);
+    pub struct UpdateAvailability(
+        pub(crate) RequestBuilder<crate::model::UpdateAvailabilityRequest>,
+    );
 
     impl UpdateAvailability {
         pub(crate) fn new(
@@ -3697,7 +3707,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSpaceEvent(RequestBuilder<crate::model::GetSpaceEventRequest>);
+    pub struct GetSpaceEvent(pub(crate) RequestBuilder<crate::model::GetSpaceEventRequest>);
 
     impl GetSpaceEvent {
         pub(crate) fn new(
@@ -3763,7 +3773,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSpaceEvents(RequestBuilder<crate::model::ListSpaceEventsRequest>);
+    pub struct ListSpaceEvents(pub(crate) RequestBuilder<crate::model::ListSpaceEventsRequest>);
 
     impl ListSpaceEvents {
         pub(crate) fn new(
@@ -3874,7 +3884,7 @@ pub mod chat_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetSpaceNotificationSetting(
-        RequestBuilder<crate::model::GetSpaceNotificationSettingRequest>,
+        pub(crate) RequestBuilder<crate::model::GetSpaceNotificationSettingRequest>,
     );
 
     impl GetSpaceNotificationSetting {
@@ -3941,7 +3951,7 @@ pub mod chat_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSpaceNotificationSetting(
-        RequestBuilder<crate::model::UpdateSpaceNotificationSettingRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateSpaceNotificationSettingRequest>,
     );
 
     impl UpdateSpaceNotificationSetting {
@@ -4046,7 +4056,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSection(RequestBuilder<crate::model::CreateSectionRequest>);
+    pub struct CreateSection(pub(crate) RequestBuilder<crate::model::CreateSectionRequest>);
 
     impl CreateSection {
         pub(crate) fn new(
@@ -4130,7 +4140,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSection(RequestBuilder<crate::model::DeleteSectionRequest>);
+    pub struct DeleteSection(pub(crate) RequestBuilder<crate::model::DeleteSectionRequest>);
 
     impl DeleteSection {
         pub(crate) fn new(
@@ -4192,7 +4202,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSection(RequestBuilder<crate::model::UpdateSectionRequest>);
+    pub struct UpdateSection(pub(crate) RequestBuilder<crate::model::UpdateSectionRequest>);
 
     impl UpdateSection {
         pub(crate) fn new(
@@ -4294,7 +4304,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSections(RequestBuilder<crate::model::ListSectionsRequest>);
+    pub struct ListSections(pub(crate) RequestBuilder<crate::model::ListSectionsRequest>);
 
     impl ListSections {
         pub(crate) fn new(
@@ -4394,7 +4404,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PositionSection(RequestBuilder<crate::model::PositionSectionRequest>);
+    pub struct PositionSection(pub(crate) RequestBuilder<crate::model::PositionSectionRequest>);
 
     impl PositionSection {
         pub(crate) fn new(
@@ -4499,7 +4509,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSectionItems(RequestBuilder<crate::model::ListSectionItemsRequest>);
+    pub struct ListSectionItems(pub(crate) RequestBuilder<crate::model::ListSectionItemsRequest>);
 
     impl ListSectionItems {
         pub(crate) fn new(
@@ -4610,7 +4620,7 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveSectionItem(RequestBuilder<crate::model::MoveSectionItemRequest>);
+    pub struct MoveSectionItem(pub(crate) RequestBuilder<crate::model::MoveSectionItemRequest>);
 
     impl MoveSectionItem {
         pub(crate) fn new(
@@ -4680,7 +4690,9 @@ pub mod chat_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReplaceMessageCards(RequestBuilder<crate::model::ReplaceMessageCardsRequest>);
+    pub struct ReplaceMessageCards(
+        pub(crate) RequestBuilder<crate::model::ReplaceMessageCardsRequest>,
+    );
 
     impl ReplaceMessageCards {
         pub(crate) fn new(

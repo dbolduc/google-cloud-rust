@@ -51,9 +51,9 @@ pub mod spaces_service {
     /// Common implementation for [crate::client::SpacesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SpacesService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SpacesService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod spaces_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSpace(RequestBuilder<crate::model::CreateSpaceRequest>);
+    pub struct CreateSpace(pub(crate) RequestBuilder<crate::model::CreateSpaceRequest>);
 
     impl CreateSpace {
         pub(crate) fn new(
@@ -160,7 +160,7 @@ pub mod spaces_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSpace(RequestBuilder<crate::model::GetSpaceRequest>);
+    pub struct GetSpace(pub(crate) RequestBuilder<crate::model::GetSpaceRequest>);
 
     impl GetSpace {
         pub(crate) fn new(
@@ -222,7 +222,7 @@ pub mod spaces_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSpace(RequestBuilder<crate::model::UpdateSpaceRequest>);
+    pub struct UpdateSpace(pub(crate) RequestBuilder<crate::model::UpdateSpaceRequest>);
 
     impl UpdateSpace {
         pub(crate) fn new(
@@ -316,7 +316,9 @@ pub mod spaces_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EndActiveConference(RequestBuilder<crate::model::EndActiveConferenceRequest>);
+    pub struct EndActiveConference(
+        pub(crate) RequestBuilder<crate::model::EndActiveConferenceRequest>,
+    );
 
     impl EndActiveConference {
         pub(crate) fn new(
@@ -381,7 +383,7 @@ pub mod spaces_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateMember(RequestBuilder<crate::model::CreateMemberRequest>);
+    pub struct CreateMember(pub(crate) RequestBuilder<crate::model::CreateMemberRequest>);
 
     impl CreateMember {
         pub(crate) fn new(
@@ -465,7 +467,7 @@ pub mod spaces_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMember(RequestBuilder<crate::model::GetMemberRequest>);
+    pub struct GetMember(pub(crate) RequestBuilder<crate::model::GetMemberRequest>);
 
     impl GetMember {
         pub(crate) fn new(
@@ -531,7 +533,7 @@ pub mod spaces_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMembers(RequestBuilder<crate::model::ListMembersRequest>);
+    pub struct ListMembers(pub(crate) RequestBuilder<crate::model::ListMembersRequest>);
 
     impl ListMembers {
         pub(crate) fn new(
@@ -631,7 +633,7 @@ pub mod spaces_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteMember(RequestBuilder<crate::model::DeleteMemberRequest>);
+    pub struct DeleteMember(pub(crate) RequestBuilder<crate::model::DeleteMemberRequest>);
 
     impl DeleteMember {
         pub(crate) fn new(
@@ -693,7 +695,7 @@ pub mod spaces_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateMember(RequestBuilder<crate::model::UpdateMemberRequest>);
+    pub struct UpdateMember(pub(crate) RequestBuilder<crate::model::UpdateMemberRequest>);
 
     impl UpdateMember {
         pub(crate) fn new(
@@ -787,7 +789,9 @@ pub mod spaces_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchUpdateMembers(RequestBuilder<crate::model::BatchUpdateMembersRequest>);
+    pub struct BatchUpdateMembers(
+        pub(crate) RequestBuilder<crate::model::BatchUpdateMembersRequest>,
+    );
 
     impl BatchUpdateMembers {
         pub(crate) fn new(
@@ -904,9 +908,9 @@ pub mod conference_records_service {
     /// Common implementation for [crate::client::ConferenceRecordsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConferenceRecordsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ConferenceRecordsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -941,7 +945,9 @@ pub mod conference_records_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConferenceRecord(RequestBuilder<crate::model::GetConferenceRecordRequest>);
+    pub struct GetConferenceRecord(
+        pub(crate) RequestBuilder<crate::model::GetConferenceRecordRequest>,
+    );
 
     impl GetConferenceRecord {
         pub(crate) fn new(
@@ -1010,7 +1016,9 @@ pub mod conference_records_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConferenceRecords(RequestBuilder<crate::model::ListConferenceRecordsRequest>);
+    pub struct ListConferenceRecords(
+        pub(crate) RequestBuilder<crate::model::ListConferenceRecordsRequest>,
+    );
 
     impl ListConferenceRecords {
         pub(crate) fn new(
@@ -1113,7 +1121,7 @@ pub mod conference_records_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetParticipant(RequestBuilder<crate::model::GetParticipantRequest>);
+    pub struct GetParticipant(pub(crate) RequestBuilder<crate::model::GetParticipantRequest>);
 
     impl GetParticipant {
         pub(crate) fn new(
@@ -1179,7 +1187,7 @@ pub mod conference_records_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListParticipants(RequestBuilder<crate::model::ListParticipantsRequest>);
+    pub struct ListParticipants(pub(crate) RequestBuilder<crate::model::ListParticipantsRequest>);
 
     impl ListParticipants {
         pub(crate) fn new(
@@ -1290,7 +1298,9 @@ pub mod conference_records_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetParticipantSession(RequestBuilder<crate::model::GetParticipantSessionRequest>);
+    pub struct GetParticipantSession(
+        pub(crate) RequestBuilder<crate::model::GetParticipantSessionRequest>,
+    );
 
     impl GetParticipantSession {
         pub(crate) fn new(
@@ -1360,7 +1370,7 @@ pub mod conference_records_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListParticipantSessions(
-        RequestBuilder<crate::model::ListParticipantSessionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListParticipantSessionsRequest>,
     );
 
     impl ListParticipantSessions {
@@ -1472,7 +1482,7 @@ pub mod conference_records_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRecording(RequestBuilder<crate::model::GetRecordingRequest>);
+    pub struct GetRecording(pub(crate) RequestBuilder<crate::model::GetRecordingRequest>);
 
     impl GetRecording {
         pub(crate) fn new(
@@ -1538,7 +1548,7 @@ pub mod conference_records_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRecordings(RequestBuilder<crate::model::ListRecordingsRequest>);
+    pub struct ListRecordings(pub(crate) RequestBuilder<crate::model::ListRecordingsRequest>);
 
     impl ListRecordings {
         pub(crate) fn new(
@@ -1640,7 +1650,7 @@ pub mod conference_records_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTranscript(RequestBuilder<crate::model::GetTranscriptRequest>);
+    pub struct GetTranscript(pub(crate) RequestBuilder<crate::model::GetTranscriptRequest>);
 
     impl GetTranscript {
         pub(crate) fn new(
@@ -1706,7 +1716,7 @@ pub mod conference_records_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTranscripts(RequestBuilder<crate::model::ListTranscriptsRequest>);
+    pub struct ListTranscripts(pub(crate) RequestBuilder<crate::model::ListTranscriptsRequest>);
 
     impl ListTranscripts {
         pub(crate) fn new(
@@ -1808,7 +1818,9 @@ pub mod conference_records_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTranscriptEntry(RequestBuilder<crate::model::GetTranscriptEntryRequest>);
+    pub struct GetTranscriptEntry(
+        pub(crate) RequestBuilder<crate::model::GetTranscriptEntryRequest>,
+    );
 
     impl GetTranscriptEntry {
         pub(crate) fn new(
@@ -1877,7 +1889,9 @@ pub mod conference_records_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTranscriptEntries(RequestBuilder<crate::model::ListTranscriptEntriesRequest>);
+    pub struct ListTranscriptEntries(
+        pub(crate) RequestBuilder<crate::model::ListTranscriptEntriesRequest>,
+    );
 
     impl ListTranscriptEntries {
         pub(crate) fn new(
@@ -1982,7 +1996,7 @@ pub mod conference_records_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSmartNote(RequestBuilder<crate::model::GetSmartNoteRequest>);
+    pub struct GetSmartNote(pub(crate) RequestBuilder<crate::model::GetSmartNoteRequest>);
 
     impl GetSmartNote {
         pub(crate) fn new(
@@ -2048,7 +2062,7 @@ pub mod conference_records_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSmartNotes(RequestBuilder<crate::model::ListSmartNotesRequest>);
+    pub struct ListSmartNotes(pub(crate) RequestBuilder<crate::model::ListSmartNotesRequest>);
 
     impl ListSmartNotes {
         pub(crate) fn new(

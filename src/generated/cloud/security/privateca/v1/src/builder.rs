@@ -51,9 +51,10 @@ pub mod certificate_authority_service {
     /// Common implementation for [crate::client::CertificateAuthorityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +89,7 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCertificate(RequestBuilder<crate::model::CreateCertificateRequest>);
+    pub struct CreateCertificate(pub(crate) RequestBuilder<crate::model::CreateCertificateRequest>);
 
     impl CreateCertificate {
         pub(crate) fn new(
@@ -202,7 +203,7 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCertificate(RequestBuilder<crate::model::GetCertificateRequest>);
+    pub struct GetCertificate(pub(crate) RequestBuilder<crate::model::GetCertificateRequest>);
 
     impl GetCertificate {
         pub(crate) fn new(
@@ -268,7 +269,7 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCertificates(RequestBuilder<crate::model::ListCertificatesRequest>);
+    pub struct ListCertificates(pub(crate) RequestBuilder<crate::model::ListCertificatesRequest>);
 
     impl ListCertificates {
         pub(crate) fn new(
@@ -385,7 +386,7 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RevokeCertificate(RequestBuilder<crate::model::RevokeCertificateRequest>);
+    pub struct RevokeCertificate(pub(crate) RequestBuilder<crate::model::RevokeCertificateRequest>);
 
     impl RevokeCertificate {
         pub(crate) fn new(
@@ -464,7 +465,7 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCertificate(RequestBuilder<crate::model::UpdateCertificateRequest>);
+    pub struct UpdateCertificate(pub(crate) RequestBuilder<crate::model::UpdateCertificateRequest>);
 
     impl UpdateCertificate {
         pub(crate) fn new(
@@ -573,7 +574,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ActivateCertificateAuthority(
-        RequestBuilder<crate::model::ActivateCertificateAuthorityRequest>,
+        pub(crate) RequestBuilder<crate::model::ActivateCertificateAuthorityRequest>,
     );
 
     impl ActivateCertificateAuthority {
@@ -733,7 +734,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateAuthority(
-        RequestBuilder<crate::model::CreateCertificateAuthorityRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateCertificateAuthorityRequest>,
     );
 
     impl CreateCertificateAuthority {
@@ -893,7 +894,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DisableCertificateAuthority(
-        RequestBuilder<crate::model::DisableCertificateAuthorityRequest>,
+        pub(crate) RequestBuilder<crate::model::DisableCertificateAuthorityRequest>,
     );
 
     impl DisableCertificateAuthority {
@@ -1029,7 +1030,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct EnableCertificateAuthority(
-        RequestBuilder<crate::model::EnableCertificateAuthorityRequest>,
+        pub(crate) RequestBuilder<crate::model::EnableCertificateAuthorityRequest>,
     );
 
     impl EnableCertificateAuthority {
@@ -1158,7 +1159,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchCertificateAuthorityCsr(
-        RequestBuilder<crate::model::FetchCertificateAuthorityCsrRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchCertificateAuthorityCsrRequest>,
     );
 
     impl FetchCertificateAuthorityCsr {
@@ -1225,7 +1226,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateAuthority(
-        RequestBuilder<crate::model::GetCertificateAuthorityRequest>,
+        pub(crate) RequestBuilder<crate::model::GetCertificateAuthorityRequest>,
     );
 
     impl GetCertificateAuthority {
@@ -1296,7 +1297,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateAuthorities(
-        RequestBuilder<crate::model::ListCertificateAuthoritiesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListCertificateAuthoritiesRequest>,
     );
 
     impl ListCertificateAuthorities {
@@ -1416,7 +1417,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteCertificateAuthority(
-        RequestBuilder<crate::model::UndeleteCertificateAuthorityRequest>,
+        pub(crate) RequestBuilder<crate::model::UndeleteCertificateAuthorityRequest>,
     );
 
     impl UndeleteCertificateAuthority {
@@ -1546,7 +1547,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateAuthority(
-        RequestBuilder<crate::model::DeleteCertificateAuthorityRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteCertificateAuthorityRequest>,
     );
 
     impl DeleteCertificateAuthority {
@@ -1694,7 +1695,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateAuthority(
-        RequestBuilder<crate::model::UpdateCertificateAuthorityRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateCertificateAuthorityRequest>,
     );
 
     impl UpdateCertificateAuthority {
@@ -1859,7 +1860,7 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCaPool(RequestBuilder<crate::model::CreateCaPoolRequest>);
+    pub struct CreateCaPool(pub(crate) RequestBuilder<crate::model::CreateCaPoolRequest>);
 
     impl CreateCaPool {
         pub(crate) fn new(
@@ -2012,7 +2013,7 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCaPool(RequestBuilder<crate::model::UpdateCaPoolRequest>);
+    pub struct UpdateCaPool(pub(crate) RequestBuilder<crate::model::UpdateCaPoolRequest>);
 
     impl UpdateCaPool {
         pub(crate) fn new(
@@ -2170,7 +2171,7 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCaPool(RequestBuilder<crate::model::GetCaPoolRequest>);
+    pub struct GetCaPool(pub(crate) RequestBuilder<crate::model::GetCaPoolRequest>);
 
     impl GetCaPool {
         pub(crate) fn new(
@@ -2236,7 +2237,7 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCaPools(RequestBuilder<crate::model::ListCaPoolsRequest>);
+    pub struct ListCaPools(pub(crate) RequestBuilder<crate::model::ListCaPoolsRequest>);
 
     impl ListCaPools {
         pub(crate) fn new(
@@ -2349,7 +2350,7 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCaPool(RequestBuilder<crate::model::DeleteCaPoolRequest>);
+    pub struct DeleteCaPool(pub(crate) RequestBuilder<crate::model::DeleteCaPoolRequest>);
 
     impl DeleteCaPool {
         pub(crate) fn new(
@@ -2472,7 +2473,7 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchCaCerts(RequestBuilder<crate::model::FetchCaCertsRequest>);
+    pub struct FetchCaCerts(pub(crate) RequestBuilder<crate::model::FetchCaCertsRequest>);
 
     impl FetchCaCerts {
         pub(crate) fn new(
@@ -2541,7 +2542,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateRevocationList(
-        RequestBuilder<crate::model::GetCertificateRevocationListRequest>,
+        pub(crate) RequestBuilder<crate::model::GetCertificateRevocationListRequest>,
     );
 
     impl GetCertificateRevocationList {
@@ -2612,7 +2613,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateRevocationLists(
-        RequestBuilder<crate::model::ListCertificateRevocationListsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListCertificateRevocationListsRequest>,
     );
 
     impl ListCertificateRevocationLists {
@@ -2732,7 +2733,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateRevocationList(
-        RequestBuilder<crate::model::UpdateCertificateRevocationListRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateCertificateRevocationListRequest>,
     );
 
     impl UpdateCertificateRevocationList {
@@ -2901,7 +2902,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateTemplate(
-        RequestBuilder<crate::model::CreateCertificateTemplateRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateCertificateTemplateRequest>,
     );
 
     impl CreateCertificateTemplate {
@@ -3061,7 +3062,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateTemplate(
-        RequestBuilder<crate::model::DeleteCertificateTemplateRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteCertificateTemplateRequest>,
     );
 
     impl DeleteCertificateTemplate {
@@ -3182,7 +3183,9 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCertificateTemplate(RequestBuilder<crate::model::GetCertificateTemplateRequest>);
+    pub struct GetCertificateTemplate(
+        pub(crate) RequestBuilder<crate::model::GetCertificateTemplateRequest>,
+    );
 
     impl GetCertificateTemplate {
         pub(crate) fn new(
@@ -3252,7 +3255,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateTemplates(
-        RequestBuilder<crate::model::ListCertificateTemplatesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListCertificateTemplatesRequest>,
     );
 
     impl ListCertificateTemplates {
@@ -3372,7 +3375,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateTemplate(
-        RequestBuilder<crate::model::UpdateCertificateTemplateRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateCertificateTemplateRequest>,
     );
 
     impl UpdateCertificateTemplate {
@@ -3540,7 +3543,9 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -3649,7 +3654,9 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -3712,7 +3719,9 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -3817,7 +3826,9 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -3901,7 +3912,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -3985,7 +3996,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4101,7 +4112,9 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4165,7 +4178,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4230,7 +4243,7 @@ pub mod certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

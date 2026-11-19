@@ -51,9 +51,9 @@ pub mod dataproc_metastore {
     /// Common implementation for [crate::client::DataprocMetastore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
+    pub struct ListServices(pub(crate) RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
         pub(crate) fn new(
@@ -204,7 +204,7 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
+    pub struct GetService(pub(crate) RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
         pub(crate) fn new(
@@ -267,7 +267,7 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
+    pub struct CreateService(pub(crate) RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
         pub(crate) fn new(
@@ -420,7 +420,7 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
+    pub struct UpdateService(pub(crate) RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
         pub(crate) fn new(
@@ -579,7 +579,7 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
+    pub struct DeleteService(pub(crate) RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
         pub(crate) fn new(
@@ -700,7 +700,9 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMetadataImports(RequestBuilder<crate::model::ListMetadataImportsRequest>);
+    pub struct ListMetadataImports(
+        pub(crate) RequestBuilder<crate::model::ListMetadataImportsRequest>,
+    );
 
     impl ListMetadataImports {
         pub(crate) fn new(
@@ -817,7 +819,7 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMetadataImport(RequestBuilder<crate::model::GetMetadataImportRequest>);
+    pub struct GetMetadataImport(pub(crate) RequestBuilder<crate::model::GetMetadataImportRequest>);
 
     impl GetMetadataImport {
         pub(crate) fn new(
@@ -883,7 +885,9 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateMetadataImport(RequestBuilder<crate::model::CreateMetadataImportRequest>);
+    pub struct CreateMetadataImport(
+        pub(crate) RequestBuilder<crate::model::CreateMetadataImportRequest>,
+    );
 
     impl CreateMetadataImport {
         pub(crate) fn new(
@@ -1039,7 +1043,9 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateMetadataImport(RequestBuilder<crate::model::UpdateMetadataImportRequest>);
+    pub struct UpdateMetadataImport(
+        pub(crate) RequestBuilder<crate::model::UpdateMetadataImportRequest>,
+    );
 
     impl UpdateMetadataImport {
         pub(crate) fn new(
@@ -1201,7 +1207,7 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportMetadata(RequestBuilder<crate::model::ExportMetadataRequest>);
+    pub struct ExportMetadata(pub(crate) RequestBuilder<crate::model::ExportMetadataRequest>);
 
     impl ExportMetadata {
         pub(crate) fn new(
@@ -1360,7 +1366,7 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreService(RequestBuilder<crate::model::RestoreServiceRequest>);
+    pub struct RestoreService(pub(crate) RequestBuilder<crate::model::RestoreServiceRequest>);
 
     impl RestoreService {
         pub(crate) fn new(
@@ -1503,7 +1509,7 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
+    pub struct ListBackups(pub(crate) RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
         pub(crate) fn new(
@@ -1615,7 +1621,7 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
+    pub struct GetBackup(pub(crate) RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
         pub(crate) fn new(
@@ -1678,7 +1684,7 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
+    pub struct CreateBackup(pub(crate) RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
         pub(crate) fn new(
@@ -1831,7 +1837,7 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
+    pub struct DeleteBackup(pub(crate) RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
         pub(crate) fn new(
@@ -1949,7 +1955,7 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryMetadata(RequestBuilder<crate::model::QueryMetadataRequest>);
+    pub struct QueryMetadata(pub(crate) RequestBuilder<crate::model::QueryMetadataRequest>);
 
     impl QueryMetadata {
         pub(crate) fn new(
@@ -2076,7 +2082,9 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveTableToDatabase(RequestBuilder<crate::model::MoveTableToDatabaseRequest>);
+    pub struct MoveTableToDatabase(
+        pub(crate) RequestBuilder<crate::model::MoveTableToDatabaseRequest>,
+    );
 
     impl MoveTableToDatabase {
         pub(crate) fn new(
@@ -2223,7 +2231,7 @@ pub mod dataproc_metastore {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AlterMetadataResourceLocation(
-        RequestBuilder<crate::model::AlterMetadataResourceLocationRequest>,
+        pub(crate) RequestBuilder<crate::model::AlterMetadataResourceLocationRequest>,
     );
 
     impl AlterMetadataResourceLocation {
@@ -2365,7 +2373,9 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2474,7 +2484,9 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -2537,7 +2549,9 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -2642,7 +2656,9 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -2726,7 +2742,7 @@ pub mod dataproc_metastore {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -2810,7 +2826,7 @@ pub mod dataproc_metastore {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2926,7 +2942,9 @@ pub mod dataproc_metastore {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2990,7 +3008,7 @@ pub mod dataproc_metastore {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3055,7 +3073,7 @@ pub mod dataproc_metastore {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -3140,9 +3158,10 @@ pub mod dataproc_metastore_federation {
     /// Common implementation for [crate::client::DataprocMetastoreFederation] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3181,7 +3200,7 @@ pub mod dataproc_metastore_federation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFederations(RequestBuilder<crate::model::ListFederationsRequest>);
+    pub struct ListFederations(pub(crate) RequestBuilder<crate::model::ListFederationsRequest>);
 
     impl ListFederations {
         pub(crate) fn new(
@@ -3295,7 +3314,7 @@ pub mod dataproc_metastore_federation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFederation(RequestBuilder<crate::model::GetFederationRequest>);
+    pub struct GetFederation(pub(crate) RequestBuilder<crate::model::GetFederationRequest>);
 
     impl GetFederation {
         pub(crate) fn new(
@@ -3358,7 +3377,7 @@ pub mod dataproc_metastore_federation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateFederation(RequestBuilder<crate::model::CreateFederationRequest>);
+    pub struct CreateFederation(pub(crate) RequestBuilder<crate::model::CreateFederationRequest>);
 
     impl CreateFederation {
         pub(crate) fn new(
@@ -3514,7 +3533,7 @@ pub mod dataproc_metastore_federation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFederation(RequestBuilder<crate::model::UpdateFederationRequest>);
+    pub struct UpdateFederation(pub(crate) RequestBuilder<crate::model::UpdateFederationRequest>);
 
     impl UpdateFederation {
         pub(crate) fn new(
@@ -3676,7 +3695,7 @@ pub mod dataproc_metastore_federation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFederation(RequestBuilder<crate::model::DeleteFederationRequest>);
+    pub struct DeleteFederation(pub(crate) RequestBuilder<crate::model::DeleteFederationRequest>);
 
     impl DeleteFederation {
         pub(crate) fn new(
@@ -3800,7 +3819,9 @@ pub mod dataproc_metastore_federation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -3909,7 +3930,9 @@ pub mod dataproc_metastore_federation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -3972,7 +3995,9 @@ pub mod dataproc_metastore_federation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -4077,7 +4102,9 @@ pub mod dataproc_metastore_federation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -4161,7 +4188,7 @@ pub mod dataproc_metastore_federation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -4245,7 +4272,7 @@ pub mod dataproc_metastore_federation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4361,7 +4388,9 @@ pub mod dataproc_metastore_federation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4425,7 +4454,7 @@ pub mod dataproc_metastore_federation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4490,7 +4519,7 @@ pub mod dataproc_metastore_federation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

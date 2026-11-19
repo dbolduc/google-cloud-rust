@@ -51,9 +51,9 @@ pub mod street_view_publish_service {
     /// Common implementation for [crate::client::StreetViewPublishService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::StreetViewPublishService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::StreetViewPublishService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartUpload(RequestBuilder<wkt::Empty>);
+    pub struct StartUpload(pub(crate) RequestBuilder<wkt::Empty>);
 
     impl StartUpload {
         pub(crate) fn new(
@@ -142,7 +142,7 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePhoto(RequestBuilder<crate::model::CreatePhotoRequest>);
+    pub struct CreatePhoto(pub(crate) RequestBuilder<crate::model::CreatePhotoRequest>);
 
     impl CreatePhoto {
         pub(crate) fn new(
@@ -218,7 +218,7 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPhoto(RequestBuilder<crate::model::GetPhotoRequest>);
+    pub struct GetPhoto(pub(crate) RequestBuilder<crate::model::GetPhotoRequest>);
 
     impl GetPhoto {
         pub(crate) fn new(
@@ -294,7 +294,7 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchGetPhotos(RequestBuilder<crate::model::BatchGetPhotosRequest>);
+    pub struct BatchGetPhotos(pub(crate) RequestBuilder<crate::model::BatchGetPhotosRequest>);
 
     impl BatchGetPhotos {
         pub(crate) fn new(
@@ -379,7 +379,7 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPhotos(RequestBuilder<crate::model::ListPhotosRequest>);
+    pub struct ListPhotos(pub(crate) RequestBuilder<crate::model::ListPhotosRequest>);
 
     impl ListPhotos {
         pub(crate) fn new(
@@ -491,7 +491,7 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePhoto(RequestBuilder<crate::model::UpdatePhotoRequest>);
+    pub struct UpdatePhoto(pub(crate) RequestBuilder<crate::model::UpdatePhotoRequest>);
 
     impl UpdatePhoto {
         pub(crate) fn new(
@@ -589,7 +589,7 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchUpdatePhotos(RequestBuilder<crate::model::BatchUpdatePhotosRequest>);
+    pub struct BatchUpdatePhotos(pub(crate) RequestBuilder<crate::model::BatchUpdatePhotosRequest>);
 
     impl BatchUpdatePhotos {
         pub(crate) fn new(
@@ -659,7 +659,7 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePhoto(RequestBuilder<crate::model::DeletePhotoRequest>);
+    pub struct DeletePhoto(pub(crate) RequestBuilder<crate::model::DeletePhotoRequest>);
 
     impl DeletePhoto {
         pub(crate) fn new(
@@ -721,7 +721,7 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchDeletePhotos(RequestBuilder<crate::model::BatchDeletePhotosRequest>);
+    pub struct BatchDeletePhotos(pub(crate) RequestBuilder<crate::model::BatchDeletePhotosRequest>);
 
     impl BatchDeletePhotos {
         pub(crate) fn new(
@@ -791,7 +791,7 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartPhotoSequenceUpload(RequestBuilder<wkt::Empty>);
+    pub struct StartPhotoSequenceUpload(pub(crate) RequestBuilder<wkt::Empty>);
 
     impl StartPhotoSequenceUpload {
         pub(crate) fn new(
@@ -846,7 +846,9 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePhotoSequence(RequestBuilder<crate::model::CreatePhotoSequenceRequest>);
+    pub struct CreatePhotoSequence(
+        pub(crate) RequestBuilder<crate::model::CreatePhotoSequenceRequest>,
+    );
 
     impl CreatePhotoSequence {
         pub(crate) fn new(
@@ -986,7 +988,7 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPhotoSequence(RequestBuilder<crate::model::GetPhotoSequenceRequest>);
+    pub struct GetPhotoSequence(pub(crate) RequestBuilder<crate::model::GetPhotoSequenceRequest>);
 
     impl GetPhotoSequence {
         pub(crate) fn new(
@@ -1117,7 +1119,9 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPhotoSequences(RequestBuilder<crate::model::ListPhotoSequencesRequest>);
+    pub struct ListPhotoSequences(
+        pub(crate) RequestBuilder<crate::model::ListPhotoSequencesRequest>,
+    );
 
     impl ListPhotoSequences {
         pub(crate) fn new(
@@ -1220,7 +1224,9 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePhotoSequence(RequestBuilder<crate::model::DeletePhotoSequenceRequest>);
+    pub struct DeletePhotoSequence(
+        pub(crate) RequestBuilder<crate::model::DeletePhotoSequenceRequest>,
+    );
 
     impl DeletePhotoSequence {
         pub(crate) fn new(
@@ -1285,7 +1291,9 @@ pub mod street_view_publish_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

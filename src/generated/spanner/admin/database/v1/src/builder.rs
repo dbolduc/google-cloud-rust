@@ -51,9 +51,9 @@ pub mod database_admin {
     /// Common implementation for [crate::client::DatabaseAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
+    pub struct ListDatabases(pub(crate) RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
         pub(crate) fn new(
@@ -193,7 +193,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDatabase(RequestBuilder<crate::model::CreateDatabaseRequest>);
+    pub struct CreateDatabase(pub(crate) RequestBuilder<crate::model::CreateDatabaseRequest>);
 
     impl CreateDatabase {
         pub(crate) fn new(
@@ -361,7 +361,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
+    pub struct GetDatabase(pub(crate) RequestBuilder<crate::model::GetDatabaseRequest>);
 
     impl GetDatabase {
         pub(crate) fn new(
@@ -424,7 +424,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDatabase(RequestBuilder<crate::model::UpdateDatabaseRequest>);
+    pub struct UpdateDatabase(pub(crate) RequestBuilder<crate::model::UpdateDatabaseRequest>);
 
     impl UpdateDatabase {
         pub(crate) fn new(
@@ -577,7 +577,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDatabaseDdl(RequestBuilder<crate::model::UpdateDatabaseDdlRequest>);
+    pub struct UpdateDatabaseDdl(pub(crate) RequestBuilder<crate::model::UpdateDatabaseDdlRequest>);
 
     impl UpdateDatabaseDdl {
         pub(crate) fn new(
@@ -726,7 +726,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DropDatabase(RequestBuilder<crate::model::DropDatabaseRequest>);
+    pub struct DropDatabase(pub(crate) RequestBuilder<crate::model::DropDatabaseRequest>);
 
     impl DropDatabase {
         pub(crate) fn new(
@@ -788,7 +788,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDatabaseDdl(RequestBuilder<crate::model::GetDatabaseDdlRequest>);
+    pub struct GetDatabaseDdl(pub(crate) RequestBuilder<crate::model::GetDatabaseDdlRequest>);
 
     impl GetDatabaseDdl {
         pub(crate) fn new(
@@ -850,7 +850,9 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -955,7 +957,9 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1039,7 +1043,7 @@ pub mod database_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1119,7 +1123,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
+    pub struct CreateBackup(pub(crate) RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
         pub(crate) fn new(
@@ -1284,7 +1288,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
+    pub struct CopyBackup(pub(crate) RequestBuilder<crate::model::CopyBackupRequest>);
 
     impl CopyBackup {
         pub(crate) fn new(
@@ -1456,7 +1460,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
+    pub struct GetBackup(pub(crate) RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
         pub(crate) fn new(
@@ -1518,7 +1522,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
+    pub struct UpdateBackup(pub(crate) RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
         pub(crate) fn new(
@@ -1616,7 +1620,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
+    pub struct DeleteBackup(pub(crate) RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
         pub(crate) fn new(
@@ -1682,7 +1686,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
+    pub struct ListBackups(pub(crate) RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
         pub(crate) fn new(
@@ -1789,7 +1793,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreDatabase(RequestBuilder<crate::model::RestoreDatabaseRequest>);
+    pub struct RestoreDatabase(pub(crate) RequestBuilder<crate::model::RestoreDatabaseRequest>);
 
     impl RestoreDatabase {
         pub(crate) fn new(
@@ -1957,7 +1961,9 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDatabaseOperations(RequestBuilder<crate::model::ListDatabaseOperationsRequest>);
+    pub struct ListDatabaseOperations(
+        pub(crate) RequestBuilder<crate::model::ListDatabaseOperationsRequest>,
+    );
 
     impl ListDatabaseOperations {
         pub(crate) fn new(
@@ -2072,7 +2078,9 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackupOperations(RequestBuilder<crate::model::ListBackupOperationsRequest>);
+    pub struct ListBackupOperations(
+        pub(crate) RequestBuilder<crate::model::ListBackupOperationsRequest>,
+    );
 
     impl ListBackupOperations {
         pub(crate) fn new(
@@ -2187,7 +2195,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDatabaseRoles(RequestBuilder<crate::model::ListDatabaseRolesRequest>);
+    pub struct ListDatabaseRoles(pub(crate) RequestBuilder<crate::model::ListDatabaseRolesRequest>);
 
     impl ListDatabaseRoles {
         pub(crate) fn new(
@@ -2292,7 +2300,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddSplitPoints(RequestBuilder<crate::model::AddSplitPointsRequest>);
+    pub struct AddSplitPoints(pub(crate) RequestBuilder<crate::model::AddSplitPointsRequest>);
 
     impl AddSplitPoints {
         pub(crate) fn new(
@@ -2373,7 +2381,9 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackupSchedule(RequestBuilder<crate::model::CreateBackupScheduleRequest>);
+    pub struct CreateBackupSchedule(
+        pub(crate) RequestBuilder<crate::model::CreateBackupScheduleRequest>,
+    );
 
     impl CreateBackupSchedule {
         pub(crate) fn new(
@@ -2468,7 +2478,7 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackupSchedule(RequestBuilder<crate::model::GetBackupScheduleRequest>);
+    pub struct GetBackupSchedule(pub(crate) RequestBuilder<crate::model::GetBackupScheduleRequest>);
 
     impl GetBackupSchedule {
         pub(crate) fn new(
@@ -2533,7 +2543,9 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackupSchedule(RequestBuilder<crate::model::UpdateBackupScheduleRequest>);
+    pub struct UpdateBackupSchedule(
+        pub(crate) RequestBuilder<crate::model::UpdateBackupScheduleRequest>,
+    );
 
     impl UpdateBackupSchedule {
         pub(crate) fn new(
@@ -2634,7 +2646,9 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackupSchedule(RequestBuilder<crate::model::DeleteBackupScheduleRequest>);
+    pub struct DeleteBackupSchedule(
+        pub(crate) RequestBuilder<crate::model::DeleteBackupScheduleRequest>,
+    );
 
     impl DeleteBackupSchedule {
         pub(crate) fn new(
@@ -2703,7 +2717,9 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackupSchedules(RequestBuilder<crate::model::ListBackupSchedulesRequest>);
+    pub struct ListBackupSchedules(
+        pub(crate) RequestBuilder<crate::model::ListBackupSchedulesRequest>,
+    );
 
     impl ListBackupSchedules {
         pub(crate) fn new(
@@ -2813,7 +2829,7 @@ pub mod database_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2929,7 +2945,9 @@ pub mod database_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2993,7 +3011,7 @@ pub mod database_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3058,7 +3076,7 @@ pub mod database_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

@@ -51,9 +51,9 @@ pub mod auth_provider_service {
     /// Common implementation for [crate::client::AuthProviderService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AuthProviderService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AuthProviderService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAuthProviders(RequestBuilder<crate::model::ListAuthProvidersRequest>);
+    pub struct ListAuthProviders(pub(crate) RequestBuilder<crate::model::ListAuthProvidersRequest>);
 
     impl ListAuthProviders {
         pub(crate) fn new(
@@ -215,7 +215,7 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAuthProvider(RequestBuilder<crate::model::GetAuthProviderRequest>);
+    pub struct GetAuthProvider(pub(crate) RequestBuilder<crate::model::GetAuthProviderRequest>);
 
     impl GetAuthProvider {
         pub(crate) fn new(
@@ -277,7 +277,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAuthProvider(RequestBuilder<crate::model::CreateAuthProviderRequest>);
+    pub struct CreateAuthProvider(
+        pub(crate) RequestBuilder<crate::model::CreateAuthProviderRequest>,
+    );
 
     impl CreateAuthProvider {
         pub(crate) fn new(
@@ -378,7 +380,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAuthProvider(RequestBuilder<crate::model::UpdateAuthProviderRequest>);
+    pub struct UpdateAuthProvider(
+        pub(crate) RequestBuilder<crate::model::UpdateAuthProviderRequest>,
+    );
 
     impl UpdateAuthProvider {
         pub(crate) fn new(
@@ -481,7 +485,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAuthProvider(RequestBuilder<crate::model::DeleteAuthProviderRequest>);
+    pub struct DeleteAuthProvider(
+        pub(crate) RequestBuilder<crate::model::DeleteAuthProviderRequest>,
+    );
 
     impl DeleteAuthProvider {
         pub(crate) fn new(
@@ -552,7 +558,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeleteAuthProvider(RequestBuilder<crate::model::UndeleteAuthProviderRequest>);
+    pub struct UndeleteAuthProvider(
+        pub(crate) RequestBuilder<crate::model::UndeleteAuthProviderRequest>,
+    );
 
     impl UndeleteAuthProvider {
         pub(crate) fn new(
@@ -623,7 +631,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryAuthProviders(RequestBuilder<crate::model::QueryAuthProvidersRequest>);
+    pub struct QueryAuthProviders(
+        pub(crate) RequestBuilder<crate::model::QueryAuthProvidersRequest>,
+    );
 
     impl QueryAuthProviders {
         pub(crate) fn new(
@@ -708,7 +718,7 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryWorkloads(RequestBuilder<crate::model::QueryWorkloadsRequest>);
+    pub struct QueryWorkloads(pub(crate) RequestBuilder<crate::model::QueryWorkloadsRequest>);
 
     impl QueryWorkloads {
         pub(crate) fn new(
@@ -786,7 +796,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAuthorizations(RequestBuilder<crate::model::ListAuthorizationsRequest>);
+    pub struct ListAuthorizations(
+        pub(crate) RequestBuilder<crate::model::ListAuthorizationsRequest>,
+    );
 
     impl ListAuthorizations {
         pub(crate) fn new(
@@ -903,7 +915,7 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAuthorization(RequestBuilder<crate::model::GetAuthorizationRequest>);
+    pub struct GetAuthorization(pub(crate) RequestBuilder<crate::model::GetAuthorizationRequest>);
 
     impl GetAuthorization {
         pub(crate) fn new(
@@ -968,7 +980,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAuthorization(RequestBuilder<crate::model::DeleteAuthorizationRequest>);
+    pub struct DeleteAuthorization(
+        pub(crate) RequestBuilder<crate::model::DeleteAuthorizationRequest>,
+    );
 
     impl DeleteAuthorization {
         pub(crate) fn new(
@@ -1043,7 +1057,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAccessSummaries(RequestBuilder<crate::model::ListAccessSummariesRequest>);
+    pub struct ListAccessSummaries(
+        pub(crate) RequestBuilder<crate::model::ListAccessSummariesRequest>,
+    );
 
     impl ListAccessSummaries {
         pub(crate) fn new(
@@ -1160,7 +1176,7 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAccessSummary(RequestBuilder<crate::model::GetAccessSummaryRequest>);
+    pub struct GetAccessSummary(pub(crate) RequestBuilder<crate::model::GetAccessSummaryRequest>);
 
     impl GetAccessSummary {
         pub(crate) fn new(
@@ -1225,7 +1241,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RevokeAuthorization(RequestBuilder<crate::model::RevokeAuthorizationRequest>);
+    pub struct RevokeAuthorization(
+        pub(crate) RequestBuilder<crate::model::RevokeAuthorizationRequest>,
+    );
 
     impl RevokeAuthorization {
         pub(crate) fn new(
@@ -1298,7 +1316,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnableAuthProvider(RequestBuilder<crate::model::EnableAuthProviderRequest>);
+    pub struct EnableAuthProvider(
+        pub(crate) RequestBuilder<crate::model::EnableAuthProviderRequest>,
+    );
 
     impl EnableAuthProvider {
         pub(crate) fn new(
@@ -1369,7 +1389,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DisableAuthProvider(RequestBuilder<crate::model::DisableAuthProviderRequest>);
+    pub struct DisableAuthProvider(
+        pub(crate) RequestBuilder<crate::model::DisableAuthProviderRequest>,
+    );
 
     impl DisableAuthProvider {
         pub(crate) fn new(
@@ -1444,7 +1466,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1553,7 +1577,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -1616,7 +1642,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -1721,7 +1749,9 @@ pub mod auth_provider_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1805,7 +1835,7 @@ pub mod auth_provider_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {

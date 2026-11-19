@@ -51,9 +51,10 @@ pub mod org_policy_violations_preview_service {
     /// Common implementation for [crate::client::OrgPolicyViolationsPreviewService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicyViolationsPreviewService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicyViolationsPreviewService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -95,7 +96,7 @@ pub mod org_policy_violations_preview_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOrgPolicyViolationsPreviews(
-        RequestBuilder<crate::model::ListOrgPolicyViolationsPreviewsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListOrgPolicyViolationsPreviewsRequest>,
     );
 
     impl ListOrgPolicyViolationsPreviews {
@@ -204,7 +205,7 @@ pub mod org_policy_violations_preview_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetOrgPolicyViolationsPreview(
-        RequestBuilder<crate::model::GetOrgPolicyViolationsPreviewRequest>,
+        pub(crate) RequestBuilder<crate::model::GetOrgPolicyViolationsPreviewRequest>,
     );
 
     impl GetOrgPolicyViolationsPreview {
@@ -274,7 +275,7 @@ pub mod org_policy_violations_preview_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateOrgPolicyViolationsPreview(
-        RequestBuilder<crate::model::CreateOrgPolicyViolationsPreviewRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateOrgPolicyViolationsPreviewRequest>,
     );
 
     impl CreateOrgPolicyViolationsPreview {
@@ -437,7 +438,7 @@ pub mod org_policy_violations_preview_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOrgPolicyViolations(
-        RequestBuilder<crate::model::ListOrgPolicyViolationsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListOrgPolicyViolationsRequest>,
     );
 
     impl ListOrgPolicyViolations {
@@ -550,7 +551,7 @@ pub mod org_policy_violations_preview_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -668,7 +669,9 @@ pub mod org_policy_violations_preview_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -754,9 +757,9 @@ pub mod simulator {
     /// Common implementation for [crate::client::Simulator] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -791,7 +794,7 @@ pub mod simulator {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetReplay(RequestBuilder<crate::model::GetReplayRequest>);
+    pub struct GetReplay(pub(crate) RequestBuilder<crate::model::GetReplayRequest>);
 
     impl GetReplay {
         pub(crate) fn new(
@@ -854,7 +857,7 @@ pub mod simulator {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateReplay(RequestBuilder<crate::model::CreateReplayRequest>);
+    pub struct CreateReplay(pub(crate) RequestBuilder<crate::model::CreateReplayRequest>);
 
     impl CreateReplay {
         pub(crate) fn new(
@@ -997,7 +1000,7 @@ pub mod simulator {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReplayResults(RequestBuilder<crate::model::ListReplayResultsRequest>);
+    pub struct ListReplayResults(pub(crate) RequestBuilder<crate::model::ListReplayResultsRequest>);
 
     impl ListReplayResults {
         pub(crate) fn new(
@@ -1107,7 +1110,7 @@ pub mod simulator {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1223,7 +1226,9 @@ pub mod simulator {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod attached_clusters {
     /// Common implementation for [crate::client::AttachedClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,9 @@ pub mod attached_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAttachedCluster(RequestBuilder<crate::model::CreateAttachedClusterRequest>);
+    pub struct CreateAttachedCluster(
+        pub(crate) RequestBuilder<crate::model::CreateAttachedClusterRequest>,
+    );
 
     impl CreateAttachedCluster {
         pub(crate) fn new(
@@ -245,7 +247,9 @@ pub mod attached_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAttachedCluster(RequestBuilder<crate::model::UpdateAttachedClusterRequest>);
+    pub struct UpdateAttachedCluster(
+        pub(crate) RequestBuilder<crate::model::UpdateAttachedClusterRequest>,
+    );
 
     impl UpdateAttachedCluster {
         pub(crate) fn new(
@@ -407,7 +411,9 @@ pub mod attached_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportAttachedCluster(RequestBuilder<crate::model::ImportAttachedClusterRequest>);
+    pub struct ImportAttachedCluster(
+        pub(crate) RequestBuilder<crate::model::ImportAttachedClusterRequest>,
+    );
 
     impl ImportAttachedCluster {
         pub(crate) fn new(
@@ -574,7 +580,9 @@ pub mod attached_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAttachedCluster(RequestBuilder<crate::model::GetAttachedClusterRequest>);
+    pub struct GetAttachedCluster(
+        pub(crate) RequestBuilder<crate::model::GetAttachedClusterRequest>,
+    );
 
     impl GetAttachedCluster {
         pub(crate) fn new(
@@ -643,7 +651,9 @@ pub mod attached_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAttachedClusters(RequestBuilder<crate::model::ListAttachedClustersRequest>);
+    pub struct ListAttachedClusters(
+        pub(crate) RequestBuilder<crate::model::ListAttachedClustersRequest>,
+    );
 
     impl ListAttachedClusters {
         pub(crate) fn new(
@@ -749,7 +759,9 @@ pub mod attached_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAttachedCluster(RequestBuilder<crate::model::DeleteAttachedClusterRequest>);
+    pub struct DeleteAttachedCluster(
+        pub(crate) RequestBuilder<crate::model::DeleteAttachedClusterRequest>,
+    );
 
     impl DeleteAttachedCluster {
         pub(crate) fn new(
@@ -888,7 +900,7 @@ pub mod attached_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetAttachedServerConfig(
-        RequestBuilder<crate::model::GetAttachedServerConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::GetAttachedServerConfigRequest>,
     );
 
     impl GetAttachedServerConfig {
@@ -955,7 +967,7 @@ pub mod attached_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAttachedClusterInstallManifest(
-        RequestBuilder<crate::model::GenerateAttachedClusterInstallManifestRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateAttachedClusterInstallManifestRequest>,
     );
 
     impl GenerateAttachedClusterInstallManifest {
@@ -1060,7 +1072,7 @@ pub mod attached_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAttachedClusterAgentToken(
-        RequestBuilder<crate::model::GenerateAttachedClusterAgentTokenRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateAttachedClusterAgentTokenRequest>,
     );
 
     impl GenerateAttachedClusterAgentToken {
@@ -1185,7 +1197,7 @@ pub mod attached_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1301,7 +1313,9 @@ pub mod attached_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1365,7 +1379,7 @@ pub mod attached_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -1430,7 +1444,7 @@ pub mod attached_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -1515,9 +1529,9 @@ pub mod aws_clusters {
     /// Common implementation for [crate::client::AwsClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1553,7 +1567,7 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAwsCluster(RequestBuilder<crate::model::CreateAwsClusterRequest>);
+    pub struct CreateAwsCluster(pub(crate) RequestBuilder<crate::model::CreateAwsClusterRequest>);
 
     impl CreateAwsCluster {
         pub(crate) fn new(
@@ -1709,7 +1723,7 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAwsCluster(RequestBuilder<crate::model::UpdateAwsClusterRequest>);
+    pub struct UpdateAwsCluster(pub(crate) RequestBuilder<crate::model::UpdateAwsClusterRequest>);
 
     impl UpdateAwsCluster {
         pub(crate) fn new(
@@ -1870,7 +1884,7 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAwsCluster(RequestBuilder<crate::model::GetAwsClusterRequest>);
+    pub struct GetAwsCluster(pub(crate) RequestBuilder<crate::model::GetAwsClusterRequest>);
 
     impl GetAwsCluster {
         pub(crate) fn new(
@@ -1936,7 +1950,7 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAwsClusters(RequestBuilder<crate::model::ListAwsClustersRequest>);
+    pub struct ListAwsClusters(pub(crate) RequestBuilder<crate::model::ListAwsClustersRequest>);
 
     impl ListAwsClusters {
         pub(crate) fn new(
@@ -2039,7 +2053,7 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAwsCluster(RequestBuilder<crate::model::DeleteAwsClusterRequest>);
+    pub struct DeleteAwsCluster(pub(crate) RequestBuilder<crate::model::DeleteAwsClusterRequest>);
 
     impl DeleteAwsCluster {
         pub(crate) fn new(
@@ -2178,7 +2192,7 @@ pub mod aws_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAwsClusterAgentToken(
-        RequestBuilder<crate::model::GenerateAwsClusterAgentTokenRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateAwsClusterAgentTokenRequest>,
     );
 
     impl GenerateAwsClusterAgentToken {
@@ -2304,7 +2318,9 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateAwsAccessToken(RequestBuilder<crate::model::GenerateAwsAccessTokenRequest>);
+    pub struct GenerateAwsAccessToken(
+        pub(crate) RequestBuilder<crate::model::GenerateAwsAccessTokenRequest>,
+    );
 
     impl GenerateAwsAccessToken {
         pub(crate) fn new(
@@ -2370,7 +2386,7 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAwsNodePool(RequestBuilder<crate::model::CreateAwsNodePoolRequest>);
+    pub struct CreateAwsNodePool(pub(crate) RequestBuilder<crate::model::CreateAwsNodePoolRequest>);
 
     impl CreateAwsNodePool {
         pub(crate) fn new(
@@ -2526,7 +2542,7 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAwsNodePool(RequestBuilder<crate::model::UpdateAwsNodePoolRequest>);
+    pub struct UpdateAwsNodePool(pub(crate) RequestBuilder<crate::model::UpdateAwsNodePoolRequest>);
 
     impl UpdateAwsNodePool {
         pub(crate) fn new(
@@ -2689,7 +2705,7 @@ pub mod aws_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RollbackAwsNodePoolUpdate(
-        RequestBuilder<crate::model::RollbackAwsNodePoolUpdateRequest>,
+        pub(crate) RequestBuilder<crate::model::RollbackAwsNodePoolUpdateRequest>,
     );
 
     impl RollbackAwsNodePoolUpdate {
@@ -2815,7 +2831,7 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAwsNodePool(RequestBuilder<crate::model::GetAwsNodePoolRequest>);
+    pub struct GetAwsNodePool(pub(crate) RequestBuilder<crate::model::GetAwsNodePoolRequest>);
 
     impl GetAwsNodePool {
         pub(crate) fn new(
@@ -2881,7 +2897,7 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAwsNodePools(RequestBuilder<crate::model::ListAwsNodePoolsRequest>);
+    pub struct ListAwsNodePools(pub(crate) RequestBuilder<crate::model::ListAwsNodePoolsRequest>);
 
     impl ListAwsNodePools {
         pub(crate) fn new(
@@ -2987,7 +3003,7 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAwsNodePool(RequestBuilder<crate::model::DeleteAwsNodePoolRequest>);
+    pub struct DeleteAwsNodePool(pub(crate) RequestBuilder<crate::model::DeleteAwsNodePoolRequest>);
 
     impl DeleteAwsNodePool {
         pub(crate) fn new(
@@ -3125,7 +3141,9 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAwsOpenIdConfig(RequestBuilder<crate::model::GetAwsOpenIdConfigRequest>);
+    pub struct GetAwsOpenIdConfig(
+        pub(crate) RequestBuilder<crate::model::GetAwsOpenIdConfigRequest>,
+    );
 
     impl GetAwsOpenIdConfig {
         pub(crate) fn new(
@@ -3190,7 +3208,7 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAwsJsonWebKeys(RequestBuilder<crate::model::GetAwsJsonWebKeysRequest>);
+    pub struct GetAwsJsonWebKeys(pub(crate) RequestBuilder<crate::model::GetAwsJsonWebKeysRequest>);
 
     impl GetAwsJsonWebKeys {
         pub(crate) fn new(
@@ -3255,7 +3273,9 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAwsServerConfig(RequestBuilder<crate::model::GetAwsServerConfigRequest>);
+    pub struct GetAwsServerConfig(
+        pub(crate) RequestBuilder<crate::model::GetAwsServerConfigRequest>,
+    );
 
     impl GetAwsServerConfig {
         pub(crate) fn new(
@@ -3325,7 +3345,7 @@ pub mod aws_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3441,7 +3461,9 @@ pub mod aws_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3505,7 +3527,7 @@ pub mod aws_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3570,7 +3592,7 @@ pub mod aws_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -3655,9 +3677,9 @@ pub mod azure_clusters {
     /// Common implementation for [crate::client::AzureClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3693,7 +3715,7 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAzureClient(RequestBuilder<crate::model::CreateAzureClientRequest>);
+    pub struct CreateAzureClient(pub(crate) RequestBuilder<crate::model::CreateAzureClientRequest>);
 
     impl CreateAzureClient {
         pub(crate) fn new(
@@ -3848,7 +3870,7 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAzureClient(RequestBuilder<crate::model::GetAzureClientRequest>);
+    pub struct GetAzureClient(pub(crate) RequestBuilder<crate::model::GetAzureClientRequest>);
 
     impl GetAzureClient {
         pub(crate) fn new(
@@ -3914,7 +3936,7 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAzureClients(RequestBuilder<crate::model::ListAzureClientsRequest>);
+    pub struct ListAzureClients(pub(crate) RequestBuilder<crate::model::ListAzureClientsRequest>);
 
     impl ListAzureClients {
         pub(crate) fn new(
@@ -4020,7 +4042,7 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAzureClient(RequestBuilder<crate::model::DeleteAzureClientRequest>);
+    pub struct DeleteAzureClient(pub(crate) RequestBuilder<crate::model::DeleteAzureClientRequest>);
 
     impl DeleteAzureClient {
         pub(crate) fn new(
@@ -4147,7 +4169,9 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAzureCluster(RequestBuilder<crate::model::CreateAzureClusterRequest>);
+    pub struct CreateAzureCluster(
+        pub(crate) RequestBuilder<crate::model::CreateAzureClusterRequest>,
+    );
 
     impl CreateAzureCluster {
         pub(crate) fn new(
@@ -4303,7 +4327,9 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAzureCluster(RequestBuilder<crate::model::UpdateAzureClusterRequest>);
+    pub struct UpdateAzureCluster(
+        pub(crate) RequestBuilder<crate::model::UpdateAzureClusterRequest>,
+    );
 
     impl UpdateAzureCluster {
         pub(crate) fn new(
@@ -4464,7 +4490,7 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAzureCluster(RequestBuilder<crate::model::GetAzureClusterRequest>);
+    pub struct GetAzureCluster(pub(crate) RequestBuilder<crate::model::GetAzureClusterRequest>);
 
     impl GetAzureCluster {
         pub(crate) fn new(
@@ -4530,7 +4556,7 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAzureClusters(RequestBuilder<crate::model::ListAzureClustersRequest>);
+    pub struct ListAzureClusters(pub(crate) RequestBuilder<crate::model::ListAzureClustersRequest>);
 
     impl ListAzureClusters {
         pub(crate) fn new(
@@ -4636,7 +4662,9 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAzureCluster(RequestBuilder<crate::model::DeleteAzureClusterRequest>);
+    pub struct DeleteAzureCluster(
+        pub(crate) RequestBuilder<crate::model::DeleteAzureClusterRequest>,
+    );
 
     impl DeleteAzureCluster {
         pub(crate) fn new(
@@ -4775,7 +4803,7 @@ pub mod azure_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAzureClusterAgentToken(
-        RequestBuilder<crate::model::GenerateAzureClusterAgentTokenRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateAzureClusterAgentTokenRequest>,
     );
 
     impl GenerateAzureClusterAgentToken {
@@ -4902,7 +4930,7 @@ pub mod azure_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAzureAccessToken(
-        RequestBuilder<crate::model::GenerateAzureAccessTokenRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateAzureAccessTokenRequest>,
     );
 
     impl GenerateAzureAccessToken {
@@ -4969,7 +4997,9 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAzureNodePool(RequestBuilder<crate::model::CreateAzureNodePoolRequest>);
+    pub struct CreateAzureNodePool(
+        pub(crate) RequestBuilder<crate::model::CreateAzureNodePoolRequest>,
+    );
 
     impl CreateAzureNodePool {
         pub(crate) fn new(
@@ -5125,7 +5155,9 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAzureNodePool(RequestBuilder<crate::model::UpdateAzureNodePoolRequest>);
+    pub struct UpdateAzureNodePool(
+        pub(crate) RequestBuilder<crate::model::UpdateAzureNodePoolRequest>,
+    );
 
     impl UpdateAzureNodePool {
         pub(crate) fn new(
@@ -5286,7 +5318,7 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAzureNodePool(RequestBuilder<crate::model::GetAzureNodePoolRequest>);
+    pub struct GetAzureNodePool(pub(crate) RequestBuilder<crate::model::GetAzureNodePoolRequest>);
 
     impl GetAzureNodePool {
         pub(crate) fn new(
@@ -5355,7 +5387,9 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAzureNodePools(RequestBuilder<crate::model::ListAzureNodePoolsRequest>);
+    pub struct ListAzureNodePools(
+        pub(crate) RequestBuilder<crate::model::ListAzureNodePoolsRequest>,
+    );
 
     impl ListAzureNodePools {
         pub(crate) fn new(
@@ -5461,7 +5495,9 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAzureNodePool(RequestBuilder<crate::model::DeleteAzureNodePoolRequest>);
+    pub struct DeleteAzureNodePool(
+        pub(crate) RequestBuilder<crate::model::DeleteAzureNodePoolRequest>,
+    );
 
     impl DeleteAzureNodePool {
         pub(crate) fn new(
@@ -5599,7 +5635,9 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAzureOpenIdConfig(RequestBuilder<crate::model::GetAzureOpenIdConfigRequest>);
+    pub struct GetAzureOpenIdConfig(
+        pub(crate) RequestBuilder<crate::model::GetAzureOpenIdConfigRequest>,
+    );
 
     impl GetAzureOpenIdConfig {
         pub(crate) fn new(
@@ -5664,7 +5702,9 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAzureJsonWebKeys(RequestBuilder<crate::model::GetAzureJsonWebKeysRequest>);
+    pub struct GetAzureJsonWebKeys(
+        pub(crate) RequestBuilder<crate::model::GetAzureJsonWebKeysRequest>,
+    );
 
     impl GetAzureJsonWebKeys {
         pub(crate) fn new(
@@ -5729,7 +5769,9 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAzureServerConfig(RequestBuilder<crate::model::GetAzureServerConfigRequest>);
+    pub struct GetAzureServerConfig(
+        pub(crate) RequestBuilder<crate::model::GetAzureServerConfigRequest>,
+    );
 
     impl GetAzureServerConfig {
         pub(crate) fn new(
@@ -5799,7 +5841,7 @@ pub mod azure_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -5915,7 +5957,9 @@ pub mod azure_clusters {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -5979,7 +6023,7 @@ pub mod azure_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -6044,7 +6088,7 @@ pub mod azure_clusters {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

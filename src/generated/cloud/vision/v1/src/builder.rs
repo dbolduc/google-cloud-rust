@@ -51,9 +51,9 @@ pub mod image_annotator {
     /// Common implementation for [crate::client::ImageAnnotator] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod image_annotator {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchAnnotateImages(RequestBuilder<crate::model::BatchAnnotateImagesRequest>);
+    pub struct BatchAnnotateImages(
+        pub(crate) RequestBuilder<crate::model::BatchAnnotateImagesRequest>,
+    );
 
     impl BatchAnnotateImages {
         pub(crate) fn new(
@@ -175,7 +177,9 @@ pub mod image_annotator {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchAnnotateFiles(RequestBuilder<crate::model::BatchAnnotateFilesRequest>);
+    pub struct BatchAnnotateFiles(
+        pub(crate) RequestBuilder<crate::model::BatchAnnotateFilesRequest>,
+    );
 
     impl BatchAnnotateFiles {
         pub(crate) fn new(
@@ -264,7 +268,7 @@ pub mod image_annotator {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AsyncBatchAnnotateImages(
-        RequestBuilder<crate::model::AsyncBatchAnnotateImagesRequest>,
+        pub(crate) RequestBuilder<crate::model::AsyncBatchAnnotateImagesRequest>,
     );
 
     impl AsyncBatchAnnotateImages {
@@ -432,7 +436,7 @@ pub mod image_annotator {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AsyncBatchAnnotateFiles(
-        RequestBuilder<crate::model::AsyncBatchAnnotateFilesRequest>,
+        pub(crate) RequestBuilder<crate::model::AsyncBatchAnnotateFilesRequest>,
     );
 
     impl AsyncBatchAnnotateFiles {
@@ -576,7 +580,9 @@ pub mod image_annotator {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -660,9 +666,9 @@ pub mod product_search {
     /// Common implementation for [crate::client::ProductSearch] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -697,7 +703,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateProductSet(RequestBuilder<crate::model::CreateProductSetRequest>);
+    pub struct CreateProductSet(pub(crate) RequestBuilder<crate::model::CreateProductSetRequest>);
 
     impl CreateProductSet {
         pub(crate) fn new(
@@ -794,7 +800,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProductSets(RequestBuilder<crate::model::ListProductSetsRequest>);
+    pub struct ListProductSets(pub(crate) RequestBuilder<crate::model::ListProductSetsRequest>);
 
     impl ListProductSets {
         pub(crate) fn new(
@@ -896,7 +902,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProductSet(RequestBuilder<crate::model::GetProductSetRequest>);
+    pub struct GetProductSet(pub(crate) RequestBuilder<crate::model::GetProductSetRequest>);
 
     impl GetProductSet {
         pub(crate) fn new(
@@ -958,7 +964,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateProductSet(RequestBuilder<crate::model::UpdateProductSetRequest>);
+    pub struct UpdateProductSet(pub(crate) RequestBuilder<crate::model::UpdateProductSetRequest>);
 
     impl UpdateProductSet {
         pub(crate) fn new(
@@ -1055,7 +1061,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteProductSet(RequestBuilder<crate::model::DeleteProductSetRequest>);
+    pub struct DeleteProductSet(pub(crate) RequestBuilder<crate::model::DeleteProductSetRequest>);
 
     impl DeleteProductSet {
         pub(crate) fn new(
@@ -1120,7 +1126,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateProduct(RequestBuilder<crate::model::CreateProductRequest>);
+    pub struct CreateProduct(pub(crate) RequestBuilder<crate::model::CreateProductRequest>);
 
     impl CreateProduct {
         pub(crate) fn new(
@@ -1214,7 +1220,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProducts(RequestBuilder<crate::model::ListProductsRequest>);
+    pub struct ListProducts(pub(crate) RequestBuilder<crate::model::ListProductsRequest>);
 
     impl ListProducts {
         pub(crate) fn new(
@@ -1314,7 +1320,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProduct(RequestBuilder<crate::model::GetProductRequest>);
+    pub struct GetProduct(pub(crate) RequestBuilder<crate::model::GetProductRequest>);
 
     impl GetProduct {
         pub(crate) fn new(
@@ -1376,7 +1382,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateProduct(RequestBuilder<crate::model::UpdateProductRequest>);
+    pub struct UpdateProduct(pub(crate) RequestBuilder<crate::model::UpdateProductRequest>);
 
     impl UpdateProduct {
         pub(crate) fn new(
@@ -1470,7 +1476,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteProduct(RequestBuilder<crate::model::DeleteProductRequest>);
+    pub struct DeleteProduct(pub(crate) RequestBuilder<crate::model::DeleteProductRequest>);
 
     impl DeleteProduct {
         pub(crate) fn new(
@@ -1532,7 +1538,9 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateReferenceImage(RequestBuilder<crate::model::CreateReferenceImageRequest>);
+    pub struct CreateReferenceImage(
+        pub(crate) RequestBuilder<crate::model::CreateReferenceImageRequest>,
+    );
 
     impl CreateReferenceImage {
         pub(crate) fn new(
@@ -1625,7 +1633,9 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteReferenceImage(RequestBuilder<crate::model::DeleteReferenceImageRequest>);
+    pub struct DeleteReferenceImage(
+        pub(crate) RequestBuilder<crate::model::DeleteReferenceImageRequest>,
+    );
 
     impl DeleteReferenceImage {
         pub(crate) fn new(
@@ -1694,7 +1704,9 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReferenceImages(RequestBuilder<crate::model::ListReferenceImagesRequest>);
+    pub struct ListReferenceImages(
+        pub(crate) RequestBuilder<crate::model::ListReferenceImagesRequest>,
+    );
 
     impl ListReferenceImages {
         pub(crate) fn new(
@@ -1799,7 +1811,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetReferenceImage(RequestBuilder<crate::model::GetReferenceImageRequest>);
+    pub struct GetReferenceImage(pub(crate) RequestBuilder<crate::model::GetReferenceImageRequest>);
 
     impl GetReferenceImage {
         pub(crate) fn new(
@@ -1864,7 +1876,9 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddProductToProductSet(RequestBuilder<crate::model::AddProductToProductSetRequest>);
+    pub struct AddProductToProductSet(
+        pub(crate) RequestBuilder<crate::model::AddProductToProductSetRequest>,
+    );
 
     impl AddProductToProductSet {
         pub(crate) fn new(
@@ -1938,7 +1952,7 @@ pub mod product_search {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveProductFromProductSet(
-        RequestBuilder<crate::model::RemoveProductFromProductSetRequest>,
+        pub(crate) RequestBuilder<crate::model::RemoveProductFromProductSetRequest>,
     );
 
     impl RemoveProductFromProductSet {
@@ -2017,7 +2031,7 @@ pub mod product_search {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListProductsInProductSet(
-        RequestBuilder<crate::model::ListProductsInProductSetRequest>,
+        pub(crate) RequestBuilder<crate::model::ListProductsInProductSetRequest>,
     );
 
     impl ListProductsInProductSet {
@@ -2124,7 +2138,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportProductSets(RequestBuilder<crate::model::ImportProductSetsRequest>);
+    pub struct ImportProductSets(pub(crate) RequestBuilder<crate::model::ImportProductSetsRequest>);
 
     impl ImportProductSets {
         pub(crate) fn new(
@@ -2268,7 +2282,7 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PurgeProducts(RequestBuilder<crate::model::PurgeProductsRequest>);
+    pub struct PurgeProducts(pub(crate) RequestBuilder<crate::model::PurgeProductsRequest>);
 
     impl PurgeProducts {
         pub(crate) fn new(
@@ -2427,7 +2441,9 @@ pub mod product_search {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

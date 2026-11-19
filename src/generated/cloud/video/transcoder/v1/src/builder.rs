@@ -51,9 +51,9 @@ pub mod transcoder_service {
     /// Common implementation for [crate::client::TranscoderService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod transcoder_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
+    pub struct CreateJob(pub(crate) RequestBuilder<crate::model::CreateJobRequest>);
 
     impl CreateJob {
         pub(crate) fn new(
@@ -176,7 +176,7 @@ pub mod transcoder_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
+    pub struct ListJobs(pub(crate) RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
         pub(crate) fn new(
@@ -286,7 +286,7 @@ pub mod transcoder_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
+    pub struct GetJob(pub(crate) RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
         pub(crate) fn new(
@@ -348,7 +348,7 @@ pub mod transcoder_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
+    pub struct DeleteJob(pub(crate) RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
         pub(crate) fn new(
@@ -416,7 +416,7 @@ pub mod transcoder_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateJobTemplate(RequestBuilder<crate::model::CreateJobTemplateRequest>);
+    pub struct CreateJobTemplate(pub(crate) RequestBuilder<crate::model::CreateJobTemplateRequest>);
 
     impl CreateJobTemplate {
         pub(crate) fn new(
@@ -515,7 +515,7 @@ pub mod transcoder_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListJobTemplates(RequestBuilder<crate::model::ListJobTemplatesRequest>);
+    pub struct ListJobTemplates(pub(crate) RequestBuilder<crate::model::ListJobTemplatesRequest>);
 
     impl ListJobTemplates {
         pub(crate) fn new(
@@ -632,7 +632,7 @@ pub mod transcoder_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetJobTemplate(RequestBuilder<crate::model::GetJobTemplateRequest>);
+    pub struct GetJobTemplate(pub(crate) RequestBuilder<crate::model::GetJobTemplateRequest>);
 
     impl GetJobTemplate {
         pub(crate) fn new(
@@ -694,7 +694,7 @@ pub mod transcoder_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteJobTemplate(RequestBuilder<crate::model::DeleteJobTemplateRequest>);
+    pub struct DeleteJobTemplate(pub(crate) RequestBuilder<crate::model::DeleteJobTemplateRequest>);
 
     impl DeleteJobTemplate {
         pub(crate) fn new(

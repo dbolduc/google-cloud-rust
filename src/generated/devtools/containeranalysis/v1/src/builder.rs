@@ -51,9 +51,9 @@ pub mod container_analysis {
     /// Common implementation for [crate::client::ContainerAnalysis] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod container_analysis {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -193,7 +195,9 @@ pub mod container_analysis {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -277,7 +281,7 @@ pub mod container_analysis {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -357,7 +361,7 @@ pub mod container_analysis {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetVulnerabilityOccurrencesSummary(
-        RequestBuilder<crate::model::GetVulnerabilityOccurrencesSummaryRequest>,
+        pub(crate) RequestBuilder<crate::model::GetVulnerabilityOccurrencesSummaryRequest>,
     );
 
     impl GetVulnerabilityOccurrencesSummary {
@@ -429,7 +433,7 @@ pub mod container_analysis {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportSBOM(RequestBuilder<crate::model::ExportSBOMRequest>);
+    pub struct ExportSBOM(pub(crate) RequestBuilder<crate::model::ExportSBOMRequest>);
 
     impl ExportSBOM {
         pub(crate) fn new(

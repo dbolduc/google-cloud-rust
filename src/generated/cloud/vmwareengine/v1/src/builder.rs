@@ -51,9 +51,9 @@ pub mod vmware_engine {
     /// Common implementation for [crate::client::VmwareEngine] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPrivateClouds(RequestBuilder<crate::model::ListPrivateCloudsRequest>);
+    pub struct ListPrivateClouds(pub(crate) RequestBuilder<crate::model::ListPrivateCloudsRequest>);
 
     impl ListPrivateClouds {
         pub(crate) fn new(
@@ -209,7 +209,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPrivateCloud(RequestBuilder<crate::model::GetPrivateCloudRequest>);
+    pub struct GetPrivateCloud(pub(crate) RequestBuilder<crate::model::GetPrivateCloudRequest>);
 
     impl GetPrivateCloud {
         pub(crate) fn new(
@@ -272,7 +272,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePrivateCloud(RequestBuilder<crate::model::CreatePrivateCloudRequest>);
+    pub struct CreatePrivateCloud(
+        pub(crate) RequestBuilder<crate::model::CreatePrivateCloudRequest>,
+    );
 
     impl CreatePrivateCloud {
         pub(crate) fn new(
@@ -434,7 +436,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePrivateCloud(RequestBuilder<crate::model::UpdatePrivateCloudRequest>);
+    pub struct UpdatePrivateCloud(
+        pub(crate) RequestBuilder<crate::model::UpdatePrivateCloudRequest>,
+    );
 
     impl UpdatePrivateCloud {
         pub(crate) fn new(
@@ -596,7 +600,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePrivateCloud(RequestBuilder<crate::model::DeletePrivateCloudRequest>);
+    pub struct DeletePrivateCloud(
+        pub(crate) RequestBuilder<crate::model::DeletePrivateCloudRequest>,
+    );
 
     impl DeletePrivateCloud {
         pub(crate) fn new(
@@ -746,7 +752,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeletePrivateCloud(RequestBuilder<crate::model::UndeletePrivateCloudRequest>);
+    pub struct UndeletePrivateCloud(
+        pub(crate) RequestBuilder<crate::model::UndeletePrivateCloudRequest>,
+    );
 
     impl UndeletePrivateCloud {
         pub(crate) fn new(
@@ -875,7 +883,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
+    pub struct ListClusters(pub(crate) RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
         pub(crate) fn new(
@@ -987,7 +995,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
+    pub struct GetCluster(pub(crate) RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
         pub(crate) fn new(
@@ -1050,7 +1058,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
+    pub struct CreateCluster(pub(crate) RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
         pub(crate) fn new(
@@ -1209,7 +1217,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
+    pub struct UpdateCluster(pub(crate) RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
         pub(crate) fn new(
@@ -1374,7 +1382,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
+    pub struct DeleteCluster(pub(crate) RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
         pub(crate) fn new(
@@ -1495,7 +1503,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNodes(RequestBuilder<crate::model::ListNodesRequest>);
+    pub struct ListNodes(pub(crate) RequestBuilder<crate::model::ListNodesRequest>);
 
     impl ListNodes {
         pub(crate) fn new(
@@ -1593,7 +1601,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNode(RequestBuilder<crate::model::GetNodeRequest>);
+    pub struct GetNode(pub(crate) RequestBuilder<crate::model::GetNodeRequest>);
 
     impl GetNode {
         pub(crate) fn new(
@@ -1659,7 +1667,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListExternalAddresses(RequestBuilder<crate::model::ListExternalAddressesRequest>);
+    pub struct ListExternalAddresses(
+        pub(crate) RequestBuilder<crate::model::ListExternalAddressesRequest>,
+    );
 
     impl ListExternalAddresses {
         pub(crate) fn new(
@@ -1781,7 +1791,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchNetworkPolicyExternalAddresses(
-        RequestBuilder<crate::model::FetchNetworkPolicyExternalAddressesRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchNetworkPolicyExternalAddressesRequest>,
     );
 
     impl FetchNetworkPolicyExternalAddresses {
@@ -1889,7 +1899,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetExternalAddress(RequestBuilder<crate::model::GetExternalAddressRequest>);
+    pub struct GetExternalAddress(
+        pub(crate) RequestBuilder<crate::model::GetExternalAddressRequest>,
+    );
 
     impl GetExternalAddress {
         pub(crate) fn new(
@@ -1955,7 +1967,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateExternalAddress(RequestBuilder<crate::model::CreateExternalAddressRequest>);
+    pub struct CreateExternalAddress(
+        pub(crate) RequestBuilder<crate::model::CreateExternalAddressRequest>,
+    );
 
     impl CreateExternalAddress {
         pub(crate) fn new(
@@ -2111,7 +2125,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateExternalAddress(RequestBuilder<crate::model::UpdateExternalAddressRequest>);
+    pub struct UpdateExternalAddress(
+        pub(crate) RequestBuilder<crate::model::UpdateExternalAddressRequest>,
+    );
 
     impl UpdateExternalAddress {
         pub(crate) fn new(
@@ -2273,7 +2289,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteExternalAddress(RequestBuilder<crate::model::DeleteExternalAddressRequest>);
+    pub struct DeleteExternalAddress(
+        pub(crate) RequestBuilder<crate::model::DeleteExternalAddressRequest>,
+    );
 
     impl DeleteExternalAddress {
         pub(crate) fn new(
@@ -2397,7 +2415,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSubnets(RequestBuilder<crate::model::ListSubnetsRequest>);
+    pub struct ListSubnets(pub(crate) RequestBuilder<crate::model::ListSubnetsRequest>);
 
     impl ListSubnets {
         pub(crate) fn new(
@@ -2497,7 +2515,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSubnet(RequestBuilder<crate::model::GetSubnetRequest>);
+    pub struct GetSubnet(pub(crate) RequestBuilder<crate::model::GetSubnetRequest>);
 
     impl GetSubnet {
         pub(crate) fn new(
@@ -2560,7 +2578,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSubnet(RequestBuilder<crate::model::UpdateSubnetRequest>);
+    pub struct UpdateSubnet(pub(crate) RequestBuilder<crate::model::UpdateSubnetRequest>);
 
     impl UpdateSubnet {
         pub(crate) fn new(
@@ -2718,7 +2736,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListExternalAccessRules(
-        RequestBuilder<crate::model::ListExternalAccessRulesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListExternalAccessRulesRequest>,
     );
 
     impl ListExternalAccessRules {
@@ -2836,7 +2854,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetExternalAccessRule(RequestBuilder<crate::model::GetExternalAccessRuleRequest>);
+    pub struct GetExternalAccessRule(
+        pub(crate) RequestBuilder<crate::model::GetExternalAccessRuleRequest>,
+    );
 
     impl GetExternalAccessRule {
         pub(crate) fn new(
@@ -2903,7 +2923,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateExternalAccessRule(
-        RequestBuilder<crate::model::CreateExternalAccessRuleRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateExternalAccessRuleRequest>,
     );
 
     impl CreateExternalAccessRule {
@@ -3063,7 +3083,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateExternalAccessRule(
-        RequestBuilder<crate::model::UpdateExternalAccessRuleRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateExternalAccessRuleRequest>,
     );
 
     impl UpdateExternalAccessRule {
@@ -3229,7 +3249,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteExternalAccessRule(
-        RequestBuilder<crate::model::DeleteExternalAccessRuleRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteExternalAccessRuleRequest>,
     );
 
     impl DeleteExternalAccessRule {
@@ -3354,7 +3374,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLoggingServers(RequestBuilder<crate::model::ListLoggingServersRequest>);
+    pub struct ListLoggingServers(
+        pub(crate) RequestBuilder<crate::model::ListLoggingServersRequest>,
+    );
 
     impl ListLoggingServers {
         pub(crate) fn new(
@@ -3471,7 +3493,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLoggingServer(RequestBuilder<crate::model::GetLoggingServerRequest>);
+    pub struct GetLoggingServer(pub(crate) RequestBuilder<crate::model::GetLoggingServerRequest>);
 
     impl GetLoggingServer {
         pub(crate) fn new(
@@ -3537,7 +3559,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateLoggingServer(RequestBuilder<crate::model::CreateLoggingServerRequest>);
+    pub struct CreateLoggingServer(
+        pub(crate) RequestBuilder<crate::model::CreateLoggingServerRequest>,
+    );
 
     impl CreateLoggingServer {
         pub(crate) fn new(
@@ -3693,7 +3717,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateLoggingServer(RequestBuilder<crate::model::UpdateLoggingServerRequest>);
+    pub struct UpdateLoggingServer(
+        pub(crate) RequestBuilder<crate::model::UpdateLoggingServerRequest>,
+    );
 
     impl UpdateLoggingServer {
         pub(crate) fn new(
@@ -3855,7 +3881,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteLoggingServer(RequestBuilder<crate::model::DeleteLoggingServerRequest>);
+    pub struct DeleteLoggingServer(
+        pub(crate) RequestBuilder<crate::model::DeleteLoggingServerRequest>,
+    );
 
     impl DeleteLoggingServer {
         pub(crate) fn new(
@@ -3979,7 +4007,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNodeTypes(RequestBuilder<crate::model::ListNodeTypesRequest>);
+    pub struct ListNodeTypes(pub(crate) RequestBuilder<crate::model::ListNodeTypesRequest>);
 
     impl ListNodeTypes {
         pub(crate) fn new(
@@ -4085,7 +4113,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNodeType(RequestBuilder<crate::model::GetNodeTypeRequest>);
+    pub struct GetNodeType(pub(crate) RequestBuilder<crate::model::GetNodeTypeRequest>);
 
     impl GetNodeType {
         pub(crate) fn new(
@@ -4147,7 +4175,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ShowNsxCredentials(RequestBuilder<crate::model::ShowNsxCredentialsRequest>);
+    pub struct ShowNsxCredentials(
+        pub(crate) RequestBuilder<crate::model::ShowNsxCredentialsRequest>,
+    );
 
     impl ShowNsxCredentials {
         pub(crate) fn new(
@@ -4212,7 +4242,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ShowVcenterCredentials(RequestBuilder<crate::model::ShowVcenterCredentialsRequest>);
+    pub struct ShowVcenterCredentials(
+        pub(crate) RequestBuilder<crate::model::ShowVcenterCredentialsRequest>,
+    );
 
     impl ShowVcenterCredentials {
         pub(crate) fn new(
@@ -4284,7 +4316,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResetNsxCredentials(RequestBuilder<crate::model::ResetNsxCredentialsRequest>);
+    pub struct ResetNsxCredentials(
+        pub(crate) RequestBuilder<crate::model::ResetNsxCredentialsRequest>,
+    );
 
     impl ResetNsxCredentials {
         pub(crate) fn new(
@@ -4411,7 +4445,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ResetVcenterCredentials(
-        RequestBuilder<crate::model::ResetVcenterCredentialsRequest>,
+        pub(crate) RequestBuilder<crate::model::ResetVcenterCredentialsRequest>,
     );
 
     impl ResetVcenterCredentials {
@@ -4543,7 +4577,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDnsForwarding(RequestBuilder<crate::model::GetDnsForwardingRequest>);
+    pub struct GetDnsForwarding(pub(crate) RequestBuilder<crate::model::GetDnsForwardingRequest>);
 
     impl GetDnsForwarding {
         pub(crate) fn new(
@@ -4609,7 +4643,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDnsForwarding(RequestBuilder<crate::model::UpdateDnsForwardingRequest>);
+    pub struct UpdateDnsForwarding(
+        pub(crate) RequestBuilder<crate::model::UpdateDnsForwardingRequest>,
+    );
 
     impl UpdateDnsForwarding {
         pub(crate) fn new(
@@ -4770,7 +4806,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNetworkPeering(RequestBuilder<crate::model::GetNetworkPeeringRequest>);
+    pub struct GetNetworkPeering(pub(crate) RequestBuilder<crate::model::GetNetworkPeeringRequest>);
 
     impl GetNetworkPeering {
         pub(crate) fn new(
@@ -4839,7 +4875,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNetworkPeerings(RequestBuilder<crate::model::ListNetworkPeeringsRequest>);
+    pub struct ListNetworkPeerings(
+        pub(crate) RequestBuilder<crate::model::ListNetworkPeeringsRequest>,
+    );
 
     impl ListNetworkPeerings {
         pub(crate) fn new(
@@ -4957,7 +4995,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateNetworkPeering(RequestBuilder<crate::model::CreateNetworkPeeringRequest>);
+    pub struct CreateNetworkPeering(
+        pub(crate) RequestBuilder<crate::model::CreateNetworkPeeringRequest>,
+    );
 
     impl CreateNetworkPeering {
         pub(crate) fn new(
@@ -5113,7 +5153,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteNetworkPeering(RequestBuilder<crate::model::DeleteNetworkPeeringRequest>);
+    pub struct DeleteNetworkPeering(
+        pub(crate) RequestBuilder<crate::model::DeleteNetworkPeeringRequest>,
+    );
 
     impl DeleteNetworkPeering {
         pub(crate) fn new(
@@ -5234,7 +5276,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateNetworkPeering(RequestBuilder<crate::model::UpdateNetworkPeeringRequest>);
+    pub struct UpdateNetworkPeering(
+        pub(crate) RequestBuilder<crate::model::UpdateNetworkPeeringRequest>,
+    );
 
     impl UpdateNetworkPeering {
         pub(crate) fn new(
@@ -5399,7 +5443,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPeeringRoutes(RequestBuilder<crate::model::ListPeeringRoutesRequest>);
+    pub struct ListPeeringRoutes(pub(crate) RequestBuilder<crate::model::ListPeeringRoutesRequest>);
 
     impl ListPeeringRoutes {
         pub(crate) fn new(
@@ -5511,7 +5555,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateHcxActivationKey(RequestBuilder<crate::model::CreateHcxActivationKeyRequest>);
+    pub struct CreateHcxActivationKey(
+        pub(crate) RequestBuilder<crate::model::CreateHcxActivationKeyRequest>,
+    );
 
     impl CreateHcxActivationKey {
         pub(crate) fn new(
@@ -5670,7 +5716,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListHcxActivationKeys(RequestBuilder<crate::model::ListHcxActivationKeysRequest>);
+    pub struct ListHcxActivationKeys(
+        pub(crate) RequestBuilder<crate::model::ListHcxActivationKeysRequest>,
+    );
 
     impl ListHcxActivationKeys {
         pub(crate) fn new(
@@ -5775,7 +5823,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetHcxActivationKey(RequestBuilder<crate::model::GetHcxActivationKeyRequest>);
+    pub struct GetHcxActivationKey(
+        pub(crate) RequestBuilder<crate::model::GetHcxActivationKeyRequest>,
+    );
 
     impl GetHcxActivationKey {
         pub(crate) fn new(
@@ -5840,7 +5890,7 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNetworkPolicy(RequestBuilder<crate::model::GetNetworkPolicyRequest>);
+    pub struct GetNetworkPolicy(pub(crate) RequestBuilder<crate::model::GetNetworkPolicyRequest>);
 
     impl GetNetworkPolicy {
         pub(crate) fn new(
@@ -5909,7 +5959,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNetworkPolicies(RequestBuilder<crate::model::ListNetworkPoliciesRequest>);
+    pub struct ListNetworkPolicies(
+        pub(crate) RequestBuilder<crate::model::ListNetworkPoliciesRequest>,
+    );
 
     impl ListNetworkPolicies {
         pub(crate) fn new(
@@ -6027,7 +6079,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateNetworkPolicy(RequestBuilder<crate::model::CreateNetworkPolicyRequest>);
+    pub struct CreateNetworkPolicy(
+        pub(crate) RequestBuilder<crate::model::CreateNetworkPolicyRequest>,
+    );
 
     impl CreateNetworkPolicy {
         pub(crate) fn new(
@@ -6183,7 +6237,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateNetworkPolicy(RequestBuilder<crate::model::UpdateNetworkPolicyRequest>);
+    pub struct UpdateNetworkPolicy(
+        pub(crate) RequestBuilder<crate::model::UpdateNetworkPolicyRequest>,
+    );
 
     impl UpdateNetworkPolicy {
         pub(crate) fn new(
@@ -6345,7 +6401,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteNetworkPolicy(RequestBuilder<crate::model::DeleteNetworkPolicyRequest>);
+    pub struct DeleteNetworkPolicy(
+        pub(crate) RequestBuilder<crate::model::DeleteNetworkPolicyRequest>,
+    );
 
     impl DeleteNetworkPolicy {
         pub(crate) fn new(
@@ -6470,7 +6528,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListManagementDnsZoneBindings(
-        RequestBuilder<crate::model::ListManagementDnsZoneBindingsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListManagementDnsZoneBindingsRequest>,
     );
 
     impl ListManagementDnsZoneBindings {
@@ -6589,7 +6647,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetManagementDnsZoneBinding(
-        RequestBuilder<crate::model::GetManagementDnsZoneBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::GetManagementDnsZoneBindingRequest>,
     );
 
     impl GetManagementDnsZoneBinding {
@@ -6657,7 +6715,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateManagementDnsZoneBinding(
-        RequestBuilder<crate::model::CreateManagementDnsZoneBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateManagementDnsZoneBindingRequest>,
     );
 
     impl CreateManagementDnsZoneBinding {
@@ -6823,7 +6881,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateManagementDnsZoneBinding(
-        RequestBuilder<crate::model::UpdateManagementDnsZoneBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateManagementDnsZoneBindingRequest>,
     );
 
     impl UpdateManagementDnsZoneBinding {
@@ -6992,7 +7050,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteManagementDnsZoneBinding(
-        RequestBuilder<crate::model::DeleteManagementDnsZoneBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteManagementDnsZoneBindingRequest>,
     );
 
     impl DeleteManagementDnsZoneBinding {
@@ -7115,7 +7173,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RepairManagementDnsZoneBinding(
-        RequestBuilder<crate::model::RepairManagementDnsZoneBindingRequest>,
+        pub(crate) RequestBuilder<crate::model::RepairManagementDnsZoneBindingRequest>,
     );
 
     impl RepairManagementDnsZoneBinding {
@@ -7245,7 +7303,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateVmwareEngineNetwork(
-        RequestBuilder<crate::model::CreateVmwareEngineNetworkRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateVmwareEngineNetworkRequest>,
     );
 
     impl CreateVmwareEngineNetwork {
@@ -7405,7 +7463,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateVmwareEngineNetwork(
-        RequestBuilder<crate::model::UpdateVmwareEngineNetworkRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateVmwareEngineNetworkRequest>,
     );
 
     impl UpdateVmwareEngineNetwork {
@@ -7571,7 +7629,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteVmwareEngineNetwork(
-        RequestBuilder<crate::model::DeleteVmwareEngineNetworkRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteVmwareEngineNetworkRequest>,
     );
 
     impl DeleteVmwareEngineNetwork {
@@ -7698,7 +7756,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVmwareEngineNetwork(RequestBuilder<crate::model::GetVmwareEngineNetworkRequest>);
+    pub struct GetVmwareEngineNetwork(
+        pub(crate) RequestBuilder<crate::model::GetVmwareEngineNetworkRequest>,
+    );
 
     impl GetVmwareEngineNetwork {
         pub(crate) fn new(
@@ -7768,7 +7828,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListVmwareEngineNetworks(
-        RequestBuilder<crate::model::ListVmwareEngineNetworksRequest>,
+        pub(crate) RequestBuilder<crate::model::ListVmwareEngineNetworksRequest>,
     );
 
     impl ListVmwareEngineNetworks {
@@ -7888,7 +7948,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePrivateConnection(
-        RequestBuilder<crate::model::CreatePrivateConnectionRequest>,
+        pub(crate) RequestBuilder<crate::model::CreatePrivateConnectionRequest>,
     );
 
     impl CreatePrivateConnection {
@@ -8046,7 +8106,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
+    pub struct GetPrivateConnection(
+        pub(crate) RequestBuilder<crate::model::GetPrivateConnectionRequest>,
+    );
 
     impl GetPrivateConnection {
         pub(crate) fn new(
@@ -8115,7 +8177,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
+    pub struct ListPrivateConnections(
+        pub(crate) RequestBuilder<crate::model::ListPrivateConnectionsRequest>,
+    );
 
     impl ListPrivateConnections {
         pub(crate) fn new(
@@ -8234,7 +8298,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePrivateConnection(
-        RequestBuilder<crate::model::UpdatePrivateConnectionRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdatePrivateConnectionRequest>,
     );
 
     impl UpdatePrivateConnection {
@@ -8400,7 +8464,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePrivateConnection(
-        RequestBuilder<crate::model::DeletePrivateConnectionRequest>,
+        pub(crate) RequestBuilder<crate::model::DeletePrivateConnectionRequest>,
     );
 
     impl DeletePrivateConnection {
@@ -8526,7 +8590,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListPrivateConnectionPeeringRoutes(
-        RequestBuilder<crate::model::ListPrivateConnectionPeeringRoutesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListPrivateConnectionPeeringRoutesRequest>,
     );
 
     impl ListPrivateConnectionPeeringRoutes {
@@ -8635,7 +8699,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GrantDnsBindPermission(RequestBuilder<crate::model::GrantDnsBindPermissionRequest>);
+    pub struct GrantDnsBindPermission(
+        pub(crate) RequestBuilder<crate::model::GrantDnsBindPermissionRequest>,
+    );
 
     impl GrantDnsBindPermission {
         pub(crate) fn new(
@@ -8784,7 +8850,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDnsBindPermission(RequestBuilder<crate::model::GetDnsBindPermissionRequest>);
+    pub struct GetDnsBindPermission(
+        pub(crate) RequestBuilder<crate::model::GetDnsBindPermissionRequest>,
+    );
 
     impl GetDnsBindPermission {
         pub(crate) fn new(
@@ -8851,7 +8919,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RevokeDnsBindPermission(
-        RequestBuilder<crate::model::RevokeDnsBindPermissionRequest>,
+        pub(crate) RequestBuilder<crate::model::RevokeDnsBindPermissionRequest>,
     );
 
     impl RevokeDnsBindPermission {
@@ -9005,7 +9073,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -9114,7 +9184,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -9177,7 +9249,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -9282,7 +9356,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -9366,7 +9442,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -9450,7 +9526,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -9566,7 +9642,9 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -9630,7 +9708,7 @@ pub mod vmware_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {

@@ -51,9 +51,9 @@ pub mod secret_manager_service {
     /// Common implementation for [crate::client::SecretManagerService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -93,7 +93,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(
-        RequestBuilder<crate::model::secret_manager_service::ListLocationsRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::ListLocationsRequest>,
     );
 
     impl ListLocations {
@@ -240,7 +240,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(
-        RequestBuilder<crate::model::secret_manager_service::GetLocationRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::GetLocationRequest>,
     );
 
     impl GetLocation {
@@ -319,7 +319,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecrets(
-        RequestBuilder<crate::model::secret_manager_service::ListSecretsRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::ListSecretsRequest>,
     );
 
     impl ListSecrets {
@@ -466,7 +466,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSecret(
-        RequestBuilder<crate::model::secret_manager_service::CreateSecretRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::CreateSecretRequest>,
     );
 
     impl CreateSecret {
@@ -563,9 +563,8 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecretsByProjectAndLocation(
-        RequestBuilder<
-            crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest>,
     );
 
     impl ListSecretsByProjectAndLocation {
@@ -722,9 +721,8 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSecretByProjectAndLocation(
-        RequestBuilder<
-            crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest>,
     );
 
     impl CreateSecretByProjectAndLocation {
@@ -827,7 +825,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddSecretVersion(
-        RequestBuilder<crate::model::secret_manager_service::AddSecretVersionRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::AddSecretVersionRequest>,
     );
 
     impl AddSecretVersion {
@@ -921,7 +919,10 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddSecretVersionByProjectAndLocationAndSecret(RequestBuilder<crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest>);
+    pub struct AddSecretVersionByProjectAndLocationAndSecret(
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest>,
+    );
 
     impl AddSecretVersionByProjectAndLocationAndSecret {
         pub(crate) fn new(
@@ -1020,7 +1021,9 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSecret(RequestBuilder<crate::model::secret_manager_service::GetSecretRequest>);
+    pub struct GetSecret(
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::GetSecretRequest>,
+    );
 
     impl GetSecret {
         pub(crate) fn new(
@@ -1094,7 +1097,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSecret(
-        RequestBuilder<crate::model::secret_manager_service::DeleteSecretRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::DeleteSecretRequest>,
     );
 
     impl DeleteSecret {
@@ -1187,7 +1190,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSecret(
-        RequestBuilder<crate::model::secret_manager_service::UpdateSecretRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::UpdateSecretRequest>,
     );
 
     impl UpdateSecret {
@@ -1288,9 +1291,8 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecretByProjectAndLocationAndSecret(
-        RequestBuilder<
-            crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest>,
     );
 
     impl GetSecretByProjectAndLocationAndSecret {
@@ -1377,9 +1379,8 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSecretByProjectAndLocationAndSecret(
-        RequestBuilder<
-            crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest>,
     );
 
     impl DeleteSecretByProjectAndLocationAndSecret {
@@ -1477,9 +1478,8 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSecretByProjectAndLocationAndSecret(
-        RequestBuilder<
-            crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest>,
     );
 
     impl UpdateSecretByProjectAndLocationAndSecret {
@@ -1589,7 +1589,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecretVersions(
-        RequestBuilder<crate::model::secret_manager_service::ListSecretVersionsRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::ListSecretVersionsRequest>,
     );
 
     impl ListSecretVersions {
@@ -1751,7 +1751,10 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSecretVersionsByProjectAndLocationAndSecret(RequestBuilder<crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest>);
+    pub struct ListSecretVersionsByProjectAndLocationAndSecret(
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest>,
+    );
 
     impl ListSecretVersionsByProjectAndLocationAndSecret {
         pub(crate) fn new(
@@ -1915,7 +1918,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecretVersion(
-        RequestBuilder<crate::model::secret_manager_service::GetSecretVersionRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::GetSecretVersionRequest>,
     );
 
     impl GetSecretVersion {
@@ -1999,7 +2002,10 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersion(RequestBuilder<crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest>);
+    pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersion(
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest>,
+    );
 
     impl GetSecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
@@ -2089,7 +2095,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AccessSecretVersion(
-        RequestBuilder<crate::model::secret_manager_service::AccessSecretVersionRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::AccessSecretVersionRequest>,
     );
 
     impl AccessSecretVersion {
@@ -2173,7 +2179,10 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersion(RequestBuilder<crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest>);
+    pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersion(
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest>,
+    );
 
     impl AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
@@ -2263,7 +2272,8 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DisableSecretVersion(
-        RequestBuilder<crate::model::secret_manager_service::DisableSecretVersionRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::DisableSecretVersionRequest>,
     );
 
     impl DisableSecretVersion {
@@ -2365,7 +2375,10 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DisableSecretVersionByProjectAndLocationAndSecretAndVersion(RequestBuilder<crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest>);
+    pub struct DisableSecretVersionByProjectAndLocationAndSecretAndVersion(
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest>,
+    );
 
     impl DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
@@ -2473,7 +2486,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct EnableSecretVersion(
-        RequestBuilder<crate::model::secret_manager_service::EnableSecretVersionRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::EnableSecretVersionRequest>,
     );
 
     impl EnableSecretVersion {
@@ -2575,7 +2588,10 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnableSecretVersionByProjectAndLocationAndSecretAndVersion(RequestBuilder<crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest>);
+    pub struct EnableSecretVersionByProjectAndLocationAndSecretAndVersion(
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest>,
+    );
 
     impl EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
@@ -2683,7 +2699,8 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DestroySecretVersion(
-        RequestBuilder<crate::model::secret_manager_service::DestroySecretVersionRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::DestroySecretVersionRequest>,
     );
 
     impl DestroySecretVersion {
@@ -2785,7 +2802,10 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DestroySecretVersionByProjectAndLocationAndSecretAndVersion(RequestBuilder<crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest>);
+    pub struct DestroySecretVersionByProjectAndLocationAndSecretAndVersion(
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest>,
+    );
 
     impl DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
@@ -2893,7 +2913,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(
-        RequestBuilder<crate::model::secret_manager_service::SetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::SetIamPolicyRequest>,
     );
 
     impl SetIamPolicy {
@@ -2986,9 +3006,8 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicyByProjectAndLocationAndSecret(
-        RequestBuilder<
-            crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest>,
     );
 
     impl SetIamPolicyByProjectAndLocationAndSecret {
@@ -3086,7 +3105,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(
-        RequestBuilder<crate::model::secret_manager_service::GetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::GetIamPolicyRequest>,
     );
 
     impl GetIamPolicy {
@@ -3182,9 +3201,8 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicyByProjectAndLocationAndSecret(
-        RequestBuilder<
-            crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest>,
     );
 
     impl GetIamPolicyByProjectAndLocationAndSecret {
@@ -3285,7 +3303,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::secret_manager_service::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -3379,7 +3397,10 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissionsByProjectAndLocationAndSecret(RequestBuilder<crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest>);
+    pub struct TestIamPermissionsByProjectAndLocationAndSecret(
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest>,
+    );
 
     impl TestIamPermissionsByProjectAndLocationAndSecret {
         pub(crate) fn new(

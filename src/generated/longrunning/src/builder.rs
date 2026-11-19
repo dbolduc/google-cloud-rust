@@ -51,9 +51,9 @@ pub mod operations {
     /// Common implementation for [crate::client::Operations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Operations>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Operations>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<crate::model::ListOperationsRequest>);
+    pub struct ListOperations(pub(crate) RequestBuilder<crate::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
@@ -204,7 +204,7 @@ pub mod operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::GetOperationRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -264,7 +264,7 @@ pub mod operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOperation(RequestBuilder<crate::model::DeleteOperationRequest>);
+    pub struct DeleteOperation(pub(crate) RequestBuilder<crate::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
@@ -324,7 +324,7 @@ pub mod operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<crate::model::CancelOperationRequest>);
+    pub struct CancelOperation(pub(crate) RequestBuilder<crate::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(

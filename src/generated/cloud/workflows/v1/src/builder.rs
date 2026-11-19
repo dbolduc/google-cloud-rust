@@ -51,9 +51,9 @@ pub mod workflows {
     /// Common implementation for [crate::client::Workflows] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod workflows {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListWorkflows(RequestBuilder<crate::model::ListWorkflowsRequest>);
+    pub struct ListWorkflows(pub(crate) RequestBuilder<crate::model::ListWorkflowsRequest>);
 
     impl ListWorkflows {
         pub(crate) fn new(
@@ -204,7 +204,7 @@ pub mod workflows {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetWorkflow(RequestBuilder<crate::model::GetWorkflowRequest>);
+    pub struct GetWorkflow(pub(crate) RequestBuilder<crate::model::GetWorkflowRequest>);
 
     impl GetWorkflow {
         pub(crate) fn new(
@@ -273,7 +273,7 @@ pub mod workflows {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateWorkflow(RequestBuilder<crate::model::CreateWorkflowRequest>);
+    pub struct CreateWorkflow(pub(crate) RequestBuilder<crate::model::CreateWorkflowRequest>);
 
     impl CreateWorkflow {
         pub(crate) fn new(
@@ -421,7 +421,7 @@ pub mod workflows {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteWorkflow(RequestBuilder<crate::model::DeleteWorkflowRequest>);
+    pub struct DeleteWorkflow(pub(crate) RequestBuilder<crate::model::DeleteWorkflowRequest>);
 
     impl DeleteWorkflow {
         pub(crate) fn new(
@@ -534,7 +534,7 @@ pub mod workflows {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateWorkflow(RequestBuilder<crate::model::UpdateWorkflowRequest>);
+    pub struct UpdateWorkflow(pub(crate) RequestBuilder<crate::model::UpdateWorkflowRequest>);
 
     impl UpdateWorkflow {
         pub(crate) fn new(
@@ -687,7 +687,9 @@ pub mod workflows {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListWorkflowRevisions(RequestBuilder<crate::model::ListWorkflowRevisionsRequest>);
+    pub struct ListWorkflowRevisions(
+        pub(crate) RequestBuilder<crate::model::ListWorkflowRevisionsRequest>,
+    );
 
     impl ListWorkflowRevisions {
         pub(crate) fn new(
@@ -796,7 +798,9 @@ pub mod workflows {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -905,7 +909,9 @@ pub mod workflows {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -973,7 +979,7 @@ pub mod workflows {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1089,7 +1095,9 @@ pub mod workflows {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1153,7 +1161,7 @@ pub mod workflows {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {

@@ -51,9 +51,9 @@ pub mod notebook_service {
     /// Common implementation for [crate::client::NotebookService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
+    pub struct ListInstances(pub(crate) RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(
@@ -204,7 +204,7 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
+    pub struct GetInstance(pub(crate) RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(
@@ -267,7 +267,7 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
+    pub struct CreateInstance(pub(crate) RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
         pub(crate) fn new(
@@ -420,7 +420,7 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
+    pub struct UpdateInstance(pub(crate) RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
         pub(crate) fn new(
@@ -579,7 +579,7 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
+    pub struct DeleteInstance(pub(crate) RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
         pub(crate) fn new(
@@ -697,7 +697,7 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartInstance(RequestBuilder<crate::model::StartInstanceRequest>);
+    pub struct StartInstance(pub(crate) RequestBuilder<crate::model::StartInstanceRequest>);
 
     impl StartInstance {
         pub(crate) fn new(
@@ -814,7 +814,7 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopInstance(RequestBuilder<crate::model::StopInstanceRequest>);
+    pub struct StopInstance(pub(crate) RequestBuilder<crate::model::StopInstanceRequest>);
 
     impl StopInstance {
         pub(crate) fn new(
@@ -932,7 +932,7 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResetInstance(RequestBuilder<crate::model::ResetInstanceRequest>);
+    pub struct ResetInstance(pub(crate) RequestBuilder<crate::model::ResetInstanceRequest>);
 
     impl ResetInstance {
         pub(crate) fn new(
@@ -1049,7 +1049,7 @@ pub mod notebook_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CheckInstanceUpgradability(
-        RequestBuilder<crate::model::CheckInstanceUpgradabilityRequest>,
+        pub(crate) RequestBuilder<crate::model::CheckInstanceUpgradabilityRequest>,
     );
 
     impl CheckInstanceUpgradability {
@@ -1116,7 +1116,7 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpgradeInstance(RequestBuilder<crate::model::UpgradeInstanceRequest>);
+    pub struct UpgradeInstance(pub(crate) RequestBuilder<crate::model::UpgradeInstanceRequest>);
 
     impl UpgradeInstance {
         pub(crate) fn new(
@@ -1233,7 +1233,7 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RollbackInstance(RequestBuilder<crate::model::RollbackInstanceRequest>);
+    pub struct RollbackInstance(pub(crate) RequestBuilder<crate::model::RollbackInstanceRequest>);
 
     impl RollbackInstance {
         pub(crate) fn new(
@@ -1369,7 +1369,7 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DiagnoseInstance(RequestBuilder<crate::model::DiagnoseInstanceRequest>);
+    pub struct DiagnoseInstance(pub(crate) RequestBuilder<crate::model::DiagnoseInstanceRequest>);
 
     impl DiagnoseInstance {
         pub(crate) fn new(
@@ -1520,7 +1520,9 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1629,7 +1631,9 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -1692,7 +1696,9 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -1797,7 +1803,9 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1881,7 +1889,7 @@ pub mod notebook_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1965,7 +1973,7 @@ pub mod notebook_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2081,7 +2089,9 @@ pub mod notebook_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2145,7 +2155,7 @@ pub mod notebook_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2210,7 +2220,7 @@ pub mod notebook_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

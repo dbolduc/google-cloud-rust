@@ -51,9 +51,9 @@ pub mod repository_manager {
     /// Common implementation for [crate::client::RepositoryManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
+    pub struct CreateConnection(pub(crate) RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
         pub(crate) fn new(
@@ -238,7 +238,7 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
+    pub struct GetConnection(pub(crate) RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
         pub(crate) fn new(
@@ -304,7 +304,7 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
+    pub struct ListConnections(pub(crate) RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
         pub(crate) fn new(
@@ -407,7 +407,7 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
+    pub struct UpdateConnection(pub(crate) RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
         pub(crate) fn new(
@@ -571,7 +571,7 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
+    pub struct DeleteConnection(pub(crate) RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
         pub(crate) fn new(
@@ -698,7 +698,7 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
+    pub struct CreateRepository(pub(crate) RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
         pub(crate) fn new(
@@ -849,7 +849,7 @@ pub mod repository_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct BatchCreateRepositories(
-        RequestBuilder<crate::model::BatchCreateRepositoriesRequest>,
+        pub(crate) RequestBuilder<crate::model::BatchCreateRepositoriesRequest>,
     );
 
     impl BatchCreateRepositories {
@@ -984,7 +984,7 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
+    pub struct GetRepository(pub(crate) RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
         pub(crate) fn new(
@@ -1050,7 +1050,7 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
+    pub struct ListRepositories(pub(crate) RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
         pub(crate) fn new(
@@ -1162,7 +1162,7 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
+    pub struct DeleteRepository(pub(crate) RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
         pub(crate) fn new(
@@ -1288,7 +1288,9 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchReadWriteToken(RequestBuilder<crate::model::FetchReadWriteTokenRequest>);
+    pub struct FetchReadWriteToken(
+        pub(crate) RequestBuilder<crate::model::FetchReadWriteTokenRequest>,
+    );
 
     impl FetchReadWriteToken {
         pub(crate) fn new(
@@ -1353,7 +1355,7 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchReadToken(RequestBuilder<crate::model::FetchReadTokenRequest>);
+    pub struct FetchReadToken(pub(crate) RequestBuilder<crate::model::FetchReadTokenRequest>);
 
     impl FetchReadToken {
         pub(crate) fn new(
@@ -1420,7 +1422,7 @@ pub mod repository_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchLinkableRepositories(
-        RequestBuilder<crate::model::FetchLinkableRepositoriesRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchLinkableRepositoriesRequest>,
     );
 
     impl FetchLinkableRepositories {
@@ -1526,7 +1528,7 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchGitRefs(RequestBuilder<crate::model::FetchGitRefsRequest>);
+    pub struct FetchGitRefs(pub(crate) RequestBuilder<crate::model::FetchGitRefsRequest>);
 
     impl FetchGitRefs {
         pub(crate) fn new(
@@ -1597,7 +1599,9 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -1702,7 +1706,9 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1786,7 +1792,7 @@ pub mod repository_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1865,7 +1871,9 @@ pub mod repository_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1929,7 +1937,7 @@ pub mod repository_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

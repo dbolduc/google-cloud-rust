@@ -51,9 +51,9 @@ pub mod app_hub {
     /// Common implementation for [crate::client::AppHub] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -87,7 +87,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct LookupServiceProjectAttachment(
-        RequestBuilder<crate::model::LookupServiceProjectAttachmentRequest>,
+        pub(crate) RequestBuilder<crate::model::LookupServiceProjectAttachmentRequest>,
     );
 
     impl LookupServiceProjectAttachment {
@@ -156,7 +156,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListServiceProjectAttachments(
-        RequestBuilder<crate::model::ListServiceProjectAttachmentsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListServiceProjectAttachmentsRequest>,
     );
 
     impl ListServiceProjectAttachments {
@@ -274,7 +274,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServiceProjectAttachment(
-        RequestBuilder<crate::model::CreateServiceProjectAttachmentRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateServiceProjectAttachmentRequest>,
     );
 
     impl CreateServiceProjectAttachment {
@@ -437,7 +437,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceProjectAttachment(
-        RequestBuilder<crate::model::GetServiceProjectAttachmentRequest>,
+        pub(crate) RequestBuilder<crate::model::GetServiceProjectAttachmentRequest>,
     );
 
     impl GetServiceProjectAttachment {
@@ -503,7 +503,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServiceProjectAttachment(
-        RequestBuilder<crate::model::DeleteServiceProjectAttachmentRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteServiceProjectAttachmentRequest>,
     );
 
     impl DeleteServiceProjectAttachment {
@@ -623,7 +623,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DetachServiceProjectAttachment(
-        RequestBuilder<crate::model::DetachServiceProjectAttachmentRequest>,
+        pub(crate) RequestBuilder<crate::model::DetachServiceProjectAttachmentRequest>,
     );
 
     impl DetachServiceProjectAttachment {
@@ -691,7 +691,9 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDiscoveredServices(RequestBuilder<crate::model::ListDiscoveredServicesRequest>);
+    pub struct ListDiscoveredServices(
+        pub(crate) RequestBuilder<crate::model::ListDiscoveredServicesRequest>,
+    );
 
     impl ListDiscoveredServices {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -806,7 +808,9 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDiscoveredService(RequestBuilder<crate::model::GetDiscoveredServiceRequest>);
+    pub struct GetDiscoveredService(
+        pub(crate) RequestBuilder<crate::model::GetDiscoveredServiceRequest>,
+    );
 
     impl GetDiscoveredService {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -870,7 +874,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct LookupDiscoveredService(
-        RequestBuilder<crate::model::LookupDiscoveredServiceRequest>,
+        pub(crate) RequestBuilder<crate::model::LookupDiscoveredServiceRequest>,
     );
 
     impl LookupDiscoveredService {
@@ -946,7 +950,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
+    pub struct ListServices(pub(crate) RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -1057,7 +1061,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
+    pub struct CreateService(pub(crate) RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -1208,7 +1212,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
+    pub struct GetService(pub(crate) RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -1269,7 +1273,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
+    pub struct UpdateService(pub(crate) RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -1423,7 +1427,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
+    pub struct DeleteService(pub(crate) RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -1544,7 +1548,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListDiscoveredWorkloads(
-        RequestBuilder<crate::model::ListDiscoveredWorkloadsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListDiscoveredWorkloadsRequest>,
     );
 
     impl ListDiscoveredWorkloads {
@@ -1660,7 +1664,9 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDiscoveredWorkload(RequestBuilder<crate::model::GetDiscoveredWorkloadRequest>);
+    pub struct GetDiscoveredWorkload(
+        pub(crate) RequestBuilder<crate::model::GetDiscoveredWorkloadRequest>,
+    );
 
     impl GetDiscoveredWorkload {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -1724,7 +1730,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct LookupDiscoveredWorkload(
-        RequestBuilder<crate::model::LookupDiscoveredWorkloadRequest>,
+        pub(crate) RequestBuilder<crate::model::LookupDiscoveredWorkloadRequest>,
     );
 
     impl LookupDiscoveredWorkload {
@@ -1800,7 +1806,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
+    pub struct ListWorkloads(pub(crate) RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -1911,7 +1917,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateWorkload(RequestBuilder<crate::model::CreateWorkloadRequest>);
+    pub struct CreateWorkload(pub(crate) RequestBuilder<crate::model::CreateWorkloadRequest>);
 
     impl CreateWorkload {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -2062,7 +2068,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
+    pub struct GetWorkload(pub(crate) RequestBuilder<crate::model::GetWorkloadRequest>);
 
     impl GetWorkload {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -2123,7 +2129,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateWorkload(RequestBuilder<crate::model::UpdateWorkloadRequest>);
+    pub struct UpdateWorkload(pub(crate) RequestBuilder<crate::model::UpdateWorkloadRequest>);
 
     impl UpdateWorkload {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -2277,7 +2283,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteWorkload(RequestBuilder<crate::model::DeleteWorkloadRequest>);
+    pub struct DeleteWorkload(pub(crate) RequestBuilder<crate::model::DeleteWorkloadRequest>);
 
     impl DeleteWorkload {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -2397,7 +2403,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListApplications(RequestBuilder<crate::model::ListApplicationsRequest>);
+    pub struct ListApplications(pub(crate) RequestBuilder<crate::model::ListApplicationsRequest>);
 
     impl ListApplications {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -2513,7 +2519,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateApplication(RequestBuilder<crate::model::CreateApplicationRequest>);
+    pub struct CreateApplication(pub(crate) RequestBuilder<crate::model::CreateApplicationRequest>);
 
     impl CreateApplication {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -2667,7 +2673,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetApplication(RequestBuilder<crate::model::GetApplicationRequest>);
+    pub struct GetApplication(pub(crate) RequestBuilder<crate::model::GetApplicationRequest>);
 
     impl GetApplication {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -2728,7 +2734,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateApplication(RequestBuilder<crate::model::UpdateApplicationRequest>);
+    pub struct UpdateApplication(pub(crate) RequestBuilder<crate::model::UpdateApplicationRequest>);
 
     impl UpdateApplication {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -2885,7 +2891,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteApplication(RequestBuilder<crate::model::DeleteApplicationRequest>);
+    pub struct DeleteApplication(pub(crate) RequestBuilder<crate::model::DeleteApplicationRequest>);
 
     impl DeleteApplication {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -3004,7 +3010,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBoundary(RequestBuilder<crate::model::GetBoundaryRequest>);
+    pub struct GetBoundary(pub(crate) RequestBuilder<crate::model::GetBoundaryRequest>);
 
     impl GetBoundary {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -3065,7 +3071,7 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBoundary(RequestBuilder<crate::model::UpdateBoundaryRequest>);
+    pub struct UpdateBoundary(pub(crate) RequestBuilder<crate::model::UpdateBoundaryRequest>);
 
     impl UpdateBoundary {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -3219,7 +3225,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetExtendedMetadataSchema(
-        RequestBuilder<crate::model::GetExtendedMetadataSchemaRequest>,
+        pub(crate) RequestBuilder<crate::model::GetExtendedMetadataSchemaRequest>,
     );
 
     impl GetExtendedMetadataSchema {
@@ -3288,7 +3294,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListExtendedMetadataSchemas(
-        RequestBuilder<crate::model::ListExtendedMetadataSchemasRequest>,
+        pub(crate) RequestBuilder<crate::model::ListExtendedMetadataSchemasRequest>,
     );
 
     impl ListExtendedMetadataSchemas {
@@ -3396,7 +3402,9 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -3503,7 +3511,9 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -3564,7 +3574,9 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -3667,7 +3679,9 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -3749,7 +3763,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -3831,7 +3845,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3945,7 +3959,9 @@ pub mod app_hub {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
@@ -4007,7 +4023,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4070,7 +4086,7 @@ pub mod app_hub {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

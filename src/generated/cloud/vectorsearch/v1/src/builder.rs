@@ -51,9 +51,9 @@ pub mod data_object_search_service {
     /// Common implementation for [crate::client::DataObjectSearchService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataObjectSearchService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DataObjectSearchService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod data_object_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchDataObjects(RequestBuilder<crate::model::SearchDataObjectsRequest>);
+    pub struct SearchDataObjects(pub(crate) RequestBuilder<crate::model::SearchDataObjectsRequest>);
 
     impl SearchDataObjects {
         pub(crate) fn new(
@@ -258,7 +258,7 @@ pub mod data_object_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryDataObjects(RequestBuilder<crate::model::QueryDataObjectsRequest>);
+    pub struct QueryDataObjects(pub(crate) RequestBuilder<crate::model::QueryDataObjectsRequest>);
 
     impl QueryDataObjects {
         pub(crate) fn new(
@@ -399,7 +399,9 @@ pub mod data_object_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregateDataObjects(RequestBuilder<crate::model::AggregateDataObjectsRequest>);
+    pub struct AggregateDataObjects(
+        pub(crate) RequestBuilder<crate::model::AggregateDataObjectsRequest>,
+    );
 
     impl AggregateDataObjects {
         pub(crate) fn new(
@@ -490,7 +492,9 @@ pub mod data_object_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchSearchDataObjects(RequestBuilder<crate::model::BatchSearchDataObjectsRequest>);
+    pub struct BatchSearchDataObjects(
+        pub(crate) RequestBuilder<crate::model::BatchSearchDataObjectsRequest>,
+    );
 
     impl BatchSearchDataObjects {
         pub(crate) fn new(
@@ -594,7 +598,9 @@ pub mod data_object_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -703,7 +709,9 @@ pub mod data_object_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -771,7 +779,7 @@ pub mod data_object_search_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -887,7 +895,9 @@ pub mod data_object_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -951,7 +961,7 @@ pub mod data_object_search_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -1016,7 +1026,7 @@ pub mod data_object_search_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -1101,9 +1111,9 @@ pub mod data_object_service {
     /// Common implementation for [crate::client::DataObjectService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataObjectService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DataObjectService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1138,7 +1148,7 @@ pub mod data_object_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDataObject(RequestBuilder<crate::model::CreateDataObjectRequest>);
+    pub struct CreateDataObject(pub(crate) RequestBuilder<crate::model::CreateDataObjectRequest>);
 
     impl CreateDataObject {
         pub(crate) fn new(
@@ -1233,7 +1243,9 @@ pub mod data_object_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchCreateDataObjects(RequestBuilder<crate::model::BatchCreateDataObjectsRequest>);
+    pub struct BatchCreateDataObjects(
+        pub(crate) RequestBuilder<crate::model::BatchCreateDataObjectsRequest>,
+    );
 
     impl BatchCreateDataObjects {
         pub(crate) fn new(
@@ -1311,7 +1323,7 @@ pub mod data_object_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDataObject(RequestBuilder<crate::model::GetDataObjectRequest>);
+    pub struct GetDataObject(pub(crate) RequestBuilder<crate::model::GetDataObjectRequest>);
 
     impl GetDataObject {
         pub(crate) fn new(
@@ -1373,7 +1385,7 @@ pub mod data_object_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDataObject(RequestBuilder<crate::model::UpdateDataObjectRequest>);
+    pub struct UpdateDataObject(pub(crate) RequestBuilder<crate::model::UpdateDataObjectRequest>);
 
     impl UpdateDataObject {
         pub(crate) fn new(
@@ -1470,7 +1482,9 @@ pub mod data_object_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchUpdateDataObjects(RequestBuilder<crate::model::BatchUpdateDataObjectsRequest>);
+    pub struct BatchUpdateDataObjects(
+        pub(crate) RequestBuilder<crate::model::BatchUpdateDataObjectsRequest>,
+    );
 
     impl BatchUpdateDataObjects {
         pub(crate) fn new(
@@ -1548,7 +1562,7 @@ pub mod data_object_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDataObject(RequestBuilder<crate::model::DeleteDataObjectRequest>);
+    pub struct DeleteDataObject(pub(crate) RequestBuilder<crate::model::DeleteDataObjectRequest>);
 
     impl DeleteDataObject {
         pub(crate) fn new(
@@ -1619,7 +1633,9 @@ pub mod data_object_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchDeleteDataObjects(RequestBuilder<crate::model::BatchDeleteDataObjectsRequest>);
+    pub struct BatchDeleteDataObjects(
+        pub(crate) RequestBuilder<crate::model::BatchDeleteDataObjectsRequest>,
+    );
 
     impl BatchDeleteDataObjects {
         pub(crate) fn new(
@@ -1701,7 +1717,9 @@ pub mod data_object_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1810,7 +1828,9 @@ pub mod data_object_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -1878,7 +1898,7 @@ pub mod data_object_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1994,7 +2014,9 @@ pub mod data_object_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2058,7 +2080,7 @@ pub mod data_object_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2123,7 +2145,7 @@ pub mod data_object_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -2208,9 +2230,9 @@ pub mod vector_search_service {
     /// Common implementation for [crate::client::VectorSearchService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::VectorSearchService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::VectorSearchService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2249,7 +2271,7 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCollections(RequestBuilder<crate::model::ListCollectionsRequest>);
+    pub struct ListCollections(pub(crate) RequestBuilder<crate::model::ListCollectionsRequest>);
 
     impl ListCollections {
         pub(crate) fn new(
@@ -2363,7 +2385,7 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCollection(RequestBuilder<crate::model::GetCollectionRequest>);
+    pub struct GetCollection(pub(crate) RequestBuilder<crate::model::GetCollectionRequest>);
 
     impl GetCollection {
         pub(crate) fn new(
@@ -2426,7 +2448,7 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCollection(RequestBuilder<crate::model::CreateCollectionRequest>);
+    pub struct CreateCollection(pub(crate) RequestBuilder<crate::model::CreateCollectionRequest>);
 
     impl CreateCollection {
         pub(crate) fn new(
@@ -2582,7 +2604,7 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCollection(RequestBuilder<crate::model::UpdateCollectionRequest>);
+    pub struct UpdateCollection(pub(crate) RequestBuilder<crate::model::UpdateCollectionRequest>);
 
     impl UpdateCollection {
         pub(crate) fn new(
@@ -2740,7 +2762,7 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCollection(RequestBuilder<crate::model::DeleteCollectionRequest>);
+    pub struct DeleteCollection(pub(crate) RequestBuilder<crate::model::DeleteCollectionRequest>);
 
     impl DeleteCollection {
         pub(crate) fn new(
@@ -2870,7 +2892,7 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
+    pub struct ListIndexes(pub(crate) RequestBuilder<crate::model::ListIndexesRequest>);
 
     impl ListIndexes {
         pub(crate) fn new(
@@ -2982,7 +3004,7 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
+    pub struct GetIndex(pub(crate) RequestBuilder<crate::model::GetIndexRequest>);
 
     impl GetIndex {
         pub(crate) fn new(
@@ -3045,7 +3067,7 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
+    pub struct CreateIndex(pub(crate) RequestBuilder<crate::model::CreateIndexRequest>);
 
     impl CreateIndex {
         pub(crate) fn new(
@@ -3198,7 +3220,7 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateIndex(RequestBuilder<crate::model::UpdateIndexRequest>);
+    pub struct UpdateIndex(pub(crate) RequestBuilder<crate::model::UpdateIndexRequest>);
 
     impl UpdateIndex {
         pub(crate) fn new(
@@ -3353,7 +3375,7 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
+    pub struct DeleteIndex(pub(crate) RequestBuilder<crate::model::DeleteIndexRequest>);
 
     impl DeleteIndex {
         pub(crate) fn new(
@@ -3471,7 +3493,7 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportDataObjects(RequestBuilder<crate::model::ImportDataObjectsRequest>);
+    pub struct ImportDataObjects(pub(crate) RequestBuilder<crate::model::ImportDataObjectsRequest>);
 
     impl ImportDataObjects {
         pub(crate) fn new(
@@ -3622,7 +3644,7 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportDataObjects(RequestBuilder<crate::model::ExportDataObjectsRequest>);
+    pub struct ExportDataObjects(pub(crate) RequestBuilder<crate::model::ExportDataObjectsRequest>);
 
     impl ExportDataObjects {
         pub(crate) fn new(
@@ -3798,7 +3820,9 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -3907,7 +3931,9 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -3975,7 +4001,7 @@ pub mod vector_search_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4091,7 +4117,9 @@ pub mod vector_search_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4155,7 +4183,7 @@ pub mod vector_search_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4220,7 +4248,7 @@ pub mod vector_search_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

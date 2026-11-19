@@ -51,9 +51,9 @@ pub mod policy_troubleshooter {
     /// Common implementation for [crate::client::PolicyTroubleshooter] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTroubleshooter>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTroubleshooter>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod policy_troubleshooter {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TroubleshootIamPolicy(RequestBuilder<crate::model::TroubleshootIamPolicyRequest>);
+    pub struct TroubleshootIamPolicy(
+        pub(crate) RequestBuilder<crate::model::TroubleshootIamPolicyRequest>,
+    );
 
     impl TroubleshootIamPolicy {
         pub(crate) fn new(

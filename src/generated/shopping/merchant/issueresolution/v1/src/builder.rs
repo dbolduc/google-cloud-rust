@@ -51,9 +51,10 @@ pub mod aggregate_product_statuses_service {
     /// Common implementation for [crate::client::AggregateProductStatusesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AggregateProductStatusesService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::AggregateProductStatusesService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -93,7 +94,7 @@ pub mod aggregate_product_statuses_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAggregateProductStatuses(
-        RequestBuilder<crate::model::ListAggregateProductStatusesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListAggregateProductStatusesRequest>,
     );
 
     impl ListAggregateProductStatuses {
@@ -226,9 +227,9 @@ pub mod issue_resolution_service {
     /// Common implementation for [crate::client::IssueResolutionService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::IssueResolutionService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::IssueResolutionService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -263,7 +264,9 @@ pub mod issue_resolution_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RenderAccountIssues(RequestBuilder<crate::model::RenderAccountIssuesRequest>);
+    pub struct RenderAccountIssues(
+        pub(crate) RequestBuilder<crate::model::RenderAccountIssuesRequest>,
+    );
 
     impl RenderAccountIssues {
         pub(crate) fn new(
@@ -358,7 +361,9 @@ pub mod issue_resolution_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RenderProductIssues(RequestBuilder<crate::model::RenderProductIssuesRequest>);
+    pub struct RenderProductIssues(
+        pub(crate) RequestBuilder<crate::model::RenderProductIssuesRequest>,
+    );
 
     impl RenderProductIssues {
         pub(crate) fn new(
@@ -453,7 +458,7 @@ pub mod issue_resolution_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TriggerAction(RequestBuilder<crate::model::TriggerActionRequest>);
+    pub struct TriggerAction(pub(crate) RequestBuilder<crate::model::TriggerActionRequest>);
 
     impl TriggerAction {
         pub(crate) fn new(

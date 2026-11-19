@@ -51,9 +51,9 @@ pub mod security_center_management {
     /// Common implementation for [crate::client::SecurityCenterManagement] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenterManagement>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenterManagement>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -93,7 +93,8 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListEffectiveSecurityHealthAnalyticsCustomModules(
-        RequestBuilder<crate::model::ListEffectiveSecurityHealthAnalyticsCustomModulesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::ListEffectiveSecurityHealthAnalyticsCustomModulesRequest>,
     );
 
     impl ListEffectiveSecurityHealthAnalyticsCustomModules {
@@ -208,7 +209,8 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetEffectiveSecurityHealthAnalyticsCustomModule(
-        RequestBuilder<crate::model::GetEffectiveSecurityHealthAnalyticsCustomModuleRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::GetEffectiveSecurityHealthAnalyticsCustomModuleRequest>,
     );
 
     impl GetEffectiveSecurityHealthAnalyticsCustomModule {
@@ -286,7 +288,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecurityHealthAnalyticsCustomModules(
-        RequestBuilder<crate::model::ListSecurityHealthAnalyticsCustomModulesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListSecurityHealthAnalyticsCustomModulesRequest>,
     );
 
     impl ListSecurityHealthAnalyticsCustomModules {
@@ -401,7 +403,8 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListDescendantSecurityHealthAnalyticsCustomModules(
-        RequestBuilder<crate::model::ListDescendantSecurityHealthAnalyticsCustomModulesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::ListDescendantSecurityHealthAnalyticsCustomModulesRequest>,
     );
 
     impl ListDescendantSecurityHealthAnalyticsCustomModules {
@@ -516,7 +519,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecurityHealthAnalyticsCustomModule(
-        RequestBuilder<crate::model::GetSecurityHealthAnalyticsCustomModuleRequest>,
+        pub(crate) RequestBuilder<crate::model::GetSecurityHealthAnalyticsCustomModuleRequest>,
     );
 
     impl GetSecurityHealthAnalyticsCustomModule {
@@ -585,7 +588,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSecurityHealthAnalyticsCustomModule(
-        RequestBuilder<crate::model::CreateSecurityHealthAnalyticsCustomModuleRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateSecurityHealthAnalyticsCustomModuleRequest>,
     );
 
     impl CreateSecurityHealthAnalyticsCustomModule {
@@ -686,7 +689,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSecurityHealthAnalyticsCustomModule(
-        RequestBuilder<crate::model::UpdateSecurityHealthAnalyticsCustomModuleRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateSecurityHealthAnalyticsCustomModuleRequest>,
     );
 
     impl UpdateSecurityHealthAnalyticsCustomModule {
@@ -801,7 +804,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSecurityHealthAnalyticsCustomModule(
-        RequestBuilder<crate::model::DeleteSecurityHealthAnalyticsCustomModuleRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteSecurityHealthAnalyticsCustomModuleRequest>,
     );
 
     impl DeleteSecurityHealthAnalyticsCustomModule {
@@ -876,7 +879,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SimulateSecurityHealthAnalyticsCustomModule(
-        RequestBuilder<crate::model::SimulateSecurityHealthAnalyticsCustomModuleRequest>,
+        pub(crate) RequestBuilder<crate::model::SimulateSecurityHealthAnalyticsCustomModuleRequest>,
     );
 
     impl SimulateSecurityHealthAnalyticsCustomModule {
@@ -993,7 +996,8 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListEffectiveEventThreatDetectionCustomModules(
-        RequestBuilder<crate::model::ListEffectiveEventThreatDetectionCustomModulesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::ListEffectiveEventThreatDetectionCustomModulesRequest>,
     );
 
     impl ListEffectiveEventThreatDetectionCustomModules {
@@ -1107,7 +1111,8 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetEffectiveEventThreatDetectionCustomModule(
-        RequestBuilder<crate::model::GetEffectiveEventThreatDetectionCustomModuleRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::GetEffectiveEventThreatDetectionCustomModuleRequest>,
     );
 
     impl GetEffectiveEventThreatDetectionCustomModule {
@@ -1180,7 +1185,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListEventThreatDetectionCustomModules(
-        RequestBuilder<crate::model::ListEventThreatDetectionCustomModulesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListEventThreatDetectionCustomModulesRequest>,
     );
 
     impl ListEventThreatDetectionCustomModules {
@@ -1293,7 +1298,8 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListDescendantEventThreatDetectionCustomModules(
-        RequestBuilder<crate::model::ListDescendantEventThreatDetectionCustomModulesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::ListDescendantEventThreatDetectionCustomModulesRequest>,
     );
 
     impl ListDescendantEventThreatDetectionCustomModules {
@@ -1407,7 +1413,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetEventThreatDetectionCustomModule(
-        RequestBuilder<crate::model::GetEventThreatDetectionCustomModuleRequest>,
+        pub(crate) RequestBuilder<crate::model::GetEventThreatDetectionCustomModuleRequest>,
     );
 
     impl GetEventThreatDetectionCustomModule {
@@ -1474,7 +1480,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEventThreatDetectionCustomModule(
-        RequestBuilder<crate::model::CreateEventThreatDetectionCustomModuleRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateEventThreatDetectionCustomModuleRequest>,
     );
 
     impl CreateEventThreatDetectionCustomModule {
@@ -1575,7 +1581,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEventThreatDetectionCustomModule(
-        RequestBuilder<crate::model::UpdateEventThreatDetectionCustomModuleRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateEventThreatDetectionCustomModuleRequest>,
     );
 
     impl UpdateEventThreatDetectionCustomModule {
@@ -1690,7 +1696,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEventThreatDetectionCustomModule(
-        RequestBuilder<crate::model::DeleteEventThreatDetectionCustomModuleRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteEventThreatDetectionCustomModuleRequest>,
     );
 
     impl DeleteEventThreatDetectionCustomModule {
@@ -1765,7 +1771,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ValidateEventThreatDetectionCustomModule(
-        RequestBuilder<crate::model::ValidateEventThreatDetectionCustomModuleRequest>,
+        pub(crate) RequestBuilder<crate::model::ValidateEventThreatDetectionCustomModuleRequest>,
     );
 
     impl ValidateEventThreatDetectionCustomModule {
@@ -1852,7 +1858,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecurityCenterService(
-        RequestBuilder<crate::model::GetSecurityCenterServiceRequest>,
+        pub(crate) RequestBuilder<crate::model::GetSecurityCenterServiceRequest>,
     );
 
     impl GetSecurityCenterService {
@@ -1929,7 +1935,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecurityCenterServices(
-        RequestBuilder<crate::model::ListSecurityCenterServicesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListSecurityCenterServicesRequest>,
     );
 
     impl ListSecurityCenterServices {
@@ -2042,7 +2048,7 @@ pub mod security_center_management {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSecurityCenterService(
-        RequestBuilder<crate::model::UpdateSecurityCenterServiceRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateSecurityCenterServiceRequest>,
     );
 
     impl UpdateSecurityCenterService {
@@ -2154,7 +2160,9 @@ pub mod security_center_management {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2263,7 +2271,9 @@ pub mod security_center_management {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(

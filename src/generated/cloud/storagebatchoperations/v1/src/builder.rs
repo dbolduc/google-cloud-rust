@@ -51,9 +51,9 @@ pub mod storage_batch_operations {
     /// Common implementation for [crate::client::StorageBatchOperations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod storage_batch_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
+    pub struct ListJobs(pub(crate) RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
         pub(crate) fn new(
@@ -202,7 +202,7 @@ pub mod storage_batch_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
+    pub struct GetJob(pub(crate) RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
         pub(crate) fn new(
@@ -265,7 +265,7 @@ pub mod storage_batch_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
+    pub struct CreateJob(pub(crate) RequestBuilder<crate::model::CreateJobRequest>);
 
     impl CreateJob {
         pub(crate) fn new(
@@ -417,7 +417,7 @@ pub mod storage_batch_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
+    pub struct DeleteJob(pub(crate) RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
         pub(crate) fn new(
@@ -491,7 +491,7 @@ pub mod storage_batch_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelJob(RequestBuilder<crate::model::CancelJobRequest>);
+    pub struct CancelJob(pub(crate) RequestBuilder<crate::model::CancelJobRequest>);
 
     impl CancelJob {
         pub(crate) fn new(
@@ -563,7 +563,9 @@ pub mod storage_batch_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBucketOperations(RequestBuilder<crate::model::ListBucketOperationsRequest>);
+    pub struct ListBucketOperations(
+        pub(crate) RequestBuilder<crate::model::ListBucketOperationsRequest>,
+    );
 
     impl ListBucketOperations {
         pub(crate) fn new(
@@ -680,7 +682,9 @@ pub mod storage_batch_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBucketOperation(RequestBuilder<crate::model::GetBucketOperationRequest>);
+    pub struct GetBucketOperation(
+        pub(crate) RequestBuilder<crate::model::GetBucketOperationRequest>,
+    );
 
     impl GetBucketOperation {
         pub(crate) fn new(
@@ -749,7 +753,9 @@ pub mod storage_batch_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -858,7 +864,9 @@ pub mod storage_batch_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -926,7 +934,7 @@ pub mod storage_batch_operations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1042,7 +1050,9 @@ pub mod storage_batch_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1106,7 +1116,7 @@ pub mod storage_batch_operations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -1171,7 +1181,7 @@ pub mod storage_batch_operations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

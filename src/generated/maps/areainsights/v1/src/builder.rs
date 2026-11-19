@@ -51,9 +51,9 @@ pub mod area_insights {
     /// Common implementation for [crate::client::AreaInsights] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AreaInsights>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AreaInsights>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod area_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ComputeInsights(RequestBuilder<crate::model::ComputeInsightsRequest>);
+    pub struct ComputeInsights(pub(crate) RequestBuilder<crate::model::ComputeInsightsRequest>);
 
     impl ComputeInsights {
         pub(crate) fn new(

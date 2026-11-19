@@ -53,9 +53,9 @@ pub mod accelerator_types {
     /// Common implementation for [crate::client::AcceleratorTypes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AcceleratorTypes>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AcceleratorTypes>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -95,7 +95,7 @@ pub mod accelerator_types {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::accelerator_types::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::accelerator_types::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -295,7 +295,7 @@ pub mod accelerator_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::accelerator_types::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::accelerator_types::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -374,7 +374,7 @@ pub mod accelerator_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::accelerator_types::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::accelerator_types::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -564,9 +564,9 @@ pub mod addresses {
     /// Common implementation for [crate::client::Addresses] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Addresses>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Addresses>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -605,7 +605,9 @@ pub mod addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::addresses::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::addresses::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -802,7 +804,7 @@ pub mod addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::addresses::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::addresses::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -941,7 +943,7 @@ pub mod addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::addresses::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::addresses::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -1013,7 +1015,7 @@ pub mod addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::addresses::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::addresses::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -1168,7 +1170,7 @@ pub mod addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::addresses::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::addresses::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -1330,7 +1332,7 @@ pub mod addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Move(RequestBuilder<crate::model::addresses::MoveRequest>);
+    pub struct Move(pub(crate) RequestBuilder<crate::model::addresses::MoveRequest>);
 
     impl Move {
         pub(crate) fn new(
@@ -1484,7 +1486,7 @@ pub mod addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::addresses::SetLabelsRequest>);
+    pub struct SetLabels(pub(crate) RequestBuilder<crate::model::addresses::SetLabelsRequest>);
 
     impl SetLabels {
         pub(crate) fn new(
@@ -1642,7 +1644,7 @@ pub mod addresses {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::addresses::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::addresses::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1736,7 +1738,7 @@ pub mod addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1834,9 +1836,9 @@ pub mod advice {
     /// Common implementation for [crate::client::Advice] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Advice>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Advice>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1869,7 +1871,7 @@ pub mod advice {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CalendarMode(RequestBuilder<crate::model::advice::CalendarModeRequest>);
+    pub struct CalendarMode(pub(crate) RequestBuilder<crate::model::advice::CalendarModeRequest>);
 
     impl CalendarMode {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Advice>) -> Self {
@@ -1954,7 +1956,7 @@ pub mod advice {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Capacity(RequestBuilder<crate::model::advice::CapacityRequest>);
+    pub struct Capacity(pub(crate) RequestBuilder<crate::model::advice::CapacityRequest>);
 
     impl Capacity {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Advice>) -> Self {
@@ -2039,7 +2041,9 @@ pub mod advice {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CapacityHistory(RequestBuilder<crate::model::advice::CapacityHistoryRequest>);
+    pub struct CapacityHistory(
+        pub(crate) RequestBuilder<crate::model::advice::CapacityHistoryRequest>,
+    );
 
     impl CapacityHistory {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Advice>) -> Self {
@@ -2147,9 +2151,9 @@ pub mod autoscalers {
     /// Common implementation for [crate::client::Autoscalers] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Autoscalers>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Autoscalers>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2188,7 +2192,9 @@ pub mod autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::autoscalers::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::autoscalers::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -2387,7 +2393,7 @@ pub mod autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::autoscalers::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::autoscalers::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -2526,7 +2532,7 @@ pub mod autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::autoscalers::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::autoscalers::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -2601,7 +2607,7 @@ pub mod autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::autoscalers::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::autoscalers::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -2756,7 +2762,7 @@ pub mod autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::autoscalers::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::autoscalers::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -2921,7 +2927,7 @@ pub mod autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::autoscalers::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::autoscalers::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -3091,7 +3097,7 @@ pub mod autoscalers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::autoscalers::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::autoscalers::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -3185,7 +3191,7 @@ pub mod autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::autoscalers::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::autoscalers::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -3354,7 +3360,7 @@ pub mod autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3452,9 +3458,9 @@ pub mod backend_buckets {
     /// Common implementation for [crate::client::BackendBuckets] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::BackendBuckets>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::BackendBuckets>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3490,7 +3496,7 @@ pub mod backend_buckets {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddSignedUrlKey(
-        RequestBuilder<crate::model::backend_buckets::AddSignedUrlKeyRequest>,
+        pub(crate) RequestBuilder<crate::model::backend_buckets::AddSignedUrlKeyRequest>,
     );
 
     impl AddSignedUrlKey {
@@ -3642,7 +3648,9 @@ pub mod backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::backend_buckets::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::backend_buckets::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -3841,7 +3849,7 @@ pub mod backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::backend_buckets::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::backend_buckets::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -3972,7 +3980,7 @@ pub mod backend_buckets {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSignedUrlKey(
-        RequestBuilder<crate::model::backend_buckets::DeleteSignedUrlKeyRequest>,
+        pub(crate) RequestBuilder<crate::model::backend_buckets::DeleteSignedUrlKeyRequest>,
     );
 
     impl DeleteSignedUrlKey {
@@ -4108,7 +4116,7 @@ pub mod backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::backend_buckets::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::backend_buckets::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -4177,7 +4185,9 @@ pub mod backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::backend_buckets::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::backend_buckets::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -4267,7 +4277,7 @@ pub mod backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::backend_buckets::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::backend_buckets::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -4413,7 +4423,7 @@ pub mod backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::backend_buckets::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::backend_buckets::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -4576,7 +4586,9 @@ pub mod backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUsable(RequestBuilder<crate::model::backend_buckets::ListUsableRequest>);
+    pub struct ListUsable(
+        pub(crate) RequestBuilder<crate::model::backend_buckets::ListUsableRequest>,
+    );
 
     impl ListUsable {
         pub(crate) fn new(
@@ -4739,7 +4751,7 @@ pub mod backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::backend_buckets::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::backend_buckets::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -4888,7 +4900,7 @@ pub mod backend_buckets {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetEdgeSecurityPolicy(
-        RequestBuilder<crate::model::backend_buckets::SetEdgeSecurityPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::backend_buckets::SetEdgeSecurityPolicyRequest>,
     );
 
     impl SetEdgeSecurityPolicy {
@@ -5038,7 +5050,9 @@ pub mod backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::backend_buckets::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::backend_buckets::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -5126,7 +5140,7 @@ pub mod backend_buckets {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::backend_buckets::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::backend_buckets::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -5214,7 +5228,7 @@ pub mod backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::backend_buckets::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::backend_buckets::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -5362,7 +5376,7 @@ pub mod backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -5454,9 +5468,9 @@ pub mod backend_services {
     /// Common implementation for [crate::client::BackendServices] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::BackendServices>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::BackendServices>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -5492,7 +5506,7 @@ pub mod backend_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddSignedUrlKey(
-        RequestBuilder<crate::model::backend_services::AddSignedUrlKeyRequest>,
+        pub(crate) RequestBuilder<crate::model::backend_services::AddSignedUrlKeyRequest>,
     );
 
     impl AddSignedUrlKey {
@@ -5645,7 +5659,7 @@ pub mod backend_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::backend_services::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::backend_services::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -5845,7 +5859,7 @@ pub mod backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::backend_services::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::backend_services::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -5976,7 +5990,7 @@ pub mod backend_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSignedUrlKey(
-        RequestBuilder<crate::model::backend_services::DeleteSignedUrlKeyRequest>,
+        pub(crate) RequestBuilder<crate::model::backend_services::DeleteSignedUrlKeyRequest>,
     );
 
     impl DeleteSignedUrlKey {
@@ -6112,7 +6126,7 @@ pub mod backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::backend_services::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::backend_services::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -6182,7 +6196,8 @@ pub mod backend_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetEffectiveSecurityPolicies(
-        RequestBuilder<crate::model::backend_services::GetEffectiveSecurityPoliciesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::backend_services::GetEffectiveSecurityPoliciesRequest>,
     );
 
     impl GetEffectiveSecurityPolicies {
@@ -6254,7 +6269,9 @@ pub mod backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetHealth(RequestBuilder<crate::model::backend_services::GetHealthRequest>);
+    pub struct GetHealth(
+        pub(crate) RequestBuilder<crate::model::backend_services::GetHealthRequest>,
+    );
 
     impl GetHealth {
         pub(crate) fn new(
@@ -6341,7 +6358,9 @@ pub mod backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::backend_services::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::backend_services::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -6431,7 +6450,7 @@ pub mod backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::backend_services::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::backend_services::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -6577,7 +6596,7 @@ pub mod backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::backend_services::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::backend_services::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -6742,7 +6761,9 @@ pub mod backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUsable(RequestBuilder<crate::model::backend_services::ListUsableRequest>);
+    pub struct ListUsable(
+        pub(crate) RequestBuilder<crate::model::backend_services::ListUsableRequest>,
+    );
 
     impl ListUsable {
         pub(crate) fn new(
@@ -6905,7 +6926,7 @@ pub mod backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::backend_services::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::backend_services::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -7054,7 +7075,7 @@ pub mod backend_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetEdgeSecurityPolicy(
-        RequestBuilder<crate::model::backend_services::SetEdgeSecurityPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::backend_services::SetEdgeSecurityPolicyRequest>,
     );
 
     impl SetEdgeSecurityPolicy {
@@ -7204,7 +7225,9 @@ pub mod backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::backend_services::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::backend_services::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -7292,7 +7315,7 @@ pub mod backend_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetSecurityPolicy(
-        RequestBuilder<crate::model::backend_services::SetSecurityPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::backend_services::SetSecurityPolicyRequest>,
     );
 
     impl SetSecurityPolicy {
@@ -7441,7 +7464,7 @@ pub mod backend_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::backend_services::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::backend_services::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -7529,7 +7552,7 @@ pub mod backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::backend_services::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::backend_services::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -7677,7 +7700,7 @@ pub mod backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -7769,9 +7792,9 @@ pub mod cross_site_networks {
     /// Common implementation for [crate::client::CrossSiteNetworks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CrossSiteNetworks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CrossSiteNetworks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -7806,7 +7829,7 @@ pub mod cross_site_networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::cross_site_networks::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::cross_site_networks::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -7936,7 +7959,7 @@ pub mod cross_site_networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::cross_site_networks::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::cross_site_networks::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -8005,7 +8028,7 @@ pub mod cross_site_networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::cross_site_networks::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::cross_site_networks::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -8169,7 +8192,7 @@ pub mod cross_site_networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::cross_site_networks::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::cross_site_networks::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -8330,7 +8353,7 @@ pub mod cross_site_networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::cross_site_networks::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::cross_site_networks::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -8514,7 +8537,7 @@ pub mod cross_site_networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -8606,9 +8629,9 @@ pub mod disk_types {
     /// Common implementation for [crate::client::DiskTypes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DiskTypes>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DiskTypes>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -8647,7 +8670,9 @@ pub mod disk_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::disk_types::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::disk_types::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -8846,7 +8871,7 @@ pub mod disk_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::disk_types::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::disk_types::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -8922,7 +8947,7 @@ pub mod disk_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::disk_types::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::disk_types::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -9110,9 +9135,9 @@ pub mod disks {
     /// Common implementation for [crate::client::Disks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -9145,7 +9170,9 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddResourcePolicies(RequestBuilder<crate::model::disks::AddResourcePoliciesRequest>);
+    pub struct AddResourcePolicies(
+        pub(crate) RequestBuilder<crate::model::disks::AddResourcePoliciesRequest>,
+    );
 
     impl AddResourcePolicies {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -9304,7 +9331,9 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::disks::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::disks::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -9499,7 +9528,7 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BulkInsert(RequestBuilder<crate::model::disks::BulkInsertRequest>);
+    pub struct BulkInsert(pub(crate) RequestBuilder<crate::model::disks::BulkInsertRequest>);
 
     impl BulkInsert {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -9648,7 +9677,7 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BulkSetLabels(RequestBuilder<crate::model::disks::BulkSetLabelsRequest>);
+    pub struct BulkSetLabels(pub(crate) RequestBuilder<crate::model::disks::BulkSetLabelsRequest>);
 
     impl BulkSetLabels {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -9815,7 +9844,9 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSnapshot(RequestBuilder<crate::model::disks::CreateSnapshotRequest>);
+    pub struct CreateSnapshot(
+        pub(crate) RequestBuilder<crate::model::disks::CreateSnapshotRequest>,
+    );
 
     impl CreateSnapshot {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -9988,7 +10019,7 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::disks::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::disks::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -10121,7 +10152,7 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::disks::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::disks::GetRequest>);
 
     impl Get {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -10191,7 +10222,7 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::disks::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(pub(crate) RequestBuilder<crate::model::disks::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -10285,7 +10316,7 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::disks::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::disks::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -10452,7 +10483,7 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::disks::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::disks::ListRequest>);
 
     impl List {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -10613,7 +10644,7 @@ pub mod disks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveResourcePolicies(
-        RequestBuilder<crate::model::disks::RemoveResourcePoliciesRequest>,
+        pub(crate) RequestBuilder<crate::model::disks::RemoveResourcePoliciesRequest>,
     );
 
     impl RemoveResourcePolicies {
@@ -10769,7 +10800,7 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Resize(RequestBuilder<crate::model::disks::ResizeRequest>);
+    pub struct Resize(pub(crate) RequestBuilder<crate::model::disks::ResizeRequest>);
 
     impl Resize {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -10920,7 +10951,7 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::disks::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(pub(crate) RequestBuilder<crate::model::disks::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -11011,7 +11042,7 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::disks::SetLabelsRequest>);
+    pub struct SetLabels(pub(crate) RequestBuilder<crate::model::disks::SetLabelsRequest>);
 
     impl SetLabels {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -11167,7 +11198,7 @@ pub mod disks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StartAsyncReplication(
-        RequestBuilder<crate::model::disks::StartAsyncReplicationRequest>,
+        pub(crate) RequestBuilder<crate::model::disks::StartAsyncReplicationRequest>,
     );
 
     impl StartAsyncReplication {
@@ -11324,7 +11355,7 @@ pub mod disks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StopAsyncReplication(
-        RequestBuilder<crate::model::disks::StopAsyncReplicationRequest>,
+        pub(crate) RequestBuilder<crate::model::disks::StopAsyncReplicationRequest>,
     );
 
     impl StopAsyncReplication {
@@ -11463,7 +11494,7 @@ pub mod disks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StopGroupAsyncReplication(
-        RequestBuilder<crate::model::disks::StopGroupAsyncReplicationRequest>,
+        pub(crate) RequestBuilder<crate::model::disks::StopGroupAsyncReplicationRequest>,
     );
 
     impl StopGroupAsyncReplication {
@@ -11612,7 +11643,9 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<crate::model::disks::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        pub(crate) RequestBuilder<crate::model::disks::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -11703,7 +11736,7 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::disks::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::disks::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -11890,7 +11923,7 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateKmsKey(RequestBuilder<crate::model::disks::UpdateKmsKeyRequest>);
+    pub struct UpdateKmsKey(pub(crate) RequestBuilder<crate::model::disks::UpdateKmsKeyRequest>);
 
     impl UpdateKmsKey {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -12045,7 +12078,7 @@ pub mod disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Disks>) -> Self {
@@ -12141,9 +12174,9 @@ pub mod external_vpn_gateways {
     /// Common implementation for [crate::client::ExternalVpnGateways] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ExternalVpnGateways>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ExternalVpnGateways>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -12178,7 +12211,9 @@ pub mod external_vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::external_vpn_gateways::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::external_vpn_gateways::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -12308,7 +12343,7 @@ pub mod external_vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::external_vpn_gateways::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::external_vpn_gateways::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -12377,7 +12412,9 @@ pub mod external_vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::external_vpn_gateways::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::external_vpn_gateways::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -12523,7 +12560,7 @@ pub mod external_vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::external_vpn_gateways::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::external_vpn_gateways::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -12686,7 +12723,9 @@ pub mod external_vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::external_vpn_gateways::SetLabelsRequest>);
+    pub struct SetLabels(
+        pub(crate) RequestBuilder<crate::model::external_vpn_gateways::SetLabelsRequest>,
+    );
 
     impl SetLabels {
         pub(crate) fn new(
@@ -12817,7 +12856,7 @@ pub mod external_vpn_gateways {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::external_vpn_gateways::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::external_vpn_gateways::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -12907,7 +12946,7 @@ pub mod external_vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -12999,9 +13038,9 @@ pub mod firewall_policies {
     /// Common implementation for [crate::client::FirewallPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallPolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallPolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -13037,7 +13076,7 @@ pub mod firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddAssociation(
-        RequestBuilder<crate::model::firewall_policies::AddAssociationRequest>,
+        pub(crate) RequestBuilder<crate::model::firewall_policies::AddAssociationRequest>,
     );
 
     impl AddAssociation {
@@ -13197,7 +13236,7 @@ pub mod firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddRule(RequestBuilder<crate::model::firewall_policies::AddRuleRequest>);
+    pub struct AddRule(pub(crate) RequestBuilder<crate::model::firewall_policies::AddRuleRequest>);
 
     impl AddRule {
         pub(crate) fn new(
@@ -13336,7 +13375,9 @@ pub mod firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CloneRules(RequestBuilder<crate::model::firewall_policies::CloneRulesRequest>);
+    pub struct CloneRules(
+        pub(crate) RequestBuilder<crate::model::firewall_policies::CloneRulesRequest>,
+    );
 
     impl CloneRules {
         pub(crate) fn new(
@@ -13475,7 +13516,7 @@ pub mod firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::firewall_policies::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::firewall_policies::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -13596,7 +13637,7 @@ pub mod firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::firewall_policies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::firewall_policies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -13660,7 +13701,7 @@ pub mod firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetAssociation(
-        RequestBuilder<crate::model::firewall_policies::GetAssociationRequest>,
+        pub(crate) RequestBuilder<crate::model::firewall_policies::GetAssociationRequest>,
     );
 
     impl GetAssociation {
@@ -13742,7 +13783,9 @@ pub mod firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::firewall_policies::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::firewall_policies::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -13826,7 +13869,7 @@ pub mod firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRule(RequestBuilder<crate::model::firewall_policies::GetRuleRequest>);
+    pub struct GetRule(pub(crate) RequestBuilder<crate::model::firewall_policies::GetRuleRequest>);
 
     impl GetRule {
         pub(crate) fn new(
@@ -13907,7 +13950,7 @@ pub mod firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::firewall_policies::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::firewall_policies::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -14062,7 +14105,7 @@ pub mod firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::firewall_policies::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::firewall_policies::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -14236,7 +14279,7 @@ pub mod firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAssociations(
-        RequestBuilder<crate::model::firewall_policies::ListAssociationsRequest>,
+        pub(crate) RequestBuilder<crate::model::firewall_policies::ListAssociationsRequest>,
     );
 
     impl ListAssociations {
@@ -14333,7 +14376,7 @@ pub mod firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Move(RequestBuilder<crate::model::firewall_policies::MoveRequest>);
+    pub struct Move(pub(crate) RequestBuilder<crate::model::firewall_policies::MoveRequest>);
 
     impl Move {
         pub(crate) fn new(
@@ -14472,7 +14515,7 @@ pub mod firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::firewall_policies::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::firewall_policies::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -14611,7 +14654,9 @@ pub mod firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PatchRule(RequestBuilder<crate::model::firewall_policies::PatchRuleRequest>);
+    pub struct PatchRule(
+        pub(crate) RequestBuilder<crate::model::firewall_policies::PatchRuleRequest>,
+    );
 
     impl PatchRule {
         pub(crate) fn new(
@@ -14769,7 +14814,7 @@ pub mod firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveAssociation(
-        RequestBuilder<crate::model::firewall_policies::RemoveAssociationRequest>,
+        pub(crate) RequestBuilder<crate::model::firewall_policies::RemoveAssociationRequest>,
     );
 
     impl RemoveAssociation {
@@ -14908,7 +14953,9 @@ pub mod firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveRule(RequestBuilder<crate::model::firewall_policies::RemoveRuleRequest>);
+    pub struct RemoveRule(
+        pub(crate) RequestBuilder<crate::model::firewall_policies::RemoveRuleRequest>,
+    );
 
     impl RemoveRule {
         pub(crate) fn new(
@@ -15047,7 +15094,9 @@ pub mod firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::firewall_policies::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::firewall_policies::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -15129,7 +15178,7 @@ pub mod firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::firewall_policies::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::firewall_policies::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -15212,7 +15261,7 @@ pub mod firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(
-        RequestBuilder<crate::model::global_organization_operations::GetRequest>,
+        pub(crate) RequestBuilder<crate::model::global_organization_operations::GetRequest>,
     );
 
     impl GetOperation {
@@ -15317,9 +15366,9 @@ pub mod firewalls {
     /// Common implementation for [crate::client::Firewalls] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Firewalls>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Firewalls>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -15354,7 +15403,7 @@ pub mod firewalls {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::firewalls::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::firewalls::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -15484,7 +15533,7 @@ pub mod firewalls {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::firewalls::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::firewalls::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -15550,7 +15599,7 @@ pub mod firewalls {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::firewalls::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::firewalls::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -15696,7 +15745,7 @@ pub mod firewalls {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::firewalls::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::firewalls::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -15852,7 +15901,7 @@ pub mod firewalls {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::firewalls::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::firewalls::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -16001,7 +16050,7 @@ pub mod firewalls {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::firewalls::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::firewalls::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -16089,7 +16138,7 @@ pub mod firewalls {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::firewalls::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::firewalls::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -16237,7 +16286,7 @@ pub mod firewalls {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -16329,9 +16378,9 @@ pub mod forwarding_rules {
     /// Common implementation for [crate::client::ForwardingRules] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ForwardingRules>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ForwardingRules>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -16371,7 +16420,7 @@ pub mod forwarding_rules {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::forwarding_rules::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::forwarding_rules::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -16571,7 +16620,7 @@ pub mod forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::forwarding_rules::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::forwarding_rules::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -16710,7 +16759,7 @@ pub mod forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::forwarding_rules::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::forwarding_rules::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -16803,7 +16852,7 @@ pub mod forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::forwarding_rules::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::forwarding_rules::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -16958,7 +17007,7 @@ pub mod forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::forwarding_rules::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::forwarding_rules::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -17125,7 +17174,7 @@ pub mod forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::forwarding_rules::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::forwarding_rules::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -17282,7 +17331,9 @@ pub mod forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::forwarding_rules::SetLabelsRequest>);
+    pub struct SetLabels(
+        pub(crate) RequestBuilder<crate::model::forwarding_rules::SetLabelsRequest>,
+    );
 
     impl SetLabels {
         pub(crate) fn new(
@@ -17439,7 +17490,9 @@ pub mod forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetTarget(RequestBuilder<crate::model::forwarding_rules::SetTargetRequest>);
+    pub struct SetTarget(
+        pub(crate) RequestBuilder<crate::model::forwarding_rules::SetTargetRequest>,
+    );
 
     impl SetTarget {
         pub(crate) fn new(
@@ -17596,7 +17649,7 @@ pub mod forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -17694,9 +17747,9 @@ pub mod future_reservations {
     /// Common implementation for [crate::client::FutureReservations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::FutureReservations>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::FutureReservations>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -17736,7 +17789,7 @@ pub mod future_reservations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::future_reservations::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::future_reservations::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -17936,7 +17989,7 @@ pub mod future_reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Cancel(RequestBuilder<crate::model::future_reservations::CancelRequest>);
+    pub struct Cancel(pub(crate) RequestBuilder<crate::model::future_reservations::CancelRequest>);
 
     impl Cancel {
         pub(crate) fn new(
@@ -18075,7 +18128,7 @@ pub mod future_reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::future_reservations::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::future_reservations::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -18214,7 +18267,7 @@ pub mod future_reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::future_reservations::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::future_reservations::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -18289,7 +18342,7 @@ pub mod future_reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::future_reservations::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::future_reservations::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -18444,7 +18497,7 @@ pub mod future_reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::future_reservations::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::future_reservations::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -18613,7 +18666,7 @@ pub mod future_reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::future_reservations::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::future_reservations::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -18788,7 +18841,7 @@ pub mod future_reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -18886,9 +18939,9 @@ pub mod global_addresses {
     /// Common implementation for [crate::client::GlobalAddresses] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::GlobalAddresses>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::GlobalAddresses>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -18923,7 +18976,7 @@ pub mod global_addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::global_addresses::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::global_addresses::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -19053,7 +19106,7 @@ pub mod global_addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::global_addresses::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::global_addresses::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -19122,7 +19175,7 @@ pub mod global_addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::global_addresses::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::global_addresses::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -19268,7 +19321,7 @@ pub mod global_addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::global_addresses::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::global_addresses::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -19427,7 +19480,7 @@ pub mod global_addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Move(RequestBuilder<crate::model::global_addresses::MoveRequest>);
+    pub struct Move(pub(crate) RequestBuilder<crate::model::global_addresses::MoveRequest>);
 
     impl Move {
         pub(crate) fn new(
@@ -19575,7 +19628,9 @@ pub mod global_addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::global_addresses::SetLabelsRequest>);
+    pub struct SetLabels(
+        pub(crate) RequestBuilder<crate::model::global_addresses::SetLabelsRequest>,
+    );
 
     impl SetLabels {
         pub(crate) fn new(
@@ -19706,7 +19761,7 @@ pub mod global_addresses {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::global_addresses::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::global_addresses::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -19794,7 +19849,7 @@ pub mod global_addresses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -19886,9 +19941,9 @@ pub mod global_forwarding_rules {
     /// Common implementation for [crate::client::GlobalForwardingRules] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::GlobalForwardingRules>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::GlobalForwardingRules>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -19923,7 +19978,9 @@ pub mod global_forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::global_forwarding_rules::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::global_forwarding_rules::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -20053,7 +20110,7 @@ pub mod global_forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::global_forwarding_rules::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::global_forwarding_rules::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -20140,7 +20197,9 @@ pub mod global_forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::global_forwarding_rules::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::global_forwarding_rules::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -20286,7 +20345,7 @@ pub mod global_forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::global_forwarding_rules::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::global_forwarding_rules::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -20447,7 +20506,9 @@ pub mod global_forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::global_forwarding_rules::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::global_forwarding_rules::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -20595,7 +20656,9 @@ pub mod global_forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::global_forwarding_rules::SetLabelsRequest>);
+    pub struct SetLabels(
+        pub(crate) RequestBuilder<crate::model::global_forwarding_rules::SetLabelsRequest>,
+    );
 
     impl SetLabels {
         pub(crate) fn new(
@@ -20724,7 +20787,9 @@ pub mod global_forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetTarget(RequestBuilder<crate::model::global_forwarding_rules::SetTargetRequest>);
+    pub struct SetTarget(
+        pub(crate) RequestBuilder<crate::model::global_forwarding_rules::SetTargetRequest>,
+    );
 
     impl SetTarget {
         pub(crate) fn new(
@@ -20871,7 +20936,7 @@ pub mod global_forwarding_rules {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -20963,9 +21028,9 @@ pub mod global_frontend_settings {
     /// Common implementation for [crate::client::GlobalFrontendSettings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::GlobalFrontendSettings>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::GlobalFrontendSettings>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -21000,7 +21065,9 @@ pub mod global_frontend_settings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::global_frontend_settings_requests::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::global_frontend_settings_requests::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -21065,7 +21132,9 @@ pub mod global_frontend_settings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::global_frontend_settings_requests::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::global_frontend_settings_requests::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -21207,9 +21276,10 @@ pub mod global_network_endpoint_groups {
     /// Common implementation for [crate::client::GlobalNetworkEndpointGroups] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::GlobalNetworkEndpointGroups>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::GlobalNetworkEndpointGroups>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -21245,7 +21315,8 @@ pub mod global_network_endpoint_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AttachNetworkEndpoints(
-        RequestBuilder<crate::model::global_network_endpoint_groups::AttachNetworkEndpointsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::global_network_endpoint_groups::AttachNetworkEndpointsRequest>,
     );
 
     impl AttachNetworkEndpoints {
@@ -21395,7 +21466,9 @@ pub mod global_network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::global_network_endpoint_groups::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::global_network_endpoint_groups::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -21527,7 +21600,8 @@ pub mod global_network_endpoint_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DetachNetworkEndpoints(
-        RequestBuilder<crate::model::global_network_endpoint_groups::DetachNetworkEndpointsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::global_network_endpoint_groups::DetachNetworkEndpointsRequest>,
     );
 
     impl DetachNetworkEndpoints {
@@ -21677,7 +21751,9 @@ pub mod global_network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::global_network_endpoint_groups::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::global_network_endpoint_groups::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -21746,7 +21822,9 @@ pub mod global_network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::global_network_endpoint_groups::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::global_network_endpoint_groups::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -21893,7 +21971,9 @@ pub mod global_network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::global_network_endpoint_groups::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::global_network_endpoint_groups::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -22061,7 +22141,8 @@ pub mod global_network_endpoint_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListNetworkEndpoints(
-        RequestBuilder<crate::model::global_network_endpoint_groups::ListNetworkEndpointsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::global_network_endpoint_groups::ListNetworkEndpointsRequest>,
     );
 
     impl ListNetworkEndpoints {
@@ -22233,7 +22314,7 @@ pub mod global_network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -22325,9 +22406,9 @@ pub mod global_operations {
     /// Common implementation for [crate::client::GlobalOperations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::GlobalOperations>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::GlobalOperations>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -22367,7 +22448,7 @@ pub mod global_operations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::global_operations::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::global_operations::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -22567,7 +22648,7 @@ pub mod global_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::global_operations::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::global_operations::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -22636,7 +22717,7 @@ pub mod global_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -22709,7 +22790,7 @@ pub mod global_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::global_operations::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::global_operations::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -22868,7 +22949,7 @@ pub mod global_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Wait(RequestBuilder<crate::model::global_operations::WaitRequest>);
+    pub struct Wait(pub(crate) RequestBuilder<crate::model::global_operations::WaitRequest>);
 
     impl Wait {
         pub(crate) fn new(
@@ -22960,9 +23041,10 @@ pub mod global_organization_operations {
     /// Common implementation for [crate::client::GlobalOrganizationOperations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::GlobalOrganizationOperations>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::GlobalOrganizationOperations>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -22997,7 +23079,9 @@ pub mod global_organization_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::global_organization_operations::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::global_organization_operations::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -23080,7 +23164,9 @@ pub mod global_organization_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::global_organization_operations::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::global_organization_operations::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -23165,7 +23251,9 @@ pub mod global_organization_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::global_organization_operations::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::global_organization_operations::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -23359,9 +23447,10 @@ pub mod global_public_delegated_prefixes {
     /// Common implementation for [crate::client::GlobalPublicDelegatedPrefixes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::GlobalPublicDelegatedPrefixes>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::GlobalPublicDelegatedPrefixes>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -23397,7 +23486,7 @@ pub mod global_public_delegated_prefixes {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(
-        RequestBuilder<crate::model::global_public_delegated_prefixes::DeleteRequest>,
+        pub(crate) RequestBuilder<crate::model::global_public_delegated_prefixes::DeleteRequest>,
     );
 
     impl Delete {
@@ -23529,7 +23618,9 @@ pub mod global_public_delegated_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::global_public_delegated_prefixes::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::global_public_delegated_prefixes::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -23599,7 +23690,7 @@ pub mod global_public_delegated_prefixes {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(
-        RequestBuilder<crate::model::global_public_delegated_prefixes::InsertRequest>,
+        pub(crate) RequestBuilder<crate::model::global_public_delegated_prefixes::InsertRequest>,
     );
 
     impl Insert {
@@ -23747,7 +23838,9 @@ pub mod global_public_delegated_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::global_public_delegated_prefixes::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::global_public_delegated_prefixes::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -23912,7 +24005,9 @@ pub mod global_public_delegated_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::global_public_delegated_prefixes::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::global_public_delegated_prefixes::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -24061,7 +24156,7 @@ pub mod global_public_delegated_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -24153,9 +24248,9 @@ pub mod global_vm_extension_policies {
     /// Common implementation for [crate::client::GlobalVmExtensionPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::GlobalVmExtensionPolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::GlobalVmExtensionPolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -24195,7 +24290,8 @@ pub mod global_vm_extension_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::global_vm_extension_policies::AggregatedListRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::global_vm_extension_policies::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -24397,7 +24493,9 @@ pub mod global_vm_extension_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::global_vm_extension_policies::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::global_vm_extension_policies::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -24551,7 +24649,9 @@ pub mod global_vm_extension_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::global_vm_extension_policies::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::global_vm_extension_policies::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -24623,7 +24723,9 @@ pub mod global_vm_extension_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::global_vm_extension_policies::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::global_vm_extension_policies::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -24768,7 +24870,9 @@ pub mod global_vm_extension_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::global_vm_extension_policies::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::global_vm_extension_policies::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -24931,7 +25035,9 @@ pub mod global_vm_extension_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::global_vm_extension_policies::UpdateRequest>);
+    pub struct Update(
+        pub(crate) RequestBuilder<crate::model::global_vm_extension_policies::UpdateRequest>,
+    );
 
     impl Update {
         pub(crate) fn new(
@@ -25081,7 +25187,7 @@ pub mod global_vm_extension_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -25173,9 +25279,9 @@ pub mod health_checks {
     /// Common implementation for [crate::client::HealthChecks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::HealthChecks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::HealthChecks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -25214,7 +25320,9 @@ pub mod health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::health_checks::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::health_checks::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -25413,7 +25521,7 @@ pub mod health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::health_checks::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::health_checks::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -25543,7 +25651,7 @@ pub mod health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::health_checks::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::health_checks::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -25612,7 +25720,7 @@ pub mod health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::health_checks::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::health_checks::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -25758,7 +25866,7 @@ pub mod health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::health_checks::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::health_checks::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -25917,7 +26025,7 @@ pub mod health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::health_checks::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::health_checks::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -26066,7 +26174,7 @@ pub mod health_checks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::health_checks::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::health_checks::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -26154,7 +26262,7 @@ pub mod health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::health_checks::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::health_checks::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -26302,7 +26410,7 @@ pub mod health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -26394,9 +26502,9 @@ pub mod hosts {
     /// Common implementation for [crate::client::Hosts] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Hosts>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Hosts>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -26429,7 +26537,7 @@ pub mod hosts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::hosts::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::hosts::GetRequest>);
 
     impl Get {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Hosts>) -> Self {
@@ -26505,7 +26613,7 @@ pub mod hosts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVersion(RequestBuilder<crate::model::hosts::GetVersionRequest>);
+    pub struct GetVersion(pub(crate) RequestBuilder<crate::model::hosts::GetVersionRequest>);
 
     impl GetVersion {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Hosts>) -> Self {
@@ -26670,7 +26778,7 @@ pub mod hosts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::hosts::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::hosts::ListRequest>);
 
     impl List {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Hosts>) -> Self {
@@ -26836,7 +26944,7 @@ pub mod hosts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Hosts>) -> Self {
@@ -26932,9 +27040,9 @@ pub mod http_health_checks {
     /// Common implementation for [crate::client::HttpHealthChecks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::HttpHealthChecks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::HttpHealthChecks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -26969,7 +27077,7 @@ pub mod http_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::http_health_checks::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::http_health_checks::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -27099,7 +27207,7 @@ pub mod http_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::http_health_checks::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::http_health_checks::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -27168,7 +27276,7 @@ pub mod http_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::http_health_checks::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::http_health_checks::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -27314,7 +27422,7 @@ pub mod http_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::http_health_checks::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::http_health_checks::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -27475,7 +27583,7 @@ pub mod http_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::http_health_checks::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::http_health_checks::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -27624,7 +27732,7 @@ pub mod http_health_checks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::http_health_checks::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::http_health_checks::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -27714,7 +27822,7 @@ pub mod http_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::http_health_checks::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::http_health_checks::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -27862,7 +27970,7 @@ pub mod http_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -27954,9 +28062,9 @@ pub mod https_health_checks {
     /// Common implementation for [crate::client::HttpsHealthChecks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::HttpsHealthChecks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::HttpsHealthChecks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -27991,7 +28099,7 @@ pub mod https_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::https_health_checks::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::https_health_checks::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -28121,7 +28229,7 @@ pub mod https_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::https_health_checks::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::https_health_checks::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -28190,7 +28298,7 @@ pub mod https_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::https_health_checks::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::https_health_checks::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -28336,7 +28444,7 @@ pub mod https_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::https_health_checks::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::https_health_checks::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -28497,7 +28605,7 @@ pub mod https_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::https_health_checks::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::https_health_checks::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -28646,7 +28754,7 @@ pub mod https_health_checks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::https_health_checks::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::https_health_checks::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -28736,7 +28844,7 @@ pub mod https_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::https_health_checks::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::https_health_checks::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -28884,7 +28992,7 @@ pub mod https_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -28976,9 +29084,9 @@ pub mod image_family_views {
     /// Common implementation for [crate::client::ImageFamilyViews] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageFamilyViews>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageFamilyViews>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -29013,7 +29121,7 @@ pub mod image_family_views {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::image_family_views::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::image_family_views::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -29111,9 +29219,9 @@ pub mod image_views {
     /// Common implementation for [crate::client::ImageViews] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageViews>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageViews>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -29148,7 +29256,7 @@ pub mod image_views {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::image_views::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::image_views::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -29227,7 +29335,7 @@ pub mod image_views {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::image_views::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::image_views::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -29419,9 +29527,9 @@ pub mod images {
     /// Common implementation for [crate::client::Images] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -29454,7 +29562,7 @@ pub mod images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::images::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::images::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>) -> Self {
@@ -29578,7 +29686,7 @@ pub mod images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Deprecate(RequestBuilder<crate::model::images::DeprecateRequest>);
+    pub struct Deprecate(pub(crate) RequestBuilder<crate::model::images::DeprecateRequest>);
 
     impl Deprecate {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>) -> Self {
@@ -29724,7 +29832,7 @@ pub mod images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::images::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::images::GetRequest>);
 
     impl Get {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>) -> Self {
@@ -29788,7 +29896,7 @@ pub mod images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFromFamily(RequestBuilder<crate::model::images::GetFromFamilyRequest>);
+    pub struct GetFromFamily(pub(crate) RequestBuilder<crate::model::images::GetFromFamilyRequest>);
 
     impl GetFromFamily {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>) -> Self {
@@ -29855,7 +29963,7 @@ pub mod images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::images::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(pub(crate) RequestBuilder<crate::model::images::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>) -> Self {
@@ -29943,7 +30051,7 @@ pub mod images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::images::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::images::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>) -> Self {
@@ -30101,7 +30209,7 @@ pub mod images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::images::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::images::ListRequest>);
 
     impl List {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>) -> Self {
@@ -30255,7 +30363,7 @@ pub mod images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::images::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::images::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>) -> Self {
@@ -30397,7 +30505,7 @@ pub mod images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::images::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(pub(crate) RequestBuilder<crate::model::images::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>) -> Self {
@@ -30482,7 +30590,7 @@ pub mod images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::images::SetLabelsRequest>);
+    pub struct SetLabels(pub(crate) RequestBuilder<crate::model::images::SetLabelsRequest>);
 
     impl SetLabels {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>) -> Self {
@@ -30610,7 +30718,9 @@ pub mod images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<crate::model::images::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        pub(crate) RequestBuilder<crate::model::images::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>) -> Self {
@@ -30695,7 +30805,7 @@ pub mod images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Images>) -> Self {
@@ -30785,9 +30895,10 @@ pub mod instance_group_manager_resize_requests {
     /// Common implementation for [crate::client::InstanceGroupManagerResizeRequests] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagerResizeRequests>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagerResizeRequests>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -30825,7 +30936,8 @@ pub mod instance_group_manager_resize_requests {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Cancel(
-        RequestBuilder<crate::model::instance_group_manager_resize_requests::CancelRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::instance_group_manager_resize_requests::CancelRequest>,
     );
 
     impl Cancel {
@@ -30975,7 +31087,8 @@ pub mod instance_group_manager_resize_requests {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(
-        RequestBuilder<crate::model::instance_group_manager_resize_requests::DeleteRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::instance_group_manager_resize_requests::DeleteRequest>,
     );
 
     impl Delete {
@@ -31125,7 +31238,7 @@ pub mod instance_group_manager_resize_requests {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Get(
-        RequestBuilder<crate::model::instance_group_manager_resize_requests::GetRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_group_manager_resize_requests::GetRequest>,
     );
 
     impl Get {
@@ -31212,7 +31325,8 @@ pub mod instance_group_manager_resize_requests {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(
-        RequestBuilder<crate::model::instance_group_manager_resize_requests::InsertRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::instance_group_manager_resize_requests::InsertRequest>,
     );
 
     impl Insert {
@@ -31378,7 +31492,8 @@ pub mod instance_group_manager_resize_requests {
     /// ```
     #[derive(Clone, Debug)]
     pub struct List(
-        RequestBuilder<crate::model::instance_group_manager_resize_requests::ListRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::instance_group_manager_resize_requests::ListRequest>,
     );
 
     impl List {
@@ -31560,7 +31675,7 @@ pub mod instance_group_manager_resize_requests {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -31660,9 +31775,9 @@ pub mod instance_group_managers {
     /// Common implementation for [crate::client::InstanceGroupManagers] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -31698,7 +31813,7 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AbandonInstances(
-        RequestBuilder<crate::model::instance_group_managers::AbandonInstancesRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::AbandonInstancesRequest>,
     );
 
     impl AbandonInstances {
@@ -31862,7 +31977,7 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::instance_group_managers::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -32065,7 +32180,8 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ApplyUpdatesToInstances(
-        RequestBuilder<crate::model::instance_group_managers::ApplyUpdatesToInstancesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::ApplyUpdatesToInstancesRequest>,
     );
 
     impl ApplyUpdatesToInstances {
@@ -32207,7 +32323,7 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstances(
-        RequestBuilder<crate::model::instance_group_managers::CreateInstancesRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::CreateInstancesRequest>,
     );
 
     impl CreateInstances {
@@ -32366,7 +32482,9 @@ pub mod instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::instance_group_managers::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -32524,7 +32642,7 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstances(
-        RequestBuilder<crate::model::instance_group_managers::DeleteInstancesRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::DeleteInstancesRequest>,
     );
 
     impl DeleteInstances {
@@ -32702,7 +32820,8 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePerInstanceConfigs(
-        RequestBuilder<crate::model::instance_group_managers::DeletePerInstanceConfigsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::DeletePerInstanceConfigsRequest>,
     );
 
     impl DeletePerInstanceConfigs {
@@ -32843,7 +32962,7 @@ pub mod instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::instance_group_managers::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::instance_group_managers::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -32918,7 +33037,9 @@ pub mod instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::instance_group_managers::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -33073,7 +33194,7 @@ pub mod instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::instance_group_managers::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::instance_group_managers::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -33246,7 +33367,9 @@ pub mod instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListErrors(RequestBuilder<crate::model::instance_group_managers::ListErrorsRequest>);
+    pub struct ListErrors(
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::ListErrorsRequest>,
+    );
 
     impl ListErrors {
         pub(crate) fn new(
@@ -33426,7 +33549,8 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListManagedInstances(
-        RequestBuilder<crate::model::instance_group_managers::ListManagedInstancesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::ListManagedInstancesRequest>,
     );
 
     impl ListManagedInstances {
@@ -33611,7 +33735,8 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListPerInstanceConfigs(
-        RequestBuilder<crate::model::instance_group_managers::ListPerInstanceConfigsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::ListPerInstanceConfigsRequest>,
     );
 
     impl ListPerInstanceConfigs {
@@ -33791,7 +33916,9 @@ pub mod instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::instance_group_managers::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -33949,7 +34076,8 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PatchPerInstanceConfigs(
-        RequestBuilder<crate::model::instance_group_managers::PatchPerInstanceConfigsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::PatchPerInstanceConfigsRequest>,
     );
 
     impl PatchPerInstanceConfigs {
@@ -34109,7 +34237,7 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RecreateInstances(
-        RequestBuilder<crate::model::instance_group_managers::RecreateInstancesRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::RecreateInstancesRequest>,
     );
 
     impl RecreateInstances {
@@ -34286,7 +34414,9 @@ pub mod instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Resize(RequestBuilder<crate::model::instance_group_managers::ResizeRequest>);
+    pub struct Resize(
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::ResizeRequest>,
+    );
 
     impl Resize {
         pub(crate) fn new(
@@ -34432,7 +34562,7 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ResumeInstances(
-        RequestBuilder<crate::model::instance_group_managers::ResumeInstancesRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::ResumeInstancesRequest>,
     );
 
     impl ResumeInstances {
@@ -34592,7 +34722,8 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetInstanceTemplate(
-        RequestBuilder<crate::model::instance_group_managers::SetInstanceTemplateRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::SetInstanceTemplateRequest>,
     );
 
     impl SetInstanceTemplate {
@@ -34752,7 +34883,7 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetTargetPools(
-        RequestBuilder<crate::model::instance_group_managers::SetTargetPoolsRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::SetTargetPoolsRequest>,
     );
 
     impl SetTargetPools {
@@ -34912,7 +35043,7 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StartInstances(
-        RequestBuilder<crate::model::instance_group_managers::StartInstancesRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::StartInstancesRequest>,
     );
 
     impl StartInstances {
@@ -35072,7 +35203,7 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StopInstances(
-        RequestBuilder<crate::model::instance_group_managers::StopInstancesRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::StopInstancesRequest>,
     );
 
     impl StopInstances {
@@ -35250,7 +35381,7 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SuspendInstances(
-        RequestBuilder<crate::model::instance_group_managers::SuspendInstancesRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::SuspendInstancesRequest>,
     );
 
     impl SuspendInstances {
@@ -35410,7 +35541,8 @@ pub mod instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePerInstanceConfigs(
-        RequestBuilder<crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest>,
     );
 
     impl UpdatePerInstanceConfigs {
@@ -35569,7 +35701,7 @@ pub mod instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -35667,9 +35799,9 @@ pub mod instance_groups {
     /// Common implementation for [crate::client::InstanceGroups] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -35704,7 +35836,9 @@ pub mod instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddInstances(RequestBuilder<crate::model::instance_groups::AddInstancesRequest>);
+    pub struct AddInstances(
+        pub(crate) RequestBuilder<crate::model::instance_groups::AddInstancesRequest>,
+    );
 
     impl AddInstances {
         pub(crate) fn new(
@@ -35865,7 +35999,9 @@ pub mod instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::instance_groups::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::instance_groups::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -36064,7 +36200,7 @@ pub mod instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::instance_groups::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::instance_groups::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -36203,7 +36339,7 @@ pub mod instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::instance_groups::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::instance_groups::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -36278,7 +36414,7 @@ pub mod instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::instance_groups::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::instance_groups::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -36433,7 +36569,7 @@ pub mod instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::instance_groups::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::instance_groups::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -36602,7 +36738,9 @@ pub mod instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstances(RequestBuilder<crate::model::instance_groups::ListInstancesRequest>);
+    pub struct ListInstances(
+        pub(crate) RequestBuilder<crate::model::instance_groups::ListInstancesRequest>,
+    );
 
     impl ListInstances {
         pub(crate) fn new(
@@ -36796,7 +36934,7 @@ pub mod instance_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveInstances(
-        RequestBuilder<crate::model::instance_groups::RemoveInstancesRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_groups::RemoveInstancesRequest>,
     );
 
     impl RemoveInstances {
@@ -36954,7 +37092,9 @@ pub mod instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetNamedPorts(RequestBuilder<crate::model::instance_groups::SetNamedPortsRequest>);
+    pub struct SetNamedPorts(
+        pub(crate) RequestBuilder<crate::model::instance_groups::SetNamedPortsRequest>,
+    );
 
     impl SetNamedPorts {
         pub(crate) fn new(
@@ -37112,7 +37252,7 @@ pub mod instance_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::instance_groups::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_groups::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -37206,7 +37346,7 @@ pub mod instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -37304,9 +37444,9 @@ pub mod instance_settings {
     /// Common implementation for [crate::client::InstanceSettings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceSettings>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceSettings>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -37341,7 +37481,7 @@ pub mod instance_settings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::instance_settings::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::instance_settings::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -37410,7 +37550,7 @@ pub mod instance_settings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::instance_settings::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::instance_settings::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -37579,7 +37719,7 @@ pub mod instance_settings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -37677,9 +37817,9 @@ pub mod instance_templates {
     /// Common implementation for [crate::client::InstanceTemplates] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceTemplates>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceTemplates>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -37719,7 +37859,7 @@ pub mod instance_templates {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::instance_templates::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_templates::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -37919,7 +38059,7 @@ pub mod instance_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::instance_templates::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::instance_templates::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -38049,7 +38189,7 @@ pub mod instance_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::instance_templates::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::instance_templates::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -38118,7 +38258,9 @@ pub mod instance_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::instance_templates::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::instance_templates::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -38208,7 +38350,7 @@ pub mod instance_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::instance_templates::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::instance_templates::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -38354,7 +38496,7 @@ pub mod instance_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::instance_templates::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::instance_templates::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -38515,7 +38657,9 @@ pub mod instance_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::instance_templates::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::instance_templates::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -38603,7 +38747,7 @@ pub mod instance_templates {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::instance_templates::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::instance_templates::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -38693,7 +38837,7 @@ pub mod instance_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -38785,9 +38929,9 @@ pub mod instances {
     /// Common implementation for [crate::client::Instances] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Instances>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Instances>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -38822,7 +38966,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddAccessConfig(RequestBuilder<crate::model::instances::AddAccessConfigRequest>);
+    pub struct AddAccessConfig(
+        pub(crate) RequestBuilder<crate::model::instances::AddAccessConfigRequest>,
+    );
 
     impl AddAccessConfig {
         pub(crate) fn new(
@@ -38986,7 +39132,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddNetworkInterface(
-        RequestBuilder<crate::model::instances::AddNetworkInterfaceRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::AddNetworkInterfaceRequest>,
     );
 
     impl AddNetworkInterface {
@@ -39145,7 +39291,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddResourcePolicies(
-        RequestBuilder<crate::model::instances::AddResourcePoliciesRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::AddResourcePoliciesRequest>,
     );
 
     impl AddResourcePolicies {
@@ -39307,7 +39453,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::instances::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::instances::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -39506,7 +39654,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AttachDisk(RequestBuilder<crate::model::instances::AttachDiskRequest>);
+    pub struct AttachDisk(pub(crate) RequestBuilder<crate::model::instances::AttachDiskRequest>);
 
     impl AttachDisk {
         pub(crate) fn new(
@@ -39681,7 +39829,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BulkInsert(RequestBuilder<crate::model::instances::BulkInsertRequest>);
+    pub struct BulkInsert(pub(crate) RequestBuilder<crate::model::instances::BulkInsertRequest>);
 
     impl BulkInsert {
         pub(crate) fn new(
@@ -39832,7 +39980,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::instances::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::instances::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -39990,7 +40138,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAccessConfig(
-        RequestBuilder<crate::model::instances::DeleteAccessConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::DeleteAccessConfigRequest>,
     );
 
     impl DeleteAccessConfig {
@@ -40143,7 +40291,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNetworkInterface(
-        RequestBuilder<crate::model::instances::DeleteNetworkInterfaceRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::DeleteNetworkInterfaceRequest>,
     );
 
     impl DeleteNetworkInterface {
@@ -40288,7 +40436,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DetachDisk(RequestBuilder<crate::model::instances::DetachDiskRequest>);
+    pub struct DetachDisk(pub(crate) RequestBuilder<crate::model::instances::DetachDiskRequest>);
 
     impl DetachDisk {
         pub(crate) fn new(
@@ -40433,7 +40581,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::instances::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::instances::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -40506,7 +40654,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetEffectiveFirewalls(
-        RequestBuilder<crate::model::instances::GetEffectiveFirewallsRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::GetEffectiveFirewallsRequest>,
     );
 
     impl GetEffectiveFirewalls {
@@ -40589,7 +40737,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetGuestAttributes(
-        RequestBuilder<crate::model::instances::GetGuestAttributesRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::GetGuestAttributesRequest>,
     );
 
     impl GetGuestAttributes {
@@ -40701,7 +40849,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::instances::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::instances::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -40797,7 +40947,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetScreenshot(RequestBuilder<crate::model::instances::GetScreenshotRequest>);
+    pub struct GetScreenshot(
+        pub(crate) RequestBuilder<crate::model::instances::GetScreenshotRequest>,
+    );
 
     impl GetScreenshot {
         pub(crate) fn new(
@@ -40873,7 +41025,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetSerialPortOutput(
-        RequestBuilder<crate::model::instances::GetSerialPortOutputRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::GetSerialPortOutputRequest>,
     );
 
     impl GetSerialPortOutput {
@@ -40986,7 +41138,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetShieldedInstanceIdentity(
-        RequestBuilder<crate::model::instances::GetShieldedInstanceIdentityRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::GetShieldedInstanceIdentityRequest>,
     );
 
     impl GetShieldedInstanceIdentity {
@@ -41064,7 +41216,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::instances::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::instances::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -41255,7 +41407,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::instances::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::instances::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -41421,7 +41573,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReferrers(RequestBuilder<crate::model::instances::ListReferrersRequest>);
+    pub struct ListReferrers(
+        pub(crate) RequestBuilder<crate::model::instances::ListReferrersRequest>,
+    );
 
     impl ListReferrers {
         pub(crate) fn new(
@@ -41595,7 +41749,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PerformMaintenance(
-        RequestBuilder<crate::model::instances::PerformMaintenanceRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::PerformMaintenanceRequest>,
     );
 
     impl PerformMaintenance {
@@ -41736,7 +41890,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveResourcePolicies(
-        RequestBuilder<crate::model::instances::RemoveResourcePoliciesRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::RemoveResourcePoliciesRequest>,
     );
 
     impl RemoveResourcePolicies {
@@ -41894,7 +42048,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ReportHostAsFaulty(
-        RequestBuilder<crate::model::instances::ReportHostAsFaultyRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::ReportHostAsFaultyRequest>,
     );
 
     impl ReportHostAsFaulty {
@@ -42052,7 +42206,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Reset(RequestBuilder<crate::model::instances::ResetRequest>);
+    pub struct Reset(pub(crate) RequestBuilder<crate::model::instances::ResetRequest>);
 
     impl Reset {
         pub(crate) fn new(
@@ -42191,7 +42345,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Resume(RequestBuilder<crate::model::instances::ResumeRequest>);
+    pub struct Resume(pub(crate) RequestBuilder<crate::model::instances::ResumeRequest>);
 
     impl Resume {
         pub(crate) fn new(
@@ -42331,7 +42485,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SendDiagnosticInterrupt(
-        RequestBuilder<crate::model::instances::SendDiagnosticInterruptRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::SendDiagnosticInterruptRequest>,
     );
 
     impl SendDiagnosticInterrupt {
@@ -42408,7 +42562,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetDeletionProtection(
-        RequestBuilder<crate::model::instances::SetDeletionProtectionRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::SetDeletionProtectionRequest>,
     );
 
     impl SetDeletionProtection {
@@ -42565,7 +42719,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetDiskAutoDelete(RequestBuilder<crate::model::instances::SetDiskAutoDeleteRequest>);
+    pub struct SetDiskAutoDelete(
+        pub(crate) RequestBuilder<crate::model::instances::SetDiskAutoDeleteRequest>,
+    );
 
     impl SetDiskAutoDelete {
         pub(crate) fn new(
@@ -42716,7 +42872,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::instances::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::instances::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -42809,7 +42967,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::instances::SetLabelsRequest>);
+    pub struct SetLabels(pub(crate) RequestBuilder<crate::model::instances::SetLabelsRequest>);
 
     impl SetLabels {
         pub(crate) fn new(
@@ -42967,7 +43125,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetMachineResources(
-        RequestBuilder<crate::model::instances::SetMachineResourcesRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::SetMachineResourcesRequest>,
     );
 
     impl SetMachineResources {
@@ -43125,7 +43283,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetMachineType(RequestBuilder<crate::model::instances::SetMachineTypeRequest>);
+    pub struct SetMachineType(
+        pub(crate) RequestBuilder<crate::model::instances::SetMachineTypeRequest>,
+    );
 
     impl SetMachineType {
         pub(crate) fn new(
@@ -43282,7 +43442,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetMetadata(RequestBuilder<crate::model::instances::SetMetadataRequest>);
+    pub struct SetMetadata(pub(crate) RequestBuilder<crate::model::instances::SetMetadataRequest>);
 
     impl SetMetadata {
         pub(crate) fn new(
@@ -43439,7 +43599,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetMinCpuPlatform(RequestBuilder<crate::model::instances::SetMinCpuPlatformRequest>);
+    pub struct SetMinCpuPlatform(
+        pub(crate) RequestBuilder<crate::model::instances::SetMinCpuPlatformRequest>,
+    );
 
     impl SetMinCpuPlatform {
         pub(crate) fn new(
@@ -43596,7 +43758,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetName(RequestBuilder<crate::model::instances::SetNameRequest>);
+    pub struct SetName(pub(crate) RequestBuilder<crate::model::instances::SetNameRequest>);
 
     impl SetName {
         pub(crate) fn new(
@@ -43753,7 +43915,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetScheduling(RequestBuilder<crate::model::instances::SetSchedulingRequest>);
+    pub struct SetScheduling(
+        pub(crate) RequestBuilder<crate::model::instances::SetSchedulingRequest>,
+    );
 
     impl SetScheduling {
         pub(crate) fn new(
@@ -43910,7 +44074,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetSecurityPolicy(RequestBuilder<crate::model::instances::SetSecurityPolicyRequest>);
+    pub struct SetSecurityPolicy(
+        pub(crate) RequestBuilder<crate::model::instances::SetSecurityPolicyRequest>,
+    );
 
     impl SetSecurityPolicy {
         pub(crate) fn new(
@@ -44067,7 +44233,9 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetServiceAccount(RequestBuilder<crate::model::instances::SetServiceAccountRequest>);
+    pub struct SetServiceAccount(
+        pub(crate) RequestBuilder<crate::model::instances::SetServiceAccountRequest>,
+    );
 
     impl SetServiceAccount {
         pub(crate) fn new(
@@ -44225,7 +44393,8 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetShieldedInstanceIntegrityPolicy(
-        RequestBuilder<crate::model::instances::SetShieldedInstanceIntegrityPolicyRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::instances::SetShieldedInstanceIntegrityPolicyRequest>,
     );
 
     impl SetShieldedInstanceIntegrityPolicy {
@@ -44384,7 +44553,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetTags(RequestBuilder<crate::model::instances::SetTagsRequest>);
+    pub struct SetTags(pub(crate) RequestBuilder<crate::model::instances::SetTagsRequest>);
 
     impl SetTags {
         pub(crate) fn new(
@@ -44542,7 +44711,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SimulateMaintenanceEvent(
-        RequestBuilder<crate::model::instances::SimulateMaintenanceEventRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::SimulateMaintenanceEventRequest>,
     );
 
     impl SimulateMaintenanceEvent {
@@ -44702,7 +44871,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Start(RequestBuilder<crate::model::instances::StartRequest>);
+    pub struct Start(pub(crate) RequestBuilder<crate::model::instances::StartRequest>);
 
     impl Start {
         pub(crate) fn new(
@@ -44842,7 +45011,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StartWithEncryptionKey(
-        RequestBuilder<crate::model::instances::StartWithEncryptionKeyRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::StartWithEncryptionKeyRequest>,
     );
 
     impl StartWithEncryptionKey {
@@ -44999,7 +45168,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Stop(RequestBuilder<crate::model::instances::StopRequest>);
+    pub struct Stop(pub(crate) RequestBuilder<crate::model::instances::StopRequest>);
 
     impl Stop {
         pub(crate) fn new(
@@ -45171,7 +45340,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Suspend(RequestBuilder<crate::model::instances::SuspendRequest>);
+    pub struct Suspend(pub(crate) RequestBuilder<crate::model::instances::SuspendRequest>);
 
     impl Suspend {
         pub(crate) fn new(
@@ -45329,7 +45498,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::instances::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -45423,7 +45592,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::instances::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::instances::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -45642,7 +45811,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAccessConfig(
-        RequestBuilder<crate::model::instances::UpdateAccessConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::UpdateAccessConfigRequest>,
     );
 
     impl UpdateAccessConfig {
@@ -45807,7 +45976,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDisplayDevice(
-        RequestBuilder<crate::model::instances::UpdateDisplayDeviceRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::UpdateDisplayDeviceRequest>,
     );
 
     impl UpdateDisplayDevice {
@@ -45966,7 +46135,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNetworkInterface(
-        RequestBuilder<crate::model::instances::UpdateNetworkInterfaceRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::UpdateNetworkInterfaceRequest>,
     );
 
     impl UpdateNetworkInterface {
@@ -46130,7 +46299,7 @@ pub mod instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateShieldedInstanceConfig(
-        RequestBuilder<crate::model::instances::UpdateShieldedInstanceConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::instances::UpdateShieldedInstanceConfigRequest>,
     );
 
     impl UpdateShieldedInstanceConfig {
@@ -46289,7 +46458,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -46387,9 +46556,9 @@ pub mod instant_snapshot_groups {
     /// Common implementation for [crate::client::InstantSnapshotGroups] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstantSnapshotGroups>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::InstantSnapshotGroups>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -46424,7 +46593,9 @@ pub mod instant_snapshot_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::instant_snapshot_groups::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::instant_snapshot_groups::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -46563,7 +46734,7 @@ pub mod instant_snapshot_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::instant_snapshot_groups::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::instant_snapshot_groups::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -46639,7 +46810,7 @@ pub mod instant_snapshot_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(
-        RequestBuilder<crate::model::instant_snapshot_groups::GetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::instant_snapshot_groups::GetIamPolicyRequest>,
     );
 
     impl GetIamPolicy {
@@ -46736,7 +46907,9 @@ pub mod instant_snapshot_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::instant_snapshot_groups::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::instant_snapshot_groups::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -46909,7 +47082,7 @@ pub mod instant_snapshot_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::instant_snapshot_groups::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::instant_snapshot_groups::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -47079,7 +47252,7 @@ pub mod instant_snapshot_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(
-        RequestBuilder<crate::model::instant_snapshot_groups::SetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::instant_snapshot_groups::SetIamPolicyRequest>,
     );
 
     impl SetIamPolicy {
@@ -47174,7 +47347,7 @@ pub mod instant_snapshot_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::instant_snapshot_groups::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::instant_snapshot_groups::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -47270,7 +47443,7 @@ pub mod instant_snapshot_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -47368,9 +47541,9 @@ pub mod instant_snapshots {
     /// Common implementation for [crate::client::InstantSnapshots] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstantSnapshots>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::InstantSnapshots>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -47410,7 +47583,7 @@ pub mod instant_snapshots {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::instant_snapshots::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::instant_snapshots::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -47610,7 +47783,7 @@ pub mod instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::instant_snapshots::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::instant_snapshots::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -47749,7 +47922,7 @@ pub mod instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::instant_snapshots::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::instant_snapshots::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -47824,7 +47997,9 @@ pub mod instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::instant_snapshots::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::instant_snapshots::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -47920,7 +48095,7 @@ pub mod instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::instant_snapshots::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::instant_snapshots::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -48075,7 +48250,7 @@ pub mod instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::instant_snapshots::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::instant_snapshots::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -48242,7 +48417,9 @@ pub mod instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::instant_snapshots::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::instant_snapshots::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -48335,7 +48512,9 @@ pub mod instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::instant_snapshots::SetLabelsRequest>);
+    pub struct SetLabels(
+        pub(crate) RequestBuilder<crate::model::instant_snapshots::SetLabelsRequest>,
+    );
 
     impl SetLabels {
         pub(crate) fn new(
@@ -48493,7 +48672,7 @@ pub mod instant_snapshots {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::instant_snapshots::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::instant_snapshots::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -48587,7 +48766,7 @@ pub mod instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -48685,9 +48864,10 @@ pub mod interconnect_attachment_groups {
     /// Common implementation for [crate::client::InterconnectAttachmentGroups] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InterconnectAttachmentGroups>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::InterconnectAttachmentGroups>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -48722,7 +48902,9 @@ pub mod interconnect_attachment_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::interconnect_attachment_groups::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::interconnect_attachment_groups::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -48856,7 +49038,9 @@ pub mod interconnect_attachment_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::interconnect_attachment_groups::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::interconnect_attachment_groups::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -48929,7 +49113,8 @@ pub mod interconnect_attachment_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(
-        RequestBuilder<crate::model::interconnect_attachment_groups::GetIamPolicyRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::interconnect_attachment_groups::GetIamPolicyRequest>,
     );
 
     impl GetIamPolicy {
@@ -49023,7 +49208,8 @@ pub mod interconnect_attachment_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperationalStatus(
-        RequestBuilder<crate::model::interconnect_attachment_groups::GetOperationalStatusRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::interconnect_attachment_groups::GetOperationalStatusRequest>,
     );
 
     impl GetOperationalStatus {
@@ -49101,7 +49287,9 @@ pub mod interconnect_attachment_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::interconnect_attachment_groups::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::interconnect_attachment_groups::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -49248,7 +49436,9 @@ pub mod interconnect_attachment_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::interconnect_attachment_groups::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::interconnect_attachment_groups::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -49411,7 +49601,9 @@ pub mod interconnect_attachment_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::interconnect_attachment_groups::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::interconnect_attachment_groups::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -49580,7 +49772,8 @@ pub mod interconnect_attachment_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(
-        RequestBuilder<crate::model::interconnect_attachment_groups::SetIamPolicyRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::interconnect_attachment_groups::SetIamPolicyRequest>,
     );
 
     impl SetIamPolicy {
@@ -49671,7 +49864,8 @@ pub mod interconnect_attachment_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::interconnect_attachment_groups::TestIamPermissionsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::interconnect_attachment_groups::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -49761,7 +49955,7 @@ pub mod interconnect_attachment_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -49853,9 +50047,9 @@ pub mod interconnect_attachments {
     /// Common implementation for [crate::client::InterconnectAttachments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InterconnectAttachments>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::InterconnectAttachments>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -49895,7 +50089,7 @@ pub mod interconnect_attachments {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::interconnect_attachments::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::interconnect_attachments::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -50097,7 +50291,9 @@ pub mod interconnect_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::interconnect_attachments::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::interconnect_attachments::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -50236,7 +50432,7 @@ pub mod interconnect_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::interconnect_attachments::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::interconnect_attachments::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -50311,7 +50507,9 @@ pub mod interconnect_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::interconnect_attachments::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::interconnect_attachments::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -50484,7 +50682,7 @@ pub mod interconnect_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::interconnect_attachments::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::interconnect_attachments::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -50653,7 +50851,9 @@ pub mod interconnect_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::interconnect_attachments::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::interconnect_attachments::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -50810,7 +51010,9 @@ pub mod interconnect_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::interconnect_attachments::SetLabelsRequest>);
+    pub struct SetLabels(
+        pub(crate) RequestBuilder<crate::model::interconnect_attachments::SetLabelsRequest>,
+    );
 
     impl SetLabels {
         pub(crate) fn new(
@@ -50966,7 +51168,7 @@ pub mod interconnect_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -51064,9 +51266,9 @@ pub mod interconnect_groups {
     /// Common implementation for [crate::client::InterconnectGroups] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InterconnectGroups>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::InterconnectGroups>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -51102,7 +51304,7 @@ pub mod interconnect_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMembers(
-        RequestBuilder<crate::model::interconnect_groups::CreateMembersRequest>,
+        pub(crate) RequestBuilder<crate::model::interconnect_groups::CreateMembersRequest>,
     );
 
     impl CreateMembers {
@@ -51232,7 +51434,7 @@ pub mod interconnect_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::interconnect_groups::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::interconnect_groups::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -51362,7 +51564,7 @@ pub mod interconnect_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::interconnect_groups::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::interconnect_groups::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -51431,7 +51633,9 @@ pub mod interconnect_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::interconnect_groups::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::interconnect_groups::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -51522,7 +51726,7 @@ pub mod interconnect_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperationalStatus(
-        RequestBuilder<crate::model::interconnect_groups::GetOperationalStatusRequest>,
+        pub(crate) RequestBuilder<crate::model::interconnect_groups::GetOperationalStatusRequest>,
     );
 
     impl GetOperationalStatus {
@@ -51596,7 +51800,7 @@ pub mod interconnect_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::interconnect_groups::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::interconnect_groups::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -51742,7 +51946,7 @@ pub mod interconnect_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::interconnect_groups::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::interconnect_groups::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -51905,7 +52109,7 @@ pub mod interconnect_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::interconnect_groups::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::interconnect_groups::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -52071,7 +52275,9 @@ pub mod interconnect_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::interconnect_groups::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::interconnect_groups::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -52159,7 +52365,7 @@ pub mod interconnect_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::interconnect_groups::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::interconnect_groups::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -52249,7 +52455,7 @@ pub mod interconnect_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -52341,9 +52547,9 @@ pub mod interconnect_locations {
     /// Common implementation for [crate::client::InterconnectLocations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InterconnectLocations>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::InterconnectLocations>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -52378,7 +52584,7 @@ pub mod interconnect_locations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::interconnect_locations::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::interconnect_locations::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -52451,7 +52657,7 @@ pub mod interconnect_locations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::interconnect_locations::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::interconnect_locations::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -52637,9 +52843,10 @@ pub mod interconnect_remote_locations {
     /// Common implementation for [crate::client::InterconnectRemoteLocations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InterconnectRemoteLocations>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::InterconnectRemoteLocations>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -52674,7 +52881,9 @@ pub mod interconnect_remote_locations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::interconnect_remote_locations::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::interconnect_remote_locations::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -52750,7 +52959,9 @@ pub mod interconnect_remote_locations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::interconnect_remote_locations::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::interconnect_remote_locations::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -52936,9 +53147,9 @@ pub mod interconnects {
     /// Common implementation for [crate::client::Interconnects] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Interconnects>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Interconnects>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -52973,7 +53184,7 @@ pub mod interconnects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::interconnects::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::interconnects::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -53103,7 +53314,7 @@ pub mod interconnects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::interconnects::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::interconnects::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -53172,7 +53383,9 @@ pub mod interconnects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDiagnostics(RequestBuilder<crate::model::interconnects::GetDiagnosticsRequest>);
+    pub struct GetDiagnostics(
+        pub(crate) RequestBuilder<crate::model::interconnects::GetDiagnosticsRequest>,
+    );
 
     impl GetDiagnostics {
         pub(crate) fn new(
@@ -53241,7 +53454,9 @@ pub mod interconnects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMacsecConfig(RequestBuilder<crate::model::interconnects::GetMacsecConfigRequest>);
+    pub struct GetMacsecConfig(
+        pub(crate) RequestBuilder<crate::model::interconnects::GetMacsecConfigRequest>,
+    );
 
     impl GetMacsecConfig {
         pub(crate) fn new(
@@ -53310,7 +53525,7 @@ pub mod interconnects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::interconnects::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::interconnects::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -53456,7 +53671,7 @@ pub mod interconnects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::interconnects::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::interconnects::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -53615,7 +53830,7 @@ pub mod interconnects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::interconnects::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::interconnects::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -53763,7 +53978,7 @@ pub mod interconnects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::interconnects::SetLabelsRequest>);
+    pub struct SetLabels(pub(crate) RequestBuilder<crate::model::interconnects::SetLabelsRequest>);
 
     impl SetLabels {
         pub(crate) fn new(
@@ -53893,7 +54108,7 @@ pub mod interconnects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetName(RequestBuilder<crate::model::interconnects::SetNameRequest>);
+    pub struct SetName(pub(crate) RequestBuilder<crate::model::interconnects::SetNameRequest>);
 
     impl SetName {
         pub(crate) fn new(
@@ -54041,7 +54256,7 @@ pub mod interconnects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -54133,9 +54348,9 @@ pub mod license_codes {
     /// Common implementation for [crate::client::LicenseCodes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseCodes>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseCodes>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -54170,7 +54385,7 @@ pub mod license_codes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::license_codes::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::license_codes::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -54239,7 +54454,9 @@ pub mod license_codes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::license_codes::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::license_codes::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -54329,7 +54546,9 @@ pub mod license_codes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::license_codes::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::license_codes::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -54417,7 +54636,7 @@ pub mod license_codes {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::license_codes::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::license_codes::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -54528,9 +54747,9 @@ pub mod licenses {
     /// Common implementation for [crate::client::Licenses] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Licenses>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Licenses>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -54563,7 +54782,7 @@ pub mod licenses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::licenses::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::licenses::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Licenses>) -> Self {
@@ -54691,7 +54910,7 @@ pub mod licenses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::licenses::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::licenses::GetRequest>);
 
     impl Get {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Licenses>) -> Self {
@@ -54755,7 +54974,7 @@ pub mod licenses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::licenses::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(pub(crate) RequestBuilder<crate::model::licenses::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Licenses>) -> Self {
@@ -54843,7 +55062,7 @@ pub mod licenses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::licenses::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::licenses::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Licenses>) -> Self {
@@ -54987,7 +55206,7 @@ pub mod licenses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::licenses::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::licenses::ListRequest>);
 
     impl List {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Licenses>) -> Self {
@@ -55143,7 +55362,7 @@ pub mod licenses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::licenses::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(pub(crate) RequestBuilder<crate::model::licenses::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Licenses>) -> Self {
@@ -55229,7 +55448,7 @@ pub mod licenses {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::licenses::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::licenses::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -55315,7 +55534,7 @@ pub mod licenses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::licenses::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::licenses::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Licenses>) -> Self {
@@ -55479,7 +55698,7 @@ pub mod licenses {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Licenses>) -> Self {
@@ -55569,9 +55788,9 @@ pub mod machine_images {
     /// Common implementation for [crate::client::MachineImages] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::MachineImages>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::MachineImages>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -55606,7 +55825,7 @@ pub mod machine_images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::machine_images::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::machine_images::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -55736,7 +55955,7 @@ pub mod machine_images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::machine_images::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::machine_images::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -55805,7 +56024,9 @@ pub mod machine_images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::machine_images::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::machine_images::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -55895,7 +56116,7 @@ pub mod machine_images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::machine_images::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::machine_images::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -56059,7 +56280,7 @@ pub mod machine_images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::machine_images::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::machine_images::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -56218,7 +56439,9 @@ pub mod machine_images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::machine_images::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::machine_images::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -56305,7 +56528,7 @@ pub mod machine_images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::machine_images::SetLabelsRequest>);
+    pub struct SetLabels(pub(crate) RequestBuilder<crate::model::machine_images::SetLabelsRequest>);
 
     impl SetLabels {
         pub(crate) fn new(
@@ -56436,7 +56659,7 @@ pub mod machine_images {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::machine_images::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::machine_images::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -56524,7 +56747,7 @@ pub mod machine_images {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -56616,9 +56839,9 @@ pub mod machine_types {
     /// Common implementation for [crate::client::MachineTypes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::MachineTypes>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::MachineTypes>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -56657,7 +56880,9 @@ pub mod machine_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::machine_types::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::machine_types::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -56856,7 +57081,7 @@ pub mod machine_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::machine_types::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::machine_types::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -56935,7 +57160,7 @@ pub mod machine_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::machine_types::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::machine_types::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -57123,9 +57348,9 @@ pub mod managed_rulesets {
     /// Common implementation for [crate::client::ManagedRulesets] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedRulesets>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedRulesets>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -57160,7 +57385,7 @@ pub mod managed_rulesets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::managed_rulesets::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::managed_rulesets::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -57233,7 +57458,7 @@ pub mod managed_rulesets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::managed_rulesets::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::managed_rulesets::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -57417,9 +57642,9 @@ pub mod network_attachments {
     /// Common implementation for [crate::client::NetworkAttachments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkAttachments>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkAttachments>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -57459,7 +57684,7 @@ pub mod network_attachments {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::network_attachments::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::network_attachments::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -57659,7 +57884,7 @@ pub mod network_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::network_attachments::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::network_attachments::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -57798,7 +58023,7 @@ pub mod network_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::network_attachments::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::network_attachments::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -57873,7 +58098,9 @@ pub mod network_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::network_attachments::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::network_attachments::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -57969,7 +58196,7 @@ pub mod network_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::network_attachments::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::network_attachments::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -58124,7 +58351,7 @@ pub mod network_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::network_attachments::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::network_attachments::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -58291,7 +58518,7 @@ pub mod network_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::network_attachments::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::network_attachments::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -58448,7 +58675,9 @@ pub mod network_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::network_attachments::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::network_attachments::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -58542,7 +58771,7 @@ pub mod network_attachments {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::network_attachments::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::network_attachments::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -58638,7 +58867,7 @@ pub mod network_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -58736,9 +58965,10 @@ pub mod network_edge_security_services {
     /// Common implementation for [crate::client::NetworkEdgeSecurityServices] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkEdgeSecurityServices>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::NetworkEdgeSecurityServices>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -58778,7 +59008,8 @@ pub mod network_edge_security_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::network_edge_security_services::AggregatedListRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::network_edge_security_services::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -58980,7 +59211,9 @@ pub mod network_edge_security_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::network_edge_security_services::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::network_edge_security_services::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -59123,7 +59356,9 @@ pub mod network_edge_security_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::network_edge_security_services::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::network_edge_security_services::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -59201,7 +59436,9 @@ pub mod network_edge_security_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::network_edge_security_services::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::network_edge_security_services::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -59371,7 +59608,9 @@ pub mod network_edge_security_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::network_edge_security_services::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::network_edge_security_services::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -59566,7 +59805,7 @@ pub mod network_edge_security_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -59664,9 +59903,9 @@ pub mod network_endpoint_groups {
     /// Common implementation for [crate::client::NetworkEndpointGroups] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkEndpointGroups>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkEndpointGroups>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -59706,7 +59945,7 @@ pub mod network_endpoint_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::network_endpoint_groups::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::network_endpoint_groups::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -59909,7 +60148,8 @@ pub mod network_endpoint_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AttachNetworkEndpoints(
-        RequestBuilder<crate::model::network_endpoint_groups::AttachNetworkEndpointsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::network_endpoint_groups::AttachNetworkEndpointsRequest>,
     );
 
     impl AttachNetworkEndpoints {
@@ -60068,7 +60308,9 @@ pub mod network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::network_endpoint_groups::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::network_endpoint_groups::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -60208,7 +60450,8 @@ pub mod network_endpoint_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DetachNetworkEndpoints(
-        RequestBuilder<crate::model::network_endpoint_groups::DetachNetworkEndpointsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::network_endpoint_groups::DetachNetworkEndpointsRequest>,
     );
 
     impl DetachNetworkEndpoints {
@@ -60367,7 +60610,7 @@ pub mod network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::network_endpoint_groups::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::network_endpoint_groups::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -60442,7 +60685,9 @@ pub mod network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::network_endpoint_groups::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::network_endpoint_groups::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -60597,7 +60842,7 @@ pub mod network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::network_endpoint_groups::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::network_endpoint_groups::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -60771,7 +61016,8 @@ pub mod network_endpoint_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListNetworkEndpoints(
-        RequestBuilder<crate::model::network_endpoint_groups::ListNetworkEndpointsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::network_endpoint_groups::ListNetworkEndpointsRequest>,
     );
 
     impl ListNetworkEndpoints {
@@ -60968,7 +61214,7 @@ pub mod network_endpoint_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::network_endpoint_groups::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::network_endpoint_groups::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -61064,7 +61310,7 @@ pub mod network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -61162,9 +61408,9 @@ pub mod network_firewall_policies {
     /// Common implementation for [crate::client::NetworkFirewallPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkFirewallPolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkFirewallPolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -61200,7 +61446,7 @@ pub mod network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddAssociation(
-        RequestBuilder<crate::model::network_firewall_policies::AddAssociationRequest>,
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::AddAssociationRequest>,
     );
 
     impl AddAssociation {
@@ -61372,7 +61618,8 @@ pub mod network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddPacketMirroringRule(
-        RequestBuilder<crate::model::network_firewall_policies::AddPacketMirroringRuleRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::AddPacketMirroringRuleRequest>,
     );
 
     impl AddPacketMirroringRule {
@@ -61558,7 +61805,9 @@ pub mod network_firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddRule(RequestBuilder<crate::model::network_firewall_policies::AddRuleRequest>);
+    pub struct AddRule(
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::AddRuleRequest>,
+    );
 
     impl AddRule {
         pub(crate) fn new(
@@ -61746,7 +61995,7 @@ pub mod network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::network_firewall_policies::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -61949,7 +62198,7 @@ pub mod network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CloneRules(
-        RequestBuilder<crate::model::network_firewall_policies::CloneRulesRequest>,
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::CloneRulesRequest>,
     );
 
     impl CloneRules {
@@ -62097,7 +62346,9 @@ pub mod network_firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::network_firewall_policies::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -62227,7 +62478,7 @@ pub mod network_firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::network_firewall_policies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::network_firewall_policies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -62297,7 +62548,7 @@ pub mod network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetAssociation(
-        RequestBuilder<crate::model::network_firewall_policies::GetAssociationRequest>,
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::GetAssociationRequest>,
     );
 
     impl GetAssociation {
@@ -62388,7 +62639,7 @@ pub mod network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(
-        RequestBuilder<crate::model::network_firewall_policies::GetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::GetIamPolicyRequest>,
     );
 
     impl GetIamPolicy {
@@ -62482,7 +62733,8 @@ pub mod network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetPacketMirroringRule(
-        RequestBuilder<crate::model::network_firewall_policies::GetPacketMirroringRuleRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::GetPacketMirroringRuleRequest>,
     );
 
     impl GetPacketMirroringRule {
@@ -62572,7 +62824,9 @@ pub mod network_firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRule(RequestBuilder<crate::model::network_firewall_policies::GetRuleRequest>);
+    pub struct GetRule(
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::GetRuleRequest>,
+    );
 
     impl GetRule {
         pub(crate) fn new(
@@ -62659,7 +62913,9 @@ pub mod network_firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::network_firewall_policies::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -62805,7 +63061,9 @@ pub mod network_firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::network_firewall_policies::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -62966,7 +63224,9 @@ pub mod network_firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::network_firewall_policies::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -63115,7 +63375,8 @@ pub mod network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PatchPacketMirroringRule(
-        RequestBuilder<crate::model::network_firewall_policies::PatchPacketMirroringRuleRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::PatchPacketMirroringRuleRequest>,
     );
 
     impl PatchPacketMirroringRule {
@@ -63283,7 +63544,9 @@ pub mod network_firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PatchRule(RequestBuilder<crate::model::network_firewall_policies::PatchRuleRequest>);
+    pub struct PatchRule(
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::PatchRuleRequest>,
+    );
 
     impl PatchRule {
         pub(crate) fn new(
@@ -63449,7 +63712,8 @@ pub mod network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveAssociation(
-        RequestBuilder<crate::model::network_firewall_policies::RemoveAssociationRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::RemoveAssociationRequest>,
     );
 
     impl RemoveAssociation {
@@ -63600,7 +63864,8 @@ pub mod network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemovePacketMirroringRule(
-        RequestBuilder<crate::model::network_firewall_policies::RemovePacketMirroringRuleRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::RemovePacketMirroringRuleRequest>,
     );
 
     impl RemovePacketMirroringRule {
@@ -63751,7 +64016,7 @@ pub mod network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveRule(
-        RequestBuilder<crate::model::network_firewall_policies::RemoveRuleRequest>,
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::RemoveRuleRequest>,
     );
 
     impl RemoveRule {
@@ -63900,7 +64165,7 @@ pub mod network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(
-        RequestBuilder<crate::model::network_firewall_policies::SetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::SetIamPolicyRequest>,
     );
 
     impl SetIamPolicy {
@@ -63991,7 +64256,8 @@ pub mod network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::network_firewall_policies::TestIamPermissionsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::network_firewall_policies::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -64081,7 +64347,7 @@ pub mod network_firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -64173,9 +64439,9 @@ pub mod network_profiles {
     /// Common implementation for [crate::client::NetworkProfiles] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkProfiles>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkProfiles>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -64210,7 +64476,7 @@ pub mod network_profiles {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::network_profiles::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::network_profiles::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -64283,7 +64549,7 @@ pub mod network_profiles {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::network_profiles::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::network_profiles::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -64469,9 +64735,9 @@ pub mod networks {
     /// Common implementation for [crate::client::Networks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Networks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Networks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -64504,7 +64770,7 @@ pub mod networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddPeering(RequestBuilder<crate::model::networks::AddPeeringRequest>);
+    pub struct AddPeering(pub(crate) RequestBuilder<crate::model::networks::AddPeeringRequest>);
 
     impl AddPeering {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Networks>) -> Self {
@@ -64651,7 +64917,7 @@ pub mod networks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelRequestRemovePeering(
-        RequestBuilder<crate::model::networks::CancelRequestRemovePeeringRequest>,
+        pub(crate) RequestBuilder<crate::model::networks::CancelRequestRemovePeeringRequest>,
     );
 
     impl CancelRequestRemovePeering {
@@ -64797,7 +65063,7 @@ pub mod networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::networks::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::networks::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Networks>) -> Self {
@@ -64925,7 +65191,7 @@ pub mod networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::networks::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::networks::GetRequest>);
 
     impl Get {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Networks>) -> Self {
@@ -64990,7 +65256,7 @@ pub mod networks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetEffectiveFirewalls(
-        RequestBuilder<crate::model::networks::GetEffectiveFirewallsRequest>,
+        pub(crate) RequestBuilder<crate::model::networks::GetEffectiveFirewallsRequest>,
     );
 
     impl GetEffectiveFirewalls {
@@ -65058,7 +65324,7 @@ pub mod networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::networks::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::networks::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Networks>) -> Self {
@@ -65202,7 +65468,7 @@ pub mod networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::networks::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::networks::ListRequest>);
 
     impl List {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Networks>) -> Self {
@@ -65360,7 +65626,9 @@ pub mod networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPeeringRoutes(RequestBuilder<crate::model::networks::ListPeeringRoutesRequest>);
+    pub struct ListPeeringRoutes(
+        pub(crate) RequestBuilder<crate::model::networks::ListPeeringRoutesRequest>,
+    );
 
     impl ListPeeringRoutes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Networks>) -> Self {
@@ -65581,7 +65849,7 @@ pub mod networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::networks::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::networks::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Networks>) -> Self {
@@ -65724,7 +65992,9 @@ pub mod networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemovePeering(RequestBuilder<crate::model::networks::RemovePeeringRequest>);
+    pub struct RemovePeering(
+        pub(crate) RequestBuilder<crate::model::networks::RemovePeeringRequest>,
+    );
 
     impl RemovePeering {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Networks>) -> Self {
@@ -65871,7 +66141,7 @@ pub mod networks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RequestRemovePeering(
-        RequestBuilder<crate::model::networks::RequestRemovePeeringRequest>,
+        pub(crate) RequestBuilder<crate::model::networks::RequestRemovePeeringRequest>,
     );
 
     impl RequestRemovePeering {
@@ -66019,7 +66289,7 @@ pub mod networks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SwitchToCustomMode(
-        RequestBuilder<crate::model::networks::SwitchToCustomModeRequest>,
+        pub(crate) RequestBuilder<crate::model::networks::SwitchToCustomModeRequest>,
     );
 
     impl SwitchToCustomMode {
@@ -66148,7 +66418,9 @@ pub mod networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePeering(RequestBuilder<crate::model::networks::UpdatePeeringRequest>);
+    pub struct UpdatePeering(
+        pub(crate) RequestBuilder<crate::model::networks::UpdatePeeringRequest>,
+    );
 
     impl UpdatePeering {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Networks>) -> Self {
@@ -66294,7 +66566,7 @@ pub mod networks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Networks>) -> Self {
@@ -66384,9 +66656,9 @@ pub mod node_groups {
     /// Common implementation for [crate::client::NodeGroups] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroups>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroups>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66421,7 +66693,7 @@ pub mod node_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddNodes(RequestBuilder<crate::model::node_groups::AddNodesRequest>);
+    pub struct AddNodes(pub(crate) RequestBuilder<crate::model::node_groups::AddNodesRequest>);
 
     impl AddNodes {
         pub(crate) fn new(
@@ -66582,7 +66854,9 @@ pub mod node_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::node_groups::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::node_groups::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -66781,7 +67055,7 @@ pub mod node_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::node_groups::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::node_groups::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -66920,7 +67194,9 @@ pub mod node_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteNodes(RequestBuilder<crate::model::node_groups::DeleteNodesRequest>);
+    pub struct DeleteNodes(
+        pub(crate) RequestBuilder<crate::model::node_groups::DeleteNodesRequest>,
+    );
 
     impl DeleteNodes {
         pub(crate) fn new(
@@ -67077,7 +67353,7 @@ pub mod node_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::node_groups::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::node_groups::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -67152,7 +67428,9 @@ pub mod node_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::node_groups::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::node_groups::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -67248,7 +67526,7 @@ pub mod node_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::node_groups::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::node_groups::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -67409,7 +67687,7 @@ pub mod node_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::node_groups::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::node_groups::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -67578,7 +67856,7 @@ pub mod node_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNodes(RequestBuilder<crate::model::node_groups::ListNodesRequest>);
+    pub struct ListNodes(pub(crate) RequestBuilder<crate::model::node_groups::ListNodesRequest>);
 
     impl ListNodes {
         pub(crate) fn new(
@@ -67751,7 +68029,7 @@ pub mod node_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::node_groups::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::node_groups::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -67909,7 +68187,7 @@ pub mod node_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PerformMaintenance(
-        RequestBuilder<crate::model::node_groups::PerformMaintenanceRequest>,
+        pub(crate) RequestBuilder<crate::model::node_groups::PerformMaintenanceRequest>,
     );
 
     impl PerformMaintenance {
@@ -68067,7 +68345,9 @@ pub mod node_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::node_groups::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::node_groups::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -68160,7 +68440,9 @@ pub mod node_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetNodeTemplate(RequestBuilder<crate::model::node_groups::SetNodeTemplateRequest>);
+    pub struct SetNodeTemplate(
+        pub(crate) RequestBuilder<crate::model::node_groups::SetNodeTemplateRequest>,
+    );
 
     impl SetNodeTemplate {
         pub(crate) fn new(
@@ -68318,7 +68600,7 @@ pub mod node_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SimulateMaintenanceEvent(
-        RequestBuilder<crate::model::node_groups::SimulateMaintenanceEventRequest>,
+        pub(crate) RequestBuilder<crate::model::node_groups::SimulateMaintenanceEventRequest>,
     );
 
     impl SimulateMaintenanceEvent {
@@ -68476,7 +68758,7 @@ pub mod node_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::node_groups::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::node_groups::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -68570,7 +68852,7 @@ pub mod node_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -68668,9 +68950,9 @@ pub mod node_templates {
     /// Common implementation for [crate::client::NodeTemplates] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeTemplates>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeTemplates>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -68709,7 +68991,9 @@ pub mod node_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::node_templates::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::node_templates::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -68908,7 +69192,7 @@ pub mod node_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::node_templates::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::node_templates::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -69047,7 +69331,7 @@ pub mod node_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::node_templates::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::node_templates::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -69122,7 +69406,9 @@ pub mod node_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::node_templates::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::node_templates::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -69218,7 +69504,7 @@ pub mod node_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::node_templates::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::node_templates::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -69373,7 +69659,7 @@ pub mod node_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::node_templates::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::node_templates::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -69538,7 +69824,9 @@ pub mod node_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::node_templates::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::node_templates::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -69632,7 +69920,7 @@ pub mod node_templates {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::node_templates::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::node_templates::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -69726,7 +70014,7 @@ pub mod node_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -69824,9 +70112,9 @@ pub mod node_types {
     /// Common implementation for [crate::client::NodeTypes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeTypes>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeTypes>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -69865,7 +70153,9 @@ pub mod node_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::node_types::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::node_types::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -70064,7 +70354,7 @@ pub mod node_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::node_types::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::node_types::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -70140,7 +70430,7 @@ pub mod node_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::node_types::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::node_types::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -70328,9 +70618,10 @@ pub mod organization_security_policies {
     /// Common implementation for [crate::client::OrganizationSecurityPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::OrganizationSecurityPolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::OrganizationSecurityPolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -70366,7 +70657,8 @@ pub mod organization_security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddAssociation(
-        RequestBuilder<crate::model::organization_security_policies::AddAssociationRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::AddAssociationRequest>,
     );
 
     impl AddAssociation {
@@ -70529,7 +70821,7 @@ pub mod organization_security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddRule(
-        RequestBuilder<crate::model::organization_security_policies::AddRuleRequest>,
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::AddRuleRequest>,
     );
 
     impl AddRule {
@@ -70671,7 +70963,7 @@ pub mod organization_security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CopyRules(
-        RequestBuilder<crate::model::organization_security_policies::CopyRulesRequest>,
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::CopyRulesRequest>,
     );
 
     impl CopyRules {
@@ -70812,7 +71104,9 @@ pub mod organization_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::organization_security_policies::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -70934,7 +71228,9 @@ pub mod organization_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::organization_security_policies::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -70998,7 +71294,8 @@ pub mod organization_security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetAssociation(
-        RequestBuilder<crate::model::organization_security_policies::GetAssociationRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::GetAssociationRequest>,
     );
 
     impl GetAssociation {
@@ -71083,7 +71380,7 @@ pub mod organization_security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetRule(
-        RequestBuilder<crate::model::organization_security_policies::GetRuleRequest>,
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::GetRuleRequest>,
     );
 
     impl GetRule {
@@ -71167,7 +71464,9 @@ pub mod organization_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::organization_security_policies::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -71323,7 +71622,9 @@ pub mod organization_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::organization_security_policies::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -71497,7 +71798,8 @@ pub mod organization_security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAssociations(
-        RequestBuilder<crate::model::organization_security_policies::ListAssociationsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::ListAssociationsRequest>,
     );
 
     impl ListAssociations {
@@ -71578,9 +71880,8 @@ pub mod organization_security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListPreconfiguredExpressionSets(
-        RequestBuilder<
-            crate::model::organization_security_policies::ListPreconfiguredExpressionSetsRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::ListPreconfiguredExpressionSetsRequest>,
     );
 
     impl ListPreconfiguredExpressionSets {
@@ -71727,7 +72028,9 @@ pub mod organization_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Move(RequestBuilder<crate::model::organization_security_policies::MoveRequest>);
+    pub struct Move(
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::MoveRequest>,
+    );
 
     impl Move {
         pub(crate) fn new(
@@ -71865,7 +72168,9 @@ pub mod organization_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::organization_security_policies::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -72004,7 +72309,7 @@ pub mod organization_security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PatchRule(
-        RequestBuilder<crate::model::organization_security_policies::PatchRuleRequest>,
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::PatchRuleRequest>,
     );
 
     impl PatchRule {
@@ -72164,7 +72469,8 @@ pub mod organization_security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveAssociation(
-        RequestBuilder<crate::model::organization_security_policies::RemoveAssociationRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::RemoveAssociationRequest>,
     );
 
     impl RemoveAssociation {
@@ -72306,7 +72612,7 @@ pub mod organization_security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveRule(
-        RequestBuilder<crate::model::organization_security_policies::RemoveRuleRequest>,
+        pub(crate) RequestBuilder<crate::model::organization_security_policies::RemoveRuleRequest>,
     );
 
     impl RemoveRule {
@@ -72448,7 +72754,7 @@ pub mod organization_security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(
-        RequestBuilder<crate::model::global_organization_operations::GetRequest>,
+        pub(crate) RequestBuilder<crate::model::global_organization_operations::GetRequest>,
     );
 
     impl GetOperation {
@@ -72553,9 +72859,9 @@ pub mod packet_mirrorings {
     /// Common implementation for [crate::client::PacketMirrorings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PacketMirrorings>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::PacketMirrorings>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -72595,7 +72901,7 @@ pub mod packet_mirrorings {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::packet_mirrorings::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::packet_mirrorings::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -72795,7 +73101,7 @@ pub mod packet_mirrorings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::packet_mirrorings::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::packet_mirrorings::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -72934,7 +73240,7 @@ pub mod packet_mirrorings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::packet_mirrorings::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::packet_mirrorings::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -73009,7 +73315,7 @@ pub mod packet_mirrorings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::packet_mirrorings::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::packet_mirrorings::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -73164,7 +73470,7 @@ pub mod packet_mirrorings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::packet_mirrorings::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::packet_mirrorings::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -73331,7 +73637,7 @@ pub mod packet_mirrorings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::packet_mirrorings::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::packet_mirrorings::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -73489,7 +73795,7 @@ pub mod packet_mirrorings {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::packet_mirrorings::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::packet_mirrorings::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -73583,7 +73889,7 @@ pub mod packet_mirrorings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -73681,9 +73987,9 @@ pub mod preview_features {
     /// Common implementation for [crate::client::PreviewFeatures] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PreviewFeatures>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::PreviewFeatures>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -73718,7 +74024,7 @@ pub mod preview_features {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::preview_features::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::preview_features::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -73791,7 +74097,7 @@ pub mod preview_features {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::preview_features::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::preview_features::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -73952,7 +74258,7 @@ pub mod preview_features {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::preview_features::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::preview_features::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -74100,7 +74406,7 @@ pub mod preview_features {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -74192,9 +74498,9 @@ pub mod project_views {
     /// Common implementation for [crate::client::ProjectViews] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectViews>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectViews>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -74229,7 +74535,7 @@ pub mod project_views {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::project_views::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::project_views::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -74321,9 +74627,9 @@ pub mod projects {
     /// Common implementation for [crate::client::Projects] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -74356,7 +74662,9 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DisableXpnHost(RequestBuilder<crate::model::projects::DisableXpnHostRequest>);
+    pub struct DisableXpnHost(
+        pub(crate) RequestBuilder<crate::model::projects::DisableXpnHostRequest>,
+    );
 
     impl DisableXpnHost {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -74479,7 +74787,7 @@ pub mod projects {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DisableXpnResource(
-        RequestBuilder<crate::model::projects::DisableXpnResourceRequest>,
+        pub(crate) RequestBuilder<crate::model::projects::DisableXpnResourceRequest>,
     );
 
     impl DisableXpnResource {
@@ -74620,7 +74928,9 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnableXpnHost(RequestBuilder<crate::model::projects::EnableXpnHostRequest>);
+    pub struct EnableXpnHost(
+        pub(crate) RequestBuilder<crate::model::projects::EnableXpnHostRequest>,
+    );
 
     impl EnableXpnHost {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -74742,7 +75052,9 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnableXpnResource(RequestBuilder<crate::model::projects::EnableXpnResourceRequest>);
+    pub struct EnableXpnResource(
+        pub(crate) RequestBuilder<crate::model::projects::EnableXpnResourceRequest>,
+    );
 
     impl EnableXpnResource {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -74882,7 +75194,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::projects::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::projects::GetRequest>);
 
     impl Get {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -74940,7 +75252,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetXpnHost(RequestBuilder<crate::model::projects::GetXpnHostRequest>);
+    pub struct GetXpnHost(pub(crate) RequestBuilder<crate::model::projects::GetXpnHostRequest>);
 
     impl GetXpnHost {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -75005,7 +75317,9 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetXpnResources(RequestBuilder<crate::model::projects::GetXpnResourcesRequest>);
+    pub struct GetXpnResources(
+        pub(crate) RequestBuilder<crate::model::projects::GetXpnResourcesRequest>,
+    );
 
     impl GetXpnResources {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -75170,7 +75484,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListXpnHosts(RequestBuilder<crate::model::projects::ListXpnHostsRequest>);
+    pub struct ListXpnHosts(pub(crate) RequestBuilder<crate::model::projects::ListXpnHostsRequest>);
 
     impl ListXpnHosts {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -75345,7 +75659,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveDisk(RequestBuilder<crate::model::projects::MoveDiskRequest>);
+    pub struct MoveDisk(pub(crate) RequestBuilder<crate::model::projects::MoveDiskRequest>);
 
     impl MoveDisk {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -75485,7 +75799,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveInstance(RequestBuilder<crate::model::projects::MoveInstanceRequest>);
+    pub struct MoveInstance(pub(crate) RequestBuilder<crate::model::projects::MoveInstanceRequest>);
 
     impl MoveInstance {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -75625,7 +75939,9 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetCloudArmorTier(RequestBuilder<crate::model::projects::SetCloudArmorTierRequest>);
+    pub struct SetCloudArmorTier(
+        pub(crate) RequestBuilder<crate::model::projects::SetCloudArmorTierRequest>,
+    );
 
     impl SetCloudArmorTier {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -75766,7 +76082,7 @@ pub mod projects {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetCommonInstanceMetadata(
-        RequestBuilder<crate::model::projects::SetCommonInstanceMetadataRequest>,
+        pub(crate) RequestBuilder<crate::model::projects::SetCommonInstanceMetadataRequest>,
     );
 
     impl SetCommonInstanceMetadata {
@@ -75907,7 +76223,7 @@ pub mod projects {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetDefaultNetworkTier(
-        RequestBuilder<crate::model::projects::SetDefaultNetworkTierRequest>,
+        pub(crate) RequestBuilder<crate::model::projects::SetDefaultNetworkTierRequest>,
     );
 
     impl SetDefaultNetworkTier {
@@ -76048,7 +76364,7 @@ pub mod projects {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetUsageExportBucket(
-        RequestBuilder<crate::model::projects::SetUsageExportBucketRequest>,
+        pub(crate) RequestBuilder<crate::model::projects::SetUsageExportBucketRequest>,
     );
 
     impl SetUsageExportBucket {
@@ -76188,7 +76504,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -76278,9 +76594,9 @@ pub mod public_advertised_prefixes {
     /// Common implementation for [crate::client::PublicAdvertisedPrefixes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PublicAdvertisedPrefixes>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::PublicAdvertisedPrefixes>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -76315,7 +76631,9 @@ pub mod public_advertised_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Announce(RequestBuilder<crate::model::public_advertised_prefixes::AnnounceRequest>);
+    pub struct Announce(
+        pub(crate) RequestBuilder<crate::model::public_advertised_prefixes::AnnounceRequest>,
+    );
 
     impl Announce {
         pub(crate) fn new(
@@ -76444,7 +76762,9 @@ pub mod public_advertised_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::public_advertised_prefixes::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::public_advertised_prefixes::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -76574,7 +76894,7 @@ pub mod public_advertised_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::public_advertised_prefixes::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::public_advertised_prefixes::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -76643,7 +76963,9 @@ pub mod public_advertised_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::public_advertised_prefixes::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::public_advertised_prefixes::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -76789,7 +77111,9 @@ pub mod public_advertised_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::public_advertised_prefixes::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::public_advertised_prefixes::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -76952,7 +77276,9 @@ pub mod public_advertised_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::public_advertised_prefixes::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::public_advertised_prefixes::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -77100,7 +77426,9 @@ pub mod public_advertised_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Withdraw(RequestBuilder<crate::model::public_advertised_prefixes::WithdrawRequest>);
+    pub struct Withdraw(
+        pub(crate) RequestBuilder<crate::model::public_advertised_prefixes::WithdrawRequest>,
+    );
 
     impl Withdraw {
         pub(crate) fn new(
@@ -77229,7 +77557,7 @@ pub mod public_advertised_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -77321,9 +77649,9 @@ pub mod public_delegated_prefixes {
     /// Common implementation for [crate::client::PublicDelegatedPrefixes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PublicDelegatedPrefixes>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::PublicDelegatedPrefixes>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -77363,7 +77691,7 @@ pub mod public_delegated_prefixes {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::public_delegated_prefixes::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::public_delegated_prefixes::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -77565,7 +77893,9 @@ pub mod public_delegated_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Announce(RequestBuilder<crate::model::public_delegated_prefixes::AnnounceRequest>);
+    pub struct Announce(
+        pub(crate) RequestBuilder<crate::model::public_delegated_prefixes::AnnounceRequest>,
+    );
 
     impl Announce {
         pub(crate) fn new(
@@ -77703,7 +78033,9 @@ pub mod public_delegated_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::public_delegated_prefixes::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::public_delegated_prefixes::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -77842,7 +78174,7 @@ pub mod public_delegated_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::public_delegated_prefixes::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::public_delegated_prefixes::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -77917,7 +78249,9 @@ pub mod public_delegated_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::public_delegated_prefixes::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::public_delegated_prefixes::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -78072,7 +78406,9 @@ pub mod public_delegated_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::public_delegated_prefixes::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::public_delegated_prefixes::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -78241,7 +78577,9 @@ pub mod public_delegated_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::public_delegated_prefixes::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::public_delegated_prefixes::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -78398,7 +78736,9 @@ pub mod public_delegated_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Withdraw(RequestBuilder<crate::model::public_delegated_prefixes::WithdrawRequest>);
+    pub struct Withdraw(
+        pub(crate) RequestBuilder<crate::model::public_delegated_prefixes::WithdrawRequest>,
+    );
 
     impl Withdraw {
         pub(crate) fn new(
@@ -78536,7 +78876,7 @@ pub mod public_delegated_prefixes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -78634,9 +78974,9 @@ pub mod region_autoscalers {
     /// Common implementation for [crate::client::RegionAutoscalers] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionAutoscalers>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionAutoscalers>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -78671,7 +79011,7 @@ pub mod region_autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_autoscalers::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::region_autoscalers::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -78810,7 +79150,7 @@ pub mod region_autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_autoscalers::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_autoscalers::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -78885,7 +79225,7 @@ pub mod region_autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_autoscalers::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::region_autoscalers::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -79040,7 +79380,7 @@ pub mod region_autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_autoscalers::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_autoscalers::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -79207,7 +79547,7 @@ pub mod region_autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_autoscalers::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::region_autoscalers::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -79377,7 +79717,7 @@ pub mod region_autoscalers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_autoscalers::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::region_autoscalers::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -79473,7 +79813,7 @@ pub mod region_autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::region_autoscalers::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::region_autoscalers::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -79642,7 +79982,7 @@ pub mod region_autoscalers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -79740,9 +80080,9 @@ pub mod region_backend_buckets {
     /// Common implementation for [crate::client::RegionBackendBuckets] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionBackendBuckets>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionBackendBuckets>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -79777,7 +80117,9 @@ pub mod region_backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_backend_buckets::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_backend_buckets::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -79916,7 +80258,7 @@ pub mod region_backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_backend_buckets::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_backend_buckets::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -79992,7 +80334,7 @@ pub mod region_backend_buckets {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(
-        RequestBuilder<crate::model::region_backend_buckets::GetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::region_backend_buckets::GetIamPolicyRequest>,
     );
 
     impl GetIamPolicy {
@@ -80089,7 +80431,9 @@ pub mod region_backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_backend_buckets::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_backend_buckets::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -80244,7 +80588,7 @@ pub mod region_backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_backend_buckets::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_backend_buckets::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -80413,7 +80757,9 @@ pub mod region_backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUsable(RequestBuilder<crate::model::region_backend_buckets::ListUsableRequest>);
+    pub struct ListUsable(
+        pub(crate) RequestBuilder<crate::model::region_backend_buckets::ListUsableRequest>,
+    );
 
     impl ListUsable {
         pub(crate) fn new(
@@ -80582,7 +80928,7 @@ pub mod region_backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_backend_buckets::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::region_backend_buckets::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -80740,7 +81086,7 @@ pub mod region_backend_buckets {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(
-        RequestBuilder<crate::model::region_backend_buckets::SetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::region_backend_buckets::SetIamPolicyRequest>,
     );
 
     impl SetIamPolicy {
@@ -80835,7 +81181,7 @@ pub mod region_backend_buckets {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_backend_buckets::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::region_backend_buckets::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -80931,7 +81277,7 @@ pub mod region_backend_buckets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -81029,9 +81375,9 @@ pub mod region_backend_services {
     /// Common implementation for [crate::client::RegionBackendServices] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionBackendServices>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionBackendServices>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -81066,7 +81412,9 @@ pub mod region_backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_backend_services::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_backend_services::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -81205,7 +81553,7 @@ pub mod region_backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_backend_services::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_backend_services::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -81280,7 +81628,9 @@ pub mod region_backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetHealth(RequestBuilder<crate::model::region_backend_services::GetHealthRequest>);
+    pub struct GetHealth(
+        pub(crate) RequestBuilder<crate::model::region_backend_services::GetHealthRequest>,
+    );
 
     impl GetHealth {
         pub(crate) fn new(
@@ -81374,7 +81724,7 @@ pub mod region_backend_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(
-        RequestBuilder<crate::model::region_backend_services::GetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::region_backend_services::GetIamPolicyRequest>,
     );
 
     impl GetIamPolicy {
@@ -81471,7 +81821,9 @@ pub mod region_backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_backend_services::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_backend_services::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -81626,7 +81978,7 @@ pub mod region_backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_backend_services::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_backend_services::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -81797,7 +82149,9 @@ pub mod region_backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUsable(RequestBuilder<crate::model::region_backend_services::ListUsableRequest>);
+    pub struct ListUsable(
+        pub(crate) RequestBuilder<crate::model::region_backend_services::ListUsableRequest>,
+    );
 
     impl ListUsable {
         pub(crate) fn new(
@@ -81966,7 +82320,9 @@ pub mod region_backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_backend_services::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::region_backend_services::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -82124,7 +82480,7 @@ pub mod region_backend_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(
-        RequestBuilder<crate::model::region_backend_services::SetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::region_backend_services::SetIamPolicyRequest>,
     );
 
     impl SetIamPolicy {
@@ -82219,7 +82575,7 @@ pub mod region_backend_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetSecurityPolicy(
-        RequestBuilder<crate::model::region_backend_services::SetSecurityPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::region_backend_services::SetSecurityPolicyRequest>,
     );
 
     impl SetSecurityPolicy {
@@ -82379,7 +82735,7 @@ pub mod region_backend_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_backend_services::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::region_backend_services::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -82475,7 +82831,9 @@ pub mod region_backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::region_backend_services::UpdateRequest>);
+    pub struct Update(
+        pub(crate) RequestBuilder<crate::model::region_backend_services::UpdateRequest>,
+    );
 
     impl Update {
         pub(crate) fn new(
@@ -82632,7 +82990,7 @@ pub mod region_backend_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -82730,9 +83088,9 @@ pub mod region_commitments {
     /// Common implementation for [crate::client::RegionCommitments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionCommitments>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionCommitments>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -82772,7 +83130,7 @@ pub mod region_commitments {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::region_commitments::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::region_commitments::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -82972,7 +83330,7 @@ pub mod region_commitments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_commitments::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_commitments::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -83047,7 +83405,7 @@ pub mod region_commitments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_commitments::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::region_commitments::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -83202,7 +83560,7 @@ pub mod region_commitments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_commitments::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_commitments::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -83367,7 +83725,7 @@ pub mod region_commitments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::region_commitments::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::region_commitments::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -83560,7 +83918,7 @@ pub mod region_commitments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -83658,9 +84016,10 @@ pub mod region_composite_health_checks {
     /// Common implementation for [crate::client::RegionCompositeHealthChecks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionCompositeHealthChecks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::RegionCompositeHealthChecks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -83700,7 +84059,8 @@ pub mod region_composite_health_checks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::region_composite_health_checks::AggregatedListRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_composite_health_checks::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -83902,7 +84262,9 @@ pub mod region_composite_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_composite_health_checks::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_composite_health_checks::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -84042,7 +84404,9 @@ pub mod region_composite_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_composite_health_checks::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::region_composite_health_checks::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -84118,7 +84482,7 @@ pub mod region_composite_health_checks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetHealth(
-        RequestBuilder<crate::model::region_composite_health_checks::GetHealthRequest>,
+        pub(crate) RequestBuilder<crate::model::region_composite_health_checks::GetHealthRequest>,
     );
 
     impl GetHealth {
@@ -84196,7 +84560,9 @@ pub mod region_composite_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_composite_health_checks::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_composite_health_checks::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -84352,7 +84718,9 @@ pub mod region_composite_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_composite_health_checks::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::region_composite_health_checks::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -84521,7 +84889,9 @@ pub mod region_composite_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_composite_health_checks::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::region_composite_health_checks::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -84678,7 +85048,8 @@ pub mod region_composite_health_checks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_composite_health_checks::TestIamPermissionsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_composite_health_checks::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -84774,7 +85145,7 @@ pub mod region_composite_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -84872,9 +85243,9 @@ pub mod region_disk_types {
     /// Common implementation for [crate::client::RegionDiskTypes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionDiskTypes>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionDiskTypes>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -84909,7 +85280,7 @@ pub mod region_disk_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_disk_types::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_disk_types::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -84988,7 +85359,7 @@ pub mod region_disk_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_disk_types::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_disk_types::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -85178,9 +85549,9 @@ pub mod region_disks {
     /// Common implementation for [crate::client::RegionDisks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionDisks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionDisks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -85216,7 +85587,7 @@ pub mod region_disks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddResourcePolicies(
-        RequestBuilder<crate::model::region_disks::AddResourcePoliciesRequest>,
+        pub(crate) RequestBuilder<crate::model::region_disks::AddResourcePoliciesRequest>,
     );
 
     impl AddResourcePolicies {
@@ -85373,7 +85744,7 @@ pub mod region_disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BulkInsert(RequestBuilder<crate::model::region_disks::BulkInsertRequest>);
+    pub struct BulkInsert(pub(crate) RequestBuilder<crate::model::region_disks::BulkInsertRequest>);
 
     impl BulkInsert {
         pub(crate) fn new(
@@ -85524,7 +85895,9 @@ pub mod region_disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSnapshot(RequestBuilder<crate::model::region_disks::CreateSnapshotRequest>);
+    pub struct CreateSnapshot(
+        pub(crate) RequestBuilder<crate::model::region_disks::CreateSnapshotRequest>,
+    );
 
     impl CreateSnapshot {
         pub(crate) fn new(
@@ -85681,7 +86054,7 @@ pub mod region_disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_disks::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::region_disks::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -85820,7 +86193,7 @@ pub mod region_disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_disks::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_disks::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -85895,7 +86268,9 @@ pub mod region_disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::region_disks::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::region_disks::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -85991,7 +86366,7 @@ pub mod region_disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_disks::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::region_disks::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -86164,7 +86539,7 @@ pub mod region_disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_disks::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_disks::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -86330,7 +86705,7 @@ pub mod region_disks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveResourcePolicies(
-        RequestBuilder<crate::model::region_disks::RemoveResourcePoliciesRequest>,
+        pub(crate) RequestBuilder<crate::model::region_disks::RemoveResourcePoliciesRequest>,
     );
 
     impl RemoveResourcePolicies {
@@ -86487,7 +86862,7 @@ pub mod region_disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Resize(RequestBuilder<crate::model::region_disks::ResizeRequest>);
+    pub struct Resize(pub(crate) RequestBuilder<crate::model::region_disks::ResizeRequest>);
 
     impl Resize {
         pub(crate) fn new(
@@ -86644,7 +87019,9 @@ pub mod region_disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::region_disks::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::region_disks::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -86737,7 +87114,7 @@ pub mod region_disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::region_disks::SetLabelsRequest>);
+    pub struct SetLabels(pub(crate) RequestBuilder<crate::model::region_disks::SetLabelsRequest>);
 
     impl SetLabels {
         pub(crate) fn new(
@@ -86895,7 +87272,7 @@ pub mod region_disks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StartAsyncReplication(
-        RequestBuilder<crate::model::region_disks::StartAsyncReplicationRequest>,
+        pub(crate) RequestBuilder<crate::model::region_disks::StartAsyncReplicationRequest>,
     );
 
     impl StartAsyncReplication {
@@ -87053,7 +87430,7 @@ pub mod region_disks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StopAsyncReplication(
-        RequestBuilder<crate::model::region_disks::StopAsyncReplicationRequest>,
+        pub(crate) RequestBuilder<crate::model::region_disks::StopAsyncReplicationRequest>,
     );
 
     impl StopAsyncReplication {
@@ -87193,7 +87570,7 @@ pub mod region_disks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StopGroupAsyncReplication(
-        RequestBuilder<crate::model::region_disks::StopGroupAsyncReplicationRequest>,
+        pub(crate) RequestBuilder<crate::model::region_disks::StopGroupAsyncReplicationRequest>,
     );
 
     impl StopGroupAsyncReplication {
@@ -87347,7 +87724,7 @@ pub mod region_disks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_disks::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::region_disks::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -87441,7 +87818,7 @@ pub mod region_disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::region_disks::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::region_disks::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -87634,7 +88011,9 @@ pub mod region_disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateKmsKey(RequestBuilder<crate::model::region_disks::UpdateKmsKeyRequest>);
+    pub struct UpdateKmsKey(
+        pub(crate) RequestBuilder<crate::model::region_disks::UpdateKmsKeyRequest>,
+    );
 
     impl UpdateKmsKey {
         pub(crate) fn new(
@@ -87791,7 +88170,7 @@ pub mod region_disks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -87889,9 +88268,10 @@ pub mod region_health_aggregation_policies {
     /// Common implementation for [crate::client::RegionHealthAggregationPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionHealthAggregationPolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::RegionHealthAggregationPolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -87931,7 +88311,8 @@ pub mod region_health_aggregation_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::region_health_aggregation_policies::AggregatedListRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_health_aggregation_policies::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -88134,7 +88515,7 @@ pub mod region_health_aggregation_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(
-        RequestBuilder<crate::model::region_health_aggregation_policies::DeleteRequest>,
+        pub(crate) RequestBuilder<crate::model::region_health_aggregation_policies::DeleteRequest>,
     );
 
     impl Delete {
@@ -88275,7 +88656,9 @@ pub mod region_health_aggregation_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_health_aggregation_policies::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::region_health_aggregation_policies::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -88353,7 +88736,7 @@ pub mod region_health_aggregation_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(
-        RequestBuilder<crate::model::region_health_aggregation_policies::InsertRequest>,
+        pub(crate) RequestBuilder<crate::model::region_health_aggregation_policies::InsertRequest>,
     );
 
     impl Insert {
@@ -88510,7 +88893,9 @@ pub mod region_health_aggregation_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_health_aggregation_policies::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::region_health_aggregation_policies::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -88682,7 +89067,7 @@ pub mod region_health_aggregation_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Patch(
-        RequestBuilder<crate::model::region_health_aggregation_policies::PatchRequest>,
+        pub(crate) RequestBuilder<crate::model::region_health_aggregation_policies::PatchRequest>,
     );
 
     impl Patch {
@@ -88842,7 +89227,8 @@ pub mod region_health_aggregation_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_health_aggregation_policies::TestIamPermissionsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_health_aggregation_policies::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -88938,7 +89324,7 @@ pub mod region_health_aggregation_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -89036,9 +89422,9 @@ pub mod region_health_check_services {
     /// Common implementation for [crate::client::RegionHealthCheckServices] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionHealthCheckServices>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionHealthCheckServices>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89078,7 +89464,8 @@ pub mod region_health_check_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::region_health_check_services::AggregatedListRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_health_check_services::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -89280,7 +89667,9 @@ pub mod region_health_check_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_health_check_services::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_health_check_services::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -89418,7 +89807,9 @@ pub mod region_health_check_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_health_check_services::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::region_health_check_services::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -89493,7 +89884,9 @@ pub mod region_health_check_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_health_check_services::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_health_check_services::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -89647,7 +90040,9 @@ pub mod region_health_check_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_health_check_services::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::region_health_check_services::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -89816,7 +90211,9 @@ pub mod region_health_check_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_health_check_services::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::region_health_check_services::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -89974,7 +90371,8 @@ pub mod region_health_check_services {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_health_check_services::TestIamPermissionsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_health_check_services::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -90070,7 +90468,7 @@ pub mod region_health_check_services {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -90168,9 +90566,9 @@ pub mod region_health_checks {
     /// Common implementation for [crate::client::RegionHealthChecks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionHealthChecks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionHealthChecks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -90205,7 +90603,7 @@ pub mod region_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_health_checks::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::region_health_checks::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -90344,7 +90742,7 @@ pub mod region_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_health_checks::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_health_checks::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -90419,7 +90817,7 @@ pub mod region_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_health_checks::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::region_health_checks::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -90574,7 +90972,7 @@ pub mod region_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_health_checks::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_health_checks::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -90739,7 +91137,7 @@ pub mod region_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_health_checks::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::region_health_checks::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -90897,7 +91295,7 @@ pub mod region_health_checks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_health_checks::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::region_health_checks::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -90993,7 +91391,7 @@ pub mod region_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::region_health_checks::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::region_health_checks::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -91150,7 +91548,7 @@ pub mod region_health_checks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -91248,9 +91646,9 @@ pub mod region_health_sources {
     /// Common implementation for [crate::client::RegionHealthSources] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionHealthSources>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionHealthSources>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -91290,7 +91688,7 @@ pub mod region_health_sources {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::region_health_sources::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::region_health_sources::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -91490,7 +91888,9 @@ pub mod region_health_sources {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_health_sources::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_health_sources::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -91629,7 +92029,7 @@ pub mod region_health_sources {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_health_sources::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_health_sources::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -91704,7 +92104,9 @@ pub mod region_health_sources {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetHealth(RequestBuilder<crate::model::region_health_sources::GetHealthRequest>);
+    pub struct GetHealth(
+        pub(crate) RequestBuilder<crate::model::region_health_sources::GetHealthRequest>,
+    );
 
     impl GetHealth {
         pub(crate) fn new(
@@ -91779,7 +92181,9 @@ pub mod region_health_sources {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_health_sources::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_health_sources::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -91934,7 +92338,7 @@ pub mod region_health_sources {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_health_sources::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_health_sources::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -92099,7 +92503,7 @@ pub mod region_health_sources {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_health_sources::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::region_health_sources::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -92257,7 +92661,7 @@ pub mod region_health_sources {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_health_sources::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::region_health_sources::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -92353,7 +92757,7 @@ pub mod region_health_sources {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -92454,11 +92858,11 @@ pub mod region_instance_group_manager_resize_requests {
     /// Common implementation for [crate::client::RegionInstanceGroupManagerResizeRequests] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<
+        pub(crate) stub: std::sync::Arc<
             dyn super::super::stub::dynamic::RegionInstanceGroupManagerResizeRequests,
         >,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92496,7 +92900,8 @@ pub mod region_instance_group_manager_resize_requests {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Cancel(
-        RequestBuilder<crate::model::region_instance_group_manager_resize_requests::CancelRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_manager_resize_requests::CancelRequest>,
     );
 
     impl Cancel {
@@ -92646,7 +93051,8 @@ pub mod region_instance_group_manager_resize_requests {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(
-        RequestBuilder<crate::model::region_instance_group_manager_resize_requests::DeleteRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_manager_resize_requests::DeleteRequest>,
     );
 
     impl Delete {
@@ -92796,7 +93202,8 @@ pub mod region_instance_group_manager_resize_requests {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Get(
-        RequestBuilder<crate::model::region_instance_group_manager_resize_requests::GetRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_manager_resize_requests::GetRequest>,
     );
 
     impl Get {
@@ -92883,7 +93290,8 @@ pub mod region_instance_group_manager_resize_requests {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(
-        RequestBuilder<crate::model::region_instance_group_manager_resize_requests::InsertRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_manager_resize_requests::InsertRequest>,
     );
 
     impl Insert {
@@ -93049,7 +93457,8 @@ pub mod region_instance_group_manager_resize_requests {
     /// ```
     #[derive(Clone, Debug)]
     pub struct List(
-        RequestBuilder<crate::model::region_instance_group_manager_resize_requests::ListRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_manager_resize_requests::ListRequest>,
     );
 
     impl List {
@@ -93231,7 +93640,7 @@ pub mod region_instance_group_manager_resize_requests {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -93331,9 +93740,10 @@ pub mod region_instance_group_managers {
     /// Common implementation for [crate::client::RegionInstanceGroupManagers] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -93369,7 +93779,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AbandonInstances(
-        RequestBuilder<crate::model::region_instance_group_managers::AbandonInstancesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::AbandonInstancesRequest>,
     );
 
     impl AbandonInstances {
@@ -93529,9 +93940,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ApplyUpdatesToInstances(
-        RequestBuilder<
-            crate::model::region_instance_group_managers::ApplyUpdatesToInstancesRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::ApplyUpdatesToInstancesRequest>,
     );
 
     impl ApplyUpdatesToInstances {
@@ -93673,7 +94083,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstances(
-        RequestBuilder<crate::model::region_instance_group_managers::CreateInstancesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::CreateInstancesRequest>,
     );
 
     impl CreateInstances {
@@ -93832,7 +94243,9 @@ pub mod region_instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_instance_group_managers::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -93991,7 +94404,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstances(
-        RequestBuilder<crate::model::region_instance_group_managers::DeleteInstancesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::DeleteInstancesRequest>,
     );
 
     impl DeleteInstances {
@@ -94169,9 +94583,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePerInstanceConfigs(
-        RequestBuilder<
-            crate::model::region_instance_group_managers::DeletePerInstanceConfigsRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::DeletePerInstanceConfigsRequest>,
     );
 
     impl DeletePerInstanceConfigs {
@@ -94312,7 +94725,9 @@ pub mod region_instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_instance_group_managers::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -94387,7 +94802,9 @@ pub mod region_instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_instance_group_managers::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -94543,7 +94960,9 @@ pub mod region_instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_instance_group_managers::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -94717,7 +95136,7 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListErrors(
-        RequestBuilder<crate::model::region_instance_group_managers::ListErrorsRequest>,
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::ListErrorsRequest>,
     );
 
     impl ListErrors {
@@ -94902,7 +95321,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListManagedInstances(
-        RequestBuilder<crate::model::region_instance_group_managers::ListManagedInstancesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::ListManagedInstancesRequest>,
     );
 
     impl ListManagedInstances {
@@ -95087,7 +95507,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListPerInstanceConfigs(
-        RequestBuilder<crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest>,
     );
 
     impl ListPerInstanceConfigs {
@@ -95267,7 +95688,9 @@ pub mod region_instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_instance_group_managers::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -95424,9 +95847,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PatchPerInstanceConfigs(
-        RequestBuilder<
-            crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest>,
     );
 
     impl PatchPerInstanceConfigs {
@@ -95586,7 +96008,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RecreateInstances(
-        RequestBuilder<crate::model::region_instance_group_managers::RecreateInstancesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::RecreateInstancesRequest>,
     );
 
     impl RecreateInstances {
@@ -95763,7 +96186,9 @@ pub mod region_instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Resize(RequestBuilder<crate::model::region_instance_group_managers::ResizeRequest>);
+    pub struct Resize(
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::ResizeRequest>,
+    );
 
     impl Resize {
         pub(crate) fn new(
@@ -95910,7 +96335,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ResumeInstances(
-        RequestBuilder<crate::model::region_instance_group_managers::ResumeInstancesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::ResumeInstancesRequest>,
     );
 
     impl ResumeInstances {
@@ -96070,7 +96496,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetInstanceTemplate(
-        RequestBuilder<crate::model::region_instance_group_managers::SetInstanceTemplateRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::SetInstanceTemplateRequest>,
     );
 
     impl SetInstanceTemplate {
@@ -96230,7 +96657,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetTargetPools(
-        RequestBuilder<crate::model::region_instance_group_managers::SetTargetPoolsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::SetTargetPoolsRequest>,
     );
 
     impl SetTargetPools {
@@ -96390,7 +96818,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StartInstances(
-        RequestBuilder<crate::model::region_instance_group_managers::StartInstancesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::StartInstancesRequest>,
     );
 
     impl StartInstances {
@@ -96550,7 +96979,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StopInstances(
-        RequestBuilder<crate::model::region_instance_group_managers::StopInstancesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::StopInstancesRequest>,
     );
 
     impl StopInstances {
@@ -96728,7 +97158,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SuspendInstances(
-        RequestBuilder<crate::model::region_instance_group_managers::SuspendInstancesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::SuspendInstancesRequest>,
     );
 
     impl SuspendInstances {
@@ -96888,9 +97319,8 @@ pub mod region_instance_group_managers {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePerInstanceConfigs(
-        RequestBuilder<
-            crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest>,
     );
 
     impl UpdatePerInstanceConfigs {
@@ -97049,7 +97479,7 @@ pub mod region_instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -97147,9 +97577,9 @@ pub mod region_instance_groups {
     /// Common implementation for [crate::client::RegionInstanceGroups] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroups>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroups>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -97184,7 +97614,7 @@ pub mod region_instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_instance_groups::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_instance_groups::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -97263,7 +97693,7 @@ pub mod region_instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_instance_groups::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_instance_groups::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -97437,7 +97867,7 @@ pub mod region_instance_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(
-        RequestBuilder<crate::model::region_instance_groups::ListInstancesRequest>,
+        pub(crate) RequestBuilder<crate::model::region_instance_groups::ListInstancesRequest>,
     );
 
     impl ListInstances {
@@ -97632,7 +98062,7 @@ pub mod region_instance_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetNamedPorts(
-        RequestBuilder<crate::model::region_instance_groups::SetNamedPortsRequest>,
+        pub(crate) RequestBuilder<crate::model::region_instance_groups::SetNamedPortsRequest>,
     );
 
     impl SetNamedPorts {
@@ -97790,7 +98220,7 @@ pub mod region_instance_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_instance_groups::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::region_instance_groups::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -97886,7 +98316,7 @@ pub mod region_instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -97984,9 +98414,9 @@ pub mod region_instance_templates {
     /// Common implementation for [crate::client::RegionInstanceTemplates] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceTemplates>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceTemplates>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -98021,7 +98451,9 @@ pub mod region_instance_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_instance_templates::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_instance_templates::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -98160,7 +98592,7 @@ pub mod region_instance_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_instance_templates::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_instance_templates::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -98235,7 +98667,9 @@ pub mod region_instance_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_instance_templates::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_instance_templates::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -98390,7 +98824,9 @@ pub mod region_instance_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_instance_templates::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::region_instance_templates::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -98557,7 +98993,7 @@ pub mod region_instance_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -98655,9 +99091,9 @@ pub mod region_instances {
     /// Common implementation for [crate::client::RegionInstances] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstances>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstances>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -98692,7 +99128,9 @@ pub mod region_instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BulkInsert(RequestBuilder<crate::model::region_instances::BulkInsertRequest>);
+    pub struct BulkInsert(
+        pub(crate) RequestBuilder<crate::model::region_instances::BulkInsertRequest>,
+    );
 
     impl BulkInsert {
         pub(crate) fn new(
@@ -98843,7 +99281,7 @@ pub mod region_instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -98941,9 +99379,10 @@ pub mod region_instant_snapshot_groups {
     /// Common implementation for [crate::client::RegionInstantSnapshotGroups] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstantSnapshotGroups>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::RegionInstantSnapshotGroups>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -98978,7 +99417,9 @@ pub mod region_instant_snapshot_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_instant_snapshot_groups::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_instant_snapshot_groups::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -99118,7 +99559,9 @@ pub mod region_instant_snapshot_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_instant_snapshot_groups::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::region_instant_snapshot_groups::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -99194,7 +99637,8 @@ pub mod region_instant_snapshot_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(
-        RequestBuilder<crate::model::region_instant_snapshot_groups::GetIamPolicyRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instant_snapshot_groups::GetIamPolicyRequest>,
     );
 
     impl GetIamPolicy {
@@ -99293,7 +99737,9 @@ pub mod region_instant_snapshot_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_instant_snapshot_groups::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_instant_snapshot_groups::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -99467,7 +99913,9 @@ pub mod region_instant_snapshot_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_instant_snapshot_groups::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::region_instant_snapshot_groups::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -99637,7 +100085,8 @@ pub mod region_instant_snapshot_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(
-        RequestBuilder<crate::model::region_instant_snapshot_groups::SetIamPolicyRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instant_snapshot_groups::SetIamPolicyRequest>,
     );
 
     impl SetIamPolicy {
@@ -99734,7 +100183,8 @@ pub mod region_instant_snapshot_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_instant_snapshot_groups::TestIamPermissionsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instant_snapshot_groups::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -99830,7 +100280,7 @@ pub mod region_instant_snapshot_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -99928,9 +100378,9 @@ pub mod region_instant_snapshots {
     /// Common implementation for [crate::client::RegionInstantSnapshots] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstantSnapshots>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstantSnapshots>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -99965,7 +100415,9 @@ pub mod region_instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_instant_snapshots::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_instant_snapshots::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -100104,7 +100556,7 @@ pub mod region_instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_instant_snapshots::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_instant_snapshots::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -100180,7 +100632,7 @@ pub mod region_instant_snapshots {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(
-        RequestBuilder<crate::model::region_instant_snapshots::GetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::region_instant_snapshots::GetIamPolicyRequest>,
     );
 
     impl GetIamPolicy {
@@ -100279,7 +100731,9 @@ pub mod region_instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_instant_snapshots::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_instant_snapshots::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -100434,7 +100888,7 @@ pub mod region_instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_instant_snapshots::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_instant_snapshots::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -100602,7 +101056,7 @@ pub mod region_instant_snapshots {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(
-        RequestBuilder<crate::model::region_instant_snapshots::SetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::region_instant_snapshots::SetIamPolicyRequest>,
     );
 
     impl SetIamPolicy {
@@ -100698,7 +101152,9 @@ pub mod region_instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::region_instant_snapshots::SetLabelsRequest>);
+    pub struct SetLabels(
+        pub(crate) RequestBuilder<crate::model::region_instant_snapshots::SetLabelsRequest>,
+    );
 
     impl SetLabels {
         pub(crate) fn new(
@@ -100855,7 +101311,8 @@ pub mod region_instant_snapshots {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_instant_snapshots::TestIamPermissionsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_instant_snapshots::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -100951,7 +101408,7 @@ pub mod region_instant_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -101049,9 +101506,10 @@ pub mod region_network_endpoint_groups {
     /// Common implementation for [crate::client::RegionNetworkEndpointGroups] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionNetworkEndpointGroups>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::RegionNetworkEndpointGroups>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -101087,7 +101545,8 @@ pub mod region_network_endpoint_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AttachNetworkEndpoints(
-        RequestBuilder<crate::model::region_network_endpoint_groups::AttachNetworkEndpointsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_network_endpoint_groups::AttachNetworkEndpointsRequest>,
     );
 
     impl AttachNetworkEndpoints {
@@ -101246,7 +101705,9 @@ pub mod region_network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_network_endpoint_groups::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_network_endpoint_groups::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -101387,7 +101848,8 @@ pub mod region_network_endpoint_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DetachNetworkEndpoints(
-        RequestBuilder<crate::model::region_network_endpoint_groups::DetachNetworkEndpointsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_network_endpoint_groups::DetachNetworkEndpointsRequest>,
     );
 
     impl DetachNetworkEndpoints {
@@ -101546,7 +102008,9 @@ pub mod region_network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_network_endpoint_groups::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::region_network_endpoint_groups::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -101621,7 +102085,9 @@ pub mod region_network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_network_endpoint_groups::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_network_endpoint_groups::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -101777,7 +102243,9 @@ pub mod region_network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_network_endpoint_groups::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::region_network_endpoint_groups::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -101951,7 +102419,8 @@ pub mod region_network_endpoint_groups {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListNetworkEndpoints(
-        RequestBuilder<crate::model::region_network_endpoint_groups::ListNetworkEndpointsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_network_endpoint_groups::ListNetworkEndpointsRequest>,
     );
 
     impl ListNetworkEndpoints {
@@ -102129,7 +102598,7 @@ pub mod region_network_endpoint_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -102227,9 +102696,10 @@ pub mod region_network_firewall_policies {
     /// Common implementation for [crate::client::RegionNetworkFirewallPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionNetworkFirewallPolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::RegionNetworkFirewallPolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -102265,7 +102735,8 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddAssociation(
-        RequestBuilder<crate::model::region_network_firewall_policies::AddAssociationRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::AddAssociationRequest>,
     );
 
     impl AddAssociation {
@@ -102467,7 +102938,7 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddRule(
-        RequestBuilder<crate::model::region_network_firewall_policies::AddRuleRequest>,
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::AddRuleRequest>,
     );
 
     impl AddRule {
@@ -102663,7 +103134,8 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CloneRules(
-        RequestBuilder<crate::model::region_network_firewall_policies::CloneRulesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::CloneRulesRequest>,
     );
 
     impl CloneRules {
@@ -102823,7 +103295,7 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(
-        RequestBuilder<crate::model::region_network_firewall_policies::DeleteRequest>,
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::DeleteRequest>,
     );
 
     impl Delete {
@@ -102964,7 +103436,9 @@ pub mod region_network_firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_network_firewall_policies::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -103040,7 +103514,8 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetAssociation(
-        RequestBuilder<crate::model::region_network_firewall_policies::GetAssociationRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::GetAssociationRequest>,
     );
 
     impl GetAssociation {
@@ -103137,9 +103612,8 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetEffectiveFirewalls(
-        RequestBuilder<
-            crate::model::region_network_firewall_policies::GetEffectiveFirewallsRequest,
-        >,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::GetEffectiveFirewallsRequest>,
     );
 
     impl GetEffectiveFirewalls {
@@ -103221,7 +103695,8 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(
-        RequestBuilder<crate::model::region_network_firewall_policies::GetIamPolicyRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::GetIamPolicyRequest>,
     );
 
     impl GetIamPolicy {
@@ -103321,7 +103796,7 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetRule(
-        RequestBuilder<crate::model::region_network_firewall_policies::GetRuleRequest>,
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::GetRuleRequest>,
     );
 
     impl GetRule {
@@ -103418,7 +103893,7 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(
-        RequestBuilder<crate::model::region_network_firewall_policies::InsertRequest>,
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::InsertRequest>,
     );
 
     impl Insert {
@@ -103575,7 +104050,9 @@ pub mod region_network_firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_network_firewall_policies::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -103744,7 +104221,9 @@ pub mod region_network_firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_network_firewall_policies::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -103903,7 +104382,8 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PatchAssociation(
-        RequestBuilder<crate::model::region_network_firewall_policies::PatchAssociationRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::PatchAssociationRequest>,
     );
 
     impl PatchAssociation {
@@ -104063,7 +104543,7 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PatchRule(
-        RequestBuilder<crate::model::region_network_firewall_policies::PatchRuleRequest>,
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::PatchRuleRequest>,
     );
 
     impl PatchRule {
@@ -104241,7 +104721,8 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveAssociation(
-        RequestBuilder<crate::model::region_network_firewall_policies::RemoveAssociationRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::RemoveAssociationRequest>,
     );
 
     impl RemoveAssociation {
@@ -104401,7 +104882,8 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveRule(
-        RequestBuilder<crate::model::region_network_firewall_policies::RemoveRuleRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::RemoveRuleRequest>,
     );
 
     impl RemoveRule {
@@ -104561,7 +105043,8 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(
-        RequestBuilder<crate::model::region_network_firewall_policies::SetIamPolicyRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::SetIamPolicyRequest>,
     );
 
     impl SetIamPolicy {
@@ -104658,7 +105141,8 @@ pub mod region_network_firewall_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_network_firewall_policies::TestIamPermissionsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_network_firewall_policies::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -104754,7 +105238,7 @@ pub mod region_network_firewall_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -104852,9 +105336,10 @@ pub mod region_notification_endpoints {
     /// Common implementation for [crate::client::RegionNotificationEndpoints] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionNotificationEndpoints>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::RegionNotificationEndpoints>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -104894,7 +105379,8 @@ pub mod region_notification_endpoints {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::region_notification_endpoints::AggregatedListRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_notification_endpoints::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -105096,7 +105582,9 @@ pub mod region_notification_endpoints {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_notification_endpoints::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_notification_endpoints::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -105234,7 +105722,9 @@ pub mod region_notification_endpoints {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_notification_endpoints::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::region_notification_endpoints::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -105309,7 +105799,9 @@ pub mod region_notification_endpoints {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_notification_endpoints::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_notification_endpoints::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -105463,7 +105955,9 @@ pub mod region_notification_endpoints {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_notification_endpoints::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::region_notification_endpoints::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -105633,7 +106127,8 @@ pub mod region_notification_endpoints {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_notification_endpoints::TestIamPermissionsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_notification_endpoints::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -105729,7 +106224,7 @@ pub mod region_notification_endpoints {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -105827,9 +106322,9 @@ pub mod region_operations {
     /// Common implementation for [crate::client::RegionOperations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionOperations>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionOperations>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -105864,7 +106359,7 @@ pub mod region_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_operations::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::region_operations::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -105939,7 +106434,7 @@ pub mod region_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -106018,7 +106513,7 @@ pub mod region_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_operations::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_operations::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -106183,7 +106678,7 @@ pub mod region_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Wait(RequestBuilder<crate::model::region_operations::WaitRequest>);
+    pub struct Wait(pub(crate) RequestBuilder<crate::model::region_operations::WaitRequest>);
 
     impl Wait {
         pub(crate) fn new(
@@ -106281,9 +106776,9 @@ pub mod region_security_policies {
     /// Common implementation for [crate::client::RegionSecurityPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionSecurityPolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionSecurityPolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -106318,7 +106813,9 @@ pub mod region_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddRule(RequestBuilder<crate::model::region_security_policies::AddRuleRequest>);
+    pub struct AddRule(
+        pub(crate) RequestBuilder<crate::model::region_security_policies::AddRuleRequest>,
+    );
 
     impl AddRule {
         pub(crate) fn new(
@@ -106475,7 +106972,9 @@ pub mod region_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_security_policies::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_security_policies::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -106614,7 +107113,7 @@ pub mod region_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_security_policies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_security_policies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -106689,7 +107188,9 @@ pub mod region_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRule(RequestBuilder<crate::model::region_security_policies::GetRuleRequest>);
+    pub struct GetRule(
+        pub(crate) RequestBuilder<crate::model::region_security_policies::GetRuleRequest>,
+    );
 
     impl GetRule {
         pub(crate) fn new(
@@ -106782,7 +107283,9 @@ pub mod region_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_security_policies::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_security_policies::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -106955,7 +107458,7 @@ pub mod region_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_security_policies::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_security_policies::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -107122,7 +107625,9 @@ pub mod region_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_security_policies::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::region_security_policies::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -107297,7 +107802,9 @@ pub mod region_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PatchRule(RequestBuilder<crate::model::region_security_policies::PatchRuleRequest>);
+    pub struct PatchRule(
+        pub(crate) RequestBuilder<crate::model::region_security_policies::PatchRuleRequest>,
+    );
 
     impl PatchRule {
         pub(crate) fn new(
@@ -107490,7 +107997,7 @@ pub mod region_security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveRule(
-        RequestBuilder<crate::model::region_security_policies::RemoveRuleRequest>,
+        pub(crate) RequestBuilder<crate::model::region_security_policies::RemoveRuleRequest>,
     );
 
     impl RemoveRule {
@@ -107629,7 +108136,9 @@ pub mod region_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::region_security_policies::SetLabelsRequest>);
+    pub struct SetLabels(
+        pub(crate) RequestBuilder<crate::model::region_security_policies::SetLabelsRequest>,
+    );
 
     impl SetLabels {
         pub(crate) fn new(
@@ -107785,7 +108294,7 @@ pub mod region_security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -107883,9 +108392,9 @@ pub mod region_snapshot_settings {
     /// Common implementation for [crate::client::RegionSnapshotSettings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionSnapshotSettings>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionSnapshotSettings>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -107920,7 +108429,7 @@ pub mod region_snapshot_settings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_snapshot_settings::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_snapshot_settings::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -107989,7 +108498,9 @@ pub mod region_snapshot_settings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_snapshot_settings::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::region_snapshot_settings::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -108158,7 +108669,7 @@ pub mod region_snapshot_settings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -108256,9 +108767,9 @@ pub mod region_snapshots {
     /// Common implementation for [crate::client::RegionSnapshots] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionSnapshots>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionSnapshots>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -108293,7 +108804,7 @@ pub mod region_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_snapshots::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::region_snapshots::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -108432,7 +108943,7 @@ pub mod region_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_snapshots::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_snapshots::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -108507,7 +109018,9 @@ pub mod region_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::region_snapshots::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::region_snapshots::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -108603,7 +109116,7 @@ pub mod region_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_snapshots::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::region_snapshots::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -108758,7 +109271,7 @@ pub mod region_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_snapshots::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_snapshots::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -108923,7 +109436,9 @@ pub mod region_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::region_snapshots::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::region_snapshots::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -109016,7 +109531,9 @@ pub mod region_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::region_snapshots::SetLabelsRequest>);
+    pub struct SetLabels(
+        pub(crate) RequestBuilder<crate::model::region_snapshots::SetLabelsRequest>,
+    );
 
     impl SetLabels {
         pub(crate) fn new(
@@ -109174,7 +109691,7 @@ pub mod region_snapshots {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::region_snapshots::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::region_snapshots::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -109268,7 +109785,9 @@ pub mod region_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateKmsKey(RequestBuilder<crate::model::region_snapshots::UpdateKmsKeyRequest>);
+    pub struct UpdateKmsKey(
+        pub(crate) RequestBuilder<crate::model::region_snapshots::UpdateKmsKeyRequest>,
+    );
 
     impl UpdateKmsKey {
         pub(crate) fn new(
@@ -109425,7 +109944,7 @@ pub mod region_snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -109523,9 +110042,9 @@ pub mod region_ssl_certificates {
     /// Common implementation for [crate::client::RegionSslCertificates] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionSslCertificates>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionSslCertificates>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -109560,7 +110079,9 @@ pub mod region_ssl_certificates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_ssl_certificates::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_ssl_certificates::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -109699,7 +110220,7 @@ pub mod region_ssl_certificates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_ssl_certificates::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_ssl_certificates::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -109774,7 +110295,9 @@ pub mod region_ssl_certificates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_ssl_certificates::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_ssl_certificates::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -109929,7 +110452,7 @@ pub mod region_ssl_certificates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_ssl_certificates::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_ssl_certificates::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -110096,7 +110619,7 @@ pub mod region_ssl_certificates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -110194,9 +110717,9 @@ pub mod region_ssl_policies {
     /// Common implementation for [crate::client::RegionSslPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionSslPolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionSslPolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -110231,7 +110754,7 @@ pub mod region_ssl_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_ssl_policies::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::region_ssl_policies::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -110370,7 +110893,7 @@ pub mod region_ssl_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_ssl_policies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_ssl_policies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -110445,7 +110968,7 @@ pub mod region_ssl_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_ssl_policies::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::region_ssl_policies::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -110600,7 +111123,7 @@ pub mod region_ssl_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_ssl_policies::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_ssl_policies::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -110766,7 +111289,7 @@ pub mod region_ssl_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAvailableFeatures(
-        RequestBuilder<crate::model::region_ssl_policies::ListAvailableFeaturesRequest>,
+        pub(crate) RequestBuilder<crate::model::region_ssl_policies::ListAvailableFeaturesRequest>,
     );
 
     impl ListAvailableFeatures {
@@ -110910,7 +111433,7 @@ pub mod region_ssl_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_ssl_policies::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::region_ssl_policies::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -111067,7 +111590,7 @@ pub mod region_ssl_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -111165,9 +111688,9 @@ pub mod region_target_http_proxies {
     /// Common implementation for [crate::client::RegionTargetHttpProxies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionTargetHttpProxies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionTargetHttpProxies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -111202,7 +111725,9 @@ pub mod region_target_http_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_target_http_proxies::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_target_http_proxies::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -111341,7 +111866,7 @@ pub mod region_target_http_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_target_http_proxies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_target_http_proxies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -111416,7 +111941,9 @@ pub mod region_target_http_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_target_http_proxies::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_target_http_proxies::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -111571,7 +112098,9 @@ pub mod region_target_http_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_target_http_proxies::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::region_target_http_proxies::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -111739,7 +112268,7 @@ pub mod region_target_http_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetUrlMap(
-        RequestBuilder<crate::model::region_target_http_proxies::SetUrlMapRequest>,
+        pub(crate) RequestBuilder<crate::model::region_target_http_proxies::SetUrlMapRequest>,
     );
 
     impl SetUrlMap {
@@ -111896,7 +112425,7 @@ pub mod region_target_http_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -111994,9 +112523,9 @@ pub mod region_target_https_proxies {
     /// Common implementation for [crate::client::RegionTargetHttpsProxies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionTargetHttpsProxies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionTargetHttpsProxies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -112031,7 +112560,9 @@ pub mod region_target_https_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_target_https_proxies::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_target_https_proxies::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -112170,7 +112701,9 @@ pub mod region_target_https_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_target_https_proxies::GetRequest>);
+    pub struct Get(
+        pub(crate) RequestBuilder<crate::model::region_target_https_proxies::GetRequest>,
+    );
 
     impl Get {
         pub(crate) fn new(
@@ -112245,7 +112778,9 @@ pub mod region_target_https_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_target_https_proxies::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_target_https_proxies::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -112400,7 +112935,9 @@ pub mod region_target_https_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_target_https_proxies::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::region_target_https_proxies::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -112567,7 +113104,9 @@ pub mod region_target_https_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_target_https_proxies::PatchRequest>);
+    pub struct Patch(
+        pub(crate) RequestBuilder<crate::model::region_target_https_proxies::PatchRequest>,
+    );
 
     impl Patch {
         pub(crate) fn new(
@@ -112725,7 +113264,8 @@ pub mod region_target_https_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetSslCertificates(
-        RequestBuilder<crate::model::region_target_https_proxies::SetSslCertificatesRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::region_target_https_proxies::SetSslCertificatesRequest>,
     );
 
     impl SetSslCertificates {
@@ -112885,7 +113425,7 @@ pub mod region_target_https_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetUrlMap(
-        RequestBuilder<crate::model::region_target_https_proxies::SetUrlMapRequest>,
+        pub(crate) RequestBuilder<crate::model::region_target_https_proxies::SetUrlMapRequest>,
     );
 
     impl SetUrlMap {
@@ -113044,7 +113584,7 @@ pub mod region_target_https_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -113142,9 +113682,9 @@ pub mod region_target_tcp_proxies {
     /// Common implementation for [crate::client::RegionTargetTcpProxies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionTargetTcpProxies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionTargetTcpProxies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -113179,7 +113719,9 @@ pub mod region_target_tcp_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_target_tcp_proxies::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::region_target_tcp_proxies::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -113318,7 +113860,7 @@ pub mod region_target_tcp_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_target_tcp_proxies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_target_tcp_proxies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -113393,7 +113935,9 @@ pub mod region_target_tcp_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_target_tcp_proxies::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::region_target_tcp_proxies::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -113548,7 +114092,9 @@ pub mod region_target_tcp_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_target_tcp_proxies::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::region_target_tcp_proxies::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -113715,7 +114261,7 @@ pub mod region_target_tcp_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -113813,9 +114359,9 @@ pub mod region_url_maps {
     /// Common implementation for [crate::client::RegionUrlMaps] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionUrlMaps>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionUrlMaps>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -113850,7 +114396,7 @@ pub mod region_url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::region_url_maps::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::region_url_maps::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -113989,7 +114535,7 @@ pub mod region_url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::region_url_maps::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::region_url_maps::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -114064,7 +114610,7 @@ pub mod region_url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::region_url_maps::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::region_url_maps::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -114219,7 +114765,7 @@ pub mod region_url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_url_maps::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_url_maps::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -114384,7 +114930,7 @@ pub mod region_url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::region_url_maps::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::region_url_maps::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -114541,7 +115087,7 @@ pub mod region_url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::region_url_maps::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::region_url_maps::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -114698,7 +115244,7 @@ pub mod region_url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Validate(RequestBuilder<crate::model::region_url_maps::ValidateRequest>);
+    pub struct Validate(pub(crate) RequestBuilder<crate::model::region_url_maps::ValidateRequest>);
 
     impl Validate {
         pub(crate) fn new(
@@ -114791,7 +115337,7 @@ pub mod region_url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -114889,9 +115435,9 @@ pub mod region_zones {
     /// Common implementation for [crate::client::RegionZones] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionZones>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionZones>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -114930,7 +115476,7 @@ pub mod region_zones {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::region_zones::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::region_zones::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -115118,9 +115664,9 @@ pub mod regions {
     /// Common implementation for [crate::client::Regions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Regions>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Regions>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -115153,7 +115699,7 @@ pub mod regions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::regions::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::regions::GetRequest>);
 
     impl Get {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Regions>) -> Self {
@@ -115221,7 +115767,7 @@ pub mod regions {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::regions::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::regions::ListRequest>);
 
     impl List {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Regions>) -> Self {
@@ -115398,9 +115944,9 @@ pub mod reliability_risks {
     /// Common implementation for [crate::client::ReliabilityRisks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ReliabilityRisks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ReliabilityRisks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -115435,7 +115981,7 @@ pub mod reliability_risks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::reliability_risks::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::reliability_risks::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -115508,7 +116054,7 @@ pub mod reliability_risks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::reliability_risks::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::reliability_risks::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -115694,9 +116240,9 @@ pub mod reservation_blocks {
     /// Common implementation for [crate::client::ReservationBlocks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationBlocks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationBlocks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -115731,7 +116277,7 @@ pub mod reservation_blocks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::reservation_blocks::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::reservation_blocks::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -115830,7 +116376,9 @@ pub mod reservation_blocks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::reservation_blocks::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::reservation_blocks::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -115936,7 +116484,7 @@ pub mod reservation_blocks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::reservation_blocks::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::reservation_blocks::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -116112,7 +116660,7 @@ pub mod reservation_blocks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PerformMaintenance(
-        RequestBuilder<crate::model::reservation_blocks::PerformMaintenanceRequest>,
+        pub(crate) RequestBuilder<crate::model::reservation_blocks::PerformMaintenanceRequest>,
     );
 
     impl PerformMaintenance {
@@ -116277,7 +116825,9 @@ pub mod reservation_blocks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::reservation_blocks::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::reservation_blocks::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -116377,7 +116927,7 @@ pub mod reservation_blocks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::reservation_blocks::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::reservation_blocks::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -116479,7 +117029,7 @@ pub mod reservation_blocks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -116577,9 +117127,9 @@ pub mod reservation_slots {
     /// Common implementation for [crate::client::ReservationSlots] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationSlots>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationSlots>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -116614,7 +117164,7 @@ pub mod reservation_slots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::reservation_slots::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::reservation_slots::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -116695,7 +117245,9 @@ pub mod reservation_slots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetHealth(RequestBuilder<crate::model::reservation_slots::GetHealthRequest>);
+    pub struct GetHealth(
+        pub(crate) RequestBuilder<crate::model::reservation_slots::GetHealthRequest>,
+    );
 
     impl GetHealth {
         pub(crate) fn new(
@@ -116840,7 +117392,9 @@ pub mod reservation_slots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVersion(RequestBuilder<crate::model::reservation_slots::GetVersionRequest>);
+    pub struct GetVersion(
+        pub(crate) RequestBuilder<crate::model::reservation_slots::GetVersionRequest>,
+    );
 
     impl GetVersion {
         pub(crate) fn new(
@@ -117007,7 +117561,7 @@ pub mod reservation_slots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::reservation_slots::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::reservation_slots::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -117182,7 +117736,7 @@ pub mod reservation_slots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::reservation_slots::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::reservation_slots::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -117345,7 +117899,7 @@ pub mod reservation_slots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -117443,9 +117997,9 @@ pub mod reservation_sub_blocks {
     /// Common implementation for [crate::client::ReservationSubBlocks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationSubBlocks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationSubBlocks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -117480,7 +118034,7 @@ pub mod reservation_sub_blocks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::reservation_sub_blocks::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::reservation_sub_blocks::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -117580,7 +118134,7 @@ pub mod reservation_sub_blocks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(
-        RequestBuilder<crate::model::reservation_sub_blocks::GetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::reservation_sub_blocks::GetIamPolicyRequest>,
     );
 
     impl GetIamPolicy {
@@ -117683,7 +118237,9 @@ pub mod reservation_sub_blocks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVersion(RequestBuilder<crate::model::reservation_sub_blocks::GetVersionRequest>);
+    pub struct GetVersion(
+        pub(crate) RequestBuilder<crate::model::reservation_sub_blocks::GetVersionRequest>,
+    );
 
     impl GetVersion {
         pub(crate) fn new(
@@ -117849,7 +118405,7 @@ pub mod reservation_sub_blocks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::reservation_sub_blocks::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::reservation_sub_blocks::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -118025,7 +118581,7 @@ pub mod reservation_sub_blocks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PerformMaintenance(
-        RequestBuilder<crate::model::reservation_sub_blocks::PerformMaintenanceRequest>,
+        pub(crate) RequestBuilder<crate::model::reservation_sub_blocks::PerformMaintenanceRequest>,
     );
 
     impl PerformMaintenance {
@@ -118173,7 +118729,7 @@ pub mod reservation_sub_blocks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ReportFaulty(
-        RequestBuilder<crate::model::reservation_sub_blocks::ReportFaultyRequest>,
+        pub(crate) RequestBuilder<crate::model::reservation_sub_blocks::ReportFaultyRequest>,
     );
 
     impl ReportFaulty {
@@ -118337,7 +118893,7 @@ pub mod reservation_sub_blocks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(
-        RequestBuilder<crate::model::reservation_sub_blocks::SetIamPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::reservation_sub_blocks::SetIamPolicyRequest>,
     );
 
     impl SetIamPolicy {
@@ -118438,7 +118994,7 @@ pub mod reservation_sub_blocks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::reservation_sub_blocks::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::reservation_sub_blocks::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -118540,7 +119096,7 @@ pub mod reservation_sub_blocks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -118638,9 +119194,9 @@ pub mod reservations {
     /// Common implementation for [crate::client::Reservations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Reservations>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Reservations>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -118679,7 +119235,9 @@ pub mod reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::reservations::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::reservations::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -118878,7 +119436,7 @@ pub mod reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::reservations::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::reservations::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -119017,7 +119575,7 @@ pub mod reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::reservations::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::reservations::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -119092,7 +119650,9 @@ pub mod reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::reservations::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::reservations::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -119188,7 +119748,7 @@ pub mod reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::reservations::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::reservations::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -119343,7 +119903,7 @@ pub mod reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::reservations::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::reservations::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -119509,7 +120069,7 @@ pub mod reservations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PerformMaintenance(
-        RequestBuilder<crate::model::reservations::PerformMaintenanceRequest>,
+        pub(crate) RequestBuilder<crate::model::reservations::PerformMaintenanceRequest>,
     );
 
     impl PerformMaintenance {
@@ -119666,7 +120226,7 @@ pub mod reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Resize(RequestBuilder<crate::model::reservations::ResizeRequest>);
+    pub struct Resize(pub(crate) RequestBuilder<crate::model::reservations::ResizeRequest>);
 
     impl Resize {
         pub(crate) fn new(
@@ -119823,7 +120383,9 @@ pub mod reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::reservations::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::reservations::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -119917,7 +120479,7 @@ pub mod reservations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::reservations::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::reservations::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -120011,7 +120573,7 @@ pub mod reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::reservations::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::reservations::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -120204,7 +120766,7 @@ pub mod reservations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -120302,9 +120864,9 @@ pub mod resource_policies {
     /// Common implementation for [crate::client::ResourcePolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ResourcePolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ResourcePolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -120344,7 +120906,7 @@ pub mod resource_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::resource_policies::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::resource_policies::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -120544,7 +121106,7 @@ pub mod resource_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::resource_policies::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::resource_policies::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -120683,7 +121245,7 @@ pub mod resource_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::resource_policies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::resource_policies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -120758,7 +121320,9 @@ pub mod resource_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::resource_policies::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::resource_policies::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -120854,7 +121418,7 @@ pub mod resource_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::resource_policies::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::resource_policies::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -121009,7 +121573,7 @@ pub mod resource_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::resource_policies::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::resource_policies::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -121176,7 +121740,7 @@ pub mod resource_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::resource_policies::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::resource_policies::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -121351,7 +121915,9 @@ pub mod resource_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::resource_policies::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::resource_policies::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -121445,7 +122011,7 @@ pub mod resource_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::resource_policies::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::resource_policies::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -121539,7 +122105,7 @@ pub mod resource_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -121637,9 +122203,9 @@ pub mod rollout_plans {
     /// Common implementation for [crate::client::RolloutPlans] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RolloutPlans>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RolloutPlans>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -121674,7 +122240,7 @@ pub mod rollout_plans {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::rollout_plans::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::rollout_plans::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -121804,7 +122370,7 @@ pub mod rollout_plans {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::rollout_plans::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::rollout_plans::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -121873,7 +122439,7 @@ pub mod rollout_plans {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::rollout_plans::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::rollout_plans::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -122019,7 +122585,7 @@ pub mod rollout_plans {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::rollout_plans::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::rollout_plans::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -122182,7 +122748,7 @@ pub mod rollout_plans {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -122274,9 +122840,9 @@ pub mod rollouts {
     /// Common implementation for [crate::client::Rollouts] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Rollouts>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Rollouts>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -122309,7 +122875,7 @@ pub mod rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Advance(RequestBuilder<crate::model::rollouts::AdvanceRequest>);
+    pub struct Advance(pub(crate) RequestBuilder<crate::model::rollouts::AdvanceRequest>);
 
     impl Advance {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Rollouts>) -> Self {
@@ -122455,7 +123021,7 @@ pub mod rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Cancel(RequestBuilder<crate::model::rollouts::CancelRequest>);
+    pub struct Cancel(pub(crate) RequestBuilder<crate::model::rollouts::CancelRequest>);
 
     impl Cancel {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Rollouts>) -> Self {
@@ -122601,7 +123167,7 @@ pub mod rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::rollouts::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::rollouts::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Rollouts>) -> Self {
@@ -122729,7 +123295,7 @@ pub mod rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::rollouts::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::rollouts::GetRequest>);
 
     impl Get {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Rollouts>) -> Self {
@@ -122797,7 +123363,7 @@ pub mod rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::rollouts::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::rollouts::ListRequest>);
 
     impl List {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Rollouts>) -> Self {
@@ -122953,7 +123519,7 @@ pub mod rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Pause(RequestBuilder<crate::model::rollouts::PauseRequest>);
+    pub struct Pause(pub(crate) RequestBuilder<crate::model::rollouts::PauseRequest>);
 
     impl Pause {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Rollouts>) -> Self {
@@ -123096,7 +123662,7 @@ pub mod rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Resume(RequestBuilder<crate::model::rollouts::ResumeRequest>);
+    pub struct Resume(pub(crate) RequestBuilder<crate::model::rollouts::ResumeRequest>);
 
     impl Resume {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Rollouts>) -> Self {
@@ -123242,7 +123808,7 @@ pub mod rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Rollouts>) -> Self {
@@ -123332,9 +123898,9 @@ pub mod routers {
     /// Common implementation for [crate::client::Routers] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -123371,7 +123937,9 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::routers::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::routers::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -123566,7 +124134,7 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::routers::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::routers::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -123700,7 +124268,9 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteNamedSet(RequestBuilder<crate::model::routers::DeleteNamedSetRequest>);
+    pub struct DeleteNamedSet(
+        pub(crate) RequestBuilder<crate::model::routers::DeleteNamedSetRequest>,
+    );
 
     impl DeleteNamedSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -123855,7 +124425,9 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRoutePolicy(RequestBuilder<crate::model::routers::DeleteRoutePolicyRequest>);
+    pub struct DeleteRoutePolicy(
+        pub(crate) RequestBuilder<crate::model::routers::DeleteRoutePolicyRequest>,
+    );
 
     impl DeleteRoutePolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -124010,7 +124582,7 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::routers::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::routers::GetRequest>);
 
     impl Get {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -124080,7 +124652,7 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNamedSet(RequestBuilder<crate::model::routers::GetNamedSetRequest>);
+    pub struct GetNamedSet(pub(crate) RequestBuilder<crate::model::routers::GetNamedSetRequest>);
 
     impl GetNamedSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -124171,7 +124743,7 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNatIpInfo(RequestBuilder<crate::model::routers::GetNatIpInfoRequest>);
+    pub struct GetNatIpInfo(pub(crate) RequestBuilder<crate::model::routers::GetNatIpInfoRequest>);
 
     impl GetNatIpInfo {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -124266,7 +124838,9 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNatMappingInfo(RequestBuilder<crate::model::routers::GetNatMappingInfoRequest>);
+    pub struct GetNatMappingInfo(
+        pub(crate) RequestBuilder<crate::model::routers::GetNatMappingInfoRequest>,
+    );
 
     impl GetNatMappingInfo {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -124457,7 +125031,9 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRoutePolicy(RequestBuilder<crate::model::routers::GetRoutePolicyRequest>);
+    pub struct GetRoutePolicy(
+        pub(crate) RequestBuilder<crate::model::routers::GetRoutePolicyRequest>,
+    );
 
     impl GetRoutePolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -124548,7 +125124,9 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRouterStatus(RequestBuilder<crate::model::routers::GetRouterStatusRequest>);
+    pub struct GetRouterStatus(
+        pub(crate) RequestBuilder<crate::model::routers::GetRouterStatusRequest>,
+    );
 
     impl GetRouterStatus {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -124621,7 +125199,7 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::routers::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::routers::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -124771,7 +125349,7 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::routers::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::routers::ListRequest>);
 
     impl List {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -124935,7 +125513,9 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBgpRoutes(RequestBuilder<crate::model::routers::ListBgpRoutesRequest>);
+    pub struct ListBgpRoutes(
+        pub(crate) RequestBuilder<crate::model::routers::ListBgpRoutesRequest>,
+    );
 
     impl ListBgpRoutes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -125200,7 +125780,9 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNamedSets(RequestBuilder<crate::model::routers::ListNamedSetsRequest>);
+    pub struct ListNamedSets(
+        pub(crate) RequestBuilder<crate::model::routers::ListNamedSetsRequest>,
+    );
 
     impl ListNamedSets {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -125375,7 +125957,9 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRoutePolicies(RequestBuilder<crate::model::routers::ListRoutePoliciesRequest>);
+    pub struct ListRoutePolicies(
+        pub(crate) RequestBuilder<crate::model::routers::ListRoutePoliciesRequest>,
+    );
 
     impl ListRoutePolicies {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -125548,7 +126132,7 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::routers::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::routers::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -125699,7 +126283,9 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PatchNamedSet(RequestBuilder<crate::model::routers::PatchNamedSetRequest>);
+    pub struct PatchNamedSet(
+        pub(crate) RequestBuilder<crate::model::routers::PatchNamedSetRequest>,
+    );
 
     impl PatchNamedSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -125854,7 +126440,9 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PatchRoutePolicy(RequestBuilder<crate::model::routers::PatchRoutePolicyRequest>);
+    pub struct PatchRoutePolicy(
+        pub(crate) RequestBuilder<crate::model::routers::PatchRoutePolicyRequest>,
+    );
 
     impl PatchRoutePolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -126009,7 +126597,7 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Preview(RequestBuilder<crate::model::routers::PreviewRequest>);
+    pub struct Preview(pub(crate) RequestBuilder<crate::model::routers::PreviewRequest>);
 
     impl Preview {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -126100,7 +126688,7 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::routers::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::routers::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -126252,7 +126840,9 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateNamedSet(RequestBuilder<crate::model::routers::UpdateNamedSetRequest>);
+    pub struct UpdateNamedSet(
+        pub(crate) RequestBuilder<crate::model::routers::UpdateNamedSetRequest>,
+    );
 
     impl UpdateNamedSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -126407,7 +126997,9 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRoutePolicy(RequestBuilder<crate::model::routers::UpdateRoutePolicyRequest>);
+    pub struct UpdateRoutePolicy(
+        pub(crate) RequestBuilder<crate::model::routers::UpdateRoutePolicyRequest>,
+    );
 
     impl UpdateRoutePolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -126562,7 +127154,7 @@ pub mod routers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routers>) -> Self {
@@ -126658,9 +127250,9 @@ pub mod routes {
     /// Common implementation for [crate::client::Routes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Routes>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Routes>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -126693,7 +127285,7 @@ pub mod routes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::routes::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::routes::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routes>) -> Self {
@@ -126817,7 +127409,7 @@ pub mod routes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::routes::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::routes::GetRequest>);
 
     impl Get {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routes>) -> Self {
@@ -126881,7 +127473,7 @@ pub mod routes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::routes::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::routes::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routes>) -> Self {
@@ -127021,7 +127613,7 @@ pub mod routes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::routes::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::routes::ListRequest>);
 
     impl List {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routes>) -> Self {
@@ -127175,7 +127767,9 @@ pub mod routes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<crate::model::routes::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        pub(crate) RequestBuilder<crate::model::routes::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routes>) -> Self {
@@ -127260,7 +127854,7 @@ pub mod routes {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Routes>) -> Self {
@@ -127350,9 +127944,9 @@ pub mod security_policies {
     /// Common implementation for [crate::client::SecurityPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -127387,7 +127981,7 @@ pub mod security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddRule(RequestBuilder<crate::model::security_policies::AddRuleRequest>);
+    pub struct AddRule(pub(crate) RequestBuilder<crate::model::security_policies::AddRuleRequest>);
 
     impl AddRule {
         pub(crate) fn new(
@@ -127540,7 +128134,7 @@ pub mod security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::security_policies::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::security_policies::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -127740,7 +128334,7 @@ pub mod security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::security_policies::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::security_policies::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -127870,7 +128464,7 @@ pub mod security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::security_policies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::security_policies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -127939,7 +128533,7 @@ pub mod security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRule(RequestBuilder<crate::model::security_policies::GetRuleRequest>);
+    pub struct GetRule(pub(crate) RequestBuilder<crate::model::security_policies::GetRuleRequest>);
 
     impl GetRule {
         pub(crate) fn new(
@@ -128026,7 +128620,7 @@ pub mod security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::security_policies::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::security_policies::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -128190,7 +128784,7 @@ pub mod security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::security_policies::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::security_policies::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -128352,7 +128946,8 @@ pub mod security_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListPreconfiguredExpressionSets(
-        RequestBuilder<crate::model::security_policies::ListPreconfiguredExpressionSetsRequest>,
+        #[rustfmt::skip]
+        pub(crate) RequestBuilder<crate::model::security_policies::ListPreconfiguredExpressionSetsRequest>,
     );
 
     impl ListPreconfiguredExpressionSets {
@@ -128492,7 +129087,7 @@ pub mod security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::security_policies::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::security_policies::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -128658,7 +129253,9 @@ pub mod security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PatchRule(RequestBuilder<crate::model::security_policies::PatchRuleRequest>);
+    pub struct PatchRule(
+        pub(crate) RequestBuilder<crate::model::security_policies::PatchRuleRequest>,
+    );
 
     impl PatchRule {
         pub(crate) fn new(
@@ -128842,7 +129439,9 @@ pub mod security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveRule(RequestBuilder<crate::model::security_policies::RemoveRuleRequest>);
+    pub struct RemoveRule(
+        pub(crate) RequestBuilder<crate::model::security_policies::RemoveRuleRequest>,
+    );
 
     impl RemoveRule {
         pub(crate) fn new(
@@ -128972,7 +129571,9 @@ pub mod security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::security_policies::SetLabelsRequest>);
+    pub struct SetLabels(
+        pub(crate) RequestBuilder<crate::model::security_policies::SetLabelsRequest>,
+    );
 
     impl SetLabels {
         pub(crate) fn new(
@@ -129102,7 +129703,7 @@ pub mod security_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -129194,9 +129795,9 @@ pub mod service_attachments {
     /// Common implementation for [crate::client::ServiceAttachments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceAttachments>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceAttachments>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -129236,7 +129837,7 @@ pub mod service_attachments {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::service_attachments::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::service_attachments::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -129436,7 +130037,7 @@ pub mod service_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::service_attachments::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::service_attachments::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -129575,7 +130176,7 @@ pub mod service_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::service_attachments::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::service_attachments::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -129668,7 +130269,9 @@ pub mod service_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::service_attachments::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::service_attachments::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -129764,7 +130367,7 @@ pub mod service_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::service_attachments::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::service_attachments::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -129919,7 +130522,7 @@ pub mod service_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::service_attachments::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::service_attachments::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -130086,7 +130689,7 @@ pub mod service_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::service_attachments::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::service_attachments::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -130243,7 +130846,9 @@ pub mod service_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::service_attachments::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::service_attachments::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -130337,7 +130942,7 @@ pub mod service_attachments {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::service_attachments::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::service_attachments::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -130433,7 +131038,7 @@ pub mod service_attachments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -130531,9 +131136,9 @@ pub mod snapshot_settings {
     /// Common implementation for [crate::client::SnapshotSettings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SnapshotSettings>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SnapshotSettings>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -130568,7 +131173,7 @@ pub mod snapshot_settings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::snapshot_settings::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::snapshot_settings::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -130631,7 +131236,7 @@ pub mod snapshot_settings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::snapshot_settings::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::snapshot_settings::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -130791,7 +131396,7 @@ pub mod snapshot_settings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -130883,9 +131488,9 @@ pub mod snapshots {
     /// Common implementation for [crate::client::Snapshots] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Snapshots>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Snapshots>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -130920,7 +131525,7 @@ pub mod snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::snapshots::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::snapshots::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -131050,7 +131655,7 @@ pub mod snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::snapshots::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::snapshots::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -131116,7 +131721,9 @@ pub mod snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::snapshots::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::snapshots::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -131206,7 +131813,7 @@ pub mod snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::snapshots::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::snapshots::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -131352,7 +131959,7 @@ pub mod snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::snapshots::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::snapshots::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -131508,7 +132115,9 @@ pub mod snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::snapshots::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::snapshots::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -131595,7 +132204,7 @@ pub mod snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::snapshots::SetLabelsRequest>);
+    pub struct SetLabels(pub(crate) RequestBuilder<crate::model::snapshots::SetLabelsRequest>);
 
     impl SetLabels {
         pub(crate) fn new(
@@ -131726,7 +132335,7 @@ pub mod snapshots {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::snapshots::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::snapshots::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -131814,7 +132423,9 @@ pub mod snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateKmsKey(RequestBuilder<crate::model::snapshots::UpdateKmsKeyRequest>);
+    pub struct UpdateKmsKey(
+        pub(crate) RequestBuilder<crate::model::snapshots::UpdateKmsKeyRequest>,
+    );
 
     impl UpdateKmsKey {
         pub(crate) fn new(
@@ -131962,7 +132573,7 @@ pub mod snapshots {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -132054,9 +132665,9 @@ pub mod ssl_certificates {
     /// Common implementation for [crate::client::SslCertificates] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SslCertificates>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SslCertificates>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -132096,7 +132707,7 @@ pub mod ssl_certificates {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::ssl_certificates::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::ssl_certificates::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -132296,7 +132907,7 @@ pub mod ssl_certificates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::ssl_certificates::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::ssl_certificates::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -132426,7 +133037,7 @@ pub mod ssl_certificates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::ssl_certificates::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::ssl_certificates::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -132495,7 +133106,7 @@ pub mod ssl_certificates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::ssl_certificates::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::ssl_certificates::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -132641,7 +133252,7 @@ pub mod ssl_certificates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::ssl_certificates::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::ssl_certificates::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -132802,7 +133413,7 @@ pub mod ssl_certificates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -132894,9 +133505,9 @@ pub mod ssl_policies {
     /// Common implementation for [crate::client::SslPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SslPolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SslPolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -132935,7 +133546,9 @@ pub mod ssl_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::ssl_policies::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::ssl_policies::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -133134,7 +133747,7 @@ pub mod ssl_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::ssl_policies::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::ssl_policies::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -133264,7 +133877,7 @@ pub mod ssl_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::ssl_policies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::ssl_policies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -133333,7 +133946,7 @@ pub mod ssl_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::ssl_policies::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::ssl_policies::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -133479,7 +134092,7 @@ pub mod ssl_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::ssl_policies::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::ssl_policies::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -133639,7 +134252,7 @@ pub mod ssl_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListAvailableFeatures(
-        RequestBuilder<crate::model::ssl_policies::ListAvailableFeaturesRequest>,
+        pub(crate) RequestBuilder<crate::model::ssl_policies::ListAvailableFeaturesRequest>,
     );
 
     impl ListAvailableFeatures {
@@ -133775,7 +134388,7 @@ pub mod ssl_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::ssl_policies::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::ssl_policies::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -133923,7 +134536,7 @@ pub mod ssl_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -134015,9 +134628,9 @@ pub mod storage_pool_types {
     /// Common implementation for [crate::client::StoragePoolTypes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::StoragePoolTypes>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::StoragePoolTypes>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -134057,7 +134670,7 @@ pub mod storage_pool_types {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::storage_pool_types::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::storage_pool_types::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -134257,7 +134870,7 @@ pub mod storage_pool_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::storage_pool_types::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::storage_pool_types::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -134336,7 +134949,7 @@ pub mod storage_pool_types {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::storage_pool_types::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::storage_pool_types::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -134526,9 +135139,9 @@ pub mod storage_pools {
     /// Common implementation for [crate::client::StoragePools] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::StoragePools>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::StoragePools>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -134567,7 +135180,9 @@ pub mod storage_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::storage_pools::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::storage_pools::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -134766,7 +135381,7 @@ pub mod storage_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::storage_pools::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::storage_pools::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -134905,7 +135520,7 @@ pub mod storage_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::storage_pools::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::storage_pools::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -134980,7 +135595,9 @@ pub mod storage_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::storage_pools::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::storage_pools::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -135076,7 +135693,7 @@ pub mod storage_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::storage_pools::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::storage_pools::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -135231,7 +135848,7 @@ pub mod storage_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::storage_pools::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::storage_pools::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -135400,7 +136017,7 @@ pub mod storage_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDisks(RequestBuilder<crate::model::storage_pools::ListDisksRequest>);
+    pub struct ListDisks(pub(crate) RequestBuilder<crate::model::storage_pools::ListDisksRequest>);
 
     impl ListDisks {
         pub(crate) fn new(
@@ -135573,7 +136190,9 @@ pub mod storage_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::storage_pools::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::storage_pools::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -135667,7 +136286,7 @@ pub mod storage_pools {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::storage_pools::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::storage_pools::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -135761,7 +136380,7 @@ pub mod storage_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::storage_pools::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::storage_pools::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -135936,7 +136555,7 @@ pub mod storage_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -136034,9 +136653,9 @@ pub mod subnetworks {
     /// Common implementation for [crate::client::Subnetworks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Subnetworks>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Subnetworks>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -136075,7 +136694,9 @@ pub mod subnetworks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::subnetworks::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::subnetworks::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -136292,7 +136913,7 @@ pub mod subnetworks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::subnetworks::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::subnetworks::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -136432,7 +137053,7 @@ pub mod subnetworks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ExpandIpCidrRange(
-        RequestBuilder<crate::model::subnetworks::ExpandIpCidrRangeRequest>,
+        pub(crate) RequestBuilder<crate::model::subnetworks::ExpandIpCidrRangeRequest>,
     );
 
     impl ExpandIpCidrRange {
@@ -136589,7 +137210,7 @@ pub mod subnetworks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::subnetworks::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::subnetworks::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -136682,7 +137303,9 @@ pub mod subnetworks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::subnetworks::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::subnetworks::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -136778,7 +137401,7 @@ pub mod subnetworks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::subnetworks::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::subnetworks::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -136933,7 +137556,7 @@ pub mod subnetworks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::subnetworks::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::subnetworks::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -137120,7 +137743,7 @@ pub mod subnetworks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUsable(RequestBuilder<crate::model::subnetworks::ListUsableRequest>);
+    pub struct ListUsable(pub(crate) RequestBuilder<crate::model::subnetworks::ListUsableRequest>);
 
     impl ListUsable {
         pub(crate) fn new(
@@ -137301,7 +137924,7 @@ pub mod subnetworks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::subnetworks::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::subnetworks::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -137476,7 +138099,9 @@ pub mod subnetworks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::subnetworks::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<crate::model::subnetworks::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -137570,7 +138195,7 @@ pub mod subnetworks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetPrivateIpGoogleAccess(
-        RequestBuilder<crate::model::subnetworks::SetPrivateIpGoogleAccessRequest>,
+        pub(crate) RequestBuilder<crate::model::subnetworks::SetPrivateIpGoogleAccessRequest>,
     );
 
     impl SetPrivateIpGoogleAccess {
@@ -137728,7 +138353,7 @@ pub mod subnetworks {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::subnetworks::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::subnetworks::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -137822,7 +138447,7 @@ pub mod subnetworks {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -137920,9 +138545,9 @@ pub mod target_grpc_proxies {
     /// Common implementation for [crate::client::TargetGrpcProxies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetGrpcProxies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetGrpcProxies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -137957,7 +138582,7 @@ pub mod target_grpc_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::target_grpc_proxies::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::target_grpc_proxies::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -138087,7 +138712,7 @@ pub mod target_grpc_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::target_grpc_proxies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::target_grpc_proxies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -138156,7 +138781,7 @@ pub mod target_grpc_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::target_grpc_proxies::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::target_grpc_proxies::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -138302,7 +138927,7 @@ pub mod target_grpc_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::target_grpc_proxies::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::target_grpc_proxies::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -138463,7 +139088,7 @@ pub mod target_grpc_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::target_grpc_proxies::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::target_grpc_proxies::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -138611,7 +139236,7 @@ pub mod target_grpc_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -138703,9 +139328,9 @@ pub mod target_http_proxies {
     /// Common implementation for [crate::client::TargetHttpProxies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetHttpProxies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetHttpProxies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -138745,7 +139370,7 @@ pub mod target_http_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::target_http_proxies::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::target_http_proxies::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -138945,7 +139570,7 @@ pub mod target_http_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::target_http_proxies::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::target_http_proxies::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -139075,7 +139700,7 @@ pub mod target_http_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::target_http_proxies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::target_http_proxies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -139144,7 +139769,7 @@ pub mod target_http_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::target_http_proxies::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::target_http_proxies::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -139290,7 +139915,7 @@ pub mod target_http_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::target_http_proxies::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::target_http_proxies::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -139451,7 +140076,7 @@ pub mod target_http_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::target_http_proxies::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::target_http_proxies::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -139599,7 +140224,9 @@ pub mod target_http_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetUrlMap(RequestBuilder<crate::model::target_http_proxies::SetUrlMapRequest>);
+    pub struct SetUrlMap(
+        pub(crate) RequestBuilder<crate::model::target_http_proxies::SetUrlMapRequest>,
+    );
 
     impl SetUrlMap {
         pub(crate) fn new(
@@ -139747,7 +140374,7 @@ pub mod target_http_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -139839,9 +140466,9 @@ pub mod target_https_proxies {
     /// Common implementation for [crate::client::TargetHttpsProxies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetHttpsProxies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetHttpsProxies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -139881,7 +140508,7 @@ pub mod target_https_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::target_https_proxies::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::target_https_proxies::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -140081,7 +140708,7 @@ pub mod target_https_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::target_https_proxies::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::target_https_proxies::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -140211,7 +140838,7 @@ pub mod target_https_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::target_https_proxies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::target_https_proxies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -140280,7 +140907,7 @@ pub mod target_https_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::target_https_proxies::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::target_https_proxies::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -140426,7 +141053,7 @@ pub mod target_https_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::target_https_proxies::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::target_https_proxies::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -140587,7 +141214,7 @@ pub mod target_https_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::target_https_proxies::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::target_https_proxies::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -140736,7 +141363,7 @@ pub mod target_https_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetCertificateMap(
-        RequestBuilder<crate::model::target_https_proxies::SetCertificateMapRequest>,
+        pub(crate) RequestBuilder<crate::model::target_https_proxies::SetCertificateMapRequest>,
     );
 
     impl SetCertificateMap {
@@ -140887,7 +141514,7 @@ pub mod target_https_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetQuicOverride(
-        RequestBuilder<crate::model::target_https_proxies::SetQuicOverrideRequest>,
+        pub(crate) RequestBuilder<crate::model::target_https_proxies::SetQuicOverrideRequest>,
     );
 
     impl SetQuicOverride {
@@ -141036,7 +141663,7 @@ pub mod target_https_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetSslCertificates(
-        RequestBuilder<crate::model::target_https_proxies::SetSslCertificatesRequest>,
+        pub(crate) RequestBuilder<crate::model::target_https_proxies::SetSslCertificatesRequest>,
     );
 
     impl SetSslCertificates {
@@ -141187,7 +141814,7 @@ pub mod target_https_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetSslPolicy(
-        RequestBuilder<crate::model::target_https_proxies::SetSslPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::target_https_proxies::SetSslPolicyRequest>,
     );
 
     impl SetSslPolicy {
@@ -141335,7 +141962,9 @@ pub mod target_https_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetUrlMap(RequestBuilder<crate::model::target_https_proxies::SetUrlMapRequest>);
+    pub struct SetUrlMap(
+        pub(crate) RequestBuilder<crate::model::target_https_proxies::SetUrlMapRequest>,
+    );
 
     impl SetUrlMap {
         pub(crate) fn new(
@@ -141483,7 +142112,7 @@ pub mod target_https_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -141575,9 +142204,9 @@ pub mod target_instances {
     /// Common implementation for [crate::client::TargetInstances] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetInstances>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetInstances>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -141617,7 +142246,7 @@ pub mod target_instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::target_instances::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::target_instances::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -141817,7 +142446,7 @@ pub mod target_instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::target_instances::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::target_instances::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -141956,7 +142585,7 @@ pub mod target_instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::target_instances::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::target_instances::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -142031,7 +142660,7 @@ pub mod target_instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::target_instances::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::target_instances::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -142186,7 +142815,7 @@ pub mod target_instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::target_instances::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::target_instances::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -142354,7 +142983,7 @@ pub mod target_instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetSecurityPolicy(
-        RequestBuilder<crate::model::target_instances::SetSecurityPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::target_instances::SetSecurityPolicyRequest>,
     );
 
     impl SetSecurityPolicy {
@@ -142512,7 +143141,7 @@ pub mod target_instances {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::target_instances::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::target_instances::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -142606,7 +143235,7 @@ pub mod target_instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -142704,9 +143333,9 @@ pub mod target_pools {
     /// Common implementation for [crate::client::TargetPools] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetPools>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetPools>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -142741,7 +143370,9 @@ pub mod target_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddHealthCheck(RequestBuilder<crate::model::target_pools::AddHealthCheckRequest>);
+    pub struct AddHealthCheck(
+        pub(crate) RequestBuilder<crate::model::target_pools::AddHealthCheckRequest>,
+    );
 
     impl AddHealthCheck {
         pub(crate) fn new(
@@ -142898,7 +143529,9 @@ pub mod target_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddInstance(RequestBuilder<crate::model::target_pools::AddInstanceRequest>);
+    pub struct AddInstance(
+        pub(crate) RequestBuilder<crate::model::target_pools::AddInstanceRequest>,
+    );
 
     impl AddInstance {
         pub(crate) fn new(
@@ -143059,7 +143692,9 @@ pub mod target_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::target_pools::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::target_pools::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -143258,7 +143893,7 @@ pub mod target_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::target_pools::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::target_pools::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -143397,7 +144032,7 @@ pub mod target_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::target_pools::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::target_pools::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -143472,7 +144107,7 @@ pub mod target_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetHealth(RequestBuilder<crate::model::target_pools::GetHealthRequest>);
+    pub struct GetHealth(pub(crate) RequestBuilder<crate::model::target_pools::GetHealthRequest>);
 
     impl GetHealth {
         pub(crate) fn new(
@@ -143565,7 +144200,7 @@ pub mod target_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::target_pools::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::target_pools::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -143720,7 +144355,7 @@ pub mod target_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::target_pools::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::target_pools::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -143886,7 +144521,7 @@ pub mod target_pools {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveHealthCheck(
-        RequestBuilder<crate::model::target_pools::RemoveHealthCheckRequest>,
+        pub(crate) RequestBuilder<crate::model::target_pools::RemoveHealthCheckRequest>,
     );
 
     impl RemoveHealthCheck {
@@ -144044,7 +144679,9 @@ pub mod target_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveInstance(RequestBuilder<crate::model::target_pools::RemoveInstanceRequest>);
+    pub struct RemoveInstance(
+        pub(crate) RequestBuilder<crate::model::target_pools::RemoveInstanceRequest>,
+    );
 
     impl RemoveInstance {
         pub(crate) fn new(
@@ -144201,7 +144838,7 @@ pub mod target_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetBackup(RequestBuilder<crate::model::target_pools::SetBackupRequest>);
+    pub struct SetBackup(pub(crate) RequestBuilder<crate::model::target_pools::SetBackupRequest>);
 
     impl SetBackup {
         pub(crate) fn new(
@@ -144377,7 +145014,7 @@ pub mod target_pools {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetSecurityPolicy(
-        RequestBuilder<crate::model::target_pools::SetSecurityPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::target_pools::SetSecurityPolicyRequest>,
     );
 
     impl SetSecurityPolicy {
@@ -144536,7 +145173,7 @@ pub mod target_pools {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::target_pools::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::target_pools::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -144630,7 +145267,7 @@ pub mod target_pools {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -144728,9 +145365,9 @@ pub mod target_ssl_proxies {
     /// Common implementation for [crate::client::TargetSslProxies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetSslProxies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetSslProxies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -144765,7 +145402,7 @@ pub mod target_ssl_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::target_ssl_proxies::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::target_ssl_proxies::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -144895,7 +145532,7 @@ pub mod target_ssl_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::target_ssl_proxies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::target_ssl_proxies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -144964,7 +145601,7 @@ pub mod target_ssl_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::target_ssl_proxies::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::target_ssl_proxies::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -145110,7 +145747,7 @@ pub mod target_ssl_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::target_ssl_proxies::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::target_ssl_proxies::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -145272,7 +145909,7 @@ pub mod target_ssl_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetBackendService(
-        RequestBuilder<crate::model::target_ssl_proxies::SetBackendServiceRequest>,
+        pub(crate) RequestBuilder<crate::model::target_ssl_proxies::SetBackendServiceRequest>,
     );
 
     impl SetBackendService {
@@ -145421,7 +146058,7 @@ pub mod target_ssl_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetCertificateMap(
-        RequestBuilder<crate::model::target_ssl_proxies::SetCertificateMapRequest>,
+        pub(crate) RequestBuilder<crate::model::target_ssl_proxies::SetCertificateMapRequest>,
     );
 
     impl SetCertificateMap {
@@ -145570,7 +146207,7 @@ pub mod target_ssl_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetProxyHeader(
-        RequestBuilder<crate::model::target_ssl_proxies::SetProxyHeaderRequest>,
+        pub(crate) RequestBuilder<crate::model::target_ssl_proxies::SetProxyHeaderRequest>,
     );
 
     impl SetProxyHeader {
@@ -145719,7 +146356,7 @@ pub mod target_ssl_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetSslCertificates(
-        RequestBuilder<crate::model::target_ssl_proxies::SetSslCertificatesRequest>,
+        pub(crate) RequestBuilder<crate::model::target_ssl_proxies::SetSslCertificatesRequest>,
     );
 
     impl SetSslCertificates {
@@ -145869,7 +146506,9 @@ pub mod target_ssl_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetSslPolicy(RequestBuilder<crate::model::target_ssl_proxies::SetSslPolicyRequest>);
+    pub struct SetSslPolicy(
+        pub(crate) RequestBuilder<crate::model::target_ssl_proxies::SetSslPolicyRequest>,
+    );
 
     impl SetSslPolicy {
         pub(crate) fn new(
@@ -146018,7 +146657,7 @@ pub mod target_ssl_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::target_ssl_proxies::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::target_ssl_proxies::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -146108,7 +146747,7 @@ pub mod target_ssl_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -146200,9 +146839,9 @@ pub mod target_tcp_proxies {
     /// Common implementation for [crate::client::TargetTcpProxies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetTcpProxies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetTcpProxies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -146242,7 +146881,7 @@ pub mod target_tcp_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::target_tcp_proxies::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::target_tcp_proxies::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -146442,7 +147081,7 @@ pub mod target_tcp_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::target_tcp_proxies::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::target_tcp_proxies::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -146572,7 +147211,7 @@ pub mod target_tcp_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::target_tcp_proxies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::target_tcp_proxies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -146641,7 +147280,7 @@ pub mod target_tcp_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::target_tcp_proxies::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::target_tcp_proxies::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -146787,7 +147426,7 @@ pub mod target_tcp_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::target_tcp_proxies::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::target_tcp_proxies::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -146949,7 +147588,7 @@ pub mod target_tcp_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetBackendService(
-        RequestBuilder<crate::model::target_tcp_proxies::SetBackendServiceRequest>,
+        pub(crate) RequestBuilder<crate::model::target_tcp_proxies::SetBackendServiceRequest>,
     );
 
     impl SetBackendService {
@@ -147098,7 +147737,7 @@ pub mod target_tcp_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetProxyHeader(
-        RequestBuilder<crate::model::target_tcp_proxies::SetProxyHeaderRequest>,
+        pub(crate) RequestBuilder<crate::model::target_tcp_proxies::SetProxyHeaderRequest>,
     );
 
     impl SetProxyHeader {
@@ -147247,7 +147886,7 @@ pub mod target_tcp_proxies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::target_tcp_proxies::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::target_tcp_proxies::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -147337,7 +147976,7 @@ pub mod target_tcp_proxies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -147429,9 +148068,9 @@ pub mod target_vpn_gateways {
     /// Common implementation for [crate::client::TargetVpnGateways] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetVpnGateways>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TargetVpnGateways>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -147471,7 +148110,7 @@ pub mod target_vpn_gateways {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AggregatedList(
-        RequestBuilder<crate::model::target_vpn_gateways::AggregatedListRequest>,
+        pub(crate) RequestBuilder<crate::model::target_vpn_gateways::AggregatedListRequest>,
     );
 
     impl AggregatedList {
@@ -147671,7 +148310,7 @@ pub mod target_vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::target_vpn_gateways::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::target_vpn_gateways::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -147810,7 +148449,7 @@ pub mod target_vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::target_vpn_gateways::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::target_vpn_gateways::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -147885,7 +148524,7 @@ pub mod target_vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::target_vpn_gateways::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::target_vpn_gateways::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -148040,7 +148679,7 @@ pub mod target_vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::target_vpn_gateways::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::target_vpn_gateways::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -148207,7 +148846,9 @@ pub mod target_vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::target_vpn_gateways::SetLabelsRequest>);
+    pub struct SetLabels(
+        pub(crate) RequestBuilder<crate::model::target_vpn_gateways::SetLabelsRequest>,
+    );
 
     impl SetLabels {
         pub(crate) fn new(
@@ -148364,7 +149005,7 @@ pub mod target_vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -148462,9 +149103,9 @@ pub mod url_maps {
     /// Common implementation for [crate::client::UrlMaps] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::UrlMaps>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::UrlMaps>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -148501,7 +149142,9 @@ pub mod url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::url_maps::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::url_maps::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::UrlMaps>) -> Self {
@@ -148696,7 +149339,7 @@ pub mod url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::url_maps::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::url_maps::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::UrlMaps>) -> Self {
@@ -148824,7 +149467,7 @@ pub mod url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::url_maps::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::url_maps::GetRequest>);
 
     impl Get {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::UrlMaps>) -> Self {
@@ -148888,7 +149531,7 @@ pub mod url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::url_maps::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::url_maps::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::UrlMaps>) -> Self {
@@ -149028,7 +149671,9 @@ pub mod url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InvalidateCache(RequestBuilder<crate::model::url_maps::InvalidateCacheRequest>);
+    pub struct InvalidateCache(
+        pub(crate) RequestBuilder<crate::model::url_maps::InvalidateCacheRequest>,
+    );
 
     impl InvalidateCache {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::UrlMaps>) -> Self {
@@ -149178,7 +149823,7 @@ pub mod url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::url_maps::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::url_maps::ListRequest>);
 
     impl List {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::UrlMaps>) -> Self {
@@ -149332,7 +149977,7 @@ pub mod url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::url_maps::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::url_maps::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::UrlMaps>) -> Self {
@@ -149475,7 +150120,7 @@ pub mod url_maps {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::url_maps::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::url_maps::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -149561,7 +150206,7 @@ pub mod url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::url_maps::UpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::url_maps::UpdateRequest>);
 
     impl Update {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::UrlMaps>) -> Self {
@@ -149707,7 +150352,7 @@ pub mod url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Validate(RequestBuilder<crate::model::url_maps::ValidateRequest>);
+    pub struct Validate(pub(crate) RequestBuilder<crate::model::url_maps::ValidateRequest>);
 
     impl Validate {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::UrlMaps>) -> Self {
@@ -149792,7 +150437,7 @@ pub mod url_maps {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::UrlMaps>) -> Self {
@@ -149882,9 +150527,9 @@ pub mod vpn_gateways {
     /// Common implementation for [crate::client::VpnGateways] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::VpnGateways>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::VpnGateways>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -149923,7 +150568,9 @@ pub mod vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::vpn_gateways::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::vpn_gateways::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -150122,7 +150769,7 @@ pub mod vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::vpn_gateways::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::vpn_gateways::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -150261,7 +150908,7 @@ pub mod vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::vpn_gateways::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::vpn_gateways::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -150336,7 +150983,7 @@ pub mod vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetStatus(RequestBuilder<crate::model::vpn_gateways::GetStatusRequest>);
+    pub struct GetStatus(pub(crate) RequestBuilder<crate::model::vpn_gateways::GetStatusRequest>);
 
     impl GetStatus {
         pub(crate) fn new(
@@ -150411,7 +151058,7 @@ pub mod vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::vpn_gateways::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::vpn_gateways::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -150566,7 +151213,7 @@ pub mod vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::vpn_gateways::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::vpn_gateways::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -150731,7 +151378,7 @@ pub mod vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::vpn_gateways::SetLabelsRequest>);
+    pub struct SetLabels(pub(crate) RequestBuilder<crate::model::vpn_gateways::SetLabelsRequest>);
 
     impl SetLabels {
         pub(crate) fn new(
@@ -150889,7 +151536,7 @@ pub mod vpn_gateways {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<crate::model::vpn_gateways::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::vpn_gateways::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -150983,7 +151630,7 @@ pub mod vpn_gateways {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -151081,9 +151728,9 @@ pub mod vpn_tunnels {
     /// Common implementation for [crate::client::VpnTunnels] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::VpnTunnels>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::VpnTunnels>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -151122,7 +151769,9 @@ pub mod vpn_tunnels {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregatedList(RequestBuilder<crate::model::vpn_tunnels::AggregatedListRequest>);
+    pub struct AggregatedList(
+        pub(crate) RequestBuilder<crate::model::vpn_tunnels::AggregatedListRequest>,
+    );
 
     impl AggregatedList {
         pub(crate) fn new(
@@ -151321,7 +151970,7 @@ pub mod vpn_tunnels {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::vpn_tunnels::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::vpn_tunnels::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -151460,7 +152109,7 @@ pub mod vpn_tunnels {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::vpn_tunnels::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::vpn_tunnels::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -151535,7 +152184,7 @@ pub mod vpn_tunnels {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::vpn_tunnels::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::vpn_tunnels::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -151690,7 +152339,7 @@ pub mod vpn_tunnels {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::vpn_tunnels::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::vpn_tunnels::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -151855,7 +152504,7 @@ pub mod vpn_tunnels {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::vpn_tunnels::SetLabelsRequest>);
+    pub struct SetLabels(pub(crate) RequestBuilder<crate::model::vpn_tunnels::SetLabelsRequest>);
 
     impl SetLabels {
         pub(crate) fn new(
@@ -152012,7 +152661,7 @@ pub mod vpn_tunnels {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::region_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -152110,9 +152759,9 @@ pub mod wire_groups {
     /// Common implementation for [crate::client::WireGroups] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::WireGroups>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::WireGroups>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -152147,7 +152796,7 @@ pub mod wire_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::wire_groups::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::wire_groups::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -152283,7 +152932,7 @@ pub mod wire_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::wire_groups::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::wire_groups::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -152358,7 +153007,7 @@ pub mod wire_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::wire_groups::InsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::wire_groups::InsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -152528,7 +153177,7 @@ pub mod wire_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::wire_groups::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::wire_groups::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -152693,7 +153342,7 @@ pub mod wire_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::wire_groups::PatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::wire_groups::PatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -152883,7 +153532,7 @@ pub mod wire_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -152975,9 +153624,9 @@ pub mod zone_operations {
     /// Common implementation for [crate::client::ZoneOperations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ZoneOperations>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ZoneOperations>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -153012,7 +153661,7 @@ pub mod zone_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::zone_operations::DeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::zone_operations::DeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -153087,7 +153736,7 @@ pub mod zone_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -153166,7 +153815,7 @@ pub mod zone_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::zone_operations::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::zone_operations::ListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -153331,7 +153980,7 @@ pub mod zone_operations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Wait(RequestBuilder<crate::model::zone_operations::WaitRequest>);
+    pub struct Wait(pub(crate) RequestBuilder<crate::model::zone_operations::WaitRequest>);
 
     impl Wait {
         pub(crate) fn new(
@@ -153429,9 +154078,9 @@ pub mod zone_vm_extension_policies {
     /// Common implementation for [crate::client::ZoneVmExtensionPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ZoneVmExtensionPolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ZoneVmExtensionPolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -153466,7 +154115,9 @@ pub mod zone_vm_extension_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::zone_vm_extension_policies::DeleteRequest>);
+    pub struct Delete(
+        pub(crate) RequestBuilder<crate::model::zone_vm_extension_policies::DeleteRequest>,
+    );
 
     impl Delete {
         pub(crate) fn new(
@@ -153605,7 +154256,7 @@ pub mod zone_vm_extension_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::zone_vm_extension_policies::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::zone_vm_extension_policies::GetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -153680,7 +154331,9 @@ pub mod zone_vm_extension_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::zone_vm_extension_policies::InsertRequest>);
+    pub struct Insert(
+        pub(crate) RequestBuilder<crate::model::zone_vm_extension_policies::InsertRequest>,
+    );
 
     impl Insert {
         pub(crate) fn new(
@@ -153835,7 +154488,9 @@ pub mod zone_vm_extension_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::zone_vm_extension_policies::ListRequest>);
+    pub struct List(
+        pub(crate) RequestBuilder<crate::model::zone_vm_extension_policies::ListRequest>,
+    );
 
     impl List {
         pub(crate) fn new(
@@ -154002,7 +154657,9 @@ pub mod zone_vm_extension_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::zone_vm_extension_policies::UpdateRequest>);
+    pub struct Update(
+        pub(crate) RequestBuilder<crate::model::zone_vm_extension_policies::UpdateRequest>,
+    );
 
     impl Update {
         pub(crate) fn new(
@@ -154159,7 +154816,7 @@ pub mod zone_vm_extension_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::zone_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -154257,9 +154914,9 @@ pub mod zones {
     /// Common implementation for [crate::client::Zones] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Zones>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Zones>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -154292,7 +154949,7 @@ pub mod zones {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::zones::GetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::zones::GetRequest>);
 
     impl Get {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Zones>) -> Self {
@@ -154360,7 +155017,7 @@ pub mod zones {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::zones::ListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::zones::ListRequest>);
 
     impl List {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Zones>) -> Self {

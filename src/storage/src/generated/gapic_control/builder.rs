@@ -21,9 +21,9 @@ pub mod storage_control {
     /// Common implementation for [crate::client::StorageControl] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -58,7 +58,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateFolder(RequestBuilder<crate::model::CreateFolderRequest>);
+    pub struct CreateFolder(pub(crate) RequestBuilder<crate::model::CreateFolderRequest>);
 
     impl CreateFolder {
         pub(crate) fn new(
@@ -173,7 +173,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFolder(RequestBuilder<crate::model::DeleteFolderRequest>);
+    pub struct DeleteFolder(pub(crate) RequestBuilder<crate::model::DeleteFolderRequest>);
 
     impl DeleteFolder {
         pub(crate) fn new(
@@ -291,7 +291,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFolder(RequestBuilder<crate::model::GetFolderRequest>);
+    pub struct GetFolder(pub(crate) RequestBuilder<crate::model::GetFolderRequest>);
 
     impl GetFolder {
         pub(crate) fn new(
@@ -413,7 +413,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFolders(RequestBuilder<crate::model::ListFoldersRequest>);
+    pub struct ListFolders(pub(crate) RequestBuilder<crate::model::ListFoldersRequest>);
 
     impl ListFolders {
         pub(crate) fn new(
@@ -557,7 +557,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RenameFolder(RequestBuilder<crate::model::RenameFolderRequest>);
+    pub struct RenameFolder(pub(crate) RequestBuilder<crate::model::RenameFolderRequest>);
 
     impl RenameFolder {
         pub(crate) fn new(
@@ -739,7 +739,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFolderRecursive(RequestBuilder<crate::model::DeleteFolderRecursiveRequest>);
+    pub struct DeleteFolderRecursive(
+        pub(crate) RequestBuilder<crate::model::DeleteFolderRecursiveRequest>,
+    );
 
     impl DeleteFolderRecursive {
         pub(crate) fn new(
@@ -914,7 +916,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetStorageLayout(RequestBuilder<crate::model::GetStorageLayoutRequest>);
+    pub struct GetStorageLayout(pub(crate) RequestBuilder<crate::model::GetStorageLayoutRequest>);
 
     impl GetStorageLayout {
         pub(crate) fn new(
@@ -1002,7 +1004,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateManagedFolder(RequestBuilder<crate::model::CreateManagedFolderRequest>);
+    pub struct CreateManagedFolder(
+        pub(crate) RequestBuilder<crate::model::CreateManagedFolderRequest>,
+    );
 
     impl CreateManagedFolder {
         pub(crate) fn new(
@@ -1114,7 +1118,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteManagedFolder(RequestBuilder<crate::model::DeleteManagedFolderRequest>);
+    pub struct DeleteManagedFolder(
+        pub(crate) RequestBuilder<crate::model::DeleteManagedFolderRequest>,
+    );
 
     impl DeleteManagedFolder {
         pub(crate) fn new(
@@ -1241,7 +1247,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetManagedFolder(RequestBuilder<crate::model::GetManagedFolderRequest>);
+    pub struct GetManagedFolder(pub(crate) RequestBuilder<crate::model::GetManagedFolderRequest>);
 
     impl GetManagedFolder {
         pub(crate) fn new(
@@ -1366,7 +1372,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListManagedFolders(RequestBuilder<crate::model::ListManagedFoldersRequest>);
+    pub struct ListManagedFolders(
+        pub(crate) RequestBuilder<crate::model::ListManagedFoldersRequest>,
+    );
 
     impl ListManagedFolders {
         pub(crate) fn new(
@@ -1496,7 +1504,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateManagedFolder(RequestBuilder<crate::model::UpdateManagedFolderRequest>);
+    pub struct UpdateManagedFolder(
+        pub(crate) RequestBuilder<crate::model::UpdateManagedFolderRequest>,
+    );
 
     impl UpdateManagedFolder {
         pub(crate) fn new(
@@ -1650,7 +1660,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAnywhereCache(RequestBuilder<crate::model::CreateAnywhereCacheRequest>);
+    pub struct CreateAnywhereCache(
+        pub(crate) RequestBuilder<crate::model::CreateAnywhereCacheRequest>,
+    );
 
     impl CreateAnywhereCache {
         pub(crate) fn new(
@@ -1811,7 +1823,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAnywhereCache(RequestBuilder<crate::model::UpdateAnywhereCacheRequest>);
+    pub struct UpdateAnywhereCache(
+        pub(crate) RequestBuilder<crate::model::UpdateAnywhereCacheRequest>,
+    );
 
     impl UpdateAnywhereCache {
         pub(crate) fn new(
@@ -1985,7 +1999,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DisableAnywhereCache(RequestBuilder<crate::model::DisableAnywhereCacheRequest>);
+    pub struct DisableAnywhereCache(
+        pub(crate) RequestBuilder<crate::model::DisableAnywhereCacheRequest>,
+    );
 
     impl DisableAnywhereCache {
         pub(crate) fn new(
@@ -2067,7 +2083,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PauseAnywhereCache(RequestBuilder<crate::model::PauseAnywhereCacheRequest>);
+    pub struct PauseAnywhereCache(
+        pub(crate) RequestBuilder<crate::model::PauseAnywhereCacheRequest>,
+    );
 
     impl PauseAnywhereCache {
         pub(crate) fn new(
@@ -2149,7 +2167,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResumeAnywhereCache(RequestBuilder<crate::model::ResumeAnywhereCacheRequest>);
+    pub struct ResumeAnywhereCache(
+        pub(crate) RequestBuilder<crate::model::ResumeAnywhereCacheRequest>,
+    );
 
     impl ResumeAnywhereCache {
         pub(crate) fn new(
@@ -2231,7 +2251,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAnywhereCache(RequestBuilder<crate::model::GetAnywhereCacheRequest>);
+    pub struct GetAnywhereCache(pub(crate) RequestBuilder<crate::model::GetAnywhereCacheRequest>);
 
     impl GetAnywhereCache {
         pub(crate) fn new(
@@ -2317,7 +2337,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAnywhereCaches(RequestBuilder<crate::model::ListAnywhereCachesRequest>);
+    pub struct ListAnywhereCaches(
+        pub(crate) RequestBuilder<crate::model::ListAnywhereCachesRequest>,
+    );
 
     impl ListAnywhereCaches {
         pub(crate) fn new(
@@ -2442,7 +2464,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRapidCache(RequestBuilder<crate::model::CreateRapidCacheRequest>);
+    pub struct CreateRapidCache(pub(crate) RequestBuilder<crate::model::CreateRapidCacheRequest>);
 
     impl CreateRapidCache {
         pub(crate) fn new(
@@ -2604,7 +2626,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRapidCache(RequestBuilder<crate::model::UpdateRapidCacheRequest>);
+    pub struct UpdateRapidCache(pub(crate) RequestBuilder<crate::model::UpdateRapidCacheRequest>);
 
     impl UpdateRapidCache {
         pub(crate) fn new(
@@ -2780,7 +2802,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DisableRapidCache(RequestBuilder<crate::model::DisableRapidCacheRequest>);
+    pub struct DisableRapidCache(pub(crate) RequestBuilder<crate::model::DisableRapidCacheRequest>);
 
     impl DisableRapidCache {
         pub(crate) fn new(
@@ -2919,7 +2941,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRapidCache(RequestBuilder<crate::model::GetRapidCacheRequest>);
+    pub struct GetRapidCache(pub(crate) RequestBuilder<crate::model::GetRapidCacheRequest>);
 
     impl GetRapidCache {
         pub(crate) fn new(
@@ -3002,7 +3024,7 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRapidCaches(RequestBuilder<crate::model::ListRapidCachesRequest>);
+    pub struct ListRapidCaches(pub(crate) RequestBuilder<crate::model::ListRapidCachesRequest>);
 
     impl ListRapidCaches {
         pub(crate) fn new(
@@ -3124,7 +3146,7 @@ pub mod storage_control {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetProjectIntelligenceConfig(
-        RequestBuilder<crate::model::GetProjectIntelligenceConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::GetProjectIntelligenceConfigRequest>,
     );
 
     impl GetProjectIntelligenceConfig {
@@ -3191,7 +3213,7 @@ pub mod storage_control {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProjectIntelligenceConfig(
-        RequestBuilder<crate::model::UpdateProjectIntelligenceConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateProjectIntelligenceConfigRequest>,
     );
 
     impl UpdateProjectIntelligenceConfig {
@@ -3311,7 +3333,7 @@ pub mod storage_control {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetFolderIntelligenceConfig(
-        RequestBuilder<crate::model::GetFolderIntelligenceConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::GetFolderIntelligenceConfigRequest>,
     );
 
     impl GetFolderIntelligenceConfig {
@@ -3378,7 +3400,7 @@ pub mod storage_control {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFolderIntelligenceConfig(
-        RequestBuilder<crate::model::UpdateFolderIntelligenceConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateFolderIntelligenceConfigRequest>,
     );
 
     impl UpdateFolderIntelligenceConfig {
@@ -3498,7 +3520,7 @@ pub mod storage_control {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetOrganizationIntelligenceConfig(
-        RequestBuilder<crate::model::GetOrganizationIntelligenceConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::GetOrganizationIntelligenceConfigRequest>,
     );
 
     impl GetOrganizationIntelligenceConfig {
@@ -3565,7 +3587,7 @@ pub mod storage_control {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateOrganizationIntelligenceConfig(
-        RequestBuilder<crate::model::UpdateOrganizationIntelligenceConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateOrganizationIntelligenceConfigRequest>,
     );
 
     impl UpdateOrganizationIntelligenceConfig {
@@ -3684,7 +3706,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -3767,7 +3791,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -3873,7 +3899,7 @@ pub mod storage_control {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -3952,7 +3978,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIntelligenceFinding(RequestBuilder<crate::model::GetIntelligenceFindingRequest>);
+    pub struct GetIntelligenceFinding(
+        pub(crate) RequestBuilder<crate::model::GetIntelligenceFindingRequest>,
+    );
 
     impl GetIntelligenceFinding {
         pub(crate) fn new(
@@ -4022,7 +4050,7 @@ pub mod storage_control {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListIntelligenceFindings(
-        RequestBuilder<crate::model::ListIntelligenceFindingsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListIntelligenceFindingsRequest>,
     );
 
     impl ListIntelligenceFindings {
@@ -4139,7 +4167,7 @@ pub mod storage_control {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SummarizeIntelligenceFindings(
-        RequestBuilder<crate::model::SummarizeIntelligenceFindingsRequest>,
+        pub(crate) RequestBuilder<crate::model::SummarizeIntelligenceFindingsRequest>,
     );
 
     impl SummarizeIntelligenceFindings {
@@ -4263,7 +4291,7 @@ pub mod storage_control {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIntelligenceFindingRevision(
-        RequestBuilder<crate::model::GetIntelligenceFindingRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::GetIntelligenceFindingRevisionRequest>,
     );
 
     impl GetIntelligenceFindingRevision {
@@ -4334,7 +4362,7 @@ pub mod storage_control {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListIntelligenceFindingRevisions(
-        RequestBuilder<crate::model::ListIntelligenceFindingRevisionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListIntelligenceFindingRevisionsRequest>,
     );
 
     impl ListIntelligenceFindingRevisions {
@@ -4440,7 +4468,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ViewObjectFullContext(RequestBuilder<crate::model::ViewObjectFullContextRequest>);
+    pub struct ViewObjectFullContext(
+        pub(crate) RequestBuilder<crate::model::ViewObjectFullContextRequest>,
+    );
 
     impl ViewObjectFullContext {
         pub(crate) fn new(
@@ -4519,7 +4549,9 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

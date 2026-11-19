@@ -51,9 +51,9 @@ pub mod hive_metastore_service {
     /// Common implementation for [crate::client::HiveMetastoreService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::HiveMetastoreService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::HiveMetastoreService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateHiveCatalog(RequestBuilder<crate::model::CreateHiveCatalogRequest>);
+    pub struct CreateHiveCatalog(pub(crate) RequestBuilder<crate::model::CreateHiveCatalogRequest>);
 
     impl CreateHiveCatalog {
         pub(crate) fn new(
@@ -191,7 +191,7 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetHiveCatalog(RequestBuilder<crate::model::GetHiveCatalogRequest>);
+    pub struct GetHiveCatalog(pub(crate) RequestBuilder<crate::model::GetHiveCatalogRequest>);
 
     impl GetHiveCatalog {
         pub(crate) fn new(
@@ -257,7 +257,7 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListHiveCatalogs(RequestBuilder<crate::model::ListHiveCatalogsRequest>);
+    pub struct ListHiveCatalogs(pub(crate) RequestBuilder<crate::model::ListHiveCatalogsRequest>);
 
     impl ListHiveCatalogs {
         pub(crate) fn new(
@@ -362,7 +362,7 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateHiveCatalog(RequestBuilder<crate::model::UpdateHiveCatalogRequest>);
+    pub struct UpdateHiveCatalog(pub(crate) RequestBuilder<crate::model::UpdateHiveCatalogRequest>);
 
     impl UpdateHiveCatalog {
         pub(crate) fn new(
@@ -459,7 +459,7 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteHiveCatalog(RequestBuilder<crate::model::DeleteHiveCatalogRequest>);
+    pub struct DeleteHiveCatalog(pub(crate) RequestBuilder<crate::model::DeleteHiveCatalogRequest>);
 
     impl DeleteHiveCatalog {
         pub(crate) fn new(
@@ -524,7 +524,9 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateHiveDatabase(RequestBuilder<crate::model::CreateHiveDatabaseRequest>);
+    pub struct CreateHiveDatabase(
+        pub(crate) RequestBuilder<crate::model::CreateHiveDatabaseRequest>,
+    );
 
     impl CreateHiveDatabase {
         pub(crate) fn new(
@@ -619,7 +621,7 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetHiveDatabase(RequestBuilder<crate::model::GetHiveDatabaseRequest>);
+    pub struct GetHiveDatabase(pub(crate) RequestBuilder<crate::model::GetHiveDatabaseRequest>);
 
     impl GetHiveDatabase {
         pub(crate) fn new(
@@ -685,7 +687,7 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListHiveDatabases(RequestBuilder<crate::model::ListHiveDatabasesRequest>);
+    pub struct ListHiveDatabases(pub(crate) RequestBuilder<crate::model::ListHiveDatabasesRequest>);
 
     impl ListHiveDatabases {
         pub(crate) fn new(
@@ -790,7 +792,9 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateHiveDatabase(RequestBuilder<crate::model::UpdateHiveDatabaseRequest>);
+    pub struct UpdateHiveDatabase(
+        pub(crate) RequestBuilder<crate::model::UpdateHiveDatabaseRequest>,
+    );
 
     impl UpdateHiveDatabase {
         pub(crate) fn new(
@@ -887,7 +891,9 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteHiveDatabase(RequestBuilder<crate::model::DeleteHiveDatabaseRequest>);
+    pub struct DeleteHiveDatabase(
+        pub(crate) RequestBuilder<crate::model::DeleteHiveDatabaseRequest>,
+    );
 
     impl DeleteHiveDatabase {
         pub(crate) fn new(
@@ -952,7 +958,7 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateHiveTable(RequestBuilder<crate::model::CreateHiveTableRequest>);
+    pub struct CreateHiveTable(pub(crate) RequestBuilder<crate::model::CreateHiveTableRequest>);
 
     impl CreateHiveTable {
         pub(crate) fn new(
@@ -1044,7 +1050,7 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetHiveTable(RequestBuilder<crate::model::GetHiveTableRequest>);
+    pub struct GetHiveTable(pub(crate) RequestBuilder<crate::model::GetHiveTableRequest>);
 
     impl GetHiveTable {
         pub(crate) fn new(
@@ -1110,7 +1116,7 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListHiveTables(RequestBuilder<crate::model::ListHiveTablesRequest>);
+    pub struct ListHiveTables(pub(crate) RequestBuilder<crate::model::ListHiveTablesRequest>);
 
     impl ListHiveTables {
         pub(crate) fn new(
@@ -1212,7 +1218,7 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateHiveTable(RequestBuilder<crate::model::UpdateHiveTableRequest>);
+    pub struct UpdateHiveTable(pub(crate) RequestBuilder<crate::model::UpdateHiveTableRequest>);
 
     impl UpdateHiveTable {
         pub(crate) fn new(
@@ -1306,7 +1312,7 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteHiveTable(RequestBuilder<crate::model::DeleteHiveTableRequest>);
+    pub struct DeleteHiveTable(pub(crate) RequestBuilder<crate::model::DeleteHiveTableRequest>);
 
     impl DeleteHiveTable {
         pub(crate) fn new(
@@ -1368,7 +1374,9 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchCreatePartitions(RequestBuilder<crate::model::BatchCreatePartitionsRequest>);
+    pub struct BatchCreatePartitions(
+        pub(crate) RequestBuilder<crate::model::BatchCreatePartitionsRequest>,
+    );
 
     impl BatchCreatePartitions {
         pub(crate) fn new(
@@ -1452,7 +1460,9 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchDeletePartitions(RequestBuilder<crate::model::BatchDeletePartitionsRequest>);
+    pub struct BatchDeletePartitions(
+        pub(crate) RequestBuilder<crate::model::BatchDeletePartitionsRequest>,
+    );
 
     impl BatchDeletePartitions {
         pub(crate) fn new(
@@ -1530,7 +1540,9 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchUpdatePartitions(RequestBuilder<crate::model::BatchUpdatePartitionsRequest>);
+    pub struct BatchUpdatePartitions(
+        pub(crate) RequestBuilder<crate::model::BatchUpdatePartitionsRequest>,
+    );
 
     impl BatchUpdatePartitions {
         pub(crate) fn new(
@@ -1611,7 +1623,7 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPartitions(RequestBuilder<crate::model::ListPartitionsRequest>);
+    pub struct ListPartitions(pub(crate) RequestBuilder<crate::model::ListPartitionsRequest>);
 
     impl ListPartitions {
         pub(crate) fn new(
@@ -1681,7 +1693,9 @@ pub mod hive_metastore_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FailoverHiveCatalog(RequestBuilder<crate::model::FailoverHiveCatalogRequest>);
+    pub struct FailoverHiveCatalog(
+        pub(crate) RequestBuilder<crate::model::FailoverHiveCatalogRequest>,
+    );
 
     impl FailoverHiveCatalog {
         pub(crate) fn new(

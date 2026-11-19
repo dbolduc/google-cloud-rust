@@ -51,9 +51,9 @@ pub mod direct_access_service {
     /// Common implementation for [crate::client::DirectAccessService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -74,8 +74,8 @@ pub mod direct_access_service {
     /// Common implementation for [crate::client::DirectAccessService] bidi stream builders.
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl BidiStreamBuilder {
@@ -106,7 +106,9 @@ pub mod direct_access_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDeviceSession(RequestBuilder<crate::model::CreateDeviceSessionRequest>);
+    pub struct CreateDeviceSession(
+        pub(crate) RequestBuilder<crate::model::CreateDeviceSessionRequest>,
+    );
 
     impl CreateDeviceSession {
         pub(crate) fn new(
@@ -203,7 +205,9 @@ pub mod direct_access_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDeviceSessions(RequestBuilder<crate::model::ListDeviceSessionsRequest>);
+    pub struct ListDeviceSessions(
+        pub(crate) RequestBuilder<crate::model::ListDeviceSessionsRequest>,
+    );
 
     impl ListDeviceSessions {
         pub(crate) fn new(
@@ -314,7 +318,7 @@ pub mod direct_access_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDeviceSession(RequestBuilder<crate::model::GetDeviceSessionRequest>);
+    pub struct GetDeviceSession(pub(crate) RequestBuilder<crate::model::GetDeviceSessionRequest>);
 
     impl GetDeviceSession {
         pub(crate) fn new(
@@ -379,7 +383,9 @@ pub mod direct_access_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelDeviceSession(RequestBuilder<crate::model::CancelDeviceSessionRequest>);
+    pub struct CancelDeviceSession(
+        pub(crate) RequestBuilder<crate::model::CancelDeviceSessionRequest>,
+    );
 
     impl CancelDeviceSession {
         pub(crate) fn new(
@@ -444,7 +450,9 @@ pub mod direct_access_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDeviceSession(RequestBuilder<crate::model::UpdateDeviceSessionRequest>);
+    pub struct UpdateDeviceSession(
+        pub(crate) RequestBuilder<crate::model::UpdateDeviceSessionRequest>,
+    );
 
     impl UpdateDeviceSession {
         pub(crate) fn new(
@@ -549,7 +557,7 @@ pub mod direct_access_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AdbConnect(BidiStreamBuilder);
+    pub struct AdbConnect(pub(crate) BidiStreamBuilder);
 
     impl AdbConnect {
         pub(crate) fn new(

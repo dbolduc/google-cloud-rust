@@ -51,9 +51,9 @@ pub mod key_dashboard_service {
     /// Common implementation for [crate::client::KeyDashboardService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod key_dashboard_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCryptoKeys(RequestBuilder<crate::model::ListCryptoKeysRequest>);
+    pub struct ListCryptoKeys(pub(crate) RequestBuilder<crate::model::ListCryptoKeysRequest>);
 
     impl ListCryptoKeys {
         pub(crate) fn new(
@@ -215,9 +215,9 @@ pub mod key_tracking_service {
     /// Common implementation for [crate::client::KeyTrackingService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -253,7 +253,7 @@ pub mod key_tracking_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetProtectedResourcesSummary(
-        RequestBuilder<crate::model::GetProtectedResourcesSummaryRequest>,
+        pub(crate) RequestBuilder<crate::model::GetProtectedResourcesSummaryRequest>,
     );
 
     impl GetProtectedResourcesSummary {
@@ -330,7 +330,7 @@ pub mod key_tracking_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SearchProtectedResources(
-        RequestBuilder<crate::model::SearchProtectedResourcesRequest>,
+        pub(crate) RequestBuilder<crate::model::SearchProtectedResourcesRequest>,
     );
 
     impl SearchProtectedResources {

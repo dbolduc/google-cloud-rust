@@ -51,9 +51,9 @@ pub mod secure_source_manager {
     /// Common implementation for [crate::client::SecureSourceManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
+    pub struct ListInstances(pub(crate) RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(
@@ -204,7 +204,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
+    pub struct GetInstance(pub(crate) RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(
@@ -267,7 +267,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
+    pub struct CreateInstance(pub(crate) RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
         pub(crate) fn new(
@@ -420,7 +420,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
+    pub struct DeleteInstance(pub(crate) RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
         pub(crate) fn new(
@@ -547,7 +547,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
+    pub struct ListRepositories(pub(crate) RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
         pub(crate) fn new(
@@ -664,7 +664,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
+    pub struct GetRepository(pub(crate) RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
         pub(crate) fn new(
@@ -727,7 +727,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
+    pub struct CreateRepository(pub(crate) RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
         pub(crate) fn new(
@@ -877,7 +877,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRepository(RequestBuilder<crate::model::UpdateRepositoryRequest>);
+    pub struct UpdateRepository(pub(crate) RequestBuilder<crate::model::UpdateRepositoryRequest>);
 
     impl UpdateRepository {
         pub(crate) fn new(
@@ -1035,7 +1035,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
+    pub struct DeleteRepository(pub(crate) RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
         pub(crate) fn new(
@@ -1159,7 +1159,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListHooks(RequestBuilder<crate::model::ListHooksRequest>);
+    pub struct ListHooks(pub(crate) RequestBuilder<crate::model::ListHooksRequest>);
 
     impl ListHooks {
         pub(crate) fn new(
@@ -1257,7 +1257,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetHook(RequestBuilder<crate::model::GetHookRequest>);
+    pub struct GetHook(pub(crate) RequestBuilder<crate::model::GetHookRequest>);
 
     impl GetHook {
         pub(crate) fn new(
@@ -1320,7 +1320,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateHook(RequestBuilder<crate::model::CreateHookRequest>);
+    pub struct CreateHook(pub(crate) RequestBuilder<crate::model::CreateHookRequest>);
 
     impl CreateHook {
         pub(crate) fn new(
@@ -1467,7 +1467,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateHook(RequestBuilder<crate::model::UpdateHookRequest>);
+    pub struct UpdateHook(pub(crate) RequestBuilder<crate::model::UpdateHookRequest>);
 
     impl UpdateHook {
         pub(crate) fn new(
@@ -1616,7 +1616,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteHook(RequestBuilder<crate::model::DeleteHookRequest>);
+    pub struct DeleteHook(pub(crate) RequestBuilder<crate::model::DeleteHookRequest>);
 
     impl DeleteHook {
         pub(crate) fn new(
@@ -1727,7 +1727,9 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicyRepo(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicyRepo(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicyRepo {
         pub(crate) fn new(
@@ -1810,7 +1812,9 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicyRepo(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicyRepo(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicyRepo {
         pub(crate) fn new(
@@ -1916,7 +1920,7 @@ pub mod secure_source_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissionsRepo(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissionsRepo {
@@ -1996,7 +2000,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBranchRule(RequestBuilder<crate::model::CreateBranchRuleRequest>);
+    pub struct CreateBranchRule(pub(crate) RequestBuilder<crate::model::CreateBranchRuleRequest>);
 
     impl CreateBranchRule {
         pub(crate) fn new(
@@ -2149,7 +2153,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBranchRules(RequestBuilder<crate::model::ListBranchRulesRequest>);
+    pub struct ListBranchRules(pub(crate) RequestBuilder<crate::model::ListBranchRulesRequest>);
 
     impl ListBranchRules {
         pub(crate) fn new(
@@ -2251,7 +2255,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBranchRule(RequestBuilder<crate::model::GetBranchRuleRequest>);
+    pub struct GetBranchRule(pub(crate) RequestBuilder<crate::model::GetBranchRuleRequest>);
 
     impl GetBranchRule {
         pub(crate) fn new(
@@ -2314,7 +2318,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBranchRule(RequestBuilder<crate::model::UpdateBranchRuleRequest>);
+    pub struct UpdateBranchRule(pub(crate) RequestBuilder<crate::model::UpdateBranchRuleRequest>);
 
     impl UpdateBranchRule {
         pub(crate) fn new(
@@ -2472,7 +2476,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBranchRule(RequestBuilder<crate::model::DeleteBranchRuleRequest>);
+    pub struct DeleteBranchRule(pub(crate) RequestBuilder<crate::model::DeleteBranchRuleRequest>);
 
     impl DeleteBranchRule {
         pub(crate) fn new(
@@ -2593,7 +2597,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePullRequest(RequestBuilder<crate::model::CreatePullRequestRequest>);
+    pub struct CreatePullRequest(pub(crate) RequestBuilder<crate::model::CreatePullRequestRequest>);
 
     impl CreatePullRequest {
         pub(crate) fn new(
@@ -2734,7 +2738,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPullRequest(RequestBuilder<crate::model::GetPullRequestRequest>);
+    pub struct GetPullRequest(pub(crate) RequestBuilder<crate::model::GetPullRequestRequest>);
 
     impl GetPullRequest {
         pub(crate) fn new(
@@ -2800,7 +2804,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPullRequests(RequestBuilder<crate::model::ListPullRequestsRequest>);
+    pub struct ListPullRequests(pub(crate) RequestBuilder<crate::model::ListPullRequestsRequest>);
 
     impl ListPullRequests {
         pub(crate) fn new(
@@ -2906,7 +2910,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePullRequest(RequestBuilder<crate::model::UpdatePullRequestRequest>);
+    pub struct UpdatePullRequest(pub(crate) RequestBuilder<crate::model::UpdatePullRequestRequest>);
 
     impl UpdatePullRequest {
         pub(crate) fn new(
@@ -3058,7 +3062,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MergePullRequest(RequestBuilder<crate::model::MergePullRequestRequest>);
+    pub struct MergePullRequest(pub(crate) RequestBuilder<crate::model::MergePullRequestRequest>);
 
     impl MergePullRequest {
         pub(crate) fn new(
@@ -3178,7 +3182,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct OpenPullRequest(RequestBuilder<crate::model::OpenPullRequestRequest>);
+    pub struct OpenPullRequest(pub(crate) RequestBuilder<crate::model::OpenPullRequestRequest>);
 
     impl OpenPullRequest {
         pub(crate) fn new(
@@ -3295,7 +3299,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ClosePullRequest(RequestBuilder<crate::model::ClosePullRequestRequest>);
+    pub struct ClosePullRequest(pub(crate) RequestBuilder<crate::model::ClosePullRequestRequest>);
 
     impl ClosePullRequest {
         pub(crate) fn new(
@@ -3419,7 +3423,7 @@ pub mod secure_source_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListPullRequestFileDiffs(
-        RequestBuilder<crate::model::ListPullRequestFileDiffsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListPullRequestFileDiffsRequest>,
     );
 
     impl ListPullRequestFileDiffs {
@@ -3529,7 +3533,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchTree(RequestBuilder<crate::model::FetchTreeRequest>);
+    pub struct FetchTree(pub(crate) RequestBuilder<crate::model::FetchTreeRequest>);
 
     impl FetchTree {
         pub(crate) fn new(
@@ -3639,7 +3643,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchBlob(RequestBuilder<crate::model::FetchBlobRequest>);
+    pub struct FetchBlob(pub(crate) RequestBuilder<crate::model::FetchBlobRequest>);
 
     impl FetchBlob {
         pub(crate) fn new(
@@ -3713,7 +3717,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchRefs(RequestBuilder<crate::model::FetchRefsRequest>);
+    pub struct FetchRefs(pub(crate) RequestBuilder<crate::model::FetchRefsRequest>);
 
     impl FetchRefs {
         pub(crate) fn new(
@@ -3818,7 +3822,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateIssue(RequestBuilder<crate::model::CreateIssueRequest>);
+    pub struct CreateIssue(pub(crate) RequestBuilder<crate::model::CreateIssueRequest>);
 
     impl CreateIssue {
         pub(crate) fn new(
@@ -3956,7 +3960,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIssue(RequestBuilder<crate::model::GetIssueRequest>);
+    pub struct GetIssue(pub(crate) RequestBuilder<crate::model::GetIssueRequest>);
 
     impl GetIssue {
         pub(crate) fn new(
@@ -4022,7 +4026,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListIssues(RequestBuilder<crate::model::ListIssuesRequest>);
+    pub struct ListIssues(pub(crate) RequestBuilder<crate::model::ListIssuesRequest>);
 
     impl ListIssues {
         pub(crate) fn new(
@@ -4129,7 +4133,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateIssue(RequestBuilder<crate::model::UpdateIssueRequest>);
+    pub struct UpdateIssue(pub(crate) RequestBuilder<crate::model::UpdateIssueRequest>);
 
     impl UpdateIssue {
         pub(crate) fn new(
@@ -4278,7 +4282,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteIssue(RequestBuilder<crate::model::DeleteIssueRequest>);
+    pub struct DeleteIssue(pub(crate) RequestBuilder<crate::model::DeleteIssueRequest>);
 
     impl DeleteIssue {
         pub(crate) fn new(
@@ -4396,7 +4400,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct OpenIssue(RequestBuilder<crate::model::OpenIssueRequest>);
+    pub struct OpenIssue(pub(crate) RequestBuilder<crate::model::OpenIssueRequest>);
 
     impl OpenIssue {
         pub(crate) fn new(
@@ -4519,7 +4523,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CloseIssue(RequestBuilder<crate::model::CloseIssueRequest>);
+    pub struct CloseIssue(pub(crate) RequestBuilder<crate::model::CloseIssueRequest>);
 
     impl CloseIssue {
         pub(crate) fn new(
@@ -4641,7 +4645,9 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPullRequestComment(RequestBuilder<crate::model::GetPullRequestCommentRequest>);
+    pub struct GetPullRequestComment(
+        pub(crate) RequestBuilder<crate::model::GetPullRequestCommentRequest>,
+    );
 
     impl GetPullRequestComment {
         pub(crate) fn new(
@@ -4711,7 +4717,7 @@ pub mod secure_source_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListPullRequestComments(
-        RequestBuilder<crate::model::ListPullRequestCommentsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListPullRequestCommentsRequest>,
     );
 
     impl ListPullRequestComments {
@@ -4819,7 +4825,7 @@ pub mod secure_source_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePullRequestComment(
-        RequestBuilder<crate::model::CreatePullRequestCommentRequest>,
+        pub(crate) RequestBuilder<crate::model::CreatePullRequestCommentRequest>,
     );
 
     impl CreatePullRequestComment {
@@ -4965,7 +4971,7 @@ pub mod secure_source_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePullRequestComment(
-        RequestBuilder<crate::model::UpdatePullRequestCommentRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdatePullRequestCommentRequest>,
     );
 
     impl UpdatePullRequestComment {
@@ -5121,7 +5127,7 @@ pub mod secure_source_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePullRequestComment(
-        RequestBuilder<crate::model::DeletePullRequestCommentRequest>,
+        pub(crate) RequestBuilder<crate::model::DeletePullRequestCommentRequest>,
     );
 
     impl DeletePullRequestComment {
@@ -5238,7 +5244,7 @@ pub mod secure_source_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct BatchCreatePullRequestComments(
-        RequestBuilder<crate::model::BatchCreatePullRequestCommentsRequest>,
+        pub(crate) RequestBuilder<crate::model::BatchCreatePullRequestCommentsRequest>,
     );
 
     impl BatchCreatePullRequestComments {
@@ -5375,7 +5381,7 @@ pub mod secure_source_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ResolvePullRequestComments(
-        RequestBuilder<crate::model::ResolvePullRequestCommentsRequest>,
+        pub(crate) RequestBuilder<crate::model::ResolvePullRequestCommentsRequest>,
     );
 
     impl ResolvePullRequestComments {
@@ -5518,7 +5524,7 @@ pub mod secure_source_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UnresolvePullRequestComments(
-        RequestBuilder<crate::model::UnresolvePullRequestCommentsRequest>,
+        pub(crate) RequestBuilder<crate::model::UnresolvePullRequestCommentsRequest>,
     );
 
     impl UnresolvePullRequestComments {
@@ -5660,7 +5666,9 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateIssueComment(RequestBuilder<crate::model::CreateIssueCommentRequest>);
+    pub struct CreateIssueComment(
+        pub(crate) RequestBuilder<crate::model::CreateIssueCommentRequest>,
+    );
 
     impl CreateIssueComment {
         pub(crate) fn new(
@@ -5801,7 +5809,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIssueComment(RequestBuilder<crate::model::GetIssueCommentRequest>);
+    pub struct GetIssueComment(pub(crate) RequestBuilder<crate::model::GetIssueCommentRequest>);
 
     impl GetIssueComment {
         pub(crate) fn new(
@@ -5867,7 +5875,7 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListIssueComments(RequestBuilder<crate::model::ListIssueCommentsRequest>);
+    pub struct ListIssueComments(pub(crate) RequestBuilder<crate::model::ListIssueCommentsRequest>);
 
     impl ListIssueComments {
         pub(crate) fn new(
@@ -5973,7 +5981,9 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateIssueComment(RequestBuilder<crate::model::UpdateIssueCommentRequest>);
+    pub struct UpdateIssueComment(
+        pub(crate) RequestBuilder<crate::model::UpdateIssueCommentRequest>,
+    );
 
     impl UpdateIssueComment {
         pub(crate) fn new(
@@ -6125,7 +6135,9 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteIssueComment(RequestBuilder<crate::model::DeleteIssueCommentRequest>);
+    pub struct DeleteIssueComment(
+        pub(crate) RequestBuilder<crate::model::DeleteIssueCommentRequest>,
+    );
 
     impl DeleteIssueComment {
         pub(crate) fn new(
@@ -6243,7 +6255,9 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -6352,7 +6366,9 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -6415,7 +6431,9 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -6520,7 +6538,9 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -6604,7 +6624,7 @@ pub mod secure_source_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -6688,7 +6708,7 @@ pub mod secure_source_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -6804,7 +6824,9 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -6868,7 +6890,7 @@ pub mod secure_source_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -6933,7 +6955,7 @@ pub mod secure_source_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

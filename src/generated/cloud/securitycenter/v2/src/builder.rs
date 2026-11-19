@@ -51,9 +51,9 @@ pub mod security_center {
     /// Common implementation for [crate::client::SecurityCenter] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod security_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct BatchCreateResourceValueConfigs(
-        RequestBuilder<crate::model::BatchCreateResourceValueConfigsRequest>,
+        pub(crate) RequestBuilder<crate::model::BatchCreateResourceValueConfigsRequest>,
     );
 
     impl BatchCreateResourceValueConfigs {
@@ -169,7 +169,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BulkMuteFindings(RequestBuilder<crate::model::BulkMuteFindingsRequest>);
+    pub struct BulkMuteFindings(pub(crate) RequestBuilder<crate::model::BulkMuteFindingsRequest>);
 
     impl BulkMuteFindings {
         pub(crate) fn new(
@@ -302,7 +302,9 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBigQueryExport(RequestBuilder<crate::model::CreateBigQueryExportRequest>);
+    pub struct CreateBigQueryExport(
+        pub(crate) RequestBuilder<crate::model::CreateBigQueryExportRequest>,
+    );
 
     impl CreateBigQueryExport {
         pub(crate) fn new(
@@ -397,7 +399,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateFinding(RequestBuilder<crate::model::CreateFindingRequest>);
+    pub struct CreateFinding(pub(crate) RequestBuilder<crate::model::CreateFindingRequest>);
 
     impl CreateFinding {
         pub(crate) fn new(
@@ -489,7 +491,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateMuteConfig(RequestBuilder<crate::model::CreateMuteConfigRequest>);
+    pub struct CreateMuteConfig(pub(crate) RequestBuilder<crate::model::CreateMuteConfigRequest>);
 
     impl CreateMuteConfig {
         pub(crate) fn new(
@@ -585,7 +587,7 @@ pub mod security_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNotificationConfig(
-        RequestBuilder<crate::model::CreateNotificationConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateNotificationConfigRequest>,
     );
 
     impl CreateNotificationConfig {
@@ -681,7 +683,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
+    pub struct CreateSource(pub(crate) RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
         pub(crate) fn new(
@@ -765,7 +767,9 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBigQueryExport(RequestBuilder<crate::model::DeleteBigQueryExportRequest>);
+    pub struct DeleteBigQueryExport(
+        pub(crate) RequestBuilder<crate::model::DeleteBigQueryExportRequest>,
+    );
 
     impl DeleteBigQueryExport {
         pub(crate) fn new(
@@ -830,7 +834,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteMuteConfig(RequestBuilder<crate::model::DeleteMuteConfigRequest>);
+    pub struct DeleteMuteConfig(pub(crate) RequestBuilder<crate::model::DeleteMuteConfigRequest>);
 
     impl DeleteMuteConfig {
         pub(crate) fn new(
@@ -896,7 +900,7 @@ pub mod security_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNotificationConfig(
-        RequestBuilder<crate::model::DeleteNotificationConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteNotificationConfigRequest>,
     );
 
     impl DeleteNotificationConfig {
@@ -963,7 +967,7 @@ pub mod security_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteResourceValueConfig(
-        RequestBuilder<crate::model::DeleteResourceValueConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteResourceValueConfigRequest>,
     );
 
     impl DeleteResourceValueConfig {
@@ -1029,7 +1033,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBigQueryExport(RequestBuilder<crate::model::GetBigQueryExportRequest>);
+    pub struct GetBigQueryExport(pub(crate) RequestBuilder<crate::model::GetBigQueryExportRequest>);
 
     impl GetBigQueryExport {
         pub(crate) fn new(
@@ -1094,7 +1098,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSimulation(RequestBuilder<crate::model::GetSimulationRequest>);
+    pub struct GetSimulation(pub(crate) RequestBuilder<crate::model::GetSimulationRequest>);
 
     impl GetSimulation {
         pub(crate) fn new(
@@ -1156,7 +1160,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetValuedResource(RequestBuilder<crate::model::GetValuedResourceRequest>);
+    pub struct GetValuedResource(pub(crate) RequestBuilder<crate::model::GetValuedResourceRequest>);
 
     impl GetValuedResource {
         pub(crate) fn new(
@@ -1221,7 +1225,9 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1304,7 +1310,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMuteConfig(RequestBuilder<crate::model::GetMuteConfigRequest>);
+    pub struct GetMuteConfig(pub(crate) RequestBuilder<crate::model::GetMuteConfigRequest>);
 
     impl GetMuteConfig {
         pub(crate) fn new(
@@ -1366,7 +1372,9 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNotificationConfig(RequestBuilder<crate::model::GetNotificationConfigRequest>);
+    pub struct GetNotificationConfig(
+        pub(crate) RequestBuilder<crate::model::GetNotificationConfigRequest>,
+    );
 
     impl GetNotificationConfig {
         pub(crate) fn new(
@@ -1431,7 +1439,9 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetResourceValueConfig(RequestBuilder<crate::model::GetResourceValueConfigRequest>);
+    pub struct GetResourceValueConfig(
+        pub(crate) RequestBuilder<crate::model::GetResourceValueConfigRequest>,
+    );
 
     impl GetResourceValueConfig {
         pub(crate) fn new(
@@ -1496,7 +1506,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
+    pub struct GetSource(pub(crate) RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
         pub(crate) fn new(
@@ -1562,7 +1572,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GroupFindings(RequestBuilder<crate::model::GroupFindingsRequest>);
+    pub struct GroupFindings(pub(crate) RequestBuilder<crate::model::GroupFindingsRequest>);
 
     impl GroupFindings {
         pub(crate) fn new(
@@ -1680,7 +1690,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAttackPaths(RequestBuilder<crate::model::ListAttackPathsRequest>);
+    pub struct ListAttackPaths(pub(crate) RequestBuilder<crate::model::ListAttackPathsRequest>);
 
     impl ListAttackPaths {
         pub(crate) fn new(
@@ -1792,7 +1802,9 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBigQueryExports(RequestBuilder<crate::model::ListBigQueryExportsRequest>);
+    pub struct ListBigQueryExports(
+        pub(crate) RequestBuilder<crate::model::ListBigQueryExportsRequest>,
+    );
 
     impl ListBigQueryExports {
         pub(crate) fn new(
@@ -1901,7 +1913,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFindings(RequestBuilder<crate::model::ListFindingsRequest>);
+    pub struct ListFindings(pub(crate) RequestBuilder<crate::model::ListFindingsRequest>);
 
     impl ListFindings {
         pub(crate) fn new(
@@ -2035,7 +2047,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMuteConfigs(RequestBuilder<crate::model::ListMuteConfigsRequest>);
+    pub struct ListMuteConfigs(pub(crate) RequestBuilder<crate::model::ListMuteConfigsRequest>);
 
     impl ListMuteConfigs {
         pub(crate) fn new(
@@ -2142,7 +2154,7 @@ pub mod security_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListNotificationConfigs(
-        RequestBuilder<crate::model::ListNotificationConfigsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListNotificationConfigsRequest>,
     );
 
     impl ListNotificationConfigs {
@@ -2253,7 +2265,7 @@ pub mod security_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListResourceValueConfigs(
-        RequestBuilder<crate::model::ListResourceValueConfigsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListResourceValueConfigsRequest>,
     );
 
     impl ListResourceValueConfigs {
@@ -2363,7 +2375,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
+    pub struct ListSources(pub(crate) RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
         pub(crate) fn new(
@@ -2467,7 +2479,9 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListValuedResources(RequestBuilder<crate::model::ListValuedResourcesRequest>);
+    pub struct ListValuedResources(
+        pub(crate) RequestBuilder<crate::model::ListValuedResourcesRequest>,
+    );
 
     impl ListValuedResources {
         pub(crate) fn new(
@@ -2584,7 +2598,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetFindingState(RequestBuilder<crate::model::SetFindingStateRequest>);
+    pub struct SetFindingState(pub(crate) RequestBuilder<crate::model::SetFindingStateRequest>);
 
     impl SetFindingState {
         pub(crate) fn new(
@@ -2654,7 +2668,9 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -2759,7 +2775,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetMute(RequestBuilder<crate::model::SetMuteRequest>);
+    pub struct SetMute(pub(crate) RequestBuilder<crate::model::SetMuteRequest>);
 
     impl SetMute {
         pub(crate) fn new(
@@ -2830,7 +2846,7 @@ pub mod security_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -2909,7 +2925,9 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBigQueryExport(RequestBuilder<crate::model::UpdateBigQueryExportRequest>);
+    pub struct UpdateBigQueryExport(
+        pub(crate) RequestBuilder<crate::model::UpdateBigQueryExportRequest>,
+    );
 
     impl UpdateBigQueryExport {
         pub(crate) fn new(
@@ -3006,7 +3024,9 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateExternalSystem(RequestBuilder<crate::model::UpdateExternalSystemRequest>);
+    pub struct UpdateExternalSystem(
+        pub(crate) RequestBuilder<crate::model::UpdateExternalSystemRequest>,
+    );
 
     impl UpdateExternalSystem {
         pub(crate) fn new(
@@ -3103,7 +3123,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFinding(RequestBuilder<crate::model::UpdateFindingRequest>);
+    pub struct UpdateFinding(pub(crate) RequestBuilder<crate::model::UpdateFindingRequest>);
 
     impl UpdateFinding {
         pub(crate) fn new(
@@ -3197,7 +3217,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateMuteConfig(RequestBuilder<crate::model::UpdateMuteConfigRequest>);
+    pub struct UpdateMuteConfig(pub(crate) RequestBuilder<crate::model::UpdateMuteConfigRequest>);
 
     impl UpdateMuteConfig {
         pub(crate) fn new(
@@ -3295,7 +3315,7 @@ pub mod security_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNotificationConfig(
-        RequestBuilder<crate::model::UpdateNotificationConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateNotificationConfigRequest>,
     );
 
     impl UpdateNotificationConfig {
@@ -3394,7 +3414,7 @@ pub mod security_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateResourceValueConfig(
-        RequestBuilder<crate::model::UpdateResourceValueConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateResourceValueConfigRequest>,
     );
 
     impl UpdateResourceValueConfig {
@@ -3492,7 +3512,9 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSecurityMarks(RequestBuilder<crate::model::UpdateSecurityMarksRequest>);
+    pub struct UpdateSecurityMarks(
+        pub(crate) RequestBuilder<crate::model::UpdateSecurityMarksRequest>,
+    );
 
     impl UpdateSecurityMarks {
         pub(crate) fn new(
@@ -3589,7 +3611,7 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
+    pub struct UpdateSource(pub(crate) RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
         pub(crate) fn new(
@@ -3688,7 +3710,7 @@ pub mod security_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3804,7 +3826,9 @@ pub mod security_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3868,7 +3892,7 @@ pub mod security_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3933,7 +3957,7 @@ pub mod security_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

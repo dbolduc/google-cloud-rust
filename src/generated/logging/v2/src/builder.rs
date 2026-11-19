@@ -51,9 +51,9 @@ pub mod logging_service_v_2 {
     /// Common implementation for [crate::client::LoggingServiceV2] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -74,8 +74,8 @@ pub mod logging_service_v_2 {
     /// Common implementation for [crate::client::LoggingServiceV2] bidi stream builders.
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl BidiStreamBuilder {
@@ -106,7 +106,7 @@ pub mod logging_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteLog(RequestBuilder<crate::model::DeleteLogRequest>);
+    pub struct DeleteLog(pub(crate) RequestBuilder<crate::model::DeleteLogRequest>);
 
     impl DeleteLog {
         pub(crate) fn new(
@@ -168,7 +168,7 @@ pub mod logging_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct WriteLogEntries(RequestBuilder<crate::model::WriteLogEntriesRequest>);
+    pub struct WriteLogEntries(pub(crate) RequestBuilder<crate::model::WriteLogEntriesRequest>);
 
     impl WriteLogEntries {
         pub(crate) fn new(
@@ -286,7 +286,7 @@ pub mod logging_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLogEntries(RequestBuilder<crate::model::ListLogEntriesRequest>);
+    pub struct ListLogEntries(pub(crate) RequestBuilder<crate::model::ListLogEntriesRequest>);
 
     impl ListLogEntries {
         pub(crate) fn new(
@@ -410,7 +410,7 @@ pub mod logging_service_v_2 {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListMonitoredResourceDescriptors(
-        RequestBuilder<crate::model::ListMonitoredResourceDescriptorsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListMonitoredResourceDescriptorsRequest>,
     );
 
     impl ListMonitoredResourceDescriptors {
@@ -508,7 +508,7 @@ pub mod logging_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLogs(RequestBuilder<crate::model::ListLogsRequest>);
+    pub struct ListLogs(pub(crate) RequestBuilder<crate::model::ListLogsRequest>);
 
     impl ListLogs {
         pub(crate) fn new(
@@ -601,7 +601,7 @@ pub mod logging_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TailLogEntries(BidiStreamBuilder);
+    pub struct TailLogEntries(pub(crate) BidiStreamBuilder);
 
     impl TailLogEntries {
         pub(crate) fn new(
@@ -656,7 +656,7 @@ pub mod logging_service_v_2 {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -772,7 +772,9 @@ pub mod logging_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -836,7 +838,7 @@ pub mod logging_service_v_2 {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -921,9 +923,9 @@ pub mod config_service_v_2 {
     /// Common implementation for [crate::client::ConfigServiceV2] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -962,7 +964,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBuckets(RequestBuilder<crate::model::ListBucketsRequest>);
+    pub struct ListBuckets(pub(crate) RequestBuilder<crate::model::ListBucketsRequest>);
 
     impl ListBuckets {
         pub(crate) fn new(
@@ -1062,7 +1064,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBucket(RequestBuilder<crate::model::GetBucketRequest>);
+    pub struct GetBucket(pub(crate) RequestBuilder<crate::model::GetBucketRequest>);
 
     impl GetBucket {
         pub(crate) fn new(
@@ -1125,7 +1127,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBucketAsync(RequestBuilder<crate::model::CreateBucketRequest>);
+    pub struct CreateBucketAsync(pub(crate) RequestBuilder<crate::model::CreateBucketRequest>);
 
     impl CreateBucketAsync {
         pub(crate) fn new(
@@ -1272,7 +1274,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBucketAsync(RequestBuilder<crate::model::UpdateBucketRequest>);
+    pub struct UpdateBucketAsync(pub(crate) RequestBuilder<crate::model::UpdateBucketRequest>);
 
     impl UpdateBucketAsync {
         pub(crate) fn new(
@@ -1432,7 +1434,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBucket(RequestBuilder<crate::model::CreateBucketRequest>);
+    pub struct CreateBucket(pub(crate) RequestBuilder<crate::model::CreateBucketRequest>);
 
     impl CreateBucket {
         pub(crate) fn new(
@@ -1524,7 +1526,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBucket(RequestBuilder<crate::model::UpdateBucketRequest>);
+    pub struct UpdateBucket(pub(crate) RequestBuilder<crate::model::UpdateBucketRequest>);
 
     impl UpdateBucket {
         pub(crate) fn new(
@@ -1630,7 +1632,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBucket(RequestBuilder<crate::model::DeleteBucketRequest>);
+    pub struct DeleteBucket(pub(crate) RequestBuilder<crate::model::DeleteBucketRequest>);
 
     impl DeleteBucket {
         pub(crate) fn new(
@@ -1692,7 +1694,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeleteBucket(RequestBuilder<crate::model::UndeleteBucketRequest>);
+    pub struct UndeleteBucket(pub(crate) RequestBuilder<crate::model::UndeleteBucketRequest>);
 
     impl UndeleteBucket {
         pub(crate) fn new(
@@ -1758,7 +1760,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListViews(RequestBuilder<crate::model::ListViewsRequest>);
+    pub struct ListViews(pub(crate) RequestBuilder<crate::model::ListViewsRequest>);
 
     impl ListViews {
         pub(crate) fn new(
@@ -1856,7 +1858,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetView(RequestBuilder<crate::model::GetViewRequest>);
+    pub struct GetView(pub(crate) RequestBuilder<crate::model::GetViewRequest>);
 
     impl GetView {
         pub(crate) fn new(
@@ -1918,7 +1920,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateView(RequestBuilder<crate::model::CreateViewRequest>);
+    pub struct CreateView(pub(crate) RequestBuilder<crate::model::CreateViewRequest>);
 
     impl CreateView {
         pub(crate) fn new(
@@ -2010,7 +2012,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateView(RequestBuilder<crate::model::UpdateViewRequest>);
+    pub struct UpdateView(pub(crate) RequestBuilder<crate::model::UpdateViewRequest>);
 
     impl UpdateView {
         pub(crate) fn new(
@@ -2112,7 +2114,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteView(RequestBuilder<crate::model::DeleteViewRequest>);
+    pub struct DeleteView(pub(crate) RequestBuilder<crate::model::DeleteViewRequest>);
 
     impl DeleteView {
         pub(crate) fn new(
@@ -2178,7 +2180,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSinks(RequestBuilder<crate::model::ListSinksRequest>);
+    pub struct ListSinks(pub(crate) RequestBuilder<crate::model::ListSinksRequest>);
 
     impl ListSinks {
         pub(crate) fn new(
@@ -2276,7 +2278,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSink(RequestBuilder<crate::model::GetSinkRequest>);
+    pub struct GetSink(pub(crate) RequestBuilder<crate::model::GetSinkRequest>);
 
     impl GetSink {
         pub(crate) fn new(
@@ -2338,7 +2340,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSink(RequestBuilder<crate::model::CreateSinkRequest>);
+    pub struct CreateSink(pub(crate) RequestBuilder<crate::model::CreateSinkRequest>);
 
     impl CreateSink {
         pub(crate) fn new(
@@ -2428,7 +2430,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSink(RequestBuilder<crate::model::UpdateSinkRequest>);
+    pub struct UpdateSink(pub(crate) RequestBuilder<crate::model::UpdateSinkRequest>);
 
     impl UpdateSink {
         pub(crate) fn new(
@@ -2536,7 +2538,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSink(RequestBuilder<crate::model::DeleteSinkRequest>);
+    pub struct DeleteSink(pub(crate) RequestBuilder<crate::model::DeleteSinkRequest>);
 
     impl DeleteSink {
         pub(crate) fn new(
@@ -2599,7 +2601,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateLink(RequestBuilder<crate::model::CreateLinkRequest>);
+    pub struct CreateLink(pub(crate) RequestBuilder<crate::model::CreateLinkRequest>);
 
     impl CreateLink {
         pub(crate) fn new(
@@ -2746,7 +2748,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteLink(RequestBuilder<crate::model::DeleteLinkRequest>);
+    pub struct DeleteLink(pub(crate) RequestBuilder<crate::model::DeleteLinkRequest>);
 
     impl DeleteLink {
         pub(crate) fn new(
@@ -2862,7 +2864,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLinks(RequestBuilder<crate::model::ListLinksRequest>);
+    pub struct ListLinks(pub(crate) RequestBuilder<crate::model::ListLinksRequest>);
 
     impl ListLinks {
         pub(crate) fn new(
@@ -2960,7 +2962,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLink(RequestBuilder<crate::model::GetLinkRequest>);
+    pub struct GetLink(pub(crate) RequestBuilder<crate::model::GetLinkRequest>);
 
     impl GetLink {
         pub(crate) fn new(
@@ -3026,7 +3028,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListExclusions(RequestBuilder<crate::model::ListExclusionsRequest>);
+    pub struct ListExclusions(pub(crate) RequestBuilder<crate::model::ListExclusionsRequest>);
 
     impl ListExclusions {
         pub(crate) fn new(
@@ -3128,7 +3130,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetExclusion(RequestBuilder<crate::model::GetExclusionRequest>);
+    pub struct GetExclusion(pub(crate) RequestBuilder<crate::model::GetExclusionRequest>);
 
     impl GetExclusion {
         pub(crate) fn new(
@@ -3190,7 +3192,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateExclusion(RequestBuilder<crate::model::CreateExclusionRequest>);
+    pub struct CreateExclusion(pub(crate) RequestBuilder<crate::model::CreateExclusionRequest>);
 
     impl CreateExclusion {
         pub(crate) fn new(
@@ -3274,7 +3276,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateExclusion(RequestBuilder<crate::model::UpdateExclusionRequest>);
+    pub struct UpdateExclusion(pub(crate) RequestBuilder<crate::model::UpdateExclusionRequest>);
 
     impl UpdateExclusion {
         pub(crate) fn new(
@@ -3380,7 +3382,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteExclusion(RequestBuilder<crate::model::DeleteExclusionRequest>);
+    pub struct DeleteExclusion(pub(crate) RequestBuilder<crate::model::DeleteExclusionRequest>);
 
     impl DeleteExclusion {
         pub(crate) fn new(
@@ -3442,7 +3444,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCmekSettings(RequestBuilder<crate::model::GetCmekSettingsRequest>);
+    pub struct GetCmekSettings(pub(crate) RequestBuilder<crate::model::GetCmekSettingsRequest>);
 
     impl GetCmekSettings {
         pub(crate) fn new(
@@ -3504,7 +3506,9 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCmekSettings(RequestBuilder<crate::model::UpdateCmekSettingsRequest>);
+    pub struct UpdateCmekSettings(
+        pub(crate) RequestBuilder<crate::model::UpdateCmekSettingsRequest>,
+    );
 
     impl UpdateCmekSettings {
         pub(crate) fn new(
@@ -3609,7 +3613,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
+    pub struct GetSettings(pub(crate) RequestBuilder<crate::model::GetSettingsRequest>);
 
     impl GetSettings {
         pub(crate) fn new(
@@ -3671,7 +3675,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
+    pub struct UpdateSettings(pub(crate) RequestBuilder<crate::model::UpdateSettingsRequest>);
 
     impl UpdateSettings {
         pub(crate) fn new(
@@ -3774,7 +3778,7 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CopyLogEntries(RequestBuilder<crate::model::CopyLogEntriesRequest>);
+    pub struct CopyLogEntries(pub(crate) RequestBuilder<crate::model::CopyLogEntriesRequest>);
 
     impl CopyLogEntries {
         pub(crate) fn new(
@@ -3911,7 +3915,7 @@ pub mod config_service_v_2 {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4027,7 +4031,9 @@ pub mod config_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4091,7 +4097,7 @@ pub mod config_service_v_2 {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -4176,9 +4182,9 @@ pub mod metrics_service_v_2 {
     /// Common implementation for [crate::client::MetricsServiceV2] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -4217,7 +4223,7 @@ pub mod metrics_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLogMetrics(RequestBuilder<crate::model::ListLogMetricsRequest>);
+    pub struct ListLogMetrics(pub(crate) RequestBuilder<crate::model::ListLogMetricsRequest>);
 
     impl ListLogMetrics {
         pub(crate) fn new(
@@ -4319,7 +4325,7 @@ pub mod metrics_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLogMetric(RequestBuilder<crate::model::GetLogMetricRequest>);
+    pub struct GetLogMetric(pub(crate) RequestBuilder<crate::model::GetLogMetricRequest>);
 
     impl GetLogMetric {
         pub(crate) fn new(
@@ -4381,7 +4387,7 @@ pub mod metrics_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateLogMetric(RequestBuilder<crate::model::CreateLogMetricRequest>);
+    pub struct CreateLogMetric(pub(crate) RequestBuilder<crate::model::CreateLogMetricRequest>);
 
     impl CreateLogMetric {
         pub(crate) fn new(
@@ -4465,7 +4471,7 @@ pub mod metrics_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateLogMetric(RequestBuilder<crate::model::UpdateLogMetricRequest>);
+    pub struct UpdateLogMetric(pub(crate) RequestBuilder<crate::model::UpdateLogMetricRequest>);
 
     impl UpdateLogMetric {
         pub(crate) fn new(
@@ -4549,7 +4555,7 @@ pub mod metrics_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteLogMetric(RequestBuilder<crate::model::DeleteLogMetricRequest>);
+    pub struct DeleteLogMetric(pub(crate) RequestBuilder<crate::model::DeleteLogMetricRequest>);
 
     impl DeleteLogMetric {
         pub(crate) fn new(
@@ -4616,7 +4622,7 @@ pub mod metrics_service_v_2 {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4732,7 +4738,9 @@ pub mod metrics_service_v_2 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4796,7 +4804,7 @@ pub mod metrics_service_v_2 {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

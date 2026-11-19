@@ -51,9 +51,9 @@ pub mod contact_center_insights {
     /// Common implementation for [crate::client::ContactCenterInsights] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateConversation(RequestBuilder<crate::model::CreateConversationRequest>);
+    pub struct CreateConversation(
+        pub(crate) RequestBuilder<crate::model::CreateConversationRequest>,
+    );
 
     impl CreateConversation {
         pub(crate) fn new(
@@ -182,7 +184,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UploadConversation(RequestBuilder<crate::model::UploadConversationRequest>);
+    pub struct UploadConversation(
+        pub(crate) RequestBuilder<crate::model::UploadConversationRequest>,
+    );
 
     impl UploadConversation {
         pub(crate) fn new(
@@ -367,7 +371,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConversation(RequestBuilder<crate::model::UpdateConversationRequest>);
+    pub struct UpdateConversation(
+        pub(crate) RequestBuilder<crate::model::UpdateConversationRequest>,
+    );
 
     impl UpdateConversation {
         pub(crate) fn new(
@@ -464,7 +470,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConversation(RequestBuilder<crate::model::GetConversationRequest>);
+    pub struct GetConversation(pub(crate) RequestBuilder<crate::model::GetConversationRequest>);
 
     impl GetConversation {
         pub(crate) fn new(
@@ -536,7 +542,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConversations(RequestBuilder<crate::model::ListConversationsRequest>);
+    pub struct ListConversations(pub(crate) RequestBuilder<crate::model::ListConversationsRequest>);
 
     impl ListConversations {
         pub(crate) fn new(
@@ -659,7 +665,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteConversation(RequestBuilder<crate::model::DeleteConversationRequest>);
+    pub struct DeleteConversation(
+        pub(crate) RequestBuilder<crate::model::DeleteConversationRequest>,
+    );
 
     impl DeleteConversation {
         pub(crate) fn new(
@@ -731,7 +739,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAnalysis(RequestBuilder<crate::model::CreateAnalysisRequest>);
+    pub struct CreateAnalysis(pub(crate) RequestBuilder<crate::model::CreateAnalysisRequest>);
 
     impl CreateAnalysis {
         pub(crate) fn new(
@@ -871,7 +879,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAnalysis(RequestBuilder<crate::model::GetAnalysisRequest>);
+    pub struct GetAnalysis(pub(crate) RequestBuilder<crate::model::GetAnalysisRequest>);
 
     impl GetAnalysis {
         pub(crate) fn new(
@@ -937,7 +945,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAnalyses(RequestBuilder<crate::model::ListAnalysesRequest>);
+    pub struct ListAnalyses(pub(crate) RequestBuilder<crate::model::ListAnalysesRequest>);
 
     impl ListAnalyses {
         pub(crate) fn new(
@@ -1043,7 +1051,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAnalysis(RequestBuilder<crate::model::DeleteAnalysisRequest>);
+    pub struct DeleteAnalysis(pub(crate) RequestBuilder<crate::model::DeleteAnalysisRequest>);
 
     impl DeleteAnalysis {
         pub(crate) fn new(
@@ -1107,7 +1115,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct BulkAnalyzeConversations(
-        RequestBuilder<crate::model::BulkAnalyzeConversationsRequest>,
+        pub(crate) RequestBuilder<crate::model::BulkAnalyzeConversationsRequest>,
     );
 
     impl BulkAnalyzeConversations {
@@ -1265,7 +1273,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct BulkDeleteConversations(
-        RequestBuilder<crate::model::BulkDeleteConversationsRequest>,
+        pub(crate) RequestBuilder<crate::model::BulkDeleteConversationsRequest>,
     );
 
     impl BulkDeleteConversations {
@@ -1406,7 +1414,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct IngestConversations(RequestBuilder<crate::model::IngestConversationsRequest>);
+    pub struct IngestConversations(
+        pub(crate) RequestBuilder<crate::model::IngestConversationsRequest>,
+    );
 
     impl IngestConversations {
         pub(crate) fn new(
@@ -1662,7 +1672,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportInsightsData(RequestBuilder<crate::model::ExportInsightsDataRequest>);
+    pub struct ExportInsightsData(
+        pub(crate) RequestBuilder<crate::model::ExportInsightsDataRequest>,
+    );
 
     impl ExportInsightsData {
         pub(crate) fn new(
@@ -1840,7 +1852,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateIssueModel(RequestBuilder<crate::model::CreateIssueModelRequest>);
+    pub struct CreateIssueModel(pub(crate) RequestBuilder<crate::model::CreateIssueModelRequest>);
 
     impl CreateIssueModel {
         pub(crate) fn new(
@@ -1983,7 +1995,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateIssueModel(RequestBuilder<crate::model::UpdateIssueModelRequest>);
+    pub struct UpdateIssueModel(pub(crate) RequestBuilder<crate::model::UpdateIssueModelRequest>);
 
     impl UpdateIssueModel {
         pub(crate) fn new(
@@ -2080,7 +2092,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIssueModel(RequestBuilder<crate::model::GetIssueModelRequest>);
+    pub struct GetIssueModel(pub(crate) RequestBuilder<crate::model::GetIssueModelRequest>);
 
     impl GetIssueModel {
         pub(crate) fn new(
@@ -2142,7 +2154,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListIssueModels(RequestBuilder<crate::model::ListIssueModelsRequest>);
+    pub struct ListIssueModels(pub(crate) RequestBuilder<crate::model::ListIssueModelsRequest>);
 
     impl ListIssueModels {
         pub(crate) fn new(
@@ -2205,7 +2217,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteIssueModel(RequestBuilder<crate::model::DeleteIssueModelRequest>);
+    pub struct DeleteIssueModel(pub(crate) RequestBuilder<crate::model::DeleteIssueModelRequest>);
 
     impl DeleteIssueModel {
         pub(crate) fn new(
@@ -2324,7 +2336,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeployIssueModel(RequestBuilder<crate::model::DeployIssueModelRequest>);
+    pub struct DeployIssueModel(pub(crate) RequestBuilder<crate::model::DeployIssueModelRequest>);
 
     impl DeployIssueModel {
         pub(crate) fn new(
@@ -2446,7 +2458,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeployIssueModel(RequestBuilder<crate::model::UndeployIssueModelRequest>);
+    pub struct UndeployIssueModel(
+        pub(crate) RequestBuilder<crate::model::UndeployIssueModelRequest>,
+    );
 
     impl UndeployIssueModel {
         pub(crate) fn new(
@@ -2568,7 +2582,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportIssueModel(RequestBuilder<crate::model::ExportIssueModelRequest>);
+    pub struct ExportIssueModel(pub(crate) RequestBuilder<crate::model::ExportIssueModelRequest>);
 
     impl ExportIssueModel {
         pub(crate) fn new(
@@ -2721,7 +2735,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportIssueModel(RequestBuilder<crate::model::ImportIssueModelRequest>);
+    pub struct ImportIssueModel(pub(crate) RequestBuilder<crate::model::ImportIssueModelRequest>);
 
     impl ImportIssueModel {
         pub(crate) fn new(
@@ -2877,7 +2891,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIssue(RequestBuilder<crate::model::GetIssueRequest>);
+    pub struct GetIssue(pub(crate) RequestBuilder<crate::model::GetIssueRequest>);
 
     impl GetIssue {
         pub(crate) fn new(
@@ -2939,7 +2953,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListIssues(RequestBuilder<crate::model::ListIssuesRequest>);
+    pub struct ListIssues(pub(crate) RequestBuilder<crate::model::ListIssuesRequest>);
 
     impl ListIssues {
         pub(crate) fn new(
@@ -3001,7 +3015,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateIssue(RequestBuilder<crate::model::UpdateIssueRequest>);
+    pub struct UpdateIssue(pub(crate) RequestBuilder<crate::model::UpdateIssueRequest>);
 
     impl UpdateIssue {
         pub(crate) fn new(
@@ -3095,7 +3109,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteIssue(RequestBuilder<crate::model::DeleteIssueRequest>);
+    pub struct DeleteIssue(pub(crate) RequestBuilder<crate::model::DeleteIssueRequest>);
 
     impl DeleteIssue {
         pub(crate) fn new(
@@ -3158,7 +3172,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CalculateIssueModelStats(
-        RequestBuilder<crate::model::CalculateIssueModelStatsRequest>,
+        pub(crate) RequestBuilder<crate::model::CalculateIssueModelStatsRequest>,
     );
 
     impl CalculateIssueModelStats {
@@ -3224,7 +3238,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePhraseMatcher(RequestBuilder<crate::model::CreatePhraseMatcherRequest>);
+    pub struct CreatePhraseMatcher(
+        pub(crate) RequestBuilder<crate::model::CreatePhraseMatcherRequest>,
+    );
 
     impl CreatePhraseMatcher {
         pub(crate) fn new(
@@ -3311,7 +3327,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPhraseMatcher(RequestBuilder<crate::model::GetPhraseMatcherRequest>);
+    pub struct GetPhraseMatcher(pub(crate) RequestBuilder<crate::model::GetPhraseMatcherRequest>);
 
     impl GetPhraseMatcher {
         pub(crate) fn new(
@@ -3380,7 +3396,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPhraseMatchers(RequestBuilder<crate::model::ListPhraseMatchersRequest>);
+    pub struct ListPhraseMatchers(
+        pub(crate) RequestBuilder<crate::model::ListPhraseMatchersRequest>,
+    );
 
     impl ListPhraseMatchers {
         pub(crate) fn new(
@@ -3491,7 +3509,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePhraseMatcher(RequestBuilder<crate::model::DeletePhraseMatcherRequest>);
+    pub struct DeletePhraseMatcher(
+        pub(crate) RequestBuilder<crate::model::DeletePhraseMatcherRequest>,
+    );
 
     impl DeletePhraseMatcher {
         pub(crate) fn new(
@@ -3556,7 +3576,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePhraseMatcher(RequestBuilder<crate::model::UpdatePhraseMatcherRequest>);
+    pub struct UpdatePhraseMatcher(
+        pub(crate) RequestBuilder<crate::model::UpdatePhraseMatcherRequest>,
+    );
 
     impl UpdatePhraseMatcher {
         pub(crate) fn new(
@@ -3653,7 +3675,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CalculateStats(RequestBuilder<crate::model::CalculateStatsRequest>);
+    pub struct CalculateStats(pub(crate) RequestBuilder<crate::model::CalculateStatsRequest>);
 
     impl CalculateStats {
         pub(crate) fn new(
@@ -3721,7 +3743,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
+    pub struct GetSettings(pub(crate) RequestBuilder<crate::model::GetSettingsRequest>);
 
     impl GetSettings {
         pub(crate) fn new(
@@ -3783,7 +3805,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
+    pub struct UpdateSettings(pub(crate) RequestBuilder<crate::model::UpdateSettingsRequest>);
 
     impl UpdateSettings {
         pub(crate) fn new(
@@ -3881,7 +3903,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAnalysisRule(RequestBuilder<crate::model::CreateAnalysisRuleRequest>);
+    pub struct CreateAnalysisRule(
+        pub(crate) RequestBuilder<crate::model::CreateAnalysisRuleRequest>,
+    );
 
     impl CreateAnalysisRule {
         pub(crate) fn new(
@@ -3968,7 +3992,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAnalysisRule(RequestBuilder<crate::model::GetAnalysisRuleRequest>);
+    pub struct GetAnalysisRule(pub(crate) RequestBuilder<crate::model::GetAnalysisRuleRequest>);
 
     impl GetAnalysisRule {
         pub(crate) fn new(
@@ -4034,7 +4058,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAnalysisRules(RequestBuilder<crate::model::ListAnalysisRulesRequest>);
+    pub struct ListAnalysisRules(pub(crate) RequestBuilder<crate::model::ListAnalysisRulesRequest>);
 
     impl ListAnalysisRules {
         pub(crate) fn new(
@@ -4139,7 +4163,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAnalysisRule(RequestBuilder<crate::model::UpdateAnalysisRuleRequest>);
+    pub struct UpdateAnalysisRule(
+        pub(crate) RequestBuilder<crate::model::UpdateAnalysisRuleRequest>,
+    );
 
     impl UpdateAnalysisRule {
         pub(crate) fn new(
@@ -4236,7 +4262,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAnalysisRule(RequestBuilder<crate::model::DeleteAnalysisRuleRequest>);
+    pub struct DeleteAnalysisRule(
+        pub(crate) RequestBuilder<crate::model::DeleteAnalysisRuleRequest>,
+    );
 
     impl DeleteAnalysisRule {
         pub(crate) fn new(
@@ -4301,7 +4329,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEncryptionSpec(RequestBuilder<crate::model::GetEncryptionSpecRequest>);
+    pub struct GetEncryptionSpec(pub(crate) RequestBuilder<crate::model::GetEncryptionSpecRequest>);
 
     impl GetEncryptionSpec {
         pub(crate) fn new(
@@ -4368,7 +4396,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct InitializeEncryptionSpec(
-        RequestBuilder<crate::model::InitializeEncryptionSpecRequest>,
+        pub(crate) RequestBuilder<crate::model::InitializeEncryptionSpecRequest>,
     );
 
     impl InitializeEncryptionSpec {
@@ -4504,7 +4532,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateView(RequestBuilder<crate::model::CreateViewRequest>);
+    pub struct CreateView(pub(crate) RequestBuilder<crate::model::CreateViewRequest>);
 
     impl CreateView {
         pub(crate) fn new(
@@ -4588,7 +4616,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetView(RequestBuilder<crate::model::GetViewRequest>);
+    pub struct GetView(pub(crate) RequestBuilder<crate::model::GetViewRequest>);
 
     impl GetView {
         pub(crate) fn new(
@@ -4654,7 +4682,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListViews(RequestBuilder<crate::model::ListViewsRequest>);
+    pub struct ListViews(pub(crate) RequestBuilder<crate::model::ListViewsRequest>);
 
     impl ListViews {
         pub(crate) fn new(
@@ -4752,7 +4780,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateView(RequestBuilder<crate::model::UpdateViewRequest>);
+    pub struct UpdateView(pub(crate) RequestBuilder<crate::model::UpdateViewRequest>);
 
     impl UpdateView {
         pub(crate) fn new(
@@ -4846,7 +4874,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteView(RequestBuilder<crate::model::DeleteViewRequest>);
+    pub struct DeleteView(pub(crate) RequestBuilder<crate::model::DeleteViewRequest>);
 
     impl DeleteView {
         pub(crate) fn new(
@@ -4909,7 +4937,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryMetrics(RequestBuilder<crate::model::QueryMetricsRequest>);
+    pub struct QueryMetrics(pub(crate) RequestBuilder<crate::model::QueryMetricsRequest>);
 
     impl QueryMetrics {
         pub(crate) fn new(
@@ -5075,7 +5103,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateQaQuestion(RequestBuilder<crate::model::CreateQaQuestionRequest>);
+    pub struct CreateQaQuestion(pub(crate) RequestBuilder<crate::model::CreateQaQuestionRequest>);
 
     impl CreateQaQuestion {
         pub(crate) fn new(
@@ -5168,7 +5196,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetQaQuestion(RequestBuilder<crate::model::GetQaQuestionRequest>);
+    pub struct GetQaQuestion(pub(crate) RequestBuilder<crate::model::GetQaQuestionRequest>);
 
     impl GetQaQuestion {
         pub(crate) fn new(
@@ -5230,7 +5258,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateQaQuestion(RequestBuilder<crate::model::UpdateQaQuestionRequest>);
+    pub struct UpdateQaQuestion(pub(crate) RequestBuilder<crate::model::UpdateQaQuestionRequest>);
 
     impl UpdateQaQuestion {
         pub(crate) fn new(
@@ -5331,7 +5359,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteQaQuestion(RequestBuilder<crate::model::DeleteQaQuestionRequest>);
+    pub struct DeleteQaQuestion(pub(crate) RequestBuilder<crate::model::DeleteQaQuestionRequest>);
 
     impl DeleteQaQuestion {
         pub(crate) fn new(
@@ -5400,7 +5428,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListQaQuestions(RequestBuilder<crate::model::ListQaQuestionsRequest>);
+    pub struct ListQaQuestions(pub(crate) RequestBuilder<crate::model::ListQaQuestionsRequest>);
 
     impl ListQaQuestions {
         pub(crate) fn new(
@@ -5502,7 +5530,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateQaScorecard(RequestBuilder<crate::model::CreateQaScorecardRequest>);
+    pub struct CreateQaScorecard(pub(crate) RequestBuilder<crate::model::CreateQaScorecardRequest>);
 
     impl CreateQaScorecard {
         pub(crate) fn new(
@@ -5595,7 +5623,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetQaScorecard(RequestBuilder<crate::model::GetQaScorecardRequest>);
+    pub struct GetQaScorecard(pub(crate) RequestBuilder<crate::model::GetQaScorecardRequest>);
 
     impl GetQaScorecard {
         pub(crate) fn new(
@@ -5657,7 +5685,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateQaScorecard(RequestBuilder<crate::model::UpdateQaScorecardRequest>);
+    pub struct UpdateQaScorecard(pub(crate) RequestBuilder<crate::model::UpdateQaScorecardRequest>);
 
     impl UpdateQaScorecard {
         pub(crate) fn new(
@@ -5758,7 +5786,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteQaScorecard(RequestBuilder<crate::model::DeleteQaScorecardRequest>);
+    pub struct DeleteQaScorecard(pub(crate) RequestBuilder<crate::model::DeleteQaScorecardRequest>);
 
     impl DeleteQaScorecard {
         pub(crate) fn new(
@@ -5833,7 +5861,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListQaScorecards(RequestBuilder<crate::model::ListQaScorecardsRequest>);
+    pub struct ListQaScorecards(pub(crate) RequestBuilder<crate::model::ListQaScorecardsRequest>);
 
     impl ListQaScorecards {
         pub(crate) fn new(
@@ -5939,7 +5967,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateQaScorecardRevision(
-        RequestBuilder<crate::model::CreateQaScorecardRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateQaScorecardRevisionRequest>,
     );
 
     impl CreateQaScorecardRevision {
@@ -6033,7 +6061,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetQaScorecardRevision(RequestBuilder<crate::model::GetQaScorecardRevisionRequest>);
+    pub struct GetQaScorecardRevision(
+        pub(crate) RequestBuilder<crate::model::GetQaScorecardRevisionRequest>,
+    );
 
     impl GetQaScorecardRevision {
         pub(crate) fn new(
@@ -6100,7 +6130,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TuneQaScorecardRevision(
-        RequestBuilder<crate::model::TuneQaScorecardRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::TuneQaScorecardRevisionRequest>,
     );
 
     impl TuneQaScorecardRevision {
@@ -6237,7 +6267,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeployQaScorecardRevision(
-        RequestBuilder<crate::model::DeployQaScorecardRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::DeployQaScorecardRevisionRequest>,
     );
 
     impl DeployQaScorecardRevision {
@@ -6304,7 +6334,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UndeployQaScorecardRevision(
-        RequestBuilder<crate::model::UndeployQaScorecardRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::UndeployQaScorecardRevisionRequest>,
     );
 
     impl UndeployQaScorecardRevision {
@@ -6371,7 +6401,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteQaScorecardRevision(
-        RequestBuilder<crate::model::DeleteQaScorecardRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteQaScorecardRevisionRequest>,
     );
 
     impl DeleteQaScorecardRevision {
@@ -6448,7 +6478,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListQaScorecardRevisions(
-        RequestBuilder<crate::model::ListQaScorecardRevisionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListQaScorecardRevisionsRequest>,
     );
 
     impl ListQaScorecardRevisions {
@@ -6560,7 +6590,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateFeedbackLabel(RequestBuilder<crate::model::CreateFeedbackLabelRequest>);
+    pub struct CreateFeedbackLabel(
+        pub(crate) RequestBuilder<crate::model::CreateFeedbackLabelRequest>,
+    );
 
     impl CreateFeedbackLabel {
         pub(crate) fn new(
@@ -6657,7 +6689,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFeedbackLabels(RequestBuilder<crate::model::ListFeedbackLabelsRequest>);
+    pub struct ListFeedbackLabels(
+        pub(crate) RequestBuilder<crate::model::ListFeedbackLabelsRequest>,
+    );
 
     impl ListFeedbackLabels {
         pub(crate) fn new(
@@ -6768,7 +6802,7 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFeedbackLabel(RequestBuilder<crate::model::GetFeedbackLabelRequest>);
+    pub struct GetFeedbackLabel(pub(crate) RequestBuilder<crate::model::GetFeedbackLabelRequest>);
 
     impl GetFeedbackLabel {
         pub(crate) fn new(
@@ -6833,7 +6867,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFeedbackLabel(RequestBuilder<crate::model::UpdateFeedbackLabelRequest>);
+    pub struct UpdateFeedbackLabel(
+        pub(crate) RequestBuilder<crate::model::UpdateFeedbackLabelRequest>,
+    );
 
     impl UpdateFeedbackLabel {
         pub(crate) fn new(
@@ -6934,7 +6970,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFeedbackLabel(RequestBuilder<crate::model::DeleteFeedbackLabelRequest>);
+    pub struct DeleteFeedbackLabel(
+        pub(crate) RequestBuilder<crate::model::DeleteFeedbackLabelRequest>,
+    );
 
     impl DeleteFeedbackLabel {
         pub(crate) fn new(
@@ -7003,7 +7041,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAllFeedbackLabels(RequestBuilder<crate::model::ListAllFeedbackLabelsRequest>);
+    pub struct ListAllFeedbackLabels(
+        pub(crate) RequestBuilder<crate::model::ListAllFeedbackLabelsRequest>,
+    );
 
     impl ListAllFeedbackLabels {
         pub(crate) fn new(
@@ -7116,7 +7156,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct BulkUploadFeedbackLabels(
-        RequestBuilder<crate::model::BulkUploadFeedbackLabelsRequest>,
+        pub(crate) RequestBuilder<crate::model::BulkUploadFeedbackLabelsRequest>,
     );
 
     impl BulkUploadFeedbackLabels {
@@ -7277,7 +7317,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct BulkDownloadFeedbackLabels(
-        RequestBuilder<crate::model::BulkDownloadFeedbackLabelsRequest>,
+        pub(crate) RequestBuilder<crate::model::BulkDownloadFeedbackLabelsRequest>,
     );
 
     impl BulkDownloadFeedbackLabels {
@@ -7477,7 +7517,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -7593,7 +7633,9 @@ pub mod contact_center_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -7657,7 +7699,7 @@ pub mod contact_center_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

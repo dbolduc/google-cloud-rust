@@ -51,9 +51,9 @@ pub mod iam_policy {
     /// Common implementation for [crate::client::IAMPolicy] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMPolicy>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMPolicy>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod iam_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<crate::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(pub(crate) RequestBuilder<crate::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -190,7 +190,7 @@ pub mod iam_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<crate::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(pub(crate) RequestBuilder<crate::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -270,7 +270,9 @@ pub mod iam_policy {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(RequestBuilder<crate::model::TestIamPermissionsRequest>);
+    pub struct TestIamPermissions(
+        pub(crate) RequestBuilder<crate::model::TestIamPermissionsRequest>,
+    );
 
     impl TestIamPermissions {
         pub(crate) fn new(

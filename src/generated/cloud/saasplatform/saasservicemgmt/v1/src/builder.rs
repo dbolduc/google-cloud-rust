@@ -51,9 +51,9 @@ pub mod saas_deployments {
     /// Common implementation for [crate::client::SaasDeployments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SaasDeployments>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SaasDeployments>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSaas(RequestBuilder<crate::model::ListSaasRequest>);
+    pub struct ListSaas(pub(crate) RequestBuilder<crate::model::ListSaasRequest>);
 
     impl ListSaas {
         pub(crate) fn new(
@@ -202,7 +202,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSaas(RequestBuilder<crate::model::GetSaasRequest>);
+    pub struct GetSaas(pub(crate) RequestBuilder<crate::model::GetSaasRequest>);
 
     impl GetSaas {
         pub(crate) fn new(
@@ -264,7 +264,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSaas(RequestBuilder<crate::model::CreateSaasRequest>);
+    pub struct CreateSaas(pub(crate) RequestBuilder<crate::model::CreateSaasRequest>);
 
     impl CreateSaas {
         pub(crate) fn new(
@@ -368,7 +368,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSaas(RequestBuilder<crate::model::UpdateSaasRequest>);
+    pub struct UpdateSaas(pub(crate) RequestBuilder<crate::model::UpdateSaasRequest>);
 
     impl UpdateSaas {
         pub(crate) fn new(
@@ -474,7 +474,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSaas(RequestBuilder<crate::model::DeleteSaasRequest>);
+    pub struct DeleteSaas(pub(crate) RequestBuilder<crate::model::DeleteSaasRequest>);
 
     impl DeleteSaas {
         pub(crate) fn new(
@@ -558,7 +558,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTenants(RequestBuilder<crate::model::ListTenantsRequest>);
+    pub struct ListTenants(pub(crate) RequestBuilder<crate::model::ListTenantsRequest>);
 
     impl ListTenants {
         pub(crate) fn new(
@@ -670,7 +670,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTenant(RequestBuilder<crate::model::GetTenantRequest>);
+    pub struct GetTenant(pub(crate) RequestBuilder<crate::model::GetTenantRequest>);
 
     impl GetTenant {
         pub(crate) fn new(
@@ -732,7 +732,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTenant(RequestBuilder<crate::model::CreateTenantRequest>);
+    pub struct CreateTenant(pub(crate) RequestBuilder<crate::model::CreateTenantRequest>);
 
     impl CreateTenant {
         pub(crate) fn new(
@@ -836,7 +836,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTenant(RequestBuilder<crate::model::UpdateTenantRequest>);
+    pub struct UpdateTenant(pub(crate) RequestBuilder<crate::model::UpdateTenantRequest>);
 
     impl UpdateTenant {
         pub(crate) fn new(
@@ -942,7 +942,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTenant(RequestBuilder<crate::model::DeleteTenantRequest>);
+    pub struct DeleteTenant(pub(crate) RequestBuilder<crate::model::DeleteTenantRequest>);
 
     impl DeleteTenant {
         pub(crate) fn new(
@@ -1026,7 +1026,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUnitKinds(RequestBuilder<crate::model::ListUnitKindsRequest>);
+    pub struct ListUnitKinds(pub(crate) RequestBuilder<crate::model::ListUnitKindsRequest>);
 
     impl ListUnitKinds {
         pub(crate) fn new(
@@ -1138,7 +1138,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetUnitKind(RequestBuilder<crate::model::GetUnitKindRequest>);
+    pub struct GetUnitKind(pub(crate) RequestBuilder<crate::model::GetUnitKindRequest>);
 
     impl GetUnitKind {
         pub(crate) fn new(
@@ -1200,7 +1200,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateUnitKind(RequestBuilder<crate::model::CreateUnitKindRequest>);
+    pub struct CreateUnitKind(pub(crate) RequestBuilder<crate::model::CreateUnitKindRequest>);
 
     impl CreateUnitKind {
         pub(crate) fn new(
@@ -1304,7 +1304,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateUnitKind(RequestBuilder<crate::model::UpdateUnitKindRequest>);
+    pub struct UpdateUnitKind(pub(crate) RequestBuilder<crate::model::UpdateUnitKindRequest>);
 
     impl UpdateUnitKind {
         pub(crate) fn new(
@@ -1410,7 +1410,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteUnitKind(RequestBuilder<crate::model::DeleteUnitKindRequest>);
+    pub struct DeleteUnitKind(pub(crate) RequestBuilder<crate::model::DeleteUnitKindRequest>);
 
     impl DeleteUnitKind {
         pub(crate) fn new(
@@ -1494,7 +1494,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUnits(RequestBuilder<crate::model::ListUnitsRequest>);
+    pub struct ListUnits(pub(crate) RequestBuilder<crate::model::ListUnitsRequest>);
 
     impl ListUnits {
         pub(crate) fn new(
@@ -1604,7 +1604,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetUnit(RequestBuilder<crate::model::GetUnitRequest>);
+    pub struct GetUnit(pub(crate) RequestBuilder<crate::model::GetUnitRequest>);
 
     impl GetUnit {
         pub(crate) fn new(
@@ -1666,7 +1666,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateUnit(RequestBuilder<crate::model::CreateUnitRequest>);
+    pub struct CreateUnit(pub(crate) RequestBuilder<crate::model::CreateUnitRequest>);
 
     impl CreateUnit {
         pub(crate) fn new(
@@ -1770,7 +1770,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateUnit(RequestBuilder<crate::model::UpdateUnitRequest>);
+    pub struct UpdateUnit(pub(crate) RequestBuilder<crate::model::UpdateUnitRequest>);
 
     impl UpdateUnit {
         pub(crate) fn new(
@@ -1876,7 +1876,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteUnit(RequestBuilder<crate::model::DeleteUnitRequest>);
+    pub struct DeleteUnit(pub(crate) RequestBuilder<crate::model::DeleteUnitRequest>);
 
     impl DeleteUnit {
         pub(crate) fn new(
@@ -1960,7 +1960,9 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUnitOperations(RequestBuilder<crate::model::ListUnitOperationsRequest>);
+    pub struct ListUnitOperations(
+        pub(crate) RequestBuilder<crate::model::ListUnitOperationsRequest>,
+    );
 
     impl ListUnitOperations {
         pub(crate) fn new(
@@ -2077,7 +2079,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetUnitOperation(RequestBuilder<crate::model::GetUnitOperationRequest>);
+    pub struct GetUnitOperation(pub(crate) RequestBuilder<crate::model::GetUnitOperationRequest>);
 
     impl GetUnitOperation {
         pub(crate) fn new(
@@ -2142,7 +2144,9 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateUnitOperation(RequestBuilder<crate::model::CreateUnitOperationRequest>);
+    pub struct CreateUnitOperation(
+        pub(crate) RequestBuilder<crate::model::CreateUnitOperationRequest>,
+    );
 
     impl CreateUnitOperation {
         pub(crate) fn new(
@@ -2249,7 +2253,9 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateUnitOperation(RequestBuilder<crate::model::UpdateUnitOperationRequest>);
+    pub struct UpdateUnitOperation(
+        pub(crate) RequestBuilder<crate::model::UpdateUnitOperationRequest>,
+    );
 
     impl UpdateUnitOperation {
         pub(crate) fn new(
@@ -2358,7 +2364,9 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteUnitOperation(RequestBuilder<crate::model::DeleteUnitOperationRequest>);
+    pub struct DeleteUnitOperation(
+        pub(crate) RequestBuilder<crate::model::DeleteUnitOperationRequest>,
+    );
 
     impl DeleteUnitOperation {
         pub(crate) fn new(
@@ -2445,7 +2453,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReleases(RequestBuilder<crate::model::ListReleasesRequest>);
+    pub struct ListReleases(pub(crate) RequestBuilder<crate::model::ListReleasesRequest>);
 
     impl ListReleases {
         pub(crate) fn new(
@@ -2557,7 +2565,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRelease(RequestBuilder<crate::model::GetReleaseRequest>);
+    pub struct GetRelease(pub(crate) RequestBuilder<crate::model::GetReleaseRequest>);
 
     impl GetRelease {
         pub(crate) fn new(
@@ -2619,7 +2627,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRelease(RequestBuilder<crate::model::CreateReleaseRequest>);
+    pub struct CreateRelease(pub(crate) RequestBuilder<crate::model::CreateReleaseRequest>);
 
     impl CreateRelease {
         pub(crate) fn new(
@@ -2723,7 +2731,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRelease(RequestBuilder<crate::model::UpdateReleaseRequest>);
+    pub struct UpdateRelease(pub(crate) RequestBuilder<crate::model::UpdateReleaseRequest>);
 
     impl UpdateRelease {
         pub(crate) fn new(
@@ -2829,7 +2837,7 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRelease(RequestBuilder<crate::model::DeleteReleaseRequest>);
+    pub struct DeleteRelease(pub(crate) RequestBuilder<crate::model::DeleteReleaseRequest>);
 
     impl DeleteRelease {
         pub(crate) fn new(
@@ -2913,7 +2921,9 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -3022,7 +3032,9 @@ pub mod saas_deployments {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -3106,9 +3118,9 @@ pub mod saas_rollouts {
     /// Common implementation for [crate::client::SaasRollouts] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SaasRollouts>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SaasRollouts>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3147,7 +3159,7 @@ pub mod saas_rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRollouts(RequestBuilder<crate::model::ListRolloutsRequest>);
+    pub struct ListRollouts(pub(crate) RequestBuilder<crate::model::ListRolloutsRequest>);
 
     impl ListRollouts {
         pub(crate) fn new(
@@ -3259,7 +3271,7 @@ pub mod saas_rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRollout(RequestBuilder<crate::model::GetRolloutRequest>);
+    pub struct GetRollout(pub(crate) RequestBuilder<crate::model::GetRolloutRequest>);
 
     impl GetRollout {
         pub(crate) fn new(
@@ -3321,7 +3333,7 @@ pub mod saas_rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRollout(RequestBuilder<crate::model::CreateRolloutRequest>);
+    pub struct CreateRollout(pub(crate) RequestBuilder<crate::model::CreateRolloutRequest>);
 
     impl CreateRollout {
         pub(crate) fn new(
@@ -3425,7 +3437,7 @@ pub mod saas_rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRollout(RequestBuilder<crate::model::UpdateRolloutRequest>);
+    pub struct UpdateRollout(pub(crate) RequestBuilder<crate::model::UpdateRolloutRequest>);
 
     impl UpdateRollout {
         pub(crate) fn new(
@@ -3531,7 +3543,7 @@ pub mod saas_rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRollout(RequestBuilder<crate::model::DeleteRolloutRequest>);
+    pub struct DeleteRollout(pub(crate) RequestBuilder<crate::model::DeleteRolloutRequest>);
 
     impl DeleteRollout {
         pub(crate) fn new(
@@ -3615,7 +3627,7 @@ pub mod saas_rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRolloutKinds(RequestBuilder<crate::model::ListRolloutKindsRequest>);
+    pub struct ListRolloutKinds(pub(crate) RequestBuilder<crate::model::ListRolloutKindsRequest>);
 
     impl ListRolloutKinds {
         pub(crate) fn new(
@@ -3732,7 +3744,7 @@ pub mod saas_rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRolloutKind(RequestBuilder<crate::model::GetRolloutKindRequest>);
+    pub struct GetRolloutKind(pub(crate) RequestBuilder<crate::model::GetRolloutKindRequest>);
 
     impl GetRolloutKind {
         pub(crate) fn new(
@@ -3794,7 +3806,7 @@ pub mod saas_rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRolloutKind(RequestBuilder<crate::model::CreateRolloutKindRequest>);
+    pub struct CreateRolloutKind(pub(crate) RequestBuilder<crate::model::CreateRolloutKindRequest>);
 
     impl CreateRolloutKind {
         pub(crate) fn new(
@@ -3901,7 +3913,7 @@ pub mod saas_rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRolloutKind(RequestBuilder<crate::model::UpdateRolloutKindRequest>);
+    pub struct UpdateRolloutKind(pub(crate) RequestBuilder<crate::model::UpdateRolloutKindRequest>);
 
     impl UpdateRolloutKind {
         pub(crate) fn new(
@@ -4010,7 +4022,7 @@ pub mod saas_rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRolloutKind(RequestBuilder<crate::model::DeleteRolloutKindRequest>);
+    pub struct DeleteRolloutKind(pub(crate) RequestBuilder<crate::model::DeleteRolloutKindRequest>);
 
     impl DeleteRolloutKind {
         pub(crate) fn new(
@@ -4097,7 +4109,9 @@ pub mod saas_rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -4206,7 +4220,9 @@ pub mod saas_rollouts {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod telco_automation {
     /// Common implementation for [crate::client::TelcoAutomation] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -93,7 +93,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOrchestrationClusters(
-        RequestBuilder<crate::model::ListOrchestrationClustersRequest>,
+        pub(crate) RequestBuilder<crate::model::ListOrchestrationClustersRequest>,
     );
 
     impl ListOrchestrationClusters {
@@ -212,7 +212,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetOrchestrationCluster(
-        RequestBuilder<crate::model::GetOrchestrationClusterRequest>,
+        pub(crate) RequestBuilder<crate::model::GetOrchestrationClusterRequest>,
     );
 
     impl GetOrchestrationCluster {
@@ -280,7 +280,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateOrchestrationCluster(
-        RequestBuilder<crate::model::CreateOrchestrationClusterRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateOrchestrationClusterRequest>,
     );
 
     impl CreateOrchestrationCluster {
@@ -440,7 +440,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOrchestrationCluster(
-        RequestBuilder<crate::model::DeleteOrchestrationClusterRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteOrchestrationClusterRequest>,
     );
 
     impl DeleteOrchestrationCluster {
@@ -565,7 +565,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEdgeSlms(RequestBuilder<crate::model::ListEdgeSlmsRequest>);
+    pub struct ListEdgeSlms(pub(crate) RequestBuilder<crate::model::ListEdgeSlmsRequest>);
 
     impl ListEdgeSlms {
         pub(crate) fn new(
@@ -677,7 +677,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEdgeSlm(RequestBuilder<crate::model::GetEdgeSlmRequest>);
+    pub struct GetEdgeSlm(pub(crate) RequestBuilder<crate::model::GetEdgeSlmRequest>);
 
     impl GetEdgeSlm {
         pub(crate) fn new(
@@ -740,7 +740,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateEdgeSlm(RequestBuilder<crate::model::CreateEdgeSlmRequest>);
+    pub struct CreateEdgeSlm(pub(crate) RequestBuilder<crate::model::CreateEdgeSlmRequest>);
 
     impl CreateEdgeSlm {
         pub(crate) fn new(
@@ -893,7 +893,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteEdgeSlm(RequestBuilder<crate::model::DeleteEdgeSlmRequest>);
+    pub struct DeleteEdgeSlm(pub(crate) RequestBuilder<crate::model::DeleteEdgeSlmRequest>);
 
     impl DeleteEdgeSlm {
         pub(crate) fn new(
@@ -1010,7 +1010,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBlueprint(RequestBuilder<crate::model::CreateBlueprintRequest>);
+    pub struct CreateBlueprint(pub(crate) RequestBuilder<crate::model::CreateBlueprintRequest>);
 
     impl CreateBlueprint {
         pub(crate) fn new(
@@ -1100,7 +1100,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBlueprint(RequestBuilder<crate::model::UpdateBlueprintRequest>);
+    pub struct UpdateBlueprint(pub(crate) RequestBuilder<crate::model::UpdateBlueprintRequest>);
 
     impl UpdateBlueprint {
         pub(crate) fn new(
@@ -1198,7 +1198,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBlueprint(RequestBuilder<crate::model::GetBlueprintRequest>);
+    pub struct GetBlueprint(pub(crate) RequestBuilder<crate::model::GetBlueprintRequest>);
 
     impl GetBlueprint {
         pub(crate) fn new(
@@ -1266,7 +1266,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBlueprint(RequestBuilder<crate::model::DeleteBlueprintRequest>);
+    pub struct DeleteBlueprint(pub(crate) RequestBuilder<crate::model::DeleteBlueprintRequest>);
 
     impl DeleteBlueprint {
         pub(crate) fn new(
@@ -1332,7 +1332,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBlueprints(RequestBuilder<crate::model::ListBlueprintsRequest>);
+    pub struct ListBlueprints(pub(crate) RequestBuilder<crate::model::ListBlueprintsRequest>);
 
     impl ListBlueprints {
         pub(crate) fn new(
@@ -1440,7 +1440,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ApproveBlueprint(RequestBuilder<crate::model::ApproveBlueprintRequest>);
+    pub struct ApproveBlueprint(pub(crate) RequestBuilder<crate::model::ApproveBlueprintRequest>);
 
     impl ApproveBlueprint {
         pub(crate) fn new(
@@ -1505,7 +1505,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ProposeBlueprint(RequestBuilder<crate::model::ProposeBlueprintRequest>);
+    pub struct ProposeBlueprint(pub(crate) RequestBuilder<crate::model::ProposeBlueprintRequest>);
 
     impl ProposeBlueprint {
         pub(crate) fn new(
@@ -1570,7 +1570,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RejectBlueprint(RequestBuilder<crate::model::RejectBlueprintRequest>);
+    pub struct RejectBlueprint(pub(crate) RequestBuilder<crate::model::RejectBlueprintRequest>);
 
     impl RejectBlueprint {
         pub(crate) fn new(
@@ -1636,7 +1636,9 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBlueprintRevisions(RequestBuilder<crate::model::ListBlueprintRevisionsRequest>);
+    pub struct ListBlueprintRevisions(
+        pub(crate) RequestBuilder<crate::model::ListBlueprintRevisionsRequest>,
+    );
 
     impl ListBlueprintRevisions {
         pub(crate) fn new(
@@ -1746,7 +1748,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SearchBlueprintRevisions(
-        RequestBuilder<crate::model::SearchBlueprintRevisionsRequest>,
+        pub(crate) RequestBuilder<crate::model::SearchBlueprintRevisionsRequest>,
     );
 
     impl SearchBlueprintRevisions {
@@ -1865,7 +1867,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SearchDeploymentRevisions(
-        RequestBuilder<crate::model::SearchDeploymentRevisionsRequest>,
+        pub(crate) RequestBuilder<crate::model::SearchDeploymentRevisionsRequest>,
     );
 
     impl SearchDeploymentRevisions {
@@ -1980,7 +1982,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DiscardBlueprintChanges(
-        RequestBuilder<crate::model::DiscardBlueprintChangesRequest>,
+        pub(crate) RequestBuilder<crate::model::DiscardBlueprintChangesRequest>,
     );
 
     impl DiscardBlueprintChanges {
@@ -2050,7 +2052,9 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPublicBlueprints(RequestBuilder<crate::model::ListPublicBlueprintsRequest>);
+    pub struct ListPublicBlueprints(
+        pub(crate) RequestBuilder<crate::model::ListPublicBlueprintsRequest>,
+    );
 
     impl ListPublicBlueprints {
         pub(crate) fn new(
@@ -2155,7 +2159,9 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPublicBlueprint(RequestBuilder<crate::model::GetPublicBlueprintRequest>);
+    pub struct GetPublicBlueprint(
+        pub(crate) RequestBuilder<crate::model::GetPublicBlueprintRequest>,
+    );
 
     impl GetPublicBlueprint {
         pub(crate) fn new(
@@ -2220,7 +2226,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
+    pub struct CreateDeployment(pub(crate) RequestBuilder<crate::model::CreateDeploymentRequest>);
 
     impl CreateDeployment {
         pub(crate) fn new(
@@ -2313,7 +2319,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDeployment(RequestBuilder<crate::model::UpdateDeploymentRequest>);
+    pub struct UpdateDeployment(pub(crate) RequestBuilder<crate::model::UpdateDeploymentRequest>);
 
     impl UpdateDeployment {
         pub(crate) fn new(
@@ -2414,7 +2420,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
+    pub struct GetDeployment(pub(crate) RequestBuilder<crate::model::GetDeploymentRequest>);
 
     impl GetDeployment {
         pub(crate) fn new(
@@ -2482,7 +2488,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveDeployment(RequestBuilder<crate::model::RemoveDeploymentRequest>);
+    pub struct RemoveDeployment(pub(crate) RequestBuilder<crate::model::RemoveDeploymentRequest>);
 
     impl RemoveDeployment {
         pub(crate) fn new(
@@ -2551,7 +2557,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
+    pub struct ListDeployments(pub(crate) RequestBuilder<crate::model::ListDeploymentsRequest>);
 
     impl ListDeployments {
         pub(crate) fn new(
@@ -2664,7 +2670,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListDeploymentRevisions(
-        RequestBuilder<crate::model::ListDeploymentRevisionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListDeploymentRevisionsRequest>,
     );
 
     impl ListDeploymentRevisions {
@@ -2771,7 +2777,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DiscardDeploymentChanges(
-        RequestBuilder<crate::model::DiscardDeploymentChangesRequest>,
+        pub(crate) RequestBuilder<crate::model::DiscardDeploymentChangesRequest>,
     );
 
     impl DiscardDeploymentChanges {
@@ -2837,7 +2843,7 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ApplyDeployment(RequestBuilder<crate::model::ApplyDeploymentRequest>);
+    pub struct ApplyDeployment(pub(crate) RequestBuilder<crate::model::ApplyDeploymentRequest>);
 
     impl ApplyDeployment {
         pub(crate) fn new(
@@ -2900,7 +2906,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ComputeDeploymentStatus(
-        RequestBuilder<crate::model::ComputeDeploymentStatusRequest>,
+        pub(crate) RequestBuilder<crate::model::ComputeDeploymentStatusRequest>,
     );
 
     impl ComputeDeploymentStatus {
@@ -2966,7 +2972,9 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RollbackDeployment(RequestBuilder<crate::model::RollbackDeploymentRequest>);
+    pub struct RollbackDeployment(
+        pub(crate) RequestBuilder<crate::model::RollbackDeploymentRequest>,
+    );
 
     impl RollbackDeployment {
         pub(crate) fn new(
@@ -3039,7 +3047,9 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetHydratedDeployment(RequestBuilder<crate::model::GetHydratedDeploymentRequest>);
+    pub struct GetHydratedDeployment(
+        pub(crate) RequestBuilder<crate::model::GetHydratedDeploymentRequest>,
+    );
 
     impl GetHydratedDeployment {
         pub(crate) fn new(
@@ -3109,7 +3119,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListHydratedDeployments(
-        RequestBuilder<crate::model::ListHydratedDeploymentsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListHydratedDeploymentsRequest>,
     );
 
     impl ListHydratedDeployments {
@@ -3216,7 +3226,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateHydratedDeployment(
-        RequestBuilder<crate::model::UpdateHydratedDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateHydratedDeploymentRequest>,
     );
 
     impl UpdateHydratedDeployment {
@@ -3319,7 +3329,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ApplyHydratedDeployment(
-        RequestBuilder<crate::model::ApplyHydratedDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::ApplyHydratedDeploymentRequest>,
     );
 
     impl ApplyHydratedDeployment {
@@ -3389,7 +3399,9 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -3498,7 +3510,9 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -3566,7 +3580,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3682,7 +3696,9 @@ pub mod telco_automation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3746,7 +3762,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3811,7 +3827,7 @@ pub mod telco_automation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

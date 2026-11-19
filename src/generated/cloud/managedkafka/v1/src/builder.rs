@@ -51,9 +51,9 @@ pub mod managed_kafka {
     /// Common implementation for [crate::client::ManagedKafka] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafka>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
+    pub struct ListClusters(pub(crate) RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
         pub(crate) fn new(
@@ -204,7 +204,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
+    pub struct GetCluster(pub(crate) RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
         pub(crate) fn new(
@@ -267,7 +267,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
+    pub struct CreateCluster(pub(crate) RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
         pub(crate) fn new(
@@ -420,7 +420,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
+    pub struct UpdateCluster(pub(crate) RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
         pub(crate) fn new(
@@ -579,7 +579,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
+    pub struct DeleteCluster(pub(crate) RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
         pub(crate) fn new(
@@ -700,7 +700,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTopics(RequestBuilder<crate::model::ListTopicsRequest>);
+    pub struct ListTopics(pub(crate) RequestBuilder<crate::model::ListTopicsRequest>);
 
     impl ListTopics {
         pub(crate) fn new(
@@ -800,7 +800,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTopic(RequestBuilder<crate::model::GetTopicRequest>);
+    pub struct GetTopic(pub(crate) RequestBuilder<crate::model::GetTopicRequest>);
 
     impl GetTopic {
         pub(crate) fn new(
@@ -862,7 +862,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTopic(RequestBuilder<crate::model::CreateTopicRequest>);
+    pub struct CreateTopic(pub(crate) RequestBuilder<crate::model::CreateTopicRequest>);
 
     impl CreateTopic {
         pub(crate) fn new(
@@ -954,7 +954,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTopic(RequestBuilder<crate::model::UpdateTopicRequest>);
+    pub struct UpdateTopic(pub(crate) RequestBuilder<crate::model::UpdateTopicRequest>);
 
     impl UpdateTopic {
         pub(crate) fn new(
@@ -1052,7 +1052,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTopic(RequestBuilder<crate::model::DeleteTopicRequest>);
+    pub struct DeleteTopic(pub(crate) RequestBuilder<crate::model::DeleteTopicRequest>);
 
     impl DeleteTopic {
         pub(crate) fn new(
@@ -1118,7 +1118,9 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConsumerGroups(RequestBuilder<crate::model::ListConsumerGroupsRequest>);
+    pub struct ListConsumerGroups(
+        pub(crate) RequestBuilder<crate::model::ListConsumerGroupsRequest>,
+    );
 
     impl ListConsumerGroups {
         pub(crate) fn new(
@@ -1223,7 +1225,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConsumerGroup(RequestBuilder<crate::model::GetConsumerGroupRequest>);
+    pub struct GetConsumerGroup(pub(crate) RequestBuilder<crate::model::GetConsumerGroupRequest>);
 
     impl GetConsumerGroup {
         pub(crate) fn new(
@@ -1288,7 +1290,9 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConsumerGroup(RequestBuilder<crate::model::UpdateConsumerGroupRequest>);
+    pub struct UpdateConsumerGroup(
+        pub(crate) RequestBuilder<crate::model::UpdateConsumerGroupRequest>,
+    );
 
     impl UpdateConsumerGroup {
         pub(crate) fn new(
@@ -1389,7 +1393,9 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteConsumerGroup(RequestBuilder<crate::model::DeleteConsumerGroupRequest>);
+    pub struct DeleteConsumerGroup(
+        pub(crate) RequestBuilder<crate::model::DeleteConsumerGroupRequest>,
+    );
 
     impl DeleteConsumerGroup {
         pub(crate) fn new(
@@ -1458,7 +1464,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAcls(RequestBuilder<crate::model::ListAclsRequest>);
+    pub struct ListAcls(pub(crate) RequestBuilder<crate::model::ListAclsRequest>);
 
     impl ListAcls {
         pub(crate) fn new(
@@ -1556,7 +1562,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAcl(RequestBuilder<crate::model::GetAclRequest>);
+    pub struct GetAcl(pub(crate) RequestBuilder<crate::model::GetAclRequest>);
 
     impl GetAcl {
         pub(crate) fn new(
@@ -1618,7 +1624,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAcl(RequestBuilder<crate::model::CreateAclRequest>);
+    pub struct CreateAcl(pub(crate) RequestBuilder<crate::model::CreateAclRequest>);
 
     impl CreateAcl {
         pub(crate) fn new(
@@ -1710,7 +1716,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAcl(RequestBuilder<crate::model::UpdateAclRequest>);
+    pub struct UpdateAcl(pub(crate) RequestBuilder<crate::model::UpdateAclRequest>);
 
     impl UpdateAcl {
         pub(crate) fn new(
@@ -1804,7 +1810,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAcl(RequestBuilder<crate::model::DeleteAclRequest>);
+    pub struct DeleteAcl(pub(crate) RequestBuilder<crate::model::DeleteAclRequest>);
 
     impl DeleteAcl {
         pub(crate) fn new(
@@ -1866,7 +1872,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddAclEntry(RequestBuilder<crate::model::AddAclEntryRequest>);
+    pub struct AddAclEntry(pub(crate) RequestBuilder<crate::model::AddAclEntryRequest>);
 
     impl AddAclEntry {
         pub(crate) fn new(
@@ -1950,7 +1956,7 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveAclEntry(RequestBuilder<crate::model::RemoveAclEntryRequest>);
+    pub struct RemoveAclEntry(pub(crate) RequestBuilder<crate::model::RemoveAclEntryRequest>);
 
     impl RemoveAclEntry {
         pub(crate) fn new(
@@ -2038,7 +2044,9 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2147,7 +2155,9 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -2215,7 +2225,7 @@ pub mod managed_kafka {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2331,7 +2341,9 @@ pub mod managed_kafka {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2395,7 +2407,7 @@ pub mod managed_kafka {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2460,7 +2472,7 @@ pub mod managed_kafka {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -2545,9 +2557,9 @@ pub mod managed_kafka_connect {
     /// Common implementation for [crate::client::ManagedKafkaConnect] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedKafkaConnect>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2586,7 +2598,9 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConnectClusters(RequestBuilder<crate::model::ListConnectClustersRequest>);
+    pub struct ListConnectClusters(
+        pub(crate) RequestBuilder<crate::model::ListConnectClustersRequest>,
+    );
 
     impl ListConnectClusters {
         pub(crate) fn new(
@@ -2703,7 +2717,7 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConnectCluster(RequestBuilder<crate::model::GetConnectClusterRequest>);
+    pub struct GetConnectCluster(pub(crate) RequestBuilder<crate::model::GetConnectClusterRequest>);
 
     impl GetConnectCluster {
         pub(crate) fn new(
@@ -2769,7 +2783,9 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateConnectCluster(RequestBuilder<crate::model::CreateConnectClusterRequest>);
+    pub struct CreateConnectCluster(
+        pub(crate) RequestBuilder<crate::model::CreateConnectClusterRequest>,
+    );
 
     impl CreateConnectCluster {
         pub(crate) fn new(
@@ -2925,7 +2941,9 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConnectCluster(RequestBuilder<crate::model::UpdateConnectClusterRequest>);
+    pub struct UpdateConnectCluster(
+        pub(crate) RequestBuilder<crate::model::UpdateConnectClusterRequest>,
+    );
 
     impl UpdateConnectCluster {
         pub(crate) fn new(
@@ -3087,7 +3105,9 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteConnectCluster(RequestBuilder<crate::model::DeleteConnectClusterRequest>);
+    pub struct DeleteConnectCluster(
+        pub(crate) RequestBuilder<crate::model::DeleteConnectClusterRequest>,
+    );
 
     impl DeleteConnectCluster {
         pub(crate) fn new(
@@ -3211,7 +3231,7 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConnectors(RequestBuilder<crate::model::ListConnectorsRequest>);
+    pub struct ListConnectors(pub(crate) RequestBuilder<crate::model::ListConnectorsRequest>);
 
     impl ListConnectors {
         pub(crate) fn new(
@@ -3313,7 +3333,7 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConnector(RequestBuilder<crate::model::GetConnectorRequest>);
+    pub struct GetConnector(pub(crate) RequestBuilder<crate::model::GetConnectorRequest>);
 
     impl GetConnector {
         pub(crate) fn new(
@@ -3375,7 +3395,7 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateConnector(RequestBuilder<crate::model::CreateConnectorRequest>);
+    pub struct CreateConnector(pub(crate) RequestBuilder<crate::model::CreateConnectorRequest>);
 
     impl CreateConnector {
         pub(crate) fn new(
@@ -3467,7 +3487,7 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConnector(RequestBuilder<crate::model::UpdateConnectorRequest>);
+    pub struct UpdateConnector(pub(crate) RequestBuilder<crate::model::UpdateConnectorRequest>);
 
     impl UpdateConnector {
         pub(crate) fn new(
@@ -3565,7 +3585,7 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteConnector(RequestBuilder<crate::model::DeleteConnectorRequest>);
+    pub struct DeleteConnector(pub(crate) RequestBuilder<crate::model::DeleteConnectorRequest>);
 
     impl DeleteConnector {
         pub(crate) fn new(
@@ -3627,7 +3647,7 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PauseConnector(RequestBuilder<crate::model::PauseConnectorRequest>);
+    pub struct PauseConnector(pub(crate) RequestBuilder<crate::model::PauseConnectorRequest>);
 
     impl PauseConnector {
         pub(crate) fn new(
@@ -3689,7 +3709,7 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResumeConnector(RequestBuilder<crate::model::ResumeConnectorRequest>);
+    pub struct ResumeConnector(pub(crate) RequestBuilder<crate::model::ResumeConnectorRequest>);
 
     impl ResumeConnector {
         pub(crate) fn new(
@@ -3751,7 +3771,7 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestartConnector(RequestBuilder<crate::model::RestartConnectorRequest>);
+    pub struct RestartConnector(pub(crate) RequestBuilder<crate::model::RestartConnectorRequest>);
 
     impl RestartConnector {
         pub(crate) fn new(
@@ -3816,7 +3836,7 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopConnector(RequestBuilder<crate::model::StopConnectorRequest>);
+    pub struct StopConnector(pub(crate) RequestBuilder<crate::model::StopConnectorRequest>);
 
     impl StopConnector {
         pub(crate) fn new(
@@ -3882,7 +3902,9 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -3991,7 +4013,9 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -4059,7 +4083,7 @@ pub mod managed_kafka_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4175,7 +4199,9 @@ pub mod managed_kafka_connect {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4239,7 +4265,7 @@ pub mod managed_kafka_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4304,7 +4330,7 @@ pub mod managed_kafka_connect {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

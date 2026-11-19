@@ -51,9 +51,9 @@ pub mod blockchain_node_engine {
     /// Common implementation for [crate::client::BlockchainNodeEngine] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::BlockchainNodeEngine>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::BlockchainNodeEngine>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,9 @@ pub mod blockchain_node_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBlockchainNodes(RequestBuilder<crate::model::ListBlockchainNodesRequest>);
+    pub struct ListBlockchainNodes(
+        pub(crate) RequestBuilder<crate::model::ListBlockchainNodesRequest>,
+    );
 
     impl ListBlockchainNodes {
         pub(crate) fn new(
@@ -209,7 +211,7 @@ pub mod blockchain_node_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBlockchainNode(RequestBuilder<crate::model::GetBlockchainNodeRequest>);
+    pub struct GetBlockchainNode(pub(crate) RequestBuilder<crate::model::GetBlockchainNodeRequest>);
 
     impl GetBlockchainNode {
         pub(crate) fn new(
@@ -275,7 +277,9 @@ pub mod blockchain_node_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBlockchainNode(RequestBuilder<crate::model::CreateBlockchainNodeRequest>);
+    pub struct CreateBlockchainNode(
+        pub(crate) RequestBuilder<crate::model::CreateBlockchainNodeRequest>,
+    );
 
     impl CreateBlockchainNode {
         pub(crate) fn new(
@@ -431,7 +435,9 @@ pub mod blockchain_node_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBlockchainNode(RequestBuilder<crate::model::UpdateBlockchainNodeRequest>);
+    pub struct UpdateBlockchainNode(
+        pub(crate) RequestBuilder<crate::model::UpdateBlockchainNodeRequest>,
+    );
 
     impl UpdateBlockchainNode {
         pub(crate) fn new(
@@ -593,7 +599,9 @@ pub mod blockchain_node_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBlockchainNode(RequestBuilder<crate::model::DeleteBlockchainNodeRequest>);
+    pub struct DeleteBlockchainNode(
+        pub(crate) RequestBuilder<crate::model::DeleteBlockchainNodeRequest>,
+    );
 
     impl DeleteBlockchainNode {
         pub(crate) fn new(
@@ -717,7 +725,9 @@ pub mod blockchain_node_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -826,7 +836,9 @@ pub mod blockchain_node_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -894,7 +906,7 @@ pub mod blockchain_node_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1010,7 +1022,9 @@ pub mod blockchain_node_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1074,7 +1088,7 @@ pub mod blockchain_node_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -1139,7 +1153,7 @@ pub mod blockchain_node_engine {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

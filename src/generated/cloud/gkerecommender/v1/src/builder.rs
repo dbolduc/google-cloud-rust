@@ -51,9 +51,9 @@ pub mod gke_inference_quickstart {
     /// Common implementation for [crate::client::GkeInferenceQuickstart] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod gke_inference_quickstart {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchModels(RequestBuilder<crate::model::FetchModelsRequest>);
+    pub struct FetchModels(pub(crate) RequestBuilder<crate::model::FetchModelsRequest>);
 
     impl FetchModels {
         pub(crate) fn new(
@@ -178,7 +178,7 @@ pub mod gke_inference_quickstart {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchModelServers(RequestBuilder<crate::model::FetchModelServersRequest>);
+    pub struct FetchModelServers(pub(crate) RequestBuilder<crate::model::FetchModelServersRequest>);
 
     impl FetchModelServers {
         pub(crate) fn new(
@@ -280,7 +280,7 @@ pub mod gke_inference_quickstart {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchModelServerVersions(
-        RequestBuilder<crate::model::FetchModelServerVersionsRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchModelServerVersionsRequest>,
     );
 
     impl FetchModelServerVersions {
@@ -394,7 +394,7 @@ pub mod gke_inference_quickstart {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchProfiles(RequestBuilder<crate::model::FetchProfilesRequest>);
+    pub struct FetchProfiles(pub(crate) RequestBuilder<crate::model::FetchProfilesRequest>);
 
     impl FetchProfiles {
         pub(crate) fn new(
@@ -547,7 +547,7 @@ pub mod gke_inference_quickstart {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateOptimizedManifest(
-        RequestBuilder<crate::model::GenerateOptimizedManifestRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateOptimizedManifestRequest>,
     );
 
     impl GenerateOptimizedManifest {
@@ -677,7 +677,9 @@ pub mod gke_inference_quickstart {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchBenchmarkingData(RequestBuilder<crate::model::FetchBenchmarkingDataRequest>);
+    pub struct FetchBenchmarkingData(
+        pub(crate) RequestBuilder<crate::model::FetchBenchmarkingDataRequest>,
+    );
 
     impl FetchBenchmarkingData {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod folders {
     /// Common implementation for [crate::client::Folders] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -86,7 +86,7 @@ pub mod folders {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFolder(RequestBuilder<crate::model::GetFolderRequest>);
+    pub struct GetFolder(pub(crate) RequestBuilder<crate::model::GetFolderRequest>);
 
     impl GetFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
@@ -150,7 +150,7 @@ pub mod folders {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFolders(RequestBuilder<crate::model::ListFoldersRequest>);
+    pub struct ListFolders(pub(crate) RequestBuilder<crate::model::ListFoldersRequest>);
 
     impl ListFolders {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
@@ -258,7 +258,7 @@ pub mod folders {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchFolders(RequestBuilder<crate::model::SearchFoldersRequest>);
+    pub struct SearchFolders(pub(crate) RequestBuilder<crate::model::SearchFoldersRequest>);
 
     impl SearchFolders {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
@@ -355,7 +355,7 @@ pub mod folders {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateFolder(RequestBuilder<crate::model::CreateFolderRequest>);
+    pub struct CreateFolder(pub(crate) RequestBuilder<crate::model::CreateFolderRequest>);
 
     impl CreateFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
@@ -485,7 +485,7 @@ pub mod folders {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFolder(RequestBuilder<crate::model::UpdateFolderRequest>);
+    pub struct UpdateFolder(pub(crate) RequestBuilder<crate::model::UpdateFolderRequest>);
 
     impl UpdateFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
@@ -637,7 +637,7 @@ pub mod folders {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveFolder(RequestBuilder<crate::model::MoveFolderRequest>);
+    pub struct MoveFolder(pub(crate) RequestBuilder<crate::model::MoveFolderRequest>);
 
     impl MoveFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
@@ -761,7 +761,7 @@ pub mod folders {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFolder(RequestBuilder<crate::model::DeleteFolderRequest>);
+    pub struct DeleteFolder(pub(crate) RequestBuilder<crate::model::DeleteFolderRequest>);
 
     impl DeleteFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
@@ -877,7 +877,7 @@ pub mod folders {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeleteFolder(RequestBuilder<crate::model::UndeleteFolderRequest>);
+    pub struct UndeleteFolder(pub(crate) RequestBuilder<crate::model::UndeleteFolderRequest>);
 
     impl UndeleteFolder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
@@ -992,7 +992,9 @@ pub mod folders {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
@@ -1073,7 +1075,9 @@ pub mod folders {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
@@ -1177,7 +1181,7 @@ pub mod folders {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1254,7 +1258,9 @@ pub mod folders {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
@@ -1336,9 +1342,9 @@ pub mod organizations {
     /// Common implementation for [crate::client::Organizations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Organizations>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Organizations>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1373,7 +1379,7 @@ pub mod organizations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOrganization(RequestBuilder<crate::model::GetOrganizationRequest>);
+    pub struct GetOrganization(pub(crate) RequestBuilder<crate::model::GetOrganizationRequest>);
 
     impl GetOrganization {
         pub(crate) fn new(
@@ -1439,7 +1445,9 @@ pub mod organizations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchOrganizations(RequestBuilder<crate::model::SearchOrganizationsRequest>);
+    pub struct SearchOrganizations(
+        pub(crate) RequestBuilder<crate::model::SearchOrganizationsRequest>,
+    );
 
     impl SearchOrganizations {
         pub(crate) fn new(
@@ -1542,7 +1550,9 @@ pub mod organizations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1625,7 +1635,9 @@ pub mod organizations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -1731,7 +1743,7 @@ pub mod organizations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1810,7 +1822,9 @@ pub mod organizations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1894,9 +1908,9 @@ pub mod projects {
     /// Common implementation for [crate::client::Projects] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1929,7 +1943,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProject(RequestBuilder<crate::model::GetProjectRequest>);
+    pub struct GetProject(pub(crate) RequestBuilder<crate::model::GetProjectRequest>);
 
     impl GetProject {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -1993,7 +2007,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProjects(RequestBuilder<crate::model::ListProjectsRequest>);
+    pub struct ListProjects(pub(crate) RequestBuilder<crate::model::ListProjectsRequest>);
 
     impl ListProjects {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -2101,7 +2115,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchProjects(RequestBuilder<crate::model::SearchProjectsRequest>);
+    pub struct SearchProjects(pub(crate) RequestBuilder<crate::model::SearchProjectsRequest>);
 
     impl SearchProjects {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -2200,7 +2214,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateProject(RequestBuilder<crate::model::CreateProjectRequest>);
+    pub struct CreateProject(pub(crate) RequestBuilder<crate::model::CreateProjectRequest>);
 
     impl CreateProject {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -2330,7 +2344,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateProject(RequestBuilder<crate::model::UpdateProjectRequest>);
+    pub struct UpdateProject(pub(crate) RequestBuilder<crate::model::UpdateProjectRequest>);
 
     impl UpdateProject {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -2478,7 +2492,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveProject(RequestBuilder<crate::model::MoveProjectRequest>);
+    pub struct MoveProject(pub(crate) RequestBuilder<crate::model::MoveProjectRequest>);
 
     impl MoveProject {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -2602,7 +2616,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteProject(RequestBuilder<crate::model::DeleteProjectRequest>);
+    pub struct DeleteProject(pub(crate) RequestBuilder<crate::model::DeleteProjectRequest>);
 
     impl DeleteProject {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -2718,7 +2732,7 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeleteProject(RequestBuilder<crate::model::UndeleteProjectRequest>);
+    pub struct UndeleteProject(pub(crate) RequestBuilder<crate::model::UndeleteProjectRequest>);
 
     impl UndeleteProject {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -2832,7 +2846,9 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -2913,7 +2929,9 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -3017,7 +3035,7 @@ pub mod projects {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -3094,7 +3112,9 @@ pub mod projects {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
@@ -3176,9 +3196,9 @@ pub mod tag_bindings {
     /// Common implementation for [crate::client::TagBindings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TagBindings>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TagBindings>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3217,7 +3237,7 @@ pub mod tag_bindings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTagBindings(RequestBuilder<crate::model::ListTagBindingsRequest>);
+    pub struct ListTagBindings(pub(crate) RequestBuilder<crate::model::ListTagBindingsRequest>);
 
     impl ListTagBindings {
         pub(crate) fn new(
@@ -3320,7 +3340,7 @@ pub mod tag_bindings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTagBinding(RequestBuilder<crate::model::CreateTagBindingRequest>);
+    pub struct CreateTagBinding(pub(crate) RequestBuilder<crate::model::CreateTagBindingRequest>);
 
     impl CreateTagBinding {
         pub(crate) fn new(
@@ -3462,7 +3482,7 @@ pub mod tag_bindings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTagBinding(RequestBuilder<crate::model::DeleteTagBindingRequest>);
+    pub struct DeleteTagBinding(pub(crate) RequestBuilder<crate::model::DeleteTagBindingRequest>);
 
     impl DeleteTagBinding {
         pub(crate) fn new(
@@ -3584,7 +3604,7 @@ pub mod tag_bindings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEffectiveTags(RequestBuilder<crate::model::ListEffectiveTagsRequest>);
+    pub struct ListEffectiveTags(pub(crate) RequestBuilder<crate::model::ListEffectiveTagsRequest>);
 
     impl ListEffectiveTags {
         pub(crate) fn new(
@@ -3689,7 +3709,9 @@ pub mod tag_bindings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3773,9 +3795,9 @@ pub mod tag_holds {
     /// Common implementation for [crate::client::TagHolds] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TagHolds>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TagHolds>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3809,7 +3831,7 @@ pub mod tag_holds {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTagHold(RequestBuilder<crate::model::CreateTagHoldRequest>);
+    pub struct CreateTagHold(pub(crate) RequestBuilder<crate::model::CreateTagHoldRequest>);
 
     impl CreateTagHold {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
@@ -3952,7 +3974,7 @@ pub mod tag_holds {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTagHold(RequestBuilder<crate::model::DeleteTagHoldRequest>);
+    pub struct DeleteTagHold(pub(crate) RequestBuilder<crate::model::DeleteTagHoldRequest>);
 
     impl DeleteTagHold {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
@@ -4075,7 +4097,7 @@ pub mod tag_holds {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTagHolds(RequestBuilder<crate::model::ListTagHoldsRequest>);
+    pub struct ListTagHolds(pub(crate) RequestBuilder<crate::model::ListTagHoldsRequest>);
 
     impl ListTagHolds {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
@@ -4179,7 +4201,9 @@ pub mod tag_holds {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
@@ -4261,9 +4285,9 @@ pub mod tag_keys {
     /// Common implementation for [crate::client::TagKeys] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -4300,7 +4324,7 @@ pub mod tag_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTagKeys(RequestBuilder<crate::model::ListTagKeysRequest>);
+    pub struct ListTagKeys(pub(crate) RequestBuilder<crate::model::ListTagKeysRequest>);
 
     impl ListTagKeys {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
@@ -4398,7 +4422,7 @@ pub mod tag_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTagKey(RequestBuilder<crate::model::GetTagKeyRequest>);
+    pub struct GetTagKey(pub(crate) RequestBuilder<crate::model::GetTagKeyRequest>);
 
     impl GetTagKey {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
@@ -4458,7 +4482,9 @@ pub mod tag_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNamespacedTagKey(RequestBuilder<crate::model::GetNamespacedTagKeyRequest>);
+    pub struct GetNamespacedTagKey(
+        pub(crate) RequestBuilder<crate::model::GetNamespacedTagKeyRequest>,
+    );
 
     impl GetNamespacedTagKey {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
@@ -4522,7 +4548,7 @@ pub mod tag_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTagKey(RequestBuilder<crate::model::CreateTagKeyRequest>);
+    pub struct CreateTagKey(pub(crate) RequestBuilder<crate::model::CreateTagKeyRequest>);
 
     impl CreateTagKey {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
@@ -4658,7 +4684,7 @@ pub mod tag_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTagKey(RequestBuilder<crate::model::UpdateTagKeyRequest>);
+    pub struct UpdateTagKey(pub(crate) RequestBuilder<crate::model::UpdateTagKeyRequest>);
 
     impl UpdateTagKey {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
@@ -4812,7 +4838,7 @@ pub mod tag_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTagKey(RequestBuilder<crate::model::DeleteTagKeyRequest>);
+    pub struct DeleteTagKey(pub(crate) RequestBuilder<crate::model::DeleteTagKeyRequest>);
 
     impl DeleteTagKey {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
@@ -4939,7 +4965,9 @@ pub mod tag_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
@@ -5020,7 +5048,9 @@ pub mod tag_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
@@ -5124,7 +5154,7 @@ pub mod tag_keys {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -5201,7 +5231,9 @@ pub mod tag_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
@@ -5283,9 +5315,9 @@ pub mod tag_values {
     /// Common implementation for [crate::client::TagValues] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -5324,7 +5356,7 @@ pub mod tag_values {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTagValues(RequestBuilder<crate::model::ListTagValuesRequest>);
+    pub struct ListTagValues(pub(crate) RequestBuilder<crate::model::ListTagValuesRequest>);
 
     impl ListTagValues {
         pub(crate) fn new(
@@ -5424,7 +5456,7 @@ pub mod tag_values {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTagValue(RequestBuilder<crate::model::GetTagValueRequest>);
+    pub struct GetTagValue(pub(crate) RequestBuilder<crate::model::GetTagValueRequest>);
 
     impl GetTagValue {
         pub(crate) fn new(
@@ -5486,7 +5518,9 @@ pub mod tag_values {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNamespacedTagValue(RequestBuilder<crate::model::GetNamespacedTagValueRequest>);
+    pub struct GetNamespacedTagValue(
+        pub(crate) RequestBuilder<crate::model::GetNamespacedTagValueRequest>,
+    );
 
     impl GetNamespacedTagValue {
         pub(crate) fn new(
@@ -5552,7 +5586,7 @@ pub mod tag_values {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTagValue(RequestBuilder<crate::model::CreateTagValueRequest>);
+    pub struct CreateTagValue(pub(crate) RequestBuilder<crate::model::CreateTagValueRequest>);
 
     impl CreateTagValue {
         pub(crate) fn new(
@@ -5689,7 +5723,7 @@ pub mod tag_values {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTagValue(RequestBuilder<crate::model::UpdateTagValueRequest>);
+    pub struct UpdateTagValue(pub(crate) RequestBuilder<crate::model::UpdateTagValueRequest>);
 
     impl UpdateTagValue {
         pub(crate) fn new(
@@ -5844,7 +5878,7 @@ pub mod tag_values {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTagValue(RequestBuilder<crate::model::DeleteTagValueRequest>);
+    pub struct DeleteTagValue(pub(crate) RequestBuilder<crate::model::DeleteTagValueRequest>);
 
     impl DeleteTagValue {
         pub(crate) fn new(
@@ -5972,7 +6006,9 @@ pub mod tag_values {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -6055,7 +6091,9 @@ pub mod tag_values {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -6161,7 +6199,7 @@ pub mod tag_values {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -6240,7 +6278,9 @@ pub mod tag_values {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

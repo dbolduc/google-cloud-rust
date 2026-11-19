@@ -51,9 +51,9 @@ pub mod cloud_ftp {
     /// Common implementation for [crate::client::CloudFtp] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -90,7 +90,7 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServers(RequestBuilder<crate::model::ListServersRequest>);
+    pub struct ListServers(pub(crate) RequestBuilder<crate::model::ListServersRequest>);
 
     impl ListServers {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -206,7 +206,7 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetServer(RequestBuilder<crate::model::GetServerRequest>);
+    pub struct GetServer(pub(crate) RequestBuilder<crate::model::GetServerRequest>);
 
     impl GetServer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -273,7 +273,7 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateServer(RequestBuilder<crate::model::CreateServerRequest>);
+    pub struct CreateServer(pub(crate) RequestBuilder<crate::model::CreateServerRequest>);
 
     impl CreateServer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -425,7 +425,7 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateServer(RequestBuilder<crate::model::UpdateServerRequest>);
+    pub struct UpdateServer(pub(crate) RequestBuilder<crate::model::UpdateServerRequest>);
 
     impl UpdateServer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -579,7 +579,7 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteServer(RequestBuilder<crate::model::DeleteServerRequest>);
+    pub struct DeleteServer(pub(crate) RequestBuilder<crate::model::DeleteServerRequest>);
 
     impl DeleteServer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -693,7 +693,7 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUsers(RequestBuilder<crate::model::ListUsersRequest>);
+    pub struct ListUsers(pub(crate) RequestBuilder<crate::model::ListUsersRequest>);
 
     impl ListUsers {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -807,7 +807,7 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetUser(RequestBuilder<crate::model::GetUserRequest>);
+    pub struct GetUser(pub(crate) RequestBuilder<crate::model::GetUserRequest>);
 
     impl GetUser {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -874,7 +874,7 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateUser(RequestBuilder<crate::model::CreateUserRequest>);
+    pub struct CreateUser(pub(crate) RequestBuilder<crate::model::CreateUserRequest>);
 
     impl CreateUser {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -1026,7 +1026,7 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateUser(RequestBuilder<crate::model::UpdateUserRequest>);
+    pub struct UpdateUser(pub(crate) RequestBuilder<crate::model::UpdateUserRequest>);
 
     impl UpdateUser {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -1174,7 +1174,7 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteUser(RequestBuilder<crate::model::DeleteUserRequest>);
+    pub struct DeleteUser(pub(crate) RequestBuilder<crate::model::DeleteUserRequest>);
 
     impl DeleteUser {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -1291,7 +1291,7 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartServer(RequestBuilder<crate::model::StartServerRequest>);
+    pub struct StartServer(pub(crate) RequestBuilder<crate::model::StartServerRequest>);
 
     impl StartServer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -1407,7 +1407,7 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopServer(RequestBuilder<crate::model::StopServerRequest>);
+    pub struct StopServer(pub(crate) RequestBuilder<crate::model::StopServerRequest>);
 
     impl StopServer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -1526,7 +1526,9 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -1633,7 +1635,9 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -1699,7 +1703,7 @@ pub mod cloud_ftp {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1813,7 +1817,9 @@ pub mod cloud_ftp {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFtp>) -> Self {
@@ -1875,7 +1881,7 @@ pub mod cloud_ftp {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -1938,7 +1944,7 @@ pub mod cloud_ftp {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

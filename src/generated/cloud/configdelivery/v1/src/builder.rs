@@ -51,9 +51,9 @@ pub mod config_delivery {
     /// Common implementation for [crate::client::ConfigDelivery] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigDelivery>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigDelivery>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,9 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListResourceBundles(RequestBuilder<crate::model::ListResourceBundlesRequest>);
+    pub struct ListResourceBundles(
+        pub(crate) RequestBuilder<crate::model::ListResourceBundlesRequest>,
+    );
 
     impl ListResourceBundles {
         pub(crate) fn new(
@@ -209,7 +211,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetResourceBundle(RequestBuilder<crate::model::GetResourceBundleRequest>);
+    pub struct GetResourceBundle(pub(crate) RequestBuilder<crate::model::GetResourceBundleRequest>);
 
     impl GetResourceBundle {
         pub(crate) fn new(
@@ -275,7 +277,9 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateResourceBundle(RequestBuilder<crate::model::CreateResourceBundleRequest>);
+    pub struct CreateResourceBundle(
+        pub(crate) RequestBuilder<crate::model::CreateResourceBundleRequest>,
+    );
 
     impl CreateResourceBundle {
         pub(crate) fn new(
@@ -431,7 +435,9 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateResourceBundle(RequestBuilder<crate::model::UpdateResourceBundleRequest>);
+    pub struct UpdateResourceBundle(
+        pub(crate) RequestBuilder<crate::model::UpdateResourceBundleRequest>,
+    );
 
     impl UpdateResourceBundle {
         pub(crate) fn new(
@@ -593,7 +599,9 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteResourceBundle(RequestBuilder<crate::model::DeleteResourceBundleRequest>);
+    pub struct DeleteResourceBundle(
+        pub(crate) RequestBuilder<crate::model::DeleteResourceBundleRequest>,
+    );
 
     impl DeleteResourceBundle {
         pub(crate) fn new(
@@ -723,7 +731,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFleetPackages(RequestBuilder<crate::model::ListFleetPackagesRequest>);
+    pub struct ListFleetPackages(pub(crate) RequestBuilder<crate::model::ListFleetPackagesRequest>);
 
     impl ListFleetPackages {
         pub(crate) fn new(
@@ -840,7 +848,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFleetPackage(RequestBuilder<crate::model::GetFleetPackageRequest>);
+    pub struct GetFleetPackage(pub(crate) RequestBuilder<crate::model::GetFleetPackageRequest>);
 
     impl GetFleetPackage {
         pub(crate) fn new(
@@ -903,7 +911,9 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateFleetPackage(RequestBuilder<crate::model::CreateFleetPackageRequest>);
+    pub struct CreateFleetPackage(
+        pub(crate) RequestBuilder<crate::model::CreateFleetPackageRequest>,
+    );
 
     impl CreateFleetPackage {
         pub(crate) fn new(
@@ -1059,7 +1069,9 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFleetPackage(RequestBuilder<crate::model::UpdateFleetPackageRequest>);
+    pub struct UpdateFleetPackage(
+        pub(crate) RequestBuilder<crate::model::UpdateFleetPackageRequest>,
+    );
 
     impl UpdateFleetPackage {
         pub(crate) fn new(
@@ -1221,7 +1233,9 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFleetPackage(RequestBuilder<crate::model::DeleteFleetPackageRequest>);
+    pub struct DeleteFleetPackage(
+        pub(crate) RequestBuilder<crate::model::DeleteFleetPackageRequest>,
+    );
 
     impl DeleteFleetPackage {
         pub(crate) fn new(
@@ -1357,7 +1371,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReleases(RequestBuilder<crate::model::ListReleasesRequest>);
+    pub struct ListReleases(pub(crate) RequestBuilder<crate::model::ListReleasesRequest>);
 
     impl ListReleases {
         pub(crate) fn new(
@@ -1469,7 +1483,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRelease(RequestBuilder<crate::model::GetReleaseRequest>);
+    pub struct GetRelease(pub(crate) RequestBuilder<crate::model::GetReleaseRequest>);
 
     impl GetRelease {
         pub(crate) fn new(
@@ -1532,7 +1546,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRelease(RequestBuilder<crate::model::CreateReleaseRequest>);
+    pub struct CreateRelease(pub(crate) RequestBuilder<crate::model::CreateReleaseRequest>);
 
     impl CreateRelease {
         pub(crate) fn new(
@@ -1685,7 +1699,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRelease(RequestBuilder<crate::model::UpdateReleaseRequest>);
+    pub struct UpdateRelease(pub(crate) RequestBuilder<crate::model::UpdateReleaseRequest>);
 
     impl UpdateRelease {
         pub(crate) fn new(
@@ -1844,7 +1858,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRelease(RequestBuilder<crate::model::DeleteReleaseRequest>);
+    pub struct DeleteRelease(pub(crate) RequestBuilder<crate::model::DeleteReleaseRequest>);
 
     impl DeleteRelease {
         pub(crate) fn new(
@@ -1971,7 +1985,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVariants(RequestBuilder<crate::model::ListVariantsRequest>);
+    pub struct ListVariants(pub(crate) RequestBuilder<crate::model::ListVariantsRequest>);
 
     impl ListVariants {
         pub(crate) fn new(
@@ -2083,7 +2097,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVariant(RequestBuilder<crate::model::GetVariantRequest>);
+    pub struct GetVariant(pub(crate) RequestBuilder<crate::model::GetVariantRequest>);
 
     impl GetVariant {
         pub(crate) fn new(
@@ -2146,7 +2160,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateVariant(RequestBuilder<crate::model::CreateVariantRequest>);
+    pub struct CreateVariant(pub(crate) RequestBuilder<crate::model::CreateVariantRequest>);
 
     impl CreateVariant {
         pub(crate) fn new(
@@ -2299,7 +2313,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateVariant(RequestBuilder<crate::model::UpdateVariantRequest>);
+    pub struct UpdateVariant(pub(crate) RequestBuilder<crate::model::UpdateVariantRequest>);
 
     impl UpdateVariant {
         pub(crate) fn new(
@@ -2454,7 +2468,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteVariant(RequestBuilder<crate::model::DeleteVariantRequest>);
+    pub struct DeleteVariant(pub(crate) RequestBuilder<crate::model::DeleteVariantRequest>);
 
     impl DeleteVariant {
         pub(crate) fn new(
@@ -2575,7 +2589,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRollouts(RequestBuilder<crate::model::ListRolloutsRequest>);
+    pub struct ListRollouts(pub(crate) RequestBuilder<crate::model::ListRolloutsRequest>);
 
     impl ListRollouts {
         pub(crate) fn new(
@@ -2687,7 +2701,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRollout(RequestBuilder<crate::model::GetRolloutRequest>);
+    pub struct GetRollout(pub(crate) RequestBuilder<crate::model::GetRolloutRequest>);
 
     impl GetRollout {
         pub(crate) fn new(
@@ -2750,7 +2764,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SuspendRollout(RequestBuilder<crate::model::SuspendRolloutRequest>);
+    pub struct SuspendRollout(pub(crate) RequestBuilder<crate::model::SuspendRolloutRequest>);
 
     impl SuspendRollout {
         pub(crate) fn new(
@@ -2873,7 +2887,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResumeRollout(RequestBuilder<crate::model::ResumeRolloutRequest>);
+    pub struct ResumeRollout(pub(crate) RequestBuilder<crate::model::ResumeRolloutRequest>);
 
     impl ResumeRollout {
         pub(crate) fn new(
@@ -2996,7 +3010,7 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AbortRollout(RequestBuilder<crate::model::AbortRolloutRequest>);
+    pub struct AbortRollout(pub(crate) RequestBuilder<crate::model::AbortRolloutRequest>);
 
     impl AbortRollout {
         pub(crate) fn new(
@@ -3122,7 +3136,9 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -3231,7 +3247,9 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -3299,7 +3317,7 @@ pub mod config_delivery {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3415,7 +3433,9 @@ pub mod config_delivery {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3479,7 +3499,7 @@ pub mod config_delivery {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3544,7 +3564,7 @@ pub mod config_delivery {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

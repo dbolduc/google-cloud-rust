@@ -51,9 +51,9 @@ pub mod data_transfer_service {
     /// Common implementation for [crate::client::DataTransferService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDataSource(RequestBuilder<crate::model::GetDataSourceRequest>);
+    pub struct GetDataSource(pub(crate) RequestBuilder<crate::model::GetDataSourceRequest>);
 
     impl GetDataSource {
         pub(crate) fn new(
@@ -154,7 +154,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDataSources(RequestBuilder<crate::model::ListDataSourcesRequest>);
+    pub struct ListDataSources(pub(crate) RequestBuilder<crate::model::ListDataSourcesRequest>);
 
     impl ListDataSources {
         pub(crate) fn new(
@@ -256,7 +256,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTransferConfig(RequestBuilder<crate::model::CreateTransferConfigRequest>);
+    pub struct CreateTransferConfig(
+        pub(crate) RequestBuilder<crate::model::CreateTransferConfigRequest>,
+    );
 
     impl CreateTransferConfig {
         pub(crate) fn new(
@@ -362,7 +364,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTransferConfig(RequestBuilder<crate::model::UpdateTransferConfigRequest>);
+    pub struct UpdateTransferConfig(
+        pub(crate) RequestBuilder<crate::model::UpdateTransferConfigRequest>,
+    );
 
     impl UpdateTransferConfig {
         pub(crate) fn new(
@@ -482,7 +486,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTransferConfig(RequestBuilder<crate::model::DeleteTransferConfigRequest>);
+    pub struct DeleteTransferConfig(
+        pub(crate) RequestBuilder<crate::model::DeleteTransferConfigRequest>,
+    );
 
     impl DeleteTransferConfig {
         pub(crate) fn new(
@@ -547,7 +553,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTransferConfig(RequestBuilder<crate::model::GetTransferConfigRequest>);
+    pub struct GetTransferConfig(pub(crate) RequestBuilder<crate::model::GetTransferConfigRequest>);
 
     impl GetTransferConfig {
         pub(crate) fn new(
@@ -616,7 +622,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTransferConfigs(RequestBuilder<crate::model::ListTransferConfigsRequest>);
+    pub struct ListTransferConfigs(
+        pub(crate) RequestBuilder<crate::model::ListTransferConfigsRequest>,
+    );
 
     impl ListTransferConfigs {
         pub(crate) fn new(
@@ -732,7 +740,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ScheduleTransferRuns(RequestBuilder<crate::model::ScheduleTransferRunsRequest>);
+    pub struct ScheduleTransferRuns(
+        pub(crate) RequestBuilder<crate::model::ScheduleTransferRunsRequest>,
+    );
 
     impl ScheduleTransferRuns {
         pub(crate) fn new(
@@ -842,7 +852,7 @@ pub mod data_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StartManualTransferRuns(
-        RequestBuilder<crate::model::StartManualTransferRunsRequest>,
+        pub(crate) RequestBuilder<crate::model::StartManualTransferRunsRequest>,
     );
 
     impl StartManualTransferRuns {
@@ -950,7 +960,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTransferRun(RequestBuilder<crate::model::GetTransferRunRequest>);
+    pub struct GetTransferRun(pub(crate) RequestBuilder<crate::model::GetTransferRunRequest>);
 
     impl GetTransferRun {
         pub(crate) fn new(
@@ -1012,7 +1022,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTransferRun(RequestBuilder<crate::model::DeleteTransferRunRequest>);
+    pub struct DeleteTransferRun(pub(crate) RequestBuilder<crate::model::DeleteTransferRunRequest>);
 
     impl DeleteTransferRun {
         pub(crate) fn new(
@@ -1081,7 +1091,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTransferRuns(RequestBuilder<crate::model::ListTransferRunsRequest>);
+    pub struct ListTransferRuns(pub(crate) RequestBuilder<crate::model::ListTransferRunsRequest>);
 
     impl ListTransferRuns {
         pub(crate) fn new(
@@ -1210,7 +1220,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTransferLogs(RequestBuilder<crate::model::ListTransferLogsRequest>);
+    pub struct ListTransferLogs(pub(crate) RequestBuilder<crate::model::ListTransferLogsRequest>);
 
     impl ListTransferLogs {
         pub(crate) fn new(
@@ -1326,7 +1336,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CheckValidCreds(RequestBuilder<crate::model::CheckValidCredsRequest>);
+    pub struct CheckValidCreds(pub(crate) RequestBuilder<crate::model::CheckValidCredsRequest>);
 
     impl CheckValidCreds {
         pub(crate) fn new(
@@ -1388,7 +1398,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnrollDataSources(RequestBuilder<crate::model::EnrollDataSourcesRequest>);
+    pub struct EnrollDataSources(pub(crate) RequestBuilder<crate::model::EnrollDataSourcesRequest>);
 
     impl EnrollDataSources {
         pub(crate) fn new(
@@ -1464,7 +1474,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UnenrollDataSources(RequestBuilder<crate::model::UnenrollDataSourcesRequest>);
+    pub struct UnenrollDataSources(
+        pub(crate) RequestBuilder<crate::model::UnenrollDataSourcesRequest>,
+    );
 
     impl UnenrollDataSources {
         pub(crate) fn new(
@@ -1544,7 +1556,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1653,7 +1667,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(

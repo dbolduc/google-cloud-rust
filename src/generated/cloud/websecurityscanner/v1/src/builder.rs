@@ -51,9 +51,9 @@ pub mod web_security_scanner {
     /// Common implementation for [crate::client::WebSecurityScanner] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod web_security_scanner {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateScanConfig(RequestBuilder<crate::model::CreateScanConfigRequest>);
+    pub struct CreateScanConfig(pub(crate) RequestBuilder<crate::model::CreateScanConfigRequest>);
 
     impl CreateScanConfig {
         pub(crate) fn new(
@@ -169,7 +169,7 @@ pub mod web_security_scanner {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteScanConfig(RequestBuilder<crate::model::DeleteScanConfigRequest>);
+    pub struct DeleteScanConfig(pub(crate) RequestBuilder<crate::model::DeleteScanConfigRequest>);
 
     impl DeleteScanConfig {
         pub(crate) fn new(
@@ -232,7 +232,7 @@ pub mod web_security_scanner {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetScanConfig(RequestBuilder<crate::model::GetScanConfigRequest>);
+    pub struct GetScanConfig(pub(crate) RequestBuilder<crate::model::GetScanConfigRequest>);
 
     impl GetScanConfig {
         pub(crate) fn new(
@@ -296,7 +296,7 @@ pub mod web_security_scanner {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListScanConfigs(RequestBuilder<crate::model::ListScanConfigsRequest>);
+    pub struct ListScanConfigs(pub(crate) RequestBuilder<crate::model::ListScanConfigsRequest>);
 
     impl ListScanConfigs {
         pub(crate) fn new(
@@ -396,7 +396,7 @@ pub mod web_security_scanner {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateScanConfig(RequestBuilder<crate::model::UpdateScanConfigRequest>);
+    pub struct UpdateScanConfig(pub(crate) RequestBuilder<crate::model::UpdateScanConfigRequest>);
 
     impl UpdateScanConfig {
         pub(crate) fn new(
@@ -489,7 +489,7 @@ pub mod web_security_scanner {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartScanRun(RequestBuilder<crate::model::StartScanRunRequest>);
+    pub struct StartScanRun(pub(crate) RequestBuilder<crate::model::StartScanRunRequest>);
 
     impl StartScanRun {
         pub(crate) fn new(
@@ -549,7 +549,7 @@ pub mod web_security_scanner {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetScanRun(RequestBuilder<crate::model::GetScanRunRequest>);
+    pub struct GetScanRun(pub(crate) RequestBuilder<crate::model::GetScanRunRequest>);
 
     impl GetScanRun {
         pub(crate) fn new(
@@ -613,7 +613,7 @@ pub mod web_security_scanner {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListScanRuns(RequestBuilder<crate::model::ListScanRunsRequest>);
+    pub struct ListScanRuns(pub(crate) RequestBuilder<crate::model::ListScanRunsRequest>);
 
     impl ListScanRuns {
         pub(crate) fn new(
@@ -711,7 +711,7 @@ pub mod web_security_scanner {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopScanRun(RequestBuilder<crate::model::StopScanRunRequest>);
+    pub struct StopScanRun(pub(crate) RequestBuilder<crate::model::StopScanRunRequest>);
 
     impl StopScanRun {
         pub(crate) fn new(
@@ -775,7 +775,7 @@ pub mod web_security_scanner {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCrawledUrls(RequestBuilder<crate::model::ListCrawledUrlsRequest>);
+    pub struct ListCrawledUrls(pub(crate) RequestBuilder<crate::model::ListCrawledUrlsRequest>);
 
     impl ListCrawledUrls {
         pub(crate) fn new(
@@ -875,7 +875,7 @@ pub mod web_security_scanner {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFinding(RequestBuilder<crate::model::GetFindingRequest>);
+    pub struct GetFinding(pub(crate) RequestBuilder<crate::model::GetFindingRequest>);
 
     impl GetFinding {
         pub(crate) fn new(
@@ -939,7 +939,7 @@ pub mod web_security_scanner {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFindings(RequestBuilder<crate::model::ListFindingsRequest>);
+    pub struct ListFindings(pub(crate) RequestBuilder<crate::model::ListFindingsRequest>);
 
     impl ListFindings {
         pub(crate) fn new(
@@ -1043,7 +1043,9 @@ pub mod web_security_scanner {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFindingTypeStats(RequestBuilder<crate::model::ListFindingTypeStatsRequest>);
+    pub struct ListFindingTypeStats(
+        pub(crate) RequestBuilder<crate::model::ListFindingTypeStatsRequest>,
+    );
 
     impl ListFindingTypeStats {
         pub(crate) fn new(

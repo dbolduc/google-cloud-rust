@@ -51,9 +51,9 @@ pub mod access_policies {
     /// Common implementation for [crate::client::AccessPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessPolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessPolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,9 @@ pub mod access_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAccessPolicy(RequestBuilder<crate::model::CreateAccessPolicyRequest>);
+    pub struct CreateAccessPolicy(
+        pub(crate) RequestBuilder<crate::model::CreateAccessPolicyRequest>,
+    );
 
     impl CreateAccessPolicy {
         pub(crate) fn new(
@@ -245,7 +247,7 @@ pub mod access_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAccessPolicy(RequestBuilder<crate::model::GetAccessPolicyRequest>);
+    pub struct GetAccessPolicy(pub(crate) RequestBuilder<crate::model::GetAccessPolicyRequest>);
 
     impl GetAccessPolicy {
         pub(crate) fn new(
@@ -308,7 +310,9 @@ pub mod access_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAccessPolicy(RequestBuilder<crate::model::UpdateAccessPolicyRequest>);
+    pub struct UpdateAccessPolicy(
+        pub(crate) RequestBuilder<crate::model::UpdateAccessPolicyRequest>,
+    );
 
     impl UpdateAccessPolicy {
         pub(crate) fn new(
@@ -449,7 +453,9 @@ pub mod access_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAccessPolicy(RequestBuilder<crate::model::DeleteAccessPolicyRequest>);
+    pub struct DeleteAccessPolicy(
+        pub(crate) RequestBuilder<crate::model::DeleteAccessPolicyRequest>,
+    );
 
     impl DeleteAccessPolicy {
         pub(crate) fn new(
@@ -586,7 +592,9 @@ pub mod access_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAccessPolicies(RequestBuilder<crate::model::ListAccessPoliciesRequest>);
+    pub struct ListAccessPolicies(
+        pub(crate) RequestBuilder<crate::model::ListAccessPoliciesRequest>,
+    );
 
     impl ListAccessPolicies {
         pub(crate) fn new(
@@ -696,7 +704,7 @@ pub mod access_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SearchAccessPolicyBindings(
-        RequestBuilder<crate::model::SearchAccessPolicyBindingsRequest>,
+        pub(crate) RequestBuilder<crate::model::SearchAccessPolicyBindingsRequest>,
     );
 
     impl SearchAccessPolicyBindings {
@@ -802,7 +810,9 @@ pub mod access_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -886,9 +896,9 @@ pub mod policy_bindings {
     /// Common implementation for [crate::client::PolicyBindings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -924,7 +934,9 @@ pub mod policy_bindings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePolicyBinding(RequestBuilder<crate::model::CreatePolicyBindingRequest>);
+    pub struct CreatePolicyBinding(
+        pub(crate) RequestBuilder<crate::model::CreatePolicyBindingRequest>,
+    );
 
     impl CreatePolicyBinding {
         pub(crate) fn new(
@@ -1079,7 +1091,7 @@ pub mod policy_bindings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPolicyBinding(RequestBuilder<crate::model::GetPolicyBindingRequest>);
+    pub struct GetPolicyBinding(pub(crate) RequestBuilder<crate::model::GetPolicyBindingRequest>);
 
     impl GetPolicyBinding {
         pub(crate) fn new(
@@ -1145,7 +1157,9 @@ pub mod policy_bindings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePolicyBinding(RequestBuilder<crate::model::UpdatePolicyBindingRequest>);
+    pub struct UpdatePolicyBinding(
+        pub(crate) RequestBuilder<crate::model::UpdatePolicyBindingRequest>,
+    );
 
     impl UpdatePolicyBinding {
         pub(crate) fn new(
@@ -1303,7 +1317,9 @@ pub mod policy_bindings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePolicyBinding(RequestBuilder<crate::model::DeletePolicyBindingRequest>);
+    pub struct DeletePolicyBinding(
+        pub(crate) RequestBuilder<crate::model::DeletePolicyBindingRequest>,
+    );
 
     impl DeletePolicyBinding {
         pub(crate) fn new(
@@ -1433,7 +1449,9 @@ pub mod policy_bindings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPolicyBindings(RequestBuilder<crate::model::ListPolicyBindingsRequest>);
+    pub struct ListPolicyBindings(
+        pub(crate) RequestBuilder<crate::model::ListPolicyBindingsRequest>,
+    );
 
     impl ListPolicyBindings {
         pub(crate) fn new(
@@ -1549,7 +1567,7 @@ pub mod policy_bindings {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SearchTargetPolicyBindings(
-        RequestBuilder<crate::model::SearchTargetPolicyBindingsRequest>,
+        pub(crate) RequestBuilder<crate::model::SearchTargetPolicyBindingsRequest>,
     );
 
     impl SearchTargetPolicyBindings {
@@ -1669,7 +1687,9 @@ pub mod policy_bindings {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1753,9 +1773,10 @@ pub mod principal_access_boundary_policies {
     /// Common implementation for [crate::client::PrincipalAccessBoundaryPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1792,7 +1813,7 @@ pub mod principal_access_boundary_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePrincipalAccessBoundaryPolicy(
-        RequestBuilder<crate::model::CreatePrincipalAccessBoundaryPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::CreatePrincipalAccessBoundaryPolicyRequest>,
     );
 
     impl CreatePrincipalAccessBoundaryPolicy {
@@ -1957,7 +1978,7 @@ pub mod principal_access_boundary_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetPrincipalAccessBoundaryPolicy(
-        RequestBuilder<crate::model::GetPrincipalAccessBoundaryPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::GetPrincipalAccessBoundaryPolicyRequest>,
     );
 
     impl GetPrincipalAccessBoundaryPolicy {
@@ -2025,7 +2046,7 @@ pub mod principal_access_boundary_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePrincipalAccessBoundaryPolicy(
-        RequestBuilder<crate::model::UpdatePrincipalAccessBoundaryPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdatePrincipalAccessBoundaryPolicyRequest>,
     );
 
     impl UpdatePrincipalAccessBoundaryPolicy {
@@ -2190,7 +2211,7 @@ pub mod principal_access_boundary_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePrincipalAccessBoundaryPolicy(
-        RequestBuilder<crate::model::DeletePrincipalAccessBoundaryPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::DeletePrincipalAccessBoundaryPolicyRequest>,
     );
 
     impl DeletePrincipalAccessBoundaryPolicy {
@@ -2328,7 +2349,7 @@ pub mod principal_access_boundary_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListPrincipalAccessBoundaryPolicies(
-        RequestBuilder<crate::model::ListPrincipalAccessBoundaryPoliciesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListPrincipalAccessBoundaryPoliciesRequest>,
     );
 
     impl ListPrincipalAccessBoundaryPolicies {
@@ -2441,7 +2462,7 @@ pub mod principal_access_boundary_policies {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SearchPrincipalAccessBoundaryPolicyBindings(
-        RequestBuilder<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest>,
+        pub(crate) RequestBuilder<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest>,
     );
 
     impl SearchPrincipalAccessBoundaryPolicyBindings {
@@ -2551,7 +2572,9 @@ pub mod principal_access_boundary_policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

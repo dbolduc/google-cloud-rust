@@ -51,9 +51,9 @@ pub mod connection_service {
     /// Common implementation for [crate::client::ConnectionService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConnectionService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ConnectionService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod connection_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
+    pub struct CreateConnection(pub(crate) RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
         pub(crate) fn new(
@@ -181,7 +181,7 @@ pub mod connection_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
+    pub struct GetConnection(pub(crate) RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
         pub(crate) fn new(
@@ -247,7 +247,7 @@ pub mod connection_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
+    pub struct ListConnections(pub(crate) RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
         pub(crate) fn new(
@@ -351,7 +351,7 @@ pub mod connection_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
+    pub struct UpdateConnection(pub(crate) RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
         pub(crate) fn new(
@@ -460,7 +460,7 @@ pub mod connection_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
+    pub struct DeleteConnection(pub(crate) RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
         pub(crate) fn new(
@@ -525,7 +525,9 @@ pub mod connection_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -608,7 +610,9 @@ pub mod connection_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -714,7 +718,7 @@ pub mod connection_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {

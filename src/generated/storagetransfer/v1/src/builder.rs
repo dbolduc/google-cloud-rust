@@ -51,9 +51,9 @@ pub mod storage_transfer_service {
     /// Common implementation for [crate::client::StorageTransferService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod storage_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetGoogleServiceAccount(
-        RequestBuilder<crate::model::GetGoogleServiceAccountRequest>,
+        pub(crate) RequestBuilder<crate::model::GetGoogleServiceAccountRequest>,
     );
 
     impl GetGoogleServiceAccount {
@@ -155,7 +155,7 @@ pub mod storage_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTransferJob(RequestBuilder<crate::model::CreateTransferJobRequest>);
+    pub struct CreateTransferJob(pub(crate) RequestBuilder<crate::model::CreateTransferJobRequest>);
 
     impl CreateTransferJob {
         pub(crate) fn new(
@@ -234,7 +234,7 @@ pub mod storage_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTransferJob(RequestBuilder<crate::model::UpdateTransferJobRequest>);
+    pub struct UpdateTransferJob(pub(crate) RequestBuilder<crate::model::UpdateTransferJobRequest>);
 
     impl UpdateTransferJob {
         pub(crate) fn new(
@@ -350,7 +350,7 @@ pub mod storage_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTransferJob(RequestBuilder<crate::model::GetTransferJobRequest>);
+    pub struct GetTransferJob(pub(crate) RequestBuilder<crate::model::GetTransferJobRequest>);
 
     impl GetTransferJob {
         pub(crate) fn new(
@@ -424,7 +424,7 @@ pub mod storage_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTransferJobs(RequestBuilder<crate::model::ListTransferJobsRequest>);
+    pub struct ListTransferJobs(pub(crate) RequestBuilder<crate::model::ListTransferJobsRequest>);
 
     impl ListTransferJobs {
         pub(crate) fn new(
@@ -529,7 +529,9 @@ pub mod storage_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PauseTransferOperation(RequestBuilder<crate::model::PauseTransferOperationRequest>);
+    pub struct PauseTransferOperation(
+        pub(crate) RequestBuilder<crate::model::PauseTransferOperationRequest>,
+    );
 
     impl PauseTransferOperation {
         pub(crate) fn new(
@@ -595,7 +597,7 @@ pub mod storage_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ResumeTransferOperation(
-        RequestBuilder<crate::model::ResumeTransferOperationRequest>,
+        pub(crate) RequestBuilder<crate::model::ResumeTransferOperationRequest>,
     );
 
     impl ResumeTransferOperation {
@@ -662,7 +664,7 @@ pub mod storage_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RunTransferJob(RequestBuilder<crate::model::RunTransferJobRequest>);
+    pub struct RunTransferJob(pub(crate) RequestBuilder<crate::model::RunTransferJobRequest>);
 
     impl RunTransferJob {
         pub(crate) fn new(
@@ -781,7 +783,7 @@ pub mod storage_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTransferJob(RequestBuilder<crate::model::DeleteTransferJobRequest>);
+    pub struct DeleteTransferJob(pub(crate) RequestBuilder<crate::model::DeleteTransferJobRequest>);
 
     impl DeleteTransferJob {
         pub(crate) fn new(
@@ -854,7 +856,7 @@ pub mod storage_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAgentPool(RequestBuilder<crate::model::CreateAgentPoolRequest>);
+    pub struct CreateAgentPool(pub(crate) RequestBuilder<crate::model::CreateAgentPoolRequest>);
 
     impl CreateAgentPool {
         pub(crate) fn new(
@@ -946,7 +948,7 @@ pub mod storage_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAgentPool(RequestBuilder<crate::model::UpdateAgentPoolRequest>);
+    pub struct UpdateAgentPool(pub(crate) RequestBuilder<crate::model::UpdateAgentPoolRequest>);
 
     impl UpdateAgentPool {
         pub(crate) fn new(
@@ -1040,7 +1042,7 @@ pub mod storage_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAgentPool(RequestBuilder<crate::model::GetAgentPoolRequest>);
+    pub struct GetAgentPool(pub(crate) RequestBuilder<crate::model::GetAgentPoolRequest>);
 
     impl GetAgentPool {
         pub(crate) fn new(
@@ -1106,7 +1108,7 @@ pub mod storage_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAgentPools(RequestBuilder<crate::model::ListAgentPoolsRequest>);
+    pub struct ListAgentPools(pub(crate) RequestBuilder<crate::model::ListAgentPoolsRequest>);
 
     impl ListAgentPools {
         pub(crate) fn new(
@@ -1214,7 +1216,7 @@ pub mod storage_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAgentPool(RequestBuilder<crate::model::DeleteAgentPoolRequest>);
+    pub struct DeleteAgentPool(pub(crate) RequestBuilder<crate::model::DeleteAgentPoolRequest>);
 
     impl DeleteAgentPool {
         pub(crate) fn new(
@@ -1281,7 +1283,7 @@ pub mod storage_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1397,7 +1399,9 @@ pub mod storage_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1461,7 +1465,7 @@ pub mod storage_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

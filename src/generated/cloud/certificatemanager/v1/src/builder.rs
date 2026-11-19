@@ -51,9 +51,9 @@ pub mod certificate_manager {
     /// Common implementation for [crate::client::CertificateManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCertificates(RequestBuilder<crate::model::ListCertificatesRequest>);
+    pub struct ListCertificates(pub(crate) RequestBuilder<crate::model::ListCertificatesRequest>);
 
     impl ListCertificates {
         pub(crate) fn new(
@@ -209,7 +209,7 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCertificate(RequestBuilder<crate::model::GetCertificateRequest>);
+    pub struct GetCertificate(pub(crate) RequestBuilder<crate::model::GetCertificateRequest>);
 
     impl GetCertificate {
         pub(crate) fn new(
@@ -272,7 +272,7 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCertificate(RequestBuilder<crate::model::CreateCertificateRequest>);
+    pub struct CreateCertificate(pub(crate) RequestBuilder<crate::model::CreateCertificateRequest>);
 
     impl CreateCertificate {
         pub(crate) fn new(
@@ -422,7 +422,7 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCertificate(RequestBuilder<crate::model::UpdateCertificateRequest>);
+    pub struct UpdateCertificate(pub(crate) RequestBuilder<crate::model::UpdateCertificateRequest>);
 
     impl UpdateCertificate {
         pub(crate) fn new(
@@ -578,7 +578,7 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCertificate(RequestBuilder<crate::model::DeleteCertificateRequest>);
+    pub struct DeleteCertificate(pub(crate) RequestBuilder<crate::model::DeleteCertificateRequest>);
 
     impl DeleteCertificate {
         pub(crate) fn new(
@@ -696,7 +696,9 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCertificateMaps(RequestBuilder<crate::model::ListCertificateMapsRequest>);
+    pub struct ListCertificateMaps(
+        pub(crate) RequestBuilder<crate::model::ListCertificateMapsRequest>,
+    );
 
     impl ListCertificateMaps {
         pub(crate) fn new(
@@ -813,7 +815,7 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCertificateMap(RequestBuilder<crate::model::GetCertificateMapRequest>);
+    pub struct GetCertificateMap(pub(crate) RequestBuilder<crate::model::GetCertificateMapRequest>);
 
     impl GetCertificateMap {
         pub(crate) fn new(
@@ -879,7 +881,9 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCertificateMap(RequestBuilder<crate::model::CreateCertificateMapRequest>);
+    pub struct CreateCertificateMap(
+        pub(crate) RequestBuilder<crate::model::CreateCertificateMapRequest>,
+    );
 
     impl CreateCertificateMap {
         pub(crate) fn new(
@@ -1029,7 +1033,9 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCertificateMap(RequestBuilder<crate::model::UpdateCertificateMapRequest>);
+    pub struct UpdateCertificateMap(
+        pub(crate) RequestBuilder<crate::model::UpdateCertificateMapRequest>,
+    );
 
     impl UpdateCertificateMap {
         pub(crate) fn new(
@@ -1185,7 +1191,9 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCertificateMap(RequestBuilder<crate::model::DeleteCertificateMapRequest>);
+    pub struct DeleteCertificateMap(
+        pub(crate) RequestBuilder<crate::model::DeleteCertificateMapRequest>,
+    );
 
     impl DeleteCertificateMap {
         pub(crate) fn new(
@@ -1304,7 +1312,7 @@ pub mod certificate_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateMapEntries(
-        RequestBuilder<crate::model::ListCertificateMapEntriesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListCertificateMapEntriesRequest>,
     );
 
     impl ListCertificateMapEntries {
@@ -1422,7 +1430,9 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCertificateMapEntry(RequestBuilder<crate::model::GetCertificateMapEntryRequest>);
+    pub struct GetCertificateMapEntry(
+        pub(crate) RequestBuilder<crate::model::GetCertificateMapEntryRequest>,
+    );
 
     impl GetCertificateMapEntry {
         pub(crate) fn new(
@@ -1489,7 +1499,7 @@ pub mod certificate_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateMapEntry(
-        RequestBuilder<crate::model::CreateCertificateMapEntryRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateCertificateMapEntryRequest>,
     );
 
     impl CreateCertificateMapEntry {
@@ -1643,7 +1653,7 @@ pub mod certificate_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateMapEntry(
-        RequestBuilder<crate::model::UpdateCertificateMapEntryRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateCertificateMapEntryRequest>,
     );
 
     impl UpdateCertificateMapEntry {
@@ -1803,7 +1813,7 @@ pub mod certificate_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateMapEntry(
-        RequestBuilder<crate::model::DeleteCertificateMapEntryRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteCertificateMapEntryRequest>,
     );
 
     impl DeleteCertificateMapEntry {
@@ -1922,7 +1932,9 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDnsAuthorizations(RequestBuilder<crate::model::ListDnsAuthorizationsRequest>);
+    pub struct ListDnsAuthorizations(
+        pub(crate) RequestBuilder<crate::model::ListDnsAuthorizationsRequest>,
+    );
 
     impl ListDnsAuthorizations {
         pub(crate) fn new(
@@ -2039,7 +2051,9 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDnsAuthorization(RequestBuilder<crate::model::GetDnsAuthorizationRequest>);
+    pub struct GetDnsAuthorization(
+        pub(crate) RequestBuilder<crate::model::GetDnsAuthorizationRequest>,
+    );
 
     impl GetDnsAuthorization {
         pub(crate) fn new(
@@ -2105,7 +2119,9 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDnsAuthorization(RequestBuilder<crate::model::CreateDnsAuthorizationRequest>);
+    pub struct CreateDnsAuthorization(
+        pub(crate) RequestBuilder<crate::model::CreateDnsAuthorizationRequest>,
+    );
 
     impl CreateDnsAuthorization {
         pub(crate) fn new(
@@ -2255,7 +2271,9 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDnsAuthorization(RequestBuilder<crate::model::UpdateDnsAuthorizationRequest>);
+    pub struct UpdateDnsAuthorization(
+        pub(crate) RequestBuilder<crate::model::UpdateDnsAuthorizationRequest>,
+    );
 
     impl UpdateDnsAuthorization {
         pub(crate) fn new(
@@ -2411,7 +2429,9 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDnsAuthorization(RequestBuilder<crate::model::DeleteDnsAuthorizationRequest>);
+    pub struct DeleteDnsAuthorization(
+        pub(crate) RequestBuilder<crate::model::DeleteDnsAuthorizationRequest>,
+    );
 
     impl DeleteDnsAuthorization {
         pub(crate) fn new(
@@ -2530,7 +2550,7 @@ pub mod certificate_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateIssuanceConfigs(
-        RequestBuilder<crate::model::ListCertificateIssuanceConfigsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListCertificateIssuanceConfigsRequest>,
     );
 
     impl ListCertificateIssuanceConfigs {
@@ -2649,7 +2669,7 @@ pub mod certificate_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateIssuanceConfig(
-        RequestBuilder<crate::model::GetCertificateIssuanceConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::GetCertificateIssuanceConfigRequest>,
     );
 
     impl GetCertificateIssuanceConfig {
@@ -2717,7 +2737,7 @@ pub mod certificate_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateIssuanceConfig(
-        RequestBuilder<crate::model::CreateCertificateIssuanceConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateCertificateIssuanceConfigRequest>,
     );
 
     impl CreateCertificateIssuanceConfig {
@@ -2877,7 +2897,7 @@ pub mod certificate_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateIssuanceConfig(
-        RequestBuilder<crate::model::UpdateCertificateIssuanceConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateCertificateIssuanceConfigRequest>,
     );
 
     impl UpdateCertificateIssuanceConfig {
@@ -3040,7 +3060,7 @@ pub mod certificate_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateIssuanceConfig(
-        RequestBuilder<crate::model::DeleteCertificateIssuanceConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteCertificateIssuanceConfigRequest>,
     );
 
     impl DeleteCertificateIssuanceConfig {
@@ -3159,7 +3179,7 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTrustConfigs(RequestBuilder<crate::model::ListTrustConfigsRequest>);
+    pub struct ListTrustConfigs(pub(crate) RequestBuilder<crate::model::ListTrustConfigsRequest>);
 
     impl ListTrustConfigs {
         pub(crate) fn new(
@@ -3276,7 +3296,7 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTrustConfig(RequestBuilder<crate::model::GetTrustConfigRequest>);
+    pub struct GetTrustConfig(pub(crate) RequestBuilder<crate::model::GetTrustConfigRequest>);
 
     impl GetTrustConfig {
         pub(crate) fn new(
@@ -3339,7 +3359,7 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTrustConfig(RequestBuilder<crate::model::CreateTrustConfigRequest>);
+    pub struct CreateTrustConfig(pub(crate) RequestBuilder<crate::model::CreateTrustConfigRequest>);
 
     impl CreateTrustConfig {
         pub(crate) fn new(
@@ -3489,7 +3509,7 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTrustConfig(RequestBuilder<crate::model::UpdateTrustConfigRequest>);
+    pub struct UpdateTrustConfig(pub(crate) RequestBuilder<crate::model::UpdateTrustConfigRequest>);
 
     impl UpdateTrustConfig {
         pub(crate) fn new(
@@ -3645,7 +3665,7 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTrustConfig(RequestBuilder<crate::model::DeleteTrustConfigRequest>);
+    pub struct DeleteTrustConfig(pub(crate) RequestBuilder<crate::model::DeleteTrustConfigRequest>);
 
     impl DeleteTrustConfig {
         pub(crate) fn new(
@@ -3769,7 +3789,9 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -3878,7 +3900,9 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -3946,7 +3970,7 @@ pub mod certificate_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4062,7 +4086,9 @@ pub mod certificate_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4126,7 +4152,7 @@ pub mod certificate_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4191,7 +4217,7 @@ pub mod certificate_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

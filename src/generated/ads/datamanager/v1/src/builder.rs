@@ -51,9 +51,9 @@ pub mod ingestion_service {
     /// Common implementation for [crate::client::IngestionService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::IngestionService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::IngestionService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod ingestion_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct IngestAudienceMembers(RequestBuilder<crate::model::IngestAudienceMembersRequest>);
+    pub struct IngestAudienceMembers(
+        pub(crate) RequestBuilder<crate::model::IngestAudienceMembersRequest>,
+    );
 
     impl IngestAudienceMembers {
         pub(crate) fn new(
@@ -237,7 +239,9 @@ pub mod ingestion_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveAudienceMembers(RequestBuilder<crate::model::RemoveAudienceMembersRequest>);
+    pub struct RemoveAudienceMembers(
+        pub(crate) RequestBuilder<crate::model::RemoveAudienceMembersRequest>,
+    );
 
     impl RemoveAudienceMembers {
         pub(crate) fn new(
@@ -351,7 +355,7 @@ pub mod ingestion_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveAllAudienceMembers(
-        RequestBuilder<crate::model::RemoveAllAudienceMembersRequest>,
+        pub(crate) RequestBuilder<crate::model::RemoveAllAudienceMembersRequest>,
     );
 
     impl RemoveAllAudienceMembers {
@@ -446,7 +450,7 @@ pub mod ingestion_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct IngestEvents(RequestBuilder<crate::model::IngestEventsRequest>);
+    pub struct IngestEvents(pub(crate) RequestBuilder<crate::model::IngestEventsRequest>);
 
     impl IngestEvents {
         pub(crate) fn new(
@@ -574,7 +578,7 @@ pub mod ingestion_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct IngestUsers(RequestBuilder<crate::model::IngestUsersRequest>);
+    pub struct IngestUsers(pub(crate) RequestBuilder<crate::model::IngestUsersRequest>);
 
     impl IngestUsers {
         pub(crate) fn new(
@@ -686,7 +690,7 @@ pub mod ingestion_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveUsers(RequestBuilder<crate::model::RemoveUsersRequest>);
+    pub struct RemoveUsers(pub(crate) RequestBuilder<crate::model::RemoveUsersRequest>);
 
     impl RemoveUsers {
         pub(crate) fn new(
@@ -798,7 +802,7 @@ pub mod ingestion_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct IngestAdEvents(RequestBuilder<crate::model::IngestAdEventsRequest>);
+    pub struct IngestAdEvents(pub(crate) RequestBuilder<crate::model::IngestAdEventsRequest>);
 
     impl IngestAdEvents {
         pub(crate) fn new(
@@ -890,7 +894,9 @@ pub mod ingestion_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RetrieveRequestStatus(RequestBuilder<crate::model::RetrieveRequestStatusRequest>);
+    pub struct RetrieveRequestStatus(
+        pub(crate) RequestBuilder<crate::model::RetrieveRequestStatusRequest>,
+    );
 
     impl RetrieveRequestStatus {
         pub(crate) fn new(
@@ -976,9 +982,10 @@ pub mod marketing_data_insights_service {
     /// Common implementation for [crate::client::MarketingDataInsightsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::MarketingDataInsightsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::MarketingDataInsightsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1013,7 +1020,7 @@ pub mod marketing_data_insights_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RetrieveInsights(RequestBuilder<crate::model::RetrieveInsightsRequest>);
+    pub struct RetrieveInsights(pub(crate) RequestBuilder<crate::model::RetrieveInsightsRequest>);
 
     impl RetrieveInsights {
         pub(crate) fn new(
@@ -1129,9 +1136,9 @@ pub mod partner_link_service {
     /// Common implementation for [crate::client::PartnerLinkService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PartnerLinkService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::PartnerLinkService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1166,7 +1173,7 @@ pub mod partner_link_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePartnerLink(RequestBuilder<crate::model::CreatePartnerLinkRequest>);
+    pub struct CreatePartnerLink(pub(crate) RequestBuilder<crate::model::CreatePartnerLinkRequest>);
 
     impl CreatePartnerLink {
         pub(crate) fn new(
@@ -1253,7 +1260,7 @@ pub mod partner_link_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePartnerLink(RequestBuilder<crate::model::DeletePartnerLinkRequest>);
+    pub struct DeletePartnerLink(pub(crate) RequestBuilder<crate::model::DeletePartnerLinkRequest>);
 
     impl DeletePartnerLink {
         pub(crate) fn new(
@@ -1322,7 +1329,9 @@ pub mod partner_link_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchPartnerLinks(RequestBuilder<crate::model::SearchPartnerLinksRequest>);
+    pub struct SearchPartnerLinks(
+        pub(crate) RequestBuilder<crate::model::SearchPartnerLinksRequest>,
+    );
 
     impl SearchPartnerLinks {
         pub(crate) fn new(
@@ -1454,9 +1463,9 @@ pub mod reporting_service {
     /// Common implementation for [crate::client::ReportingService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ReportingService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ReportingService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1496,7 +1505,7 @@ pub mod reporting_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RetrievePartnerMatchReport(
-        RequestBuilder<crate::model::RetrievePartnerMatchReportRequest>,
+        pub(crate) RequestBuilder<crate::model::RetrievePartnerMatchReportRequest>,
     );
 
     impl RetrievePartnerMatchReport {
@@ -1649,9 +1658,10 @@ pub mod user_list_direct_license_service {
     /// Common implementation for [crate::client::UserListDirectLicenseService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::UserListDirectLicenseService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::UserListDirectLicenseService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1687,7 +1697,7 @@ pub mod user_list_direct_license_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateUserListDirectLicense(
-        RequestBuilder<crate::model::CreateUserListDirectLicenseRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateUserListDirectLicenseRequest>,
     );
 
     impl CreateUserListDirectLicense {
@@ -1776,7 +1786,7 @@ pub mod user_list_direct_license_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetUserListDirectLicense(
-        RequestBuilder<crate::model::GetUserListDirectLicenseRequest>,
+        pub(crate) RequestBuilder<crate::model::GetUserListDirectLicenseRequest>,
     );
 
     impl GetUserListDirectLicense {
@@ -1843,7 +1853,7 @@ pub mod user_list_direct_license_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateUserListDirectLicense(
-        RequestBuilder<crate::model::UpdateUserListDirectLicenseRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateUserListDirectLicenseRequest>,
     );
 
     impl UpdateUserListDirectLicense {
@@ -1946,7 +1956,7 @@ pub mod user_list_direct_license_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListUserListDirectLicenses(
-        RequestBuilder<crate::model::ListUserListDirectLicensesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListUserListDirectLicensesRequest>,
     );
 
     impl ListUserListDirectLicenses {
@@ -2079,9 +2089,10 @@ pub mod user_list_global_license_service {
     /// Common implementation for [crate::client::UserListGlobalLicenseService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::UserListGlobalLicenseService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::UserListGlobalLicenseService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2117,7 +2128,7 @@ pub mod user_list_global_license_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateUserListGlobalLicense(
-        RequestBuilder<crate::model::CreateUserListGlobalLicenseRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateUserListGlobalLicenseRequest>,
     );
 
     impl CreateUserListGlobalLicense {
@@ -2206,7 +2217,7 @@ pub mod user_list_global_license_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateUserListGlobalLicense(
-        RequestBuilder<crate::model::UpdateUserListGlobalLicenseRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateUserListGlobalLicenseRequest>,
     );
 
     impl UpdateUserListGlobalLicense {
@@ -2305,7 +2316,7 @@ pub mod user_list_global_license_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetUserListGlobalLicense(
-        RequestBuilder<crate::model::GetUserListGlobalLicenseRequest>,
+        pub(crate) RequestBuilder<crate::model::GetUserListGlobalLicenseRequest>,
     );
 
     impl GetUserListGlobalLicense {
@@ -2376,7 +2387,7 @@ pub mod user_list_global_license_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListUserListGlobalLicenses(
-        RequestBuilder<crate::model::ListUserListGlobalLicensesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListUserListGlobalLicensesRequest>,
     );
 
     impl ListUserListGlobalLicenses {
@@ -2493,7 +2504,7 @@ pub mod user_list_global_license_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListUserListGlobalLicenseCustomerInfos(
-        RequestBuilder<crate::model::ListUserListGlobalLicenseCustomerInfosRequest>,
+        pub(crate) RequestBuilder<crate::model::ListUserListGlobalLicenseCustomerInfosRequest>,
     );
 
     impl ListUserListGlobalLicenseCustomerInfos {
@@ -2630,9 +2641,9 @@ pub mod user_list_service {
     /// Common implementation for [crate::client::UserListService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::UserListService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::UserListService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2667,7 +2678,7 @@ pub mod user_list_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetUserList(RequestBuilder<crate::model::GetUserListRequest>);
+    pub struct GetUserList(pub(crate) RequestBuilder<crate::model::GetUserListRequest>);
 
     impl GetUserList {
         pub(crate) fn new(
@@ -2733,7 +2744,7 @@ pub mod user_list_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUserLists(RequestBuilder<crate::model::ListUserListsRequest>);
+    pub struct ListUserLists(pub(crate) RequestBuilder<crate::model::ListUserListsRequest>);
 
     impl ListUserLists {
         pub(crate) fn new(
@@ -2839,7 +2850,7 @@ pub mod user_list_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateUserList(RequestBuilder<crate::model::CreateUserListRequest>);
+    pub struct CreateUserList(pub(crate) RequestBuilder<crate::model::CreateUserListRequest>);
 
     impl CreateUserList {
         pub(crate) fn new(
@@ -2929,7 +2940,7 @@ pub mod user_list_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateUserList(RequestBuilder<crate::model::UpdateUserListRequest>);
+    pub struct UpdateUserList(pub(crate) RequestBuilder<crate::model::UpdateUserListRequest>);
 
     impl UpdateUserList {
         pub(crate) fn new(
@@ -3029,7 +3040,7 @@ pub mod user_list_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteUserList(RequestBuilder<crate::model::DeleteUserListRequest>);
+    pub struct DeleteUserList(pub(crate) RequestBuilder<crate::model::DeleteUserListRequest>);
 
     impl DeleteUserList {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod client_gateways_service {
     /// Common implementation for [crate::client::ClientGatewaysService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,9 @@ pub mod client_gateways_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListClientGateways(RequestBuilder<crate::model::ListClientGatewaysRequest>);
+    pub struct ListClientGateways(
+        pub(crate) RequestBuilder<crate::model::ListClientGatewaysRequest>,
+    );
 
     impl ListClientGateways {
         pub(crate) fn new(
@@ -209,7 +211,7 @@ pub mod client_gateways_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetClientGateway(RequestBuilder<crate::model::GetClientGatewayRequest>);
+    pub struct GetClientGateway(pub(crate) RequestBuilder<crate::model::GetClientGatewayRequest>);
 
     impl GetClientGateway {
         pub(crate) fn new(
@@ -275,7 +277,9 @@ pub mod client_gateways_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateClientGateway(RequestBuilder<crate::model::CreateClientGatewayRequest>);
+    pub struct CreateClientGateway(
+        pub(crate) RequestBuilder<crate::model::CreateClientGatewayRequest>,
+    );
 
     impl CreateClientGateway {
         pub(crate) fn new(
@@ -437,7 +441,9 @@ pub mod client_gateways_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteClientGateway(RequestBuilder<crate::model::DeleteClientGatewayRequest>);
+    pub struct DeleteClientGateway(
+        pub(crate) RequestBuilder<crate::model::DeleteClientGatewayRequest>,
+    );
 
     impl DeleteClientGateway {
         pub(crate) fn new(
@@ -572,7 +578,9 @@ pub mod client_gateways_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -681,7 +689,9 @@ pub mod client_gateways_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -744,7 +754,9 @@ pub mod client_gateways_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -849,7 +861,9 @@ pub mod client_gateways_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -933,7 +947,7 @@ pub mod client_gateways_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1017,7 +1031,7 @@ pub mod client_gateways_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1133,7 +1147,9 @@ pub mod client_gateways_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1197,7 +1213,7 @@ pub mod client_gateways_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -1262,7 +1278,7 @@ pub mod client_gateways_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

@@ -51,9 +51,9 @@ pub mod dlp_service {
     /// Common implementation for [crate::client::DlpService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InspectContent(RequestBuilder<crate::model::InspectContentRequest>);
+    pub struct InspectContent(pub(crate) RequestBuilder<crate::model::InspectContentRequest>);
 
     impl InspectContent {
         pub(crate) fn new(
@@ -196,7 +196,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RedactImage(RequestBuilder<crate::model::RedactImageRequest>);
+    pub struct RedactImage(pub(crate) RequestBuilder<crate::model::RedactImageRequest>);
 
     impl RedactImage {
         pub(crate) fn new(
@@ -327,7 +327,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeidentifyContent(RequestBuilder<crate::model::DeidentifyContentRequest>);
+    pub struct DeidentifyContent(pub(crate) RequestBuilder<crate::model::DeidentifyContentRequest>);
 
     impl DeidentifyContent {
         pub(crate) fn new(
@@ -462,7 +462,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReidentifyContent(RequestBuilder<crate::model::ReidentifyContentRequest>);
+    pub struct ReidentifyContent(pub(crate) RequestBuilder<crate::model::ReidentifyContentRequest>);
 
     impl ReidentifyContent {
         pub(crate) fn new(
@@ -599,7 +599,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInfoTypes(RequestBuilder<crate::model::ListInfoTypesRequest>);
+    pub struct ListInfoTypes(pub(crate) RequestBuilder<crate::model::ListInfoTypesRequest>);
 
     impl ListInfoTypes {
         pub(crate) fn new(
@@ -677,7 +677,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInspectTemplate(RequestBuilder<crate::model::CreateInspectTemplateRequest>);
+    pub struct CreateInspectTemplate(
+        pub(crate) RequestBuilder<crate::model::CreateInspectTemplateRequest>,
+    );
 
     impl CreateInspectTemplate {
         pub(crate) fn new(
@@ -776,7 +778,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInspectTemplate(RequestBuilder<crate::model::UpdateInspectTemplateRequest>);
+    pub struct UpdateInspectTemplate(
+        pub(crate) RequestBuilder<crate::model::UpdateInspectTemplateRequest>,
+    );
 
     impl UpdateInspectTemplate {
         pub(crate) fn new(
@@ -877,7 +881,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInspectTemplate(RequestBuilder<crate::model::GetInspectTemplateRequest>);
+    pub struct GetInspectTemplate(
+        pub(crate) RequestBuilder<crate::model::GetInspectTemplateRequest>,
+    );
 
     impl GetInspectTemplate {
         pub(crate) fn new(
@@ -946,7 +952,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInspectTemplates(RequestBuilder<crate::model::ListInspectTemplatesRequest>);
+    pub struct ListInspectTemplates(
+        pub(crate) RequestBuilder<crate::model::ListInspectTemplatesRequest>,
+    );
 
     impl ListInspectTemplates {
         pub(crate) fn new(
@@ -1063,7 +1071,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInspectTemplate(RequestBuilder<crate::model::DeleteInspectTemplateRequest>);
+    pub struct DeleteInspectTemplate(
+        pub(crate) RequestBuilder<crate::model::DeleteInspectTemplateRequest>,
+    );
 
     impl DeleteInspectTemplate {
         pub(crate) fn new(
@@ -1129,7 +1139,7 @@ pub mod dlp_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDeidentifyTemplate(
-        RequestBuilder<crate::model::CreateDeidentifyTemplateRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateDeidentifyTemplateRequest>,
     );
 
     impl CreateDeidentifyTemplate {
@@ -1230,7 +1240,7 @@ pub mod dlp_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDeidentifyTemplate(
-        RequestBuilder<crate::model::UpdateDeidentifyTemplateRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateDeidentifyTemplateRequest>,
     );
 
     impl UpdateDeidentifyTemplate {
@@ -1332,7 +1342,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDeidentifyTemplate(RequestBuilder<crate::model::GetDeidentifyTemplateRequest>);
+    pub struct GetDeidentifyTemplate(
+        pub(crate) RequestBuilder<crate::model::GetDeidentifyTemplateRequest>,
+    );
 
     impl GetDeidentifyTemplate {
         pub(crate) fn new(
@@ -1402,7 +1414,7 @@ pub mod dlp_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListDeidentifyTemplates(
-        RequestBuilder<crate::model::ListDeidentifyTemplatesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListDeidentifyTemplatesRequest>,
     );
 
     impl ListDeidentifyTemplates {
@@ -1521,7 +1533,7 @@ pub mod dlp_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDeidentifyTemplate(
-        RequestBuilder<crate::model::DeleteDeidentifyTemplateRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteDeidentifyTemplateRequest>,
     );
 
     impl DeleteDeidentifyTemplate {
@@ -1587,7 +1599,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateJobTrigger(RequestBuilder<crate::model::CreateJobTriggerRequest>);
+    pub struct CreateJobTrigger(pub(crate) RequestBuilder<crate::model::CreateJobTriggerRequest>);
 
     impl CreateJobTrigger {
         pub(crate) fn new(
@@ -1686,7 +1698,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateJobTrigger(RequestBuilder<crate::model::UpdateJobTriggerRequest>);
+    pub struct UpdateJobTrigger(pub(crate) RequestBuilder<crate::model::UpdateJobTriggerRequest>);
 
     impl UpdateJobTrigger {
         pub(crate) fn new(
@@ -1788,7 +1800,7 @@ pub mod dlp_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct HybridInspectJobTrigger(
-        RequestBuilder<crate::model::HybridInspectJobTriggerRequest>,
+        pub(crate) RequestBuilder<crate::model::HybridInspectJobTriggerRequest>,
     );
 
     impl HybridInspectJobTrigger {
@@ -1872,7 +1884,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetJobTrigger(RequestBuilder<crate::model::GetJobTriggerRequest>);
+    pub struct GetJobTrigger(pub(crate) RequestBuilder<crate::model::GetJobTriggerRequest>);
 
     impl GetJobTrigger {
         pub(crate) fn new(
@@ -1938,7 +1950,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListJobTriggers(RequestBuilder<crate::model::ListJobTriggersRequest>);
+    pub struct ListJobTriggers(pub(crate) RequestBuilder<crate::model::ListJobTriggersRequest>);
 
     impl ListJobTriggers {
         pub(crate) fn new(
@@ -2064,7 +2076,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteJobTrigger(RequestBuilder<crate::model::DeleteJobTriggerRequest>);
+    pub struct DeleteJobTrigger(pub(crate) RequestBuilder<crate::model::DeleteJobTriggerRequest>);
 
     impl DeleteJobTrigger {
         pub(crate) fn new(
@@ -2129,7 +2141,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ActivateJobTrigger(RequestBuilder<crate::model::ActivateJobTriggerRequest>);
+    pub struct ActivateJobTrigger(
+        pub(crate) RequestBuilder<crate::model::ActivateJobTriggerRequest>,
+    );
 
     impl ActivateJobTrigger {
         pub(crate) fn new(
@@ -2194,7 +2208,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDiscoveryConfig(RequestBuilder<crate::model::CreateDiscoveryConfigRequest>);
+    pub struct CreateDiscoveryConfig(
+        pub(crate) RequestBuilder<crate::model::CreateDiscoveryConfigRequest>,
+    );
 
     impl CreateDiscoveryConfig {
         pub(crate) fn new(
@@ -2287,7 +2303,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDiscoveryConfig(RequestBuilder<crate::model::UpdateDiscoveryConfigRequest>);
+    pub struct UpdateDiscoveryConfig(
+        pub(crate) RequestBuilder<crate::model::UpdateDiscoveryConfigRequest>,
+    );
 
     impl UpdateDiscoveryConfig {
         pub(crate) fn new(
@@ -2392,7 +2410,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDiscoveryConfig(RequestBuilder<crate::model::GetDiscoveryConfigRequest>);
+    pub struct GetDiscoveryConfig(
+        pub(crate) RequestBuilder<crate::model::GetDiscoveryConfigRequest>,
+    );
 
     impl GetDiscoveryConfig {
         pub(crate) fn new(
@@ -2461,7 +2481,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDiscoveryConfigs(RequestBuilder<crate::model::ListDiscoveryConfigsRequest>);
+    pub struct ListDiscoveryConfigs(
+        pub(crate) RequestBuilder<crate::model::ListDiscoveryConfigsRequest>,
+    );
 
     impl ListDiscoveryConfigs {
         pub(crate) fn new(
@@ -2572,7 +2594,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDiscoveryConfig(RequestBuilder<crate::model::DeleteDiscoveryConfigRequest>);
+    pub struct DeleteDiscoveryConfig(
+        pub(crate) RequestBuilder<crate::model::DeleteDiscoveryConfigRequest>,
+    );
 
     impl DeleteDiscoveryConfig {
         pub(crate) fn new(
@@ -2637,7 +2661,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDlpJob(RequestBuilder<crate::model::CreateDlpJobRequest>);
+    pub struct CreateDlpJob(pub(crate) RequestBuilder<crate::model::CreateDlpJobRequest>);
 
     impl CreateDlpJob {
         pub(crate) fn new(
@@ -2757,7 +2781,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDlpJobs(RequestBuilder<crate::model::ListDlpJobsRequest>);
+    pub struct ListDlpJobs(pub(crate) RequestBuilder<crate::model::ListDlpJobsRequest>);
 
     impl ListDlpJobs {
         pub(crate) fn new(
@@ -2881,7 +2905,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDlpJob(RequestBuilder<crate::model::GetDlpJobRequest>);
+    pub struct GetDlpJob(pub(crate) RequestBuilder<crate::model::GetDlpJobRequest>);
 
     impl GetDlpJob {
         pub(crate) fn new(
@@ -2943,7 +2967,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDlpJob(RequestBuilder<crate::model::DeleteDlpJobRequest>);
+    pub struct DeleteDlpJob(pub(crate) RequestBuilder<crate::model::DeleteDlpJobRequest>);
 
     impl DeleteDlpJob {
         pub(crate) fn new(
@@ -3005,7 +3029,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelDlpJob(RequestBuilder<crate::model::CancelDlpJobRequest>);
+    pub struct CancelDlpJob(pub(crate) RequestBuilder<crate::model::CancelDlpJobRequest>);
 
     impl CancelDlpJob {
         pub(crate) fn new(
@@ -3067,7 +3091,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateStoredInfoType(RequestBuilder<crate::model::CreateStoredInfoTypeRequest>);
+    pub struct CreateStoredInfoType(
+        pub(crate) RequestBuilder<crate::model::CreateStoredInfoTypeRequest>,
+    );
 
     impl CreateStoredInfoType {
         pub(crate) fn new(
@@ -3166,7 +3192,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateStoredInfoType(RequestBuilder<crate::model::UpdateStoredInfoTypeRequest>);
+    pub struct UpdateStoredInfoType(
+        pub(crate) RequestBuilder<crate::model::UpdateStoredInfoTypeRequest>,
+    );
 
     impl UpdateStoredInfoType {
         pub(crate) fn new(
@@ -3267,7 +3295,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetStoredInfoType(RequestBuilder<crate::model::GetStoredInfoTypeRequest>);
+    pub struct GetStoredInfoType(pub(crate) RequestBuilder<crate::model::GetStoredInfoTypeRequest>);
 
     impl GetStoredInfoType {
         pub(crate) fn new(
@@ -3336,7 +3364,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListStoredInfoTypes(RequestBuilder<crate::model::ListStoredInfoTypesRequest>);
+    pub struct ListStoredInfoTypes(
+        pub(crate) RequestBuilder<crate::model::ListStoredInfoTypesRequest>,
+    );
 
     impl ListStoredInfoTypes {
         pub(crate) fn new(
@@ -3453,7 +3483,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteStoredInfoType(RequestBuilder<crate::model::DeleteStoredInfoTypeRequest>);
+    pub struct DeleteStoredInfoType(
+        pub(crate) RequestBuilder<crate::model::DeleteStoredInfoTypeRequest>,
+    );
 
     impl DeleteStoredInfoType {
         pub(crate) fn new(
@@ -3523,7 +3555,7 @@ pub mod dlp_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListProjectDataProfiles(
-        RequestBuilder<crate::model::ListProjectDataProfilesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListProjectDataProfilesRequest>,
     );
 
     impl ListProjectDataProfiles {
@@ -3645,7 +3677,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTableDataProfiles(RequestBuilder<crate::model::ListTableDataProfilesRequest>);
+    pub struct ListTableDataProfiles(
+        pub(crate) RequestBuilder<crate::model::ListTableDataProfilesRequest>,
+    );
 
     impl ListTableDataProfiles {
         pub(crate) fn new(
@@ -3766,7 +3800,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListColumnDataProfiles(RequestBuilder<crate::model::ListColumnDataProfilesRequest>);
+    pub struct ListColumnDataProfiles(
+        pub(crate) RequestBuilder<crate::model::ListColumnDataProfilesRequest>,
+    );
 
     impl ListColumnDataProfiles {
         pub(crate) fn new(
@@ -3883,7 +3919,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProjectDataProfile(RequestBuilder<crate::model::GetProjectDataProfileRequest>);
+    pub struct GetProjectDataProfile(
+        pub(crate) RequestBuilder<crate::model::GetProjectDataProfileRequest>,
+    );
 
     impl GetProjectDataProfile {
         pub(crate) fn new(
@@ -3953,7 +3991,7 @@ pub mod dlp_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListFileStoreDataProfiles(
-        RequestBuilder<crate::model::ListFileStoreDataProfilesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListFileStoreDataProfilesRequest>,
     );
 
     impl ListFileStoreDataProfiles {
@@ -4072,7 +4110,7 @@ pub mod dlp_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetFileStoreDataProfile(
-        RequestBuilder<crate::model::GetFileStoreDataProfileRequest>,
+        pub(crate) RequestBuilder<crate::model::GetFileStoreDataProfileRequest>,
     );
 
     impl GetFileStoreDataProfile {
@@ -4139,7 +4177,7 @@ pub mod dlp_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteFileStoreDataProfile(
-        RequestBuilder<crate::model::DeleteFileStoreDataProfileRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteFileStoreDataProfileRequest>,
     );
 
     impl DeleteFileStoreDataProfile {
@@ -4205,7 +4243,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTableDataProfile(RequestBuilder<crate::model::GetTableDataProfileRequest>);
+    pub struct GetTableDataProfile(
+        pub(crate) RequestBuilder<crate::model::GetTableDataProfileRequest>,
+    );
 
     impl GetTableDataProfile {
         pub(crate) fn new(
@@ -4270,7 +4310,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetColumnDataProfile(RequestBuilder<crate::model::GetColumnDataProfileRequest>);
+    pub struct GetColumnDataProfile(
+        pub(crate) RequestBuilder<crate::model::GetColumnDataProfileRequest>,
+    );
 
     impl GetColumnDataProfile {
         pub(crate) fn new(
@@ -4335,7 +4377,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTableDataProfile(RequestBuilder<crate::model::DeleteTableDataProfileRequest>);
+    pub struct DeleteTableDataProfile(
+        pub(crate) RequestBuilder<crate::model::DeleteTableDataProfileRequest>,
+    );
 
     impl DeleteTableDataProfile {
         pub(crate) fn new(
@@ -4400,7 +4444,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct HybridInspectDlpJob(RequestBuilder<crate::model::HybridInspectDlpJobRequest>);
+    pub struct HybridInspectDlpJob(
+        pub(crate) RequestBuilder<crate::model::HybridInspectDlpJobRequest>,
+    );
 
     impl HybridInspectDlpJob {
         pub(crate) fn new(
@@ -4483,7 +4529,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FinishDlpJob(RequestBuilder<crate::model::FinishDlpJobRequest>);
+    pub struct FinishDlpJob(pub(crate) RequestBuilder<crate::model::FinishDlpJobRequest>);
 
     impl FinishDlpJob {
         pub(crate) fn new(
@@ -4545,7 +4591,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
+    pub struct CreateConnection(pub(crate) RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
         pub(crate) fn new(
@@ -4632,7 +4678,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
+    pub struct GetConnection(pub(crate) RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
         pub(crate) fn new(
@@ -4698,7 +4744,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
+    pub struct ListConnections(pub(crate) RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
         pub(crate) fn new(
@@ -4810,7 +4856,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchConnections(RequestBuilder<crate::model::SearchConnectionsRequest>);
+    pub struct SearchConnections(pub(crate) RequestBuilder<crate::model::SearchConnectionsRequest>);
 
     impl SearchConnections {
         pub(crate) fn new(
@@ -4921,7 +4967,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
+    pub struct DeleteConnection(pub(crate) RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
         pub(crate) fn new(
@@ -4986,7 +5032,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
+    pub struct UpdateConnection(pub(crate) RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
         pub(crate) fn new(
@@ -5091,7 +5137,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateContentPolicy(RequestBuilder<crate::model::CreateContentPolicyRequest>);
+    pub struct CreateContentPolicy(
+        pub(crate) RequestBuilder<crate::model::CreateContentPolicyRequest>,
+    );
 
     impl CreateContentPolicy {
         pub(crate) fn new(
@@ -5184,7 +5232,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateContentPolicy(RequestBuilder<crate::model::UpdateContentPolicyRequest>);
+    pub struct UpdateContentPolicy(
+        pub(crate) RequestBuilder<crate::model::UpdateContentPolicyRequest>,
+    );
 
     impl UpdateContentPolicy {
         pub(crate) fn new(
@@ -5289,7 +5339,7 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetContentPolicy(RequestBuilder<crate::model::GetContentPolicyRequest>);
+    pub struct GetContentPolicy(pub(crate) RequestBuilder<crate::model::GetContentPolicyRequest>);
 
     impl GetContentPolicy {
         pub(crate) fn new(
@@ -5358,7 +5408,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListContentPolicies(RequestBuilder<crate::model::ListContentPoliciesRequest>);
+    pub struct ListContentPolicies(
+        pub(crate) RequestBuilder<crate::model::ListContentPoliciesRequest>,
+    );
 
     impl ListContentPolicies {
         pub(crate) fn new(
@@ -5463,7 +5515,9 @@ pub mod dlp_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteContentPolicy(RequestBuilder<crate::model::DeleteContentPolicyRequest>);
+    pub struct DeleteContentPolicy(
+        pub(crate) RequestBuilder<crate::model::DeleteContentPolicyRequest>,
+    );
 
     impl DeleteContentPolicy {
         pub(crate) fn new(

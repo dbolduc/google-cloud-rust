@@ -51,9 +51,9 @@ pub mod assured_workloads_service {
     /// Common implementation for [crate::client::AssuredWorkloadsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod assured_workloads_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateWorkload(RequestBuilder<crate::model::CreateWorkloadRequest>);
+    pub struct CreateWorkload(pub(crate) RequestBuilder<crate::model::CreateWorkloadRequest>);
 
     impl CreateWorkload {
         pub(crate) fn new(
@@ -235,7 +235,7 @@ pub mod assured_workloads_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateWorkload(RequestBuilder<crate::model::UpdateWorkloadRequest>);
+    pub struct UpdateWorkload(pub(crate) RequestBuilder<crate::model::UpdateWorkloadRequest>);
 
     impl UpdateWorkload {
         pub(crate) fn new(
@@ -334,7 +334,7 @@ pub mod assured_workloads_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RestrictAllowedResources(
-        RequestBuilder<crate::model::RestrictAllowedResourcesRequest>,
+        pub(crate) RequestBuilder<crate::model::RestrictAllowedResourcesRequest>,
     );
 
     impl RestrictAllowedResources {
@@ -413,7 +413,7 @@ pub mod assured_workloads_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteWorkload(RequestBuilder<crate::model::DeleteWorkloadRequest>);
+    pub struct DeleteWorkload(pub(crate) RequestBuilder<crate::model::DeleteWorkloadRequest>);
 
     impl DeleteWorkload {
         pub(crate) fn new(
@@ -481,7 +481,7 @@ pub mod assured_workloads_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
+    pub struct GetWorkload(pub(crate) RequestBuilder<crate::model::GetWorkloadRequest>);
 
     impl GetWorkload {
         pub(crate) fn new(
@@ -547,7 +547,7 @@ pub mod assured_workloads_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
+    pub struct ListWorkloads(pub(crate) RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
         pub(crate) fn new(
@@ -658,7 +658,7 @@ pub mod assured_workloads_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -774,7 +774,9 @@ pub mod assured_workloads_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

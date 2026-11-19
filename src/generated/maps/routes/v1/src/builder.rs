@@ -51,9 +51,9 @@ pub mod routes_preferred {
     /// Common implementation for [crate::client::RoutesPreferred] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutesPreferred>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutesPreferred>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod routes_preferred {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ComputeRoutes(RequestBuilder<crate::model::ComputeRoutesRequest>);
+    pub struct ComputeRoutes(pub(crate) RequestBuilder<crate::model::ComputeRoutesRequest>);
 
     impl ComputeRoutes {
         pub(crate) fn new(
@@ -285,7 +285,9 @@ pub mod routes_preferred {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ComputeRouteMatrix(RequestBuilder<crate::model::ComputeRouteMatrixRequest>);
+    pub struct ComputeRouteMatrix(
+        pub(crate) RequestBuilder<crate::model::ComputeRouteMatrixRequest>,
+    );
 
     impl ComputeRouteMatrix {
         pub(crate) fn new(
@@ -403,7 +405,9 @@ pub mod routes_preferred {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ComputeCustomRoutes(RequestBuilder<crate::model::ComputeCustomRoutesRequest>);
+    pub struct ComputeCustomRoutes(
+        pub(crate) RequestBuilder<crate::model::ComputeCustomRoutesRequest>,
+    );
 
     impl ComputeCustomRoutes {
         pub(crate) fn new(

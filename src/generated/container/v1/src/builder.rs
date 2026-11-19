@@ -51,9 +51,9 @@ pub mod cluster_manager {
     /// Common implementation for [crate::client::ClusterManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
+    pub struct ListClusters(pub(crate) RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
         pub(crate) fn new(
@@ -162,7 +162,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
+    pub struct GetCluster(pub(crate) RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
         pub(crate) fn new(
@@ -243,7 +243,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
+    pub struct CreateCluster(pub(crate) RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
         pub(crate) fn new(
@@ -339,7 +339,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
+    pub struct UpdateCluster(pub(crate) RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
         pub(crate) fn new(
@@ -442,7 +442,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
+    pub struct UpdateNodePool(pub(crate) RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
     impl UpdateNodePool {
         pub(crate) fn new(
@@ -1065,7 +1065,9 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetNodePoolAutoscaling(RequestBuilder<crate::model::SetNodePoolAutoscalingRequest>);
+    pub struct SetNodePoolAutoscaling(
+        pub(crate) RequestBuilder<crate::model::SetNodePoolAutoscalingRequest>,
+    );
 
     impl SetNodePoolAutoscaling {
         pub(crate) fn new(
@@ -1178,7 +1180,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLoggingService(RequestBuilder<crate::model::SetLoggingServiceRequest>);
+    pub struct SetLoggingService(pub(crate) RequestBuilder<crate::model::SetLoggingServiceRequest>);
 
     impl SetLoggingService {
         pub(crate) fn new(
@@ -1270,7 +1272,9 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetMonitoringService(RequestBuilder<crate::model::SetMonitoringServiceRequest>);
+    pub struct SetMonitoringService(
+        pub(crate) RequestBuilder<crate::model::SetMonitoringServiceRequest>,
+    );
 
     impl SetMonitoringService {
         pub(crate) fn new(
@@ -1362,7 +1366,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetAddonsConfig(RequestBuilder<crate::model::SetAddonsConfigRequest>);
+    pub struct SetAddonsConfig(pub(crate) RequestBuilder<crate::model::SetAddonsConfigRequest>);
 
     impl SetAddonsConfig {
         pub(crate) fn new(
@@ -1465,7 +1469,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLocations(RequestBuilder<crate::model::SetLocationsRequest>);
+    pub struct SetLocations(pub(crate) RequestBuilder<crate::model::SetLocationsRequest>);
 
     impl SetLocations {
         pub(crate) fn new(
@@ -1559,7 +1563,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateMaster(RequestBuilder<crate::model::UpdateMasterRequest>);
+    pub struct UpdateMaster(pub(crate) RequestBuilder<crate::model::UpdateMasterRequest>);
 
     impl UpdateMaster {
         pub(crate) fn new(
@@ -1648,7 +1652,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetMasterAuth(RequestBuilder<crate::model::SetMasterAuthRequest>);
+    pub struct SetMasterAuth(pub(crate) RequestBuilder<crate::model::SetMasterAuthRequest>);
 
     impl SetMasterAuth {
         pub(crate) fn new(
@@ -1762,7 +1766,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
+    pub struct DeleteCluster(pub(crate) RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
         pub(crate) fn new(
@@ -1843,7 +1847,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOperations(RequestBuilder<crate::model::ListOperationsRequest>);
+    pub struct ListOperations(pub(crate) RequestBuilder<crate::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
@@ -1917,7 +1921,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::GetOperationRequest>);
+    pub struct GetOperation(pub(crate) RequestBuilder<crate::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1998,7 +2002,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelOperation(RequestBuilder<crate::model::CancelOperationRequest>);
+    pub struct CancelOperation(pub(crate) RequestBuilder<crate::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
@@ -2079,7 +2083,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
+    pub struct GetServerConfig(pub(crate) RequestBuilder<crate::model::GetServerConfigRequest>);
 
     impl GetServerConfig {
         pub(crate) fn new(
@@ -2153,7 +2157,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetJSONWebKeys(RequestBuilder<crate::model::GetJSONWebKeysRequest>);
+    pub struct GetJSONWebKeys(pub(crate) RequestBuilder<crate::model::GetJSONWebKeysRequest>);
 
     impl GetJSONWebKeys {
         pub(crate) fn new(
@@ -2213,7 +2217,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
+    pub struct ListNodePools(pub(crate) RequestBuilder<crate::model::ListNodePoolsRequest>);
 
     impl ListNodePools {
         pub(crate) fn new(
@@ -2294,7 +2298,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
+    pub struct GetNodePool(pub(crate) RequestBuilder<crate::model::GetNodePoolRequest>);
 
     impl GetNodePool {
         pub(crate) fn new(
@@ -2382,7 +2386,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
+    pub struct CreateNodePool(pub(crate) RequestBuilder<crate::model::CreateNodePoolRequest>);
 
     impl CreateNodePool {
         pub(crate) fn new(
@@ -2485,7 +2489,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
+    pub struct DeleteNodePool(pub(crate) RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
     impl DeleteNodePool {
         pub(crate) fn new(
@@ -2574,7 +2578,7 @@ pub mod cluster_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CompleteNodePoolUpgrade(
-        RequestBuilder<crate::model::CompleteNodePoolUpgradeRequest>,
+        pub(crate) RequestBuilder<crate::model::CompleteNodePoolUpgradeRequest>,
     );
 
     impl CompleteNodePoolUpgrade {
@@ -2639,7 +2643,7 @@ pub mod cluster_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RollbackNodePoolUpgrade(
-        RequestBuilder<crate::model::RollbackNodePoolUpgradeRequest>,
+        pub(crate) RequestBuilder<crate::model::RollbackNodePoolUpgradeRequest>,
     );
 
     impl RollbackNodePoolUpgrade {
@@ -2737,7 +2741,9 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetNodePoolManagement(RequestBuilder<crate::model::SetNodePoolManagementRequest>);
+    pub struct SetNodePoolManagement(
+        pub(crate) RequestBuilder<crate::model::SetNodePoolManagementRequest>,
+    );
 
     impl SetNodePoolManagement {
         pub(crate) fn new(
@@ -2850,7 +2856,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLabels(RequestBuilder<crate::model::SetLabelsRequest>);
+    pub struct SetLabels(pub(crate) RequestBuilder<crate::model::SetLabelsRequest>);
 
     impl SetLabels {
         pub(crate) fn new(
@@ -2953,7 +2959,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetLegacyAbac(RequestBuilder<crate::model::SetLegacyAbacRequest>);
+    pub struct SetLegacyAbac(pub(crate) RequestBuilder<crate::model::SetLegacyAbacRequest>);
 
     impl SetLegacyAbac {
         pub(crate) fn new(
@@ -3042,7 +3048,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartIPRotation(RequestBuilder<crate::model::StartIPRotationRequest>);
+    pub struct StartIPRotation(pub(crate) RequestBuilder<crate::model::StartIPRotationRequest>);
 
     impl StartIPRotation {
         pub(crate) fn new(
@@ -3129,7 +3135,9 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CompleteIPRotation(RequestBuilder<crate::model::CompleteIPRotationRequest>);
+    pub struct CompleteIPRotation(
+        pub(crate) RequestBuilder<crate::model::CompleteIPRotationRequest>,
+    );
 
     impl CompleteIPRotation {
         pub(crate) fn new(
@@ -3213,7 +3221,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetNodePoolSize(RequestBuilder<crate::model::SetNodePoolSizeRequest>);
+    pub struct SetNodePoolSize(pub(crate) RequestBuilder<crate::model::SetNodePoolSizeRequest>);
 
     impl SetNodePoolSize {
         pub(crate) fn new(
@@ -3309,7 +3317,7 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetNetworkPolicy(RequestBuilder<crate::model::SetNetworkPolicyRequest>);
+    pub struct SetNetworkPolicy(pub(crate) RequestBuilder<crate::model::SetNetworkPolicyRequest>);
 
     impl SetNetworkPolicy {
         pub(crate) fn new(
@@ -3415,7 +3423,9 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetMaintenancePolicy(RequestBuilder<crate::model::SetMaintenancePolicyRequest>);
+    pub struct SetMaintenancePolicy(
+        pub(crate) RequestBuilder<crate::model::SetMaintenancePolicyRequest>,
+    );
 
     impl SetMaintenancePolicy {
         pub(crate) fn new(
@@ -3528,7 +3538,9 @@ pub mod cluster_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUsableSubnetworks(RequestBuilder<crate::model::ListUsableSubnetworksRequest>);
+    pub struct ListUsableSubnetworks(
+        pub(crate) RequestBuilder<crate::model::ListUsableSubnetworksRequest>,
+    );
 
     impl ListUsableSubnetworks {
         pub(crate) fn new(
@@ -3638,7 +3650,7 @@ pub mod cluster_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CheckAutopilotCompatibility(
-        RequestBuilder<crate::model::CheckAutopilotCompatibilityRequest>,
+        pub(crate) RequestBuilder<crate::model::CheckAutopilotCompatibilityRequest>,
     );
 
     impl CheckAutopilotCompatibility {
@@ -3703,7 +3715,7 @@ pub mod cluster_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchClusterUpgradeInfo(
-        RequestBuilder<crate::model::FetchClusterUpgradeInfoRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchClusterUpgradeInfoRequest>,
     );
 
     impl FetchClusterUpgradeInfo {
@@ -3776,7 +3788,7 @@ pub mod cluster_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchNodePoolUpgradeInfo(
-        RequestBuilder<crate::model::FetchNodePoolUpgradeInfoRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchNodePoolUpgradeInfoRequest>,
     );
 
     impl FetchNodePoolUpgradeInfo {
@@ -3849,7 +3861,7 @@ pub mod cluster_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CompleteControlPlaneUpgrade(
-        RequestBuilder<crate::model::CompleteControlPlaneUpgradeRequest>,
+        pub(crate) RequestBuilder<crate::model::CompleteControlPlaneUpgradeRequest>,
     );
 
     impl CompleteControlPlaneUpgrade {

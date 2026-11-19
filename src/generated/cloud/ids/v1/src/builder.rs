@@ -51,9 +51,9 @@ pub mod ids {
     /// Common implementation for [crate::client::Ids] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -90,7 +90,7 @@ pub mod ids {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEndpoints(RequestBuilder<crate::model::ListEndpointsRequest>);
+    pub struct ListEndpoints(pub(crate) RequestBuilder<crate::model::ListEndpointsRequest>);
 
     impl ListEndpoints {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
@@ -200,7 +200,7 @@ pub mod ids {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEndpoint(RequestBuilder<crate::model::GetEndpointRequest>);
+    pub struct GetEndpoint(pub(crate) RequestBuilder<crate::model::GetEndpointRequest>);
 
     impl GetEndpoint {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
@@ -261,7 +261,7 @@ pub mod ids {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateEndpoint(RequestBuilder<crate::model::CreateEndpointRequest>);
+    pub struct CreateEndpoint(pub(crate) RequestBuilder<crate::model::CreateEndpointRequest>);
 
     impl CreateEndpoint {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
@@ -413,7 +413,7 @@ pub mod ids {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteEndpoint(RequestBuilder<crate::model::DeleteEndpointRequest>);
+    pub struct DeleteEndpoint(pub(crate) RequestBuilder<crate::model::DeleteEndpointRequest>);
 
     impl DeleteEndpoint {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
@@ -534,7 +534,7 @@ pub mod ids {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -648,7 +648,9 @@ pub mod ids {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>) -> Self {
@@ -710,7 +712,7 @@ pub mod ids {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -773,7 +775,7 @@ pub mod ids {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

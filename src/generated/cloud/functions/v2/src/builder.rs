@@ -51,9 +51,9 @@ pub mod function_service {
     /// Common implementation for [crate::client::FunctionService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::FunctionService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::FunctionService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod function_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFunction(RequestBuilder<crate::model::GetFunctionRequest>);
+    pub struct GetFunction(pub(crate) RequestBuilder<crate::model::GetFunctionRequest>);
 
     impl GetFunction {
         pub(crate) fn new(
@@ -160,7 +160,7 @@ pub mod function_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFunctions(RequestBuilder<crate::model::ListFunctionsRequest>);
+    pub struct ListFunctions(pub(crate) RequestBuilder<crate::model::ListFunctionsRequest>);
 
     impl ListFunctions {
         pub(crate) fn new(
@@ -273,7 +273,7 @@ pub mod function_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateFunction(RequestBuilder<crate::model::CreateFunctionRequest>);
+    pub struct CreateFunction(pub(crate) RequestBuilder<crate::model::CreateFunctionRequest>);
 
     impl CreateFunction {
         pub(crate) fn new(
@@ -418,7 +418,7 @@ pub mod function_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFunction(RequestBuilder<crate::model::UpdateFunctionRequest>);
+    pub struct UpdateFunction(pub(crate) RequestBuilder<crate::model::UpdateFunctionRequest>);
 
     impl UpdateFunction {
         pub(crate) fn new(
@@ -567,7 +567,7 @@ pub mod function_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFunction(RequestBuilder<crate::model::DeleteFunctionRequest>);
+    pub struct DeleteFunction(pub(crate) RequestBuilder<crate::model::DeleteFunctionRequest>);
 
     impl DeleteFunction {
         pub(crate) fn new(
@@ -678,7 +678,7 @@ pub mod function_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateUploadUrl(RequestBuilder<crate::model::GenerateUploadUrlRequest>);
+    pub struct GenerateUploadUrl(pub(crate) RequestBuilder<crate::model::GenerateUploadUrlRequest>);
 
     impl GenerateUploadUrl {
         pub(crate) fn new(
@@ -755,7 +755,9 @@ pub mod function_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateDownloadUrl(RequestBuilder<crate::model::GenerateDownloadUrlRequest>);
+    pub struct GenerateDownloadUrl(
+        pub(crate) RequestBuilder<crate::model::GenerateDownloadUrlRequest>,
+    );
 
     impl GenerateDownloadUrl {
         pub(crate) fn new(
@@ -820,7 +822,7 @@ pub mod function_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRuntimes(RequestBuilder<crate::model::ListRuntimesRequest>);
+    pub struct ListRuntimes(pub(crate) RequestBuilder<crate::model::ListRuntimesRequest>);
 
     impl ListRuntimes {
         pub(crate) fn new(
@@ -892,7 +894,9 @@ pub mod function_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1001,7 +1005,9 @@ pub mod function_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -1106,7 +1112,9 @@ pub mod function_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1190,7 +1198,7 @@ pub mod function_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1274,7 +1282,7 @@ pub mod function_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1390,7 +1398,9 @@ pub mod function_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

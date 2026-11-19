@@ -51,9 +51,9 @@ pub mod cloud_build {
     /// Common implementation for [crate::client::CloudBuild] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBuild(RequestBuilder<crate::model::CreateBuildRequest>);
+    pub struct CreateBuild(pub(crate) RequestBuilder<crate::model::CreateBuildRequest>);
 
     impl CreateBuild {
         pub(crate) fn new(
@@ -234,7 +234,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBuild(RequestBuilder<crate::model::GetBuildRequest>);
+    pub struct GetBuild(pub(crate) RequestBuilder<crate::model::GetBuildRequest>);
 
     impl GetBuild {
         pub(crate) fn new(
@@ -314,7 +314,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBuilds(RequestBuilder<crate::model::ListBuildsRequest>);
+    pub struct ListBuilds(pub(crate) RequestBuilder<crate::model::ListBuildsRequest>);
 
     impl ListBuilds {
         pub(crate) fn new(
@@ -426,7 +426,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelBuild(RequestBuilder<crate::model::CancelBuildRequest>);
+    pub struct CancelBuild(pub(crate) RequestBuilder<crate::model::CancelBuildRequest>);
 
     impl CancelBuild {
         pub(crate) fn new(
@@ -503,7 +503,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RetryBuild(RequestBuilder<crate::model::RetryBuildRequest>);
+    pub struct RetryBuild(pub(crate) RequestBuilder<crate::model::RetryBuildRequest>);
 
     impl RetryBuild {
         pub(crate) fn new(
@@ -635,7 +635,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ApproveBuild(RequestBuilder<crate::model::ApproveBuildRequest>);
+    pub struct ApproveBuild(pub(crate) RequestBuilder<crate::model::ApproveBuildRequest>);
 
     impl ApproveBuild {
         pub(crate) fn new(
@@ -770,7 +770,9 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBuildTrigger(RequestBuilder<crate::model::CreateBuildTriggerRequest>);
+    pub struct CreateBuildTrigger(
+        pub(crate) RequestBuilder<crate::model::CreateBuildTriggerRequest>,
+    );
 
     impl CreateBuildTrigger {
         pub(crate) fn new(
@@ -863,7 +865,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBuildTrigger(RequestBuilder<crate::model::GetBuildTriggerRequest>);
+    pub struct GetBuildTrigger(pub(crate) RequestBuilder<crate::model::GetBuildTriggerRequest>);
 
     impl GetBuildTrigger {
         pub(crate) fn new(
@@ -943,7 +945,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBuildTriggers(RequestBuilder<crate::model::ListBuildTriggersRequest>);
+    pub struct ListBuildTriggers(pub(crate) RequestBuilder<crate::model::ListBuildTriggersRequest>);
 
     impl ListBuildTriggers {
         pub(crate) fn new(
@@ -1054,7 +1056,9 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBuildTrigger(RequestBuilder<crate::model::DeleteBuildTriggerRequest>);
+    pub struct DeleteBuildTrigger(
+        pub(crate) RequestBuilder<crate::model::DeleteBuildTriggerRequest>,
+    );
 
     impl DeleteBuildTrigger {
         pub(crate) fn new(
@@ -1133,7 +1137,9 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBuildTrigger(RequestBuilder<crate::model::UpdateBuildTriggerRequest>);
+    pub struct UpdateBuildTrigger(
+        pub(crate) RequestBuilder<crate::model::UpdateBuildTriggerRequest>,
+    );
 
     impl UpdateBuildTrigger {
         pub(crate) fn new(
@@ -1247,7 +1253,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RunBuildTrigger(RequestBuilder<crate::model::RunBuildTriggerRequest>);
+    pub struct RunBuildTrigger(pub(crate) RequestBuilder<crate::model::RunBuildTriggerRequest>);
 
     impl RunBuildTrigger {
         pub(crate) fn new(
@@ -1396,7 +1402,9 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReceiveTriggerWebhook(RequestBuilder<crate::model::ReceiveTriggerWebhookRequest>);
+    pub struct ReceiveTriggerWebhook(
+        pub(crate) RequestBuilder<crate::model::ReceiveTriggerWebhookRequest>,
+    );
 
     impl ReceiveTriggerWebhook {
         pub(crate) fn new(
@@ -1496,7 +1504,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateWorkerPool(RequestBuilder<crate::model::CreateWorkerPoolRequest>);
+    pub struct CreateWorkerPool(pub(crate) RequestBuilder<crate::model::CreateWorkerPoolRequest>);
 
     impl CreateWorkerPool {
         pub(crate) fn new(
@@ -1654,7 +1662,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetWorkerPool(RequestBuilder<crate::model::GetWorkerPoolRequest>);
+    pub struct GetWorkerPool(pub(crate) RequestBuilder<crate::model::GetWorkerPoolRequest>);
 
     impl GetWorkerPool {
         pub(crate) fn new(
@@ -1717,7 +1725,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteWorkerPool(RequestBuilder<crate::model::DeleteWorkerPoolRequest>);
+    pub struct DeleteWorkerPool(pub(crate) RequestBuilder<crate::model::DeleteWorkerPoolRequest>);
 
     impl DeleteWorkerPool {
         pub(crate) fn new(
@@ -1856,7 +1864,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateWorkerPool(RequestBuilder<crate::model::UpdateWorkerPoolRequest>);
+    pub struct UpdateWorkerPool(pub(crate) RequestBuilder<crate::model::UpdateWorkerPoolRequest>);
 
     impl UpdateWorkerPool {
         pub(crate) fn new(
@@ -2020,7 +2028,7 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListWorkerPools(RequestBuilder<crate::model::ListWorkerPoolsRequest>);
+    pub struct ListWorkerPools(pub(crate) RequestBuilder<crate::model::ListWorkerPoolsRequest>);
 
     impl ListWorkerPools {
         pub(crate) fn new(
@@ -2123,7 +2131,7 @@ pub mod cloud_build {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetDefaultServiceAccount(
-        RequestBuilder<crate::model::GetDefaultServiceAccountRequest>,
+        pub(crate) RequestBuilder<crate::model::GetDefaultServiceAccountRequest>,
     );
 
     impl GetDefaultServiceAccount {
@@ -2189,7 +2197,9 @@ pub mod cloud_build {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2253,7 +2263,7 @@ pub mod cloud_build {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

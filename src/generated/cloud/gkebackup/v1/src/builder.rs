@@ -51,9 +51,9 @@ pub mod backup_for_gke {
     /// Common implementation for [crate::client::BackupForGKE] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackupPlan(RequestBuilder<crate::model::CreateBackupPlanRequest>);
+    pub struct CreateBackupPlan(pub(crate) RequestBuilder<crate::model::CreateBackupPlanRequest>);
 
     impl CreateBackupPlan {
         pub(crate) fn new(
@@ -242,7 +242,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackupPlans(RequestBuilder<crate::model::ListBackupPlansRequest>);
+    pub struct ListBackupPlans(pub(crate) RequestBuilder<crate::model::ListBackupPlansRequest>);
 
     impl ListBackupPlans {
         pub(crate) fn new(
@@ -356,7 +356,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackupPlan(RequestBuilder<crate::model::GetBackupPlanRequest>);
+    pub struct GetBackupPlan(pub(crate) RequestBuilder<crate::model::GetBackupPlanRequest>);
 
     impl GetBackupPlan {
         pub(crate) fn new(
@@ -419,7 +419,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackupPlan(RequestBuilder<crate::model::UpdateBackupPlanRequest>);
+    pub struct UpdateBackupPlan(pub(crate) RequestBuilder<crate::model::UpdateBackupPlanRequest>);
 
     impl UpdateBackupPlan {
         pub(crate) fn new(
@@ -571,7 +571,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackupPlan(RequestBuilder<crate::model::DeleteBackupPlanRequest>);
+    pub struct DeleteBackupPlan(pub(crate) RequestBuilder<crate::model::DeleteBackupPlanRequest>);
 
     impl DeleteBackupPlan {
         pub(crate) fn new(
@@ -692,7 +692,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackupChannel(RequestBuilder<crate::model::CreateBackupChannelRequest>);
+    pub struct CreateBackupChannel(
+        pub(crate) RequestBuilder<crate::model::CreateBackupChannelRequest>,
+    );
 
     impl CreateBackupChannel {
         pub(crate) fn new(
@@ -843,7 +845,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackupChannels(RequestBuilder<crate::model::ListBackupChannelsRequest>);
+    pub struct ListBackupChannels(
+        pub(crate) RequestBuilder<crate::model::ListBackupChannelsRequest>,
+    );
 
     impl ListBackupChannels {
         pub(crate) fn new(
@@ -960,7 +964,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackupChannel(RequestBuilder<crate::model::GetBackupChannelRequest>);
+    pub struct GetBackupChannel(pub(crate) RequestBuilder<crate::model::GetBackupChannelRequest>);
 
     impl GetBackupChannel {
         pub(crate) fn new(
@@ -1026,7 +1030,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackupChannel(RequestBuilder<crate::model::UpdateBackupChannelRequest>);
+    pub struct UpdateBackupChannel(
+        pub(crate) RequestBuilder<crate::model::UpdateBackupChannelRequest>,
+    );
 
     impl UpdateBackupChannel {
         pub(crate) fn new(
@@ -1178,7 +1184,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackupChannel(RequestBuilder<crate::model::DeleteBackupChannelRequest>);
+    pub struct DeleteBackupChannel(
+        pub(crate) RequestBuilder<crate::model::DeleteBackupChannelRequest>,
+    );
 
     impl DeleteBackupChannel {
         pub(crate) fn new(
@@ -1308,7 +1316,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackupPlanBindings(RequestBuilder<crate::model::ListBackupPlanBindingsRequest>);
+    pub struct ListBackupPlanBindings(
+        pub(crate) RequestBuilder<crate::model::ListBackupPlanBindingsRequest>,
+    );
 
     impl ListBackupPlanBindings {
         pub(crate) fn new(
@@ -1425,7 +1435,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackupPlanBinding(RequestBuilder<crate::model::GetBackupPlanBindingRequest>);
+    pub struct GetBackupPlanBinding(
+        pub(crate) RequestBuilder<crate::model::GetBackupPlanBindingRequest>,
+    );
 
     impl GetBackupPlanBinding {
         pub(crate) fn new(
@@ -1491,7 +1503,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
+    pub struct CreateBackup(pub(crate) RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
         pub(crate) fn new(
@@ -1636,7 +1648,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
+    pub struct ListBackups(pub(crate) RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
         pub(crate) fn new(
@@ -1754,7 +1766,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
+    pub struct GetBackup(pub(crate) RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
         pub(crate) fn new(
@@ -1817,7 +1829,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
+    pub struct UpdateBackup(pub(crate) RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
         pub(crate) fn new(
@@ -1967,7 +1979,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
+    pub struct DeleteBackup(pub(crate) RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
         pub(crate) fn new(
@@ -2095,7 +2107,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVolumeBackups(RequestBuilder<crate::model::ListVolumeBackupsRequest>);
+    pub struct ListVolumeBackups(pub(crate) RequestBuilder<crate::model::ListVolumeBackupsRequest>);
 
     impl ListVolumeBackups {
         pub(crate) fn new(
@@ -2212,7 +2224,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVolumeBackup(RequestBuilder<crate::model::GetVolumeBackupRequest>);
+    pub struct GetVolumeBackup(pub(crate) RequestBuilder<crate::model::GetVolumeBackupRequest>);
 
     impl GetVolumeBackup {
         pub(crate) fn new(
@@ -2275,7 +2287,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRestorePlan(RequestBuilder<crate::model::CreateRestorePlanRequest>);
+    pub struct CreateRestorePlan(pub(crate) RequestBuilder<crate::model::CreateRestorePlanRequest>);
 
     impl CreateRestorePlan {
         pub(crate) fn new(
@@ -2428,7 +2440,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRestorePlans(RequestBuilder<crate::model::ListRestorePlansRequest>);
+    pub struct ListRestorePlans(pub(crate) RequestBuilder<crate::model::ListRestorePlansRequest>);
 
     impl ListRestorePlans {
         pub(crate) fn new(
@@ -2545,7 +2557,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRestorePlan(RequestBuilder<crate::model::GetRestorePlanRequest>);
+    pub struct GetRestorePlan(pub(crate) RequestBuilder<crate::model::GetRestorePlanRequest>);
 
     impl GetRestorePlan {
         pub(crate) fn new(
@@ -2608,7 +2620,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRestorePlan(RequestBuilder<crate::model::UpdateRestorePlanRequest>);
+    pub struct UpdateRestorePlan(pub(crate) RequestBuilder<crate::model::UpdateRestorePlanRequest>);
 
     impl UpdateRestorePlan {
         pub(crate) fn new(
@@ -2760,7 +2772,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRestorePlan(RequestBuilder<crate::model::DeleteRestorePlanRequest>);
+    pub struct DeleteRestorePlan(pub(crate) RequestBuilder<crate::model::DeleteRestorePlanRequest>);
 
     impl DeleteRestorePlan {
         pub(crate) fn new(
@@ -2887,7 +2899,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRestoreChannel(RequestBuilder<crate::model::CreateRestoreChannelRequest>);
+    pub struct CreateRestoreChannel(
+        pub(crate) RequestBuilder<crate::model::CreateRestoreChannelRequest>,
+    );
 
     impl CreateRestoreChannel {
         pub(crate) fn new(
@@ -3038,7 +3052,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRestoreChannels(RequestBuilder<crate::model::ListRestoreChannelsRequest>);
+    pub struct ListRestoreChannels(
+        pub(crate) RequestBuilder<crate::model::ListRestoreChannelsRequest>,
+    );
 
     impl ListRestoreChannels {
         pub(crate) fn new(
@@ -3155,7 +3171,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRestoreChannel(RequestBuilder<crate::model::GetRestoreChannelRequest>);
+    pub struct GetRestoreChannel(pub(crate) RequestBuilder<crate::model::GetRestoreChannelRequest>);
 
     impl GetRestoreChannel {
         pub(crate) fn new(
@@ -3221,7 +3237,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRestoreChannel(RequestBuilder<crate::model::UpdateRestoreChannelRequest>);
+    pub struct UpdateRestoreChannel(
+        pub(crate) RequestBuilder<crate::model::UpdateRestoreChannelRequest>,
+    );
 
     impl UpdateRestoreChannel {
         pub(crate) fn new(
@@ -3373,7 +3391,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRestoreChannel(RequestBuilder<crate::model::DeleteRestoreChannelRequest>);
+    pub struct DeleteRestoreChannel(
+        pub(crate) RequestBuilder<crate::model::DeleteRestoreChannelRequest>,
+    );
 
     impl DeleteRestoreChannel {
         pub(crate) fn new(
@@ -3498,7 +3518,7 @@ pub mod backup_for_gke {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListRestorePlanBindings(
-        RequestBuilder<crate::model::ListRestorePlanBindingsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListRestorePlanBindingsRequest>,
     );
 
     impl ListRestorePlanBindings {
@@ -3616,7 +3636,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRestorePlanBinding(RequestBuilder<crate::model::GetRestorePlanBindingRequest>);
+    pub struct GetRestorePlanBinding(
+        pub(crate) RequestBuilder<crate::model::GetRestorePlanBindingRequest>,
+    );
 
     impl GetRestorePlanBinding {
         pub(crate) fn new(
@@ -3682,7 +3704,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRestore(RequestBuilder<crate::model::CreateRestoreRequest>);
+    pub struct CreateRestore(pub(crate) RequestBuilder<crate::model::CreateRestoreRequest>);
 
     impl CreateRestore {
         pub(crate) fn new(
@@ -3833,7 +3855,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRestores(RequestBuilder<crate::model::ListRestoresRequest>);
+    pub struct ListRestores(pub(crate) RequestBuilder<crate::model::ListRestoresRequest>);
 
     impl ListRestores {
         pub(crate) fn new(
@@ -3945,7 +3967,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRestore(RequestBuilder<crate::model::GetRestoreRequest>);
+    pub struct GetRestore(pub(crate) RequestBuilder<crate::model::GetRestoreRequest>);
 
     impl GetRestore {
         pub(crate) fn new(
@@ -4008,7 +4030,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRestore(RequestBuilder<crate::model::UpdateRestoreRequest>);
+    pub struct UpdateRestore(pub(crate) RequestBuilder<crate::model::UpdateRestoreRequest>);
 
     impl UpdateRestore {
         pub(crate) fn new(
@@ -4158,7 +4180,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRestore(RequestBuilder<crate::model::DeleteRestoreRequest>);
+    pub struct DeleteRestore(pub(crate) RequestBuilder<crate::model::DeleteRestoreRequest>);
 
     impl DeleteRestore {
         pub(crate) fn new(
@@ -4286,7 +4308,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVolumeRestores(RequestBuilder<crate::model::ListVolumeRestoresRequest>);
+    pub struct ListVolumeRestores(
+        pub(crate) RequestBuilder<crate::model::ListVolumeRestoresRequest>,
+    );
 
     impl ListVolumeRestores {
         pub(crate) fn new(
@@ -4403,7 +4427,7 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVolumeRestore(RequestBuilder<crate::model::GetVolumeRestoreRequest>);
+    pub struct GetVolumeRestore(pub(crate) RequestBuilder<crate::model::GetVolumeRestoreRequest>);
 
     impl GetVolumeRestore {
         pub(crate) fn new(
@@ -4469,7 +4493,7 @@ pub mod backup_for_gke {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackupIndexDownloadUrl(
-        RequestBuilder<crate::model::GetBackupIndexDownloadUrlRequest>,
+        pub(crate) RequestBuilder<crate::model::GetBackupIndexDownloadUrlRequest>,
     );
 
     impl GetBackupIndexDownloadUrl {
@@ -4539,7 +4563,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -4648,7 +4674,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -4711,7 +4739,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -4816,7 +4846,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -4900,7 +4932,7 @@ pub mod backup_for_gke {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -4984,7 +5016,7 @@ pub mod backup_for_gke {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -5100,7 +5132,9 @@ pub mod backup_for_gke {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -5164,7 +5198,7 @@ pub mod backup_for_gke {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -5229,7 +5263,7 @@ pub mod backup_for_gke {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

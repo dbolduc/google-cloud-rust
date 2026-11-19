@@ -51,9 +51,9 @@ pub mod cloud_scheduler {
     /// Common implementation for [crate::client::CloudScheduler] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod cloud_scheduler {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
+    pub struct ListJobs(pub(crate) RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
         pub(crate) fn new(
@@ -190,7 +190,7 @@ pub mod cloud_scheduler {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
+    pub struct GetJob(pub(crate) RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
         pub(crate) fn new(
@@ -252,7 +252,7 @@ pub mod cloud_scheduler {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
+    pub struct CreateJob(pub(crate) RequestBuilder<crate::model::CreateJobRequest>);
 
     impl CreateJob {
         pub(crate) fn new(
@@ -336,7 +336,7 @@ pub mod cloud_scheduler {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateJob(RequestBuilder<crate::model::UpdateJobRequest>);
+    pub struct UpdateJob(pub(crate) RequestBuilder<crate::model::UpdateJobRequest>);
 
     impl UpdateJob {
         pub(crate) fn new(
@@ -430,7 +430,7 @@ pub mod cloud_scheduler {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
+    pub struct DeleteJob(pub(crate) RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
         pub(crate) fn new(
@@ -492,7 +492,7 @@ pub mod cloud_scheduler {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PauseJob(RequestBuilder<crate::model::PauseJobRequest>);
+    pub struct PauseJob(pub(crate) RequestBuilder<crate::model::PauseJobRequest>);
 
     impl PauseJob {
         pub(crate) fn new(
@@ -554,7 +554,7 @@ pub mod cloud_scheduler {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResumeJob(RequestBuilder<crate::model::ResumeJobRequest>);
+    pub struct ResumeJob(pub(crate) RequestBuilder<crate::model::ResumeJobRequest>);
 
     impl ResumeJob {
         pub(crate) fn new(
@@ -616,7 +616,7 @@ pub mod cloud_scheduler {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RunJob(RequestBuilder<crate::model::RunJobRequest>);
+    pub struct RunJob(pub(crate) RequestBuilder<crate::model::RunJobRequest>);
 
     impl RunJob {
         pub(crate) fn new(
@@ -682,7 +682,9 @@ pub mod cloud_scheduler {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -791,7 +793,9 @@ pub mod cloud_scheduler {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(

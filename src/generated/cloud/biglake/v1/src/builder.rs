@@ -51,9 +51,9 @@ pub mod iceberg_catalog_service {
     /// Common implementation for [crate::client::IcebergCatalogService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod iceberg_catalog_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIcebergCatalogConfig(
-        RequestBuilder<crate::model::GetIcebergCatalogConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::GetIcebergCatalogConfigRequest>,
     );
 
     impl GetIcebergCatalogConfig {
@@ -155,7 +155,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListIcebergNamespaces(RequestBuilder<crate::model::ListIcebergNamespacesRequest>);
+    pub struct ListIcebergNamespaces(
+        pub(crate) RequestBuilder<crate::model::ListIcebergNamespacesRequest>,
+    );
 
     impl ListIcebergNamespaces {
         pub(crate) fn new(
@@ -238,7 +240,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIcebergNamespace(RequestBuilder<crate::model::GetIcebergNamespaceRequest>);
+    pub struct GetIcebergNamespace(
+        pub(crate) RequestBuilder<crate::model::GetIcebergNamespaceRequest>,
+    );
 
     impl GetIcebergNamespace {
         pub(crate) fn new(
@@ -303,7 +307,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateIcebergNamespace(RequestBuilder<crate::model::CreateIcebergNamespaceRequest>);
+    pub struct CreateIcebergNamespace(
+        pub(crate) RequestBuilder<crate::model::CreateIcebergNamespaceRequest>,
+    );
 
     impl CreateIcebergNamespace {
         pub(crate) fn new(
@@ -390,7 +396,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteIcebergNamespace(RequestBuilder<crate::model::DeleteIcebergNamespaceRequest>);
+    pub struct DeleteIcebergNamespace(
+        pub(crate) RequestBuilder<crate::model::DeleteIcebergNamespaceRequest>,
+    );
 
     impl DeleteIcebergNamespace {
         pub(crate) fn new(
@@ -455,7 +463,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateIcebergNamespace(RequestBuilder<crate::model::UpdateIcebergNamespaceRequest>);
+    pub struct UpdateIcebergNamespace(
+        pub(crate) RequestBuilder<crate::model::UpdateIcebergNamespaceRequest>,
+    );
 
     impl UpdateIcebergNamespace {
         pub(crate) fn new(
@@ -543,7 +553,7 @@ pub mod iceberg_catalog_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListIcebergTableIdentifiers(
-        RequestBuilder<crate::model::ListIcebergTableIdentifiersRequest>,
+        pub(crate) RequestBuilder<crate::model::ListIcebergTableIdentifiersRequest>,
     );
 
     impl ListIcebergTableIdentifiers {
@@ -621,7 +631,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateIcebergTable(RequestBuilder<crate::model::CreateIcebergTableRequest>);
+    pub struct CreateIcebergTable(
+        pub(crate) RequestBuilder<crate::model::CreateIcebergTableRequest>,
+    );
 
     impl CreateIcebergTable {
         pub(crate) fn new(
@@ -708,7 +720,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteIcebergTable(RequestBuilder<crate::model::DeleteIcebergTableRequest>);
+    pub struct DeleteIcebergTable(
+        pub(crate) RequestBuilder<crate::model::DeleteIcebergTableRequest>,
+    );
 
     impl DeleteIcebergTable {
         pub(crate) fn new(
@@ -779,7 +793,7 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIcebergTable(RequestBuilder<crate::model::GetIcebergTableRequest>);
+    pub struct GetIcebergTable(pub(crate) RequestBuilder<crate::model::GetIcebergTableRequest>);
 
     impl GetIcebergTable {
         pub(crate) fn new(
@@ -847,7 +861,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LoadIcebergTableCredentials(RequestBuilder<crate::model::GetIcebergTableRequest>);
+    pub struct LoadIcebergTableCredentials(
+        pub(crate) RequestBuilder<crate::model::GetIcebergTableRequest>,
+    );
 
     impl LoadIcebergTableCredentials {
         pub(crate) fn new(
@@ -915,7 +931,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateIcebergTable(RequestBuilder<crate::model::UpdateIcebergTableRequest>);
+    pub struct UpdateIcebergTable(
+        pub(crate) RequestBuilder<crate::model::UpdateIcebergTableRequest>,
+    );
 
     impl UpdateIcebergTable {
         pub(crate) fn new(
@@ -1002,7 +1020,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RegisterIcebergTable(RequestBuilder<crate::model::RegisterIcebergTableRequest>);
+    pub struct RegisterIcebergTable(
+        pub(crate) RequestBuilder<crate::model::RegisterIcebergTableRequest>,
+    );
 
     impl RegisterIcebergTable {
         pub(crate) fn new(
@@ -1090,7 +1110,7 @@ pub mod iceberg_catalog_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ReportIcebergTableMetrics(
-        RequestBuilder<crate::model::ReportIcebergTableMetricsRequest>,
+        pub(crate) RequestBuilder<crate::model::ReportIcebergTableMetricsRequest>,
     );
 
     impl ReportIcebergTableMetrics {
@@ -1178,7 +1198,7 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIcebergCatalog(RequestBuilder<crate::model::GetIcebergCatalogRequest>);
+    pub struct GetIcebergCatalog(pub(crate) RequestBuilder<crate::model::GetIcebergCatalogRequest>);
 
     impl GetIcebergCatalog {
         pub(crate) fn new(
@@ -1243,7 +1263,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListIcebergCatalogs(RequestBuilder<crate::model::ListIcebergCatalogsRequest>);
+    pub struct ListIcebergCatalogs(
+        pub(crate) RequestBuilder<crate::model::ListIcebergCatalogsRequest>,
+    );
 
     impl ListIcebergCatalogs {
         pub(crate) fn new(
@@ -1335,7 +1357,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteIcebergCatalog(RequestBuilder<crate::model::DeleteIcebergCatalogRequest>);
+    pub struct DeleteIcebergCatalog(
+        pub(crate) RequestBuilder<crate::model::DeleteIcebergCatalogRequest>,
+    );
 
     impl DeleteIcebergCatalog {
         pub(crate) fn new(
@@ -1400,7 +1424,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateIcebergCatalog(RequestBuilder<crate::model::UpdateIcebergCatalogRequest>);
+    pub struct UpdateIcebergCatalog(
+        pub(crate) RequestBuilder<crate::model::UpdateIcebergCatalogRequest>,
+    );
 
     impl UpdateIcebergCatalog {
         pub(crate) fn new(
@@ -1497,7 +1523,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateIcebergCatalog(RequestBuilder<crate::model::CreateIcebergCatalogRequest>);
+    pub struct CreateIcebergCatalog(
+        pub(crate) RequestBuilder<crate::model::CreateIcebergCatalogRequest>,
+    );
 
     impl CreateIcebergCatalog {
         pub(crate) fn new(
@@ -1598,7 +1626,9 @@ pub mod iceberg_catalog_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FailoverIcebergCatalog(RequestBuilder<crate::model::FailoverIcebergCatalogRequest>);
+    pub struct FailoverIcebergCatalog(
+        pub(crate) RequestBuilder<crate::model::FailoverIcebergCatalogRequest>,
+    );
 
     impl FailoverIcebergCatalog {
         pub(crate) fn new(

@@ -51,9 +51,10 @@ pub mod identity_aware_proxy_admin_service {
     /// Common implementation for [crate::client::IdentityAwareProxyAdminService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +89,9 @@ pub mod identity_aware_proxy_admin_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -193,7 +196,9 @@ pub mod identity_aware_proxy_admin_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -277,7 +282,7 @@ pub mod identity_aware_proxy_admin_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -356,7 +361,7 @@ pub mod identity_aware_proxy_admin_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIapSettings(RequestBuilder<crate::model::GetIapSettingsRequest>);
+    pub struct GetIapSettings(pub(crate) RequestBuilder<crate::model::GetIapSettingsRequest>);
 
     impl GetIapSettings {
         pub(crate) fn new(
@@ -418,7 +423,7 @@ pub mod identity_aware_proxy_admin_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateIapSettings(RequestBuilder<crate::model::UpdateIapSettingsRequest>);
+    pub struct UpdateIapSettings(pub(crate) RequestBuilder<crate::model::UpdateIapSettingsRequest>);
 
     impl UpdateIapSettings {
         pub(crate) fn new(
@@ -516,7 +521,7 @@ pub mod identity_aware_proxy_admin_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ValidateIapAttributeExpression(
-        RequestBuilder<crate::model::ValidateIapAttributeExpressionRequest>,
+        pub(crate) RequestBuilder<crate::model::ValidateIapAttributeExpressionRequest>,
     );
 
     impl ValidateIapAttributeExpression {
@@ -594,7 +599,9 @@ pub mod identity_aware_proxy_admin_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTunnelDestGroups(RequestBuilder<crate::model::ListTunnelDestGroupsRequest>);
+    pub struct ListTunnelDestGroups(
+        pub(crate) RequestBuilder<crate::model::ListTunnelDestGroupsRequest>,
+    );
 
     impl ListTunnelDestGroups {
         pub(crate) fn new(
@@ -699,7 +706,9 @@ pub mod identity_aware_proxy_admin_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTunnelDestGroup(RequestBuilder<crate::model::CreateTunnelDestGroupRequest>);
+    pub struct CreateTunnelDestGroup(
+        pub(crate) RequestBuilder<crate::model::CreateTunnelDestGroupRequest>,
+    );
 
     impl CreateTunnelDestGroup {
         pub(crate) fn new(
@@ -794,7 +803,9 @@ pub mod identity_aware_proxy_admin_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTunnelDestGroup(RequestBuilder<crate::model::GetTunnelDestGroupRequest>);
+    pub struct GetTunnelDestGroup(
+        pub(crate) RequestBuilder<crate::model::GetTunnelDestGroupRequest>,
+    );
 
     impl GetTunnelDestGroup {
         pub(crate) fn new(
@@ -859,7 +870,9 @@ pub mod identity_aware_proxy_admin_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTunnelDestGroup(RequestBuilder<crate::model::DeleteTunnelDestGroupRequest>);
+    pub struct DeleteTunnelDestGroup(
+        pub(crate) RequestBuilder<crate::model::DeleteTunnelDestGroupRequest>,
+    );
 
     impl DeleteTunnelDestGroup {
         pub(crate) fn new(
@@ -924,7 +937,9 @@ pub mod identity_aware_proxy_admin_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTunnelDestGroup(RequestBuilder<crate::model::UpdateTunnelDestGroupRequest>);
+    pub struct UpdateTunnelDestGroup(
+        pub(crate) RequestBuilder<crate::model::UpdateTunnelDestGroupRequest>,
+    );
 
     impl UpdateTunnelDestGroup {
         pub(crate) fn new(
@@ -1042,9 +1057,10 @@ pub mod identity_aware_proxy_o_auth_service {
     /// Common implementation for [crate::client::IdentityAwareProxyOAuthService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1079,7 +1095,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBrands(RequestBuilder<crate::model::ListBrandsRequest>);
+    pub struct ListBrands(pub(crate) RequestBuilder<crate::model::ListBrandsRequest>);
 
     impl ListBrands {
         pub(crate) fn new(
@@ -1141,7 +1157,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBrand(RequestBuilder<crate::model::CreateBrandRequest>);
+    pub struct CreateBrand(pub(crate) RequestBuilder<crate::model::CreateBrandRequest>);
 
     impl CreateBrand {
         pub(crate) fn new(
@@ -1225,7 +1241,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBrand(RequestBuilder<crate::model::GetBrandRequest>);
+    pub struct GetBrand(pub(crate) RequestBuilder<crate::model::GetBrandRequest>);
 
     impl GetBrand {
         pub(crate) fn new(
@@ -1288,7 +1304,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateIdentityAwareProxyClient(
-        RequestBuilder<crate::model::CreateIdentityAwareProxyClientRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateIdentityAwareProxyClientRequest>,
     );
 
     impl CreateIdentityAwareProxyClient {
@@ -1384,7 +1400,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListIdentityAwareProxyClients(
-        RequestBuilder<crate::model::ListIdentityAwareProxyClientsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListIdentityAwareProxyClientsRequest>,
     );
 
     impl ListIdentityAwareProxyClients {
@@ -1491,7 +1507,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetIdentityAwareProxyClient(
-        RequestBuilder<crate::model::GetIdentityAwareProxyClientRequest>,
+        pub(crate) RequestBuilder<crate::model::GetIdentityAwareProxyClientRequest>,
     );
 
     impl GetIdentityAwareProxyClient {
@@ -1558,7 +1574,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ResetIdentityAwareProxyClientSecret(
-        RequestBuilder<crate::model::ResetIdentityAwareProxyClientSecretRequest>,
+        pub(crate) RequestBuilder<crate::model::ResetIdentityAwareProxyClientSecretRequest>,
     );
 
     impl ResetIdentityAwareProxyClientSecret {
@@ -1625,7 +1641,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteIdentityAwareProxyClient(
-        RequestBuilder<crate::model::DeleteIdentityAwareProxyClientRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteIdentityAwareProxyClientRequest>,
     );
 
     impl DeleteIdentityAwareProxyClient {

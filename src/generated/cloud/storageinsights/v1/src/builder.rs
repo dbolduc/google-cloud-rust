@@ -51,9 +51,9 @@ pub mod storage_insights {
     /// Common implementation for [crate::client::StorageInsights] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReportConfigs(RequestBuilder<crate::model::ListReportConfigsRequest>);
+    pub struct ListReportConfigs(pub(crate) RequestBuilder<crate::model::ListReportConfigsRequest>);
 
     impl ListReportConfigs {
         pub(crate) fn new(
@@ -209,7 +209,7 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetReportConfig(RequestBuilder<crate::model::GetReportConfigRequest>);
+    pub struct GetReportConfig(pub(crate) RequestBuilder<crate::model::GetReportConfigRequest>);
 
     impl GetReportConfig {
         pub(crate) fn new(
@@ -271,7 +271,9 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateReportConfig(RequestBuilder<crate::model::CreateReportConfigRequest>);
+    pub struct CreateReportConfig(
+        pub(crate) RequestBuilder<crate::model::CreateReportConfigRequest>,
+    );
 
     impl CreateReportConfig {
         pub(crate) fn new(
@@ -364,7 +366,9 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateReportConfig(RequestBuilder<crate::model::UpdateReportConfigRequest>);
+    pub struct UpdateReportConfig(
+        pub(crate) RequestBuilder<crate::model::UpdateReportConfigRequest>,
+    );
 
     impl UpdateReportConfig {
         pub(crate) fn new(
@@ -471,7 +475,9 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteReportConfig(RequestBuilder<crate::model::DeleteReportConfigRequest>);
+    pub struct DeleteReportConfig(
+        pub(crate) RequestBuilder<crate::model::DeleteReportConfigRequest>,
+    );
 
     impl DeleteReportConfig {
         pub(crate) fn new(
@@ -552,7 +558,7 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReportDetails(RequestBuilder<crate::model::ListReportDetailsRequest>);
+    pub struct ListReportDetails(pub(crate) RequestBuilder<crate::model::ListReportDetailsRequest>);
 
     impl ListReportDetails {
         pub(crate) fn new(
@@ -669,7 +675,7 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetReportDetail(RequestBuilder<crate::model::GetReportDetailRequest>);
+    pub struct GetReportDetail(pub(crate) RequestBuilder<crate::model::GetReportDetailRequest>);
 
     impl GetReportDetail {
         pub(crate) fn new(
@@ -735,7 +741,9 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDatasetConfigs(RequestBuilder<crate::model::ListDatasetConfigsRequest>);
+    pub struct ListDatasetConfigs(
+        pub(crate) RequestBuilder<crate::model::ListDatasetConfigsRequest>,
+    );
 
     impl ListDatasetConfigs {
         pub(crate) fn new(
@@ -852,7 +860,7 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDatasetConfig(RequestBuilder<crate::model::GetDatasetConfigRequest>);
+    pub struct GetDatasetConfig(pub(crate) RequestBuilder<crate::model::GetDatasetConfigRequest>);
 
     impl GetDatasetConfig {
         pub(crate) fn new(
@@ -918,7 +926,9 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDatasetConfig(RequestBuilder<crate::model::CreateDatasetConfigRequest>);
+    pub struct CreateDatasetConfig(
+        pub(crate) RequestBuilder<crate::model::CreateDatasetConfigRequest>,
+    );
 
     impl CreateDatasetConfig {
         pub(crate) fn new(
@@ -1074,7 +1084,9 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDatasetConfig(RequestBuilder<crate::model::UpdateDatasetConfigRequest>);
+    pub struct UpdateDatasetConfig(
+        pub(crate) RequestBuilder<crate::model::UpdateDatasetConfigRequest>,
+    );
 
     impl UpdateDatasetConfig {
         pub(crate) fn new(
@@ -1236,7 +1248,9 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDatasetConfig(RequestBuilder<crate::model::DeleteDatasetConfigRequest>);
+    pub struct DeleteDatasetConfig(
+        pub(crate) RequestBuilder<crate::model::DeleteDatasetConfigRequest>,
+    );
 
     impl DeleteDatasetConfig {
         pub(crate) fn new(
@@ -1357,7 +1371,7 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LinkDataset(RequestBuilder<crate::model::LinkDatasetRequest>);
+    pub struct LinkDataset(pub(crate) RequestBuilder<crate::model::LinkDatasetRequest>);
 
     impl LinkDataset {
         pub(crate) fn new(
@@ -1476,7 +1490,7 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UnlinkDataset(RequestBuilder<crate::model::UnlinkDatasetRequest>);
+    pub struct UnlinkDataset(pub(crate) RequestBuilder<crate::model::UnlinkDatasetRequest>);
 
     impl UnlinkDataset {
         pub(crate) fn new(
@@ -1591,7 +1605,9 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1700,7 +1716,9 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -1768,7 +1786,7 @@ pub mod storage_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1884,7 +1902,9 @@ pub mod storage_insights {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1948,7 +1968,7 @@ pub mod storage_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2013,7 +2033,7 @@ pub mod storage_insights {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

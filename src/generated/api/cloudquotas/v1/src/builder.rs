@@ -51,9 +51,9 @@ pub mod cloud_quotas {
     /// Common implementation for [crate::client::CloudQuotas] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod cloud_quotas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListQuotaInfos(RequestBuilder<crate::model::ListQuotaInfosRequest>);
+    pub struct ListQuotaInfos(pub(crate) RequestBuilder<crate::model::ListQuotaInfosRequest>);
 
     impl ListQuotaInfos {
         pub(crate) fn new(
@@ -194,7 +194,7 @@ pub mod cloud_quotas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetQuotaInfo(RequestBuilder<crate::model::GetQuotaInfoRequest>);
+    pub struct GetQuotaInfo(pub(crate) RequestBuilder<crate::model::GetQuotaInfoRequest>);
 
     impl GetQuotaInfo {
         pub(crate) fn new(
@@ -260,7 +260,9 @@ pub mod cloud_quotas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListQuotaPreferences(RequestBuilder<crate::model::ListQuotaPreferencesRequest>);
+    pub struct ListQuotaPreferences(
+        pub(crate) RequestBuilder<crate::model::ListQuotaPreferencesRequest>,
+    );
 
     impl ListQuotaPreferences {
         pub(crate) fn new(
@@ -377,7 +379,9 @@ pub mod cloud_quotas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetQuotaPreference(RequestBuilder<crate::model::GetQuotaPreferenceRequest>);
+    pub struct GetQuotaPreference(
+        pub(crate) RequestBuilder<crate::model::GetQuotaPreferenceRequest>,
+    );
 
     impl GetQuotaPreference {
         pub(crate) fn new(
@@ -442,7 +446,9 @@ pub mod cloud_quotas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateQuotaPreference(RequestBuilder<crate::model::CreateQuotaPreferenceRequest>);
+    pub struct CreateQuotaPreference(
+        pub(crate) RequestBuilder<crate::model::CreateQuotaPreferenceRequest>,
+    );
 
     impl CreateQuotaPreference {
         pub(crate) fn new(
@@ -546,7 +552,9 @@ pub mod cloud_quotas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateQuotaPreference(RequestBuilder<crate::model::UpdateQuotaPreferenceRequest>);
+    pub struct UpdateQuotaPreference(
+        pub(crate) RequestBuilder<crate::model::UpdateQuotaPreferenceRequest>,
+    );
 
     impl UpdateQuotaPreference {
         pub(crate) fn new(
@@ -687,9 +695,10 @@ pub mod quota_adjuster_settings_manager {
     /// Common implementation for [crate::client::QuotaAdjusterSettingsManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaAdjusterSettingsManager>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::QuotaAdjusterSettingsManager>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -725,7 +734,7 @@ pub mod quota_adjuster_settings_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateQuotaAdjusterSettings(
-        RequestBuilder<crate::model::UpdateQuotaAdjusterSettingsRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateQuotaAdjusterSettingsRequest>,
     );
 
     impl UpdateQuotaAdjusterSettings {
@@ -830,7 +839,7 @@ pub mod quota_adjuster_settings_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetQuotaAdjusterSettings(
-        RequestBuilder<crate::model::GetQuotaAdjusterSettingsRequest>,
+        pub(crate) RequestBuilder<crate::model::GetQuotaAdjusterSettingsRequest>,
     );
 
     impl GetQuotaAdjusterSettings {

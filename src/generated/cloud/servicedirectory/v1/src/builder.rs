@@ -51,9 +51,9 @@ pub mod lookup_service {
     /// Common implementation for [crate::client::LookupService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod lookup_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResolveService(RequestBuilder<crate::model::ResolveServiceRequest>);
+    pub struct ResolveService(pub(crate) RequestBuilder<crate::model::ResolveServiceRequest>);
 
     impl ResolveService {
         pub(crate) fn new(
@@ -166,7 +166,9 @@ pub mod lookup_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -275,7 +277,9 @@ pub mod lookup_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -359,9 +363,9 @@ pub mod registration_service {
     /// Common implementation for [crate::client::RegistrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -396,7 +400,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateNamespace(RequestBuilder<crate::model::CreateNamespaceRequest>);
+    pub struct CreateNamespace(pub(crate) RequestBuilder<crate::model::CreateNamespaceRequest>);
 
     impl CreateNamespace {
         pub(crate) fn new(
@@ -492,7 +496,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNamespaces(RequestBuilder<crate::model::ListNamespacesRequest>);
+    pub struct ListNamespaces(pub(crate) RequestBuilder<crate::model::ListNamespacesRequest>);
 
     impl ListNamespaces {
         pub(crate) fn new(
@@ -606,7 +610,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNamespace(RequestBuilder<crate::model::GetNamespaceRequest>);
+    pub struct GetNamespace(pub(crate) RequestBuilder<crate::model::GetNamespaceRequest>);
 
     impl GetNamespace {
         pub(crate) fn new(
@@ -668,7 +672,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateNamespace(RequestBuilder<crate::model::UpdateNamespaceRequest>);
+    pub struct UpdateNamespace(pub(crate) RequestBuilder<crate::model::UpdateNamespaceRequest>);
 
     impl UpdateNamespace {
         pub(crate) fn new(
@@ -766,7 +770,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteNamespace(RequestBuilder<crate::model::DeleteNamespaceRequest>);
+    pub struct DeleteNamespace(pub(crate) RequestBuilder<crate::model::DeleteNamespaceRequest>);
 
     impl DeleteNamespace {
         pub(crate) fn new(
@@ -828,7 +832,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
+    pub struct CreateService(pub(crate) RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
         pub(crate) fn new(
@@ -924,7 +928,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
+    pub struct ListServices(pub(crate) RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
         pub(crate) fn new(
@@ -1036,7 +1040,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
+    pub struct GetService(pub(crate) RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
         pub(crate) fn new(
@@ -1098,7 +1102,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
+    pub struct UpdateService(pub(crate) RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
         pub(crate) fn new(
@@ -1196,7 +1200,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
+    pub struct DeleteService(pub(crate) RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
         pub(crate) fn new(
@@ -1258,7 +1262,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateEndpoint(RequestBuilder<crate::model::CreateEndpointRequest>);
+    pub struct CreateEndpoint(pub(crate) RequestBuilder<crate::model::CreateEndpointRequest>);
 
     impl CreateEndpoint {
         pub(crate) fn new(
@@ -1354,7 +1358,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEndpoints(RequestBuilder<crate::model::ListEndpointsRequest>);
+    pub struct ListEndpoints(pub(crate) RequestBuilder<crate::model::ListEndpointsRequest>);
 
     impl ListEndpoints {
         pub(crate) fn new(
@@ -1466,7 +1470,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEndpoint(RequestBuilder<crate::model::GetEndpointRequest>);
+    pub struct GetEndpoint(pub(crate) RequestBuilder<crate::model::GetEndpointRequest>);
 
     impl GetEndpoint {
         pub(crate) fn new(
@@ -1528,7 +1532,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateEndpoint(RequestBuilder<crate::model::UpdateEndpointRequest>);
+    pub struct UpdateEndpoint(pub(crate) RequestBuilder<crate::model::UpdateEndpointRequest>);
 
     impl UpdateEndpoint {
         pub(crate) fn new(
@@ -1626,7 +1630,7 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteEndpoint(RequestBuilder<crate::model::DeleteEndpointRequest>);
+    pub struct DeleteEndpoint(pub(crate) RequestBuilder<crate::model::DeleteEndpointRequest>);
 
     impl DeleteEndpoint {
         pub(crate) fn new(
@@ -1688,7 +1692,9 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1771,7 +1777,9 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -1877,7 +1885,7 @@ pub mod registration_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1960,7 +1968,9 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2069,7 +2079,9 @@ pub mod registration_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod connection_service {
     /// Common implementation for [crate::client::ConnectionService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConnectionService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ConnectionService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod connection_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
+    pub struct ListConnections(pub(crate) RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
         pub(crate) fn new(
@@ -214,8 +214,8 @@ pub mod tether {
     /// Common implementation for [crate::client::Tether] bidi stream builders.
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Tether>,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Tether>,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl BidiStreamBuilder {
@@ -252,7 +252,7 @@ pub mod tether {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Egress(BidiStreamBuilder);
+    pub struct Egress(pub(crate) BidiStreamBuilder);
 
     impl Egress {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tether>) -> Self {

@@ -51,9 +51,9 @@ pub mod speech {
     /// Common implementation for [crate::client::Speech] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -72,8 +72,8 @@ pub mod speech {
     /// Common implementation for [crate::client::Speech] bidi stream builders.
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl BidiStreamBuilder {
@@ -103,7 +103,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRecognizer(RequestBuilder<crate::model::CreateRecognizerRequest>);
+    pub struct CreateRecognizer(pub(crate) RequestBuilder<crate::model::CreateRecognizerRequest>);
 
     impl CreateRecognizer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -259,7 +259,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRecognizers(RequestBuilder<crate::model::ListRecognizersRequest>);
+    pub struct ListRecognizers(pub(crate) RequestBuilder<crate::model::ListRecognizersRequest>);
 
     impl ListRecognizers {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -365,7 +365,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRecognizer(RequestBuilder<crate::model::GetRecognizerRequest>);
+    pub struct GetRecognizer(pub(crate) RequestBuilder<crate::model::GetRecognizerRequest>);
 
     impl GetRecognizer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -426,7 +426,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRecognizer(RequestBuilder<crate::model::UpdateRecognizerRequest>);
+    pub struct UpdateRecognizer(pub(crate) RequestBuilder<crate::model::UpdateRecognizerRequest>);
 
     impl UpdateRecognizer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -583,7 +583,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRecognizer(RequestBuilder<crate::model::DeleteRecognizerRequest>);
+    pub struct DeleteRecognizer(pub(crate) RequestBuilder<crate::model::DeleteRecognizerRequest>);
 
     impl DeleteRecognizer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -720,7 +720,9 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeleteRecognizer(RequestBuilder<crate::model::UndeleteRecognizerRequest>);
+    pub struct UndeleteRecognizer(
+        pub(crate) RequestBuilder<crate::model::UndeleteRecognizerRequest>,
+    );
 
     impl UndeleteRecognizer {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -850,7 +852,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Recognize(RequestBuilder<crate::model::RecognizeRequest>);
+    pub struct Recognize(pub(crate) RequestBuilder<crate::model::RecognizeRequest>);
 
     impl Recognize {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -986,7 +988,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StreamingRecognize(BidiStreamBuilder);
+    pub struct StreamingRecognize(pub(crate) BidiStreamBuilder);
 
     impl StreamingRecognize {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -1035,7 +1037,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchRecognize(RequestBuilder<crate::model::BatchRecognizeRequest>);
+    pub struct BatchRecognize(pub(crate) RequestBuilder<crate::model::BatchRecognizeRequest>);
 
     impl BatchRecognize {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -1231,7 +1233,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConfig(RequestBuilder<crate::model::GetConfigRequest>);
+    pub struct GetConfig(pub(crate) RequestBuilder<crate::model::GetConfigRequest>);
 
     impl GetConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -1291,7 +1293,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConfig(RequestBuilder<crate::model::UpdateConfigRequest>);
+    pub struct UpdateConfig(pub(crate) RequestBuilder<crate::model::UpdateConfigRequest>);
 
     impl UpdateConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -1384,7 +1386,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCustomClass(RequestBuilder<crate::model::CreateCustomClassRequest>);
+    pub struct CreateCustomClass(pub(crate) RequestBuilder<crate::model::CreateCustomClassRequest>);
 
     impl CreateCustomClass {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -1540,7 +1542,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCustomClasses(RequestBuilder<crate::model::ListCustomClassesRequest>);
+    pub struct ListCustomClasses(pub(crate) RequestBuilder<crate::model::ListCustomClassesRequest>);
 
     impl ListCustomClasses {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -1649,7 +1651,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCustomClass(RequestBuilder<crate::model::GetCustomClassRequest>);
+    pub struct GetCustomClass(pub(crate) RequestBuilder<crate::model::GetCustomClassRequest>);
 
     impl GetCustomClass {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -1710,7 +1712,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCustomClass(RequestBuilder<crate::model::UpdateCustomClassRequest>);
+    pub struct UpdateCustomClass(pub(crate) RequestBuilder<crate::model::UpdateCustomClassRequest>);
 
     impl UpdateCustomClass {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -1867,7 +1869,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCustomClass(RequestBuilder<crate::model::DeleteCustomClassRequest>);
+    pub struct DeleteCustomClass(pub(crate) RequestBuilder<crate::model::DeleteCustomClassRequest>);
 
     impl DeleteCustomClass {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -2004,7 +2006,9 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeleteCustomClass(RequestBuilder<crate::model::UndeleteCustomClassRequest>);
+    pub struct UndeleteCustomClass(
+        pub(crate) RequestBuilder<crate::model::UndeleteCustomClassRequest>,
+    );
 
     impl UndeleteCustomClass {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -2135,7 +2139,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePhraseSet(RequestBuilder<crate::model::CreatePhraseSetRequest>);
+    pub struct CreatePhraseSet(pub(crate) RequestBuilder<crate::model::CreatePhraseSetRequest>);
 
     impl CreatePhraseSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -2288,7 +2292,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPhraseSets(RequestBuilder<crate::model::ListPhraseSetsRequest>);
+    pub struct ListPhraseSets(pub(crate) RequestBuilder<crate::model::ListPhraseSetsRequest>);
 
     impl ListPhraseSets {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -2394,7 +2398,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPhraseSet(RequestBuilder<crate::model::GetPhraseSetRequest>);
+    pub struct GetPhraseSet(pub(crate) RequestBuilder<crate::model::GetPhraseSetRequest>);
 
     impl GetPhraseSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -2455,7 +2459,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePhraseSet(RequestBuilder<crate::model::UpdatePhraseSetRequest>);
+    pub struct UpdatePhraseSet(pub(crate) RequestBuilder<crate::model::UpdatePhraseSetRequest>);
 
     impl UpdatePhraseSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -2609,7 +2613,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePhraseSet(RequestBuilder<crate::model::DeletePhraseSetRequest>);
+    pub struct DeletePhraseSet(pub(crate) RequestBuilder<crate::model::DeletePhraseSetRequest>);
 
     impl DeletePhraseSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -2743,7 +2747,7 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeletePhraseSet(RequestBuilder<crate::model::UndeletePhraseSetRequest>);
+    pub struct UndeletePhraseSet(pub(crate) RequestBuilder<crate::model::UndeletePhraseSetRequest>);
 
     impl UndeletePhraseSet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -2877,7 +2881,9 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -2984,7 +2990,9 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -3050,7 +3058,7 @@ pub mod speech {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3164,7 +3172,9 @@ pub mod speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
@@ -3226,7 +3236,7 @@ pub mod speech {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3289,7 +3299,7 @@ pub mod speech {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

@@ -51,9 +51,9 @@ pub mod notifications_api_service {
     /// Common implementation for [crate::client::NotificationsApiService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::NotificationsApiService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::NotificationsApiService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod notifications_api_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetNotificationSubscription(
-        RequestBuilder<crate::model::GetNotificationSubscriptionRequest>,
+        pub(crate) RequestBuilder<crate::model::GetNotificationSubscriptionRequest>,
     );
 
     impl GetNotificationSubscription {
@@ -156,7 +156,7 @@ pub mod notifications_api_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNotificationSubscription(
-        RequestBuilder<crate::model::CreateNotificationSubscriptionRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateNotificationSubscriptionRequest>,
     );
 
     impl CreateNotificationSubscription {
@@ -248,7 +248,7 @@ pub mod notifications_api_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNotificationSubscription(
-        RequestBuilder<crate::model::UpdateNotificationSubscriptionRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateNotificationSubscriptionRequest>,
     );
 
     impl UpdateNotificationSubscription {
@@ -350,7 +350,7 @@ pub mod notifications_api_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNotificationSubscription(
-        RequestBuilder<crate::model::DeleteNotificationSubscriptionRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteNotificationSubscriptionRequest>,
     );
 
     impl DeleteNotificationSubscription {
@@ -421,7 +421,7 @@ pub mod notifications_api_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListNotificationSubscriptions(
-        RequestBuilder<crate::model::ListNotificationSubscriptionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListNotificationSubscriptionsRequest>,
     );
 
     impl ListNotificationSubscriptions {
@@ -528,7 +528,7 @@ pub mod notifications_api_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetNotificationSubscriptionHealthMetrics(
-        RequestBuilder<crate::model::GetNotificationSubscriptionHealthMetricsRequest>,
+        pub(crate) RequestBuilder<crate::model::GetNotificationSubscriptionHealthMetricsRequest>,
     );
 
     impl GetNotificationSubscriptionHealthMetrics {

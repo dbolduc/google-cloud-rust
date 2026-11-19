@@ -51,9 +51,9 @@ pub mod security_posture {
     /// Common implementation for [crate::client::SecurityPosture] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPostures(RequestBuilder<crate::model::ListPosturesRequest>);
+    pub struct ListPostures(pub(crate) RequestBuilder<crate::model::ListPosturesRequest>);
 
     impl ListPostures {
         pub(crate) fn new(
@@ -196,7 +196,9 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPostureRevisions(RequestBuilder<crate::model::ListPostureRevisionsRequest>);
+    pub struct ListPostureRevisions(
+        pub(crate) RequestBuilder<crate::model::ListPostureRevisionsRequest>,
+    );
 
     impl ListPostureRevisions {
         pub(crate) fn new(
@@ -301,7 +303,7 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPosture(RequestBuilder<crate::model::GetPostureRequest>);
+    pub struct GetPosture(pub(crate) RequestBuilder<crate::model::GetPostureRequest>);
 
     impl GetPosture {
         pub(crate) fn new(
@@ -370,7 +372,7 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePosture(RequestBuilder<crate::model::CreatePostureRequest>);
+    pub struct CreatePosture(pub(crate) RequestBuilder<crate::model::CreatePostureRequest>);
 
     impl CreatePosture {
         pub(crate) fn new(
@@ -517,7 +519,7 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePosture(RequestBuilder<crate::model::UpdatePostureRequest>);
+    pub struct UpdatePosture(pub(crate) RequestBuilder<crate::model::UpdatePostureRequest>);
 
     impl UpdatePosture {
         pub(crate) fn new(
@@ -678,7 +680,7 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePosture(RequestBuilder<crate::model::DeletePostureRequest>);
+    pub struct DeletePosture(pub(crate) RequestBuilder<crate::model::DeletePostureRequest>);
 
     impl DeletePosture {
         pub(crate) fn new(
@@ -796,7 +798,7 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExtractPosture(RequestBuilder<crate::model::ExtractPostureRequest>);
+    pub struct ExtractPosture(pub(crate) RequestBuilder<crate::model::ExtractPostureRequest>);
 
     impl ExtractPosture {
         pub(crate) fn new(
@@ -932,7 +934,9 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPostureDeployments(RequestBuilder<crate::model::ListPostureDeploymentsRequest>);
+    pub struct ListPostureDeployments(
+        pub(crate) RequestBuilder<crate::model::ListPostureDeploymentsRequest>,
+    );
 
     impl ListPostureDeployments {
         pub(crate) fn new(
@@ -1043,7 +1047,9 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPostureDeployment(RequestBuilder<crate::model::GetPostureDeploymentRequest>);
+    pub struct GetPostureDeployment(
+        pub(crate) RequestBuilder<crate::model::GetPostureDeploymentRequest>,
+    );
 
     impl GetPostureDeployment {
         pub(crate) fn new(
@@ -1110,7 +1116,7 @@ pub mod security_posture {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePostureDeployment(
-        RequestBuilder<crate::model::CreatePostureDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::CreatePostureDeploymentRequest>,
     );
 
     impl CreatePostureDeployment {
@@ -1264,7 +1270,7 @@ pub mod security_posture {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePostureDeployment(
-        RequestBuilder<crate::model::UpdatePostureDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdatePostureDeploymentRequest>,
     );
 
     impl UpdatePostureDeployment {
@@ -1424,7 +1430,7 @@ pub mod security_posture {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePostureDeployment(
-        RequestBuilder<crate::model::DeletePostureDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::DeletePostureDeploymentRequest>,
     );
 
     impl DeletePostureDeployment {
@@ -1549,7 +1555,9 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPostureTemplates(RequestBuilder<crate::model::ListPostureTemplatesRequest>);
+    pub struct ListPostureTemplates(
+        pub(crate) RequestBuilder<crate::model::ListPostureTemplatesRequest>,
+    );
 
     impl ListPostureTemplates {
         pub(crate) fn new(
@@ -1660,7 +1668,9 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPostureTemplate(RequestBuilder<crate::model::GetPostureTemplateRequest>);
+    pub struct GetPostureTemplate(
+        pub(crate) RequestBuilder<crate::model::GetPostureTemplateRequest>,
+    );
 
     impl GetPostureTemplate {
         pub(crate) fn new(
@@ -1735,7 +1745,9 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1844,7 +1856,9 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -1912,7 +1926,7 @@ pub mod security_posture {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2028,7 +2042,9 @@ pub mod security_posture {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2092,7 +2108,7 @@ pub mod security_posture {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2157,7 +2173,7 @@ pub mod security_posture {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

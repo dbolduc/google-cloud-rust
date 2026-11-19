@@ -51,9 +51,9 @@ pub mod policies {
     /// Common implementation for [crate::client::Policies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -90,7 +90,7 @@ pub mod policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
+    pub struct ListPolicies(pub(crate) RequestBuilder<crate::model::ListPoliciesRequest>);
 
     impl ListPolicies {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
@@ -188,7 +188,7 @@ pub mod policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
+    pub struct GetPolicy(pub(crate) RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
@@ -249,7 +249,7 @@ pub mod policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
+    pub struct CreatePolicy(pub(crate) RequestBuilder<crate::model::CreatePolicyRequest>);
 
     impl CreatePolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
@@ -393,7 +393,7 @@ pub mod policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
+    pub struct UpdatePolicy(pub(crate) RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
@@ -523,7 +523,7 @@ pub mod policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
+    pub struct DeletePolicy(pub(crate) RequestBuilder<crate::model::DeletePolicyRequest>);
 
     impl DeletePolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
@@ -644,7 +644,9 @@ pub mod policies {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {

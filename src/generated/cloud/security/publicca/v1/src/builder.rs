@@ -51,9 +51,10 @@ pub mod public_certificate_authority_service {
     /// Common implementation for [crate::client::PublicCertificateAuthorityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -91,7 +92,7 @@ pub mod public_certificate_authority_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateExternalAccountKey(
-        RequestBuilder<crate::model::CreateExternalAccountKeyRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateExternalAccountKeyRequest>,
     );
 
     impl CreateExternalAccountKey {

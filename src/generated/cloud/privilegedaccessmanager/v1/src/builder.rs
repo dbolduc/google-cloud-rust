@@ -51,9 +51,9 @@ pub mod privileged_access_manager {
     /// Common implementation for [crate::client::PrivilegedAccessManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CheckOnboardingStatus(RequestBuilder<crate::model::CheckOnboardingStatusRequest>);
+    pub struct CheckOnboardingStatus(
+        pub(crate) RequestBuilder<crate::model::CheckOnboardingStatusRequest>,
+    );
 
     impl CheckOnboardingStatus {
         pub(crate) fn new(
@@ -157,7 +159,7 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEntitlements(RequestBuilder<crate::model::ListEntitlementsRequest>);
+    pub struct ListEntitlements(pub(crate) RequestBuilder<crate::model::ListEntitlementsRequest>);
 
     impl ListEntitlements {
         pub(crate) fn new(
@@ -278,7 +280,9 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchEntitlements(RequestBuilder<crate::model::SearchEntitlementsRequest>);
+    pub struct SearchEntitlements(
+        pub(crate) RequestBuilder<crate::model::SearchEntitlementsRequest>,
+    );
 
     impl SearchEntitlements {
         pub(crate) fn new(
@@ -402,7 +406,7 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEntitlement(RequestBuilder<crate::model::GetEntitlementRequest>);
+    pub struct GetEntitlement(pub(crate) RequestBuilder<crate::model::GetEntitlementRequest>);
 
     impl GetEntitlement {
         pub(crate) fn new(
@@ -465,7 +469,7 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateEntitlement(RequestBuilder<crate::model::CreateEntitlementRequest>);
+    pub struct CreateEntitlement(pub(crate) RequestBuilder<crate::model::CreateEntitlementRequest>);
 
     impl CreateEntitlement {
         pub(crate) fn new(
@@ -621,7 +625,7 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteEntitlement(RequestBuilder<crate::model::DeleteEntitlementRequest>);
+    pub struct DeleteEntitlement(pub(crate) RequestBuilder<crate::model::DeleteEntitlementRequest>);
 
     impl DeleteEntitlement {
         pub(crate) fn new(
@@ -753,7 +757,7 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateEntitlement(RequestBuilder<crate::model::UpdateEntitlementRequest>);
+    pub struct UpdateEntitlement(pub(crate) RequestBuilder<crate::model::UpdateEntitlementRequest>);
 
     impl UpdateEntitlement {
         pub(crate) fn new(
@@ -912,7 +916,7 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListGrants(RequestBuilder<crate::model::ListGrantsRequest>);
+    pub struct ListGrants(pub(crate) RequestBuilder<crate::model::ListGrantsRequest>);
 
     impl ListGrants {
         pub(crate) fn new(
@@ -1028,7 +1032,7 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchGrants(RequestBuilder<crate::model::SearchGrantsRequest>);
+    pub struct SearchGrants(pub(crate) RequestBuilder<crate::model::SearchGrantsRequest>);
 
     impl SearchGrants {
         pub(crate) fn new(
@@ -1147,7 +1151,7 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetGrant(RequestBuilder<crate::model::GetGrantRequest>);
+    pub struct GetGrant(pub(crate) RequestBuilder<crate::model::GetGrantRequest>);
 
     impl GetGrant {
         pub(crate) fn new(
@@ -1209,7 +1213,7 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateGrant(RequestBuilder<crate::model::CreateGrantRequest>);
+    pub struct CreateGrant(pub(crate) RequestBuilder<crate::model::CreateGrantRequest>);
 
     impl CreateGrant {
         pub(crate) fn new(
@@ -1299,7 +1303,7 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ApproveGrant(RequestBuilder<crate::model::ApproveGrantRequest>);
+    pub struct ApproveGrant(pub(crate) RequestBuilder<crate::model::ApproveGrantRequest>);
 
     impl ApproveGrant {
         pub(crate) fn new(
@@ -1367,7 +1371,7 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DenyGrant(RequestBuilder<crate::model::DenyGrantRequest>);
+    pub struct DenyGrant(pub(crate) RequestBuilder<crate::model::DenyGrantRequest>);
 
     impl DenyGrant {
         pub(crate) fn new(
@@ -1436,7 +1440,7 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RevokeGrant(RequestBuilder<crate::model::RevokeGrantRequest>);
+    pub struct RevokeGrant(pub(crate) RequestBuilder<crate::model::RevokeGrantRequest>);
 
     impl RevokeGrant {
         pub(crate) fn new(
@@ -1562,7 +1566,9 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1671,7 +1677,9 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -1739,7 +1747,7 @@ pub mod privileged_access_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1855,7 +1863,9 @@ pub mod privileged_access_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1919,7 +1929,7 @@ pub mod privileged_access_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {

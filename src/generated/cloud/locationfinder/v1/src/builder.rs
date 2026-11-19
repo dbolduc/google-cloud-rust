@@ -51,9 +51,9 @@ pub mod cloud_location_finder {
     /// Common implementation for [crate::client::CloudLocationFinder] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudLocationFinder>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudLocationFinder>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,9 @@ pub mod cloud_location_finder {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCloudLocations(RequestBuilder<crate::model::ListCloudLocationsRequest>);
+    pub struct ListCloudLocations(
+        pub(crate) RequestBuilder<crate::model::ListCloudLocationsRequest>,
+    );
 
     impl ListCloudLocations {
         pub(crate) fn new(
@@ -203,7 +205,7 @@ pub mod cloud_location_finder {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCloudLocation(RequestBuilder<crate::model::GetCloudLocationRequest>);
+    pub struct GetCloudLocation(pub(crate) RequestBuilder<crate::model::GetCloudLocationRequest>);
 
     impl GetCloudLocation {
         pub(crate) fn new(
@@ -272,7 +274,9 @@ pub mod cloud_location_finder {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchCloudLocations(RequestBuilder<crate::model::SearchCloudLocationsRequest>);
+    pub struct SearchCloudLocations(
+        pub(crate) RequestBuilder<crate::model::SearchCloudLocationsRequest>,
+    );
 
     impl SearchCloudLocations {
         pub(crate) fn new(
@@ -395,7 +399,9 @@ pub mod cloud_location_finder {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -504,7 +510,9 @@ pub mod cloud_location_finder {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(

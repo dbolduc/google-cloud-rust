@@ -51,9 +51,9 @@ pub mod cloud_shell_service {
     /// Common implementation for [crate::client::CloudShellService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod cloud_shell_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
+    pub struct GetEnvironment(pub(crate) RequestBuilder<crate::model::GetEnvironmentRequest>);
 
     impl GetEnvironment {
         pub(crate) fn new(
@@ -151,7 +151,7 @@ pub mod cloud_shell_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartEnvironment(RequestBuilder<crate::model::StartEnvironmentRequest>);
+    pub struct StartEnvironment(pub(crate) RequestBuilder<crate::model::StartEnvironmentRequest>);
 
     impl StartEnvironment {
         pub(crate) fn new(
@@ -288,7 +288,9 @@ pub mod cloud_shell_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AuthorizeEnvironment(RequestBuilder<crate::model::AuthorizeEnvironmentRequest>);
+    pub struct AuthorizeEnvironment(
+        pub(crate) RequestBuilder<crate::model::AuthorizeEnvironmentRequest>,
+    );
 
     impl AuthorizeEnvironment {
         pub(crate) fn new(
@@ -438,7 +440,7 @@ pub mod cloud_shell_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddPublicKey(RequestBuilder<crate::model::AddPublicKeyRequest>);
+    pub struct AddPublicKey(pub(crate) RequestBuilder<crate::model::AddPublicKeyRequest>);
 
     impl AddPublicKey {
         pub(crate) fn new(
@@ -562,7 +564,7 @@ pub mod cloud_shell_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemovePublicKey(RequestBuilder<crate::model::RemovePublicKeyRequest>);
+    pub struct RemovePublicKey(pub(crate) RequestBuilder<crate::model::RemovePublicKeyRequest>);
 
     impl RemovePublicKey {
         pub(crate) fn new(
@@ -684,7 +686,9 @@ pub mod cloud_shell_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

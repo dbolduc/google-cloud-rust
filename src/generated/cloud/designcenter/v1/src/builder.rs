@@ -51,9 +51,9 @@ pub mod design_center {
     /// Common implementation for [crate::client::DesignCenter] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DesignCenter>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DesignCenter>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSpace(RequestBuilder<crate::model::GetSpaceRequest>);
+    pub struct GetSpace(pub(crate) RequestBuilder<crate::model::GetSpaceRequest>);
 
     impl GetSpace {
         pub(crate) fn new(
@@ -154,7 +154,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSpaces(RequestBuilder<crate::model::ListSpacesRequest>);
+    pub struct ListSpaces(pub(crate) RequestBuilder<crate::model::ListSpacesRequest>);
 
     impl ListSpaces {
         pub(crate) fn new(
@@ -266,7 +266,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSpace(RequestBuilder<crate::model::CreateSpaceRequest>);
+    pub struct CreateSpace(pub(crate) RequestBuilder<crate::model::CreateSpaceRequest>);
 
     impl CreateSpace {
         pub(crate) fn new(
@@ -358,7 +358,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSpace(RequestBuilder<crate::model::UpdateSpaceRequest>);
+    pub struct UpdateSpace(pub(crate) RequestBuilder<crate::model::UpdateSpaceRequest>);
 
     impl UpdateSpace {
         pub(crate) fn new(
@@ -452,7 +452,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSpace(RequestBuilder<crate::model::DeleteSpaceRequest>);
+    pub struct DeleteSpace(pub(crate) RequestBuilder<crate::model::DeleteSpaceRequest>);
 
     impl DeleteSpace {
         pub(crate) fn new(
@@ -520,7 +520,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetApplicationTemplate(RequestBuilder<crate::model::GetApplicationTemplateRequest>);
+    pub struct GetApplicationTemplate(
+        pub(crate) RequestBuilder<crate::model::GetApplicationTemplateRequest>,
+    );
 
     impl GetApplicationTemplate {
         pub(crate) fn new(
@@ -590,7 +592,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListApplicationTemplates(
-        RequestBuilder<crate::model::ListApplicationTemplatesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListApplicationTemplatesRequest>,
     );
 
     impl ListApplicationTemplates {
@@ -709,7 +711,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateApplicationTemplate(
-        RequestBuilder<crate::model::CreateApplicationTemplateRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateApplicationTemplateRequest>,
     );
 
     impl CreateApplicationTemplate {
@@ -806,7 +808,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateApplicationTemplate(
-        RequestBuilder<crate::model::UpdateApplicationTemplateRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateApplicationTemplateRequest>,
     );
 
     impl UpdateApplicationTemplate {
@@ -905,7 +907,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ImportApplicationTemplate(
-        RequestBuilder<crate::model::ImportApplicationTemplateRequest>,
+        pub(crate) RequestBuilder<crate::model::ImportApplicationTemplateRequest>,
     );
 
     impl ImportApplicationTemplate {
@@ -1053,7 +1055,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteApplicationTemplate(
-        RequestBuilder<crate::model::DeleteApplicationTemplateRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteApplicationTemplateRequest>,
     );
 
     impl DeleteApplicationTemplate {
@@ -1126,7 +1128,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CommitApplicationTemplate(
-        RequestBuilder<crate::model::CommitApplicationTemplateRequest>,
+        pub(crate) RequestBuilder<crate::model::CommitApplicationTemplateRequest>,
     );
 
     impl CommitApplicationTemplate {
@@ -1194,7 +1196,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SnapshotApplicationTemplate(
-        RequestBuilder<crate::model::SnapshotApplicationTemplateRequest>,
+        pub(crate) RequestBuilder<crate::model::SnapshotApplicationTemplateRequest>,
     );
 
     impl SnapshotApplicationTemplate {
@@ -1317,7 +1319,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateApplicationTemplateIaC(
-        RequestBuilder<crate::model::GenerateApplicationTemplateIaCRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateApplicationTemplateIaCRequest>,
     );
 
     impl GenerateApplicationTemplateIaC {
@@ -1421,7 +1423,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ExportApplicationTemplateIaC(
-        RequestBuilder<crate::model::ExportApplicationTemplateIaCRequest>,
+        pub(crate) RequestBuilder<crate::model::ExportApplicationTemplateIaCRequest>,
     );
 
     impl ExportApplicationTemplateIaC {
@@ -1580,7 +1582,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateApplicationTemplateRevisionIaC(
-        RequestBuilder<crate::model::GenerateApplicationTemplateRevisionIaCRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateApplicationTemplateRevisionIaCRequest>,
     );
 
     impl GenerateApplicationTemplateRevisionIaC {
@@ -1681,7 +1683,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ExportApplicationTemplateRevisionIaC(
-        RequestBuilder<crate::model::ExportApplicationTemplateRevisionIaCRequest>,
+        pub(crate) RequestBuilder<crate::model::ExportApplicationTemplateRevisionIaCRequest>,
     );
 
     impl ExportApplicationTemplateRevisionIaC {
@@ -1839,7 +1841,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetComponent(RequestBuilder<crate::model::GetComponentRequest>);
+    pub struct GetComponent(pub(crate) RequestBuilder<crate::model::GetComponentRequest>);
 
     impl GetComponent {
         pub(crate) fn new(
@@ -1905,7 +1907,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListComponents(RequestBuilder<crate::model::ListComponentsRequest>);
+    pub struct ListComponents(pub(crate) RequestBuilder<crate::model::ListComponentsRequest>);
 
     impl ListComponents {
         pub(crate) fn new(
@@ -2019,7 +2021,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateComponent(RequestBuilder<crate::model::CreateComponentRequest>);
+    pub struct CreateComponent(pub(crate) RequestBuilder<crate::model::CreateComponentRequest>);
 
     impl CreateComponent {
         pub(crate) fn new(
@@ -2111,7 +2113,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateComponent(RequestBuilder<crate::model::UpdateComponentRequest>);
+    pub struct UpdateComponent(pub(crate) RequestBuilder<crate::model::UpdateComponentRequest>);
 
     impl UpdateComponent {
         pub(crate) fn new(
@@ -2205,7 +2207,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteComponent(RequestBuilder<crate::model::DeleteComponentRequest>);
+    pub struct DeleteComponent(pub(crate) RequestBuilder<crate::model::DeleteComponentRequest>);
 
     impl DeleteComponent {
         pub(crate) fn new(
@@ -2273,7 +2275,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
+    pub struct GetConnection(pub(crate) RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
         pub(crate) fn new(
@@ -2339,7 +2341,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
+    pub struct ListConnections(pub(crate) RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
         pub(crate) fn new(
@@ -2453,7 +2455,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
+    pub struct CreateConnection(pub(crate) RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
         pub(crate) fn new(
@@ -2548,7 +2550,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
+    pub struct UpdateConnection(pub(crate) RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
         pub(crate) fn new(
@@ -2645,7 +2647,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
+    pub struct DeleteConnection(pub(crate) RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
         pub(crate) fn new(
@@ -2711,7 +2713,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetApplicationTemplateRevision(
-        RequestBuilder<crate::model::GetApplicationTemplateRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::GetApplicationTemplateRevisionRequest>,
     );
 
     impl GetApplicationTemplateRevision {
@@ -2782,7 +2784,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListApplicationTemplateRevisions(
-        RequestBuilder<crate::model::ListApplicationTemplateRevisionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListApplicationTemplateRevisionsRequest>,
     );
 
     impl ListApplicationTemplateRevisions {
@@ -2901,7 +2903,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteApplicationTemplateRevision(
-        RequestBuilder<crate::model::DeleteApplicationTemplateRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteApplicationTemplateRevisionRequest>,
     );
 
     impl DeleteApplicationTemplateRevision {
@@ -2967,7 +2969,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCatalog(RequestBuilder<crate::model::GetCatalogRequest>);
+    pub struct GetCatalog(pub(crate) RequestBuilder<crate::model::GetCatalogRequest>);
 
     impl GetCatalog {
         pub(crate) fn new(
@@ -3033,7 +3035,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCatalogs(RequestBuilder<crate::model::ListCatalogsRequest>);
+    pub struct ListCatalogs(pub(crate) RequestBuilder<crate::model::ListCatalogsRequest>);
 
     impl ListCatalogs {
         pub(crate) fn new(
@@ -3145,7 +3147,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCatalog(RequestBuilder<crate::model::CreateCatalogRequest>);
+    pub struct CreateCatalog(pub(crate) RequestBuilder<crate::model::CreateCatalogRequest>);
 
     impl CreateCatalog {
         pub(crate) fn new(
@@ -3237,7 +3239,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCatalog(RequestBuilder<crate::model::UpdateCatalogRequest>);
+    pub struct UpdateCatalog(pub(crate) RequestBuilder<crate::model::UpdateCatalogRequest>);
 
     impl UpdateCatalog {
         pub(crate) fn new(
@@ -3332,7 +3334,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCatalog(RequestBuilder<crate::model::DeleteCatalogRequest>);
+    pub struct DeleteCatalog(pub(crate) RequestBuilder<crate::model::DeleteCatalogRequest>);
 
     impl DeleteCatalog {
         pub(crate) fn new(
@@ -3449,7 +3451,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCatalogTemplate(RequestBuilder<crate::model::CreateCatalogTemplateRequest>);
+    pub struct CreateCatalogTemplate(
+        pub(crate) RequestBuilder<crate::model::CreateCatalogTemplateRequest>,
+    );
 
     impl CreateCatalogTemplate {
         pub(crate) fn new(
@@ -3544,7 +3548,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCatalogTemplate(RequestBuilder<crate::model::GetCatalogTemplateRequest>);
+    pub struct GetCatalogTemplate(
+        pub(crate) RequestBuilder<crate::model::GetCatalogTemplateRequest>,
+    );
 
     impl GetCatalogTemplate {
         pub(crate) fn new(
@@ -3613,7 +3619,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCatalogTemplates(RequestBuilder<crate::model::ListCatalogTemplatesRequest>);
+    pub struct ListCatalogTemplates(
+        pub(crate) RequestBuilder<crate::model::ListCatalogTemplatesRequest>,
+    );
 
     impl ListCatalogTemplates {
         pub(crate) fn new(
@@ -3730,7 +3738,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCatalogTemplate(RequestBuilder<crate::model::UpdateCatalogTemplateRequest>);
+    pub struct UpdateCatalogTemplate(
+        pub(crate) RequestBuilder<crate::model::UpdateCatalogTemplateRequest>,
+    );
 
     impl UpdateCatalogTemplate {
         pub(crate) fn new(
@@ -3828,7 +3838,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCatalogTemplate(RequestBuilder<crate::model::DeleteCatalogTemplateRequest>);
+    pub struct DeleteCatalogTemplate(
+        pub(crate) RequestBuilder<crate::model::DeleteCatalogTemplateRequest>,
+    );
 
     impl DeleteCatalogTemplate {
         pub(crate) fn new(
@@ -3949,7 +3961,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateShare(RequestBuilder<crate::model::CreateShareRequest>);
+    pub struct CreateShare(pub(crate) RequestBuilder<crate::model::CreateShareRequest>);
 
     impl CreateShare {
         pub(crate) fn new(
@@ -4100,7 +4112,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListShares(RequestBuilder<crate::model::ListSharesRequest>);
+    pub struct ListShares(pub(crate) RequestBuilder<crate::model::ListSharesRequest>);
 
     impl ListShares {
         pub(crate) fn new(
@@ -4206,7 +4218,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetShare(RequestBuilder<crate::model::GetShareRequest>);
+    pub struct GetShare(pub(crate) RequestBuilder<crate::model::GetShareRequest>);
 
     impl GetShare {
         pub(crate) fn new(
@@ -4269,7 +4281,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteShare(RequestBuilder<crate::model::DeleteShareRequest>);
+    pub struct DeleteShare(pub(crate) RequestBuilder<crate::model::DeleteShareRequest>);
 
     impl DeleteShare {
         pub(crate) fn new(
@@ -4382,7 +4394,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SyncShare(RequestBuilder<crate::model::SyncShareRequest>);
+    pub struct SyncShare(pub(crate) RequestBuilder<crate::model::SyncShareRequest>);
 
     impl SyncShare {
         pub(crate) fn new(
@@ -4499,7 +4511,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSharedTemplate(RequestBuilder<crate::model::GetSharedTemplateRequest>);
+    pub struct GetSharedTemplate(pub(crate) RequestBuilder<crate::model::GetSharedTemplateRequest>);
 
     impl GetSharedTemplate {
         pub(crate) fn new(
@@ -4568,7 +4580,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSharedTemplates(RequestBuilder<crate::model::ListSharedTemplatesRequest>);
+    pub struct ListSharedTemplates(
+        pub(crate) RequestBuilder<crate::model::ListSharedTemplatesRequest>,
+    );
 
     impl ListSharedTemplates {
         pub(crate) fn new(
@@ -4686,7 +4700,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetSharedTemplateRevision(
-        RequestBuilder<crate::model::GetSharedTemplateRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::GetSharedTemplateRevisionRequest>,
     );
 
     impl GetSharedTemplateRevision {
@@ -4757,7 +4771,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListSharedTemplateRevisions(
-        RequestBuilder<crate::model::ListSharedTemplateRevisionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListSharedTemplateRevisionsRequest>,
     );
 
     impl ListSharedTemplateRevisions {
@@ -4877,7 +4891,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCatalogTemplateRevision(
-        RequestBuilder<crate::model::CreateCatalogTemplateRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateCatalogTemplateRevisionRequest>,
     );
 
     impl CreateCatalogTemplateRevision {
@@ -5036,7 +5050,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetCatalogTemplateRevision(
-        RequestBuilder<crate::model::GetCatalogTemplateRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::GetCatalogTemplateRevisionRequest>,
     );
 
     impl GetCatalogTemplateRevision {
@@ -5107,7 +5121,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListCatalogTemplateRevisions(
-        RequestBuilder<crate::model::ListCatalogTemplateRevisionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListCatalogTemplateRevisionsRequest>,
     );
 
     impl ListCatalogTemplateRevisions {
@@ -5227,7 +5241,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCatalogTemplateRevision(
-        RequestBuilder<crate::model::DeleteCatalogTemplateRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteCatalogTemplateRevisionRequest>,
     );
 
     impl DeleteCatalogTemplateRevision {
@@ -5342,7 +5356,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateApplication(RequestBuilder<crate::model::CreateApplicationRequest>);
+    pub struct CreateApplication(pub(crate) RequestBuilder<crate::model::CreateApplicationRequest>);
 
     impl CreateApplication {
         pub(crate) fn new(
@@ -5437,7 +5451,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetApplication(RequestBuilder<crate::model::GetApplicationRequest>);
+    pub struct GetApplication(pub(crate) RequestBuilder<crate::model::GetApplicationRequest>);
 
     impl GetApplication {
         pub(crate) fn new(
@@ -5503,7 +5517,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListApplications(RequestBuilder<crate::model::ListApplicationsRequest>);
+    pub struct ListApplications(pub(crate) RequestBuilder<crate::model::ListApplicationsRequest>);
 
     impl ListApplications {
         pub(crate) fn new(
@@ -5620,7 +5634,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateApplication(RequestBuilder<crate::model::UpdateApplicationRequest>);
+    pub struct UpdateApplication(pub(crate) RequestBuilder<crate::model::UpdateApplicationRequest>);
 
     impl UpdateApplication {
         pub(crate) fn new(
@@ -5718,7 +5732,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteApplication(RequestBuilder<crate::model::DeleteApplicationRequest>);
+    pub struct DeleteApplication(pub(crate) RequestBuilder<crate::model::DeleteApplicationRequest>);
 
     impl DeleteApplication {
         pub(crate) fn new(
@@ -5839,7 +5853,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeployApplication(RequestBuilder<crate::model::DeployApplicationRequest>);
+    pub struct DeployApplication(pub(crate) RequestBuilder<crate::model::DeployApplicationRequest>);
 
     impl DeployApplication {
         pub(crate) fn new(
@@ -5985,7 +5999,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PreviewApplication(RequestBuilder<crate::model::PreviewApplicationRequest>);
+    pub struct PreviewApplication(
+        pub(crate) RequestBuilder<crate::model::PreviewApplicationRequest>,
+    );
 
     impl PreviewApplication {
         pub(crate) fn new(
@@ -6119,7 +6135,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct FetchApplicationAssessmentReport(
-        RequestBuilder<crate::model::FetchApplicationAssessmentReportRequest>,
+        pub(crate) RequestBuilder<crate::model::FetchApplicationAssessmentReportRequest>,
     );
 
     impl FetchApplicationAssessmentReport {
@@ -6187,7 +6203,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateApplicationAssessmentReport(
-        RequestBuilder<crate::model::GenerateApplicationAssessmentReportRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateApplicationAssessmentReportRequest>,
     );
 
     impl GenerateApplicationAssessmentReport {
@@ -6311,7 +6327,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateApplicationTemplateAssessmentReport(
-        RequestBuilder<crate::model::GenerateApplicationTemplateAssessmentReportRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateApplicationTemplateAssessmentReportRequest>,
     );
 
     impl GenerateApplicationTemplateAssessmentReport {
@@ -6444,7 +6460,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAssessmentReport(
-        RequestBuilder<crate::model::GenerateAssessmentReportRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateAssessmentReportRequest>,
     );
 
     impl GenerateAssessmentReport {
@@ -6587,7 +6603,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateTerraformPlanAssessmentReport(
-        RequestBuilder<crate::model::GenerateTerraformPlanAssessmentReportRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateTerraformPlanAssessmentReportRequest>,
     );
 
     impl GenerateTerraformPlanAssessmentReport {
@@ -6728,7 +6744,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
+    pub struct GetPolicy(pub(crate) RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
         pub(crate) fn new(
@@ -6794,7 +6810,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
+    pub struct ListPolicies(pub(crate) RequestBuilder<crate::model::ListPoliciesRequest>);
 
     impl ListPolicies {
         pub(crate) fn new(
@@ -6906,7 +6922,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
+    pub struct CreatePolicy(pub(crate) RequestBuilder<crate::model::CreatePolicyRequest>);
 
     impl CreatePolicy {
         pub(crate) fn new(
@@ -6998,7 +7014,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
+    pub struct UpdatePolicy(pub(crate) RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
         pub(crate) fn new(
@@ -7092,7 +7108,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
+    pub struct DeletePolicy(pub(crate) RequestBuilder<crate::model::DeletePolicyRequest>);
 
     impl DeletePolicy {
         pub(crate) fn new(
@@ -7158,7 +7174,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchFrameworks(RequestBuilder<crate::model::FetchFrameworksRequest>);
+    pub struct FetchFrameworks(pub(crate) RequestBuilder<crate::model::FetchFrameworksRequest>);
 
     impl FetchFrameworks {
         pub(crate) fn new(
@@ -7277,7 +7293,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateApplicationIaC(RequestBuilder<crate::model::GenerateApplicationIaCRequest>);
+    pub struct GenerateApplicationIaC(
+        pub(crate) RequestBuilder<crate::model::GenerateApplicationIaCRequest>,
+    );
 
     impl GenerateApplicationIaC {
         pub(crate) fn new(
@@ -7374,7 +7392,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportApplicationIaC(RequestBuilder<crate::model::ExportApplicationIaCRequest>);
+    pub struct ExportApplicationIaC(
+        pub(crate) RequestBuilder<crate::model::ExportApplicationIaCRequest>,
+    );
 
     impl ExportApplicationIaC {
         pub(crate) fn new(
@@ -7538,7 +7558,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ImportApplicationTemplateIaC(
-        RequestBuilder<crate::model::ImportApplicationTemplateIaCRequest>,
+        pub(crate) RequestBuilder<crate::model::ImportApplicationTemplateIaCRequest>,
     );
 
     impl ImportApplicationTemplateIaC {
@@ -7670,7 +7690,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct IngestApplicationTemplateIaC(
-        RequestBuilder<crate::model::IngestApplicationTemplateIaCRequest>,
+        pub(crate) RequestBuilder<crate::model::IngestApplicationTemplateIaCRequest>,
     );
 
     impl IngestApplicationTemplateIaC {
@@ -7869,7 +7889,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportApplicationIaC(RequestBuilder<crate::model::ImportApplicationIaCRequest>);
+    pub struct ImportApplicationIaC(
+        pub(crate) RequestBuilder<crate::model::ImportApplicationIaCRequest>,
+    );
 
     impl ImportApplicationIaC {
         pub(crate) fn new(
@@ -7985,7 +8007,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RegisterAppHubApplicationResources(
-        RequestBuilder<crate::model::RegisterAppHubApplicationResourcesRequest>,
+        pub(crate) RequestBuilder<crate::model::RegisterAppHubApplicationResourcesRequest>,
     );
 
     impl RegisterAppHubApplicationResources {
@@ -8162,7 +8184,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListApplicationTemplateSystemRevisions(
-        RequestBuilder<crate::model::ListApplicationTemplateSystemRevisionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListApplicationTemplateSystemRevisionsRequest>,
     );
 
     impl ListApplicationTemplateSystemRevisions {
@@ -8279,7 +8301,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetApplicationTemplateSystemRevision(
-        RequestBuilder<crate::model::GetApplicationTemplateSystemRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::GetApplicationTemplateSystemRevisionRequest>,
     );
 
     impl GetApplicationTemplateSystemRevision {
@@ -8346,7 +8368,7 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RecommendIAMRoles(RequestBuilder<crate::model::RecommendIAMRolesRequest>);
+    pub struct RecommendIAMRoles(pub(crate) RequestBuilder<crate::model::RecommendIAMRolesRequest>);
 
     impl RecommendIAMRoles {
         pub(crate) fn new(
@@ -8471,7 +8493,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -8580,7 +8604,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -8643,7 +8669,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -8748,7 +8776,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -8832,7 +8862,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -8916,7 +8946,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -9032,7 +9062,9 @@ pub mod design_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -9096,7 +9128,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -9161,7 +9193,7 @@ pub mod design_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

@@ -51,9 +51,9 @@ pub mod audit_manager {
     /// Common implementation for [crate::client::AuditManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AuditManager>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AuditManager>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod audit_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAuditSchedule(RequestBuilder<crate::model::CreateAuditScheduleRequest>);
+    pub struct CreateAuditSchedule(
+        pub(crate) RequestBuilder<crate::model::CreateAuditScheduleRequest>,
+    );
 
     impl CreateAuditSchedule {
         pub(crate) fn new(
@@ -189,7 +191,9 @@ pub mod audit_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAuditSchedule(RequestBuilder<crate::model::UpdateAuditScheduleRequest>);
+    pub struct UpdateAuditSchedule(
+        pub(crate) RequestBuilder<crate::model::UpdateAuditScheduleRequest>,
+    );
 
     impl UpdateAuditSchedule {
         pub(crate) fn new(
@@ -292,7 +296,7 @@ pub mod audit_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAuditSchedule(RequestBuilder<crate::model::GetAuditScheduleRequest>);
+    pub struct GetAuditSchedule(pub(crate) RequestBuilder<crate::model::GetAuditScheduleRequest>);
 
     impl GetAuditSchedule {
         pub(crate) fn new(
@@ -361,7 +365,9 @@ pub mod audit_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAuditSchedules(RequestBuilder<crate::model::ListAuditSchedulesRequest>);
+    pub struct ListAuditSchedules(
+        pub(crate) RequestBuilder<crate::model::ListAuditSchedulesRequest>,
+    );
 
     impl ListAuditSchedules {
         pub(crate) fn new(
@@ -466,7 +472,7 @@ pub mod audit_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnrollResource(RequestBuilder<crate::model::EnrollResourceRequest>);
+    pub struct EnrollResource(pub(crate) RequestBuilder<crate::model::EnrollResourceRequest>);
 
     impl EnrollResource {
         pub(crate) fn new(
@@ -548,7 +554,7 @@ pub mod audit_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAuditScopeReport(
-        RequestBuilder<crate::model::GenerateAuditScopeReportRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateAuditScopeReportRequest>,
     );
 
     impl GenerateAuditScopeReport {
@@ -661,7 +667,9 @@ pub mod audit_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateAuditReport(RequestBuilder<crate::model::GenerateAuditReportRequest>);
+    pub struct GenerateAuditReport(
+        pub(crate) RequestBuilder<crate::model::GenerateAuditReportRequest>,
+    );
 
     impl GenerateAuditReport {
         pub(crate) fn new(
@@ -854,7 +862,7 @@ pub mod audit_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAuditReports(RequestBuilder<crate::model::ListAuditReportsRequest>);
+    pub struct ListAuditReports(pub(crate) RequestBuilder<crate::model::ListAuditReportsRequest>);
 
     impl ListAuditReports {
         pub(crate) fn new(
@@ -959,7 +967,7 @@ pub mod audit_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAuditReport(RequestBuilder<crate::model::GetAuditReportRequest>);
+    pub struct GetAuditReport(pub(crate) RequestBuilder<crate::model::GetAuditReportRequest>);
 
     impl GetAuditReport {
         pub(crate) fn new(
@@ -1022,7 +1030,7 @@ pub mod audit_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetResourceEnrollmentStatus(
-        RequestBuilder<crate::model::GetResourceEnrollmentStatusRequest>,
+        pub(crate) RequestBuilder<crate::model::GetResourceEnrollmentStatusRequest>,
     );
 
     impl GetResourceEnrollmentStatus {
@@ -1093,7 +1101,7 @@ pub mod audit_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListResourceEnrollmentStatuses(
-        RequestBuilder<crate::model::ListResourceEnrollmentStatusesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListResourceEnrollmentStatusesRequest>,
     );
 
     impl ListResourceEnrollmentStatuses {
@@ -1203,7 +1211,7 @@ pub mod audit_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListControls(RequestBuilder<crate::model::ListControlsRequest>);
+    pub struct ListControls(pub(crate) RequestBuilder<crate::model::ListControlsRequest>);
 
     impl ListControls {
         pub(crate) fn new(
@@ -1307,7 +1315,9 @@ pub mod audit_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1416,7 +1426,9 @@ pub mod audit_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -1484,7 +1496,7 @@ pub mod audit_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1600,7 +1612,9 @@ pub mod audit_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1664,7 +1678,7 @@ pub mod audit_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -1729,7 +1743,7 @@ pub mod audit_manager {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

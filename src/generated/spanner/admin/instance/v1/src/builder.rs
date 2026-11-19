@@ -51,9 +51,9 @@ pub mod instance_admin {
     /// Common implementation for [crate::client::InstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,9 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstanceConfigs(RequestBuilder<crate::model::ListInstanceConfigsRequest>);
+    pub struct ListInstanceConfigs(
+        pub(crate) RequestBuilder<crate::model::ListInstanceConfigsRequest>,
+    );
 
     impl ListInstanceConfigs {
         pub(crate) fn new(
@@ -197,7 +199,7 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstanceConfig(RequestBuilder<crate::model::GetInstanceConfigRequest>);
+    pub struct GetInstanceConfig(pub(crate) RequestBuilder<crate::model::GetInstanceConfigRequest>);
 
     impl GetInstanceConfig {
         pub(crate) fn new(
@@ -263,7 +265,9 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInstanceConfig(RequestBuilder<crate::model::CreateInstanceConfigRequest>);
+    pub struct CreateInstanceConfig(
+        pub(crate) RequestBuilder<crate::model::CreateInstanceConfigRequest>,
+    );
 
     impl CreateInstanceConfig {
         pub(crate) fn new(
@@ -421,7 +425,9 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInstanceConfig(RequestBuilder<crate::model::UpdateInstanceConfigRequest>);
+    pub struct UpdateInstanceConfig(
+        pub(crate) RequestBuilder<crate::model::UpdateInstanceConfigRequest>,
+    );
 
     impl UpdateInstanceConfig {
         pub(crate) fn new(
@@ -584,7 +590,9 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInstanceConfig(RequestBuilder<crate::model::DeleteInstanceConfigRequest>);
+    pub struct DeleteInstanceConfig(
+        pub(crate) RequestBuilder<crate::model::DeleteInstanceConfigRequest>,
+    );
 
     impl DeleteInstanceConfig {
         pub(crate) fn new(
@@ -666,7 +674,7 @@ pub mod instance_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstanceConfigOperations(
-        RequestBuilder<crate::model::ListInstanceConfigOperationsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListInstanceConfigOperationsRequest>,
     );
 
     impl ListInstanceConfigOperations {
@@ -782,7 +790,7 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
+    pub struct ListInstances(pub(crate) RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(
@@ -910,7 +918,9 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstancePartitions(RequestBuilder<crate::model::ListInstancePartitionsRequest>);
+    pub struct ListInstancePartitions(
+        pub(crate) RequestBuilder<crate::model::ListInstancePartitionsRequest>,
+    );
 
     impl ListInstancePartitions {
         pub(crate) fn new(
@@ -1036,7 +1046,7 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
+    pub struct GetInstance(pub(crate) RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(
@@ -1117,7 +1127,7 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
+    pub struct CreateInstance(pub(crate) RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
         pub(crate) fn new(
@@ -1264,7 +1274,7 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
+    pub struct UpdateInstance(pub(crate) RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
         pub(crate) fn new(
@@ -1416,7 +1426,7 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
+    pub struct DeleteInstance(pub(crate) RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
         pub(crate) fn new(
@@ -1478,7 +1488,9 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -1583,7 +1595,9 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1667,7 +1681,7 @@ pub mod instance_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1746,7 +1760,9 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstancePartition(RequestBuilder<crate::model::GetInstancePartitionRequest>);
+    pub struct GetInstancePartition(
+        pub(crate) RequestBuilder<crate::model::GetInstancePartitionRequest>,
+    );
 
     impl GetInstancePartition {
         pub(crate) fn new(
@@ -1813,7 +1829,7 @@ pub mod instance_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstancePartition(
-        RequestBuilder<crate::model::CreateInstancePartitionRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateInstancePartitionRequest>,
     );
 
     impl CreateInstancePartition {
@@ -1966,7 +1982,7 @@ pub mod instance_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstancePartition(
-        RequestBuilder<crate::model::DeleteInstancePartitionRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteInstancePartitionRequest>,
     );
 
     impl DeleteInstancePartition {
@@ -2040,7 +2056,7 @@ pub mod instance_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstancePartition(
-        RequestBuilder<crate::model::UpdateInstancePartitionRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateInstancePartitionRequest>,
     );
 
     impl UpdateInstancePartition {
@@ -2203,7 +2219,7 @@ pub mod instance_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstancePartitionOperations(
-        RequestBuilder<crate::model::ListInstancePartitionOperationsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListInstancePartitionOperationsRequest>,
     );
 
     impl ListInstancePartitionOperations {
@@ -2337,7 +2353,7 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct MoveInstance(RequestBuilder<crate::model::MoveInstanceRequest>);
+    pub struct MoveInstance(pub(crate) RequestBuilder<crate::model::MoveInstanceRequest>);
 
     impl MoveInstance {
         pub(crate) fn new(
@@ -2468,7 +2484,7 @@ pub mod instance_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2584,7 +2600,9 @@ pub mod instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2648,7 +2666,7 @@ pub mod instance_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2713,7 +2731,7 @@ pub mod instance_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

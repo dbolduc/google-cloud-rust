@@ -51,9 +51,9 @@ pub mod local_inventory_service {
     /// Common implementation for [crate::client::LocalInventoryService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::LocalInventoryService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::LocalInventoryService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,9 @@ pub mod local_inventory_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocalInventories(RequestBuilder<crate::model::ListLocalInventoriesRequest>);
+    pub struct ListLocalInventories(
+        pub(crate) RequestBuilder<crate::model::ListLocalInventoriesRequest>,
+    );
 
     impl ListLocalInventories {
         pub(crate) fn new(
@@ -197,7 +199,9 @@ pub mod local_inventory_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InsertLocalInventory(RequestBuilder<crate::model::InsertLocalInventoryRequest>);
+    pub struct InsertLocalInventory(
+        pub(crate) RequestBuilder<crate::model::InsertLocalInventoryRequest>,
+    );
 
     impl InsertLocalInventory {
         pub(crate) fn new(
@@ -284,7 +288,9 @@ pub mod local_inventory_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteLocalInventory(RequestBuilder<crate::model::DeleteLocalInventoryRequest>);
+    pub struct DeleteLocalInventory(
+        pub(crate) RequestBuilder<crate::model::DeleteLocalInventoryRequest>,
+    );
 
     impl DeleteLocalInventory {
         pub(crate) fn new(
@@ -370,9 +376,9 @@ pub mod regional_inventory_service {
     /// Common implementation for [crate::client::RegionalInventoryService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionalInventoryService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionalInventoryService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -412,7 +418,7 @@ pub mod regional_inventory_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListRegionalInventories(
-        RequestBuilder<crate::model::ListRegionalInventoriesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListRegionalInventoriesRequest>,
     );
 
     impl ListRegionalInventories {
@@ -519,7 +525,7 @@ pub mod regional_inventory_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct InsertRegionalInventory(
-        RequestBuilder<crate::model::InsertRegionalInventoryRequest>,
+        pub(crate) RequestBuilder<crate::model::InsertRegionalInventoryRequest>,
     );
 
     impl InsertRegionalInventory {
@@ -608,7 +614,7 @@ pub mod regional_inventory_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRegionalInventory(
-        RequestBuilder<crate::model::DeleteRegionalInventoryRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteRegionalInventoryRequest>,
     );
 
     impl DeleteRegionalInventory {

@@ -51,9 +51,10 @@ pub mod cloud_product_registry_read_service {
     /// Common implementation for [crate::client::CloudProductRegistryReadService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudProductRegistryReadService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::CloudProductRegistryReadService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +89,7 @@ pub mod cloud_product_registry_read_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProductSuite(RequestBuilder<crate::model::GetProductSuiteRequest>);
+    pub struct GetProductSuite(pub(crate) RequestBuilder<crate::model::GetProductSuiteRequest>);
 
     impl GetProductSuite {
         pub(crate) fn new(
@@ -154,7 +155,7 @@ pub mod cloud_product_registry_read_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProductSuites(RequestBuilder<crate::model::ListProductSuitesRequest>);
+    pub struct ListProductSuites(pub(crate) RequestBuilder<crate::model::ListProductSuitesRequest>);
 
     impl ListProductSuites {
         pub(crate) fn new(
@@ -251,7 +252,7 @@ pub mod cloud_product_registry_read_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLogicalProduct(RequestBuilder<crate::model::GetLogicalProductRequest>);
+    pub struct GetLogicalProduct(pub(crate) RequestBuilder<crate::model::GetLogicalProductRequest>);
 
     impl GetLogicalProduct {
         pub(crate) fn new(
@@ -320,7 +321,9 @@ pub mod cloud_product_registry_read_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLogicalProducts(RequestBuilder<crate::model::ListLogicalProductsRequest>);
+    pub struct ListLogicalProducts(
+        pub(crate) RequestBuilder<crate::model::ListLogicalProductsRequest>,
+    );
 
     impl ListLogicalProducts {
         pub(crate) fn new(
@@ -424,7 +427,7 @@ pub mod cloud_product_registry_read_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetLogicalProductVariant(
-        RequestBuilder<crate::model::GetLogicalProductVariantRequest>,
+        pub(crate) RequestBuilder<crate::model::GetLogicalProductVariantRequest>,
     );
 
     impl GetLogicalProductVariant {
@@ -495,7 +498,7 @@ pub mod cloud_product_registry_read_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListLogicalProductVariants(
-        RequestBuilder<crate::model::ListLogicalProductVariantsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListLogicalProductVariantsRequest>,
     );
 
     impl ListLogicalProductVariants {
@@ -601,7 +604,7 @@ pub mod cloud_product_registry_read_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LookupEntity(RequestBuilder<crate::model::LookupEntityRequest>);
+    pub struct LookupEntity(pub(crate) RequestBuilder<crate::model::LookupEntityRequest>);
 
     impl LookupEntity {
         pub(crate) fn new(

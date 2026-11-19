@@ -51,9 +51,9 @@ pub mod config {
     /// Common implementation for [crate::client::Config] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -90,7 +90,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
+    pub struct ListDeployments(pub(crate) RequestBuilder<crate::model::ListDeploymentsRequest>);
 
     impl ListDeployments {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -202,7 +202,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
+    pub struct GetDeployment(pub(crate) RequestBuilder<crate::model::GetDeploymentRequest>);
 
     impl GetDeployment {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -263,7 +263,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
+    pub struct CreateDeployment(pub(crate) RequestBuilder<crate::model::CreateDeploymentRequest>);
 
     impl CreateDeployment {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -418,7 +418,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDeployment(RequestBuilder<crate::model::UpdateDeploymentRequest>);
+    pub struct UpdateDeployment(pub(crate) RequestBuilder<crate::model::UpdateDeploymentRequest>);
 
     impl UpdateDeployment {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -575,7 +575,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDeployment(RequestBuilder<crate::model::DeleteDeploymentRequest>);
+    pub struct DeleteDeployment(pub(crate) RequestBuilder<crate::model::DeleteDeploymentRequest>);
 
     impl DeleteDeployment {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -718,7 +718,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRevisions(RequestBuilder<crate::model::ListRevisionsRequest>);
+    pub struct ListRevisions(pub(crate) RequestBuilder<crate::model::ListRevisionsRequest>);
 
     impl ListRevisions {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -828,7 +828,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRevision(RequestBuilder<crate::model::GetRevisionRequest>);
+    pub struct GetRevision(pub(crate) RequestBuilder<crate::model::GetRevisionRequest>);
 
     impl GetRevision {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -888,7 +888,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetResource(RequestBuilder<crate::model::GetResourceRequest>);
+    pub struct GetResource(pub(crate) RequestBuilder<crate::model::GetResourceRequest>);
 
     impl GetResource {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -952,7 +952,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListResources(RequestBuilder<crate::model::ListResourcesRequest>);
+    pub struct ListResources(pub(crate) RequestBuilder<crate::model::ListResourcesRequest>);
 
     impl ListResources {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -1063,7 +1063,7 @@ pub mod config {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ExportDeploymentStatefile(
-        RequestBuilder<crate::model::ExportDeploymentStatefileRequest>,
+        pub(crate) RequestBuilder<crate::model::ExportDeploymentStatefileRequest>,
     );
 
     impl ExportDeploymentStatefile {
@@ -1134,7 +1134,7 @@ pub mod config {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ExportRevisionStatefile(
-        RequestBuilder<crate::model::ExportRevisionStatefileRequest>,
+        pub(crate) RequestBuilder<crate::model::ExportRevisionStatefileRequest>,
     );
 
     impl ExportRevisionStatefile {
@@ -1198,7 +1198,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportStatefile(RequestBuilder<crate::model::ImportStatefileRequest>);
+    pub struct ImportStatefile(pub(crate) RequestBuilder<crate::model::ImportStatefileRequest>);
 
     impl ImportStatefile {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -1272,7 +1272,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteStatefile(RequestBuilder<crate::model::DeleteStatefileRequest>);
+    pub struct DeleteStatefile(pub(crate) RequestBuilder<crate::model::DeleteStatefileRequest>);
 
     impl DeleteStatefile {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -1341,7 +1341,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LockDeployment(RequestBuilder<crate::model::LockDeploymentRequest>);
+    pub struct LockDeployment(pub(crate) RequestBuilder<crate::model::LockDeploymentRequest>);
 
     impl LockDeployment {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -1457,7 +1457,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UnlockDeployment(RequestBuilder<crate::model::UnlockDeploymentRequest>);
+    pub struct UnlockDeployment(pub(crate) RequestBuilder<crate::model::UnlockDeploymentRequest>);
 
     impl UnlockDeployment {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -1583,7 +1583,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportLockInfo(RequestBuilder<crate::model::ExportLockInfoRequest>);
+    pub struct ExportLockInfo(pub(crate) RequestBuilder<crate::model::ExportLockInfoRequest>);
 
     impl ExportLockInfo {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -1644,7 +1644,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePreview(RequestBuilder<crate::model::CreatePreviewRequest>);
+    pub struct CreatePreview(pub(crate) RequestBuilder<crate::model::CreatePreviewRequest>);
 
     impl CreatePreview {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -1793,7 +1793,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPreview(RequestBuilder<crate::model::GetPreviewRequest>);
+    pub struct GetPreview(pub(crate) RequestBuilder<crate::model::GetPreviewRequest>);
 
     impl GetPreview {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -1857,7 +1857,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPreviews(RequestBuilder<crate::model::ListPreviewsRequest>);
+    pub struct ListPreviews(pub(crate) RequestBuilder<crate::model::ListPreviewsRequest>);
 
     impl ListPreviews {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -1968,7 +1968,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePreview(RequestBuilder<crate::model::DeletePreviewRequest>);
+    pub struct DeletePreview(pub(crate) RequestBuilder<crate::model::DeletePreviewRequest>);
 
     impl DeletePreview {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -2089,7 +2089,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportPreviewResult(RequestBuilder<crate::model::ExportPreviewResultRequest>);
+    pub struct ExportPreviewResult(
+        pub(crate) RequestBuilder<crate::model::ExportPreviewResultRequest>,
+    );
 
     impl ExportPreviewResult {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -2156,7 +2158,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTerraformVersions(RequestBuilder<crate::model::ListTerraformVersionsRequest>);
+    pub struct ListTerraformVersions(
+        pub(crate) RequestBuilder<crate::model::ListTerraformVersionsRequest>,
+    );
 
     impl ListTerraformVersions {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -2271,7 +2275,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTerraformVersion(RequestBuilder<crate::model::GetTerraformVersionRequest>);
+    pub struct GetTerraformVersion(
+        pub(crate) RequestBuilder<crate::model::GetTerraformVersionRequest>,
+    );
 
     impl GetTerraformVersion {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -2338,7 +2344,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListResourceChanges(RequestBuilder<crate::model::ListResourceChangesRequest>);
+    pub struct ListResourceChanges(
+        pub(crate) RequestBuilder<crate::model::ListResourceChangesRequest>,
+    );
 
     impl ListResourceChanges {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -2453,7 +2461,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetResourceChange(RequestBuilder<crate::model::GetResourceChangeRequest>);
+    pub struct GetResourceChange(pub(crate) RequestBuilder<crate::model::GetResourceChangeRequest>);
 
     impl GetResourceChange {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -2520,7 +2528,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListResourceDrifts(RequestBuilder<crate::model::ListResourceDriftsRequest>);
+    pub struct ListResourceDrifts(
+        pub(crate) RequestBuilder<crate::model::ListResourceDriftsRequest>,
+    );
 
     impl ListResourceDrifts {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -2635,7 +2645,7 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetResourceDrift(RequestBuilder<crate::model::GetResourceDriftRequest>);
+    pub struct GetResourceDrift(pub(crate) RequestBuilder<crate::model::GetResourceDriftRequest>);
 
     impl GetResourceDrift {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -2698,7 +2708,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAutoMigrationConfig(RequestBuilder<crate::model::GetAutoMigrationConfigRequest>);
+    pub struct GetAutoMigrationConfig(
+        pub(crate) RequestBuilder<crate::model::GetAutoMigrationConfigRequest>,
+    );
 
     impl GetAutoMigrationConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -2763,7 +2775,7 @@ pub mod config {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAutoMigrationConfig(
-        RequestBuilder<crate::model::UpdateAutoMigrationConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateAutoMigrationConfigRequest>,
     );
 
     impl UpdateAutoMigrationConfig {
@@ -2915,7 +2927,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDeploymentGroup(RequestBuilder<crate::model::GetDeploymentGroupRequest>);
+    pub struct GetDeploymentGroup(
+        pub(crate) RequestBuilder<crate::model::GetDeploymentGroupRequest>,
+    );
 
     impl GetDeploymentGroup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -2979,7 +2993,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDeploymentGroup(RequestBuilder<crate::model::CreateDeploymentGroupRequest>);
+    pub struct CreateDeploymentGroup(
+        pub(crate) RequestBuilder<crate::model::CreateDeploymentGroupRequest>,
+    );
 
     impl CreateDeploymentGroup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -3134,7 +3150,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDeploymentGroup(RequestBuilder<crate::model::UpdateDeploymentGroupRequest>);
+    pub struct UpdateDeploymentGroup(
+        pub(crate) RequestBuilder<crate::model::UpdateDeploymentGroupRequest>,
+    );
 
     impl UpdateDeploymentGroup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -3291,7 +3309,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDeploymentGroup(RequestBuilder<crate::model::DeleteDeploymentGroupRequest>);
+    pub struct DeleteDeploymentGroup(
+        pub(crate) RequestBuilder<crate::model::DeleteDeploymentGroupRequest>,
+    );
 
     impl DeleteDeploymentGroup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -3436,7 +3456,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDeploymentGroups(RequestBuilder<crate::model::ListDeploymentGroupsRequest>);
+    pub struct ListDeploymentGroups(
+        pub(crate) RequestBuilder<crate::model::ListDeploymentGroupsRequest>,
+    );
 
     impl ListDeploymentGroups {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -3553,7 +3575,7 @@ pub mod config {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ProvisionDeploymentGroup(
-        RequestBuilder<crate::model::ProvisionDeploymentGroupRequest>,
+        pub(crate) RequestBuilder<crate::model::ProvisionDeploymentGroupRequest>,
     );
 
     impl ProvisionDeploymentGroup {
@@ -3685,7 +3707,7 @@ pub mod config {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeprovisionDeploymentGroup(
-        RequestBuilder<crate::model::DeprovisionDeploymentGroupRequest>,
+        pub(crate) RequestBuilder<crate::model::DeprovisionDeploymentGroupRequest>,
     );
 
     impl DeprovisionDeploymentGroup {
@@ -3819,7 +3841,7 @@ pub mod config {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetDeploymentGroupRevision(
-        RequestBuilder<crate::model::GetDeploymentGroupRevisionRequest>,
+        pub(crate) RequestBuilder<crate::model::GetDeploymentGroupRevisionRequest>,
     );
 
     impl GetDeploymentGroupRevision {
@@ -3888,7 +3910,7 @@ pub mod config {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListDeploymentGroupRevisions(
-        RequestBuilder<crate::model::ListDeploymentGroupRevisionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListDeploymentGroupRevisionsRequest>,
     );
 
     impl ListDeploymentGroupRevisions {
@@ -3996,7 +4018,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -4103,7 +4127,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -4164,7 +4190,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -4267,7 +4295,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -4349,7 +4379,7 @@ pub mod config {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -4431,7 +4461,7 @@ pub mod config {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4545,7 +4575,9 @@ pub mod config {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
@@ -4607,7 +4639,7 @@ pub mod config {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4670,7 +4702,7 @@ pub mod config {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

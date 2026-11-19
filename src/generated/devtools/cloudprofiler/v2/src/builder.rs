@@ -51,9 +51,9 @@ pub mod profiler_service {
     /// Common implementation for [crate::client::ProfilerService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod profiler_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateProfile(RequestBuilder<crate::model::CreateProfileRequest>);
+    pub struct CreateProfile(pub(crate) RequestBuilder<crate::model::CreateProfileRequest>);
 
     impl CreateProfile {
         pub(crate) fn new(
@@ -177,7 +177,9 @@ pub mod profiler_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateOfflineProfile(RequestBuilder<crate::model::CreateOfflineProfileRequest>);
+    pub struct CreateOfflineProfile(
+        pub(crate) RequestBuilder<crate::model::CreateOfflineProfileRequest>,
+    );
 
     impl CreateOfflineProfile {
         pub(crate) fn new(
@@ -258,7 +260,7 @@ pub mod profiler_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateProfile(RequestBuilder<crate::model::UpdateProfileRequest>);
+    pub struct UpdateProfile(pub(crate) RequestBuilder<crate::model::UpdateProfileRequest>);
 
     impl UpdateProfile {
         pub(crate) fn new(
@@ -369,9 +371,9 @@ pub mod export_service {
     /// Common implementation for [crate::client::ExportService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ExportService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ExportService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -410,7 +412,7 @@ pub mod export_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProfiles(RequestBuilder<crate::model::ListProfilesRequest>);
+    pub struct ListProfiles(pub(crate) RequestBuilder<crate::model::ListProfilesRequest>);
 
     impl ListProfiles {
         pub(crate) fn new(

@@ -51,9 +51,10 @@ pub mod cross_network_automation_service {
     /// Common implementation for [crate::client::CrossNetworkAutomationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::CrossNetworkAutomationService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::CrossNetworkAutomationService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -93,7 +94,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListServiceConnectionMaps(
-        RequestBuilder<crate::model::ListServiceConnectionMapsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListServiceConnectionMapsRequest>,
     );
 
     impl ListServiceConnectionMaps {
@@ -212,7 +213,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceConnectionMap(
-        RequestBuilder<crate::model::GetServiceConnectionMapRequest>,
+        pub(crate) RequestBuilder<crate::model::GetServiceConnectionMapRequest>,
     );
 
     impl GetServiceConnectionMap {
@@ -280,7 +281,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServiceConnectionMap(
-        RequestBuilder<crate::model::CreateServiceConnectionMapRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateServiceConnectionMapRequest>,
     );
 
     impl CreateServiceConnectionMap {
@@ -438,7 +439,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateServiceConnectionMap(
-        RequestBuilder<crate::model::UpdateServiceConnectionMapRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateServiceConnectionMapRequest>,
     );
 
     impl UpdateServiceConnectionMap {
@@ -600,7 +601,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServiceConnectionMap(
-        RequestBuilder<crate::model::DeleteServiceConnectionMapRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteServiceConnectionMapRequest>,
     );
 
     impl DeleteServiceConnectionMap {
@@ -744,7 +745,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListServiceConnectionPolicies(
-        RequestBuilder<crate::model::ListServiceConnectionPoliciesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListServiceConnectionPoliciesRequest>,
     );
 
     impl ListServiceConnectionPolicies {
@@ -863,7 +864,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceConnectionPolicy(
-        RequestBuilder<crate::model::GetServiceConnectionPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::GetServiceConnectionPolicyRequest>,
     );
 
     impl GetServiceConnectionPolicy {
@@ -931,7 +932,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServiceConnectionPolicy(
-        RequestBuilder<crate::model::CreateServiceConnectionPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateServiceConnectionPolicyRequest>,
     );
 
     impl CreateServiceConnectionPolicy {
@@ -1095,7 +1096,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateServiceConnectionPolicy(
-        RequestBuilder<crate::model::UpdateServiceConnectionPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateServiceConnectionPolicyRequest>,
     );
 
     impl UpdateServiceConnectionPolicy {
@@ -1260,7 +1261,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServiceConnectionPolicy(
-        RequestBuilder<crate::model::DeleteServiceConnectionPolicyRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteServiceConnectionPolicyRequest>,
     );
 
     impl DeleteServiceConnectionPolicy {
@@ -1403,7 +1404,9 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServiceClasses(RequestBuilder<crate::model::ListServiceClassesRequest>);
+    pub struct ListServiceClasses(
+        pub(crate) RequestBuilder<crate::model::ListServiceClassesRequest>,
+    );
 
     impl ListServiceClasses {
         pub(crate) fn new(
@@ -1520,7 +1523,7 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetServiceClass(RequestBuilder<crate::model::GetServiceClassRequest>);
+    pub struct GetServiceClass(pub(crate) RequestBuilder<crate::model::GetServiceClassRequest>);
 
     impl GetServiceClass {
         pub(crate) fn new(
@@ -1583,7 +1586,9 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateServiceClass(RequestBuilder<crate::model::UpdateServiceClassRequest>);
+    pub struct UpdateServiceClass(
+        pub(crate) RequestBuilder<crate::model::UpdateServiceClassRequest>,
+    );
 
     impl UpdateServiceClass {
         pub(crate) fn new(
@@ -1741,7 +1746,9 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteServiceClass(RequestBuilder<crate::model::DeleteServiceClassRequest>);
+    pub struct DeleteServiceClass(
+        pub(crate) RequestBuilder<crate::model::DeleteServiceClassRequest>,
+    );
 
     impl DeleteServiceClass {
         pub(crate) fn new(
@@ -1880,7 +1887,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceConnectionToken(
-        RequestBuilder<crate::model::GetServiceConnectionTokenRequest>,
+        pub(crate) RequestBuilder<crate::model::GetServiceConnectionTokenRequest>,
     );
 
     impl GetServiceConnectionToken {
@@ -1951,7 +1958,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListServiceConnectionTokens(
-        RequestBuilder<crate::model::ListServiceConnectionTokensRequest>,
+        pub(crate) RequestBuilder<crate::model::ListServiceConnectionTokensRequest>,
     );
 
     impl ListServiceConnectionTokens {
@@ -2071,7 +2078,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServiceConnectionToken(
-        RequestBuilder<crate::model::CreateServiceConnectionTokenRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateServiceConnectionTokenRequest>,
     );
 
     impl CreateServiceConnectionToken {
@@ -2232,7 +2239,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServiceConnectionToken(
-        RequestBuilder<crate::model::DeleteServiceConnectionTokenRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteServiceConnectionTokenRequest>,
     );
 
     impl DeleteServiceConnectionToken {
@@ -2375,7 +2382,9 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2484,7 +2493,9 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -2547,7 +2558,9 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -2652,7 +2665,9 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -2736,7 +2751,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -2820,7 +2835,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2936,7 +2951,9 @@ pub mod cross_network_automation_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3000,7 +3017,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3065,7 +3082,7 @@ pub mod cross_network_automation_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -3150,9 +3167,9 @@ pub mod data_transfer_service {
     /// Common implementation for [crate::client::DataTransferService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3192,7 +3209,7 @@ pub mod data_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListMulticloudDataTransferConfigs(
-        RequestBuilder<crate::model::ListMulticloudDataTransferConfigsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListMulticloudDataTransferConfigsRequest>,
     );
 
     impl ListMulticloudDataTransferConfigs {
@@ -3317,7 +3334,7 @@ pub mod data_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetMulticloudDataTransferConfig(
-        RequestBuilder<crate::model::GetMulticloudDataTransferConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::GetMulticloudDataTransferConfigRequest>,
     );
 
     impl GetMulticloudDataTransferConfig {
@@ -3385,7 +3402,7 @@ pub mod data_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMulticloudDataTransferConfig(
-        RequestBuilder<crate::model::CreateMulticloudDataTransferConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateMulticloudDataTransferConfigRequest>,
     );
 
     impl CreateMulticloudDataTransferConfig {
@@ -3551,7 +3568,7 @@ pub mod data_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateMulticloudDataTransferConfig(
-        RequestBuilder<crate::model::UpdateMulticloudDataTransferConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateMulticloudDataTransferConfigRequest>,
     );
 
     impl UpdateMulticloudDataTransferConfig {
@@ -3716,7 +3733,7 @@ pub mod data_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMulticloudDataTransferConfig(
-        RequestBuilder<crate::model::DeleteMulticloudDataTransferConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteMulticloudDataTransferConfigRequest>,
     );
 
     impl DeleteMulticloudDataTransferConfig {
@@ -3847,7 +3864,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDestinations(RequestBuilder<crate::model::ListDestinationsRequest>);
+    pub struct ListDestinations(pub(crate) RequestBuilder<crate::model::ListDestinationsRequest>);
 
     impl ListDestinations {
         pub(crate) fn new(
@@ -3970,7 +3987,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDestination(RequestBuilder<crate::model::GetDestinationRequest>);
+    pub struct GetDestination(pub(crate) RequestBuilder<crate::model::GetDestinationRequest>);
 
     impl GetDestination {
         pub(crate) fn new(
@@ -4033,7 +4050,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDestination(RequestBuilder<crate::model::CreateDestinationRequest>);
+    pub struct CreateDestination(pub(crate) RequestBuilder<crate::model::CreateDestinationRequest>);
 
     impl CreateDestination {
         pub(crate) fn new(
@@ -4189,7 +4206,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDestination(RequestBuilder<crate::model::UpdateDestinationRequest>);
+    pub struct UpdateDestination(pub(crate) RequestBuilder<crate::model::UpdateDestinationRequest>);
 
     impl UpdateDestination {
         pub(crate) fn new(
@@ -4347,7 +4364,7 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDestination(RequestBuilder<crate::model::DeleteDestinationRequest>);
+    pub struct DeleteDestination(pub(crate) RequestBuilder<crate::model::DeleteDestinationRequest>);
 
     impl DeleteDestination {
         pub(crate) fn new(
@@ -4474,7 +4491,7 @@ pub mod data_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetMulticloudDataTransferSupportedService(
-        RequestBuilder<crate::model::GetMulticloudDataTransferSupportedServiceRequest>,
+        pub(crate) RequestBuilder<crate::model::GetMulticloudDataTransferSupportedServiceRequest>,
     );
 
     impl GetMulticloudDataTransferSupportedService {
@@ -4547,7 +4564,7 @@ pub mod data_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListMulticloudDataTransferSupportedServices(
-        RequestBuilder<crate::model::ListMulticloudDataTransferSupportedServicesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListMulticloudDataTransferSupportedServicesRequest>,
     );
 
     impl ListMulticloudDataTransferSupportedServices {
@@ -4661,7 +4678,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -4770,7 +4789,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -4833,7 +4854,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -4938,7 +4961,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -5022,7 +5047,7 @@ pub mod data_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -5106,7 +5131,7 @@ pub mod data_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -5222,7 +5247,9 @@ pub mod data_transfer_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -5286,7 +5313,7 @@ pub mod data_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -5351,7 +5378,7 @@ pub mod data_transfer_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -5436,9 +5463,9 @@ pub mod hub_service {
     /// Common implementation for [crate::client::HubService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::HubService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::HubService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -5477,7 +5504,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListHubs(RequestBuilder<crate::model::ListHubsRequest>);
+    pub struct ListHubs(pub(crate) RequestBuilder<crate::model::ListHubsRequest>);
 
     impl ListHubs {
         pub(crate) fn new(
@@ -5587,7 +5614,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetHub(RequestBuilder<crate::model::GetHubRequest>);
+    pub struct GetHub(pub(crate) RequestBuilder<crate::model::GetHubRequest>);
 
     impl GetHub {
         pub(crate) fn new(
@@ -5650,7 +5677,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateHub(RequestBuilder<crate::model::CreateHubRequest>);
+    pub struct CreateHub(pub(crate) RequestBuilder<crate::model::CreateHubRequest>);
 
     impl CreateHub {
         pub(crate) fn new(
@@ -5803,7 +5830,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateHub(RequestBuilder<crate::model::UpdateHubRequest>);
+    pub struct UpdateHub(pub(crate) RequestBuilder<crate::model::UpdateHubRequest>);
 
     impl UpdateHub {
         pub(crate) fn new(
@@ -5958,7 +5985,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteHub(RequestBuilder<crate::model::DeleteHubRequest>);
+    pub struct DeleteHub(pub(crate) RequestBuilder<crate::model::DeleteHubRequest>);
 
     impl DeleteHub {
         pub(crate) fn new(
@@ -6079,7 +6106,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListHubSpokes(RequestBuilder<crate::model::ListHubSpokesRequest>);
+    pub struct ListHubSpokes(pub(crate) RequestBuilder<crate::model::ListHubSpokesRequest>);
 
     impl ListHubSpokes {
         pub(crate) fn new(
@@ -6215,7 +6242,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryHubStatus(RequestBuilder<crate::model::QueryHubStatusRequest>);
+    pub struct QueryHubStatus(pub(crate) RequestBuilder<crate::model::QueryHubStatusRequest>);
 
     impl QueryHubStatus {
         pub(crate) fn new(
@@ -6339,7 +6366,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSpokes(RequestBuilder<crate::model::ListSpokesRequest>);
+    pub struct ListSpokes(pub(crate) RequestBuilder<crate::model::ListSpokesRequest>);
 
     impl ListSpokes {
         pub(crate) fn new(
@@ -6451,7 +6478,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSpoke(RequestBuilder<crate::model::GetSpokeRequest>);
+    pub struct GetSpoke(pub(crate) RequestBuilder<crate::model::GetSpokeRequest>);
 
     impl GetSpoke {
         pub(crate) fn new(
@@ -6514,7 +6541,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSpoke(RequestBuilder<crate::model::CreateSpokeRequest>);
+    pub struct CreateSpoke(pub(crate) RequestBuilder<crate::model::CreateSpokeRequest>);
 
     impl CreateSpoke {
         pub(crate) fn new(
@@ -6667,7 +6694,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSpoke(RequestBuilder<crate::model::UpdateSpokeRequest>);
+    pub struct UpdateSpoke(pub(crate) RequestBuilder<crate::model::UpdateSpokeRequest>);
 
     impl UpdateSpoke {
         pub(crate) fn new(
@@ -6822,7 +6849,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RejectHubSpoke(RequestBuilder<crate::model::RejectHubSpokeRequest>);
+    pub struct RejectHubSpoke(pub(crate) RequestBuilder<crate::model::RejectHubSpokeRequest>);
 
     impl RejectHubSpoke {
         pub(crate) fn new(
@@ -6961,7 +6988,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AcceptHubSpoke(RequestBuilder<crate::model::AcceptHubSpokeRequest>);
+    pub struct AcceptHubSpoke(pub(crate) RequestBuilder<crate::model::AcceptHubSpokeRequest>);
 
     impl AcceptHubSpoke {
         pub(crate) fn new(
@@ -7094,7 +7121,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AcceptSpokeUpdate(RequestBuilder<crate::model::AcceptSpokeUpdateRequest>);
+    pub struct AcceptSpokeUpdate(pub(crate) RequestBuilder<crate::model::AcceptSpokeUpdateRequest>);
 
     impl AcceptSpokeUpdate {
         pub(crate) fn new(
@@ -7238,7 +7265,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RejectSpokeUpdate(RequestBuilder<crate::model::RejectSpokeUpdateRequest>);
+    pub struct RejectSpokeUpdate(pub(crate) RequestBuilder<crate::model::RejectSpokeUpdateRequest>);
 
     impl RejectSpokeUpdate {
         pub(crate) fn new(
@@ -7388,7 +7415,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSpoke(RequestBuilder<crate::model::DeleteSpokeRequest>);
+    pub struct DeleteSpoke(pub(crate) RequestBuilder<crate::model::DeleteSpokeRequest>);
 
     impl DeleteSpoke {
         pub(crate) fn new(
@@ -7505,7 +7532,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRouteTable(RequestBuilder<crate::model::GetRouteTableRequest>);
+    pub struct GetRouteTable(pub(crate) RequestBuilder<crate::model::GetRouteTableRequest>);
 
     impl GetRouteTable {
         pub(crate) fn new(
@@ -7567,7 +7594,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRoute(RequestBuilder<crate::model::GetRouteRequest>);
+    pub struct GetRoute(pub(crate) RequestBuilder<crate::model::GetRouteRequest>);
 
     impl GetRoute {
         pub(crate) fn new(
@@ -7633,7 +7660,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRoutes(RequestBuilder<crate::model::ListRoutesRequest>);
+    pub struct ListRoutes(pub(crate) RequestBuilder<crate::model::ListRoutesRequest>);
 
     impl ListRoutes {
         pub(crate) fn new(
@@ -7749,7 +7776,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRouteTables(RequestBuilder<crate::model::ListRouteTablesRequest>);
+    pub struct ListRouteTables(pub(crate) RequestBuilder<crate::model::ListRouteTablesRequest>);
 
     impl ListRouteTables {
         pub(crate) fn new(
@@ -7863,7 +7890,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
+    pub struct GetGroup(pub(crate) RequestBuilder<crate::model::GetGroupRequest>);
 
     impl GetGroup {
         pub(crate) fn new(
@@ -7929,7 +7956,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
+    pub struct ListGroups(pub(crate) RequestBuilder<crate::model::ListGroupsRequest>);
 
     impl ListGroups {
         pub(crate) fn new(
@@ -8042,7 +8069,7 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
+    pub struct UpdateGroup(pub(crate) RequestBuilder<crate::model::UpdateGroupRequest>);
 
     impl UpdateGroup {
         pub(crate) fn new(
@@ -8200,7 +8227,9 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -8309,7 +8338,9 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -8372,7 +8403,9 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -8477,7 +8510,9 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -8561,7 +8596,7 @@ pub mod hub_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -8645,7 +8680,7 @@ pub mod hub_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -8761,7 +8796,9 @@ pub mod hub_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -8825,7 +8862,7 @@ pub mod hub_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -8890,7 +8927,7 @@ pub mod hub_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -8975,9 +9012,9 @@ pub mod internal_range_service {
     /// Common implementation for [crate::client::InternalRangeService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::InternalRangeService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::InternalRangeService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -9016,7 +9053,9 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInternalRanges(RequestBuilder<crate::model::ListInternalRangesRequest>);
+    pub struct ListInternalRanges(
+        pub(crate) RequestBuilder<crate::model::ListInternalRangesRequest>,
+    );
 
     impl ListInternalRanges {
         pub(crate) fn new(
@@ -9133,7 +9172,7 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInternalRange(RequestBuilder<crate::model::GetInternalRangeRequest>);
+    pub struct GetInternalRange(pub(crate) RequestBuilder<crate::model::GetInternalRangeRequest>);
 
     impl GetInternalRange {
         pub(crate) fn new(
@@ -9199,7 +9238,9 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInternalRange(RequestBuilder<crate::model::CreateInternalRangeRequest>);
+    pub struct CreateInternalRange(
+        pub(crate) RequestBuilder<crate::model::CreateInternalRangeRequest>,
+    );
 
     impl CreateInternalRange {
         pub(crate) fn new(
@@ -9353,7 +9394,9 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInternalRange(RequestBuilder<crate::model::UpdateInternalRangeRequest>);
+    pub struct UpdateInternalRange(
+        pub(crate) RequestBuilder<crate::model::UpdateInternalRangeRequest>,
+    );
 
     impl UpdateInternalRange {
         pub(crate) fn new(
@@ -9511,7 +9554,9 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInternalRange(RequestBuilder<crate::model::DeleteInternalRangeRequest>);
+    pub struct DeleteInternalRange(
+        pub(crate) RequestBuilder<crate::model::DeleteInternalRangeRequest>,
+    );
 
     impl DeleteInternalRange {
         pub(crate) fn new(
@@ -9635,7 +9680,9 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -9744,7 +9791,9 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -9807,7 +9856,9 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -9912,7 +9963,9 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -9996,7 +10049,7 @@ pub mod internal_range_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -10080,7 +10133,7 @@ pub mod internal_range_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -10196,7 +10249,9 @@ pub mod internal_range_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -10260,7 +10315,7 @@ pub mod internal_range_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -10325,7 +10380,7 @@ pub mod internal_range_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -10410,9 +10465,9 @@ pub mod policy_based_routing_service {
     /// Common implementation for [crate::client::PolicyBasedRoutingService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBasedRoutingService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBasedRoutingService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -10451,7 +10506,9 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPolicyBasedRoutes(RequestBuilder<crate::model::ListPolicyBasedRoutesRequest>);
+    pub struct ListPolicyBasedRoutes(
+        pub(crate) RequestBuilder<crate::model::ListPolicyBasedRoutesRequest>,
+    );
 
     impl ListPolicyBasedRoutes {
         pub(crate) fn new(
@@ -10568,7 +10625,9 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPolicyBasedRoute(RequestBuilder<crate::model::GetPolicyBasedRouteRequest>);
+    pub struct GetPolicyBasedRoute(
+        pub(crate) RequestBuilder<crate::model::GetPolicyBasedRouteRequest>,
+    );
 
     impl GetPolicyBasedRoute {
         pub(crate) fn new(
@@ -10634,7 +10693,9 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePolicyBasedRoute(RequestBuilder<crate::model::CreatePolicyBasedRouteRequest>);
+    pub struct CreatePolicyBasedRoute(
+        pub(crate) RequestBuilder<crate::model::CreatePolicyBasedRouteRequest>,
+    );
 
     impl CreatePolicyBasedRoute {
         pub(crate) fn new(
@@ -10790,7 +10851,9 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePolicyBasedRoute(RequestBuilder<crate::model::DeletePolicyBasedRouteRequest>);
+    pub struct DeletePolicyBasedRoute(
+        pub(crate) RequestBuilder<crate::model::DeletePolicyBasedRouteRequest>,
+    );
 
     impl DeletePolicyBasedRoute {
         pub(crate) fn new(
@@ -10914,7 +10977,9 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -11023,7 +11088,9 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -11086,7 +11153,9 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -11191,7 +11260,9 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -11275,7 +11346,7 @@ pub mod policy_based_routing_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -11359,7 +11430,7 @@ pub mod policy_based_routing_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -11475,7 +11546,9 @@ pub mod policy_based_routing_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -11539,7 +11612,7 @@ pub mod policy_based_routing_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -11604,7 +11677,7 @@ pub mod policy_based_routing_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

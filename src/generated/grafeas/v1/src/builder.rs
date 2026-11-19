@@ -51,9 +51,9 @@ pub mod grafeas {
     /// Common implementation for [crate::client::Grafeas] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -86,7 +86,7 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOccurrence(RequestBuilder<crate::model::GetOccurrenceRequest>);
+    pub struct GetOccurrence(pub(crate) RequestBuilder<crate::model::GetOccurrenceRequest>);
 
     impl GetOccurrence {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
@@ -150,7 +150,7 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOccurrences(RequestBuilder<crate::model::ListOccurrencesRequest>);
+    pub struct ListOccurrences(pub(crate) RequestBuilder<crate::model::ListOccurrencesRequest>);
 
     impl ListOccurrences {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
@@ -262,7 +262,7 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteOccurrence(RequestBuilder<crate::model::DeleteOccurrenceRequest>);
+    pub struct DeleteOccurrence(pub(crate) RequestBuilder<crate::model::DeleteOccurrenceRequest>);
 
     impl DeleteOccurrence {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
@@ -325,7 +325,7 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateOccurrence(RequestBuilder<crate::model::CreateOccurrenceRequest>);
+    pub struct CreateOccurrence(pub(crate) RequestBuilder<crate::model::CreateOccurrenceRequest>);
 
     impl CreateOccurrence {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
@@ -410,7 +410,9 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchCreateOccurrences(RequestBuilder<crate::model::BatchCreateOccurrencesRequest>);
+    pub struct BatchCreateOccurrences(
+        pub(crate) RequestBuilder<crate::model::BatchCreateOccurrencesRequest>,
+    );
 
     impl BatchCreateOccurrences {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
@@ -486,7 +488,7 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateOccurrence(RequestBuilder<crate::model::UpdateOccurrenceRequest>);
+    pub struct UpdateOccurrence(pub(crate) RequestBuilder<crate::model::UpdateOccurrenceRequest>);
 
     impl UpdateOccurrence {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
@@ -589,7 +591,7 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOccurrenceNote(RequestBuilder<crate::model::GetOccurrenceNoteRequest>);
+    pub struct GetOccurrenceNote(pub(crate) RequestBuilder<crate::model::GetOccurrenceNoteRequest>);
 
     impl GetOccurrenceNote {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
@@ -652,7 +654,7 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNote(RequestBuilder<crate::model::GetNoteRequest>);
+    pub struct GetNote(pub(crate) RequestBuilder<crate::model::GetNoteRequest>);
 
     impl GetNote {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
@@ -716,7 +718,7 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNotes(RequestBuilder<crate::model::ListNotesRequest>);
+    pub struct ListNotes(pub(crate) RequestBuilder<crate::model::ListNotesRequest>);
 
     impl ListNotes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
@@ -824,7 +826,7 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteNote(RequestBuilder<crate::model::DeleteNoteRequest>);
+    pub struct DeleteNote(pub(crate) RequestBuilder<crate::model::DeleteNoteRequest>);
 
     impl DeleteNote {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
@@ -884,7 +886,7 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateNote(RequestBuilder<crate::model::CreateNoteRequest>);
+    pub struct CreateNote(pub(crate) RequestBuilder<crate::model::CreateNoteRequest>);
 
     impl CreateNote {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
@@ -974,7 +976,7 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchCreateNotes(RequestBuilder<crate::model::BatchCreateNotesRequest>);
+    pub struct BatchCreateNotes(pub(crate) RequestBuilder<crate::model::BatchCreateNotesRequest>);
 
     impl BatchCreateNotes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
@@ -1050,7 +1052,7 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateNote(RequestBuilder<crate::model::UpdateNoteRequest>);
+    pub struct UpdateNote(pub(crate) RequestBuilder<crate::model::UpdateNoteRequest>);
 
     impl UpdateNote {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
@@ -1154,7 +1156,9 @@ pub mod grafeas {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNoteOccurrences(RequestBuilder<crate::model::ListNoteOccurrencesRequest>);
+    pub struct ListNoteOccurrences(
+        pub(crate) RequestBuilder<crate::model::ListNoteOccurrencesRequest>,
+    );
 
     impl ListNoteOccurrences {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {

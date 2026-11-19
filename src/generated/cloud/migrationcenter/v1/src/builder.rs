@@ -51,9 +51,9 @@ pub mod migration_center {
     /// Common implementation for [crate::client::MigrationCenter] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
+    pub struct ListAssets(pub(crate) RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
         pub(crate) fn new(
@@ -210,7 +210,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
+    pub struct GetAsset(pub(crate) RequestBuilder<crate::model::GetAssetRequest>);
 
     impl GetAsset {
         pub(crate) fn new(
@@ -278,7 +278,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAsset(RequestBuilder<crate::model::UpdateAssetRequest>);
+    pub struct UpdateAsset(pub(crate) RequestBuilder<crate::model::UpdateAssetRequest>);
 
     impl UpdateAsset {
         pub(crate) fn new(
@@ -382,7 +382,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchUpdateAssets(RequestBuilder<crate::model::BatchUpdateAssetsRequest>);
+    pub struct BatchUpdateAssets(pub(crate) RequestBuilder<crate::model::BatchUpdateAssetsRequest>);
 
     impl BatchUpdateAssets {
         pub(crate) fn new(
@@ -460,7 +460,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
+    pub struct DeleteAsset(pub(crate) RequestBuilder<crate::model::DeleteAssetRequest>);
 
     impl DeleteAsset {
         pub(crate) fn new(
@@ -528,7 +528,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchDeleteAssets(RequestBuilder<crate::model::BatchDeleteAssetsRequest>);
+    pub struct BatchDeleteAssets(pub(crate) RequestBuilder<crate::model::BatchDeleteAssetsRequest>);
 
     impl BatchDeleteAssets {
         pub(crate) fn new(
@@ -612,7 +612,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReportAssetFrames(RequestBuilder<crate::model::ReportAssetFramesRequest>);
+    pub struct ReportAssetFrames(pub(crate) RequestBuilder<crate::model::ReportAssetFramesRequest>);
 
     impl ReportAssetFrames {
         pub(crate) fn new(
@@ -703,7 +703,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AggregateAssetsValues(RequestBuilder<crate::model::AggregateAssetsValuesRequest>);
+    pub struct AggregateAssetsValues(
+        pub(crate) RequestBuilder<crate::model::AggregateAssetsValuesRequest>,
+    );
 
     impl AggregateAssetsValues {
         pub(crate) fn new(
@@ -786,7 +788,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateImportJob(RequestBuilder<crate::model::CreateImportJobRequest>);
+    pub struct CreateImportJob(pub(crate) RequestBuilder<crate::model::CreateImportJobRequest>);
 
     impl CreateImportJob {
         pub(crate) fn new(
@@ -942,7 +944,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListImportJobs(RequestBuilder<crate::model::ListImportJobsRequest>);
+    pub struct ListImportJobs(pub(crate) RequestBuilder<crate::model::ListImportJobsRequest>);
 
     impl ListImportJobs {
         pub(crate) fn new(
@@ -1062,7 +1064,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetImportJob(RequestBuilder<crate::model::GetImportJobRequest>);
+    pub struct GetImportJob(pub(crate) RequestBuilder<crate::model::GetImportJobRequest>);
 
     impl GetImportJob {
         pub(crate) fn new(
@@ -1131,7 +1133,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteImportJob(RequestBuilder<crate::model::DeleteImportJobRequest>);
+    pub struct DeleteImportJob(pub(crate) RequestBuilder<crate::model::DeleteImportJobRequest>);
 
     impl DeleteImportJob {
         pub(crate) fn new(
@@ -1255,7 +1257,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateImportJob(RequestBuilder<crate::model::UpdateImportJobRequest>);
+    pub struct UpdateImportJob(pub(crate) RequestBuilder<crate::model::UpdateImportJobRequest>);
 
     impl UpdateImportJob {
         pub(crate) fn new(
@@ -1414,7 +1416,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ValidateImportJob(RequestBuilder<crate::model::ValidateImportJobRequest>);
+    pub struct ValidateImportJob(pub(crate) RequestBuilder<crate::model::ValidateImportJobRequest>);
 
     impl ValidateImportJob {
         pub(crate) fn new(
@@ -1535,7 +1537,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RunImportJob(RequestBuilder<crate::model::RunImportJobRequest>);
+    pub struct RunImportJob(pub(crate) RequestBuilder<crate::model::RunImportJobRequest>);
 
     impl RunImportJob {
         pub(crate) fn new(
@@ -1652,7 +1654,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetImportDataFile(RequestBuilder<crate::model::GetImportDataFileRequest>);
+    pub struct GetImportDataFile(pub(crate) RequestBuilder<crate::model::GetImportDataFileRequest>);
 
     impl GetImportDataFile {
         pub(crate) fn new(
@@ -1721,7 +1723,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListImportDataFiles(RequestBuilder<crate::model::ListImportDataFilesRequest>);
+    pub struct ListImportDataFiles(
+        pub(crate) RequestBuilder<crate::model::ListImportDataFilesRequest>,
+    );
 
     impl ListImportDataFiles {
         pub(crate) fn new(
@@ -1839,7 +1843,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateImportDataFile(RequestBuilder<crate::model::CreateImportDataFileRequest>);
+    pub struct CreateImportDataFile(
+        pub(crate) RequestBuilder<crate::model::CreateImportDataFileRequest>,
+    );
 
     impl CreateImportDataFile {
         pub(crate) fn new(
@@ -1995,7 +2001,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteImportDataFile(RequestBuilder<crate::model::DeleteImportDataFileRequest>);
+    pub struct DeleteImportDataFile(
+        pub(crate) RequestBuilder<crate::model::DeleteImportDataFileRequest>,
+    );
 
     impl DeleteImportDataFile {
         pub(crate) fn new(
@@ -2119,7 +2127,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
+    pub struct ListGroups(pub(crate) RequestBuilder<crate::model::ListGroupsRequest>);
 
     impl ListGroups {
         pub(crate) fn new(
@@ -2231,7 +2239,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
+    pub struct GetGroup(pub(crate) RequestBuilder<crate::model::GetGroupRequest>);
 
     impl GetGroup {
         pub(crate) fn new(
@@ -2294,7 +2302,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
+    pub struct CreateGroup(pub(crate) RequestBuilder<crate::model::CreateGroupRequest>);
 
     impl CreateGroup {
         pub(crate) fn new(
@@ -2447,7 +2455,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
+    pub struct UpdateGroup(pub(crate) RequestBuilder<crate::model::UpdateGroupRequest>);
 
     impl UpdateGroup {
         pub(crate) fn new(
@@ -2606,7 +2614,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
+    pub struct DeleteGroup(pub(crate) RequestBuilder<crate::model::DeleteGroupRequest>);
 
     impl DeleteGroup {
         pub(crate) fn new(
@@ -2724,7 +2732,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddAssetsToGroup(RequestBuilder<crate::model::AddAssetsToGroupRequest>);
+    pub struct AddAssetsToGroup(pub(crate) RequestBuilder<crate::model::AddAssetsToGroupRequest>);
 
     impl AddAssetsToGroup {
         pub(crate) fn new(
@@ -2878,7 +2886,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveAssetsFromGroup(RequestBuilder<crate::model::RemoveAssetsFromGroupRequest>);
+    pub struct RemoveAssetsFromGroup(
+        pub(crate) RequestBuilder<crate::model::RemoveAssetsFromGroupRequest>,
+    );
 
     impl RemoveAssetsFromGroup {
         pub(crate) fn new(
@@ -3035,7 +3045,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListErrorFrames(RequestBuilder<crate::model::ListErrorFramesRequest>);
+    pub struct ListErrorFrames(pub(crate) RequestBuilder<crate::model::ListErrorFramesRequest>);
 
     impl ListErrorFrames {
         pub(crate) fn new(
@@ -3143,7 +3153,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetErrorFrame(RequestBuilder<crate::model::GetErrorFrameRequest>);
+    pub struct GetErrorFrame(pub(crate) RequestBuilder<crate::model::GetErrorFrameRequest>);
 
     impl GetErrorFrame {
         pub(crate) fn new(
@@ -3215,7 +3225,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
+    pub struct ListSources(pub(crate) RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
         pub(crate) fn new(
@@ -3327,7 +3337,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
+    pub struct GetSource(pub(crate) RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
         pub(crate) fn new(
@@ -3390,7 +3400,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
+    pub struct CreateSource(pub(crate) RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
         pub(crate) fn new(
@@ -3543,7 +3553,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
+    pub struct UpdateSource(pub(crate) RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
         pub(crate) fn new(
@@ -3702,7 +3712,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSource(RequestBuilder<crate::model::DeleteSourceRequest>);
+    pub struct DeleteSource(pub(crate) RequestBuilder<crate::model::DeleteSourceRequest>);
 
     impl DeleteSource {
         pub(crate) fn new(
@@ -3823,7 +3833,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPreferenceSets(RequestBuilder<crate::model::ListPreferenceSetsRequest>);
+    pub struct ListPreferenceSets(
+        pub(crate) RequestBuilder<crate::model::ListPreferenceSetsRequest>,
+    );
 
     impl ListPreferenceSets {
         pub(crate) fn new(
@@ -3934,7 +3946,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPreferenceSet(RequestBuilder<crate::model::GetPreferenceSetRequest>);
+    pub struct GetPreferenceSet(pub(crate) RequestBuilder<crate::model::GetPreferenceSetRequest>);
 
     impl GetPreferenceSet {
         pub(crate) fn new(
@@ -4000,7 +4012,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePreferenceSet(RequestBuilder<crate::model::CreatePreferenceSetRequest>);
+    pub struct CreatePreferenceSet(
+        pub(crate) RequestBuilder<crate::model::CreatePreferenceSetRequest>,
+    );
 
     impl CreatePreferenceSet {
         pub(crate) fn new(
@@ -4156,7 +4170,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePreferenceSet(RequestBuilder<crate::model::UpdatePreferenceSetRequest>);
+    pub struct UpdatePreferenceSet(
+        pub(crate) RequestBuilder<crate::model::UpdatePreferenceSetRequest>,
+    );
 
     impl UpdatePreferenceSet {
         pub(crate) fn new(
@@ -4318,7 +4334,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePreferenceSet(RequestBuilder<crate::model::DeletePreferenceSetRequest>);
+    pub struct DeletePreferenceSet(
+        pub(crate) RequestBuilder<crate::model::DeletePreferenceSetRequest>,
+    );
 
     impl DeletePreferenceSet {
         pub(crate) fn new(
@@ -4438,7 +4456,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
+    pub struct GetSettings(pub(crate) RequestBuilder<crate::model::GetSettingsRequest>);
 
     impl GetSettings {
         pub(crate) fn new(
@@ -4501,7 +4519,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
+    pub struct UpdateSettings(pub(crate) RequestBuilder<crate::model::UpdateSettingsRequest>);
 
     impl UpdateSettings {
         pub(crate) fn new(
@@ -4660,7 +4678,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateReportConfig(RequestBuilder<crate::model::CreateReportConfigRequest>);
+    pub struct CreateReportConfig(
+        pub(crate) RequestBuilder<crate::model::CreateReportConfigRequest>,
+    );
 
     impl CreateReportConfig {
         pub(crate) fn new(
@@ -4815,7 +4835,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetReportConfig(RequestBuilder<crate::model::GetReportConfigRequest>);
+    pub struct GetReportConfig(pub(crate) RequestBuilder<crate::model::GetReportConfigRequest>);
 
     impl GetReportConfig {
         pub(crate) fn new(
@@ -4881,7 +4901,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReportConfigs(RequestBuilder<crate::model::ListReportConfigsRequest>);
+    pub struct ListReportConfigs(pub(crate) RequestBuilder<crate::model::ListReportConfigsRequest>);
 
     impl ListReportConfigs {
         pub(crate) fn new(
@@ -4999,7 +5019,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteReportConfig(RequestBuilder<crate::model::DeleteReportConfigRequest>);
+    pub struct DeleteReportConfig(
+        pub(crate) RequestBuilder<crate::model::DeleteReportConfigRequest>,
+    );
 
     impl DeleteReportConfig {
         pub(crate) fn new(
@@ -5126,7 +5148,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateReport(RequestBuilder<crate::model::CreateReportRequest>);
+    pub struct CreateReport(pub(crate) RequestBuilder<crate::model::CreateReportRequest>);
 
     impl CreateReport {
         pub(crate) fn new(
@@ -5278,7 +5300,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetReport(RequestBuilder<crate::model::GetReportRequest>);
+    pub struct GetReport(pub(crate) RequestBuilder<crate::model::GetReportRequest>);
 
     impl GetReport {
         pub(crate) fn new(
@@ -5350,7 +5372,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReports(RequestBuilder<crate::model::ListReportsRequest>);
+    pub struct ListReports(pub(crate) RequestBuilder<crate::model::ListReportsRequest>);
 
     impl ListReports {
         pub(crate) fn new(
@@ -5469,7 +5491,7 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteReport(RequestBuilder<crate::model::DeleteReportRequest>);
+    pub struct DeleteReport(pub(crate) RequestBuilder<crate::model::DeleteReportRequest>);
 
     impl DeleteReport {
         pub(crate) fn new(
@@ -5590,7 +5612,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -5699,7 +5723,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -5767,7 +5793,7 @@ pub mod migration_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -5883,7 +5909,9 @@ pub mod migration_center {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -5947,7 +5975,7 @@ pub mod migration_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -6012,7 +6040,7 @@ pub mod migration_center {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

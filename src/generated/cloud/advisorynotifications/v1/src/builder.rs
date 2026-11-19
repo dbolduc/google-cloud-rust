@@ -51,9 +51,10 @@ pub mod advisory_notifications_service {
     /// Common implementation for [crate::client::AdvisoryNotificationsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +93,7 @@ pub mod advisory_notifications_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNotifications(RequestBuilder<crate::model::ListNotificationsRequest>);
+    pub struct ListNotifications(pub(crate) RequestBuilder<crate::model::ListNotificationsRequest>);
 
     impl ListNotifications {
         pub(crate) fn new(
@@ -209,7 +210,7 @@ pub mod advisory_notifications_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNotification(RequestBuilder<crate::model::GetNotificationRequest>);
+    pub struct GetNotification(pub(crate) RequestBuilder<crate::model::GetNotificationRequest>);
 
     impl GetNotification {
         pub(crate) fn new(
@@ -277,7 +278,7 @@ pub mod advisory_notifications_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
+    pub struct GetSettings(pub(crate) RequestBuilder<crate::model::GetSettingsRequest>);
 
     impl GetSettings {
         pub(crate) fn new(
@@ -339,7 +340,7 @@ pub mod advisory_notifications_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
+    pub struct UpdateSettings(pub(crate) RequestBuilder<crate::model::UpdateSettingsRequest>);
 
     impl UpdateSettings {
         pub(crate) fn new(

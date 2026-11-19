@@ -51,9 +51,9 @@ pub mod bare_metal_solution {
     /// Common implementation for [crate::client::BareMetalSolution] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
+    pub struct ListInstances(pub(crate) RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(
@@ -198,7 +198,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
+    pub struct GetInstance(pub(crate) RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(
@@ -261,7 +261,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
+    pub struct UpdateInstance(pub(crate) RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
         pub(crate) fn new(
@@ -409,7 +409,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RenameInstance(RequestBuilder<crate::model::RenameInstanceRequest>);
+    pub struct RenameInstance(pub(crate) RequestBuilder<crate::model::RenameInstanceRequest>);
 
     impl RenameInstance {
         pub(crate) fn new(
@@ -480,7 +480,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResetInstance(RequestBuilder<crate::model::ResetInstanceRequest>);
+    pub struct ResetInstance(pub(crate) RequestBuilder<crate::model::ResetInstanceRequest>);
 
     impl ResetInstance {
         pub(crate) fn new(
@@ -599,7 +599,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartInstance(RequestBuilder<crate::model::StartInstanceRequest>);
+    pub struct StartInstance(pub(crate) RequestBuilder<crate::model::StartInstanceRequest>);
 
     impl StartInstance {
         pub(crate) fn new(
@@ -718,7 +718,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopInstance(RequestBuilder<crate::model::StopInstanceRequest>);
+    pub struct StopInstance(pub(crate) RequestBuilder<crate::model::StopInstanceRequest>);
 
     impl StopInstance {
         pub(crate) fn new(
@@ -838,7 +838,7 @@ pub mod bare_metal_solution {
     /// ```
     #[derive(Clone, Debug)]
     pub struct EnableInteractiveSerialConsole(
-        RequestBuilder<crate::model::EnableInteractiveSerialConsoleRequest>,
+        pub(crate) RequestBuilder<crate::model::EnableInteractiveSerialConsoleRequest>,
     );
 
     impl EnableInteractiveSerialConsole {
@@ -962,7 +962,7 @@ pub mod bare_metal_solution {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DisableInteractiveSerialConsole(
-        RequestBuilder<crate::model::DisableInteractiveSerialConsoleRequest>,
+        pub(crate) RequestBuilder<crate::model::DisableInteractiveSerialConsoleRequest>,
     );
 
     impl DisableInteractiveSerialConsole {
@@ -1085,7 +1085,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DetachLun(RequestBuilder<crate::model::DetachLunRequest>);
+    pub struct DetachLun(pub(crate) RequestBuilder<crate::model::DetachLunRequest>);
 
     impl DetachLun {
         pub(crate) fn new(
@@ -1219,7 +1219,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSSHKeys(RequestBuilder<crate::model::ListSSHKeysRequest>);
+    pub struct ListSSHKeys(pub(crate) RequestBuilder<crate::model::ListSSHKeysRequest>);
 
     impl ListSSHKeys {
         pub(crate) fn new(
@@ -1319,7 +1319,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSSHKey(RequestBuilder<crate::model::CreateSSHKeyRequest>);
+    pub struct CreateSSHKey(pub(crate) RequestBuilder<crate::model::CreateSSHKeyRequest>);
 
     impl CreateSSHKey {
         pub(crate) fn new(
@@ -1411,7 +1411,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSSHKey(RequestBuilder<crate::model::DeleteSSHKeyRequest>);
+    pub struct DeleteSSHKey(pub(crate) RequestBuilder<crate::model::DeleteSSHKeyRequest>);
 
     impl DeleteSSHKey {
         pub(crate) fn new(
@@ -1477,7 +1477,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVolumes(RequestBuilder<crate::model::ListVolumesRequest>);
+    pub struct ListVolumes(pub(crate) RequestBuilder<crate::model::ListVolumesRequest>);
 
     impl ListVolumes {
         pub(crate) fn new(
@@ -1583,7 +1583,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVolume(RequestBuilder<crate::model::GetVolumeRequest>);
+    pub struct GetVolume(pub(crate) RequestBuilder<crate::model::GetVolumeRequest>);
 
     impl GetVolume {
         pub(crate) fn new(
@@ -1646,7 +1646,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateVolume(RequestBuilder<crate::model::UpdateVolumeRequest>);
+    pub struct UpdateVolume(pub(crate) RequestBuilder<crate::model::UpdateVolumeRequest>);
 
     impl UpdateVolume {
         pub(crate) fn new(
@@ -1794,7 +1794,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RenameVolume(RequestBuilder<crate::model::RenameVolumeRequest>);
+    pub struct RenameVolume(pub(crate) RequestBuilder<crate::model::RenameVolumeRequest>);
 
     impl RenameVolume {
         pub(crate) fn new(
@@ -1865,7 +1865,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EvictVolume(RequestBuilder<crate::model::EvictVolumeRequest>);
+    pub struct EvictVolume(pub(crate) RequestBuilder<crate::model::EvictVolumeRequest>);
 
     impl EvictVolume {
         pub(crate) fn new(
@@ -1977,7 +1977,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResizeVolume(RequestBuilder<crate::model::ResizeVolumeRequest>);
+    pub struct ResizeVolume(pub(crate) RequestBuilder<crate::model::ResizeVolumeRequest>);
 
     impl ResizeVolume {
         pub(crate) fn new(
@@ -2103,7 +2103,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNetworks(RequestBuilder<crate::model::ListNetworksRequest>);
+    pub struct ListNetworks(pub(crate) RequestBuilder<crate::model::ListNetworksRequest>);
 
     impl ListNetworks {
         pub(crate) fn new(
@@ -2209,7 +2209,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNetworkUsage(RequestBuilder<crate::model::ListNetworkUsageRequest>);
+    pub struct ListNetworkUsage(pub(crate) RequestBuilder<crate::model::ListNetworkUsageRequest>);
 
     impl ListNetworkUsage {
         pub(crate) fn new(
@@ -2274,7 +2274,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNetwork(RequestBuilder<crate::model::GetNetworkRequest>);
+    pub struct GetNetwork(pub(crate) RequestBuilder<crate::model::GetNetworkRequest>);
 
     impl GetNetwork {
         pub(crate) fn new(
@@ -2337,7 +2337,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateNetwork(RequestBuilder<crate::model::UpdateNetworkRequest>);
+    pub struct UpdateNetwork(pub(crate) RequestBuilder<crate::model::UpdateNetworkRequest>);
 
     impl UpdateNetwork {
         pub(crate) fn new(
@@ -2485,7 +2485,9 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateVolumeSnapshot(RequestBuilder<crate::model::CreateVolumeSnapshotRequest>);
+    pub struct CreateVolumeSnapshot(
+        pub(crate) RequestBuilder<crate::model::CreateVolumeSnapshotRequest>,
+    );
 
     impl CreateVolumeSnapshot {
         pub(crate) fn new(
@@ -2573,7 +2575,9 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreVolumeSnapshot(RequestBuilder<crate::model::RestoreVolumeSnapshotRequest>);
+    pub struct RestoreVolumeSnapshot(
+        pub(crate) RequestBuilder<crate::model::RestoreVolumeSnapshotRequest>,
+    );
 
     impl RestoreVolumeSnapshot {
         pub(crate) fn new(
@@ -2692,7 +2696,9 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteVolumeSnapshot(RequestBuilder<crate::model::DeleteVolumeSnapshotRequest>);
+    pub struct DeleteVolumeSnapshot(
+        pub(crate) RequestBuilder<crate::model::DeleteVolumeSnapshotRequest>,
+    );
 
     impl DeleteVolumeSnapshot {
         pub(crate) fn new(
@@ -2757,7 +2763,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVolumeSnapshot(RequestBuilder<crate::model::GetVolumeSnapshotRequest>);
+    pub struct GetVolumeSnapshot(pub(crate) RequestBuilder<crate::model::GetVolumeSnapshotRequest>);
 
     impl GetVolumeSnapshot {
         pub(crate) fn new(
@@ -2826,7 +2832,9 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVolumeSnapshots(RequestBuilder<crate::model::ListVolumeSnapshotsRequest>);
+    pub struct ListVolumeSnapshots(
+        pub(crate) RequestBuilder<crate::model::ListVolumeSnapshotsRequest>,
+    );
 
     impl ListVolumeSnapshots {
         pub(crate) fn new(
@@ -2931,7 +2939,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLun(RequestBuilder<crate::model::GetLunRequest>);
+    pub struct GetLun(pub(crate) RequestBuilder<crate::model::GetLunRequest>);
 
     impl GetLun {
         pub(crate) fn new(
@@ -2997,7 +3005,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLuns(RequestBuilder<crate::model::ListLunsRequest>);
+    pub struct ListLuns(pub(crate) RequestBuilder<crate::model::ListLunsRequest>);
 
     impl ListLuns {
         pub(crate) fn new(
@@ -3096,7 +3104,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EvictLun(RequestBuilder<crate::model::EvictLunRequest>);
+    pub struct EvictLun(pub(crate) RequestBuilder<crate::model::EvictLunRequest>);
 
     impl EvictLun {
         pub(crate) fn new(
@@ -3207,7 +3215,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNfsShare(RequestBuilder<crate::model::GetNfsShareRequest>);
+    pub struct GetNfsShare(pub(crate) RequestBuilder<crate::model::GetNfsShareRequest>);
 
     impl GetNfsShare {
         pub(crate) fn new(
@@ -3273,7 +3281,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNfsShares(RequestBuilder<crate::model::ListNfsSharesRequest>);
+    pub struct ListNfsShares(pub(crate) RequestBuilder<crate::model::ListNfsSharesRequest>);
 
     impl ListNfsShares {
         pub(crate) fn new(
@@ -3380,7 +3388,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateNfsShare(RequestBuilder<crate::model::UpdateNfsShareRequest>);
+    pub struct UpdateNfsShare(pub(crate) RequestBuilder<crate::model::UpdateNfsShareRequest>);
 
     impl UpdateNfsShare {
         pub(crate) fn new(
@@ -3529,7 +3537,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateNfsShare(RequestBuilder<crate::model::CreateNfsShareRequest>);
+    pub struct CreateNfsShare(pub(crate) RequestBuilder<crate::model::CreateNfsShareRequest>);
 
     impl CreateNfsShare {
         pub(crate) fn new(
@@ -3667,7 +3675,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RenameNfsShare(RequestBuilder<crate::model::RenameNfsShareRequest>);
+    pub struct RenameNfsShare(pub(crate) RequestBuilder<crate::model::RenameNfsShareRequest>);
 
     impl RenameNfsShare {
         pub(crate) fn new(
@@ -3738,7 +3746,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteNfsShare(RequestBuilder<crate::model::DeleteNfsShareRequest>);
+    pub struct DeleteNfsShare(pub(crate) RequestBuilder<crate::model::DeleteNfsShareRequest>);
 
     impl DeleteNfsShare {
         pub(crate) fn new(
@@ -3853,7 +3861,9 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProvisioningQuotas(RequestBuilder<crate::model::ListProvisioningQuotasRequest>);
+    pub struct ListProvisioningQuotas(
+        pub(crate) RequestBuilder<crate::model::ListProvisioningQuotasRequest>,
+    );
 
     impl ListProvisioningQuotas {
         pub(crate) fn new(
@@ -3959,7 +3969,7 @@ pub mod bare_metal_solution {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SubmitProvisioningConfig(
-        RequestBuilder<crate::model::SubmitProvisioningConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::SubmitProvisioningConfigRequest>,
     );
 
     impl SubmitProvisioningConfig {
@@ -4053,7 +4063,9 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProvisioningConfig(RequestBuilder<crate::model::GetProvisioningConfigRequest>);
+    pub struct GetProvisioningConfig(
+        pub(crate) RequestBuilder<crate::model::GetProvisioningConfigRequest>,
+    );
 
     impl GetProvisioningConfig {
         pub(crate) fn new(
@@ -4119,7 +4131,7 @@ pub mod bare_metal_solution {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProvisioningConfig(
-        RequestBuilder<crate::model::CreateProvisioningConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateProvisioningConfigRequest>,
     );
 
     impl CreateProvisioningConfig {
@@ -4214,7 +4226,7 @@ pub mod bare_metal_solution {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProvisioningConfig(
-        RequestBuilder<crate::model::UpdateProvisioningConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateProvisioningConfigRequest>,
     );
 
     impl UpdateProvisioningConfig {
@@ -4322,7 +4334,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RenameNetwork(RequestBuilder<crate::model::RenameNetworkRequest>);
+    pub struct RenameNetwork(pub(crate) RequestBuilder<crate::model::RenameNetworkRequest>);
 
     impl RenameNetwork {
         pub(crate) fn new(
@@ -4396,7 +4408,7 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListOSImages(RequestBuilder<crate::model::ListOSImagesRequest>);
+    pub struct ListOSImages(pub(crate) RequestBuilder<crate::model::ListOSImagesRequest>);
 
     impl ListOSImages {
         pub(crate) fn new(
@@ -4500,7 +4512,9 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -4609,7 +4623,9 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -4672,7 +4688,9 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

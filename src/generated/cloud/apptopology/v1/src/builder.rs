@@ -51,9 +51,9 @@ pub mod app_topology {
     /// Common implementation for [crate::client::AppTopology] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AppTopology>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AppTopology>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod app_topology {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateDiscoveredResourcesTopology(
-        RequestBuilder<crate::model::GenerateDiscoveredResourcesTopologyRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateDiscoveredResourcesTopologyRequest>,
     );
 
     impl GenerateDiscoveredResourcesTopology {
@@ -197,7 +197,7 @@ pub mod app_topology {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSchema(RequestBuilder<crate::model::GetSchemaRequest>);
+    pub struct GetSchema(pub(crate) RequestBuilder<crate::model::GetSchemaRequest>);
 
     impl GetSchema {
         pub(crate) fn new(
@@ -263,7 +263,7 @@ pub mod app_topology {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExploreSchema(RequestBuilder<crate::model::ExploreSchemaRequest>);
+    pub struct ExploreSchema(pub(crate) RequestBuilder<crate::model::ExploreSchemaRequest>);
 
     impl ExploreSchema {
         pub(crate) fn new(
@@ -380,7 +380,7 @@ pub mod app_topology {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDomain(RequestBuilder<crate::model::GetDomainRequest>);
+    pub struct GetDomain(pub(crate) RequestBuilder<crate::model::GetDomainRequest>);
 
     impl GetDomain {
         pub(crate) fn new(
@@ -446,7 +446,7 @@ pub mod app_topology {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDomains(RequestBuilder<crate::model::ListDomainsRequest>);
+    pub struct ListDomains(pub(crate) RequestBuilder<crate::model::ListDomainsRequest>);
 
     impl ListDomains {
         pub(crate) fn new(
@@ -550,7 +550,9 @@ pub mod app_topology {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -659,7 +661,9 @@ pub mod app_topology {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -727,7 +731,7 @@ pub mod app_topology {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -843,7 +847,9 @@ pub mod app_topology {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -907,7 +913,7 @@ pub mod app_topology {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -972,7 +978,7 @@ pub mod app_topology {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

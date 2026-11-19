@@ -51,9 +51,9 @@ pub mod net_app {
     /// Common implementation for [crate::client::NetApp] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -90,7 +90,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListStoragePools(RequestBuilder<crate::model::ListStoragePoolsRequest>);
+    pub struct ListStoragePools(pub(crate) RequestBuilder<crate::model::ListStoragePoolsRequest>);
 
     impl ListStoragePools {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -206,7 +206,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateStoragePool(RequestBuilder<crate::model::CreateStoragePoolRequest>);
+    pub struct CreateStoragePool(pub(crate) RequestBuilder<crate::model::CreateStoragePoolRequest>);
 
     impl CreateStoragePool {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -354,7 +354,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetStoragePool(RequestBuilder<crate::model::GetStoragePoolRequest>);
+    pub struct GetStoragePool(pub(crate) RequestBuilder<crate::model::GetStoragePoolRequest>);
 
     impl GetStoragePool {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -415,7 +415,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateStoragePool(RequestBuilder<crate::model::UpdateStoragePoolRequest>);
+    pub struct UpdateStoragePool(pub(crate) RequestBuilder<crate::model::UpdateStoragePoolRequest>);
 
     impl UpdateStoragePool {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -570,7 +570,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteStoragePool(RequestBuilder<crate::model::DeleteStoragePoolRequest>);
+    pub struct DeleteStoragePool(pub(crate) RequestBuilder<crate::model::DeleteStoragePoolRequest>);
 
     impl DeleteStoragePool {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -685,7 +685,7 @@ pub mod net_app {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ValidateDirectoryService(
-        RequestBuilder<crate::model::ValidateDirectoryServiceRequest>,
+        pub(crate) RequestBuilder<crate::model::ValidateDirectoryServiceRequest>,
     );
 
     impl ValidateDirectoryService {
@@ -809,7 +809,7 @@ pub mod net_app {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SwitchActiveReplicaZone(
-        RequestBuilder<crate::model::SwitchActiveReplicaZoneRequest>,
+        pub(crate) RequestBuilder<crate::model::SwitchActiveReplicaZoneRequest>,
     );
 
     impl SwitchActiveReplicaZone {
@@ -931,7 +931,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVolumes(RequestBuilder<crate::model::ListVolumesRequest>);
+    pub struct ListVolumes(pub(crate) RequestBuilder<crate::model::ListVolumesRequest>);
 
     impl ListVolumes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -1041,7 +1041,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVolume(RequestBuilder<crate::model::GetVolumeRequest>);
+    pub struct GetVolume(pub(crate) RequestBuilder<crate::model::GetVolumeRequest>);
 
     impl GetVolume {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -1102,7 +1102,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateVolume(RequestBuilder<crate::model::CreateVolumeRequest>);
+    pub struct CreateVolume(pub(crate) RequestBuilder<crate::model::CreateVolumeRequest>);
 
     impl CreateVolume {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -1248,7 +1248,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateVolume(RequestBuilder<crate::model::UpdateVolumeRequest>);
+    pub struct UpdateVolume(pub(crate) RequestBuilder<crate::model::UpdateVolumeRequest>);
 
     impl UpdateVolume {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -1400,7 +1400,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteVolume(RequestBuilder<crate::model::DeleteVolumeRequest>);
+    pub struct DeleteVolume(pub(crate) RequestBuilder<crate::model::DeleteVolumeRequest>);
 
     impl DeleteVolume {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -1517,7 +1517,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RevertVolume(RequestBuilder<crate::model::RevertVolumeRequest>);
+    pub struct RevertVolume(pub(crate) RequestBuilder<crate::model::RevertVolumeRequest>);
 
     impl RevertVolume {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -1641,7 +1641,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartSplit(RequestBuilder<crate::model::StartSplitRequest>);
+    pub struct StartSplit(pub(crate) RequestBuilder<crate::model::StartSplitRequest>);
 
     impl StartSplit {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -1756,7 +1756,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSplitStatus(RequestBuilder<crate::model::GetSplitStatusRequest>);
+    pub struct GetSplitStatus(pub(crate) RequestBuilder<crate::model::GetSplitStatusRequest>);
 
     impl GetSplitStatus {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -1817,7 +1817,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EstablishVolumePeering(RequestBuilder<crate::model::EstablishVolumePeeringRequest>);
+    pub struct EstablishVolumePeering(
+        pub(crate) RequestBuilder<crate::model::EstablishVolumePeeringRequest>,
+    );
 
     impl EstablishVolumePeering {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -1974,7 +1976,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
+    pub struct ListSnapshots(pub(crate) RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -2084,7 +2086,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
+    pub struct GetSnapshot(pub(crate) RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -2145,7 +2147,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSnapshot(RequestBuilder<crate::model::CreateSnapshotRequest>);
+    pub struct CreateSnapshot(pub(crate) RequestBuilder<crate::model::CreateSnapshotRequest>);
 
     impl CreateSnapshot {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -2291,7 +2293,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
+    pub struct DeleteSnapshot(pub(crate) RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -2402,7 +2404,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSnapshot(RequestBuilder<crate::model::UpdateSnapshotRequest>);
+    pub struct UpdateSnapshot(pub(crate) RequestBuilder<crate::model::UpdateSnapshotRequest>);
 
     impl UpdateSnapshot {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -2557,7 +2559,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListActiveDirectories(RequestBuilder<crate::model::ListActiveDirectoriesRequest>);
+    pub struct ListActiveDirectories(
+        pub(crate) RequestBuilder<crate::model::ListActiveDirectoriesRequest>,
+    );
 
     impl ListActiveDirectories {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -2672,7 +2676,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetActiveDirectory(RequestBuilder<crate::model::GetActiveDirectoryRequest>);
+    pub struct GetActiveDirectory(
+        pub(crate) RequestBuilder<crate::model::GetActiveDirectoryRequest>,
+    );
 
     impl GetActiveDirectory {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -2736,7 +2742,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateActiveDirectory(RequestBuilder<crate::model::CreateActiveDirectoryRequest>);
+    pub struct CreateActiveDirectory(
+        pub(crate) RequestBuilder<crate::model::CreateActiveDirectoryRequest>,
+    );
 
     impl CreateActiveDirectory {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -2885,7 +2893,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateActiveDirectory(RequestBuilder<crate::model::UpdateActiveDirectoryRequest>);
+    pub struct UpdateActiveDirectory(
+        pub(crate) RequestBuilder<crate::model::UpdateActiveDirectoryRequest>,
+    );
 
     impl UpdateActiveDirectory {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -3040,7 +3050,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteActiveDirectory(RequestBuilder<crate::model::DeleteActiveDirectoryRequest>);
+    pub struct DeleteActiveDirectory(
+        pub(crate) RequestBuilder<crate::model::DeleteActiveDirectoryRequest>,
+    );
 
     impl DeleteActiveDirectory {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -3157,7 +3169,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListKmsConfigs(RequestBuilder<crate::model::ListKmsConfigsRequest>);
+    pub struct ListKmsConfigs(pub(crate) RequestBuilder<crate::model::ListKmsConfigsRequest>);
 
     impl ListKmsConfigs {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -3270,7 +3282,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateKmsConfig(RequestBuilder<crate::model::CreateKmsConfigRequest>);
+    pub struct CreateKmsConfig(pub(crate) RequestBuilder<crate::model::CreateKmsConfigRequest>);
 
     impl CreateKmsConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -3415,7 +3427,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetKmsConfig(RequestBuilder<crate::model::GetKmsConfigRequest>);
+    pub struct GetKmsConfig(pub(crate) RequestBuilder<crate::model::GetKmsConfigRequest>);
 
     impl GetKmsConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -3476,7 +3488,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateKmsConfig(RequestBuilder<crate::model::UpdateKmsConfigRequest>);
+    pub struct UpdateKmsConfig(pub(crate) RequestBuilder<crate::model::UpdateKmsConfigRequest>);
 
     impl UpdateKmsConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -3628,7 +3640,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EncryptVolumes(RequestBuilder<crate::model::EncryptVolumesRequest>);
+    pub struct EncryptVolumes(pub(crate) RequestBuilder<crate::model::EncryptVolumesRequest>);
 
     impl EncryptVolumes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -3743,7 +3755,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct VerifyKmsConfig(RequestBuilder<crate::model::VerifyKmsConfigRequest>);
+    pub struct VerifyKmsConfig(pub(crate) RequestBuilder<crate::model::VerifyKmsConfigRequest>);
 
     impl VerifyKmsConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -3804,7 +3816,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteKmsConfig(RequestBuilder<crate::model::DeleteKmsConfigRequest>);
+    pub struct DeleteKmsConfig(pub(crate) RequestBuilder<crate::model::DeleteKmsConfigRequest>);
 
     impl DeleteKmsConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -3918,7 +3930,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReplications(RequestBuilder<crate::model::ListReplicationsRequest>);
+    pub struct ListReplications(pub(crate) RequestBuilder<crate::model::ListReplicationsRequest>);
 
     impl ListReplications {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -4033,7 +4045,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetReplication(RequestBuilder<crate::model::GetReplicationRequest>);
+    pub struct GetReplication(pub(crate) RequestBuilder<crate::model::GetReplicationRequest>);
 
     impl GetReplication {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -4094,7 +4106,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateReplication(RequestBuilder<crate::model::CreateReplicationRequest>);
+    pub struct CreateReplication(pub(crate) RequestBuilder<crate::model::CreateReplicationRequest>);
 
     impl CreateReplication {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -4243,7 +4255,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteReplication(RequestBuilder<crate::model::DeleteReplicationRequest>);
+    pub struct DeleteReplication(pub(crate) RequestBuilder<crate::model::DeleteReplicationRequest>);
 
     impl DeleteReplication {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -4357,7 +4369,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateReplication(RequestBuilder<crate::model::UpdateReplicationRequest>);
+    pub struct UpdateReplication(pub(crate) RequestBuilder<crate::model::UpdateReplicationRequest>);
 
     impl UpdateReplication {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -4512,7 +4524,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopReplication(RequestBuilder<crate::model::StopReplicationRequest>);
+    pub struct StopReplication(pub(crate) RequestBuilder<crate::model::StopReplicationRequest>);
 
     impl StopReplication {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -4634,7 +4646,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResumeReplication(RequestBuilder<crate::model::ResumeReplicationRequest>);
+    pub struct ResumeReplication(pub(crate) RequestBuilder<crate::model::ResumeReplicationRequest>);
 
     impl ResumeReplication {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -4754,7 +4766,7 @@ pub mod net_app {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ReverseReplicationDirection(
-        RequestBuilder<crate::model::ReverseReplicationDirectionRequest>,
+        pub(crate) RequestBuilder<crate::model::ReverseReplicationDirectionRequest>,
     );
 
     impl ReverseReplicationDirection {
@@ -4873,7 +4885,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EstablishPeering(RequestBuilder<crate::model::EstablishPeeringRequest>);
+    pub struct EstablishPeering(pub(crate) RequestBuilder<crate::model::EstablishPeeringRequest>);
 
     impl EstablishPeering {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -5027,7 +5039,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SyncReplication(RequestBuilder<crate::model::SyncReplicationRequest>);
+    pub struct SyncReplication(pub(crate) RequestBuilder<crate::model::SyncReplicationRequest>);
 
     impl SyncReplication {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -5143,7 +5155,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackupVault(RequestBuilder<crate::model::CreateBackupVaultRequest>);
+    pub struct CreateBackupVault(pub(crate) RequestBuilder<crate::model::CreateBackupVaultRequest>);
 
     impl CreateBackupVault {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -5291,7 +5303,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackupVault(RequestBuilder<crate::model::GetBackupVaultRequest>);
+    pub struct GetBackupVault(pub(crate) RequestBuilder<crate::model::GetBackupVaultRequest>);
 
     impl GetBackupVault {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -5355,7 +5367,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackupVaults(RequestBuilder<crate::model::ListBackupVaultsRequest>);
+    pub struct ListBackupVaults(pub(crate) RequestBuilder<crate::model::ListBackupVaultsRequest>);
 
     impl ListBackupVaults {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -5471,7 +5483,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackupVault(RequestBuilder<crate::model::UpdateBackupVaultRequest>);
+    pub struct UpdateBackupVault(pub(crate) RequestBuilder<crate::model::UpdateBackupVaultRequest>);
 
     impl UpdateBackupVault {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -5626,7 +5638,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackupVault(RequestBuilder<crate::model::DeleteBackupVaultRequest>);
+    pub struct DeleteBackupVault(pub(crate) RequestBuilder<crate::model::DeleteBackupVaultRequest>);
 
     impl DeleteBackupVault {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -5740,7 +5752,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
+    pub struct CreateBackup(pub(crate) RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -5885,7 +5897,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
+    pub struct GetBackup(pub(crate) RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -5949,7 +5961,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
+    pub struct ListBackups(pub(crate) RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -6060,7 +6072,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
+    pub struct DeleteBackup(pub(crate) RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -6171,7 +6183,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
+    pub struct UpdateBackup(pub(crate) RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -6323,7 +6335,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackupPolicy(RequestBuilder<crate::model::CreateBackupPolicyRequest>);
+    pub struct CreateBackupPolicy(
+        pub(crate) RequestBuilder<crate::model::CreateBackupPolicyRequest>,
+    );
 
     impl CreateBackupPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -6471,7 +6485,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackupPolicy(RequestBuilder<crate::model::GetBackupPolicyRequest>);
+    pub struct GetBackupPolicy(pub(crate) RequestBuilder<crate::model::GetBackupPolicyRequest>);
 
     impl GetBackupPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -6535,7 +6549,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackupPolicies(RequestBuilder<crate::model::ListBackupPoliciesRequest>);
+    pub struct ListBackupPolicies(
+        pub(crate) RequestBuilder<crate::model::ListBackupPoliciesRequest>,
+    );
 
     impl ListBackupPolicies {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -6651,7 +6667,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackupPolicy(RequestBuilder<crate::model::UpdateBackupPolicyRequest>);
+    pub struct UpdateBackupPolicy(
+        pub(crate) RequestBuilder<crate::model::UpdateBackupPolicyRequest>,
+    );
 
     impl UpdateBackupPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -6806,7 +6824,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackupPolicy(RequestBuilder<crate::model::DeleteBackupPolicyRequest>);
+    pub struct DeleteBackupPolicy(
+        pub(crate) RequestBuilder<crate::model::DeleteBackupPolicyRequest>,
+    );
 
     impl DeleteBackupPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -6923,7 +6943,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListQuotaRules(RequestBuilder<crate::model::ListQuotaRulesRequest>);
+    pub struct ListQuotaRules(pub(crate) RequestBuilder<crate::model::ListQuotaRulesRequest>);
 
     impl ListQuotaRules {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -7035,7 +7055,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetQuotaRule(RequestBuilder<crate::model::GetQuotaRuleRequest>);
+    pub struct GetQuotaRule(pub(crate) RequestBuilder<crate::model::GetQuotaRuleRequest>);
 
     impl GetQuotaRule {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -7096,7 +7116,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateQuotaRule(RequestBuilder<crate::model::CreateQuotaRuleRequest>);
+    pub struct CreateQuotaRule(pub(crate) RequestBuilder<crate::model::CreateQuotaRuleRequest>);
 
     impl CreateQuotaRule {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -7242,7 +7262,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateQuotaRule(RequestBuilder<crate::model::UpdateQuotaRuleRequest>);
+    pub struct UpdateQuotaRule(pub(crate) RequestBuilder<crate::model::UpdateQuotaRuleRequest>);
 
     impl UpdateQuotaRule {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -7390,7 +7410,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteQuotaRule(RequestBuilder<crate::model::DeleteQuotaRuleRequest>);
+    pub struct DeleteQuotaRule(pub(crate) RequestBuilder<crate::model::DeleteQuotaRuleRequest>);
 
     impl DeleteQuotaRule {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -7501,7 +7521,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreBackupFiles(RequestBuilder<crate::model::RestoreBackupFilesRequest>);
+    pub struct RestoreBackupFiles(
+        pub(crate) RequestBuilder<crate::model::RestoreBackupFilesRequest>,
+    );
 
     impl RestoreBackupFiles {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -7652,7 +7674,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListHostGroups(RequestBuilder<crate::model::ListHostGroupsRequest>);
+    pub struct ListHostGroups(pub(crate) RequestBuilder<crate::model::ListHostGroupsRequest>);
 
     impl ListHostGroups {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -7764,7 +7786,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetHostGroup(RequestBuilder<crate::model::GetHostGroupRequest>);
+    pub struct GetHostGroup(pub(crate) RequestBuilder<crate::model::GetHostGroupRequest>);
 
     impl GetHostGroup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -7825,7 +7847,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateHostGroup(RequestBuilder<crate::model::CreateHostGroupRequest>);
+    pub struct CreateHostGroup(pub(crate) RequestBuilder<crate::model::CreateHostGroupRequest>);
 
     impl CreateHostGroup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -7971,7 +7993,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateHostGroup(RequestBuilder<crate::model::UpdateHostGroupRequest>);
+    pub struct UpdateHostGroup(pub(crate) RequestBuilder<crate::model::UpdateHostGroupRequest>);
 
     impl UpdateHostGroup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -8119,7 +8141,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteHostGroup(RequestBuilder<crate::model::DeleteHostGroupRequest>);
+    pub struct DeleteHostGroup(pub(crate) RequestBuilder<crate::model::DeleteHostGroupRequest>);
 
     impl DeleteHostGroup {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -8229,7 +8251,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExecuteOntapPost(RequestBuilder<crate::model::ExecuteOntapPostRequest>);
+    pub struct ExecuteOntapPost(pub(crate) RequestBuilder<crate::model::ExecuteOntapPostRequest>);
 
     impl ExecuteOntapPost {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -8314,7 +8336,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExecuteOntapGet(RequestBuilder<crate::model::ExecuteOntapGetRequest>);
+    pub struct ExecuteOntapGet(pub(crate) RequestBuilder<crate::model::ExecuteOntapGetRequest>);
 
     impl ExecuteOntapGet {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -8374,7 +8396,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExecuteOntapDelete(RequestBuilder<crate::model::ExecuteOntapDeleteRequest>);
+    pub struct ExecuteOntapDelete(
+        pub(crate) RequestBuilder<crate::model::ExecuteOntapDeleteRequest>,
+    );
 
     impl ExecuteOntapDelete {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -8437,7 +8461,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExecuteOntapPatch(RequestBuilder<crate::model::ExecuteOntapPatchRequest>);
+    pub struct ExecuteOntapPatch(pub(crate) RequestBuilder<crate::model::ExecuteOntapPatchRequest>);
 
     impl ExecuteOntapPatch {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -8523,7 +8547,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreVolume(RequestBuilder<crate::model::RestoreVolumeRequest>);
+    pub struct RestoreVolume(pub(crate) RequestBuilder<crate::model::RestoreVolumeRequest>);
 
     impl RestoreVolume {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -8698,7 +8722,7 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackupConfigs(RequestBuilder<crate::model::ListBackupConfigsRequest>);
+    pub struct ListBackupConfigs(pub(crate) RequestBuilder<crate::model::ListBackupConfigsRequest>);
 
     impl ListBackupConfigs {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -8814,7 +8838,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackupConfig(RequestBuilder<crate::model::UpdateBackupConfigRequest>);
+    pub struct UpdateBackupConfig(
+        pub(crate) RequestBuilder<crate::model::UpdateBackupConfigRequest>,
+    );
 
     impl UpdateBackupConfig {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -8990,7 +9016,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -9097,7 +9125,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -9163,7 +9193,7 @@ pub mod net_app {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -9277,7 +9307,9 @@ pub mod net_app {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
@@ -9339,7 +9371,7 @@ pub mod net_app {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -9402,7 +9434,7 @@ pub mod net_app {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

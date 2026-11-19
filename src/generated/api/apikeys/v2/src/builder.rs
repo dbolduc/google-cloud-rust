@@ -51,9 +51,9 @@ pub mod api_keys {
     /// Common implementation for [crate::client::ApiKeys] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -87,7 +87,7 @@ pub mod api_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateKey(RequestBuilder<crate::model::CreateKeyRequest>);
+    pub struct CreateKey(pub(crate) RequestBuilder<crate::model::CreateKeyRequest>);
 
     impl CreateKey {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
@@ -228,7 +228,7 @@ pub mod api_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListKeys(RequestBuilder<crate::model::ListKeysRequest>);
+    pub struct ListKeys(pub(crate) RequestBuilder<crate::model::ListKeysRequest>);
 
     impl ListKeys {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
@@ -330,7 +330,7 @@ pub mod api_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetKey(RequestBuilder<crate::model::GetKeyRequest>);
+    pub struct GetKey(pub(crate) RequestBuilder<crate::model::GetKeyRequest>);
 
     impl GetKey {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
@@ -390,7 +390,7 @@ pub mod api_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetKeyString(RequestBuilder<crate::model::GetKeyStringRequest>);
+    pub struct GetKeyString(pub(crate) RequestBuilder<crate::model::GetKeyStringRequest>);
 
     impl GetKeyString {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
@@ -451,7 +451,7 @@ pub mod api_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateKey(RequestBuilder<crate::model::UpdateKeyRequest>);
+    pub struct UpdateKey(pub(crate) RequestBuilder<crate::model::UpdateKeyRequest>);
 
     impl UpdateKey {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
@@ -593,7 +593,7 @@ pub mod api_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteKey(RequestBuilder<crate::model::DeleteKeyRequest>);
+    pub struct DeleteKey(pub(crate) RequestBuilder<crate::model::DeleteKeyRequest>);
 
     impl DeleteKey {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
@@ -709,7 +709,7 @@ pub mod api_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeleteKey(RequestBuilder<crate::model::UndeleteKeyRequest>);
+    pub struct UndeleteKey(pub(crate) RequestBuilder<crate::model::UndeleteKeyRequest>);
 
     impl UndeleteKey {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
@@ -818,7 +818,7 @@ pub mod api_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LookupKey(RequestBuilder<crate::model::LookupKeyRequest>);
+    pub struct LookupKey(pub(crate) RequestBuilder<crate::model::LookupKeyRequest>);
 
     impl LookupKey {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
@@ -878,7 +878,9 @@ pub mod api_keys {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {

@@ -51,9 +51,9 @@ pub mod trace_service {
     /// Common implementation for [crate::client::TraceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TraceService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod trace_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchWriteSpans(RequestBuilder<crate::model::BatchWriteSpansRequest>);
+    pub struct BatchWriteSpans(pub(crate) RequestBuilder<crate::model::BatchWriteSpansRequest>);
 
     impl BatchWriteSpans {
         pub(crate) fn new(
@@ -163,7 +163,7 @@ pub mod trace_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSpan(RequestBuilder<crate::model::Span>);
+    pub struct CreateSpan(pub(crate) RequestBuilder<crate::model::Span>);
 
     impl CreateSpan {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod livestream_service {
     /// Common implementation for [crate::client::LivestreamService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateChannel(RequestBuilder<crate::model::CreateChannelRequest>);
+    pub struct CreateChannel(pub(crate) RequestBuilder<crate::model::CreateChannelRequest>);
 
     impl CreateChannel {
         pub(crate) fn new(
@@ -245,7 +245,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListChannels(RequestBuilder<crate::model::ListChannelsRequest>);
+    pub struct ListChannels(pub(crate) RequestBuilder<crate::model::ListChannelsRequest>);
 
     impl ListChannels {
         pub(crate) fn new(
@@ -357,7 +357,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetChannel(RequestBuilder<crate::model::GetChannelRequest>);
+    pub struct GetChannel(pub(crate) RequestBuilder<crate::model::GetChannelRequest>);
 
     impl GetChannel {
         pub(crate) fn new(
@@ -420,7 +420,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteChannel(RequestBuilder<crate::model::DeleteChannelRequest>);
+    pub struct DeleteChannel(pub(crate) RequestBuilder<crate::model::DeleteChannelRequest>);
 
     impl DeleteChannel {
         pub(crate) fn new(
@@ -544,7 +544,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateChannel(RequestBuilder<crate::model::UpdateChannelRequest>);
+    pub struct UpdateChannel(pub(crate) RequestBuilder<crate::model::UpdateChannelRequest>);
 
     impl UpdateChannel {
         pub(crate) fn new(
@@ -699,7 +699,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartChannel(RequestBuilder<crate::model::StartChannelRequest>);
+    pub struct StartChannel(pub(crate) RequestBuilder<crate::model::StartChannelRequest>);
 
     impl StartChannel {
         pub(crate) fn new(
@@ -824,7 +824,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopChannel(RequestBuilder<crate::model::StopChannelRequest>);
+    pub struct StopChannel(pub(crate) RequestBuilder<crate::model::StopChannelRequest>);
 
     impl StopChannel {
         pub(crate) fn new(
@@ -949,7 +949,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartDistribution(RequestBuilder<crate::model::StartDistributionRequest>);
+    pub struct StartDistribution(pub(crate) RequestBuilder<crate::model::StartDistributionRequest>);
 
     impl StartDistribution {
         pub(crate) fn new(
@@ -1088,7 +1088,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopDistribution(RequestBuilder<crate::model::StopDistributionRequest>);
+    pub struct StopDistribution(pub(crate) RequestBuilder<crate::model::StopDistributionRequest>);
 
     impl StopDistribution {
         pub(crate) fn new(
@@ -1227,7 +1227,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInput(RequestBuilder<crate::model::CreateInputRequest>);
+    pub struct CreateInput(pub(crate) RequestBuilder<crate::model::CreateInputRequest>);
 
     impl CreateInput {
         pub(crate) fn new(
@@ -1383,7 +1383,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInputs(RequestBuilder<crate::model::ListInputsRequest>);
+    pub struct ListInputs(pub(crate) RequestBuilder<crate::model::ListInputsRequest>);
 
     impl ListInputs {
         pub(crate) fn new(
@@ -1495,7 +1495,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInput(RequestBuilder<crate::model::GetInputRequest>);
+    pub struct GetInput(pub(crate) RequestBuilder<crate::model::GetInputRequest>);
 
     impl GetInput {
         pub(crate) fn new(
@@ -1558,7 +1558,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInput(RequestBuilder<crate::model::DeleteInputRequest>);
+    pub struct DeleteInput(pub(crate) RequestBuilder<crate::model::DeleteInputRequest>);
 
     impl DeleteInput {
         pub(crate) fn new(
@@ -1676,7 +1676,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInput(RequestBuilder<crate::model::UpdateInputRequest>);
+    pub struct UpdateInput(pub(crate) RequestBuilder<crate::model::UpdateInputRequest>);
 
     impl UpdateInput {
         pub(crate) fn new(
@@ -1830,7 +1830,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PreviewInput(RequestBuilder<crate::model::PreviewInputRequest>);
+    pub struct PreviewInput(pub(crate) RequestBuilder<crate::model::PreviewInputRequest>);
 
     impl PreviewInput {
         pub(crate) fn new(
@@ -1892,7 +1892,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateEvent(RequestBuilder<crate::model::CreateEventRequest>);
+    pub struct CreateEvent(pub(crate) RequestBuilder<crate::model::CreateEventRequest>);
 
     impl CreateEvent {
         pub(crate) fn new(
@@ -1994,7 +1994,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
+    pub struct ListEvents(pub(crate) RequestBuilder<crate::model::ListEventsRequest>);
 
     impl ListEvents {
         pub(crate) fn new(
@@ -2106,7 +2106,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
+    pub struct GetEvent(pub(crate) RequestBuilder<crate::model::GetEventRequest>);
 
     impl GetEvent {
         pub(crate) fn new(
@@ -2168,7 +2168,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteEvent(RequestBuilder<crate::model::DeleteEventRequest>);
+    pub struct DeleteEvent(pub(crate) RequestBuilder<crate::model::DeleteEventRequest>);
 
     impl DeleteEvent {
         pub(crate) fn new(
@@ -2240,7 +2240,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListClips(RequestBuilder<crate::model::ListClipsRequest>);
+    pub struct ListClips(pub(crate) RequestBuilder<crate::model::ListClipsRequest>);
 
     impl ListClips {
         pub(crate) fn new(
@@ -2350,7 +2350,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetClip(RequestBuilder<crate::model::GetClipRequest>);
+    pub struct GetClip(pub(crate) RequestBuilder<crate::model::GetClipRequest>);
 
     impl GetClip {
         pub(crate) fn new(
@@ -2413,7 +2413,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateClip(RequestBuilder<crate::model::CreateClipRequest>);
+    pub struct CreateClip(pub(crate) RequestBuilder<crate::model::CreateClipRequest>);
 
     impl CreateClip {
         pub(crate) fn new(
@@ -2566,7 +2566,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteClip(RequestBuilder<crate::model::DeleteClipRequest>);
+    pub struct DeleteClip(pub(crate) RequestBuilder<crate::model::DeleteClipRequest>);
 
     impl DeleteClip {
         pub(crate) fn new(
@@ -2684,7 +2684,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDvrSession(RequestBuilder<crate::model::CreateDvrSessionRequest>);
+    pub struct CreateDvrSession(pub(crate) RequestBuilder<crate::model::CreateDvrSessionRequest>);
 
     impl CreateDvrSession {
         pub(crate) fn new(
@@ -2843,7 +2843,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDvrSessions(RequestBuilder<crate::model::ListDvrSessionsRequest>);
+    pub struct ListDvrSessions(pub(crate) RequestBuilder<crate::model::ListDvrSessionsRequest>);
 
     impl ListDvrSessions {
         pub(crate) fn new(
@@ -2957,7 +2957,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDvrSession(RequestBuilder<crate::model::GetDvrSessionRequest>);
+    pub struct GetDvrSession(pub(crate) RequestBuilder<crate::model::GetDvrSessionRequest>);
 
     impl GetDvrSession {
         pub(crate) fn new(
@@ -3020,7 +3020,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDvrSession(RequestBuilder<crate::model::DeleteDvrSessionRequest>);
+    pub struct DeleteDvrSession(pub(crate) RequestBuilder<crate::model::DeleteDvrSessionRequest>);
 
     impl DeleteDvrSession {
         pub(crate) fn new(
@@ -3141,7 +3141,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDvrSession(RequestBuilder<crate::model::UpdateDvrSessionRequest>);
+    pub struct UpdateDvrSession(pub(crate) RequestBuilder<crate::model::UpdateDvrSessionRequest>);
 
     impl UpdateDvrSession {
         pub(crate) fn new(
@@ -3303,7 +3303,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAsset(RequestBuilder<crate::model::CreateAssetRequest>);
+    pub struct CreateAsset(pub(crate) RequestBuilder<crate::model::CreateAssetRequest>);
 
     impl CreateAsset {
         pub(crate) fn new(
@@ -3456,7 +3456,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
+    pub struct DeleteAsset(pub(crate) RequestBuilder<crate::model::DeleteAssetRequest>);
 
     impl DeleteAsset {
         pub(crate) fn new(
@@ -3573,7 +3573,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
+    pub struct GetAsset(pub(crate) RequestBuilder<crate::model::GetAssetRequest>);
 
     impl GetAsset {
         pub(crate) fn new(
@@ -3639,7 +3639,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
+    pub struct ListAssets(pub(crate) RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
         pub(crate) fn new(
@@ -3751,7 +3751,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPool(RequestBuilder<crate::model::GetPoolRequest>);
+    pub struct GetPool(pub(crate) RequestBuilder<crate::model::GetPoolRequest>);
 
     impl GetPool {
         pub(crate) fn new(
@@ -3814,7 +3814,7 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePool(RequestBuilder<crate::model::UpdatePoolRequest>);
+    pub struct UpdatePool(pub(crate) RequestBuilder<crate::model::UpdatePoolRequest>);
 
     impl UpdatePool {
         pub(crate) fn new(
@@ -3972,7 +3972,9 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -4081,7 +4083,9 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -4149,7 +4153,7 @@ pub mod livestream_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4265,7 +4269,9 @@ pub mod livestream_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4329,7 +4335,7 @@ pub mod livestream_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4394,7 +4400,7 @@ pub mod livestream_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

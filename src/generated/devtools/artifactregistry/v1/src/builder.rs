@@ -51,9 +51,9 @@ pub mod artifact_registry {
     /// Common implementation for [crate::client::ArtifactRegistry] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDockerImages(RequestBuilder<crate::model::ListDockerImagesRequest>);
+    pub struct ListDockerImages(pub(crate) RequestBuilder<crate::model::ListDockerImagesRequest>);
 
     impl ListDockerImages {
         pub(crate) fn new(
@@ -203,7 +203,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDockerImage(RequestBuilder<crate::model::GetDockerImageRequest>);
+    pub struct GetDockerImage(pub(crate) RequestBuilder<crate::model::GetDockerImageRequest>);
 
     impl GetDockerImage {
         pub(crate) fn new(
@@ -269,7 +269,9 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMavenArtifacts(RequestBuilder<crate::model::ListMavenArtifactsRequest>);
+    pub struct ListMavenArtifacts(
+        pub(crate) RequestBuilder<crate::model::ListMavenArtifactsRequest>,
+    );
 
     impl ListMavenArtifacts {
         pub(crate) fn new(
@@ -374,7 +376,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMavenArtifact(RequestBuilder<crate::model::GetMavenArtifactRequest>);
+    pub struct GetMavenArtifact(pub(crate) RequestBuilder<crate::model::GetMavenArtifactRequest>);
 
     impl GetMavenArtifact {
         pub(crate) fn new(
@@ -443,7 +445,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNpmPackages(RequestBuilder<crate::model::ListNpmPackagesRequest>);
+    pub struct ListNpmPackages(pub(crate) RequestBuilder<crate::model::ListNpmPackagesRequest>);
 
     impl ListNpmPackages {
         pub(crate) fn new(
@@ -545,7 +547,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNpmPackage(RequestBuilder<crate::model::GetNpmPackageRequest>);
+    pub struct GetNpmPackage(pub(crate) RequestBuilder<crate::model::GetNpmPackageRequest>);
 
     impl GetNpmPackage {
         pub(crate) fn new(
@@ -611,7 +613,9 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPythonPackages(RequestBuilder<crate::model::ListPythonPackagesRequest>);
+    pub struct ListPythonPackages(
+        pub(crate) RequestBuilder<crate::model::ListPythonPackagesRequest>,
+    );
 
     impl ListPythonPackages {
         pub(crate) fn new(
@@ -716,7 +720,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPythonPackage(RequestBuilder<crate::model::GetPythonPackageRequest>);
+    pub struct GetPythonPackage(pub(crate) RequestBuilder<crate::model::GetPythonPackageRequest>);
 
     impl GetPythonPackage {
         pub(crate) fn new(
@@ -782,7 +786,9 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportAptArtifacts(RequestBuilder<crate::model::ImportAptArtifactsRequest>);
+    pub struct ImportAptArtifacts(
+        pub(crate) RequestBuilder<crate::model::ImportAptArtifactsRequest>,
+    );
 
     impl ImportAptArtifacts {
         pub(crate) fn new(
@@ -929,7 +935,9 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportYumArtifacts(RequestBuilder<crate::model::ImportYumArtifactsRequest>);
+    pub struct ImportYumArtifacts(
+        pub(crate) RequestBuilder<crate::model::ImportYumArtifactsRequest>,
+    );
 
     impl ImportYumArtifacts {
         pub(crate) fn new(
@@ -1079,7 +1087,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
+    pub struct ListRepositories(pub(crate) RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
         pub(crate) fn new(
@@ -1196,7 +1204,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
+    pub struct GetRepository(pub(crate) RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
         pub(crate) fn new(
@@ -1259,7 +1267,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
+    pub struct CreateRepository(pub(crate) RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
         pub(crate) fn new(
@@ -1408,7 +1416,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRepository(RequestBuilder<crate::model::UpdateRepositoryRequest>);
+    pub struct UpdateRepository(pub(crate) RequestBuilder<crate::model::UpdateRepositoryRequest>);
 
     impl UpdateRepository {
         pub(crate) fn new(
@@ -1502,7 +1510,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
+    pub struct DeleteRepository(pub(crate) RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
         pub(crate) fn new(
@@ -1620,7 +1628,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPackages(RequestBuilder<crate::model::ListPackagesRequest>);
+    pub struct ListPackages(pub(crate) RequestBuilder<crate::model::ListPackagesRequest>);
 
     impl ListPackages {
         pub(crate) fn new(
@@ -1732,7 +1740,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPackage(RequestBuilder<crate::model::GetPackageRequest>);
+    pub struct GetPackage(pub(crate) RequestBuilder<crate::model::GetPackageRequest>);
 
     impl GetPackage {
         pub(crate) fn new(
@@ -1795,7 +1803,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePackage(RequestBuilder<crate::model::DeletePackageRequest>);
+    pub struct DeletePackage(pub(crate) RequestBuilder<crate::model::DeletePackageRequest>);
 
     impl DeletePackage {
         pub(crate) fn new(
@@ -1910,7 +1918,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVersions(RequestBuilder<crate::model::ListVersionsRequest>);
+    pub struct ListVersions(pub(crate) RequestBuilder<crate::model::ListVersionsRequest>);
 
     impl ListVersions {
         pub(crate) fn new(
@@ -2026,7 +2034,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVersion(RequestBuilder<crate::model::GetVersionRequest>);
+    pub struct GetVersion(pub(crate) RequestBuilder<crate::model::GetVersionRequest>);
 
     impl GetVersion {
         pub(crate) fn new(
@@ -2093,7 +2101,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteVersion(RequestBuilder<crate::model::DeleteVersionRequest>);
+    pub struct DeleteVersion(pub(crate) RequestBuilder<crate::model::DeleteVersionRequest>);
 
     impl DeleteVersion {
         pub(crate) fn new(
@@ -2209,7 +2217,9 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchDeleteVersions(RequestBuilder<crate::model::BatchDeleteVersionsRequest>);
+    pub struct BatchDeleteVersions(
+        pub(crate) RequestBuilder<crate::model::BatchDeleteVersionsRequest>,
+    );
 
     impl BatchDeleteVersions {
         pub(crate) fn new(
@@ -2344,7 +2354,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateVersion(RequestBuilder<crate::model::UpdateVersionRequest>);
+    pub struct UpdateVersion(pub(crate) RequestBuilder<crate::model::UpdateVersionRequest>);
 
     impl UpdateVersion {
         pub(crate) fn new(
@@ -2442,7 +2452,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListFiles(RequestBuilder<crate::model::ListFilesRequest>);
+    pub struct ListFiles(pub(crate) RequestBuilder<crate::model::ListFilesRequest>);
 
     impl ListFiles {
         pub(crate) fn new(
@@ -2552,7 +2562,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFile(RequestBuilder<crate::model::GetFileRequest>);
+    pub struct GetFile(pub(crate) RequestBuilder<crate::model::GetFileRequest>);
 
     impl GetFile {
         pub(crate) fn new(
@@ -2615,7 +2625,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteFile(RequestBuilder<crate::model::DeleteFileRequest>);
+    pub struct DeleteFile(pub(crate) RequestBuilder<crate::model::DeleteFileRequest>);
 
     impl DeleteFile {
         pub(crate) fn new(
@@ -2726,7 +2736,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFile(RequestBuilder<crate::model::UpdateFileRequest>);
+    pub struct UpdateFile(pub(crate) RequestBuilder<crate::model::UpdateFileRequest>);
 
     impl UpdateFile {
         pub(crate) fn new(
@@ -2828,7 +2838,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTags(RequestBuilder<crate::model::ListTagsRequest>);
+    pub struct ListTags(pub(crate) RequestBuilder<crate::model::ListTagsRequest>);
 
     impl ListTags {
         pub(crate) fn new(
@@ -2930,7 +2940,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTag(RequestBuilder<crate::model::GetTagRequest>);
+    pub struct GetTag(pub(crate) RequestBuilder<crate::model::GetTagRequest>);
 
     impl GetTag {
         pub(crate) fn new(
@@ -2990,7 +3000,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTag(RequestBuilder<crate::model::CreateTagRequest>);
+    pub struct CreateTag(pub(crate) RequestBuilder<crate::model::CreateTagRequest>);
 
     impl CreateTag {
         pub(crate) fn new(
@@ -3074,7 +3084,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTag(RequestBuilder<crate::model::UpdateTagRequest>);
+    pub struct UpdateTag(pub(crate) RequestBuilder<crate::model::UpdateTagRequest>);
 
     impl UpdateTag {
         pub(crate) fn new(
@@ -3164,7 +3174,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTag(RequestBuilder<crate::model::DeleteTagRequest>);
+    pub struct DeleteTag(pub(crate) RequestBuilder<crate::model::DeleteTagRequest>);
 
     impl DeleteTag {
         pub(crate) fn new(
@@ -3224,7 +3234,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRule(RequestBuilder<crate::model::CreateRuleRequest>);
+    pub struct CreateRule(pub(crate) RequestBuilder<crate::model::CreateRuleRequest>);
 
     impl CreateRule {
         pub(crate) fn new(
@@ -3314,7 +3324,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRules(RequestBuilder<crate::model::ListRulesRequest>);
+    pub struct ListRules(pub(crate) RequestBuilder<crate::model::ListRulesRequest>);
 
     impl ListRules {
         pub(crate) fn new(
@@ -3412,7 +3422,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRule(RequestBuilder<crate::model::GetRuleRequest>);
+    pub struct GetRule(pub(crate) RequestBuilder<crate::model::GetRuleRequest>);
 
     impl GetRule {
         pub(crate) fn new(
@@ -3474,7 +3484,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRule(RequestBuilder<crate::model::UpdateRuleRequest>);
+    pub struct UpdateRule(pub(crate) RequestBuilder<crate::model::UpdateRuleRequest>);
 
     impl UpdateRule {
         pub(crate) fn new(
@@ -3564,7 +3574,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRule(RequestBuilder<crate::model::DeleteRuleRequest>);
+    pub struct DeleteRule(pub(crate) RequestBuilder<crate::model::DeleteRuleRequest>);
 
     impl DeleteRule {
         pub(crate) fn new(
@@ -3626,7 +3636,9 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -3731,7 +3743,9 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -3815,7 +3829,7 @@ pub mod artifact_registry {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -3894,7 +3908,9 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProjectSettings(RequestBuilder<crate::model::GetProjectSettingsRequest>);
+    pub struct GetProjectSettings(
+        pub(crate) RequestBuilder<crate::model::GetProjectSettingsRequest>,
+    );
 
     impl GetProjectSettings {
         pub(crate) fn new(
@@ -3959,7 +3975,9 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateProjectSettings(RequestBuilder<crate::model::UpdateProjectSettingsRequest>);
+    pub struct UpdateProjectSettings(
+        pub(crate) RequestBuilder<crate::model::UpdateProjectSettingsRequest>,
+    );
 
     impl UpdateProjectSettings {
         pub(crate) fn new(
@@ -4052,7 +4070,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVPCSCConfig(RequestBuilder<crate::model::GetVPCSCConfigRequest>);
+    pub struct GetVPCSCConfig(pub(crate) RequestBuilder<crate::model::GetVPCSCConfigRequest>);
 
     impl GetVPCSCConfig {
         pub(crate) fn new(
@@ -4114,7 +4132,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateVPCSCConfig(RequestBuilder<crate::model::UpdateVPCSCConfigRequest>);
+    pub struct UpdateVPCSCConfig(pub(crate) RequestBuilder<crate::model::UpdateVPCSCConfigRequest>);
 
     impl UpdateVPCSCConfig {
         pub(crate) fn new(
@@ -4207,7 +4225,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePackage(RequestBuilder<crate::model::UpdatePackageRequest>);
+    pub struct UpdatePackage(pub(crate) RequestBuilder<crate::model::UpdatePackageRequest>);
 
     impl UpdatePackage {
         pub(crate) fn new(
@@ -4301,7 +4319,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAttachments(RequestBuilder<crate::model::ListAttachmentsRequest>);
+    pub struct ListAttachments(pub(crate) RequestBuilder<crate::model::ListAttachmentsRequest>);
 
     impl ListAttachments {
         pub(crate) fn new(
@@ -4409,7 +4427,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAttachment(RequestBuilder<crate::model::GetAttachmentRequest>);
+    pub struct GetAttachment(pub(crate) RequestBuilder<crate::model::GetAttachmentRequest>);
 
     impl GetAttachment {
         pub(crate) fn new(
@@ -4472,7 +4490,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAttachment(RequestBuilder<crate::model::CreateAttachmentRequest>);
+    pub struct CreateAttachment(pub(crate) RequestBuilder<crate::model::CreateAttachmentRequest>);
 
     impl CreateAttachment {
         pub(crate) fn new(
@@ -4622,7 +4640,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAttachment(RequestBuilder<crate::model::DeleteAttachmentRequest>);
+    pub struct DeleteAttachment(pub(crate) RequestBuilder<crate::model::DeleteAttachmentRequest>);
 
     impl DeleteAttachment {
         pub(crate) fn new(
@@ -4737,7 +4755,7 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportArtifact(RequestBuilder<crate::model::ExportArtifactRequest>);
+    pub struct ExportArtifact(pub(crate) RequestBuilder<crate::model::ExportArtifactRequest>);
 
     impl ExportArtifact {
         pub(crate) fn new(
@@ -4920,7 +4938,9 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -5029,7 +5049,9 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -5092,7 +5114,9 @@ pub mod artifact_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

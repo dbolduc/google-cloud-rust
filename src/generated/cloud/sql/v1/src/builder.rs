@@ -51,9 +51,9 @@ pub mod sql_backup_runs_service {
     /// Common implementation for [crate::client::SqlBackupRunsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod sql_backup_runs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::SqlBackupRunsDeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::SqlBackupRunsDeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -163,7 +163,7 @@ pub mod sql_backup_runs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::SqlBackupRunsGetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::SqlBackupRunsGetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -238,7 +238,7 @@ pub mod sql_backup_runs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::SqlBackupRunsInsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::SqlBackupRunsInsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -329,7 +329,7 @@ pub mod sql_backup_runs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::SqlBackupRunsListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::SqlBackupRunsListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -459,9 +459,9 @@ pub mod sql_backups_service {
     /// Common implementation for [crate::client::SqlBackupsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -496,7 +496,7 @@ pub mod sql_backups_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
+    pub struct CreateBackup(pub(crate) RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
         pub(crate) fn new(
@@ -580,7 +580,7 @@ pub mod sql_backups_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
+    pub struct GetBackup(pub(crate) RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
         pub(crate) fn new(
@@ -646,7 +646,7 @@ pub mod sql_backups_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
+    pub struct ListBackups(pub(crate) RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
         pub(crate) fn new(
@@ -752,7 +752,7 @@ pub mod sql_backups_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
+    pub struct UpdateBackup(pub(crate) RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
         pub(crate) fn new(
@@ -846,7 +846,7 @@ pub mod sql_backups_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
+    pub struct DeleteBackup(pub(crate) RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
         pub(crate) fn new(
@@ -929,9 +929,10 @@ pub mod blue_green_deployments_service {
     /// Common implementation for [crate::client::BlueGreenDeploymentsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::BlueGreenDeploymentsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::BlueGreenDeploymentsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -967,7 +968,7 @@ pub mod blue_green_deployments_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBlueGreenDeployment(
-        RequestBuilder<crate::model::CreateBlueGreenDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateBlueGreenDeploymentRequest>,
     );
 
     impl CreateBlueGreenDeployment {
@@ -1063,7 +1064,9 @@ pub mod blue_green_deployments_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBlueGreenDeployment(RequestBuilder<crate::model::GetBlueGreenDeploymentRequest>);
+    pub struct GetBlueGreenDeployment(
+        pub(crate) RequestBuilder<crate::model::GetBlueGreenDeploymentRequest>,
+    );
 
     impl GetBlueGreenDeployment {
         pub(crate) fn new(
@@ -1140,7 +1143,7 @@ pub mod blue_green_deployments_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SwitchoverBlueGreenDeployment(
-        RequestBuilder<crate::model::SwitchoverBlueGreenDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::SwitchoverBlueGreenDeploymentRequest>,
     );
 
     impl SwitchoverBlueGreenDeployment {
@@ -1211,7 +1214,7 @@ pub mod blue_green_deployments_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListBlueGreenDeployments(
-        RequestBuilder<crate::model::ListBlueGreenDeploymentsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListBlueGreenDeploymentsRequest>,
     );
 
     impl ListBlueGreenDeployments {
@@ -1330,7 +1333,7 @@ pub mod blue_green_deployments_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBlueGreenDeployment(
-        RequestBuilder<crate::model::DeleteBlueGreenDeploymentRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteBlueGreenDeploymentRequest>,
     );
 
     impl DeleteBlueGreenDeployment {
@@ -1423,9 +1426,9 @@ pub mod sql_connect_service {
     /// Common implementation for [crate::client::SqlConnectService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlConnectService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlConnectService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1460,7 +1463,9 @@ pub mod sql_connect_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConnectSettings(RequestBuilder<crate::model::GetConnectSettingsRequest>);
+    pub struct GetConnectSettings(
+        pub(crate) RequestBuilder<crate::model::GetConnectSettingsRequest>,
+    );
 
     impl GetConnectSettings {
         pub(crate) fn new(
@@ -1547,7 +1552,9 @@ pub mod sql_connect_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResolveConnectSettings(RequestBuilder<crate::model::ResolveConnectSettingsRequest>);
+    pub struct ResolveConnectSettings(
+        pub(crate) RequestBuilder<crate::model::ResolveConnectSettingsRequest>,
+    );
 
     impl ResolveConnectSettings {
         pub(crate) fn new(
@@ -1620,7 +1627,9 @@ pub mod sql_connect_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateEphemeralCert(RequestBuilder<crate::model::GenerateEphemeralCertRequest>);
+    pub struct GenerateEphemeralCert(
+        pub(crate) RequestBuilder<crate::model::GenerateEphemeralCertRequest>,
+    );
 
     impl GenerateEphemeralCert {
         pub(crate) fn new(
@@ -1758,9 +1767,9 @@ pub mod sql_databases_service {
     /// Common implementation for [crate::client::SqlDatabasesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlDatabasesService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlDatabasesService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1795,7 +1804,7 @@ pub mod sql_databases_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::SqlDatabasesDeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::SqlDatabasesDeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -1876,7 +1885,7 @@ pub mod sql_databases_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::SqlDatabasesGetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::SqlDatabasesGetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -1954,7 +1963,7 @@ pub mod sql_databases_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::SqlDatabasesInsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::SqlDatabasesInsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -2047,7 +2056,7 @@ pub mod sql_databases_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::SqlDatabasesListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::SqlDatabasesListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -2122,7 +2131,7 @@ pub mod sql_databases_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::SqlDatabasesUpdateRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::SqlDatabasesUpdateRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -2221,7 +2230,7 @@ pub mod sql_databases_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::SqlDatabasesUpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::SqlDatabasesUpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -2341,9 +2350,9 @@ pub mod sql_flags_service {
     /// Common implementation for [crate::client::SqlFlagsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlFlagsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlFlagsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2378,7 +2387,7 @@ pub mod sql_flags_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::SqlFlagsListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::SqlFlagsListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -2477,9 +2486,9 @@ pub mod sql_instances_service {
     /// Common implementation for [crate::client::SqlInstancesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2514,7 +2523,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddServerCa(RequestBuilder<crate::model::SqlInstancesAddServerCaRequest>);
+    pub struct AddServerCa(pub(crate) RequestBuilder<crate::model::SqlInstancesAddServerCaRequest>);
 
     impl AddServerCa {
         pub(crate) fn new(
@@ -2590,7 +2599,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddServerCertificate(
-        RequestBuilder<crate::model::SqlInstancesAddServerCertificateRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesAddServerCertificateRequest>,
     );
 
     impl AddServerCertificate {
@@ -2667,7 +2676,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct AddEntraIdCertificate(
-        RequestBuilder<crate::model::SqlInstancesAddEntraIdCertificateRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesAddEntraIdCertificateRequest>,
     );
 
     impl AddEntraIdCertificate {
@@ -2747,7 +2756,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Clone(RequestBuilder<crate::model::SqlInstancesCloneRequest>);
+    pub struct Clone(pub(crate) RequestBuilder<crate::model::SqlInstancesCloneRequest>);
 
     impl Clone {
         pub(crate) fn new(
@@ -2848,7 +2857,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::SqlInstancesDeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::SqlInstancesDeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -2986,7 +2995,9 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DemoteMaster(RequestBuilder<crate::model::SqlInstancesDemoteMasterRequest>);
+    pub struct DemoteMaster(
+        pub(crate) RequestBuilder<crate::model::SqlInstancesDemoteMasterRequest>,
+    );
 
     impl DemoteMaster {
         pub(crate) fn new(
@@ -3079,7 +3090,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Demote(RequestBuilder<crate::model::SqlInstancesDemoteRequest>);
+    pub struct Demote(pub(crate) RequestBuilder<crate::model::SqlInstancesDemoteRequest>);
 
     impl Demote {
         pub(crate) fn new(
@@ -3180,7 +3191,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Export(RequestBuilder<crate::model::SqlInstancesExportRequest>);
+    pub struct Export(pub(crate) RequestBuilder<crate::model::SqlInstancesExportRequest>);
 
     impl Export {
         pub(crate) fn new(
@@ -3273,7 +3284,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Failover(RequestBuilder<crate::model::SqlInstancesFailoverRequest>);
+    pub struct Failover(pub(crate) RequestBuilder<crate::model::SqlInstancesFailoverRequest>);
 
     impl Failover {
         pub(crate) fn new(
@@ -3366,7 +3377,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Reencrypt(RequestBuilder<crate::model::SqlInstancesReencryptRequest>);
+    pub struct Reencrypt(pub(crate) RequestBuilder<crate::model::SqlInstancesReencryptRequest>);
 
     impl Reencrypt {
         pub(crate) fn new(
@@ -3459,7 +3470,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::SqlInstancesGetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::SqlInstancesGetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -3535,7 +3546,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Import(RequestBuilder<crate::model::SqlInstancesImportRequest>);
+    pub struct Import(pub(crate) RequestBuilder<crate::model::SqlInstancesImportRequest>);
 
     impl Import {
         pub(crate) fn new(
@@ -3628,7 +3639,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::SqlInstancesInsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::SqlInstancesInsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -3719,7 +3730,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::SqlInstancesListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::SqlInstancesListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -3832,7 +3843,9 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServerCas(RequestBuilder<crate::model::SqlInstancesListServerCasRequest>);
+    pub struct ListServerCas(
+        pub(crate) RequestBuilder<crate::model::SqlInstancesListServerCasRequest>,
+    );
 
     impl ListServerCas {
         pub(crate) fn new(
@@ -3908,7 +3921,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListServerCertificates(
-        RequestBuilder<crate::model::SqlInstancesListServerCertificatesRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesListServerCertificatesRequest>,
     );
 
     impl ListServerCertificates {
@@ -3989,7 +4002,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListEntraIdCertificates(
-        RequestBuilder<crate::model::SqlInstancesListEntraIdCertificatesRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesListEntraIdCertificatesRequest>,
     );
 
     impl ListEntraIdCertificates {
@@ -4069,7 +4082,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Patch(RequestBuilder<crate::model::SqlInstancesPatchRequest>);
+    pub struct Patch(pub(crate) RequestBuilder<crate::model::SqlInstancesPatchRequest>);
 
     impl Patch {
         pub(crate) fn new(
@@ -4201,7 +4214,9 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PromoteReplica(RequestBuilder<crate::model::SqlInstancesPromoteReplicaRequest>);
+    pub struct PromoteReplica(
+        pub(crate) RequestBuilder<crate::model::SqlInstancesPromoteReplicaRequest>,
+    );
 
     impl PromoteReplica {
         pub(crate) fn new(
@@ -4282,7 +4297,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Switchover(RequestBuilder<crate::model::SqlInstancesSwitchoverRequest>);
+    pub struct Switchover(pub(crate) RequestBuilder<crate::model::SqlInstancesSwitchoverRequest>);
 
     impl Switchover {
         pub(crate) fn new(
@@ -4375,7 +4390,9 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResetSslConfig(RequestBuilder<crate::model::SqlInstancesResetSslConfigRequest>);
+    pub struct ResetSslConfig(
+        pub(crate) RequestBuilder<crate::model::SqlInstancesResetSslConfigRequest>,
+    );
 
     impl ResetSslConfig {
         pub(crate) fn new(
@@ -4461,7 +4478,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Restart(RequestBuilder<crate::model::SqlInstancesRestartRequest>);
+    pub struct Restart(pub(crate) RequestBuilder<crate::model::SqlInstancesRestartRequest>);
 
     impl Restart {
         pub(crate) fn new(
@@ -4536,7 +4553,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Start(RequestBuilder<crate::model::SqlInstancesStartRequest>);
+    pub struct Start(pub(crate) RequestBuilder<crate::model::SqlInstancesStartRequest>);
 
     impl Start {
         pub(crate) fn new(
@@ -4615,7 +4632,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Stop(RequestBuilder<crate::model::SqlInstancesStopRequest>);
+    pub struct Stop(pub(crate) RequestBuilder<crate::model::SqlInstancesStopRequest>);
 
     impl Stop {
         pub(crate) fn new(
@@ -4694,7 +4711,9 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreBackup(RequestBuilder<crate::model::SqlInstancesRestoreBackupRequest>);
+    pub struct RestoreBackup(
+        pub(crate) RequestBuilder<crate::model::SqlInstancesRestoreBackupRequest>,
+    );
 
     impl RestoreBackup {
         pub(crate) fn new(
@@ -4787,7 +4806,9 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RotateServerCa(RequestBuilder<crate::model::SqlInstancesRotateServerCaRequest>);
+    pub struct RotateServerCa(
+        pub(crate) RequestBuilder<crate::model::SqlInstancesRotateServerCaRequest>,
+    );
 
     impl RotateServerCa {
         pub(crate) fn new(
@@ -4881,7 +4902,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RotateServerCertificate(
-        RequestBuilder<crate::model::SqlInstancesRotateServerCertificateRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesRotateServerCertificateRequest>,
     );
 
     impl RotateServerCertificate {
@@ -4980,7 +5001,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RotateEntraIdCertificate(
-        RequestBuilder<crate::model::SqlInstancesRotateEntraIdCertificateRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesRotateEntraIdCertificateRequest>,
     );
 
     impl RotateEntraIdCertificate {
@@ -5078,7 +5099,9 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartReplica(RequestBuilder<crate::model::SqlInstancesStartReplicaRequest>);
+    pub struct StartReplica(
+        pub(crate) RequestBuilder<crate::model::SqlInstancesStartReplicaRequest>,
+    );
 
     impl StartReplica {
         pub(crate) fn new(
@@ -5153,7 +5176,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopReplica(RequestBuilder<crate::model::SqlInstancesStopReplicaRequest>);
+    pub struct StopReplica(pub(crate) RequestBuilder<crate::model::SqlInstancesStopReplicaRequest>);
 
     impl StopReplica {
         pub(crate) fn new(
@@ -5228,7 +5251,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TruncateLog(RequestBuilder<crate::model::SqlInstancesTruncateLogRequest>);
+    pub struct TruncateLog(pub(crate) RequestBuilder<crate::model::SqlInstancesTruncateLogRequest>);
 
     impl TruncateLog {
         pub(crate) fn new(
@@ -5321,7 +5344,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::SqlInstancesUpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::SqlInstancesUpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -5415,7 +5438,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEphemeral(
-        RequestBuilder<crate::model::SqlInstancesCreateEphemeralCertRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesCreateEphemeralCertRequest>,
     );
 
     impl CreateEphemeral {
@@ -5510,7 +5533,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct RescheduleMaintenance(
-        RequestBuilder<crate::model::SqlInstancesRescheduleMaintenanceRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesRescheduleMaintenanceRequest>,
     );
 
     impl RescheduleMaintenance {
@@ -5605,7 +5628,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct VerifyExternalSyncSettings(
-        RequestBuilder<crate::model::SqlInstancesVerifyExternalSyncSettingsRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesVerifyExternalSyncSettingsRequest>,
     );
 
     impl VerifyExternalSyncSettings {
@@ -5775,7 +5798,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct StartExternalSync(
-        RequestBuilder<crate::model::SqlInstancesStartExternalSyncRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesStartExternalSyncRequest>,
     );
 
     impl StartExternalSync {
@@ -5926,7 +5949,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PerformDiskShrink(
-        RequestBuilder<crate::model::SqlInstancesPerformDiskShrinkRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesPerformDiskShrinkRequest>,
     );
 
     impl PerformDiskShrink {
@@ -6021,7 +6044,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetDiskShrinkConfig(
-        RequestBuilder<crate::model::SqlInstancesGetDiskShrinkConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesGetDiskShrinkConfigRequest>,
     );
 
     impl GetDiskShrinkConfig {
@@ -6097,7 +6120,9 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResetReplicaSize(RequestBuilder<crate::model::SqlInstancesResetReplicaSizeRequest>);
+    pub struct ResetReplicaSize(
+        pub(crate) RequestBuilder<crate::model::SqlInstancesResetReplicaSizeRequest>,
+    );
 
     impl ResetReplicaSize {
         pub(crate) fn new(
@@ -6173,7 +6198,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetLatestRecoveryTime(
-        RequestBuilder<crate::model::SqlInstancesGetLatestRecoveryTimeRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesGetLatestRecoveryTimeRequest>,
     );
 
     impl GetLatestRecoveryTime {
@@ -6271,7 +6296,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ExecuteSqlReadOnly(
-        RequestBuilder<crate::model::SqlInstancesExecuteSqlReadOnlyRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesExecuteSqlReadOnlyRequest>,
     );
 
     impl ExecuteSqlReadOnly {
@@ -6373,7 +6398,7 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExecuteSql(RequestBuilder<crate::model::SqlInstancesExecuteSqlRequest>);
+    pub struct ExecuteSql(pub(crate) RequestBuilder<crate::model::SqlInstancesExecuteSqlRequest>);
 
     impl ExecuteSql {
         pub(crate) fn new(
@@ -6470,7 +6495,9 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AcquireSsrsLease(RequestBuilder<crate::model::SqlInstancesAcquireSsrsLeaseRequest>);
+    pub struct AcquireSsrsLease(
+        pub(crate) RequestBuilder<crate::model::SqlInstancesAcquireSsrsLeaseRequest>,
+    );
 
     impl AcquireSsrsLease {
         pub(crate) fn new(
@@ -6571,7 +6598,9 @@ pub mod sql_instances_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReleaseSsrsLease(RequestBuilder<crate::model::SqlInstancesReleaseSsrsLeaseRequest>);
+    pub struct ReleaseSsrsLease(
+        pub(crate) RequestBuilder<crate::model::SqlInstancesReleaseSsrsLeaseRequest>,
+    );
 
     impl ReleaseSsrsLease {
         pub(crate) fn new(
@@ -6651,7 +6680,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PreCheckMajorVersionUpgrade(
-        RequestBuilder<crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest>,
     );
 
     impl PreCheckMajorVersionUpgrade {
@@ -6756,7 +6785,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct PointInTimeRestore(
-        RequestBuilder<crate::model::SqlInstancesPointInTimeRestoreRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesPointInTimeRestoreRequest>,
     );
 
     impl PointInTimeRestore {
@@ -6845,7 +6874,7 @@ pub mod sql_instances_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ReconcileNetworking(
-        RequestBuilder<crate::model::SqlInstancesReconcileNetworkingRequest>,
+        pub(crate) RequestBuilder<crate::model::SqlInstancesReconcileNetworkingRequest>,
     );
 
     impl ReconcileNetworking {
@@ -6975,9 +7004,9 @@ pub mod sql_operations_service {
     /// Common implementation for [crate::client::SqlOperationsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlOperationsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlOperationsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -7012,7 +7041,7 @@ pub mod sql_operations_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::SqlOperationsGetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::SqlOperationsGetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -7095,7 +7124,7 @@ pub mod sql_operations_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::SqlOperationsListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::SqlOperationsListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -7210,7 +7239,7 @@ pub mod sql_operations_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Cancel(RequestBuilder<crate::model::SqlOperationsCancelRequest>);
+    pub struct Cancel(pub(crate) RequestBuilder<crate::model::SqlOperationsCancelRequest>);
 
     impl Cancel {
         pub(crate) fn new(
@@ -7306,9 +7335,9 @@ pub mod sql_ssl_certs_service {
     /// Common implementation for [crate::client::SqlSslCertsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlSslCertsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlSslCertsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -7343,7 +7372,7 @@ pub mod sql_ssl_certs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::SqlSslCertsDeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::SqlSslCertsDeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -7418,7 +7447,7 @@ pub mod sql_ssl_certs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::SqlSslCertsGetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::SqlSslCertsGetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -7490,7 +7519,7 @@ pub mod sql_ssl_certs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::SqlSslCertsInsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::SqlSslCertsInsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -7577,7 +7606,7 @@ pub mod sql_ssl_certs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::SqlSslCertsListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::SqlSslCertsListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -7644,7 +7673,7 @@ pub mod sql_ssl_certs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCustomerManagedCertificate(
-        RequestBuilder<crate::model::UpdateCustomerManagedCertificateRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateCustomerManagedCertificateRequest>,
     );
 
     impl UpdateCustomerManagedCertificate {
@@ -7777,7 +7806,7 @@ pub mod sql_ssl_certs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCustomerManagedCertificate(
-        RequestBuilder<crate::model::DeleteCustomerManagedCertificateRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteCustomerManagedCertificateRequest>,
     );
 
     impl DeleteCustomerManagedCertificate {
@@ -7860,7 +7889,7 @@ pub mod sql_ssl_certs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListCustomerManagedCertificates(
-        RequestBuilder<crate::model::ListCustomerManagedCertificatesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListCustomerManagedCertificatesRequest>,
     );
 
     impl ListCustomerManagedCertificates {
@@ -7955,9 +7984,9 @@ pub mod sql_tiers_service {
     /// Common implementation for [crate::client::SqlTiersService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlTiersService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlTiersService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -7992,7 +8021,7 @@ pub mod sql_tiers_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::SqlTiersListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::SqlTiersListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -8073,9 +8102,9 @@ pub mod sql_users_service {
     /// Common implementation for [crate::client::SqlUsersService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlUsersService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlUsersService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -8110,7 +8139,7 @@ pub mod sql_users_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Delete(RequestBuilder<crate::model::SqlUsersDeleteRequest>);
+    pub struct Delete(pub(crate) RequestBuilder<crate::model::SqlUsersDeleteRequest>);
 
     impl Delete {
         pub(crate) fn new(
@@ -8194,7 +8223,7 @@ pub mod sql_users_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Get(RequestBuilder<crate::model::SqlUsersGetRequest>);
+    pub struct Get(pub(crate) RequestBuilder<crate::model::SqlUsersGetRequest>);
 
     impl Get {
         pub(crate) fn new(
@@ -8278,7 +8307,7 @@ pub mod sql_users_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Insert(RequestBuilder<crate::model::SqlUsersInsertRequest>);
+    pub struct Insert(pub(crate) RequestBuilder<crate::model::SqlUsersInsertRequest>);
 
     impl Insert {
         pub(crate) fn new(
@@ -8368,7 +8397,7 @@ pub mod sql_users_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::SqlUsersListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::SqlUsersListRequest>);
 
     impl List {
         pub(crate) fn new(
@@ -8440,7 +8469,7 @@ pub mod sql_users_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Update(RequestBuilder<crate::model::SqlUsersUpdateRequest>);
+    pub struct Update(pub(crate) RequestBuilder<crate::model::SqlUsersUpdateRequest>);
 
     impl Update {
         pub(crate) fn new(
@@ -8624,9 +8653,10 @@ pub mod sql_workload_captures_service {
     /// Common implementation for [crate::client::SqlWorkloadCapturesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlWorkloadCapturesService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::SqlWorkloadCapturesService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -8661,7 +8691,7 @@ pub mod sql_workload_captures_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Start(RequestBuilder<crate::model::WorkloadCapturesStartRequest>);
+    pub struct Start(pub(crate) RequestBuilder<crate::model::WorkloadCapturesStartRequest>);
 
     impl Start {
         pub(crate) fn new(
@@ -8755,7 +8785,7 @@ pub mod sql_workload_captures_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Stop(RequestBuilder<crate::model::WorkloadCapturesStopRequest>);
+    pub struct Stop(pub(crate) RequestBuilder<crate::model::WorkloadCapturesStopRequest>);
 
     impl Stop {
         pub(crate) fn new(
@@ -8849,7 +8879,9 @@ pub mod sql_workload_captures_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartReplay(RequestBuilder<crate::model::WorkloadCapturesStartReplayRequest>);
+    pub struct StartReplay(
+        pub(crate) RequestBuilder<crate::model::WorkloadCapturesStartReplayRequest>,
+    );
 
     impl StartReplay {
         pub(crate) fn new(
@@ -8955,7 +8987,9 @@ pub mod sql_workload_captures_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopReplay(RequestBuilder<crate::model::WorkloadCapturesStopReplayRequest>);
+    pub struct StopReplay(
+        pub(crate) RequestBuilder<crate::model::WorkloadCapturesStopReplayRequest>,
+    );
 
     impl StopReplay {
         pub(crate) fn new(
@@ -9049,7 +9083,7 @@ pub mod sql_workload_captures_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct List(RequestBuilder<crate::model::SqlWorkloadCapturesListRequest>);
+    pub struct List(pub(crate) RequestBuilder<crate::model::SqlWorkloadCapturesListRequest>);
 
     impl List {
         pub(crate) fn new(

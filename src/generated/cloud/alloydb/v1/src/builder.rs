@@ -51,9 +51,9 @@ pub mod alloy_dbcsql_admin {
     /// Common implementation for [crate::client::AlloyDBCSQLAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,9 @@ pub mod alloy_dbcsql_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreFromCloudSQL(RequestBuilder<crate::model::RestoreFromCloudSQLRequest>);
+    pub struct RestoreFromCloudSQL(
+        pub(crate) RequestBuilder<crate::model::RestoreFromCloudSQLRequest>,
+    );
 
     impl RestoreFromCloudSQL {
         pub(crate) fn new(
@@ -269,7 +271,9 @@ pub mod alloy_dbcsql_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -378,7 +382,9 @@ pub mod alloy_dbcsql_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -446,7 +452,7 @@ pub mod alloy_dbcsql_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -562,7 +568,9 @@ pub mod alloy_dbcsql_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -626,7 +634,7 @@ pub mod alloy_dbcsql_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -691,7 +699,7 @@ pub mod alloy_dbcsql_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -776,9 +784,9 @@ pub mod alloy_db_admin {
     /// Common implementation for [crate::client::AlloyDBAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -817,7 +825,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
+    pub struct ListClusters(pub(crate) RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
         pub(crate) fn new(
@@ -929,7 +937,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
+    pub struct GetCluster(pub(crate) RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
         pub(crate) fn new(
@@ -998,7 +1006,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
+    pub struct CreateCluster(pub(crate) RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
         pub(crate) fn new(
@@ -1158,7 +1166,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
+    pub struct UpdateCluster(pub(crate) RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
         pub(crate) fn new(
@@ -1326,7 +1334,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExportCluster(RequestBuilder<crate::model::ExportClusterRequest>);
+    pub struct ExportCluster(pub(crate) RequestBuilder<crate::model::ExportClusterRequest>);
 
     impl ExportCluster {
         pub(crate) fn new(
@@ -1531,7 +1539,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportCluster(RequestBuilder<crate::model::ImportClusterRequest>);
+    pub struct ImportCluster(pub(crate) RequestBuilder<crate::model::ImportClusterRequest>);
 
     impl ImportCluster {
         pub(crate) fn new(
@@ -1719,7 +1727,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpgradeCluster(RequestBuilder<crate::model::UpgradeClusterRequest>);
+    pub struct UpgradeCluster(pub(crate) RequestBuilder<crate::model::UpgradeClusterRequest>);
 
     impl UpgradeCluster {
         pub(crate) fn new(
@@ -1865,7 +1873,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
+    pub struct DeleteCluster(pub(crate) RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
         pub(crate) fn new(
@@ -2002,7 +2010,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PromoteCluster(RequestBuilder<crate::model::PromoteClusterRequest>);
+    pub struct PromoteCluster(pub(crate) RequestBuilder<crate::model::PromoteClusterRequest>);
 
     impl PromoteCluster {
         pub(crate) fn new(
@@ -2138,7 +2146,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SwitchoverCluster(RequestBuilder<crate::model::SwitchoverClusterRequest>);
+    pub struct SwitchoverCluster(pub(crate) RequestBuilder<crate::model::SwitchoverClusterRequest>);
 
     impl SwitchoverCluster {
         pub(crate) fn new(
@@ -2271,7 +2279,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreCluster(RequestBuilder<crate::model::RestoreClusterRequest>);
+    pub struct RestoreCluster(pub(crate) RequestBuilder<crate::model::RestoreClusterRequest>);
 
     impl RestoreCluster {
         pub(crate) fn new(
@@ -2473,7 +2481,9 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSecondaryCluster(RequestBuilder<crate::model::CreateSecondaryClusterRequest>);
+    pub struct CreateSecondaryCluster(
+        pub(crate) RequestBuilder<crate::model::CreateSecondaryClusterRequest>,
+    );
 
     impl CreateSecondaryCluster {
         pub(crate) fn new(
@@ -2638,7 +2648,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
+    pub struct ListInstances(pub(crate) RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(
@@ -2750,7 +2760,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
+    pub struct GetInstance(pub(crate) RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(
@@ -2819,7 +2829,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
+    pub struct CreateInstance(pub(crate) RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
         pub(crate) fn new(
@@ -2980,7 +2990,7 @@ pub mod alloy_db_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSecondaryInstance(
-        RequestBuilder<crate::model::CreateSecondaryInstanceRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateSecondaryInstanceRequest>,
     );
 
     impl CreateSecondaryInstance {
@@ -3143,7 +3153,9 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchCreateInstances(RequestBuilder<crate::model::BatchCreateInstancesRequest>);
+    pub struct BatchCreateInstances(
+        pub(crate) RequestBuilder<crate::model::BatchCreateInstancesRequest>,
+    );
 
     impl BatchCreateInstances {
         pub(crate) fn new(
@@ -3293,7 +3305,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
+    pub struct UpdateInstance(pub(crate) RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
         pub(crate) fn new(
@@ -3461,7 +3473,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
+    pub struct DeleteInstance(pub(crate) RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
         pub(crate) fn new(
@@ -3592,7 +3604,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FailoverInstance(RequestBuilder<crate::model::FailoverInstanceRequest>);
+    pub struct FailoverInstance(pub(crate) RequestBuilder<crate::model::FailoverInstanceRequest>);
 
     impl FailoverInstance {
         pub(crate) fn new(
@@ -3725,7 +3737,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InjectFault(RequestBuilder<crate::model::InjectFaultRequest>);
+    pub struct InjectFault(pub(crate) RequestBuilder<crate::model::InjectFaultRequest>);
 
     impl InjectFault {
         pub(crate) fn new(
@@ -3866,7 +3878,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestartInstance(RequestBuilder<crate::model::RestartInstanceRequest>);
+    pub struct RestartInstance(pub(crate) RequestBuilder<crate::model::RestartInstanceRequest>);
 
     impl RestartInstance {
         pub(crate) fn new(
@@ -4006,7 +4018,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExecuteSql(RequestBuilder<crate::model::ExecuteSqlRequest>);
+    pub struct ExecuteSql(pub(crate) RequestBuilder<crate::model::ExecuteSqlRequest>);
 
     impl ExecuteSql {
         pub(crate) fn new(
@@ -4124,7 +4136,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
+    pub struct ListBackups(pub(crate) RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
         pub(crate) fn new(
@@ -4236,7 +4248,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
+    pub struct GetBackup(pub(crate) RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
         pub(crate) fn new(
@@ -4299,7 +4311,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
+    pub struct CreateBackup(pub(crate) RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
         pub(crate) fn new(
@@ -4459,7 +4471,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
+    pub struct UpdateBackup(pub(crate) RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
         pub(crate) fn new(
@@ -4627,7 +4639,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
+    pub struct DeleteBackup(pub(crate) RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
         pub(crate) fn new(
@@ -4762,7 +4774,7 @@ pub mod alloy_db_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListSupportedDatabaseFlags(
-        RequestBuilder<crate::model::ListSupportedDatabaseFlagsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListSupportedDatabaseFlagsRequest>,
     );
 
     impl ListSupportedDatabaseFlags {
@@ -4878,7 +4890,7 @@ pub mod alloy_db_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateClientCertificate(
-        RequestBuilder<crate::model::GenerateClientCertificateRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateClientCertificateRequest>,
     );
 
     impl GenerateClientCertificate {
@@ -4980,7 +4992,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConnectionInfo(RequestBuilder<crate::model::GetConnectionInfoRequest>);
+    pub struct GetConnectionInfo(pub(crate) RequestBuilder<crate::model::GetConnectionInfoRequest>);
 
     impl GetConnectionInfo {
         pub(crate) fn new(
@@ -5055,7 +5067,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUsers(RequestBuilder<crate::model::ListUsersRequest>);
+    pub struct ListUsers(pub(crate) RequestBuilder<crate::model::ListUsersRequest>);
 
     impl ListUsers {
         pub(crate) fn new(
@@ -5165,7 +5177,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetUser(RequestBuilder<crate::model::GetUserRequest>);
+    pub struct GetUser(pub(crate) RequestBuilder<crate::model::GetUserRequest>);
 
     impl GetUser {
         pub(crate) fn new(
@@ -5227,7 +5239,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateUser(RequestBuilder<crate::model::CreateUserRequest>);
+    pub struct CreateUser(pub(crate) RequestBuilder<crate::model::CreateUserRequest>);
 
     impl CreateUser {
         pub(crate) fn new(
@@ -5331,7 +5343,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateUser(RequestBuilder<crate::model::UpdateUserRequest>);
+    pub struct UpdateUser(pub(crate) RequestBuilder<crate::model::UpdateUserRequest>);
 
     impl UpdateUser {
         pub(crate) fn new(
@@ -5443,7 +5455,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteUser(RequestBuilder<crate::model::DeleteUserRequest>);
+    pub struct DeleteUser(pub(crate) RequestBuilder<crate::model::DeleteUserRequest>);
 
     impl DeleteUser {
         pub(crate) fn new(
@@ -5521,7 +5533,7 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
+    pub struct ListDatabases(pub(crate) RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
         pub(crate) fn new(
@@ -5631,7 +5643,9 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -5740,7 +5754,9 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -5808,7 +5824,7 @@ pub mod alloy_db_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -5924,7 +5940,9 @@ pub mod alloy_db_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -5988,7 +6006,7 @@ pub mod alloy_db_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -6053,7 +6071,7 @@ pub mod alloy_db_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

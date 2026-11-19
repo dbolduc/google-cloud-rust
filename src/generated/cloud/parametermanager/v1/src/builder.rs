@@ -51,9 +51,9 @@ pub mod parameter_manager {
     /// Common implementation for [crate::client::ParameterManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListParameters(RequestBuilder<crate::model::ListParametersRequest>);
+    pub struct ListParameters(pub(crate) RequestBuilder<crate::model::ListParametersRequest>);
 
     impl ListParameters {
         pub(crate) fn new(
@@ -206,7 +206,7 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetParameter(RequestBuilder<crate::model::GetParameterRequest>);
+    pub struct GetParameter(pub(crate) RequestBuilder<crate::model::GetParameterRequest>);
 
     impl GetParameter {
         pub(crate) fn new(
@@ -268,7 +268,7 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateParameter(RequestBuilder<crate::model::CreateParameterRequest>);
+    pub struct CreateParameter(pub(crate) RequestBuilder<crate::model::CreateParameterRequest>);
 
     impl CreateParameter {
         pub(crate) fn new(
@@ -366,7 +366,7 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateParameter(RequestBuilder<crate::model::UpdateParameterRequest>);
+    pub struct UpdateParameter(pub(crate) RequestBuilder<crate::model::UpdateParameterRequest>);
 
     impl UpdateParameter {
         pub(crate) fn new(
@@ -466,7 +466,7 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteParameter(RequestBuilder<crate::model::DeleteParameterRequest>);
+    pub struct DeleteParameter(pub(crate) RequestBuilder<crate::model::DeleteParameterRequest>);
 
     impl DeleteParameter {
         pub(crate) fn new(
@@ -538,7 +538,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListParameterVersions(RequestBuilder<crate::model::ListParameterVersionsRequest>);
+    pub struct ListParameterVersions(
+        pub(crate) RequestBuilder<crate::model::ListParameterVersionsRequest>,
+    );
 
     impl ListParameterVersions {
         pub(crate) fn new(
@@ -655,7 +657,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetParameterVersion(RequestBuilder<crate::model::GetParameterVersionRequest>);
+    pub struct GetParameterVersion(
+        pub(crate) RequestBuilder<crate::model::GetParameterVersionRequest>,
+    );
 
     impl GetParameterVersion {
         pub(crate) fn new(
@@ -726,7 +730,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RenderParameterVersion(RequestBuilder<crate::model::RenderParameterVersionRequest>);
+    pub struct RenderParameterVersion(
+        pub(crate) RequestBuilder<crate::model::RenderParameterVersionRequest>,
+    );
 
     impl RenderParameterVersion {
         pub(crate) fn new(
@@ -791,7 +797,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateParameterVersion(RequestBuilder<crate::model::CreateParameterVersionRequest>);
+    pub struct CreateParameterVersion(
+        pub(crate) RequestBuilder<crate::model::CreateParameterVersionRequest>,
+    );
 
     impl CreateParameterVersion {
         pub(crate) fn new(
@@ -892,7 +900,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateParameterVersion(RequestBuilder<crate::model::UpdateParameterVersionRequest>);
+    pub struct UpdateParameterVersion(
+        pub(crate) RequestBuilder<crate::model::UpdateParameterVersionRequest>,
+    );
 
     impl UpdateParameterVersion {
         pub(crate) fn new(
@@ -995,7 +1005,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteParameterVersion(RequestBuilder<crate::model::DeleteParameterVersionRequest>);
+    pub struct DeleteParameterVersion(
+        pub(crate) RequestBuilder<crate::model::DeleteParameterVersionRequest>,
+    );
 
     impl DeleteParameterVersion {
         pub(crate) fn new(
@@ -1070,7 +1082,7 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTemplates(RequestBuilder<crate::model::ListTemplatesRequest>);
+    pub struct ListTemplates(pub(crate) RequestBuilder<crate::model::ListTemplatesRequest>);
 
     impl ListTemplates {
         pub(crate) fn new(
@@ -1182,7 +1194,7 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTemplate(RequestBuilder<crate::model::GetTemplateRequest>);
+    pub struct GetTemplate(pub(crate) RequestBuilder<crate::model::GetTemplateRequest>);
 
     impl GetTemplate {
         pub(crate) fn new(
@@ -1244,7 +1256,7 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTemplate(RequestBuilder<crate::model::CreateTemplateRequest>);
+    pub struct CreateTemplate(pub(crate) RequestBuilder<crate::model::CreateTemplateRequest>);
 
     impl CreateTemplate {
         pub(crate) fn new(
@@ -1342,7 +1354,7 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTemplate(RequestBuilder<crate::model::UpdateTemplateRequest>);
+    pub struct UpdateTemplate(pub(crate) RequestBuilder<crate::model::UpdateTemplateRequest>);
 
     impl UpdateTemplate {
         pub(crate) fn new(
@@ -1442,7 +1454,7 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTemplate(RequestBuilder<crate::model::DeleteTemplateRequest>);
+    pub struct DeleteTemplate(pub(crate) RequestBuilder<crate::model::DeleteTemplateRequest>);
 
     impl DeleteTemplate {
         pub(crate) fn new(
@@ -1514,7 +1526,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTemplateVersions(RequestBuilder<crate::model::ListTemplateVersionsRequest>);
+    pub struct ListTemplateVersions(
+        pub(crate) RequestBuilder<crate::model::ListTemplateVersionsRequest>,
+    );
 
     impl ListTemplateVersions {
         pub(crate) fn new(
@@ -1631,7 +1645,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTemplateVersion(RequestBuilder<crate::model::GetTemplateVersionRequest>);
+    pub struct GetTemplateVersion(
+        pub(crate) RequestBuilder<crate::model::GetTemplateVersionRequest>,
+    );
 
     impl GetTemplateVersion {
         pub(crate) fn new(
@@ -1702,7 +1718,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTemplateVersion(RequestBuilder<crate::model::CreateTemplateVersionRequest>);
+    pub struct CreateTemplateVersion(
+        pub(crate) RequestBuilder<crate::model::CreateTemplateVersionRequest>,
+    );
 
     impl CreateTemplateVersion {
         pub(crate) fn new(
@@ -1803,7 +1821,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTemplateVersion(RequestBuilder<crate::model::UpdateTemplateVersionRequest>);
+    pub struct UpdateTemplateVersion(
+        pub(crate) RequestBuilder<crate::model::UpdateTemplateVersionRequest>,
+    );
 
     impl UpdateTemplateVersion {
         pub(crate) fn new(
@@ -1906,7 +1926,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTemplateVersion(RequestBuilder<crate::model::DeleteTemplateVersionRequest>);
+    pub struct DeleteTemplateVersion(
+        pub(crate) RequestBuilder<crate::model::DeleteTemplateVersionRequest>,
+    );
 
     impl DeleteTemplateVersion {
         pub(crate) fn new(
@@ -1977,7 +1999,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RenderTemplateVersion(RequestBuilder<crate::model::RenderTemplateVersionRequest>);
+    pub struct RenderTemplateVersion(
+        pub(crate) RequestBuilder<crate::model::RenderTemplateVersionRequest>,
+    );
 
     impl RenderTemplateVersion {
         pub(crate) fn new(
@@ -2054,7 +2078,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2163,7 +2189,9 @@ pub mod parameter_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(

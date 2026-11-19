@@ -51,9 +51,9 @@ pub mod address_validation {
     /// Common implementation for [crate::client::AddressValidation] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AddressValidation>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AddressValidation>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod address_validation {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ValidateAddress(RequestBuilder<crate::model::ValidateAddressRequest>);
+    pub struct ValidateAddress(pub(crate) RequestBuilder<crate::model::ValidateAddressRequest>);
 
     impl ValidateAddress {
         pub(crate) fn new(
@@ -183,7 +183,7 @@ pub mod address_validation {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ProvideValidationFeedback(
-        RequestBuilder<crate::model::ProvideValidationFeedbackRequest>,
+        pub(crate) RequestBuilder<crate::model::ProvideValidationFeedbackRequest>,
     );
 
     impl ProvideValidationFeedback {

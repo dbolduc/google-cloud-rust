@@ -51,9 +51,9 @@ pub mod route_optimization {
     /// Common implementation for [crate::client::RouteOptimization] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RouteOptimization>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RouteOptimization>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod route_optimization {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct OptimizeTours(RequestBuilder<crate::model::OptimizeToursRequest>);
+    pub struct OptimizeTours(pub(crate) RequestBuilder<crate::model::OptimizeToursRequest>);
 
     impl OptimizeTours {
         pub(crate) fn new(
@@ -338,7 +338,9 @@ pub mod route_optimization {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchOptimizeTours(RequestBuilder<crate::model::BatchOptimizeToursRequest>);
+    pub struct BatchOptimizeTours(
+        pub(crate) RequestBuilder<crate::model::BatchOptimizeToursRequest>,
+    );
 
     impl BatchOptimizeTours {
         pub(crate) fn new(
@@ -473,7 +475,9 @@ pub mod route_optimization {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct OptimizeToursLongRunning(RequestBuilder<crate::model::OptimizeToursRequest>);
+    pub struct OptimizeToursLongRunning(
+        pub(crate) RequestBuilder<crate::model::OptimizeToursRequest>,
+    );
 
     impl OptimizeToursLongRunning {
         pub(crate) fn new(
@@ -779,7 +783,7 @@ pub mod route_optimization {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct OptimizeToursUri(RequestBuilder<crate::model::OptimizeToursUriRequest>);
+    pub struct OptimizeToursUri(pub(crate) RequestBuilder<crate::model::OptimizeToursUriRequest>);
 
     impl OptimizeToursUri {
         pub(crate) fn new(
@@ -944,7 +948,9 @@ pub mod route_optimization {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod secret_manager_service {
     /// Common implementation for [crate::client::SecretManagerService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSecrets(RequestBuilder<crate::model::ListSecretsRequest>);
+    pub struct ListSecrets(pub(crate) RequestBuilder<crate::model::ListSecretsRequest>);
 
     impl ListSecrets {
         pub(crate) fn new(
@@ -198,7 +198,7 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSecret(RequestBuilder<crate::model::CreateSecretRequest>);
+    pub struct CreateSecret(pub(crate) RequestBuilder<crate::model::CreateSecretRequest>);
 
     impl CreateSecret {
         pub(crate) fn new(
@@ -290,7 +290,7 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddSecretVersion(RequestBuilder<crate::model::AddSecretVersionRequest>);
+    pub struct AddSecretVersion(pub(crate) RequestBuilder<crate::model::AddSecretVersionRequest>);
 
     impl AddSecretVersion {
         pub(crate) fn new(
@@ -377,7 +377,7 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSecret(RequestBuilder<crate::model::GetSecretRequest>);
+    pub struct GetSecret(pub(crate) RequestBuilder<crate::model::GetSecretRequest>);
 
     impl GetSecret {
         pub(crate) fn new(
@@ -439,7 +439,7 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSecret(RequestBuilder<crate::model::UpdateSecretRequest>);
+    pub struct UpdateSecret(pub(crate) RequestBuilder<crate::model::UpdateSecretRequest>);
 
     impl UpdateSecret {
         pub(crate) fn new(
@@ -537,7 +537,7 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSecret(RequestBuilder<crate::model::DeleteSecretRequest>);
+    pub struct DeleteSecret(pub(crate) RequestBuilder<crate::model::DeleteSecretRequest>);
 
     impl DeleteSecret {
         pub(crate) fn new(
@@ -609,7 +609,9 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSecretVersions(RequestBuilder<crate::model::ListSecretVersionsRequest>);
+    pub struct ListSecretVersions(
+        pub(crate) RequestBuilder<crate::model::ListSecretVersionsRequest>,
+    );
 
     impl ListSecretVersions {
         pub(crate) fn new(
@@ -720,7 +722,7 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSecretVersion(RequestBuilder<crate::model::GetSecretVersionRequest>);
+    pub struct GetSecretVersion(pub(crate) RequestBuilder<crate::model::GetSecretVersionRequest>);
 
     impl GetSecretVersion {
         pub(crate) fn new(
@@ -785,7 +787,9 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AccessSecretVersion(RequestBuilder<crate::model::AccessSecretVersionRequest>);
+    pub struct AccessSecretVersion(
+        pub(crate) RequestBuilder<crate::model::AccessSecretVersionRequest>,
+    );
 
     impl AccessSecretVersion {
         pub(crate) fn new(
@@ -850,7 +854,9 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DisableSecretVersion(RequestBuilder<crate::model::DisableSecretVersionRequest>);
+    pub struct DisableSecretVersion(
+        pub(crate) RequestBuilder<crate::model::DisableSecretVersionRequest>,
+    );
 
     impl DisableSecretVersion {
         pub(crate) fn new(
@@ -921,7 +927,9 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnableSecretVersion(RequestBuilder<crate::model::EnableSecretVersionRequest>);
+    pub struct EnableSecretVersion(
+        pub(crate) RequestBuilder<crate::model::EnableSecretVersionRequest>,
+    );
 
     impl EnableSecretVersion {
         pub(crate) fn new(
@@ -992,7 +1000,9 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DestroySecretVersion(RequestBuilder<crate::model::DestroySecretVersionRequest>);
+    pub struct DestroySecretVersion(
+        pub(crate) RequestBuilder<crate::model::DestroySecretVersionRequest>,
+    );
 
     impl DestroySecretVersion {
         pub(crate) fn new(
@@ -1063,7 +1073,9 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -1168,7 +1180,9 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1252,7 +1266,7 @@ pub mod secret_manager_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1331,7 +1345,9 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnableManagedRotation(RequestBuilder<crate::model::EnableManagedRotationRequest>);
+    pub struct EnableManagedRotation(
+        pub(crate) RequestBuilder<crate::model::EnableManagedRotationRequest>,
+    );
 
     impl EnableManagedRotation {
         pub(crate) fn new(
@@ -1425,7 +1441,7 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RotateSecret(RequestBuilder<crate::model::RotateSecretRequest>);
+    pub struct RotateSecret(pub(crate) RequestBuilder<crate::model::RotateSecretRequest>);
 
     impl RotateSecret {
         pub(crate) fn new(
@@ -1491,7 +1507,9 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1600,7 +1618,9 @@ pub mod secret_manager_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(

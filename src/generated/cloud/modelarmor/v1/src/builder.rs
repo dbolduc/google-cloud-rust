@@ -51,9 +51,9 @@ pub mod model_armor {
     /// Common implementation for [crate::client::ModelArmor] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -74,8 +74,8 @@ pub mod model_armor {
     /// Common implementation for [crate::client::ModelArmor] bidi stream builders.
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl BidiStreamBuilder {
@@ -110,7 +110,7 @@ pub mod model_armor {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTemplates(RequestBuilder<crate::model::ListTemplatesRequest>);
+    pub struct ListTemplates(pub(crate) RequestBuilder<crate::model::ListTemplatesRequest>);
 
     impl ListTemplates {
         pub(crate) fn new(
@@ -222,7 +222,7 @@ pub mod model_armor {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTemplate(RequestBuilder<crate::model::GetTemplateRequest>);
+    pub struct GetTemplate(pub(crate) RequestBuilder<crate::model::GetTemplateRequest>);
 
     impl GetTemplate {
         pub(crate) fn new(
@@ -284,7 +284,7 @@ pub mod model_armor {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTemplate(RequestBuilder<crate::model::CreateTemplateRequest>);
+    pub struct CreateTemplate(pub(crate) RequestBuilder<crate::model::CreateTemplateRequest>);
 
     impl CreateTemplate {
         pub(crate) fn new(
@@ -382,7 +382,7 @@ pub mod model_armor {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTemplate(RequestBuilder<crate::model::UpdateTemplateRequest>);
+    pub struct UpdateTemplate(pub(crate) RequestBuilder<crate::model::UpdateTemplateRequest>);
 
     impl UpdateTemplate {
         pub(crate) fn new(
@@ -486,7 +486,7 @@ pub mod model_armor {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTemplate(RequestBuilder<crate::model::DeleteTemplateRequest>);
+    pub struct DeleteTemplate(pub(crate) RequestBuilder<crate::model::DeleteTemplateRequest>);
 
     impl DeleteTemplate {
         pub(crate) fn new(
@@ -554,7 +554,7 @@ pub mod model_armor {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFloorSetting(RequestBuilder<crate::model::GetFloorSettingRequest>);
+    pub struct GetFloorSetting(pub(crate) RequestBuilder<crate::model::GetFloorSettingRequest>);
 
     impl GetFloorSetting {
         pub(crate) fn new(
@@ -616,7 +616,9 @@ pub mod model_armor {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFloorSetting(RequestBuilder<crate::model::UpdateFloorSettingRequest>);
+    pub struct UpdateFloorSetting(
+        pub(crate) RequestBuilder<crate::model::UpdateFloorSettingRequest>,
+    );
 
     impl UpdateFloorSetting {
         pub(crate) fn new(
@@ -713,7 +715,9 @@ pub mod model_armor {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SanitizeUserPrompt(RequestBuilder<crate::model::SanitizeUserPromptRequest>);
+    pub struct SanitizeUserPrompt(
+        pub(crate) RequestBuilder<crate::model::SanitizeUserPromptRequest>,
+    );
 
     impl SanitizeUserPrompt {
         pub(crate) fn new(
@@ -839,7 +843,9 @@ pub mod model_armor {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SanitizeModelResponse(RequestBuilder<crate::model::SanitizeModelResponseRequest>);
+    pub struct SanitizeModelResponse(
+        pub(crate) RequestBuilder<crate::model::SanitizeModelResponseRequest>,
+    );
 
     impl SanitizeModelResponse {
         pub(crate) fn new(
@@ -979,7 +985,7 @@ pub mod model_armor {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StreamSanitizeUserPrompt(BidiStreamBuilder);
+    pub struct StreamSanitizeUserPrompt(pub(crate) BidiStreamBuilder);
 
     impl StreamSanitizeUserPrompt {
         pub(crate) fn new(
@@ -1037,7 +1043,7 @@ pub mod model_armor {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StreamSanitizeModelResponse(BidiStreamBuilder);
+    pub struct StreamSanitizeModelResponse(pub(crate) BidiStreamBuilder);
 
     impl StreamSanitizeModelResponse {
         pub(crate) fn new(
@@ -1093,7 +1099,9 @@ pub mod model_armor {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1202,7 +1210,9 @@ pub mod model_armor {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(

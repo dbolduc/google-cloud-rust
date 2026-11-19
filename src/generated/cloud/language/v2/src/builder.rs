@@ -51,9 +51,9 @@ pub mod language_service {
     /// Common implementation for [crate::client::LanguageService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod language_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AnalyzeSentiment(RequestBuilder<crate::model::AnalyzeSentimentRequest>);
+    pub struct AnalyzeSentiment(pub(crate) RequestBuilder<crate::model::AnalyzeSentimentRequest>);
 
     impl AnalyzeSentiment {
         pub(crate) fn new(
@@ -173,7 +173,7 @@ pub mod language_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AnalyzeEntities(RequestBuilder<crate::model::AnalyzeEntitiesRequest>);
+    pub struct AnalyzeEntities(pub(crate) RequestBuilder<crate::model::AnalyzeEntitiesRequest>);
 
     impl AnalyzeEntities {
         pub(crate) fn new(
@@ -255,7 +255,7 @@ pub mod language_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ClassifyText(RequestBuilder<crate::model::ClassifyTextRequest>);
+    pub struct ClassifyText(pub(crate) RequestBuilder<crate::model::ClassifyTextRequest>);
 
     impl ClassifyText {
         pub(crate) fn new(
@@ -331,7 +331,7 @@ pub mod language_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ModerateText(RequestBuilder<crate::model::ModerateTextRequest>);
+    pub struct ModerateText(pub(crate) RequestBuilder<crate::model::ModerateTextRequest>);
 
     impl ModerateText {
         pub(crate) fn new(
@@ -416,7 +416,7 @@ pub mod language_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AnnotateText(RequestBuilder<crate::model::AnnotateTextRequest>);
+    pub struct AnnotateText(pub(crate) RequestBuilder<crate::model::AnnotateTextRequest>);
 
     impl AnnotateText {
         pub(crate) fn new(

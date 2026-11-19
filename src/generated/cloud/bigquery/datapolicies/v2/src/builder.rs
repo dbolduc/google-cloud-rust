@@ -51,9 +51,9 @@ pub mod data_policy_service {
     /// Common implementation for [crate::client::DataPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod data_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDataPolicy(RequestBuilder<crate::model::CreateDataPolicyRequest>);
+    pub struct CreateDataPolicy(pub(crate) RequestBuilder<crate::model::CreateDataPolicyRequest>);
 
     impl CreateDataPolicy {
         pub(crate) fn new(
@@ -183,7 +183,7 @@ pub mod data_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AddGrantees(RequestBuilder<crate::model::AddGranteesRequest>);
+    pub struct AddGrantees(pub(crate) RequestBuilder<crate::model::AddGranteesRequest>);
 
     impl AddGrantees {
         pub(crate) fn new(
@@ -258,7 +258,7 @@ pub mod data_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveGrantees(RequestBuilder<crate::model::RemoveGranteesRequest>);
+    pub struct RemoveGrantees(pub(crate) RequestBuilder<crate::model::RemoveGranteesRequest>);
 
     impl RemoveGrantees {
         pub(crate) fn new(
@@ -333,7 +333,7 @@ pub mod data_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDataPolicy(RequestBuilder<crate::model::UpdateDataPolicyRequest>);
+    pub struct UpdateDataPolicy(pub(crate) RequestBuilder<crate::model::UpdateDataPolicyRequest>);
 
     impl UpdateDataPolicy {
         pub(crate) fn new(
@@ -436,7 +436,7 @@ pub mod data_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDataPolicy(RequestBuilder<crate::model::DeleteDataPolicyRequest>);
+    pub struct DeleteDataPolicy(pub(crate) RequestBuilder<crate::model::DeleteDataPolicyRequest>);
 
     impl DeleteDataPolicy {
         pub(crate) fn new(
@@ -501,7 +501,7 @@ pub mod data_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDataPolicy(RequestBuilder<crate::model::GetDataPolicyRequest>);
+    pub struct GetDataPolicy(pub(crate) RequestBuilder<crate::model::GetDataPolicyRequest>);
 
     impl GetDataPolicy {
         pub(crate) fn new(
@@ -567,7 +567,7 @@ pub mod data_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDataPolicies(RequestBuilder<crate::model::ListDataPoliciesRequest>);
+    pub struct ListDataPolicies(pub(crate) RequestBuilder<crate::model::ListDataPoliciesRequest>);
 
     impl ListDataPolicies {
         pub(crate) fn new(
@@ -678,7 +678,9 @@ pub mod data_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -761,7 +763,9 @@ pub mod data_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -867,7 +871,7 @@ pub mod data_policy_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {

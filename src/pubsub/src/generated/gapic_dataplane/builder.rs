@@ -21,9 +21,9 @@ pub mod publisher {
     /// Common implementation for [crate::client::Publisher] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -43,7 +43,7 @@ pub mod publisher {
 
     /// The request builder for [Publisher::publish][crate::client::Publisher::publish] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct Publish(RequestBuilder<crate::model::PublishRequest>);
+    pub(crate) struct Publish(pub(crate) RequestBuilder<crate::model::PublishRequest>);
 
     impl Publish {
         pub(crate) fn new(
@@ -109,9 +109,9 @@ pub mod subscriber {
     /// Common implementation for [crate::client::Subscriber] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -132,8 +132,8 @@ pub mod subscriber {
     /// Common implementation for [crate::client::Subscriber] bidi stream builders.
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl BidiStreamBuilder {
@@ -149,7 +149,9 @@ pub mod subscriber {
 
     /// The request builder for [Subscriber::modify_ack_deadline][crate::client::Subscriber::modify_ack_deadline] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct ModifyAckDeadline(RequestBuilder<crate::model::ModifyAckDeadlineRequest>);
+    pub(crate) struct ModifyAckDeadline(
+        pub(crate) RequestBuilder<crate::model::ModifyAckDeadlineRequest>,
+    );
 
     impl ModifyAckDeadline {
         pub(crate) fn new(
@@ -220,7 +222,7 @@ pub mod subscriber {
 
     /// The request builder for [Subscriber::acknowledge][crate::client::Subscriber::acknowledge] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct Acknowledge(RequestBuilder<crate::model::AcknowledgeRequest>);
+    pub(crate) struct Acknowledge(pub(crate) RequestBuilder<crate::model::AcknowledgeRequest>);
 
     impl Acknowledge {
         pub(crate) fn new(
@@ -280,7 +282,7 @@ pub mod subscriber {
 
     /// The request builder for [Subscriber::streaming_pull][crate::client::Subscriber::streaming_pull] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct StreamingPull(BidiStreamBuilder);
+    pub(crate) struct StreamingPull(pub(crate) BidiStreamBuilder);
 
     impl StreamingPull {
         pub(crate) fn new(

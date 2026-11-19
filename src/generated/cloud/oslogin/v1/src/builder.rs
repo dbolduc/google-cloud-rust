@@ -51,9 +51,9 @@ pub mod os_login_service {
     /// Common implementation for [crate::client::OsLoginService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod os_login_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSshPublicKey(RequestBuilder<crate::model::CreateSshPublicKeyRequest>);
+    pub struct CreateSshPublicKey(
+        pub(crate) RequestBuilder<crate::model::CreateSshPublicKeyRequest>,
+    );
 
     impl CreateSshPublicKey {
         pub(crate) fn new(
@@ -175,7 +177,9 @@ pub mod os_login_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePosixAccount(RequestBuilder<crate::model::DeletePosixAccountRequest>);
+    pub struct DeletePosixAccount(
+        pub(crate) RequestBuilder<crate::model::DeletePosixAccountRequest>,
+    );
 
     impl DeletePosixAccount {
         pub(crate) fn new(
@@ -240,7 +244,9 @@ pub mod os_login_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSshPublicKey(RequestBuilder<crate::model::DeleteSshPublicKeyRequest>);
+    pub struct DeleteSshPublicKey(
+        pub(crate) RequestBuilder<crate::model::DeleteSshPublicKeyRequest>,
+    );
 
     impl DeleteSshPublicKey {
         pub(crate) fn new(
@@ -305,7 +311,7 @@ pub mod os_login_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLoginProfile(RequestBuilder<crate::model::GetLoginProfileRequest>);
+    pub struct GetLoginProfile(pub(crate) RequestBuilder<crate::model::GetLoginProfileRequest>);
 
     impl GetLoginProfile {
         pub(crate) fn new(
@@ -379,7 +385,7 @@ pub mod os_login_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSshPublicKey(RequestBuilder<crate::model::GetSshPublicKeyRequest>);
+    pub struct GetSshPublicKey(pub(crate) RequestBuilder<crate::model::GetSshPublicKeyRequest>);
 
     impl GetSshPublicKey {
         pub(crate) fn new(
@@ -441,7 +447,9 @@ pub mod os_login_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ImportSshPublicKey(RequestBuilder<crate::model::ImportSshPublicKeyRequest>);
+    pub struct ImportSshPublicKey(
+        pub(crate) RequestBuilder<crate::model::ImportSshPublicKeyRequest>,
+    );
 
     impl ImportSshPublicKey {
         pub(crate) fn new(
@@ -541,7 +549,9 @@ pub mod os_login_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSshPublicKey(RequestBuilder<crate::model::UpdateSshPublicKeyRequest>);
+    pub struct UpdateSshPublicKey(
+        pub(crate) RequestBuilder<crate::model::UpdateSshPublicKeyRequest>,
+    );
 
     impl UpdateSshPublicKey {
         pub(crate) fn new(

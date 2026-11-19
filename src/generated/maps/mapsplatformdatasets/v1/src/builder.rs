@@ -51,9 +51,9 @@ pub mod maps_platform_datasets {
     /// Common implementation for [crate::client::MapsPlatformDatasets] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::MapsPlatformDatasets>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::MapsPlatformDatasets>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod maps_platform_datasets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateDataset(RequestBuilder<crate::model::CreateDatasetRequest>);
+    pub struct CreateDataset(pub(crate) RequestBuilder<crate::model::CreateDatasetRequest>);
 
     impl CreateDataset {
         pub(crate) fn new(
@@ -172,7 +172,9 @@ pub mod maps_platform_datasets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDatasetMetadata(RequestBuilder<crate::model::UpdateDatasetMetadataRequest>);
+    pub struct UpdateDatasetMetadata(
+        pub(crate) RequestBuilder<crate::model::UpdateDatasetMetadataRequest>,
+    );
 
     impl UpdateDatasetMetadata {
         pub(crate) fn new(
@@ -269,7 +271,7 @@ pub mod maps_platform_datasets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
+    pub struct GetDataset(pub(crate) RequestBuilder<crate::model::GetDatasetRequest>);
 
     impl GetDataset {
         pub(crate) fn new(
@@ -335,7 +337,9 @@ pub mod maps_platform_datasets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchDatasetErrors(RequestBuilder<crate::model::FetchDatasetErrorsRequest>);
+    pub struct FetchDatasetErrors(
+        pub(crate) RequestBuilder<crate::model::FetchDatasetErrorsRequest>,
+    );
 
     impl FetchDatasetErrors {
         pub(crate) fn new(
@@ -444,7 +448,7 @@ pub mod maps_platform_datasets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
+    pub struct ListDatasets(pub(crate) RequestBuilder<crate::model::ListDatasetsRequest>);
 
     impl ListDatasets {
         pub(crate) fn new(
@@ -550,7 +554,7 @@ pub mod maps_platform_datasets {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
+    pub struct DeleteDataset(pub(crate) RequestBuilder<crate::model::DeleteDatasetRequest>);
 
     impl DeleteDataset {
         pub(crate) fn new(

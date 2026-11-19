@@ -51,9 +51,9 @@ pub mod document_processor_service {
     /// Common implementation for [crate::client::DocumentProcessorService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ProcessDocument(RequestBuilder<crate::model::ProcessRequest>);
+    pub struct ProcessDocument(pub(crate) RequestBuilder<crate::model::ProcessRequest>);
 
     impl ProcessDocument {
         pub(crate) fn new(
@@ -267,7 +267,7 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchProcessDocuments(RequestBuilder<crate::model::BatchProcessRequest>);
+    pub struct BatchProcessDocuments(pub(crate) RequestBuilder<crate::model::BatchProcessRequest>);
 
     impl BatchProcessDocuments {
         pub(crate) fn new(
@@ -456,7 +456,9 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchProcessorTypes(RequestBuilder<crate::model::FetchProcessorTypesRequest>);
+    pub struct FetchProcessorTypes(
+        pub(crate) RequestBuilder<crate::model::FetchProcessorTypesRequest>,
+    );
 
     impl FetchProcessorTypes {
         pub(crate) fn new(
@@ -525,7 +527,9 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProcessorTypes(RequestBuilder<crate::model::ListProcessorTypesRequest>);
+    pub struct ListProcessorTypes(
+        pub(crate) RequestBuilder<crate::model::ListProcessorTypesRequest>,
+    );
 
     impl ListProcessorTypes {
         pub(crate) fn new(
@@ -630,7 +634,7 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProcessorType(RequestBuilder<crate::model::GetProcessorTypeRequest>);
+    pub struct GetProcessorType(pub(crate) RequestBuilder<crate::model::GetProcessorTypeRequest>);
 
     impl GetProcessorType {
         pub(crate) fn new(
@@ -699,7 +703,7 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProcessors(RequestBuilder<crate::model::ListProcessorsRequest>);
+    pub struct ListProcessors(pub(crate) RequestBuilder<crate::model::ListProcessorsRequest>);
 
     impl ListProcessors {
         pub(crate) fn new(
@@ -801,7 +805,7 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProcessor(RequestBuilder<crate::model::GetProcessorRequest>);
+    pub struct GetProcessor(pub(crate) RequestBuilder<crate::model::GetProcessorRequest>);
 
     impl GetProcessor {
         pub(crate) fn new(
@@ -864,7 +868,9 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct TrainProcessorVersion(RequestBuilder<crate::model::TrainProcessorVersionRequest>);
+    pub struct TrainProcessorVersion(
+        pub(crate) RequestBuilder<crate::model::TrainProcessorVersionRequest>,
+    );
 
     impl TrainProcessorVersion {
         pub(crate) fn new(
@@ -1092,7 +1098,9 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProcessorVersion(RequestBuilder<crate::model::GetProcessorVersionRequest>);
+    pub struct GetProcessorVersion(
+        pub(crate) RequestBuilder<crate::model::GetProcessorVersionRequest>,
+    );
 
     impl GetProcessorVersion {
         pub(crate) fn new(
@@ -1161,7 +1169,9 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListProcessorVersions(RequestBuilder<crate::model::ListProcessorVersionsRequest>);
+    pub struct ListProcessorVersions(
+        pub(crate) RequestBuilder<crate::model::ListProcessorVersionsRequest>,
+    );
 
     impl ListProcessorVersions {
         pub(crate) fn new(
@@ -1267,7 +1277,9 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteProcessorVersion(RequestBuilder<crate::model::DeleteProcessorVersionRequest>);
+    pub struct DeleteProcessorVersion(
+        pub(crate) RequestBuilder<crate::model::DeleteProcessorVersionRequest>,
+    );
 
     impl DeleteProcessorVersion {
         pub(crate) fn new(
@@ -1387,7 +1399,9 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeployProcessorVersion(RequestBuilder<crate::model::DeployProcessorVersionRequest>);
+    pub struct DeployProcessorVersion(
+        pub(crate) RequestBuilder<crate::model::DeployProcessorVersionRequest>,
+    );
 
     impl DeployProcessorVersion {
         pub(crate) fn new(
@@ -1510,7 +1524,7 @@ pub mod document_processor_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UndeployProcessorVersion(
-        RequestBuilder<crate::model::UndeployProcessorVersionRequest>,
+        pub(crate) RequestBuilder<crate::model::UndeployProcessorVersionRequest>,
     );
 
     impl UndeployProcessorVersion {
@@ -1632,7 +1646,7 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateProcessor(RequestBuilder<crate::model::CreateProcessorRequest>);
+    pub struct CreateProcessor(pub(crate) RequestBuilder<crate::model::CreateProcessorRequest>);
 
     impl CreateProcessor {
         pub(crate) fn new(
@@ -1717,7 +1731,7 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteProcessor(RequestBuilder<crate::model::DeleteProcessorRequest>);
+    pub struct DeleteProcessor(pub(crate) RequestBuilder<crate::model::DeleteProcessorRequest>);
 
     impl DeleteProcessor {
         pub(crate) fn new(
@@ -1833,7 +1847,7 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnableProcessor(RequestBuilder<crate::model::EnableProcessorRequest>);
+    pub struct EnableProcessor(pub(crate) RequestBuilder<crate::model::EnableProcessorRequest>);
 
     impl EnableProcessor {
         pub(crate) fn new(
@@ -1952,7 +1966,7 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DisableProcessor(RequestBuilder<crate::model::DisableProcessorRequest>);
+    pub struct DisableProcessor(pub(crate) RequestBuilder<crate::model::DisableProcessorRequest>);
 
     impl DisableProcessor {
         pub(crate) fn new(
@@ -2075,7 +2089,7 @@ pub mod document_processor_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SetDefaultProcessorVersion(
-        RequestBuilder<crate::model::SetDefaultProcessorVersionRequest>,
+        pub(crate) RequestBuilder<crate::model::SetDefaultProcessorVersionRequest>,
     );
 
     impl SetDefaultProcessorVersion {
@@ -2206,7 +2220,7 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ReviewDocument(RequestBuilder<crate::model::ReviewDocumentRequest>);
+    pub struct ReviewDocument(pub(crate) RequestBuilder<crate::model::ReviewDocumentRequest>);
 
     impl ReviewDocument {
         pub(crate) fn new(
@@ -2386,7 +2400,7 @@ pub mod document_processor_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct EvaluateProcessorVersion(
-        RequestBuilder<crate::model::EvaluateProcessorVersionRequest>,
+        pub(crate) RequestBuilder<crate::model::EvaluateProcessorVersionRequest>,
     );
 
     impl EvaluateProcessorVersion {
@@ -2526,7 +2540,7 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetEvaluation(RequestBuilder<crate::model::GetEvaluationRequest>);
+    pub struct GetEvaluation(pub(crate) RequestBuilder<crate::model::GetEvaluationRequest>);
 
     impl GetEvaluation {
         pub(crate) fn new(
@@ -2592,7 +2606,7 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListEvaluations(RequestBuilder<crate::model::ListEvaluationsRequest>);
+    pub struct ListEvaluations(pub(crate) RequestBuilder<crate::model::ListEvaluationsRequest>);
 
     impl ListEvaluations {
         pub(crate) fn new(
@@ -2698,7 +2712,9 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2807,7 +2823,9 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -2875,7 +2893,7 @@ pub mod document_processor_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2991,7 +3009,9 @@ pub mod document_processor_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3055,7 +3075,7 @@ pub mod document_processor_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

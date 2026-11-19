@@ -51,9 +51,9 @@ pub mod text_to_speech {
     /// Common implementation for [crate::client::TextToSpeech] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -74,8 +74,8 @@ pub mod text_to_speech {
     /// Common implementation for [crate::client::TextToSpeech] bidi stream builders.
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl BidiStreamBuilder {
@@ -106,7 +106,7 @@ pub mod text_to_speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVoices(RequestBuilder<crate::model::ListVoicesRequest>);
+    pub struct ListVoices(pub(crate) RequestBuilder<crate::model::ListVoicesRequest>);
 
     impl ListVoices {
         pub(crate) fn new(
@@ -166,7 +166,7 @@ pub mod text_to_speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SynthesizeSpeech(RequestBuilder<crate::model::SynthesizeSpeechRequest>);
+    pub struct SynthesizeSpeech(pub(crate) RequestBuilder<crate::model::SynthesizeSpeechRequest>);
 
     impl SynthesizeSpeech {
         pub(crate) fn new(
@@ -315,7 +315,7 @@ pub mod text_to_speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StreamingSynthesize(BidiStreamBuilder);
+    pub struct StreamingSynthesize(pub(crate) BidiStreamBuilder);
 
     impl StreamingSynthesize {
         pub(crate) fn new(
@@ -370,7 +370,7 @@ pub mod text_to_speech {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -486,7 +486,9 @@ pub mod text_to_speech {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -570,9 +572,10 @@ pub mod text_to_speech_long_audio_synthesize {
     /// Common implementation for [crate::client::TextToSpeechLongAudioSynthesize] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -608,7 +611,9 @@ pub mod text_to_speech_long_audio_synthesize {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SynthesizeLongAudio(RequestBuilder<crate::model::SynthesizeLongAudioRequest>);
+    pub struct SynthesizeLongAudio(
+        pub(crate) RequestBuilder<crate::model::SynthesizeLongAudioRequest>,
+    );
 
     impl SynthesizeLongAudio {
         pub(crate) fn new(
@@ -806,7 +811,7 @@ pub mod text_to_speech_long_audio_synthesize {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -922,7 +927,9 @@ pub mod text_to_speech_long_audio_synthesize {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(

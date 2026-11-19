@@ -51,9 +51,9 @@ pub mod destination_service {
     /// Common implementation for [crate::client::DestinationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DestinationService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DestinationService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod destination_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchDestinations(RequestBuilder<crate::model::SearchDestinationsRequest>);
+    pub struct SearchDestinations(
+        pub(crate) RequestBuilder<crate::model::SearchDestinationsRequest>,
+    );
 
     impl SearchDestinations {
         pub(crate) fn new(
@@ -247,9 +249,9 @@ pub mod geocode_service {
     /// Common implementation for [crate::client::GeocodeService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::GeocodeService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::GeocodeService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -284,7 +286,7 @@ pub mod geocode_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GeocodeAddress(RequestBuilder<crate::model::GeocodeAddressRequest>);
+    pub struct GeocodeAddress(pub(crate) RequestBuilder<crate::model::GeocodeAddressRequest>);
 
     impl GeocodeAddress {
         pub(crate) fn new(
@@ -410,7 +412,7 @@ pub mod geocode_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GeocodeLocation(RequestBuilder<crate::model::GeocodeLocationRequest>);
+    pub struct GeocodeLocation(pub(crate) RequestBuilder<crate::model::GeocodeLocationRequest>);
 
     impl GeocodeLocation {
         pub(crate) fn new(
@@ -540,7 +542,7 @@ pub mod geocode_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GeocodePlace(RequestBuilder<crate::model::GeocodePlaceRequest>);
+    pub struct GeocodePlace(pub(crate) RequestBuilder<crate::model::GeocodePlaceRequest>);
 
     impl GeocodePlace {
         pub(crate) fn new(

@@ -51,9 +51,9 @@ pub mod managed_schema_registry {
     /// Common implementation for [crate::client::ManagedSchemaRegistry] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSchemaRegistry(RequestBuilder<crate::model::GetSchemaRegistryRequest>);
+    pub struct GetSchemaRegistry(pub(crate) RequestBuilder<crate::model::GetSchemaRegistryRequest>);
 
     impl GetSchemaRegistry {
         pub(crate) fn new(
@@ -153,7 +153,9 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSchemaRegistries(RequestBuilder<crate::model::ListSchemaRegistriesRequest>);
+    pub struct ListSchemaRegistries(
+        pub(crate) RequestBuilder<crate::model::ListSchemaRegistriesRequest>,
+    );
 
     impl ListSchemaRegistries {
         pub(crate) fn new(
@@ -218,7 +220,9 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSchemaRegistry(RequestBuilder<crate::model::CreateSchemaRegistryRequest>);
+    pub struct CreateSchemaRegistry(
+        pub(crate) RequestBuilder<crate::model::CreateSchemaRegistryRequest>,
+    );
 
     impl CreateSchemaRegistry {
         pub(crate) fn new(
@@ -313,7 +317,9 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSchemaRegistry(RequestBuilder<crate::model::DeleteSchemaRegistryRequest>);
+    pub struct DeleteSchemaRegistry(
+        pub(crate) RequestBuilder<crate::model::DeleteSchemaRegistryRequest>,
+    );
 
     impl DeleteSchemaRegistry {
         pub(crate) fn new(
@@ -378,7 +384,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetContext(RequestBuilder<crate::model::GetContextRequest>);
+    pub struct GetContext(pub(crate) RequestBuilder<crate::model::GetContextRequest>);
 
     impl GetContext {
         pub(crate) fn new(
@@ -440,7 +446,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListContexts(RequestBuilder<crate::model::ListContextsRequest>);
+    pub struct ListContexts(pub(crate) RequestBuilder<crate::model::ListContextsRequest>);
 
     impl ListContexts {
         pub(crate) fn new(
@@ -502,7 +508,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSchema(RequestBuilder<crate::model::GetSchemaRequest>);
+    pub struct GetSchema(pub(crate) RequestBuilder<crate::model::GetSchemaRequest>);
 
     impl GetSchema {
         pub(crate) fn new(
@@ -582,7 +588,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRawSchema(RequestBuilder<crate::model::GetSchemaRequest>);
+    pub struct GetRawSchema(pub(crate) RequestBuilder<crate::model::GetSchemaRequest>);
 
     impl GetRawSchema {
         pub(crate) fn new(
@@ -662,7 +668,9 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSchemaVersions(RequestBuilder<crate::model::ListSchemaVersionsRequest>);
+    pub struct ListSchemaVersions(
+        pub(crate) RequestBuilder<crate::model::ListSchemaVersionsRequest>,
+    );
 
     impl ListSchemaVersions {
         pub(crate) fn new(
@@ -763,7 +771,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSchemaTypes(RequestBuilder<crate::model::ListSchemaTypesRequest>);
+    pub struct ListSchemaTypes(pub(crate) RequestBuilder<crate::model::ListSchemaTypesRequest>);
 
     impl ListSchemaTypes {
         pub(crate) fn new(
@@ -825,7 +833,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSubjects(RequestBuilder<crate::model::ListSubjectsRequest>);
+    pub struct ListSubjects(pub(crate) RequestBuilder<crate::model::ListSubjectsRequest>);
 
     impl ListSubjects {
         pub(crate) fn new(
@@ -923,7 +931,9 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSubjectsBySchemaId(RequestBuilder<crate::model::ListSubjectsBySchemaIdRequest>);
+    pub struct ListSubjectsBySchemaId(
+        pub(crate) RequestBuilder<crate::model::ListSubjectsBySchemaIdRequest>,
+    );
 
     impl ListSubjectsBySchemaId {
         pub(crate) fn new(
@@ -1024,7 +1034,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSubject(RequestBuilder<crate::model::DeleteSubjectRequest>);
+    pub struct DeleteSubject(pub(crate) RequestBuilder<crate::model::DeleteSubjectRequest>);
 
     impl DeleteSubject {
         pub(crate) fn new(
@@ -1104,7 +1114,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LookupVersion(RequestBuilder<crate::model::LookupVersionRequest>);
+    pub struct LookupVersion(pub(crate) RequestBuilder<crate::model::LookupVersionRequest>);
 
     impl LookupVersion {
         pub(crate) fn new(
@@ -1239,7 +1249,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVersion(RequestBuilder<crate::model::GetVersionRequest>);
+    pub struct GetVersion(pub(crate) RequestBuilder<crate::model::GetVersionRequest>);
 
     impl GetVersion {
         pub(crate) fn new(
@@ -1319,7 +1329,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRawSchemaVersion(RequestBuilder<crate::model::GetVersionRequest>);
+    pub struct GetRawSchemaVersion(pub(crate) RequestBuilder<crate::model::GetVersionRequest>);
 
     impl GetRawSchemaVersion {
         pub(crate) fn new(
@@ -1399,7 +1409,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVersions(RequestBuilder<crate::model::ListVersionsRequest>);
+    pub struct ListVersions(pub(crate) RequestBuilder<crate::model::ListVersionsRequest>);
 
     impl ListVersions {
         pub(crate) fn new(
@@ -1479,7 +1489,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateVersion(RequestBuilder<crate::model::CreateVersionRequest>);
+    pub struct CreateVersion(pub(crate) RequestBuilder<crate::model::CreateVersionRequest>);
 
     impl CreateVersion {
         pub(crate) fn new(
@@ -1632,7 +1642,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteVersion(RequestBuilder<crate::model::DeleteVersionRequest>);
+    pub struct DeleteVersion(pub(crate) RequestBuilder<crate::model::DeleteVersionRequest>);
 
     impl DeleteVersion {
         pub(crate) fn new(
@@ -1712,7 +1722,9 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListReferencedSchemas(RequestBuilder<crate::model::ListReferencedSchemasRequest>);
+    pub struct ListReferencedSchemas(
+        pub(crate) RequestBuilder<crate::model::ListReferencedSchemasRequest>,
+    );
 
     impl ListReferencedSchemas {
         pub(crate) fn new(
@@ -1777,7 +1789,9 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CheckCompatibility(RequestBuilder<crate::model::CheckCompatibilityRequest>);
+    pub struct CheckCompatibility(
+        pub(crate) RequestBuilder<crate::model::CheckCompatibilityRequest>,
+    );
 
     impl CheckCompatibility {
         pub(crate) fn new(
@@ -1897,7 +1911,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSchemaConfig(RequestBuilder<crate::model::GetSchemaConfigRequest>);
+    pub struct GetSchemaConfig(pub(crate) RequestBuilder<crate::model::GetSchemaConfigRequest>);
 
     impl GetSchemaConfig {
         pub(crate) fn new(
@@ -1977,7 +1991,9 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSchemaConfig(RequestBuilder<crate::model::UpdateSchemaConfigRequest>);
+    pub struct UpdateSchemaConfig(
+        pub(crate) RequestBuilder<crate::model::UpdateSchemaConfigRequest>,
+    );
 
     impl UpdateSchemaConfig {
         pub(crate) fn new(
@@ -2082,7 +2098,9 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSchemaConfig(RequestBuilder<crate::model::DeleteSchemaConfigRequest>);
+    pub struct DeleteSchemaConfig(
+        pub(crate) RequestBuilder<crate::model::DeleteSchemaConfigRequest>,
+    );
 
     impl DeleteSchemaConfig {
         pub(crate) fn new(
@@ -2147,7 +2165,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSchemaMode(RequestBuilder<crate::model::GetSchemaModeRequest>);
+    pub struct GetSchemaMode(pub(crate) RequestBuilder<crate::model::GetSchemaModeRequest>);
 
     impl GetSchemaMode {
         pub(crate) fn new(
@@ -2209,7 +2227,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSchemaMode(RequestBuilder<crate::model::UpdateSchemaModeRequest>);
+    pub struct UpdateSchemaMode(pub(crate) RequestBuilder<crate::model::UpdateSchemaModeRequest>);
 
     impl UpdateSchemaMode {
         pub(crate) fn new(
@@ -2282,7 +2300,7 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSchemaMode(RequestBuilder<crate::model::DeleteSchemaModeRequest>);
+    pub struct DeleteSchemaMode(pub(crate) RequestBuilder<crate::model::DeleteSchemaModeRequest>);
 
     impl DeleteSchemaMode {
         pub(crate) fn new(
@@ -2351,7 +2369,9 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2460,7 +2480,9 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -2528,7 +2550,7 @@ pub mod managed_schema_registry {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2644,7 +2666,9 @@ pub mod managed_schema_registry {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2708,7 +2732,7 @@ pub mod managed_schema_registry {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2773,7 +2797,7 @@ pub mod managed_schema_registry {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

@@ -51,9 +51,9 @@ pub mod places {
     /// Common implementation for [crate::client::Places] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Places>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Places>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -86,7 +86,7 @@ pub mod places {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchNearby(RequestBuilder<crate::model::SearchNearbyRequest>);
+    pub struct SearchNearby(pub(crate) RequestBuilder<crate::model::SearchNearbyRequest>);
 
     impl SearchNearby {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Places>) -> Self {
@@ -255,7 +255,7 @@ pub mod places {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchText(RequestBuilder<crate::model::SearchTextRequest>);
+    pub struct SearchText(pub(crate) RequestBuilder<crate::model::SearchTextRequest>);
 
     impl SearchText {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Places>) -> Self {
@@ -482,7 +482,7 @@ pub mod places {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPhotoMedia(RequestBuilder<crate::model::GetPhotoMediaRequest>);
+    pub struct GetPhotoMedia(pub(crate) RequestBuilder<crate::model::GetPhotoMediaRequest>);
 
     impl GetPhotoMedia {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Places>) -> Self {
@@ -560,7 +560,7 @@ pub mod places {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPlace(RequestBuilder<crate::model::GetPlaceRequest>);
+    pub struct GetPlace(pub(crate) RequestBuilder<crate::model::GetPlaceRequest>);
 
     impl GetPlace {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Places>) -> Self {
@@ -638,7 +638,9 @@ pub mod places {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AutocompletePlaces(RequestBuilder<crate::model::AutocompletePlacesRequest>);
+    pub struct AutocompletePlaces(
+        pub(crate) RequestBuilder<crate::model::AutocompletePlacesRequest>,
+    );
 
     impl AutocompletePlaces {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Places>) -> Self {

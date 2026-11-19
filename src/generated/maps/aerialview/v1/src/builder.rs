@@ -51,9 +51,9 @@ pub mod aerial_view {
     /// Common implementation for [crate::client::AerialView] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AerialView>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AerialView>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod aerial_view {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RenderVideo(RequestBuilder<crate::model::RenderVideoRequest>);
+    pub struct RenderVideo(pub(crate) RequestBuilder<crate::model::RenderVideoRequest>);
 
     impl RenderVideo {
         pub(crate) fn new(
@@ -150,7 +150,7 @@ pub mod aerial_view {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LookupVideo(RequestBuilder<crate::model::LookupVideoRequest>);
+    pub struct LookupVideo(pub(crate) RequestBuilder<crate::model::LookupVideoRequest>);
 
     impl LookupVideo {
         pub(crate) fn new(

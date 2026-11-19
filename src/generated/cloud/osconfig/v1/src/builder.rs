@@ -51,9 +51,9 @@ pub mod os_config_service {
     /// Common implementation for [crate::client::OsConfigService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod os_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ExecutePatchJob(RequestBuilder<crate::model::ExecutePatchJobRequest>);
+    pub struct ExecutePatchJob(pub(crate) RequestBuilder<crate::model::ExecutePatchJobRequest>);
 
     impl ExecutePatchJob {
         pub(crate) fn new(
@@ -244,7 +244,7 @@ pub mod os_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPatchJob(RequestBuilder<crate::model::GetPatchJobRequest>);
+    pub struct GetPatchJob(pub(crate) RequestBuilder<crate::model::GetPatchJobRequest>);
 
     impl GetPatchJob {
         pub(crate) fn new(
@@ -306,7 +306,7 @@ pub mod os_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelPatchJob(RequestBuilder<crate::model::CancelPatchJobRequest>);
+    pub struct CancelPatchJob(pub(crate) RequestBuilder<crate::model::CancelPatchJobRequest>);
 
     impl CancelPatchJob {
         pub(crate) fn new(
@@ -372,7 +372,7 @@ pub mod os_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPatchJobs(RequestBuilder<crate::model::ListPatchJobsRequest>);
+    pub struct ListPatchJobs(pub(crate) RequestBuilder<crate::model::ListPatchJobsRequest>);
 
     impl ListPatchJobs {
         pub(crate) fn new(
@@ -483,7 +483,7 @@ pub mod os_config_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListPatchJobInstanceDetails(
-        RequestBuilder<crate::model::ListPatchJobInstanceDetailsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListPatchJobInstanceDetailsRequest>,
     );
 
     impl ListPatchJobInstanceDetails {
@@ -595,7 +595,9 @@ pub mod os_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePatchDeployment(RequestBuilder<crate::model::CreatePatchDeploymentRequest>);
+    pub struct CreatePatchDeployment(
+        pub(crate) RequestBuilder<crate::model::CreatePatchDeploymentRequest>,
+    );
 
     impl CreatePatchDeployment {
         pub(crate) fn new(
@@ -690,7 +692,9 @@ pub mod os_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPatchDeployment(RequestBuilder<crate::model::GetPatchDeploymentRequest>);
+    pub struct GetPatchDeployment(
+        pub(crate) RequestBuilder<crate::model::GetPatchDeploymentRequest>,
+    );
 
     impl GetPatchDeployment {
         pub(crate) fn new(
@@ -759,7 +763,9 @@ pub mod os_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPatchDeployments(RequestBuilder<crate::model::ListPatchDeploymentsRequest>);
+    pub struct ListPatchDeployments(
+        pub(crate) RequestBuilder<crate::model::ListPatchDeploymentsRequest>,
+    );
 
     impl ListPatchDeployments {
         pub(crate) fn new(
@@ -864,7 +870,9 @@ pub mod os_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePatchDeployment(RequestBuilder<crate::model::DeletePatchDeploymentRequest>);
+    pub struct DeletePatchDeployment(
+        pub(crate) RequestBuilder<crate::model::DeletePatchDeploymentRequest>,
+    );
 
     impl DeletePatchDeployment {
         pub(crate) fn new(
@@ -929,7 +937,9 @@ pub mod os_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePatchDeployment(RequestBuilder<crate::model::UpdatePatchDeploymentRequest>);
+    pub struct UpdatePatchDeployment(
+        pub(crate) RequestBuilder<crate::model::UpdatePatchDeploymentRequest>,
+    );
 
     impl UpdatePatchDeployment {
         pub(crate) fn new(
@@ -1026,7 +1036,9 @@ pub mod os_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PausePatchDeployment(RequestBuilder<crate::model::PausePatchDeploymentRequest>);
+    pub struct PausePatchDeployment(
+        pub(crate) RequestBuilder<crate::model::PausePatchDeploymentRequest>,
+    );
 
     impl PausePatchDeployment {
         pub(crate) fn new(
@@ -1091,7 +1103,9 @@ pub mod os_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResumePatchDeployment(RequestBuilder<crate::model::ResumePatchDeploymentRequest>);
+    pub struct ResumePatchDeployment(
+        pub(crate) RequestBuilder<crate::model::ResumePatchDeploymentRequest>,
+    );
 
     impl ResumePatchDeployment {
         pub(crate) fn new(
@@ -1156,7 +1170,9 @@ pub mod os_config_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1220,7 +1236,7 @@ pub mod os_config_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -1305,9 +1321,9 @@ pub mod os_config_zonal_service {
     /// Common implementation for [crate::client::OsConfigZonalService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1344,7 +1360,7 @@ pub mod os_config_zonal_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateOSPolicyAssignment(
-        RequestBuilder<crate::model::CreateOSPolicyAssignmentRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateOSPolicyAssignmentRequest>,
     );
 
     impl CreateOSPolicyAssignment {
@@ -1498,7 +1514,7 @@ pub mod os_config_zonal_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateOSPolicyAssignment(
-        RequestBuilder<crate::model::UpdateOSPolicyAssignmentRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateOSPolicyAssignmentRequest>,
     );
 
     impl UpdateOSPolicyAssignment {
@@ -1652,7 +1668,9 @@ pub mod os_config_zonal_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOSPolicyAssignment(RequestBuilder<crate::model::GetOSPolicyAssignmentRequest>);
+    pub struct GetOSPolicyAssignment(
+        pub(crate) RequestBuilder<crate::model::GetOSPolicyAssignmentRequest>,
+    );
 
     impl GetOSPolicyAssignment {
         pub(crate) fn new(
@@ -1722,7 +1740,7 @@ pub mod os_config_zonal_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOSPolicyAssignments(
-        RequestBuilder<crate::model::ListOSPolicyAssignmentsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListOSPolicyAssignmentsRequest>,
     );
 
     impl ListOSPolicyAssignments {
@@ -1833,7 +1851,7 @@ pub mod os_config_zonal_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOSPolicyAssignmentRevisions(
-        RequestBuilder<crate::model::ListOSPolicyAssignmentRevisionsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListOSPolicyAssignmentRevisionsRequest>,
     );
 
     impl ListOSPolicyAssignmentRevisions {
@@ -1941,7 +1959,7 @@ pub mod os_config_zonal_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOSPolicyAssignment(
-        RequestBuilder<crate::model::DeleteOSPolicyAssignmentRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteOSPolicyAssignmentRequest>,
     );
 
     impl DeleteOSPolicyAssignment {
@@ -2062,7 +2080,7 @@ pub mod os_config_zonal_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetOSPolicyAssignmentReport(
-        RequestBuilder<crate::model::GetOSPolicyAssignmentReportRequest>,
+        pub(crate) RequestBuilder<crate::model::GetOSPolicyAssignmentReportRequest>,
     );
 
     impl GetOSPolicyAssignmentReport {
@@ -2133,7 +2151,7 @@ pub mod os_config_zonal_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOSPolicyAssignmentReports(
-        RequestBuilder<crate::model::ListOSPolicyAssignmentReportsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListOSPolicyAssignmentReportsRequest>,
     );
 
     impl ListOSPolicyAssignmentReports {
@@ -2245,7 +2263,7 @@ pub mod os_config_zonal_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInventory(RequestBuilder<crate::model::GetInventoryRequest>);
+    pub struct GetInventory(pub(crate) RequestBuilder<crate::model::GetInventoryRequest>);
 
     impl GetInventory {
         pub(crate) fn new(
@@ -2317,7 +2335,7 @@ pub mod os_config_zonal_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInventories(RequestBuilder<crate::model::ListInventoriesRequest>);
+    pub struct ListInventories(pub(crate) RequestBuilder<crate::model::ListInventoriesRequest>);
 
     impl ListInventories {
         pub(crate) fn new(
@@ -2431,7 +2449,9 @@ pub mod os_config_zonal_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVulnerabilityReport(RequestBuilder<crate::model::GetVulnerabilityReportRequest>);
+    pub struct GetVulnerabilityReport(
+        pub(crate) RequestBuilder<crate::model::GetVulnerabilityReportRequest>,
+    );
 
     impl GetVulnerabilityReport {
         pub(crate) fn new(
@@ -2501,7 +2521,7 @@ pub mod os_config_zonal_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListVulnerabilityReports(
-        RequestBuilder<crate::model::ListVulnerabilityReportsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListVulnerabilityReportsRequest>,
     );
 
     impl ListVulnerabilityReports {
@@ -2613,7 +2633,9 @@ pub mod os_config_zonal_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2677,7 +2699,7 @@ pub mod os_config_zonal_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

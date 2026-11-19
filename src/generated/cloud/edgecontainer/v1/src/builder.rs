@@ -51,9 +51,9 @@ pub mod edge_container {
     /// Common implementation for [crate::client::EdgeContainer] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
+    pub struct ListClusters(pub(crate) RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
         pub(crate) fn new(
@@ -204,7 +204,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
+    pub struct GetCluster(pub(crate) RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
         pub(crate) fn new(
@@ -267,7 +267,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
+    pub struct CreateCluster(pub(crate) RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
         pub(crate) fn new(
@@ -420,7 +420,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
+    pub struct UpdateCluster(pub(crate) RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
         pub(crate) fn new(
@@ -571,7 +571,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpgradeCluster(RequestBuilder<crate::model::UpgradeClusterRequest>);
+    pub struct UpgradeCluster(pub(crate) RequestBuilder<crate::model::UpgradeClusterRequest>);
 
     impl UpgradeCluster {
         pub(crate) fn new(
@@ -711,7 +711,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
+    pub struct DeleteCluster(pub(crate) RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
         pub(crate) fn new(
@@ -828,7 +828,9 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
+    pub struct GenerateAccessToken(
+        pub(crate) RequestBuilder<crate::model::GenerateAccessTokenRequest>,
+    );
 
     impl GenerateAccessToken {
         pub(crate) fn new(
@@ -894,7 +896,7 @@ pub mod edge_container {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateOfflineCredential(
-        RequestBuilder<crate::model::GenerateOfflineCredentialRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateOfflineCredentialRequest>,
     );
 
     impl GenerateOfflineCredential {
@@ -964,7 +966,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
+    pub struct ListNodePools(pub(crate) RequestBuilder<crate::model::ListNodePoolsRequest>);
 
     impl ListNodePools {
         pub(crate) fn new(
@@ -1076,7 +1078,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
+    pub struct GetNodePool(pub(crate) RequestBuilder<crate::model::GetNodePoolRequest>);
 
     impl GetNodePool {
         pub(crate) fn new(
@@ -1139,7 +1141,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
+    pub struct CreateNodePool(pub(crate) RequestBuilder<crate::model::CreateNodePoolRequest>);
 
     impl CreateNodePool {
         pub(crate) fn new(
@@ -1292,7 +1294,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
+    pub struct UpdateNodePool(pub(crate) RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
     impl UpdateNodePool {
         pub(crate) fn new(
@@ -1443,7 +1445,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
+    pub struct DeleteNodePool(pub(crate) RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
     impl DeleteNodePool {
         pub(crate) fn new(
@@ -1564,7 +1566,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMachines(RequestBuilder<crate::model::ListMachinesRequest>);
+    pub struct ListMachines(pub(crate) RequestBuilder<crate::model::ListMachinesRequest>);
 
     impl ListMachines {
         pub(crate) fn new(
@@ -1676,7 +1678,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMachine(RequestBuilder<crate::model::GetMachineRequest>);
+    pub struct GetMachine(pub(crate) RequestBuilder<crate::model::GetMachineRequest>);
 
     impl GetMachine {
         pub(crate) fn new(
@@ -1742,7 +1744,9 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVpnConnections(RequestBuilder<crate::model::ListVpnConnectionsRequest>);
+    pub struct ListVpnConnections(
+        pub(crate) RequestBuilder<crate::model::ListVpnConnectionsRequest>,
+    );
 
     impl ListVpnConnections {
         pub(crate) fn new(
@@ -1859,7 +1863,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVpnConnection(RequestBuilder<crate::model::GetVpnConnectionRequest>);
+    pub struct GetVpnConnection(pub(crate) RequestBuilder<crate::model::GetVpnConnectionRequest>);
 
     impl GetVpnConnection {
         pub(crate) fn new(
@@ -1925,7 +1929,9 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateVpnConnection(RequestBuilder<crate::model::CreateVpnConnectionRequest>);
+    pub struct CreateVpnConnection(
+        pub(crate) RequestBuilder<crate::model::CreateVpnConnectionRequest>,
+    );
 
     impl CreateVpnConnection {
         pub(crate) fn new(
@@ -2081,7 +2087,9 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteVpnConnection(RequestBuilder<crate::model::DeleteVpnConnectionRequest>);
+    pub struct DeleteVpnConnection(
+        pub(crate) RequestBuilder<crate::model::DeleteVpnConnectionRequest>,
+    );
 
     impl DeleteVpnConnection {
         pub(crate) fn new(
@@ -2201,7 +2209,7 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
+    pub struct GetServerConfig(pub(crate) RequestBuilder<crate::model::GetServerConfigRequest>);
 
     impl GetServerConfig {
         pub(crate) fn new(
@@ -2267,7 +2275,9 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2376,7 +2386,9 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -2444,7 +2456,7 @@ pub mod edge_container {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2560,7 +2572,9 @@ pub mod edge_container {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -2624,7 +2638,7 @@ pub mod edge_container {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2689,7 +2703,7 @@ pub mod edge_container {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

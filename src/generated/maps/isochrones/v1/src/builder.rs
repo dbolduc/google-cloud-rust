@@ -51,9 +51,9 @@ pub mod isochrone_service {
     /// Common implementation for [crate::client::IsochroneService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::IsochroneService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::IsochroneService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod isochrone_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateIsochrone(RequestBuilder<crate::model::GenerateIsochroneRequest>);
+    pub struct GenerateIsochrone(pub(crate) RequestBuilder<crate::model::GenerateIsochroneRequest>);
 
     impl GenerateIsochrone {
         pub(crate) fn new(

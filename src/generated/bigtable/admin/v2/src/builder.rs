@@ -51,9 +51,9 @@ pub mod bigtable_instance_admin {
     /// Common implementation for [crate::client::BigtableInstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
+    pub struct CreateInstance(pub(crate) RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
         pub(crate) fn new(
@@ -248,7 +248,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
+    pub struct GetInstance(pub(crate) RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(
@@ -310,7 +310,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
+    pub struct ListInstances(pub(crate) RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(
@@ -378,7 +378,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateInstance(RequestBuilder<crate::model::Instance>);
+    pub struct UpdateInstance(pub(crate) RequestBuilder<crate::model::Instance>);
 
     impl UpdateInstance {
         pub(crate) fn new(
@@ -541,7 +541,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PartialUpdateInstance(RequestBuilder<crate::model::PartialUpdateInstanceRequest>);
+    pub struct PartialUpdateInstance(
+        pub(crate) RequestBuilder<crate::model::PartialUpdateInstanceRequest>,
+    );
 
     impl PartialUpdateInstance {
         pub(crate) fn new(
@@ -696,7 +698,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
+    pub struct DeleteInstance(pub(crate) RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
         pub(crate) fn new(
@@ -759,7 +761,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
+    pub struct CreateCluster(pub(crate) RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
         pub(crate) fn new(
@@ -905,7 +907,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
+    pub struct GetCluster(pub(crate) RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
         pub(crate) fn new(
@@ -967,7 +969,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
+    pub struct ListClusters(pub(crate) RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
         pub(crate) fn new(
@@ -1036,7 +1038,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCluster(RequestBuilder<crate::model::Cluster>);
+    pub struct UpdateCluster(pub(crate) RequestBuilder<crate::model::Cluster>);
 
     impl UpdateCluster {
         pub(crate) fn new(
@@ -1229,7 +1231,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PartialUpdateCluster(RequestBuilder<crate::model::PartialUpdateClusterRequest>);
+    pub struct PartialUpdateCluster(
+        pub(crate) RequestBuilder<crate::model::PartialUpdateClusterRequest>,
+    );
 
     impl PartialUpdateCluster {
         pub(crate) fn new(
@@ -1386,7 +1390,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
+    pub struct DeleteCluster(pub(crate) RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
         pub(crate) fn new(
@@ -1449,7 +1453,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateMemoryLayer(RequestBuilder<crate::model::UpdateMemoryLayerRequest>);
+    pub struct UpdateMemoryLayer(pub(crate) RequestBuilder<crate::model::UpdateMemoryLayerRequest>);
 
     impl UpdateMemoryLayer {
         pub(crate) fn new(
@@ -1606,7 +1610,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMemoryLayers(RequestBuilder<crate::model::ListMemoryLayersRequest>);
+    pub struct ListMemoryLayers(pub(crate) RequestBuilder<crate::model::ListMemoryLayersRequest>);
 
     impl ListMemoryLayers {
         pub(crate) fn new(
@@ -1711,7 +1715,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMemoryLayer(RequestBuilder<crate::model::GetMemoryLayerRequest>);
+    pub struct GetMemoryLayer(pub(crate) RequestBuilder<crate::model::GetMemoryLayerRequest>);
 
     impl GetMemoryLayer {
         pub(crate) fn new(
@@ -1773,7 +1777,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAppProfile(RequestBuilder<crate::model::CreateAppProfileRequest>);
+    pub struct CreateAppProfile(pub(crate) RequestBuilder<crate::model::CreateAppProfileRequest>);
 
     impl CreateAppProfile {
         pub(crate) fn new(
@@ -1874,7 +1878,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAppProfile(RequestBuilder<crate::model::GetAppProfileRequest>);
+    pub struct GetAppProfile(pub(crate) RequestBuilder<crate::model::GetAppProfileRequest>);
 
     impl GetAppProfile {
         pub(crate) fn new(
@@ -1940,7 +1944,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAppProfiles(RequestBuilder<crate::model::ListAppProfilesRequest>);
+    pub struct ListAppProfiles(pub(crate) RequestBuilder<crate::model::ListAppProfilesRequest>);
 
     impl ListAppProfiles {
         pub(crate) fn new(
@@ -2043,7 +2047,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAppProfile(RequestBuilder<crate::model::UpdateAppProfileRequest>);
+    pub struct UpdateAppProfile(pub(crate) RequestBuilder<crate::model::UpdateAppProfileRequest>);
 
     impl UpdateAppProfile {
         pub(crate) fn new(
@@ -2206,7 +2210,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAppProfile(RequestBuilder<crate::model::DeleteAppProfileRequest>);
+    pub struct DeleteAppProfile(pub(crate) RequestBuilder<crate::model::DeleteAppProfileRequest>);
 
     impl DeleteAppProfile {
         pub(crate) fn new(
@@ -2279,7 +2283,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -2362,7 +2368,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -2468,7 +2476,7 @@ pub mod bigtable_instance_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -2551,7 +2559,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListHotTablets(RequestBuilder<crate::model::ListHotTabletsRequest>);
+    pub struct ListHotTablets(pub(crate) RequestBuilder<crate::model::ListHotTabletsRequest>);
 
     impl ListHotTablets {
         pub(crate) fn new(
@@ -2690,7 +2698,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateLogicalView(RequestBuilder<crate::model::CreateLogicalViewRequest>);
+    pub struct CreateLogicalView(pub(crate) RequestBuilder<crate::model::CreateLogicalViewRequest>);
 
     impl CreateLogicalView {
         pub(crate) fn new(
@@ -2841,7 +2849,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLogicalView(RequestBuilder<crate::model::GetLogicalViewRequest>);
+    pub struct GetLogicalView(pub(crate) RequestBuilder<crate::model::GetLogicalViewRequest>);
 
     impl GetLogicalView {
         pub(crate) fn new(
@@ -2907,7 +2915,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLogicalViews(RequestBuilder<crate::model::ListLogicalViewsRequest>);
+    pub struct ListLogicalViews(pub(crate) RequestBuilder<crate::model::ListLogicalViewsRequest>);
 
     impl ListLogicalViews {
         pub(crate) fn new(
@@ -3013,7 +3021,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateLogicalView(RequestBuilder<crate::model::UpdateLogicalViewRequest>);
+    pub struct UpdateLogicalView(pub(crate) RequestBuilder<crate::model::UpdateLogicalViewRequest>);
 
     impl UpdateLogicalView {
         pub(crate) fn new(
@@ -3166,7 +3174,7 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteLogicalView(RequestBuilder<crate::model::DeleteLogicalViewRequest>);
+    pub struct DeleteLogicalView(pub(crate) RequestBuilder<crate::model::DeleteLogicalViewRequest>);
 
     impl DeleteLogicalView {
         pub(crate) fn new(
@@ -3238,7 +3246,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateMaterializedView(RequestBuilder<crate::model::CreateMaterializedViewRequest>);
+    pub struct CreateMaterializedView(
+        pub(crate) RequestBuilder<crate::model::CreateMaterializedViewRequest>,
+    );
 
     impl CreateMaterializedView {
         pub(crate) fn new(
@@ -3389,7 +3399,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMaterializedView(RequestBuilder<crate::model::GetMaterializedViewRequest>);
+    pub struct GetMaterializedView(
+        pub(crate) RequestBuilder<crate::model::GetMaterializedViewRequest>,
+    );
 
     impl GetMaterializedView {
         pub(crate) fn new(
@@ -3458,7 +3470,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMaterializedViews(RequestBuilder<crate::model::ListMaterializedViewsRequest>);
+    pub struct ListMaterializedViews(
+        pub(crate) RequestBuilder<crate::model::ListMaterializedViewsRequest>,
+    );
 
     impl ListMaterializedViews {
         pub(crate) fn new(
@@ -3564,7 +3578,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateMaterializedView(RequestBuilder<crate::model::UpdateMaterializedViewRequest>);
+    pub struct UpdateMaterializedView(
+        pub(crate) RequestBuilder<crate::model::UpdateMaterializedViewRequest>,
+    );
 
     impl UpdateMaterializedView {
         pub(crate) fn new(
@@ -3717,7 +3733,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteMaterializedView(RequestBuilder<crate::model::DeleteMaterializedViewRequest>);
+    pub struct DeleteMaterializedView(
+        pub(crate) RequestBuilder<crate::model::DeleteMaterializedViewRequest>,
+    );
 
     impl DeleteMaterializedView {
         pub(crate) fn new(
@@ -3793,7 +3811,7 @@ pub mod bigtable_instance_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3909,7 +3927,9 @@ pub mod bigtable_instance_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3973,7 +3993,7 @@ pub mod bigtable_instance_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4038,7 +4058,7 @@ pub mod bigtable_instance_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -4160,7 +4180,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTable(RequestBuilder<crate::model::CreateTableRequest>);
+    pub struct CreateTable(pub(crate) RequestBuilder<crate::model::CreateTableRequest>);
 
     impl CreateTable {
         pub(crate) fn new(
@@ -4265,7 +4285,7 @@ pub mod bigtable_table_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTableFromSnapshot(
-        RequestBuilder<crate::model::CreateTableFromSnapshotRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateTableFromSnapshotRequest>,
     );
 
     impl CreateTableFromSnapshot {
@@ -4407,7 +4427,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
+    pub struct ListTables(pub(crate) RequestBuilder<crate::model::ListTablesRequest>);
 
     impl ListTables {
         pub(crate) fn new(
@@ -4513,7 +4533,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
+    pub struct GetTable(pub(crate) RequestBuilder<crate::model::GetTableRequest>);
 
     impl GetTable {
         pub(crate) fn new(
@@ -4582,7 +4602,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTable(RequestBuilder<crate::model::UpdateTableRequest>);
+    pub struct UpdateTable(pub(crate) RequestBuilder<crate::model::UpdateTableRequest>);
 
     impl UpdateTable {
         pub(crate) fn new(
@@ -4740,7 +4760,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
+    pub struct DeleteTable(pub(crate) RequestBuilder<crate::model::DeleteTableRequest>);
 
     impl DeleteTable {
         pub(crate) fn new(
@@ -4803,7 +4823,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeleteTable(RequestBuilder<crate::model::UndeleteTableRequest>);
+    pub struct UndeleteTable(pub(crate) RequestBuilder<crate::model::UndeleteTableRequest>);
 
     impl UndeleteTable {
         pub(crate) fn new(
@@ -4920,7 +4940,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAuthorizedView(RequestBuilder<crate::model::CreateAuthorizedViewRequest>);
+    pub struct CreateAuthorizedView(
+        pub(crate) RequestBuilder<crate::model::CreateAuthorizedViewRequest>,
+    );
 
     impl CreateAuthorizedView {
         pub(crate) fn new(
@@ -5075,7 +5097,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAuthorizedViews(RequestBuilder<crate::model::ListAuthorizedViewsRequest>);
+    pub struct ListAuthorizedViews(
+        pub(crate) RequestBuilder<crate::model::ListAuthorizedViewsRequest>,
+    );
 
     impl ListAuthorizedViews {
         pub(crate) fn new(
@@ -5189,7 +5213,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAuthorizedView(RequestBuilder<crate::model::GetAuthorizedViewRequest>);
+    pub struct GetAuthorizedView(pub(crate) RequestBuilder<crate::model::GetAuthorizedViewRequest>);
 
     impl GetAuthorizedView {
         pub(crate) fn new(
@@ -5264,7 +5288,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAuthorizedView(RequestBuilder<crate::model::UpdateAuthorizedViewRequest>);
+    pub struct UpdateAuthorizedView(
+        pub(crate) RequestBuilder<crate::model::UpdateAuthorizedViewRequest>,
+    );
 
     impl UpdateAuthorizedView {
         pub(crate) fn new(
@@ -5423,7 +5449,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAuthorizedView(RequestBuilder<crate::model::DeleteAuthorizedViewRequest>);
+    pub struct DeleteAuthorizedView(
+        pub(crate) RequestBuilder<crate::model::DeleteAuthorizedViewRequest>,
+    );
 
     impl DeleteAuthorizedView {
         pub(crate) fn new(
@@ -5494,7 +5522,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ModifyColumnFamilies(RequestBuilder<crate::model::ModifyColumnFamiliesRequest>);
+    pub struct ModifyColumnFamilies(
+        pub(crate) RequestBuilder<crate::model::ModifyColumnFamiliesRequest>,
+    );
 
     impl ModifyColumnFamilies {
         pub(crate) fn new(
@@ -5578,7 +5608,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DropRowRange(RequestBuilder<crate::model::DropRowRangeRequest>);
+    pub struct DropRowRange(pub(crate) RequestBuilder<crate::model::DropRowRangeRequest>);
 
     impl DropRowRange {
         pub(crate) fn new(
@@ -5673,7 +5703,7 @@ pub mod bigtable_table_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateConsistencyToken(
-        RequestBuilder<crate::model::GenerateConsistencyTokenRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateConsistencyTokenRequest>,
     );
 
     impl GenerateConsistencyToken {
@@ -5855,7 +5885,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SnapshotTable(RequestBuilder<crate::model::SnapshotTableRequest>);
+    pub struct SnapshotTable(pub(crate) RequestBuilder<crate::model::SnapshotTableRequest>);
 
     impl SnapshotTable {
         pub(crate) fn new(
@@ -6011,7 +6041,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
+    pub struct GetSnapshot(pub(crate) RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
         pub(crate) fn new(
@@ -6077,7 +6107,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
+    pub struct ListSnapshots(pub(crate) RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
         pub(crate) fn new(
@@ -6177,7 +6207,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
+    pub struct DeleteSnapshot(pub(crate) RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
         pub(crate) fn new(
@@ -6240,7 +6270,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
+    pub struct CreateBackup(pub(crate) RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
         pub(crate) fn new(
@@ -6386,7 +6416,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
+    pub struct GetBackup(pub(crate) RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
         pub(crate) fn new(
@@ -6448,7 +6478,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
+    pub struct UpdateBackup(pub(crate) RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
         pub(crate) fn new(
@@ -6546,7 +6576,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
+    pub struct DeleteBackup(pub(crate) RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
         pub(crate) fn new(
@@ -6612,7 +6642,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
+    pub struct ListBackups(pub(crate) RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
         pub(crate) fn new(
@@ -6725,7 +6755,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreTable(RequestBuilder<crate::model::RestoreTableRequest>);
+    pub struct RestoreTable(pub(crate) RequestBuilder<crate::model::RestoreTableRequest>);
 
     impl RestoreTable {
         pub(crate) fn new(
@@ -6872,7 +6902,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
+    pub struct CopyBackup(pub(crate) RequestBuilder<crate::model::CopyBackupRequest>);
 
     impl CopyBackup {
         pub(crate) fn new(
@@ -7026,7 +7056,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -7109,7 +7141,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -7215,7 +7249,7 @@ pub mod bigtable_table_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -7295,7 +7329,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSchemaBundle(RequestBuilder<crate::model::CreateSchemaBundleRequest>);
+    pub struct CreateSchemaBundle(
+        pub(crate) RequestBuilder<crate::model::CreateSchemaBundleRequest>,
+    );
 
     impl CreateSchemaBundle {
         pub(crate) fn new(
@@ -7447,7 +7483,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSchemaBundle(RequestBuilder<crate::model::UpdateSchemaBundleRequest>);
+    pub struct UpdateSchemaBundle(
+        pub(crate) RequestBuilder<crate::model::UpdateSchemaBundleRequest>,
+    );
 
     impl UpdateSchemaBundle {
         pub(crate) fn new(
@@ -7606,7 +7644,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSchemaBundle(RequestBuilder<crate::model::GetSchemaBundleRequest>);
+    pub struct GetSchemaBundle(pub(crate) RequestBuilder<crate::model::GetSchemaBundleRequest>);
 
     impl GetSchemaBundle {
         pub(crate) fn new(
@@ -7672,7 +7710,7 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSchemaBundles(RequestBuilder<crate::model::ListSchemaBundlesRequest>);
+    pub struct ListSchemaBundles(pub(crate) RequestBuilder<crate::model::ListSchemaBundlesRequest>);
 
     impl ListSchemaBundles {
         pub(crate) fn new(
@@ -7777,7 +7815,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteSchemaBundle(RequestBuilder<crate::model::DeleteSchemaBundleRequest>);
+    pub struct DeleteSchemaBundle(
+        pub(crate) RequestBuilder<crate::model::DeleteSchemaBundleRequest>,
+    );
 
     impl DeleteSchemaBundle {
         pub(crate) fn new(
@@ -7853,7 +7893,7 @@ pub mod bigtable_table_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -7969,7 +8009,9 @@ pub mod bigtable_table_admin {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -8033,7 +8075,7 @@ pub mod bigtable_table_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -8098,7 +8140,7 @@ pub mod bigtable_table_admin {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

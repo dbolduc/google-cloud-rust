@@ -51,9 +51,9 @@ pub mod locations {
     /// Common implementation for [crate::client::Locations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Locations>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Locations>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod locations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<crate::model::ListLocationsRequest>);
+    pub struct ListLocations(pub(crate) RequestBuilder<crate::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
@@ -196,7 +196,7 @@ pub mod locations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<crate::model::GetLocationRequest>);
+    pub struct GetLocation(pub(crate) RequestBuilder<crate::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(

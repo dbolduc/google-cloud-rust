@@ -51,9 +51,9 @@ pub mod iam {
     /// Common implementation for [crate::client::Iam] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -90,7 +90,9 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServiceAccounts(RequestBuilder<crate::model::ListServiceAccountsRequest>);
+    pub struct ListServiceAccounts(
+        pub(crate) RequestBuilder<crate::model::ListServiceAccountsRequest>,
+    );
 
     impl ListServiceAccounts {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -193,7 +195,7 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetServiceAccount(RequestBuilder<crate::model::GetServiceAccountRequest>);
+    pub struct GetServiceAccount(pub(crate) RequestBuilder<crate::model::GetServiceAccountRequest>);
 
     impl GetServiceAccount {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -256,7 +258,9 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateServiceAccount(RequestBuilder<crate::model::CreateServiceAccountRequest>);
+    pub struct CreateServiceAccount(
+        pub(crate) RequestBuilder<crate::model::CreateServiceAccountRequest>,
+    );
 
     impl CreateServiceAccount {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -345,7 +349,7 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateServiceAccount(RequestBuilder<crate::model::ServiceAccount>);
+    pub struct UpdateServiceAccount(pub(crate) RequestBuilder<crate::model::ServiceAccount>);
 
     impl UpdateServiceAccount {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -452,7 +456,9 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PatchServiceAccount(RequestBuilder<crate::model::PatchServiceAccountRequest>);
+    pub struct PatchServiceAccount(
+        pub(crate) RequestBuilder<crate::model::PatchServiceAccountRequest>,
+    );
 
     impl PatchServiceAccount {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -543,7 +549,9 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteServiceAccount(RequestBuilder<crate::model::DeleteServiceAccountRequest>);
+    pub struct DeleteServiceAccount(
+        pub(crate) RequestBuilder<crate::model::DeleteServiceAccountRequest>,
+    );
 
     impl DeleteServiceAccount {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -606,7 +614,9 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeleteServiceAccount(RequestBuilder<crate::model::UndeleteServiceAccountRequest>);
+    pub struct UndeleteServiceAccount(
+        pub(crate) RequestBuilder<crate::model::UndeleteServiceAccountRequest>,
+    );
 
     impl UndeleteServiceAccount {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -667,7 +677,9 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnableServiceAccount(RequestBuilder<crate::model::EnableServiceAccountRequest>);
+    pub struct EnableServiceAccount(
+        pub(crate) RequestBuilder<crate::model::EnableServiceAccountRequest>,
+    );
 
     impl EnableServiceAccount {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -728,7 +740,9 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DisableServiceAccount(RequestBuilder<crate::model::DisableServiceAccountRequest>);
+    pub struct DisableServiceAccount(
+        pub(crate) RequestBuilder<crate::model::DisableServiceAccountRequest>,
+    );
 
     impl DisableServiceAccount {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -789,7 +803,9 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServiceAccountKeys(RequestBuilder<crate::model::ListServiceAccountKeysRequest>);
+    pub struct ListServiceAccountKeys(
+        pub(crate) RequestBuilder<crate::model::ListServiceAccountKeysRequest>,
+    );
 
     impl ListServiceAccountKeys {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -863,7 +879,9 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetServiceAccountKey(RequestBuilder<crate::model::GetServiceAccountKeyRequest>);
+    pub struct GetServiceAccountKey(
+        pub(crate) RequestBuilder<crate::model::GetServiceAccountKeyRequest>,
+    );
 
     impl GetServiceAccountKey {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -936,7 +954,7 @@ pub mod iam {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServiceAccountKey(
-        RequestBuilder<crate::model::CreateServiceAccountKeyRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateServiceAccountKeyRequest>,
     );
 
     impl CreateServiceAccountKey {
@@ -1019,7 +1037,7 @@ pub mod iam {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UploadServiceAccountKey(
-        RequestBuilder<crate::model::UploadServiceAccountKeyRequest>,
+        pub(crate) RequestBuilder<crate::model::UploadServiceAccountKeyRequest>,
     );
 
     impl UploadServiceAccountKey {
@@ -1088,7 +1106,7 @@ pub mod iam {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServiceAccountKey(
-        RequestBuilder<crate::model::DeleteServiceAccountKeyRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteServiceAccountKeyRequest>,
     );
 
     impl DeleteServiceAccountKey {
@@ -1153,7 +1171,7 @@ pub mod iam {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DisableServiceAccountKey(
-        RequestBuilder<crate::model::DisableServiceAccountKeyRequest>,
+        pub(crate) RequestBuilder<crate::model::DisableServiceAccountKeyRequest>,
     );
 
     impl DisableServiceAccountKey {
@@ -1218,7 +1236,7 @@ pub mod iam {
     /// ```
     #[derive(Clone, Debug)]
     pub struct EnableServiceAccountKey(
-        RequestBuilder<crate::model::EnableServiceAccountKeyRequest>,
+        pub(crate) RequestBuilder<crate::model::EnableServiceAccountKeyRequest>,
     );
 
     impl EnableServiceAccountKey {
@@ -1282,7 +1300,7 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SignBlob(RequestBuilder<crate::model::SignBlobRequest>);
+    pub struct SignBlob(pub(crate) RequestBuilder<crate::model::SignBlobRequest>);
 
     impl SignBlob {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -1352,7 +1370,7 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SignJwt(RequestBuilder<crate::model::SignJwtRequest>);
+    pub struct SignJwt(pub(crate) RequestBuilder<crate::model::SignJwtRequest>);
 
     impl SignJwt {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -1422,7 +1440,9 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -1503,7 +1523,9 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -1607,7 +1629,7 @@ pub mod iam {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1688,7 +1710,9 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryGrantableRoles(RequestBuilder<crate::model::QueryGrantableRolesRequest>);
+    pub struct QueryGrantableRoles(
+        pub(crate) RequestBuilder<crate::model::QueryGrantableRolesRequest>,
+    );
 
     impl QueryGrantableRoles {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -1801,7 +1825,7 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRoles(RequestBuilder<crate::model::ListRolesRequest>);
+    pub struct ListRoles(pub(crate) RequestBuilder<crate::model::ListRolesRequest>);
 
     impl ListRoles {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -1907,7 +1931,7 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRole(RequestBuilder<crate::model::GetRoleRequest>);
+    pub struct GetRole(pub(crate) RequestBuilder<crate::model::GetRoleRequest>);
 
     impl GetRole {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -1965,7 +1989,7 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRole(RequestBuilder<crate::model::CreateRoleRequest>);
+    pub struct CreateRole(pub(crate) RequestBuilder<crate::model::CreateRoleRequest>);
 
     impl CreateRole {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -2047,7 +2071,7 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRole(RequestBuilder<crate::model::UpdateRoleRequest>);
+    pub struct UpdateRole(pub(crate) RequestBuilder<crate::model::UpdateRoleRequest>);
 
     impl UpdateRole {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -2141,7 +2165,7 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRole(RequestBuilder<crate::model::DeleteRoleRequest>);
+    pub struct DeleteRole(pub(crate) RequestBuilder<crate::model::DeleteRoleRequest>);
 
     impl DeleteRole {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -2205,7 +2229,7 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeleteRole(RequestBuilder<crate::model::UndeleteRoleRequest>);
+    pub struct UndeleteRole(pub(crate) RequestBuilder<crate::model::UndeleteRoleRequest>);
 
     impl UndeleteRole {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -2274,7 +2298,7 @@ pub mod iam {
     /// ```
     #[derive(Clone, Debug)]
     pub struct QueryTestablePermissions(
-        RequestBuilder<crate::model::QueryTestablePermissionsRequest>,
+        pub(crate) RequestBuilder<crate::model::QueryTestablePermissionsRequest>,
     );
 
     impl QueryTestablePermissions {
@@ -2376,7 +2400,9 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryAuditableServices(RequestBuilder<crate::model::QueryAuditableServicesRequest>);
+    pub struct QueryAuditableServices(
+        pub(crate) RequestBuilder<crate::model::QueryAuditableServicesRequest>,
+    );
 
     impl QueryAuditableServices {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {
@@ -2437,7 +2463,7 @@ pub mod iam {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct LintPolicy(RequestBuilder<crate::model::LintPolicyRequest>);
+    pub struct LintPolicy(pub(crate) RequestBuilder<crate::model::LintPolicyRequest>);
 
     impl LintPolicy {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Iam>) -> Self {

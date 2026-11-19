@@ -51,9 +51,9 @@ pub mod alert_policy_service {
     /// Common implementation for [crate::client::AlertPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::AlertPolicyService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::AlertPolicyService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,7 @@ pub mod alert_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAlertPolicies(RequestBuilder<crate::model::ListAlertPoliciesRequest>);
+    pub struct ListAlertPolicies(pub(crate) RequestBuilder<crate::model::ListAlertPoliciesRequest>);
 
     impl ListAlertPolicies {
         pub(crate) fn new(
@@ -209,7 +209,7 @@ pub mod alert_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAlertPolicy(RequestBuilder<crate::model::GetAlertPolicyRequest>);
+    pub struct GetAlertPolicy(pub(crate) RequestBuilder<crate::model::GetAlertPolicyRequest>);
 
     impl GetAlertPolicy {
         pub(crate) fn new(
@@ -271,7 +271,7 @@ pub mod alert_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAlertPolicy(RequestBuilder<crate::model::CreateAlertPolicyRequest>);
+    pub struct CreateAlertPolicy(pub(crate) RequestBuilder<crate::model::CreateAlertPolicyRequest>);
 
     impl CreateAlertPolicy {
         pub(crate) fn new(
@@ -358,7 +358,7 @@ pub mod alert_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAlertPolicy(RequestBuilder<crate::model::DeleteAlertPolicyRequest>);
+    pub struct DeleteAlertPolicy(pub(crate) RequestBuilder<crate::model::DeleteAlertPolicyRequest>);
 
     impl DeleteAlertPolicy {
         pub(crate) fn new(
@@ -423,7 +423,7 @@ pub mod alert_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAlertPolicy(RequestBuilder<crate::model::UpdateAlertPolicyRequest>);
+    pub struct UpdateAlertPolicy(pub(crate) RequestBuilder<crate::model::UpdateAlertPolicyRequest>);
 
     impl UpdateAlertPolicy {
         pub(crate) fn new(
@@ -541,9 +541,9 @@ pub mod group_service {
     /// Common implementation for [crate::client::GroupService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::GroupService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::GroupService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -582,7 +582,7 @@ pub mod group_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
+    pub struct ListGroups(pub(crate) RequestBuilder<crate::model::ListGroupsRequest>);
 
     impl ListGroups {
         pub(crate) fn new(
@@ -733,7 +733,7 @@ pub mod group_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
+    pub struct GetGroup(pub(crate) RequestBuilder<crate::model::GetGroupRequest>);
 
     impl GetGroup {
         pub(crate) fn new(
@@ -795,7 +795,7 @@ pub mod group_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
+    pub struct CreateGroup(pub(crate) RequestBuilder<crate::model::CreateGroupRequest>);
 
     impl CreateGroup {
         pub(crate) fn new(
@@ -885,7 +885,7 @@ pub mod group_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
+    pub struct UpdateGroup(pub(crate) RequestBuilder<crate::model::UpdateGroupRequest>);
 
     impl UpdateGroup {
         pub(crate) fn new(
@@ -967,7 +967,7 @@ pub mod group_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
+    pub struct DeleteGroup(pub(crate) RequestBuilder<crate::model::DeleteGroupRequest>);
 
     impl DeleteGroup {
         pub(crate) fn new(
@@ -1039,7 +1039,7 @@ pub mod group_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListGroupMembers(RequestBuilder<crate::model::ListGroupMembersRequest>);
+    pub struct ListGroupMembers(pub(crate) RequestBuilder<crate::model::ListGroupMembersRequest>);
 
     impl ListGroupMembers {
         pub(crate) fn new(
@@ -1189,9 +1189,9 @@ pub mod metric_service {
     /// Common implementation for [crate::client::MetricService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1231,7 +1231,7 @@ pub mod metric_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListMonitoredResourceDescriptors(
-        RequestBuilder<crate::model::ListMonitoredResourceDescriptorsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListMonitoredResourceDescriptorsRequest>,
     );
 
     impl ListMonitoredResourceDescriptors {
@@ -1344,7 +1344,7 @@ pub mod metric_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetMonitoredResourceDescriptor(
-        RequestBuilder<crate::model::GetMonitoredResourceDescriptorRequest>,
+        pub(crate) RequestBuilder<crate::model::GetMonitoredResourceDescriptorRequest>,
     );
 
     impl GetMonitoredResourceDescriptor {
@@ -1414,7 +1414,9 @@ pub mod metric_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListMetricDescriptors(RequestBuilder<crate::model::ListMetricDescriptorsRequest>);
+    pub struct ListMetricDescriptors(
+        pub(crate) RequestBuilder<crate::model::ListMetricDescriptorsRequest>,
+    );
 
     impl ListMetricDescriptors {
         pub(crate) fn new(
@@ -1531,7 +1533,9 @@ pub mod metric_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetMetricDescriptor(RequestBuilder<crate::model::GetMetricDescriptorRequest>);
+    pub struct GetMetricDescriptor(
+        pub(crate) RequestBuilder<crate::model::GetMetricDescriptorRequest>,
+    );
 
     impl GetMetricDescriptor {
         pub(crate) fn new(
@@ -1596,7 +1600,9 @@ pub mod metric_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateMetricDescriptor(RequestBuilder<crate::model::CreateMetricDescriptorRequest>);
+    pub struct CreateMetricDescriptor(
+        pub(crate) RequestBuilder<crate::model::CreateMetricDescriptorRequest>,
+    );
 
     impl CreateMetricDescriptor {
         pub(crate) fn new(
@@ -1683,7 +1689,9 @@ pub mod metric_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteMetricDescriptor(RequestBuilder<crate::model::DeleteMetricDescriptorRequest>);
+    pub struct DeleteMetricDescriptor(
+        pub(crate) RequestBuilder<crate::model::DeleteMetricDescriptorRequest>,
+    );
 
     impl DeleteMetricDescriptor {
         pub(crate) fn new(
@@ -1752,7 +1760,7 @@ pub mod metric_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTimeSeries(RequestBuilder<crate::model::ListTimeSeriesRequest>);
+    pub struct ListTimeSeries(pub(crate) RequestBuilder<crate::model::ListTimeSeriesRequest>);
 
     impl ListTimeSeries {
         pub(crate) fn new(
@@ -1937,7 +1945,7 @@ pub mod metric_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTimeSeries(RequestBuilder<crate::model::CreateTimeSeriesRequest>);
+    pub struct CreateTimeSeries(pub(crate) RequestBuilder<crate::model::CreateTimeSeriesRequest>);
 
     impl CreateTimeSeries {
         pub(crate) fn new(
@@ -2015,7 +2023,9 @@ pub mod metric_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateServiceTimeSeries(RequestBuilder<crate::model::CreateTimeSeriesRequest>);
+    pub struct CreateServiceTimeSeries(
+        pub(crate) RequestBuilder<crate::model::CreateTimeSeriesRequest>,
+    );
 
     impl CreateServiceTimeSeries {
         pub(crate) fn new(
@@ -2114,9 +2124,10 @@ pub mod notification_channel_service {
     /// Common implementation for [crate::client::NotificationChannelService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::NotificationChannelService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::NotificationChannelService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2156,7 +2167,7 @@ pub mod notification_channel_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListNotificationChannelDescriptors(
-        RequestBuilder<crate::model::ListNotificationChannelDescriptorsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListNotificationChannelDescriptorsRequest>,
     );
 
     impl ListNotificationChannelDescriptors {
@@ -2265,7 +2276,7 @@ pub mod notification_channel_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetNotificationChannelDescriptor(
-        RequestBuilder<crate::model::GetNotificationChannelDescriptorRequest>,
+        pub(crate) RequestBuilder<crate::model::GetNotificationChannelDescriptorRequest>,
     );
 
     impl GetNotificationChannelDescriptor {
@@ -2336,7 +2347,7 @@ pub mod notification_channel_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListNotificationChannels(
-        RequestBuilder<crate::model::ListNotificationChannelsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListNotificationChannelsRequest>,
     );
 
     impl ListNotificationChannels {
@@ -2454,7 +2465,9 @@ pub mod notification_channel_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNotificationChannel(RequestBuilder<crate::model::GetNotificationChannelRequest>);
+    pub struct GetNotificationChannel(
+        pub(crate) RequestBuilder<crate::model::GetNotificationChannelRequest>,
+    );
 
     impl GetNotificationChannel {
         pub(crate) fn new(
@@ -2520,7 +2533,7 @@ pub mod notification_channel_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNotificationChannel(
-        RequestBuilder<crate::model::CreateNotificationChannelRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateNotificationChannelRequest>,
     );
 
     impl CreateNotificationChannel {
@@ -2609,7 +2622,7 @@ pub mod notification_channel_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNotificationChannel(
-        RequestBuilder<crate::model::UpdateNotificationChannelRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateNotificationChannelRequest>,
     );
 
     impl UpdateNotificationChannel {
@@ -2708,7 +2721,7 @@ pub mod notification_channel_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNotificationChannel(
-        RequestBuilder<crate::model::DeleteNotificationChannelRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteNotificationChannelRequest>,
     );
 
     impl DeleteNotificationChannel {
@@ -2781,7 +2794,7 @@ pub mod notification_channel_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct SendNotificationChannelVerificationCode(
-        RequestBuilder<crate::model::SendNotificationChannelVerificationCodeRequest>,
+        pub(crate) RequestBuilder<crate::model::SendNotificationChannelVerificationCodeRequest>,
     );
 
     impl SendNotificationChannelVerificationCode {
@@ -2850,7 +2863,7 @@ pub mod notification_channel_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetNotificationChannelVerificationCode(
-        RequestBuilder<crate::model::GetNotificationChannelVerificationCodeRequest>,
+        pub(crate) RequestBuilder<crate::model::GetNotificationChannelVerificationCodeRequest>,
     );
 
     impl GetNotificationChannelVerificationCode {
@@ -2939,7 +2952,7 @@ pub mod notification_channel_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct VerifyNotificationChannel(
-        RequestBuilder<crate::model::VerifyNotificationChannelRequest>,
+        pub(crate) RequestBuilder<crate::model::VerifyNotificationChannelRequest>,
     );
 
     impl VerifyNotificationChannel {
@@ -3034,9 +3047,9 @@ pub mod query_service {
     /// Common implementation for [crate::client::QueryService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::QueryService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::QueryService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3075,7 +3088,7 @@ pub mod query_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct QueryTimeSeries(RequestBuilder<crate::model::QueryTimeSeriesRequest>);
+    pub struct QueryTimeSeries(pub(crate) RequestBuilder<crate::model::QueryTimeSeriesRequest>);
 
     impl QueryTimeSeries {
         pub(crate) fn new(
@@ -3206,9 +3219,9 @@ pub mod service_monitoring_service {
     /// Common implementation for [crate::client::ServiceMonitoringService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceMonitoringService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceMonitoringService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3243,7 +3256,7 @@ pub mod service_monitoring_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
+    pub struct CreateService(pub(crate) RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
         pub(crate) fn new(
@@ -3333,7 +3346,7 @@ pub mod service_monitoring_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
+    pub struct GetService(pub(crate) RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
         pub(crate) fn new(
@@ -3399,7 +3412,7 @@ pub mod service_monitoring_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
+    pub struct ListServices(pub(crate) RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
         pub(crate) fn new(
@@ -3505,7 +3518,7 @@ pub mod service_monitoring_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
+    pub struct UpdateService(pub(crate) RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
         pub(crate) fn new(
@@ -3599,7 +3612,7 @@ pub mod service_monitoring_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
+    pub struct DeleteService(pub(crate) RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
         pub(crate) fn new(
@@ -3662,7 +3675,7 @@ pub mod service_monitoring_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServiceLevelObjective(
-        RequestBuilder<crate::model::CreateServiceLevelObjectiveRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateServiceLevelObjectiveRequest>,
     );
 
     impl CreateServiceLevelObjective {
@@ -3760,7 +3773,7 @@ pub mod service_monitoring_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceLevelObjective(
-        RequestBuilder<crate::model::GetServiceLevelObjectiveRequest>,
+        pub(crate) RequestBuilder<crate::model::GetServiceLevelObjectiveRequest>,
     );
 
     impl GetServiceLevelObjective {
@@ -3840,7 +3853,7 @@ pub mod service_monitoring_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListServiceLevelObjectives(
-        RequestBuilder<crate::model::ListServiceLevelObjectivesRequest>,
+        pub(crate) RequestBuilder<crate::model::ListServiceLevelObjectivesRequest>,
     );
 
     impl ListServiceLevelObjectives {
@@ -3962,7 +3975,7 @@ pub mod service_monitoring_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateServiceLevelObjective(
-        RequestBuilder<crate::model::UpdateServiceLevelObjectiveRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateServiceLevelObjectiveRequest>,
     );
 
     impl UpdateServiceLevelObjective {
@@ -4061,7 +4074,7 @@ pub mod service_monitoring_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServiceLevelObjective(
-        RequestBuilder<crate::model::DeleteServiceLevelObjectiveRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteServiceLevelObjectiveRequest>,
     );
 
     impl DeleteServiceLevelObjective {
@@ -4148,9 +4161,9 @@ pub mod snooze_service {
     /// Common implementation for [crate::client::SnoozeService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SnoozeService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SnoozeService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -4185,7 +4198,7 @@ pub mod snooze_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSnooze(RequestBuilder<crate::model::CreateSnoozeRequest>);
+    pub struct CreateSnooze(pub(crate) RequestBuilder<crate::model::CreateSnoozeRequest>);
 
     impl CreateSnooze {
         pub(crate) fn new(
@@ -4273,7 +4286,7 @@ pub mod snooze_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListSnoozes(RequestBuilder<crate::model::ListSnoozesRequest>);
+    pub struct ListSnoozes(pub(crate) RequestBuilder<crate::model::ListSnoozesRequest>);
 
     impl ListSnoozes {
         pub(crate) fn new(
@@ -4379,7 +4392,7 @@ pub mod snooze_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSnooze(RequestBuilder<crate::model::GetSnoozeRequest>);
+    pub struct GetSnooze(pub(crate) RequestBuilder<crate::model::GetSnoozeRequest>);
 
     impl GetSnooze {
         pub(crate) fn new(
@@ -4441,7 +4454,7 @@ pub mod snooze_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateSnooze(RequestBuilder<crate::model::UpdateSnoozeRequest>);
+    pub struct UpdateSnooze(pub(crate) RequestBuilder<crate::model::UpdateSnoozeRequest>);
 
     impl UpdateSnooze {
         pub(crate) fn new(
@@ -4560,9 +4573,9 @@ pub mod uptime_check_service {
     /// Common implementation for [crate::client::UptimeCheckService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::UptimeCheckService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::UptimeCheckService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -4601,7 +4614,9 @@ pub mod uptime_check_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUptimeCheckConfigs(RequestBuilder<crate::model::ListUptimeCheckConfigsRequest>);
+    pub struct ListUptimeCheckConfigs(
+        pub(crate) RequestBuilder<crate::model::ListUptimeCheckConfigsRequest>,
+    );
 
     impl ListUptimeCheckConfigs {
         pub(crate) fn new(
@@ -4712,7 +4727,9 @@ pub mod uptime_check_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetUptimeCheckConfig(RequestBuilder<crate::model::GetUptimeCheckConfigRequest>);
+    pub struct GetUptimeCheckConfig(
+        pub(crate) RequestBuilder<crate::model::GetUptimeCheckConfigRequest>,
+    );
 
     impl GetUptimeCheckConfig {
         pub(crate) fn new(
@@ -4778,7 +4795,7 @@ pub mod uptime_check_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateUptimeCheckConfig(
-        RequestBuilder<crate::model::CreateUptimeCheckConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateUptimeCheckConfigRequest>,
     );
 
     impl CreateUptimeCheckConfig {
@@ -4867,7 +4884,7 @@ pub mod uptime_check_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateUptimeCheckConfig(
-        RequestBuilder<crate::model::UpdateUptimeCheckConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateUptimeCheckConfigRequest>,
     );
 
     impl UpdateUptimeCheckConfig {
@@ -4966,7 +4983,7 @@ pub mod uptime_check_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteUptimeCheckConfig(
-        RequestBuilder<crate::model::DeleteUptimeCheckConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteUptimeCheckConfigRequest>,
     );
 
     impl DeleteUptimeCheckConfig {
@@ -5036,7 +5053,9 @@ pub mod uptime_check_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUptimeCheckIps(RequestBuilder<crate::model::ListUptimeCheckIpsRequest>);
+    pub struct ListUptimeCheckIps(
+        pub(crate) RequestBuilder<crate::model::ListUptimeCheckIpsRequest>,
+    );
 
     impl ListUptimeCheckIps {
         pub(crate) fn new(

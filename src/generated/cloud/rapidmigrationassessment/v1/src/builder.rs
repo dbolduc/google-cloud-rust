@@ -51,9 +51,9 @@ pub mod rapid_migration_assessment {
     /// Common implementation for [crate::client::RapidMigrationAssessment] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -89,7 +89,7 @@ pub mod rapid_migration_assessment {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCollector(RequestBuilder<crate::model::CreateCollectorRequest>);
+    pub struct CreateCollector(pub(crate) RequestBuilder<crate::model::CreateCollectorRequest>);
 
     impl CreateCollector {
         pub(crate) fn new(
@@ -242,7 +242,7 @@ pub mod rapid_migration_assessment {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAnnotation(RequestBuilder<crate::model::CreateAnnotationRequest>);
+    pub struct CreateAnnotation(pub(crate) RequestBuilder<crate::model::CreateAnnotationRequest>);
 
     impl CreateAnnotation {
         pub(crate) fn new(
@@ -389,7 +389,7 @@ pub mod rapid_migration_assessment {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAnnotation(RequestBuilder<crate::model::GetAnnotationRequest>);
+    pub struct GetAnnotation(pub(crate) RequestBuilder<crate::model::GetAnnotationRequest>);
 
     impl GetAnnotation {
         pub(crate) fn new(
@@ -455,7 +455,7 @@ pub mod rapid_migration_assessment {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCollectors(RequestBuilder<crate::model::ListCollectorsRequest>);
+    pub struct ListCollectors(pub(crate) RequestBuilder<crate::model::ListCollectorsRequest>);
 
     impl ListCollectors {
         pub(crate) fn new(
@@ -569,7 +569,7 @@ pub mod rapid_migration_assessment {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCollector(RequestBuilder<crate::model::GetCollectorRequest>);
+    pub struct GetCollector(pub(crate) RequestBuilder<crate::model::GetCollectorRequest>);
 
     impl GetCollector {
         pub(crate) fn new(
@@ -632,7 +632,7 @@ pub mod rapid_migration_assessment {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCollector(RequestBuilder<crate::model::UpdateCollectorRequest>);
+    pub struct UpdateCollector(pub(crate) RequestBuilder<crate::model::UpdateCollectorRequest>);
 
     impl UpdateCollector {
         pub(crate) fn new(
@@ -791,7 +791,7 @@ pub mod rapid_migration_assessment {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCollector(RequestBuilder<crate::model::DeleteCollectorRequest>);
+    pub struct DeleteCollector(pub(crate) RequestBuilder<crate::model::DeleteCollectorRequest>);
 
     impl DeleteCollector {
         pub(crate) fn new(
@@ -914,7 +914,7 @@ pub mod rapid_migration_assessment {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResumeCollector(RequestBuilder<crate::model::ResumeCollectorRequest>);
+    pub struct ResumeCollector(pub(crate) RequestBuilder<crate::model::ResumeCollectorRequest>);
 
     impl ResumeCollector {
         pub(crate) fn new(
@@ -1037,7 +1037,7 @@ pub mod rapid_migration_assessment {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RegisterCollector(RequestBuilder<crate::model::RegisterCollectorRequest>);
+    pub struct RegisterCollector(pub(crate) RequestBuilder<crate::model::RegisterCollectorRequest>);
 
     impl RegisterCollector {
         pub(crate) fn new(
@@ -1163,7 +1163,7 @@ pub mod rapid_migration_assessment {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PauseCollector(RequestBuilder<crate::model::PauseCollectorRequest>);
+    pub struct PauseCollector(pub(crate) RequestBuilder<crate::model::PauseCollectorRequest>);
 
     impl PauseCollector {
         pub(crate) fn new(
@@ -1289,7 +1289,9 @@ pub mod rapid_migration_assessment {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -1398,7 +1400,9 @@ pub mod rapid_migration_assessment {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -1466,7 +1470,7 @@ pub mod rapid_migration_assessment {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1582,7 +1586,9 @@ pub mod rapid_migration_assessment {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1646,7 +1652,7 @@ pub mod rapid_migration_assessment {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -1711,7 +1717,7 @@ pub mod rapid_migration_assessment {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

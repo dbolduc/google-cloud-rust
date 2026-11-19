@@ -51,9 +51,9 @@ pub mod tpu {
     /// Common implementation for [crate::client::Tpu] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -90,7 +90,7 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListNodes(RequestBuilder<crate::model::ListNodesRequest>);
+    pub struct ListNodes(pub(crate) RequestBuilder<crate::model::ListNodesRequest>);
 
     impl ListNodes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -186,7 +186,7 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetNode(RequestBuilder<crate::model::GetNodeRequest>);
+    pub struct GetNode(pub(crate) RequestBuilder<crate::model::GetNodeRequest>);
 
     impl GetNode {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -247,7 +247,7 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateNode(RequestBuilder<crate::model::CreateNodeRequest>);
+    pub struct CreateNode(pub(crate) RequestBuilder<crate::model::CreateNodeRequest>);
 
     impl CreateNode {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -390,7 +390,7 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteNode(RequestBuilder<crate::model::DeleteNodeRequest>);
+    pub struct DeleteNode(pub(crate) RequestBuilder<crate::model::DeleteNodeRequest>);
 
     impl DeleteNode {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -500,7 +500,7 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopNode(RequestBuilder<crate::model::StopNodeRequest>);
+    pub struct StopNode(pub(crate) RequestBuilder<crate::model::StopNodeRequest>);
 
     impl StopNode {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -615,7 +615,7 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartNode(RequestBuilder<crate::model::StartNodeRequest>);
+    pub struct StartNode(pub(crate) RequestBuilder<crate::model::StartNodeRequest>);
 
     impl StartNode {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -730,7 +730,7 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateNode(RequestBuilder<crate::model::UpdateNodeRequest>);
+    pub struct UpdateNode(pub(crate) RequestBuilder<crate::model::UpdateNodeRequest>);
 
     impl UpdateNode {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -884,7 +884,9 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListQueuedResources(RequestBuilder<crate::model::ListQueuedResourcesRequest>);
+    pub struct ListQueuedResources(
+        pub(crate) RequestBuilder<crate::model::ListQueuedResourcesRequest>,
+    );
 
     impl ListQueuedResources {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -987,7 +989,7 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetQueuedResource(RequestBuilder<crate::model::GetQueuedResourceRequest>);
+    pub struct GetQueuedResource(pub(crate) RequestBuilder<crate::model::GetQueuedResourceRequest>);
 
     impl GetQueuedResource {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -1051,7 +1053,9 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateQueuedResource(RequestBuilder<crate::model::CreateQueuedResourceRequest>);
+    pub struct CreateQueuedResource(
+        pub(crate) RequestBuilder<crate::model::CreateQueuedResourceRequest>,
+    );
 
     impl CreateQueuedResource {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -1204,7 +1208,9 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteQueuedResource(RequestBuilder<crate::model::DeleteQueuedResourceRequest>);
+    pub struct DeleteQueuedResource(
+        pub(crate) RequestBuilder<crate::model::DeleteQueuedResourceRequest>,
+    );
 
     impl DeleteQueuedResource {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -1330,7 +1336,9 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResetQueuedResource(RequestBuilder<crate::model::ResetQueuedResourceRequest>);
+    pub struct ResetQueuedResource(
+        pub(crate) RequestBuilder<crate::model::ResetQueuedResourceRequest>,
+    );
 
     impl ResetQueuedResource {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -1449,7 +1457,7 @@ pub mod tpu {
     /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateServiceIdentity(
-        RequestBuilder<crate::model::GenerateServiceIdentityRequest>,
+        pub(crate) RequestBuilder<crate::model::GenerateServiceIdentityRequest>,
     );
 
     impl GenerateServiceIdentity {
@@ -1517,7 +1525,9 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAcceleratorTypes(RequestBuilder<crate::model::ListAcceleratorTypesRequest>);
+    pub struct ListAcceleratorTypes(
+        pub(crate) RequestBuilder<crate::model::ListAcceleratorTypesRequest>,
+    );
 
     impl ListAcceleratorTypes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -1632,7 +1642,9 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAcceleratorType(RequestBuilder<crate::model::GetAcceleratorTypeRequest>);
+    pub struct GetAcceleratorType(
+        pub(crate) RequestBuilder<crate::model::GetAcceleratorTypeRequest>,
+    );
 
     impl GetAcceleratorType {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -1699,7 +1711,9 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRuntimeVersions(RequestBuilder<crate::model::ListRuntimeVersionsRequest>);
+    pub struct ListRuntimeVersions(
+        pub(crate) RequestBuilder<crate::model::ListRuntimeVersionsRequest>,
+    );
 
     impl ListRuntimeVersions {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -1814,7 +1828,7 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRuntimeVersion(RequestBuilder<crate::model::GetRuntimeVersionRequest>);
+    pub struct GetRuntimeVersion(pub(crate) RequestBuilder<crate::model::GetRuntimeVersionRequest>);
 
     impl GetRuntimeVersion {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -1877,7 +1891,9 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetGuestAttributes(RequestBuilder<crate::model::GetGuestAttributesRequest>);
+    pub struct GetGuestAttributes(
+        pub(crate) RequestBuilder<crate::model::GetGuestAttributesRequest>,
+    );
 
     impl GetGuestAttributes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -1961,7 +1977,9 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -2068,7 +2086,9 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -2134,7 +2154,7 @@ pub mod tpu {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -2248,7 +2268,9 @@ pub mod tpu {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
@@ -2310,7 +2332,7 @@ pub mod tpu {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -2373,7 +2395,7 @@ pub mod tpu {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

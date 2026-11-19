@@ -51,9 +51,9 @@ pub mod web_risk_service {
     /// Common implementation for [crate::client::WebRiskService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod web_risk_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ComputeThreatListDiff(RequestBuilder<crate::model::ComputeThreatListDiffRequest>);
+    pub struct ComputeThreatListDiff(
+        pub(crate) RequestBuilder<crate::model::ComputeThreatListDiffRequest>,
+    );
 
     impl ComputeThreatListDiff {
         pub(crate) fn new(
@@ -181,7 +183,7 @@ pub mod web_risk_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchUris(RequestBuilder<crate::model::SearchUrisRequest>);
+    pub struct SearchUris(pub(crate) RequestBuilder<crate::model::SearchUrisRequest>);
 
     impl SearchUris {
         pub(crate) fn new(
@@ -256,7 +258,7 @@ pub mod web_risk_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SearchHashes(RequestBuilder<crate::model::SearchHashesRequest>);
+    pub struct SearchHashes(pub(crate) RequestBuilder<crate::model::SearchHashesRequest>);
 
     impl SearchHashes {
         pub(crate) fn new(
@@ -329,7 +331,7 @@ pub mod web_risk_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateSubmission(RequestBuilder<crate::model::CreateSubmissionRequest>);
+    pub struct CreateSubmission(pub(crate) RequestBuilder<crate::model::CreateSubmissionRequest>);
 
     impl CreateSubmission {
         pub(crate) fn new(
@@ -417,7 +419,7 @@ pub mod web_risk_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SubmitUri(RequestBuilder<crate::model::SubmitUriRequest>);
+    pub struct SubmitUri(pub(crate) RequestBuilder<crate::model::SubmitUriRequest>);
 
     impl SubmitUri {
         pub(crate) fn new(
@@ -597,7 +599,7 @@ pub mod web_risk_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -713,7 +715,9 @@ pub mod web_risk_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -777,7 +781,7 @@ pub mod web_risk_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -842,7 +846,7 @@ pub mod web_risk_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

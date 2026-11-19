@@ -51,9 +51,9 @@ pub mod nav_connect_service {
     /// Common implementation for [crate::client::NavConnectService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::NavConnectService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::NavConnectService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod nav_connect_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateTrip(RequestBuilder<crate::model::CreateTripRequest>);
+    pub struct CreateTrip(pub(crate) RequestBuilder<crate::model::CreateTripRequest>);
 
     impl CreateTrip {
         pub(crate) fn new(
@@ -180,7 +180,7 @@ pub mod nav_connect_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTrip(RequestBuilder<crate::model::GetTripRequest>);
+    pub struct GetTrip(pub(crate) RequestBuilder<crate::model::GetTripRequest>);
 
     impl GetTrip {
         pub(crate) fn new(

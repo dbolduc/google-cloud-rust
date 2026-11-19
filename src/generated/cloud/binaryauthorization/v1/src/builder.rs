@@ -51,9 +51,10 @@ pub mod binauthz_management_service_v_1 {
     /// Common implementation for [crate::client::BinauthzManagementServiceV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +89,7 @@ pub mod binauthz_management_service_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
+    pub struct GetPolicy(pub(crate) RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
         pub(crate) fn new(
@@ -150,7 +151,7 @@ pub mod binauthz_management_service_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
+    pub struct UpdatePolicy(pub(crate) RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
         pub(crate) fn new(
@@ -226,7 +227,7 @@ pub mod binauthz_management_service_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAttestor(RequestBuilder<crate::model::CreateAttestorRequest>);
+    pub struct CreateAttestor(pub(crate) RequestBuilder<crate::model::CreateAttestorRequest>);
 
     impl CreateAttestor {
         pub(crate) fn new(
@@ -318,7 +319,7 @@ pub mod binauthz_management_service_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetAttestor(RequestBuilder<crate::model::GetAttestorRequest>);
+    pub struct GetAttestor(pub(crate) RequestBuilder<crate::model::GetAttestorRequest>);
 
     impl GetAttestor {
         pub(crate) fn new(
@@ -380,7 +381,7 @@ pub mod binauthz_management_service_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAttestor(RequestBuilder<crate::model::UpdateAttestorRequest>);
+    pub struct UpdateAttestor(pub(crate) RequestBuilder<crate::model::UpdateAttestorRequest>);
 
     impl UpdateAttestor {
         pub(crate) fn new(
@@ -460,7 +461,7 @@ pub mod binauthz_management_service_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAttestors(RequestBuilder<crate::model::ListAttestorsRequest>);
+    pub struct ListAttestors(pub(crate) RequestBuilder<crate::model::ListAttestorsRequest>);
 
     impl ListAttestors {
         pub(crate) fn new(
@@ -560,7 +561,7 @@ pub mod binauthz_management_service_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAttestor(RequestBuilder<crate::model::DeleteAttestorRequest>);
+    pub struct DeleteAttestor(pub(crate) RequestBuilder<crate::model::DeleteAttestorRequest>);
 
     impl DeleteAttestor {
         pub(crate) fn new(
@@ -622,7 +623,9 @@ pub mod binauthz_management_service_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -727,7 +730,9 @@ pub mod binauthz_management_service_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -811,7 +816,7 @@ pub mod binauthz_management_service_v_1 {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -911,9 +916,9 @@ pub mod system_policy_v_1 {
     /// Common implementation for [crate::client::SystemPolicyV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -948,7 +953,7 @@ pub mod system_policy_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetSystemPolicy(RequestBuilder<crate::model::GetSystemPolicyRequest>);
+    pub struct GetSystemPolicy(pub(crate) RequestBuilder<crate::model::GetSystemPolicyRequest>);
 
     impl GetSystemPolicy {
         pub(crate) fn new(
@@ -1010,7 +1015,9 @@ pub mod system_policy_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -1115,7 +1122,9 @@ pub mod system_policy_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1199,7 +1208,7 @@ pub mod system_policy_v_1 {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1299,9 +1308,9 @@ pub mod validation_helper_v_1 {
     /// Common implementation for [crate::client::ValidationHelperV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1337,7 +1346,7 @@ pub mod validation_helper_v_1 {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ValidateAttestationOccurrence(
-        RequestBuilder<crate::model::ValidateAttestationOccurrenceRequest>,
+        pub(crate) RequestBuilder<crate::model::ValidateAttestationOccurrenceRequest>,
     );
 
     impl ValidateAttestationOccurrence {
@@ -1441,7 +1450,9 @@ pub mod validation_helper_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -1546,7 +1557,9 @@ pub mod validation_helper_v_1 {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1630,7 +1643,7 @@ pub mod validation_helper_v_1 {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {

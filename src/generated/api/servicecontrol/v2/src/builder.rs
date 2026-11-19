@@ -51,9 +51,9 @@ pub mod service_controller {
     /// Common implementation for [crate::client::ServiceController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod service_controller {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Check(RequestBuilder<crate::model::CheckRequest>);
+    pub struct Check(pub(crate) RequestBuilder<crate::model::CheckRequest>);
 
     impl Check {
         pub(crate) fn new(
@@ -189,7 +189,7 @@ pub mod service_controller {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Report(RequestBuilder<crate::model::ReportRequest>);
+    pub struct Report(pub(crate) RequestBuilder<crate::model::ReportRequest>);
 
     impl Report {
         pub(crate) fn new(

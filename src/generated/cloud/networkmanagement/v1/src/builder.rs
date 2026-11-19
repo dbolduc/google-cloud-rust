@@ -51,9 +51,9 @@ pub mod reachability_service {
     /// Common implementation for [crate::client::ReachabilityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -92,7 +92,9 @@ pub mod reachability_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListConnectivityTests(RequestBuilder<crate::model::ListConnectivityTestsRequest>);
+    pub struct ListConnectivityTests(
+        pub(crate) RequestBuilder<crate::model::ListConnectivityTestsRequest>,
+    );
 
     impl ListConnectivityTests {
         pub(crate) fn new(
@@ -209,7 +211,9 @@ pub mod reachability_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetConnectivityTest(RequestBuilder<crate::model::GetConnectivityTestRequest>);
+    pub struct GetConnectivityTest(
+        pub(crate) RequestBuilder<crate::model::GetConnectivityTestRequest>,
+    );
 
     impl GetConnectivityTest {
         pub(crate) fn new(
@@ -275,7 +279,9 @@ pub mod reachability_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateConnectivityTest(RequestBuilder<crate::model::CreateConnectivityTestRequest>);
+    pub struct CreateConnectivityTest(
+        pub(crate) RequestBuilder<crate::model::CreateConnectivityTestRequest>,
+    );
 
     impl CreateConnectivityTest {
         pub(crate) fn new(
@@ -425,7 +431,9 @@ pub mod reachability_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateConnectivityTest(RequestBuilder<crate::model::UpdateConnectivityTestRequest>);
+    pub struct UpdateConnectivityTest(
+        pub(crate) RequestBuilder<crate::model::UpdateConnectivityTestRequest>,
+    );
 
     impl UpdateConnectivityTest {
         pub(crate) fn new(
@@ -581,7 +589,9 @@ pub mod reachability_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RerunConnectivityTest(RequestBuilder<crate::model::RerunConnectivityTestRequest>);
+    pub struct RerunConnectivityTest(
+        pub(crate) RequestBuilder<crate::model::RerunConnectivityTestRequest>,
+    );
 
     impl RerunConnectivityTest {
         pub(crate) fn new(
@@ -701,7 +711,9 @@ pub mod reachability_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteConnectivityTest(RequestBuilder<crate::model::DeleteConnectivityTestRequest>);
+    pub struct DeleteConnectivityTest(
+        pub(crate) RequestBuilder<crate::model::DeleteConnectivityTestRequest>,
+    );
 
     impl DeleteConnectivityTest {
         pub(crate) fn new(
@@ -819,7 +831,9 @@ pub mod reachability_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -928,7 +942,9 @@ pub mod reachability_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -991,7 +1007,9 @@ pub mod reachability_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -1096,7 +1114,9 @@ pub mod reachability_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -1180,7 +1200,7 @@ pub mod reachability_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -1264,7 +1284,7 @@ pub mod reachability_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -1380,7 +1400,9 @@ pub mod reachability_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1444,7 +1466,7 @@ pub mod reachability_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -1509,7 +1531,7 @@ pub mod reachability_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -1594,9 +1616,9 @@ pub mod vpc_flow_logs_service {
     /// Common implementation for [crate::client::VpcFlowLogsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1635,7 +1657,9 @@ pub mod vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVpcFlowLogsConfigs(RequestBuilder<crate::model::ListVpcFlowLogsConfigsRequest>);
+    pub struct ListVpcFlowLogsConfigs(
+        pub(crate) RequestBuilder<crate::model::ListVpcFlowLogsConfigsRequest>,
+    );
 
     impl ListVpcFlowLogsConfigs {
         pub(crate) fn new(
@@ -1752,7 +1776,9 @@ pub mod vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVpcFlowLogsConfig(RequestBuilder<crate::model::GetVpcFlowLogsConfigRequest>);
+    pub struct GetVpcFlowLogsConfig(
+        pub(crate) RequestBuilder<crate::model::GetVpcFlowLogsConfigRequest>,
+    );
 
     impl GetVpcFlowLogsConfig {
         pub(crate) fn new(
@@ -1819,7 +1845,7 @@ pub mod vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateVpcFlowLogsConfig(
-        RequestBuilder<crate::model::CreateVpcFlowLogsConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateVpcFlowLogsConfigRequest>,
     );
 
     impl CreateVpcFlowLogsConfig {
@@ -1973,7 +1999,7 @@ pub mod vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateVpcFlowLogsConfig(
-        RequestBuilder<crate::model::UpdateVpcFlowLogsConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateVpcFlowLogsConfigRequest>,
     );
 
     impl UpdateVpcFlowLogsConfig {
@@ -2133,7 +2159,7 @@ pub mod vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteVpcFlowLogsConfig(
-        RequestBuilder<crate::model::DeleteVpcFlowLogsConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteVpcFlowLogsConfigRequest>,
     );
 
     impl DeleteVpcFlowLogsConfig {
@@ -2253,7 +2279,7 @@ pub mod vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct QueryOrgVpcFlowLogsConfigs(
-        RequestBuilder<crate::model::QueryOrgVpcFlowLogsConfigsRequest>,
+        pub(crate) RequestBuilder<crate::model::QueryOrgVpcFlowLogsConfigsRequest>,
     );
 
     impl QueryOrgVpcFlowLogsConfigs {
@@ -2370,7 +2396,7 @@ pub mod vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ShowEffectiveFlowLogsConfigs(
-        RequestBuilder<crate::model::ShowEffectiveFlowLogsConfigsRequest>,
+        pub(crate) RequestBuilder<crate::model::ShowEffectiveFlowLogsConfigsRequest>,
     );
 
     impl ShowEffectiveFlowLogsConfigs {
@@ -2494,7 +2520,9 @@ pub mod vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -2603,7 +2631,9 @@ pub mod vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -2666,7 +2696,9 @@ pub mod vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -2771,7 +2803,9 @@ pub mod vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -2855,7 +2889,7 @@ pub mod vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -2939,7 +2973,7 @@ pub mod vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3055,7 +3089,9 @@ pub mod vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3119,7 +3155,7 @@ pub mod vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3184,7 +3220,7 @@ pub mod vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
@@ -3269,9 +3305,10 @@ pub mod organization_vpc_flow_logs_service {
     /// Common implementation for [crate::client::OrganizationVpcFlowLogsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::OrganizationVpcFlowLogsService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub:
+            std::sync::Arc<dyn super::super::stub::dynamic::OrganizationVpcFlowLogsService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3310,7 +3347,9 @@ pub mod organization_vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVpcFlowLogsConfigs(RequestBuilder<crate::model::ListVpcFlowLogsConfigsRequest>);
+    pub struct ListVpcFlowLogsConfigs(
+        pub(crate) RequestBuilder<crate::model::ListVpcFlowLogsConfigsRequest>,
+    );
 
     impl ListVpcFlowLogsConfigs {
         pub(crate) fn new(
@@ -3427,7 +3466,9 @@ pub mod organization_vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetVpcFlowLogsConfig(RequestBuilder<crate::model::GetVpcFlowLogsConfigRequest>);
+    pub struct GetVpcFlowLogsConfig(
+        pub(crate) RequestBuilder<crate::model::GetVpcFlowLogsConfigRequest>,
+    );
 
     impl GetVpcFlowLogsConfig {
         pub(crate) fn new(
@@ -3494,7 +3535,7 @@ pub mod organization_vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateVpcFlowLogsConfig(
-        RequestBuilder<crate::model::CreateVpcFlowLogsConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateVpcFlowLogsConfigRequest>,
     );
 
     impl CreateVpcFlowLogsConfig {
@@ -3648,7 +3689,7 @@ pub mod organization_vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateVpcFlowLogsConfig(
-        RequestBuilder<crate::model::UpdateVpcFlowLogsConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateVpcFlowLogsConfigRequest>,
     );
 
     impl UpdateVpcFlowLogsConfig {
@@ -3808,7 +3849,7 @@ pub mod organization_vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteVpcFlowLogsConfig(
-        RequestBuilder<crate::model::DeleteVpcFlowLogsConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteVpcFlowLogsConfigRequest>,
     );
 
     impl DeleteVpcFlowLogsConfig {
@@ -3927,7 +3968,9 @@ pub mod organization_vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+    pub struct ListLocations(
+        pub(crate) RequestBuilder<google_cloud_location::model::ListLocationsRequest>,
+    );
 
     impl ListLocations {
         pub(crate) fn new(
@@ -4036,7 +4079,9 @@ pub mod organization_vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+    pub struct GetLocation(
+        pub(crate) RequestBuilder<google_cloud_location::model::GetLocationRequest>,
+    );
 
     impl GetLocation {
         pub(crate) fn new(
@@ -4099,7 +4144,9 @@ pub mod organization_vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -4204,7 +4251,9 @@ pub mod organization_vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -4288,7 +4337,7 @@ pub mod organization_vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -4372,7 +4421,7 @@ pub mod organization_vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -4488,7 +4537,9 @@ pub mod organization_vpc_flow_logs_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -4552,7 +4603,7 @@ pub mod organization_vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -4617,7 +4668,7 @@ pub mod organization_vpc_flow_logs_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {

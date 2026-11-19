@@ -51,9 +51,9 @@ pub mod lfp_inventory_service {
     /// Common implementation for [crate::client::LfpInventoryService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::LfpInventoryService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::LfpInventoryService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod lfp_inventory_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InsertLfpInventory(RequestBuilder<crate::model::InsertLfpInventoryRequest>);
+    pub struct InsertLfpInventory(
+        pub(crate) RequestBuilder<crate::model::InsertLfpInventoryRequest>,
+    );
 
     impl InsertLfpInventory {
         pub(crate) fn new(
@@ -196,9 +198,9 @@ pub mod lfp_merchant_state_service {
     /// Common implementation for [crate::client::LfpMerchantStateService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::LfpMerchantStateService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::LfpMerchantStateService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -233,7 +235,9 @@ pub mod lfp_merchant_state_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLfpMerchantState(RequestBuilder<crate::model::GetLfpMerchantStateRequest>);
+    pub struct GetLfpMerchantState(
+        pub(crate) RequestBuilder<crate::model::GetLfpMerchantStateRequest>,
+    );
 
     impl GetLfpMerchantState {
         pub(crate) fn new(
@@ -319,9 +323,9 @@ pub mod lfp_sale_service {
     /// Common implementation for [crate::client::LfpSaleService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::LfpSaleService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::LfpSaleService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -356,7 +360,7 @@ pub mod lfp_sale_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InsertLfpSale(RequestBuilder<crate::model::InsertLfpSaleRequest>);
+    pub struct InsertLfpSale(pub(crate) RequestBuilder<crate::model::InsertLfpSaleRequest>);
 
     impl InsertLfpSale {
         pub(crate) fn new(
@@ -461,9 +465,9 @@ pub mod lfp_store_service {
     /// Common implementation for [crate::client::LfpStoreService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::LfpStoreService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::LfpStoreService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -498,7 +502,7 @@ pub mod lfp_store_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLfpStore(RequestBuilder<crate::model::GetLfpStoreRequest>);
+    pub struct GetLfpStore(pub(crate) RequestBuilder<crate::model::GetLfpStoreRequest>);
 
     impl GetLfpStore {
         pub(crate) fn new(
@@ -560,7 +564,7 @@ pub mod lfp_store_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InsertLfpStore(RequestBuilder<crate::model::InsertLfpStoreRequest>);
+    pub struct InsertLfpStore(pub(crate) RequestBuilder<crate::model::InsertLfpStoreRequest>);
 
     impl InsertLfpStore {
         pub(crate) fn new(
@@ -644,7 +648,7 @@ pub mod lfp_store_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteLfpStore(RequestBuilder<crate::model::DeleteLfpStoreRequest>);
+    pub struct DeleteLfpStore(pub(crate) RequestBuilder<crate::model::DeleteLfpStoreRequest>);
 
     impl DeleteLfpStore {
         pub(crate) fn new(
@@ -710,7 +714,7 @@ pub mod lfp_store_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListLfpStores(RequestBuilder<crate::model::ListLfpStoresRequest>);
+    pub struct ListLfpStores(pub(crate) RequestBuilder<crate::model::ListLfpStoresRequest>);
 
     impl ListLfpStores {
         pub(crate) fn new(

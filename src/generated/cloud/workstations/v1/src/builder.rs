@@ -51,9 +51,9 @@ pub mod workstations {
     /// Common implementation for [crate::client::Workstations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,9 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetWorkstationCluster(RequestBuilder<crate::model::GetWorkstationClusterRequest>);
+    pub struct GetWorkstationCluster(
+        pub(crate) RequestBuilder<crate::model::GetWorkstationClusterRequest>,
+    );
 
     impl GetWorkstationCluster {
         pub(crate) fn new(
@@ -158,7 +160,7 @@ pub mod workstations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkstationClusters(
-        RequestBuilder<crate::model::ListWorkstationClustersRequest>,
+        pub(crate) RequestBuilder<crate::model::ListWorkstationClustersRequest>,
     );
 
     impl ListWorkstationClusters {
@@ -272,7 +274,7 @@ pub mod workstations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkstationCluster(
-        RequestBuilder<crate::model::CreateWorkstationClusterRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateWorkstationClusterRequest>,
     );
 
     impl CreateWorkstationCluster {
@@ -432,7 +434,7 @@ pub mod workstations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkstationCluster(
-        RequestBuilder<crate::model::UpdateWorkstationClusterRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateWorkstationClusterRequest>,
     );
 
     impl UpdateWorkstationCluster {
@@ -604,7 +606,7 @@ pub mod workstations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkstationCluster(
-        RequestBuilder<crate::model::DeleteWorkstationClusterRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteWorkstationClusterRequest>,
     );
 
     impl DeleteWorkstationCluster {
@@ -744,7 +746,9 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetWorkstationConfig(RequestBuilder<crate::model::GetWorkstationConfigRequest>);
+    pub struct GetWorkstationConfig(
+        pub(crate) RequestBuilder<crate::model::GetWorkstationConfigRequest>,
+    );
 
     impl GetWorkstationConfig {
         pub(crate) fn new(
@@ -813,7 +817,9 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListWorkstationConfigs(RequestBuilder<crate::model::ListWorkstationConfigsRequest>);
+    pub struct ListWorkstationConfigs(
+        pub(crate) RequestBuilder<crate::model::ListWorkstationConfigsRequest>,
+    );
 
     impl ListWorkstationConfigs {
         pub(crate) fn new(
@@ -929,7 +935,7 @@ pub mod workstations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListUsableWorkstationConfigs(
-        RequestBuilder<crate::model::ListUsableWorkstationConfigsRequest>,
+        pub(crate) RequestBuilder<crate::model::ListUsableWorkstationConfigsRequest>,
     );
 
     impl ListUsableWorkstationConfigs {
@@ -1037,7 +1043,7 @@ pub mod workstations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkstationConfig(
-        RequestBuilder<crate::model::CreateWorkstationConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::CreateWorkstationConfigRequest>,
     );
 
     impl CreateWorkstationConfig {
@@ -1197,7 +1203,7 @@ pub mod workstations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkstationConfig(
-        RequestBuilder<crate::model::UpdateWorkstationConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::UpdateWorkstationConfigRequest>,
     );
 
     impl UpdateWorkstationConfig {
@@ -1369,7 +1375,7 @@ pub mod workstations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkstationConfig(
-        RequestBuilder<crate::model::DeleteWorkstationConfigRequest>,
+        pub(crate) RequestBuilder<crate::model::DeleteWorkstationConfigRequest>,
     );
 
     impl DeleteWorkstationConfig {
@@ -1509,7 +1515,7 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetWorkstation(RequestBuilder<crate::model::GetWorkstationRequest>);
+    pub struct GetWorkstation(pub(crate) RequestBuilder<crate::model::GetWorkstationRequest>);
 
     impl GetWorkstation {
         pub(crate) fn new(
@@ -1575,7 +1581,7 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListWorkstations(RequestBuilder<crate::model::ListWorkstationsRequest>);
+    pub struct ListWorkstations(pub(crate) RequestBuilder<crate::model::ListWorkstationsRequest>);
 
     impl ListWorkstations {
         pub(crate) fn new(
@@ -1690,7 +1696,9 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListUsableWorkstations(RequestBuilder<crate::model::ListUsableWorkstationsRequest>);
+    pub struct ListUsableWorkstations(
+        pub(crate) RequestBuilder<crate::model::ListUsableWorkstationsRequest>,
+    );
 
     impl ListUsableWorkstations {
         pub(crate) fn new(
@@ -1796,7 +1804,7 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateWorkstation(RequestBuilder<crate::model::CreateWorkstationRequest>);
+    pub struct CreateWorkstation(pub(crate) RequestBuilder<crate::model::CreateWorkstationRequest>);
 
     impl CreateWorkstation {
         pub(crate) fn new(
@@ -1952,7 +1960,7 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateWorkstation(RequestBuilder<crate::model::UpdateWorkstationRequest>);
+    pub struct UpdateWorkstation(pub(crate) RequestBuilder<crate::model::UpdateWorkstationRequest>);
 
     impl UpdateWorkstation {
         pub(crate) fn new(
@@ -2120,7 +2128,7 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteWorkstation(RequestBuilder<crate::model::DeleteWorkstationRequest>);
+    pub struct DeleteWorkstation(pub(crate) RequestBuilder<crate::model::DeleteWorkstationRequest>);
 
     impl DeleteWorkstation {
         pub(crate) fn new(
@@ -2252,7 +2260,7 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartWorkstation(RequestBuilder<crate::model::StartWorkstationRequest>);
+    pub struct StartWorkstation(pub(crate) RequestBuilder<crate::model::StartWorkstationRequest>);
 
     impl StartWorkstation {
         pub(crate) fn new(
@@ -2390,7 +2398,7 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StopWorkstation(RequestBuilder<crate::model::StopWorkstationRequest>);
+    pub struct StopWorkstation(pub(crate) RequestBuilder<crate::model::StopWorkstationRequest>);
 
     impl StopWorkstation {
         pub(crate) fn new(
@@ -2518,7 +2526,9 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
+    pub struct GenerateAccessToken(
+        pub(crate) RequestBuilder<crate::model::GenerateAccessTokenRequest>,
+    );
 
     impl GenerateAccessToken {
         pub(crate) fn new(
@@ -2629,7 +2639,9 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+    pub struct SetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>,
+    );
 
     impl SetIamPolicy {
         pub(crate) fn new(
@@ -2734,7 +2746,9 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+    pub struct GetIamPolicy(
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>,
+    );
 
     impl GetIamPolicy {
         pub(crate) fn new(
@@ -2818,7 +2832,7 @@ pub mod workstations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+        pub(crate) RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
     );
 
     impl TestIamPermissions {
@@ -2902,7 +2916,7 @@ pub mod workstations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(
-        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
     );
 
     impl ListOperations {
@@ -3018,7 +3032,9 @@ pub mod workstations {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+    pub struct GetOperation(
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>,
+    );
 
     impl GetOperation {
         pub(crate) fn new(
@@ -3082,7 +3098,7 @@ pub mod workstations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(
-        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
     );
 
     impl DeleteOperation {
@@ -3147,7 +3163,7 @@ pub mod workstations {
     /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(
-        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+        pub(crate) RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
     );
 
     impl CancelOperation {
