@@ -517,8 +517,7 @@ libraries:
           output: src/bigquery/src/write/generated/convert/storage
           api_path: google/cloud/bigquery/storage/v1
           template: convert-prost
-        - extend_grpc_transport: true
-          handwritten_surface: .google.cloud.bigquery.storage.v1.BigQueryWrite
+        - handwritten_surface: .google.cloud.bigquery.storage.v1.BigQueryWrite
           extensible_builders:
             - .google.cloud.bigquery.storage.v1.BigQueryRead.ReadRows
           module_path: crate::write::generated::gapic_storage::model
@@ -1417,8 +1416,7 @@ libraries:
           service_config: google/pubsub/v1/pubsub_v1.yaml
           api_path: google/pubsub/v1
           template: http-client
-        - extend_grpc_transport: true
-          generate_setter_samples: "false"
+        - generate_setter_samples: "false"
           generate_rpc_samples: "false"
           has_veneer: true
           included_ids:
@@ -1547,8 +1545,7 @@ libraries:
           output: src/spanner/src/generated/convert/spanner
           api_path: google/spanner/v1
           template: convert-prost
-        - extend_grpc_transport: true
-          generate_setter_samples: "false"
+        - generate_setter_samples: "false"
           generate_rpc_samples: "false"
           has_veneer: true
           internal_builders: true
