@@ -56,7 +56,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -78,7 +78,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -101,7 +101,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -141,14 +141,12 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.advisorynotifications.v1.AdvisoryNotificationsService/ListNotifications")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -167,7 +165,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -187,7 +185,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -208,7 +206,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -252,14 +250,12 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.advisorynotifications.v1.AdvisoryNotificationsService/GetNotification")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -278,7 +274,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -296,7 +292,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
                 let resource_name = format!("//advisorynotifications.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -315,7 +311,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
                 let resource_name = format!("//advisorynotifications.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -357,14 +353,12 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.advisorynotifications.v1.AdvisoryNotificationsService/GetSettings")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -383,7 +377,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_settings_name = try_match(
                     Some(&req)
@@ -403,7 +397,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .or_else(|| {
                 let var_settings_name = try_match(
@@ -424,7 +418,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -472,13 +466,11 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.advisorynotifications.v1.AdvisoryNotificationsService/UpdateSettings")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

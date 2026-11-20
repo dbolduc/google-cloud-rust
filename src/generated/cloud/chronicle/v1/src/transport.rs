@@ -56,7 +56,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -76,7 +76,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -106,14 +106,12 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.BigQueryExportService/GetBigQueryExport",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -132,7 +130,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_big_query_export_name = try_match(
                     Some(&req)
@@ -166,7 +164,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -199,13 +197,11 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.BigQueryExportService/UpdateBigQueryExport",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -225,7 +221,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -245,7 +241,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -274,14 +270,12 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.BigQueryExportService/ProvisionBigQueryExport",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -300,7 +294,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -323,7 +317,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -350,13 +344,11 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -375,7 +367,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -395,7 +387,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -424,13 +416,11 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -449,7 +439,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -469,7 +459,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -498,13 +488,11 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -530,7 +518,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -551,7 +539,7 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -580,13 +568,11 @@ impl super::stub::BigQueryExportService for BigQueryExportService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -640,7 +626,7 @@ impl super::stub::DashboardChartService for DashboardChartService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -661,7 +647,7 @@ impl super::stub::DashboardChartService for DashboardChartService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -692,14 +678,12 @@ impl super::stub::DashboardChartService for DashboardChartService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DashboardChartService/GetDashboardChart",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -718,7 +702,7 @@ impl super::stub::DashboardChartService for DashboardChartService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -741,7 +725,7 @@ impl super::stub::DashboardChartService for DashboardChartService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("names", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -770,14 +754,12 @@ impl super::stub::DashboardChartService for DashboardChartService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DashboardChartService/BatchGetDashboardCharts",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -796,7 +778,7 @@ impl super::stub::DashboardChartService for DashboardChartService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -819,7 +801,7 @@ impl super::stub::DashboardChartService for DashboardChartService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -846,13 +828,11 @@ impl super::stub::DashboardChartService for DashboardChartService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -871,7 +851,7 @@ impl super::stub::DashboardChartService for DashboardChartService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -891,7 +871,7 @@ impl super::stub::DashboardChartService for DashboardChartService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -920,13 +900,11 @@ impl super::stub::DashboardChartService for DashboardChartService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -945,7 +923,7 @@ impl super::stub::DashboardChartService for DashboardChartService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -965,7 +943,7 @@ impl super::stub::DashboardChartService for DashboardChartService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -994,13 +972,11 @@ impl super::stub::DashboardChartService for DashboardChartService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1026,7 +1002,7 @@ impl super::stub::DashboardChartService for DashboardChartService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1047,7 +1023,7 @@ impl super::stub::DashboardChartService for DashboardChartService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1076,13 +1052,11 @@ impl super::stub::DashboardChartService for DashboardChartService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1136,7 +1110,7 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1157,7 +1131,7 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1188,14 +1162,12 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DashboardQueryService/GetDashboardQuery",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1215,7 +1187,7 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1235,7 +1207,7 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1264,14 +1236,12 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DashboardQueryService/ExecuteDashboardQuery",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1290,7 +1260,7 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1313,7 +1283,7 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1340,13 +1310,11 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1365,7 +1333,7 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1385,7 +1353,7 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1414,13 +1382,11 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1439,7 +1405,7 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1459,7 +1425,7 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1488,13 +1454,11 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1520,7 +1484,7 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1541,7 +1505,7 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1570,13 +1534,11 @@ impl super::stub::DashboardQueryService for DashboardQueryService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1630,7 +1592,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1650,7 +1612,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("dataAccessLabelId", &req.data_access_label_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1679,14 +1641,12 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataAccessControlService/CreateDataAccessLabel",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1705,7 +1665,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1726,7 +1686,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1757,14 +1717,12 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataAccessControlService/GetDataAccessLabel",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1783,7 +1741,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1805,7 +1763,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1834,14 +1792,12 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataAccessControlService/ListDataAccessLabels",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1860,7 +1816,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_data_access_label_name = try_match(
                     Some(&req)
@@ -1897,7 +1853,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1931,14 +1887,12 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataAccessControlService/UpdateDataAccessLabel",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1957,7 +1911,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1978,7 +1932,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2009,14 +1963,12 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataAccessControlService/DeleteDataAccessLabel",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2041,7 +1993,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2061,7 +2013,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("dataAccessScopeId", &req.data_access_scope_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2090,14 +2042,12 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataAccessControlService/CreateDataAccessScope",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2116,7 +2066,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2137,7 +2087,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2168,14 +2118,12 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataAccessControlService/GetDataAccessScope",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2194,7 +2142,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2216,7 +2164,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2245,14 +2193,12 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataAccessControlService/ListDataAccessScopes",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2271,7 +2217,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_data_access_scope_name = try_match(
                     Some(&req)
@@ -2308,7 +2254,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2342,14 +2288,12 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataAccessControlService/UpdateDataAccessScope",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2368,7 +2312,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2389,7 +2333,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2420,14 +2364,12 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataAccessControlService/DeleteDataAccessScope",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2452,7 +2394,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2475,7 +2417,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2502,13 +2444,11 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2527,7 +2467,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2547,7 +2487,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2576,13 +2516,11 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2601,7 +2539,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2621,7 +2559,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2650,13 +2588,11 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2682,7 +2618,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2703,7 +2639,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2732,13 +2668,11 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2792,7 +2726,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2812,7 +2746,7 @@ impl super::stub::DataTableService for DataTableService {
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("dataTableId", &req.data_table_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2839,14 +2773,12 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.DataTableService/CreateDataTable")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2865,7 +2797,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2887,7 +2819,7 @@ impl super::stub::DataTableService for DataTableService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2914,14 +2846,12 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.DataTableService/ListDataTables")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2940,7 +2870,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2961,7 +2891,7 @@ impl super::stub::DataTableService for DataTableService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2990,14 +2920,12 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.DataTableService/GetDataTable")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3016,7 +2944,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_data_table_name = try_match(
                     Some(&req)
@@ -3051,7 +2979,7 @@ impl super::stub::DataTableService for DataTableService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3083,13 +3011,11 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.DataTableService/UpdateDataTable")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3108,7 +3034,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3130,7 +3056,7 @@ impl super::stub::DataTableService for DataTableService {
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3159,14 +3085,12 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.DataTableService/DeleteDataTable")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3191,7 +3115,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3212,7 +3136,7 @@ impl super::stub::DataTableService for DataTableService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3241,14 +3165,12 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.DataTableService/CreateDataTableRow")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3267,7 +3189,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_data_table_row_name = try_match(
                     Some(&req)
@@ -3304,7 +3226,7 @@ impl super::stub::DataTableService for DataTableService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3338,13 +3260,11 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.DataTableService/UpdateDataTableRow")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3363,7 +3283,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3388,7 +3308,7 @@ impl super::stub::DataTableService for DataTableService {
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3417,14 +3337,12 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.DataTableService/ListDataTableRows")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3443,7 +3361,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3466,7 +3384,7 @@ impl super::stub::DataTableService for DataTableService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3497,14 +3415,12 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.DataTableService/GetDataTableRow")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3523,7 +3439,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3546,7 +3462,7 @@ impl super::stub::DataTableService for DataTableService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3577,14 +3493,12 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.DataTableService/DeleteDataTableRow")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3610,7 +3524,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3632,7 +3546,7 @@ impl super::stub::DataTableService for DataTableService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3663,14 +3577,12 @@ impl super::stub::DataTableService for DataTableService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataTableService/BulkCreateDataTableRows",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3690,7 +3602,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3712,7 +3624,7 @@ impl super::stub::DataTableService for DataTableService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3743,14 +3655,12 @@ impl super::stub::DataTableService for DataTableService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataTableService/BulkGetDataTableRows",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3770,7 +3680,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3792,7 +3702,7 @@ impl super::stub::DataTableService for DataTableService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3823,14 +3733,12 @@ impl super::stub::DataTableService for DataTableService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataTableService/BulkReplaceDataTableRows",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3850,7 +3758,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3872,7 +3780,7 @@ impl super::stub::DataTableService for DataTableService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3903,14 +3811,12 @@ impl super::stub::DataTableService for DataTableService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataTableService/BulkUpdateDataTableRows",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3929,7 +3835,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3950,7 +3856,7 @@ impl super::stub::DataTableService for DataTableService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3981,14 +3887,12 @@ impl super::stub::DataTableService for DataTableService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.DataTableService/GetDataTableOperationErrors",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4007,7 +3911,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4030,7 +3934,7 @@ impl super::stub::DataTableService for DataTableService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4057,13 +3961,11 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4082,7 +3984,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4102,7 +4004,7 @@ impl super::stub::DataTableService for DataTableService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4131,13 +4033,11 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4156,7 +4056,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4176,7 +4076,7 @@ impl super::stub::DataTableService for DataTableService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4205,13 +4105,11 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4237,7 +4135,7 @@ impl super::stub::DataTableService for DataTableService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4258,7 +4156,7 @@ impl super::stub::DataTableService for DataTableService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4287,13 +4185,11 @@ impl super::stub::DataTableService for DataTableService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4347,7 +4243,7 @@ impl super::stub::EntityService for EntityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4368,7 +4264,7 @@ impl super::stub::EntityService for EntityService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4397,14 +4293,12 @@ impl super::stub::EntityService for EntityService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.EntityService/GetWatchlist")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4423,7 +4317,7 @@ impl super::stub::EntityService for EntityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4445,7 +4339,7 @@ impl super::stub::EntityService for EntityService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4472,14 +4366,12 @@ impl super::stub::EntityService for EntityService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.EntityService/ListWatchlists")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4498,7 +4390,7 @@ impl super::stub::EntityService for EntityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4518,7 +4410,7 @@ impl super::stub::EntityService for EntityService {
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("watchlistId", &req.watchlist_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4545,14 +4437,12 @@ impl super::stub::EntityService for EntityService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.EntityService/CreateWatchlist")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4571,7 +4461,7 @@ impl super::stub::EntityService for EntityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_watchlist_name = try_match(
                     Some(&req)
@@ -4606,7 +4496,7 @@ impl super::stub::EntityService for EntityService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4638,13 +4528,11 @@ impl super::stub::EntityService for EntityService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.EntityService/UpdateWatchlist")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4663,7 +4551,7 @@ impl super::stub::EntityService for EntityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4685,7 +4573,7 @@ impl super::stub::EntityService for EntityService {
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4714,14 +4602,12 @@ impl super::stub::EntityService for EntityService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.EntityService/DeleteWatchlist")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4746,7 +4632,7 @@ impl super::stub::EntityService for EntityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4769,7 +4655,7 @@ impl super::stub::EntityService for EntityService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4796,13 +4682,11 @@ impl super::stub::EntityService for EntityService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4821,7 +4705,7 @@ impl super::stub::EntityService for EntityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4841,7 +4725,7 @@ impl super::stub::EntityService for EntityService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4870,13 +4754,11 @@ impl super::stub::EntityService for EntityService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4895,7 +4777,7 @@ impl super::stub::EntityService for EntityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4915,7 +4797,7 @@ impl super::stub::EntityService for EntityService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4944,13 +4826,11 @@ impl super::stub::EntityService for EntityService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4976,7 +4856,7 @@ impl super::stub::EntityService for EntityService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4997,7 +4877,7 @@ impl super::stub::EntityService for EntityService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5026,13 +4906,11 @@ impl super::stub::EntityService for EntityService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5086,7 +4964,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/instances/"), Segment::SingleWildcard, Segment::Literal("/contentHub/featuredContentNativeDashboards/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -5101,7 +4979,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
             );
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -5120,14 +4998,12 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeaturedContentNativeDashboardService/GetFeaturedContentNativeDashboard")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5146,7 +5022,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5169,7 +5045,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5197,14 +5073,12 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeaturedContentNativeDashboardService/ListFeaturedContentNativeDashboards")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5224,7 +5098,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/instances/"), Segment::SingleWildcard, Segment::Literal("/contentHub/featuredContentNativeDashboards/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -5240,7 +5114,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -5259,14 +5133,12 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeaturedContentNativeDashboardService/InstallFeaturedContentNativeDashboard")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5285,7 +5157,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5308,7 +5180,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5335,13 +5207,11 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5360,7 +5230,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5380,7 +5250,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5409,13 +5279,11 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5434,7 +5302,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5454,7 +5322,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5483,13 +5351,11 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5515,7 +5381,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5536,7 +5402,7 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5565,13 +5431,11 @@ impl super::stub::FeaturedContentNativeDashboardService for FeaturedContentNativ
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5625,7 +5489,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5648,7 +5512,7 @@ impl super::stub::FeedsService for FeedsService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5677,14 +5541,12 @@ impl super::stub::FeedsService for FeedsService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.FeedsService/FetchServiceAccountForCustomer",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5703,7 +5565,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5722,7 +5584,7 @@ impl super::stub::FeedsService for FeedsService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5749,14 +5611,12 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeedsService/CreateFeed")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5775,7 +5635,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5796,7 +5656,7 @@ impl super::stub::FeedsService for FeedsService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5825,14 +5685,12 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeedsService/GetFeed")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5851,7 +5709,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5873,7 +5731,7 @@ impl super::stub::FeedsService for FeedsService {
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("deleteBacklog", &req.delete_backlog)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5902,14 +5760,12 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeedsService/DeleteFeed")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5935,7 +5791,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5957,7 +5813,7 @@ impl super::stub::FeedsService for FeedsService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5986,14 +5842,12 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeedsService/EnableFeed")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6013,7 +5867,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6035,7 +5889,7 @@ impl super::stub::FeedsService for FeedsService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6064,14 +5918,12 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeedsService/DisableFeed")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6090,7 +5942,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6111,7 +5963,7 @@ impl super::stub::FeedsService for FeedsService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6138,14 +5990,12 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeedsService/ListFeeds")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6164,7 +6014,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6185,7 +6035,7 @@ impl super::stub::FeedsService for FeedsService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6212,14 +6062,12 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeedsService/ListFeedPacks")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6238,7 +6086,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6259,7 +6107,7 @@ impl super::stub::FeedsService for FeedsService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6288,14 +6136,12 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeedsService/GetFeedPack")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6314,7 +6160,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_feed_name = try_match(
                     Some(&req)
@@ -6349,7 +6195,7 @@ impl super::stub::FeedsService for FeedsService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6381,13 +6227,11 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeedsService/UpdateFeed")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6406,7 +6250,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6427,7 +6271,7 @@ impl super::stub::FeedsService for FeedsService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6456,14 +6300,12 @@ impl super::stub::FeedsService for FeedsService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.FeedsService/ListFeedSourceTypeSchemas",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6482,7 +6324,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6505,7 +6347,7 @@ impl super::stub::FeedsService for FeedsService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6534,14 +6376,12 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeedsService/ListLogTypeSchemas")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6560,7 +6400,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6582,7 +6422,7 @@ impl super::stub::FeedsService for FeedsService {
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("secret", &req.secret)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6611,14 +6451,12 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeedsService/ImportPushLogs")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6638,7 +6476,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6660,7 +6498,7 @@ impl super::stub::FeedsService for FeedsService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6689,14 +6527,12 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FeedsService/GenerateSecret")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6715,7 +6551,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6738,7 +6574,7 @@ impl super::stub::FeedsService for FeedsService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6765,13 +6601,11 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6790,7 +6624,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6810,7 +6644,7 @@ impl super::stub::FeedsService for FeedsService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6839,13 +6673,11 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6864,7 +6696,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6884,7 +6716,7 @@ impl super::stub::FeedsService for FeedsService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6913,13 +6745,11 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6945,7 +6775,7 @@ impl super::stub::FeedsService for FeedsService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6966,7 +6796,7 @@ impl super::stub::FeedsService for FeedsService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6995,13 +6825,11 @@ impl super::stub::FeedsService for FeedsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7055,7 +6883,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7076,7 +6904,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7107,14 +6935,12 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.FindingsRefinementService/GetFindingsRefinement",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7133,7 +6959,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -7154,7 +6980,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7181,14 +7007,12 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FindingsRefinementService/ListFindingsRefinements")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7207,7 +7031,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -7226,7 +7050,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7253,14 +7077,12 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FindingsRefinementService/CreateFindingsRefinement")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7279,7 +7101,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_findings_refinement_name = try_match(
                     Some(&req)
@@ -7314,7 +7136,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7346,13 +7168,11 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FindingsRefinementService/UpdateFindingsRefinement")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7371,7 +7191,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7393,7 +7213,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7423,14 +7243,12 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FindingsRefinementService/GetFindingsRefinementDeployment")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7449,7 +7267,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_findings_refinement_deployment_name = try_match(
                     Some(&req)
@@ -7485,7 +7303,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7518,13 +7336,11 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FindingsRefinementService/UpdateFindingsRefinementDeployment")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7543,7 +7359,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_instance = try_match(
                     Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
@@ -7565,7 +7381,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7592,14 +7408,12 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FindingsRefinementService/ListAllFindingsRefinementDeployments")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7619,7 +7433,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7641,7 +7455,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7670,14 +7484,12 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FindingsRefinementService/ComputeFindingsRefinementActivity")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7697,7 +7509,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_instance = try_match(
                     Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
@@ -7720,7 +7532,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.instance));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7747,14 +7559,12 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.FindingsRefinementService/ComputeAllFindingsRefinementActivities")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7773,7 +7583,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7796,7 +7606,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7823,13 +7633,11 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7848,7 +7656,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7868,7 +7676,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7897,13 +7705,11 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7922,7 +7728,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7942,7 +7748,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7971,13 +7777,11 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8003,7 +7807,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8024,7 +7828,7 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8053,13 +7857,11 @@ impl super::stub::FindingsRefinementService for FindingsRefinementService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8113,7 +7915,7 @@ impl super::stub::InstanceService for InstanceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8132,7 +7934,7 @@ impl super::stub::InstanceService for InstanceService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8159,14 +7961,12 @@ impl super::stub::InstanceService for InstanceService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.InstanceService/GetInstance")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8185,7 +7985,7 @@ impl super::stub::InstanceService for InstanceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8208,7 +8008,7 @@ impl super::stub::InstanceService for InstanceService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8235,13 +8035,11 @@ impl super::stub::InstanceService for InstanceService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8260,7 +8058,7 @@ impl super::stub::InstanceService for InstanceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8280,7 +8078,7 @@ impl super::stub::InstanceService for InstanceService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8309,13 +8107,11 @@ impl super::stub::InstanceService for InstanceService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8334,7 +8130,7 @@ impl super::stub::InstanceService for InstanceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8354,7 +8150,7 @@ impl super::stub::InstanceService for InstanceService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8383,13 +8179,11 @@ impl super::stub::InstanceService for InstanceService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8415,7 +8209,7 @@ impl super::stub::InstanceService for InstanceService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8436,7 +8230,7 @@ impl super::stub::InstanceService for InstanceService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8465,13 +8259,11 @@ impl super::stub::InstanceService for InstanceService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8525,7 +8317,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8544,7 +8336,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8573,14 +8365,12 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.NativeDashboardService/CreateNativeDashboard",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8599,7 +8389,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8621,7 +8411,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8652,14 +8442,12 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.NativeDashboardService/GetNativeDashboard",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8678,7 +8466,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8700,7 +8488,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8729,14 +8517,12 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.NativeDashboardService/ListNativeDashboards",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8755,7 +8541,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_native_dashboard_name = try_match(
                     Some(&req)
@@ -8792,7 +8578,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8826,14 +8612,12 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.NativeDashboardService/UpdateNativeDashboard",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8853,7 +8637,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8875,7 +8659,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8906,14 +8690,12 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.NativeDashboardService/DuplicateNativeDashboard",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8932,7 +8714,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8953,7 +8735,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8984,14 +8766,12 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.NativeDashboardService/DeleteNativeDashboard",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9017,7 +8797,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9039,7 +8819,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9068,14 +8848,12 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.NativeDashboardService/AddChart")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9095,7 +8873,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9117,7 +8895,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9146,14 +8924,12 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.NativeDashboardService/RemoveChart")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9173,7 +8949,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9195,7 +8971,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9224,14 +9000,12 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.NativeDashboardService/EditChart")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9251,7 +9025,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9273,7 +9047,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9304,14 +9078,12 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.NativeDashboardService/DuplicateChart",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9331,7 +9103,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -9351,7 +9123,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9380,14 +9152,12 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.NativeDashboardService/ExportNativeDashboards",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9407,7 +9177,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -9427,7 +9197,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9456,14 +9226,12 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.NativeDashboardService/ImportNativeDashboards",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9482,7 +9250,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9505,7 +9273,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9532,13 +9300,11 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9557,7 +9323,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9577,7 +9343,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9606,13 +9372,11 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9631,7 +9395,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9651,7 +9415,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9680,13 +9444,11 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9712,7 +9474,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9733,7 +9495,7 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9762,13 +9524,11 @@ impl super::stub::NativeDashboardService for NativeDashboardService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9822,7 +9582,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9844,7 +9604,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9875,14 +9635,12 @@ impl super::stub::ReferenceListService for ReferenceListService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.ReferenceListService/GetReferenceList",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9901,7 +9659,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -9923,7 +9681,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9952,14 +9710,12 @@ impl super::stub::ReferenceListService for ReferenceListService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.ReferenceListService/ListReferenceLists",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9978,7 +9734,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -9998,7 +9754,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("referenceListId", &req.reference_list_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10027,14 +9783,12 @@ impl super::stub::ReferenceListService for ReferenceListService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.ReferenceListService/CreateReferenceList",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10053,7 +9807,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_reference_list_name = try_match(
                     Some(&req)
@@ -10088,7 +9842,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10122,13 +9876,11 @@ impl super::stub::ReferenceListService for ReferenceListService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.ReferenceListService/UpdateReferenceList",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10148,7 +9900,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_instance = try_match(
                     Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
@@ -10168,7 +9920,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.instance));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10197,14 +9949,12 @@ impl super::stub::ReferenceListService for ReferenceListService {
                     .set_rpc_method(
                         "google.cloud.chronicle.v1.ReferenceListService/VerifyReferenceList",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10223,7 +9973,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10246,7 +9996,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10273,13 +10023,11 @@ impl super::stub::ReferenceListService for ReferenceListService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10298,7 +10046,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10318,7 +10066,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10347,13 +10095,11 @@ impl super::stub::ReferenceListService for ReferenceListService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10372,7 +10118,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10392,7 +10138,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10421,13 +10167,11 @@ impl super::stub::ReferenceListService for ReferenceListService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10453,7 +10197,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10474,7 +10218,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10503,13 +10247,11 @@ impl super::stub::ReferenceListService for ReferenceListService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10563,7 +10305,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10582,7 +10324,7 @@ impl super::stub::RuleService for RuleService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10609,14 +10351,12 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleService/CreateRule")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10635,7 +10375,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10657,7 +10397,7 @@ impl super::stub::RuleService for RuleService {
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10686,14 +10426,12 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleService/GetRule")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10712,7 +10450,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10735,7 +10473,7 @@ impl super::stub::RuleService for RuleService {
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10762,14 +10500,12 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleService/ListRules")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10788,7 +10524,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_rule_name = try_match(
                     Some(&req)
@@ -10823,7 +10559,7 @@ impl super::stub::RuleService for RuleService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10855,13 +10591,11 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleService/UpdateRule")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10880,7 +10614,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10902,7 +10636,7 @@ impl super::stub::RuleService for RuleService {
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10931,14 +10665,12 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleService/DeleteRule")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10964,7 +10696,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_instance = try_match(
                     Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
@@ -10984,7 +10716,7 @@ impl super::stub::RuleService for RuleService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.instance));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11011,14 +10743,12 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleService/VerifyRuleText")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11037,7 +10767,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11061,7 +10791,7 @@ impl super::stub::RuleService for RuleService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11090,14 +10820,12 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleService/ListRuleRevisions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11116,7 +10844,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11137,7 +10865,7 @@ impl super::stub::RuleService for RuleService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11166,14 +10894,12 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleService/CreateRetrohunt")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11192,7 +10918,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11215,7 +10941,7 @@ impl super::stub::RuleService for RuleService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11246,14 +10972,12 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleService/GetRetrohunt")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11272,7 +10996,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11296,7 +11020,7 @@ impl super::stub::RuleService for RuleService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11325,14 +11049,12 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleService/ListRetrohunts")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11351,7 +11073,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11373,7 +11095,7 @@ impl super::stub::RuleService for RuleService {
                 let resource_name = format!("//chronicle.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11403,14 +11125,12 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleService/GetRuleDeployment")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11429,7 +11149,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11453,7 +11173,7 @@ impl super::stub::RuleService for RuleService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11482,14 +11202,12 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleService/ListRuleDeployments")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11508,7 +11226,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_rule_deployment_name = try_match(
                     Some(&req)
@@ -11544,7 +11262,7 @@ impl super::stub::RuleService for RuleService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11577,13 +11295,11 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleService/UpdateRuleDeployment")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11602,7 +11318,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11625,7 +11341,7 @@ impl super::stub::RuleService for RuleService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11652,13 +11368,11 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11677,7 +11391,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11697,7 +11411,7 @@ impl super::stub::RuleService for RuleService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11726,13 +11440,11 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11751,7 +11463,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11771,7 +11483,7 @@ impl super::stub::RuleService for RuleService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11800,13 +11512,11 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11832,7 +11542,7 @@ impl super::stub::RuleService for RuleService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11853,7 +11563,7 @@ impl super::stub::RuleService for RuleService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11882,13 +11592,11 @@ impl super::stub::RuleService for RuleService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11956,7 +11664,7 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11978,7 +11686,7 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12005,14 +11713,12 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.RuleExecutionErrorService/ListRuleExecutionErrors")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12031,7 +11737,7 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12054,7 +11760,7 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12081,13 +11787,11 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12106,7 +11810,7 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12126,7 +11830,7 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12155,13 +11859,11 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12180,7 +11882,7 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12200,7 +11902,7 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12229,13 +11931,11 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12261,7 +11961,7 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12282,7 +11982,7 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12311,13 +12011,11 @@ impl super::stub::RuleExecutionErrorService for RuleExecutionErrorService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12372,7 +12070,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -12392,7 +12090,7 @@ impl super::stub::SearchService for SearchService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12419,14 +12117,12 @@ impl super::stub::SearchService for SearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.SearchService/Search")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12445,7 +12141,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -12470,7 +12166,7 @@ impl super::stub::SearchService for SearchService {
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("skip", &req.skip)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12499,14 +12195,12 @@ impl super::stub::SearchService for SearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.chronicle.v1.SearchService/ListSearchedResults")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12525,7 +12219,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12548,7 +12242,7 @@ impl super::stub::SearchService for SearchService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12575,13 +12269,11 @@ impl super::stub::SearchService for SearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12600,7 +12292,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12620,7 +12312,7 @@ impl super::stub::SearchService for SearchService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12649,13 +12341,11 @@ impl super::stub::SearchService for SearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12674,7 +12364,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12694,7 +12384,7 @@ impl super::stub::SearchService for SearchService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12723,13 +12413,11 @@ impl super::stub::SearchService for SearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12755,7 +12443,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12776,7 +12464,7 @@ impl super::stub::SearchService for SearchService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12805,13 +12493,11 @@ impl super::stub::SearchService for SearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

@@ -56,7 +56,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -75,7 +75,7 @@ impl super::stub::CloudRedis for CloudRedis {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -100,14 +100,12 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.redis.v1.CloudRedis/ListInstances")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -126,7 +124,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -145,7 +143,7 @@ impl super::stub::CloudRedis for CloudRedis {
                 let resource_name = format!("//redis.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -172,14 +170,12 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.redis.v1.CloudRedis/GetInstance")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -198,7 +194,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -217,7 +213,7 @@ impl super::stub::CloudRedis for CloudRedis {
                 let resource_name = format!("//redis.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -244,14 +240,12 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.redis.v1.CloudRedis/GetInstanceAuthString")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -270,7 +264,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -288,7 +282,7 @@ impl super::stub::CloudRedis for CloudRedis {
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("instanceId", &req.instance_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -313,14 +307,12 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.redis.v1.CloudRedis/CreateInstance")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -339,7 +331,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_instance_name = try_match(
                     Some(&req)
@@ -372,7 +364,7 @@ impl super::stub::CloudRedis for CloudRedis {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -402,13 +394,11 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.redis.v1.CloudRedis/UpdateInstance")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -428,7 +418,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -448,7 +438,7 @@ impl super::stub::CloudRedis for CloudRedis {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -475,14 +465,12 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.redis.v1.CloudRedis/UpgradeInstance")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -502,7 +490,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -521,7 +509,7 @@ impl super::stub::CloudRedis for CloudRedis {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -548,13 +536,11 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.redis.v1.CloudRedis/ImportInstance")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -574,7 +560,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -593,7 +579,7 @@ impl super::stub::CloudRedis for CloudRedis {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -620,13 +606,11 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.redis.v1.CloudRedis/ExportInstance")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -646,7 +630,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -666,7 +650,7 @@ impl super::stub::CloudRedis for CloudRedis {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -693,14 +677,12 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.redis.v1.CloudRedis/FailoverInstance")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -719,7 +701,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -738,7 +720,7 @@ impl super::stub::CloudRedis for CloudRedis {
                 let resource_name = format!("//redis.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -765,14 +747,12 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.redis.v1.CloudRedis/DeleteInstance")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -792,7 +772,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -812,7 +792,7 @@ impl super::stub::CloudRedis for CloudRedis {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -839,14 +819,12 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.redis.v1.CloudRedis/RescheduleMaintenance")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -865,7 +843,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -879,7 +857,7 @@ impl super::stub::CloudRedis for CloudRedis {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -899,13 +877,11 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/ListLocations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -924,7 +900,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -940,7 +916,7 @@ impl super::stub::CloudRedis for CloudRedis {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -965,13 +941,11 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/GetLocation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -990,7 +964,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1011,7 +985,7 @@ impl super::stub::CloudRedis for CloudRedis {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1036,13 +1010,11 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1061,7 +1033,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1079,7 +1051,7 @@ impl super::stub::CloudRedis for CloudRedis {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1106,13 +1078,11 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1131,7 +1101,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1149,7 +1119,7 @@ impl super::stub::CloudRedis for CloudRedis {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1176,13 +1146,11 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1207,7 +1175,7 @@ impl super::stub::CloudRedis for CloudRedis {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1225,7 +1193,7 @@ impl super::stub::CloudRedis for CloudRedis {
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1252,13 +1220,11 @@ impl super::stub::CloudRedis for CloudRedis {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

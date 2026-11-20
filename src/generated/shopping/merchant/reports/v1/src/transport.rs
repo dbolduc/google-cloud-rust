@@ -57,7 +57,7 @@ impl super::stub::ReportService for ReportService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -69,7 +69,7 @@ impl super::stub::ReportService for ReportService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -89,13 +89,11 @@ impl super::stub::ReportService for ReportService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.shopping.merchant.reports.v1.ReportService/Search")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

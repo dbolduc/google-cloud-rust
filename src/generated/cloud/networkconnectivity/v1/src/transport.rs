@@ -56,7 +56,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -77,7 +77,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -102,14 +102,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/ListServiceConnectionMaps")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -128,7 +126,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -147,7 +145,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -174,14 +172,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/GetServiceConnectionMap")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -200,7 +196,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -220,7 +216,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                     builder.query(&[("serviceConnectionMapId", &req.service_connection_map_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -245,14 +241,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/CreateServiceConnectionMap")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -271,7 +265,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_service_connection_map_name = try_match(
                     Some(&req)
@@ -305,7 +299,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -335,13 +329,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/UpdateServiceConnectionMap")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -360,7 +352,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -384,7 +376,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("etag", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -411,14 +403,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/DeleteServiceConnectionMap")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -437,7 +427,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -458,7 +448,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -483,14 +473,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/ListServiceConnectionPolicies")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -509,7 +497,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -528,7 +516,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -555,14 +543,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/GetServiceConnectionPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -581,7 +567,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -603,7 +589,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 )]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -628,14 +614,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/CreateServiceConnectionPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -654,7 +638,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_service_connection_policy_name = try_match(
                     Some(&req)
@@ -688,7 +672,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -718,13 +702,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/UpdateServiceConnectionPolicy")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -743,7 +725,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -767,7 +749,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("etag", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -794,14 +776,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/DeleteServiceConnectionPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -820,7 +800,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -841,7 +821,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -866,14 +846,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/ListServiceClasses")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -892,7 +870,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -911,7 +889,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -938,14 +916,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/GetServiceClass")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -964,7 +940,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_service_class_name = try_match(
                     Some(&req)
@@ -998,7 +974,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1028,13 +1004,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/UpdateServiceClass")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1053,7 +1027,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1077,7 +1051,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("etag", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1104,14 +1078,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/DeleteServiceClass")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1130,7 +1102,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1149,7 +1121,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1176,14 +1148,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/GetServiceConnectionToken")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1202,7 +1172,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1223,7 +1193,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1248,14 +1218,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/ListServiceConnectionTokens")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1274,7 +1242,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1294,7 +1262,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                     .query(&[("serviceConnectionTokenId", &req.service_connection_token_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1319,14 +1287,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/CreateServiceConnectionToken")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1345,7 +1311,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1369,7 +1335,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("etag", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1396,14 +1362,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.CrossNetworkAutomationService/DeleteServiceConnectionToken")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1422,7 +1386,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1436,7 +1400,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1456,13 +1420,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/ListLocations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1481,7 +1443,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1497,7 +1459,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1522,13 +1484,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/GetLocation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1548,7 +1508,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1567,7 +1527,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1589,7 +1549,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1611,7 +1571,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1631,7 +1591,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1653,7 +1613,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1675,7 +1635,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1697,7 +1657,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1719,7 +1679,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1861,14 +1821,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1887,7 +1845,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1917,7 +1875,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1950,7 +1908,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1983,7 +1941,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2014,7 +1972,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2047,7 +2005,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2080,7 +2038,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2113,7 +2071,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2146,7 +2104,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2288,14 +2246,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2315,7 +2271,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2334,7 +2290,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2356,7 +2312,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2378,7 +2334,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2398,7 +2354,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2420,7 +2376,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2442,7 +2398,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2464,7 +2420,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2486,7 +2442,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2628,14 +2584,12 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2654,7 +2608,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2675,7 +2629,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2700,13 +2654,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2725,7 +2677,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2743,7 +2695,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2770,13 +2722,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2795,7 +2745,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2813,7 +2763,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2840,13 +2790,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2872,7 +2820,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2891,7 +2839,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2918,13 +2866,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2992,7 +2938,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3015,7 +2961,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3040,14 +2986,12 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.DataTransferService/ListMulticloudDataTransferConfigs")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3066,7 +3010,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3085,7 +3029,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3112,14 +3056,12 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.DataTransferService/GetMulticloudDataTransferConfig")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3138,7 +3080,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3160,7 +3102,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 )]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3185,14 +3127,12 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.DataTransferService/CreateMulticloudDataTransferConfig")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3211,7 +3151,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_multicloud_data_transfer_config_name = try_match(
                     Some(&req)
@@ -3245,7 +3185,7 @@ impl super::stub::DataTransferService for DataTransferService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3275,13 +3215,11 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.DataTransferService/UpdateMulticloudDataTransferConfig")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3300,7 +3238,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3321,7 +3259,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3348,14 +3286,12 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.DataTransferService/DeleteMulticloudDataTransferConfig")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3374,7 +3310,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3399,7 +3335,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3428,14 +3364,12 @@ impl super::stub::DataTransferService for DataTransferService {
                     .set_rpc_method(
                         "google.cloud.networkconnectivity.v1.DataTransferService/ListDestinations",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3454,7 +3388,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3475,7 +3409,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3506,14 +3440,12 @@ impl super::stub::DataTransferService for DataTransferService {
                     .set_rpc_method(
                         "google.cloud.networkconnectivity.v1.DataTransferService/GetDestination",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3532,7 +3464,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3553,7 +3485,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let builder = builder.query(&[("destinationId", &req.destination_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3582,14 +3514,12 @@ impl super::stub::DataTransferService for DataTransferService {
                     .set_rpc_method(
                         "google.cloud.networkconnectivity.v1.DataTransferService/CreateDestination",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3608,7 +3538,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_destination_name = try_match(
                     Some(&req)
@@ -3644,7 +3574,7 @@ impl super::stub::DataTransferService for DataTransferService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3678,13 +3608,11 @@ impl super::stub::DataTransferService for DataTransferService {
                     .set_rpc_method(
                         "google.cloud.networkconnectivity.v1.DataTransferService/UpdateDestination",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3703,7 +3631,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3726,7 +3654,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3757,14 +3685,12 @@ impl super::stub::DataTransferService for DataTransferService {
                     .set_rpc_method(
                         "google.cloud.networkconnectivity.v1.DataTransferService/DeleteDestination",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3783,7 +3709,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3802,7 +3728,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3829,14 +3755,12 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.DataTransferService/GetMulticloudDataTransferSupportedService")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3856,7 +3780,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3875,7 +3799,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3900,14 +3824,12 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.DataTransferService/ListMulticloudDataTransferSupportedServices")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3926,7 +3848,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3940,7 +3862,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3960,13 +3882,11 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/ListLocations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3985,7 +3905,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4001,7 +3921,7 @@ impl super::stub::DataTransferService for DataTransferService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4026,13 +3946,11 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/GetLocation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4052,7 +3970,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4071,7 +3989,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4093,7 +4011,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4115,7 +4033,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4135,7 +4053,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4157,7 +4075,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4179,7 +4097,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4201,7 +4119,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4223,7 +4141,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4365,14 +4283,12 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4391,7 +4307,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4421,7 +4337,7 @@ impl super::stub::DataTransferService for DataTransferService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4454,7 +4370,7 @@ impl super::stub::DataTransferService for DataTransferService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4487,7 +4403,7 @@ impl super::stub::DataTransferService for DataTransferService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4518,7 +4434,7 @@ impl super::stub::DataTransferService for DataTransferService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4551,7 +4467,7 @@ impl super::stub::DataTransferService for DataTransferService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4584,7 +4500,7 @@ impl super::stub::DataTransferService for DataTransferService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4617,7 +4533,7 @@ impl super::stub::DataTransferService for DataTransferService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4650,7 +4566,7 @@ impl super::stub::DataTransferService for DataTransferService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4792,14 +4708,12 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4819,7 +4733,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4838,7 +4752,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4860,7 +4774,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4882,7 +4796,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4902,7 +4816,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4924,7 +4838,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4946,7 +4860,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4968,7 +4882,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4990,7 +4904,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5132,14 +5046,12 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5158,7 +5070,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5179,7 +5091,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5204,13 +5116,11 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5229,7 +5139,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5247,7 +5157,7 @@ impl super::stub::DataTransferService for DataTransferService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5274,13 +5184,11 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5299,7 +5207,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5317,7 +5225,7 @@ impl super::stub::DataTransferService for DataTransferService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5344,13 +5252,11 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5376,7 +5282,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5395,7 +5301,7 @@ impl super::stub::DataTransferService for DataTransferService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5422,13 +5328,11 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5496,7 +5400,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5516,7 +5420,7 @@ impl super::stub::HubService for HubService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5540,14 +5444,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/ListHubs")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5566,7 +5468,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5583,7 +5485,7 @@ impl super::stub::HubService for HubService {
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5608,14 +5510,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/GetHub")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5634,7 +5534,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5652,7 +5552,7 @@ impl super::stub::HubService for HubService {
                 let builder = builder.query(&[("hubId", &req.hub_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5676,14 +5576,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/CreateHub")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5702,7 +5600,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_hub_name = try_match(
                     Some(&req)
@@ -5734,7 +5632,7 @@ impl super::stub::HubService for HubService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5762,13 +5660,11 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/UpdateHub")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5787,7 +5683,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5805,7 +5701,7 @@ impl super::stub::HubService for HubService {
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5830,14 +5726,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/DeleteHub")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5856,7 +5750,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5881,7 +5775,7 @@ impl super::stub::HubService for HubService {
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5906,14 +5800,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/ListHubSpokes")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5932,7 +5824,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5954,7 +5846,7 @@ impl super::stub::HubService for HubService {
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("groupBy", &req.group_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5979,14 +5871,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/QueryHubStatus")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6005,7 +5895,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6026,7 +5916,7 @@ impl super::stub::HubService for HubService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6051,14 +5941,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/ListSpokes")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6077,7 +5965,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6096,7 +5984,7 @@ impl super::stub::HubService for HubService {
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6123,14 +6011,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/GetSpoke")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6149,7 +6035,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6168,7 +6054,7 @@ impl super::stub::HubService for HubService {
                 let builder = builder.query(&[("spokeId", &req.spoke_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6193,14 +6079,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/CreateSpoke")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6219,7 +6103,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_spoke_name = try_match(
                     Some(&req)
@@ -6253,7 +6137,7 @@ impl super::stub::HubService for HubService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6283,13 +6167,11 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/UpdateSpoke")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6309,7 +6191,7 @@ impl super::stub::HubService for HubService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6327,7 +6209,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6352,14 +6234,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/RejectHubSpoke")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6379,7 +6259,7 @@ impl super::stub::HubService for HubService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6397,7 +6277,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6422,14 +6302,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/AcceptHubSpoke")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6449,7 +6327,7 @@ impl super::stub::HubService for HubService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6467,7 +6345,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6494,14 +6372,12 @@ impl super::stub::HubService for HubService {
                     .set_rpc_method(
                         "google.cloud.networkconnectivity.v1.HubService/AcceptSpokeUpdate",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6521,7 +6397,7 @@ impl super::stub::HubService for HubService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6539,7 +6415,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6566,14 +6442,12 @@ impl super::stub::HubService for HubService {
                     .set_rpc_method(
                         "google.cloud.networkconnectivity.v1.HubService/RejectSpokeUpdate",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6592,7 +6466,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6612,7 +6486,7 @@ impl super::stub::HubService for HubService {
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6639,14 +6513,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/DeleteSpoke")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6665,7 +6537,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6684,7 +6556,7 @@ impl super::stub::HubService for HubService {
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6711,14 +6583,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/GetRouteTable")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6737,7 +6607,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6758,7 +6628,7 @@ impl super::stub::HubService for HubService {
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6787,14 +6657,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/GetRoute")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6813,7 +6681,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6836,7 +6704,7 @@ impl super::stub::HubService for HubService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6863,14 +6731,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/ListRoutes")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6889,7 +6755,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6910,7 +6776,7 @@ impl super::stub::HubService for HubService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6937,14 +6803,12 @@ impl super::stub::HubService for HubService {
                     .set_rpc_method(
                         "google.cloud.networkconnectivity.v1.HubService/ListRouteTables",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6963,7 +6827,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6982,7 +6846,7 @@ impl super::stub::HubService for HubService {
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7009,14 +6873,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/GetGroup")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7035,7 +6897,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -7056,7 +6918,7 @@ impl super::stub::HubService for HubService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7081,14 +6943,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/ListGroups")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7107,7 +6967,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_group_name = try_match(
                     Some(&req)
@@ -7141,7 +7001,7 @@ impl super::stub::HubService for HubService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7171,13 +7031,11 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.HubService/UpdateGroup")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7196,7 +7054,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7210,7 +7068,7 @@ impl super::stub::HubService for HubService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7230,13 +7088,11 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/ListLocations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7255,7 +7111,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7271,7 +7127,7 @@ impl super::stub::HubService for HubService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7296,13 +7152,11 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/GetLocation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7322,7 +7176,7 @@ impl super::stub::HubService for HubService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -7341,7 +7195,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7363,7 +7217,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7385,7 +7239,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7405,7 +7259,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7427,7 +7281,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7449,7 +7303,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7471,7 +7325,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7493,7 +7347,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7635,14 +7489,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7661,7 +7513,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -7691,7 +7543,7 @@ impl super::stub::HubService for HubService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7724,7 +7576,7 @@ impl super::stub::HubService for HubService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7757,7 +7609,7 @@ impl super::stub::HubService for HubService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7788,7 +7640,7 @@ impl super::stub::HubService for HubService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7821,7 +7673,7 @@ impl super::stub::HubService for HubService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7854,7 +7706,7 @@ impl super::stub::HubService for HubService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7887,7 +7739,7 @@ impl super::stub::HubService for HubService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7920,7 +7772,7 @@ impl super::stub::HubService for HubService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8062,14 +7914,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8089,7 +7939,7 @@ impl super::stub::HubService for HubService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -8108,7 +7958,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8130,7 +7980,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8152,7 +8002,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8172,7 +8022,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8194,7 +8044,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8216,7 +8066,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8238,7 +8088,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8260,7 +8110,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8402,14 +8252,12 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8428,7 +8276,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8449,7 +8297,7 @@ impl super::stub::HubService for HubService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8474,13 +8322,11 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8499,7 +8345,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8517,7 +8363,7 @@ impl super::stub::HubService for HubService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8544,13 +8390,11 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8569,7 +8413,7 @@ impl super::stub::HubService for HubService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8587,7 +8431,7 @@ impl super::stub::HubService for HubService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8614,13 +8458,11 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8646,7 +8488,7 @@ impl super::stub::HubService for HubService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8665,7 +8507,7 @@ impl super::stub::HubService for HubService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8692,13 +8534,11 @@ impl super::stub::HubService for HubService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8766,7 +8606,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8787,7 +8627,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8812,14 +8652,12 @@ impl super::stub::InternalRangeService for InternalRangeService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.InternalRangeService/ListInternalRanges")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8838,7 +8676,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8857,7 +8695,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8886,14 +8724,12 @@ impl super::stub::InternalRangeService for InternalRangeService {
                     .set_rpc_method(
                         "google.cloud.networkconnectivity.v1.InternalRangeService/GetInternalRange",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8912,7 +8748,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8931,7 +8767,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let builder = builder.query(&[("internalRangeId", &req.internal_range_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8956,14 +8792,12 @@ impl super::stub::InternalRangeService for InternalRangeService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.InternalRangeService/CreateInternalRange")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8982,7 +8816,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_internal_range_name = try_match(
                     Some(&req)
@@ -9016,7 +8850,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9046,13 +8880,11 @@ impl super::stub::InternalRangeService for InternalRangeService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.InternalRangeService/UpdateInternalRange")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9071,7 +8903,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9091,7 +8923,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9118,14 +8950,12 @@ impl super::stub::InternalRangeService for InternalRangeService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.InternalRangeService/DeleteInternalRange")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9144,7 +8974,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9158,7 +8988,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9178,13 +9008,11 @@ impl super::stub::InternalRangeService for InternalRangeService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/ListLocations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9203,7 +9031,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9219,7 +9047,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9244,13 +9072,11 @@ impl super::stub::InternalRangeService for InternalRangeService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/GetLocation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9270,7 +9096,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -9289,7 +9115,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9311,7 +9137,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9333,7 +9159,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9353,7 +9179,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9375,7 +9201,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9397,7 +9223,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9419,7 +9245,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9441,7 +9267,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9583,14 +9409,12 @@ impl super::stub::InternalRangeService for InternalRangeService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9609,7 +9433,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -9639,7 +9463,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9672,7 +9496,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9705,7 +9529,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9736,7 +9560,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9769,7 +9593,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9802,7 +9626,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9835,7 +9659,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9868,7 +9692,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10010,14 +9834,12 @@ impl super::stub::InternalRangeService for InternalRangeService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10037,7 +9859,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -10056,7 +9878,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10078,7 +9900,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10100,7 +9922,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10120,7 +9942,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10142,7 +9964,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10164,7 +9986,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10186,7 +10008,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10208,7 +10030,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10350,14 +10172,12 @@ impl super::stub::InternalRangeService for InternalRangeService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10376,7 +10196,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10397,7 +10217,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10422,13 +10242,11 @@ impl super::stub::InternalRangeService for InternalRangeService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10447,7 +10265,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10465,7 +10283,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10492,13 +10310,11 @@ impl super::stub::InternalRangeService for InternalRangeService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10517,7 +10333,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10535,7 +10351,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10562,13 +10378,11 @@ impl super::stub::InternalRangeService for InternalRangeService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10594,7 +10408,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10613,7 +10427,7 @@ impl super::stub::InternalRangeService for InternalRangeService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10640,13 +10454,11 @@ impl super::stub::InternalRangeService for InternalRangeService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10714,7 +10526,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10734,7 +10546,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10758,14 +10570,12 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.PolicyBasedRoutingService/ListPolicyBasedRoutes")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10784,7 +10594,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10801,7 +10611,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let resource_name = format!("//networkconnectivity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10826,14 +10636,12 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.PolicyBasedRoutingService/GetPolicyBasedRoute")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10852,7 +10660,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10870,7 +10678,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let builder = builder.query(&[("policyBasedRouteId", &req.policy_based_route_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10894,14 +10702,12 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.PolicyBasedRoutingService/CreatePolicyBasedRoute")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10920,7 +10726,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10938,7 +10744,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10963,14 +10769,12 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.networkconnectivity.v1.PolicyBasedRoutingService/DeletePolicyBasedRoute")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10989,7 +10793,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11003,7 +10807,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11023,13 +10827,11 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/ListLocations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11048,7 +10850,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11064,7 +10866,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11089,13 +10891,11 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/GetLocation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11115,7 +10915,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -11134,7 +10934,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11156,7 +10956,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11178,7 +10978,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11198,7 +10998,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11220,7 +11020,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11242,7 +11042,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11264,7 +11064,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11286,7 +11086,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11428,14 +11228,12 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11454,7 +11252,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -11484,7 +11282,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11517,7 +11315,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11550,7 +11348,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11581,7 +11379,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11614,7 +11412,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11647,7 +11445,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11680,7 +11478,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11713,7 +11511,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11855,14 +11653,12 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11882,7 +11678,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, idempotency, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -11901,7 +11697,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11923,7 +11719,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11945,7 +11741,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11965,7 +11761,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -11987,7 +11783,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12009,7 +11805,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12031,7 +11827,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12053,7 +11849,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12195,14 +11991,12 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12221,7 +12015,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12242,7 +12036,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12267,13 +12061,11 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12292,7 +12084,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12310,7 +12102,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12337,13 +12129,11 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12362,7 +12152,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12380,7 +12170,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12407,13 +12197,11 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12439,7 +12227,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12458,7 +12246,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12485,13 +12273,11 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

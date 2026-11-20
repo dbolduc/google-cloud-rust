@@ -56,7 +56,7 @@ impl super::stub::GatewayControl for GatewayControl {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -78,7 +78,7 @@ impl super::stub::GatewayControl for GatewayControl {
                 let builder = builder.query(&[("kubernetesNamespace", &req.kubernetes_namespace)]);
                 let builder = builder.query(&[("operatingSystem", &req.operating_system)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -107,13 +107,11 @@ impl super::stub::GatewayControl for GatewayControl {
                     .set_rpc_method(
                         "google.cloud.gkeconnect.gateway.v1.GatewayControl/GenerateCredentials",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

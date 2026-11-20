@@ -56,7 +56,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -74,7 +74,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = builder.query(&[("projectId", &req.project_id)]);
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -94,7 +94,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("parent", &req.parent)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -135,13 +135,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/ListClusters")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -160,7 +158,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -181,7 +179,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = builder.query(&[("clusterId", &req.cluster_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -205,7 +203,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("name", &req.name)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -254,13 +252,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/GetCluster")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -280,7 +276,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -297,7 +293,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -318,7 +314,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -359,13 +355,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/CreateCluster")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -385,7 +379,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -404,7 +398,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT, path_template)))
+                Some(builder.map(|b| (b, Method::PUT, path_template, true)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -430,7 +424,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT, path_template)))
+                Some(builder.map(|b| (b, Method::PUT, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -479,13 +473,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/UpdateCluster")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -505,7 +497,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -517,7 +509,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::PUT, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::PUT, path_template)))
+            Some(builder.map(|b| (b, Method::PUT, path_template, true)))
         })
         .or_else(|| {
             let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -539,7 +531,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.node_pool_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -582,13 +574,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/UpdateNodePool")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -608,7 +598,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -620,7 +610,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false)))
         })
         .or_else(|| {
             let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -642,7 +632,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.node_pool_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -685,13 +675,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/SetNodePoolAutoscaling")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -711,7 +699,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -730,7 +718,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -757,7 +745,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -806,13 +794,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/SetLoggingService")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -832,7 +818,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -851,7 +837,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -878,7 +864,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -927,13 +913,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/SetMonitoringService")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -953,7 +937,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -972,7 +956,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -999,7 +983,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1048,13 +1032,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/SetAddonsConfig")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1074,7 +1056,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1093,7 +1075,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1120,7 +1102,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1169,13 +1151,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/SetLocations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1195,7 +1175,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1214,7 +1194,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1241,7 +1221,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1290,13 +1270,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/UpdateMaster")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1316,7 +1294,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1335,7 +1313,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1362,7 +1340,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1411,13 +1389,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/SetMasterAuth")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1436,7 +1412,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1457,7 +1433,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = builder.query(&[("clusterId", &req.cluster_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1481,7 +1457,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("name", &req.name)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1530,13 +1506,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/DeleteCluster")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1555,7 +1529,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1573,7 +1547,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = builder.query(&[("projectId", &req.project_id)]);
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1593,7 +1567,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("parent", &req.parent)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1634,13 +1608,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1659,7 +1631,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1680,7 +1652,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = builder.query(&[("operationId", &req.operation_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1705,7 +1677,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("name", &req.name)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1754,13 +1726,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1780,7 +1750,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1799,7 +1769,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1826,7 +1796,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.operation_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1875,13 +1845,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1906,7 +1874,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1924,7 +1892,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = builder.query(&[("projectId", &req.project_id)]);
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1944,7 +1912,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("name", &req.name)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1985,13 +1953,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/GetServerConfig")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2010,7 +1976,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2028,7 +1994,7 @@ impl super::stub::ClusterManager for ClusterManager {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2055,13 +2021,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/GetJSONWebKeys")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2080,7 +2044,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2101,7 +2065,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = builder.query(&[("clusterId", &req.cluster_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -2126,7 +2090,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("parent", &req.parent)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2175,13 +2139,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/ListNodePools")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2200,7 +2162,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -2215,7 +2177,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let builder = builder.query(&[("clusterId", &req.cluster_id)]);
             let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET, path_template)))
+            Some(builder.map(|b| (b, Method::GET, path_template, true)))
         })
         .or_else(|| {
             let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -2234,7 +2196,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("name", &req.name)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET, path_template)))
+            Some(builder.map(|b| (b, Method::GET, path_template, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2277,13 +2239,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/GetNodePool")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2303,7 +2263,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2322,7 +2282,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -2349,7 +2309,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2398,13 +2358,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/CreateNodePool")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2423,7 +2381,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -2438,7 +2396,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let builder = builder.query(&[("clusterId", &req.cluster_id)]);
             let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
         })
         .or_else(|| {
             let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -2457,7 +2415,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = builder.query(&[("name", &req.name)]);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            Some(builder.map(|b| (b, Method::DELETE, path_template, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2500,13 +2458,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/DeleteNodePool")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2526,7 +2482,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2547,7 +2503,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2576,13 +2532,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/CompleteNodePoolUpgrade")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2608,7 +2562,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -2620,7 +2574,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false)))
         })
         .or_else(|| {
             let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -2642,7 +2596,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.node_pool_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2685,13 +2639,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/RollbackNodePoolUpgrade")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2711,7 +2663,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -2723,7 +2675,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false)))
         })
         .or_else(|| {
             let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -2745,7 +2697,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.node_pool_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2788,13 +2740,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/SetNodePoolManagement")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2814,7 +2764,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2833,7 +2783,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -2860,7 +2810,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2909,13 +2859,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/SetLabels")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2935,7 +2883,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2954,7 +2902,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -2981,7 +2929,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3030,13 +2978,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/SetLegacyAbac")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3056,7 +3002,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3075,7 +3021,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -3102,7 +3048,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3151,13 +3097,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/StartIPRotation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3177,7 +3121,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -3189,7 +3133,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false)))
         })
         .or_else(|| {
             let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -3208,7 +3152,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -3246,13 +3190,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/CompleteIPRotation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3272,7 +3214,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -3284,7 +3226,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false)))
         })
         .or_else(|| {
             let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -3306,7 +3248,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.node_pool_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -3349,13 +3291,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/SetNodePoolSize")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3375,7 +3315,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3394,7 +3334,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -3421,7 +3361,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3470,13 +3410,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/SetNetworkPolicy")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3496,7 +3434,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -3508,7 +3446,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false)))
         })
         .or_else(|| {
             let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -3527,7 +3465,7 @@ impl super::stub::ClusterManager for ClusterManager {
             let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template)))
+            Some(builder.map(|b| (b, Method::POST, path_template, false)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -3565,13 +3503,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/SetMaintenancePolicy")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3590,7 +3526,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3604,7 +3540,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3624,13 +3560,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/ListUsableSubnetworks")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3649,7 +3583,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3667,7 +3601,7 @@ impl super::stub::ClusterManager for ClusterManager {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3696,13 +3630,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     .set_rpc_method(
                         "google.container.v1.ClusterManager/CheckAutopilotCompatibility",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3721,7 +3653,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3740,7 +3672,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("version", &req.version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3760,7 +3692,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("version", &req.version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3804,13 +3736,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/FetchClusterUpgradeInfo")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3829,7 +3759,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3850,7 +3780,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("version", &req.version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3872,7 +3802,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("version", &req.version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3920,13 +3850,11 @@ impl super::stub::ClusterManager for ClusterManager {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.container.v1.ClusterManager/FetchNodePoolUpgradeInfo")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3946,7 +3874,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template, idempotency) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3965,7 +3893,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3985,7 +3913,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4031,13 +3959,11 @@ impl super::stub::ClusterManager for ClusterManager {
                     .set_rpc_method(
                         "google.container.v1.ClusterManager/CompleteControlPlaneUpgrade",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(options, idempotency);
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
